@@ -1,3 +1,4 @@
+import { config } from 'dotenv';
 import express, {Application, Request, Response, NextFunction} from 'express';
 import connect from './connect';
 import cors from 'cors';
@@ -6,8 +7,11 @@ import {requestLoggerMiddleware} from "../helpers/request.logger.middleware";
 
 import {postRouter} from '../routes/post.router';
 import {userRouter} from "../routes/user.router";
+import {authRouter} from "../routes/auth.router";
 
 import {unknownPageHandler} from "../helpers/unknown.page.handler";
+
+config();
 
 const app: Application = express();
 
@@ -23,6 +27,7 @@ app.use(requestLoggerMiddleware);
 
 app.use('/post', postRouter);
 app.use('/user', userRouter);
+app.use('/auth', authRouter);
 
 app.use('*', unknownPageHandler);
 
