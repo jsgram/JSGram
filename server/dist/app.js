@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const bodyParser = require("body-parser");
+console.log(process.env);
 const app = express();
 app.set("port", 3000);
 app.use(bodyParser.json());

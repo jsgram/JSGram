@@ -1,5 +1,8 @@
+import { config } from 'dotenv';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+
+config();
 
 const app = express();
 app.set("port", 3000);
