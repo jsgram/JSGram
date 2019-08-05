@@ -6,9 +6,10 @@ agent:
     os_image: ubuntu1804
 
 blocks:
-  - name: Placeholder Block Task Name
+  - name: Test
     task:
       jobs:
-        - name: Placeholder Job Task Name
+        - name: TSlint
           commands:
-            - echo 'hello world'
+            - npm install
+            - npm test

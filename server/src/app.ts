@@ -1,3 +1,4 @@
+import { config } from 'dotenv';
 import express, {Application, Request, Response, NextFunction} from 'express';
 import connect from './connect';
 import cors from 'cors';
@@ -9,6 +10,8 @@ import {userRouter} from "../routes/user.router";
 import {authRouter} from "../routes/auth.router";
 
 import {unknownPageHandler} from "../helpers/unknown.page.handler";
+
+config();
 
 const app: Application = express();
 
