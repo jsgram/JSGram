@@ -1,18 +1,25 @@
 import React from 'react';
 
-export default class Login extends React.Component {
+interface FormProps {
+    email: string;
+    password: string;
+    setEmailText: Function;
+    setPasswordText: Function;
+}
 
-    constructor(props) {
+export default class Login extends React.Component<FormProps> {
+
+    constructor(props: FormProps) {
         super(props);
         this.onEmailChange = this.onEmailChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
     }
 
-    onEmailChange(event) {
+    onEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
         this.props.setEmailText(event.target.value);
     }
 
-    onPasswordChange(event) {
+    onPasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
         this.props.setPasswordText(event.target.value);
     }
 

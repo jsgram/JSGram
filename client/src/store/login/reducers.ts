@@ -5,7 +5,12 @@ const defaultState = {
     password: ''
 };
 
-export const loginReducer = (state = defaultState, action) => {
+interface Action {
+    type: string;
+    payload: string;
+}
+
+export const loginReducer = (state = defaultState, action: Action) => {
     switch (action.type) {
         case LOGIN_CHANGE_EMAIL_TEXT:
             return {
