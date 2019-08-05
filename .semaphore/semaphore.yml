@@ -1,0 +1,14 @@
+version: v1.0
+name: JSgram CI
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+blocks:
+  - name: Placeholder Block Task Name
+    task:
+      jobs:
+        - name: Placeholder Job Task Name
+          commands:
+            - echo 'hello world'
