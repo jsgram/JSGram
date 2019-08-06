@@ -1,26 +1,25 @@
-import mongoose, {Schema, Document, Model, model} from 'mongoose';
-import {IPost} from "./post.model";
+import mongoose, { Schema, Document, Model, model } from 'mongoose';
+
+import { IPost } from "./post.model";
 
 export interface IUserModel extends Document {
-    login: string,
     email: string,
-    firstName: string,
-    lastName: string,
+    fullName: string,
+    username: string,
     password: string,
     dateOfBirth?: string,
     createdAt: Date,
     photoPath?: string,
     bio?: string,
     isAdmin: boolean,
-    posts?: IPost['_id']
+    posts?: IPost['_id'],
 }
 
 const UserSchema: Schema = new Schema({
-    login: {type: String, required: true, unique: true, minlength: 3, maxlength: 20},
     email: {type: String, required: true, unique: true, minlength: 3, maxlength: 40},
-    firstName: {type: String, required: true, minlength: 3, maxlength: 40},
-    lastName: {type: String, required: true, minlength: 3, maxlength: 40},
-    password: {type: String, required: true, minlength: 6, maxlength: 50},
+    fullName: {type: String, required: true, minlength: 3, maxlength: 40},
+    username: {type: String, required: true, unique: true, minlength: 3, maxlength: 40},
+    password: {type: String, required: true, match: /^[\w\$/.]{60}$/},
     dateOfBirth: {type: Date},
     createdAt: {type: Date, default: Date.now, required: true},
     photoPath: {type: String},

@@ -1,13 +1,12 @@
-import {NextFunction, Request, Response} from "express";
-import {IUserModel, User} from "../../models/user.model";
+import {NextFunction, Request, Response} from 'express';
+import {IUserModel, User} from '../../models/user.model';
 
-export const register = async (req: Request, res: Response, next: NextFunction) => {
+export const create = async (req: Request, res: Response, next: NextFunction) => {
     try{
         const {
-            login,
             email,
-            firstName,
-            lastName,
+            fullName,
+            username,
             password,
             dateOfBirth,
             createdAt,
@@ -16,14 +15,13 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
             isAdmin,
             posts}: IUserModel = req.body;
 
-        if(!login || !email || !firstName || !lastName || !password)
+        if(!email || !fullName || !username || !password)
             throw new Error('Some field is empty');
 
         const createdUser: IUserModel = await User.create({
-            login,
             email,
-            firstName,
-            lastName,
+            fullName,
+            username,
             password,
             dateOfBirth,
             createdAt,
