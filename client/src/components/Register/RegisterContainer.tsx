@@ -51,7 +51,6 @@ class RegisterContainer extends React.Component<FormProps, FormState> {
 }
 
 const mapStateToProps = (state: FormState) => {
-  console.log(state);
   return {
     username: state.register.username,
     fullname: state.register.fullname,

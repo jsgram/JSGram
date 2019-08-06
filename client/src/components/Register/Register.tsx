@@ -42,7 +42,6 @@ class Register extends React.Component<FormProps> {
               body: this.props.password
             };
             this.props.registerUser(user);
-            console.log(this.props);
           }}
         >
           <div>

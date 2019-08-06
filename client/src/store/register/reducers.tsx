@@ -34,7 +34,7 @@ export const registerReducer = (state = initialState, action: Action) => {
       };
     case "REGISTER_USER":
       return {
-        ...state
+        ...initialState
       };
     default:
       return state;
