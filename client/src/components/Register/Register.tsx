@@ -45,6 +45,7 @@ class Register extends React.Component<FormProps> {
           }}
         >
           <div>
+            <label htmlFor="username">Username: </label>
             <input
               type="text"
               name="username"
@@ -53,6 +54,7 @@ class Register extends React.Component<FormProps> {
             />
           </div>
           <div>
+            <label htmlFor="fullname">Fullname: </label>
             <input
               type="text"
               name="fullname"
@@ -61,6 +63,7 @@ class Register extends React.Component<FormProps> {
             />
           </div>
           <div>
+            <label htmlFor="email">Email: </label>
             <input
               type="email"
               name="email"
@@ -69,6 +72,7 @@ class Register extends React.Component<FormProps> {
             />
           </div>
           <div>
+            <label htmlFor="password">Password: </label>
             <input
               type="password"
               name="password"

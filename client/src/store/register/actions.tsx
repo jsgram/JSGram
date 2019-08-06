@@ -26,5 +26,6 @@ export const registerUser = (user: object) => async (dispatch: Function) => {
     body: JSON.stringify(user)
   });
   const data = await response.json();
+  console.log(data);
   dispatch({ type: "REGISTER_USER", payload: data });
 };
