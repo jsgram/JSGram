@@ -1,22 +1,28 @@
-import React from 'react';
-import {createStore, applyMiddleware} from "redux";
-import rootReducer from './store/reducers';
-import {Provider} from 'react-redux';
+import React from "react";
+import { createStore, applyMiddleware } from "redux";
+import rootReducer from "./store/reducers";
+import { Provider } from "react-redux";
 import LoginContainer from "./components/Login/LoginContainer";
-import {composeWithDevTools} from 'redux-devtools-extension';
+import RegisterContainer from "./components/Register/RegisterContainer";
+import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
-
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunkMiddleware))
+);
 
 const App: React.FC = () => {
-    return (
-        <Provider store={store}>
-            <div>
-                <LoginContainer/>
-            </div>
-        </Provider>
-    );
+  return (
+    <Provider store={store}>
+      <div>
+        <RegisterContainer />
+      </div>
+      <div>
+        <LoginContainer />
+      </div>
+    </Provider>
+  );
 };
 
 export default App;
