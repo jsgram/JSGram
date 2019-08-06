@@ -1,15 +1,18 @@
 import { config } from 'dotenv';
 import express, {Application, Request, Response, NextFunction} from 'express';
-import connect from './connect';
 import cors from 'cors';
+import passport from 'passport';
 
-import {requestLoggerMiddleware} from "../helpers/request.logger.middleware";
+import connect from './connect';
+import './helpers/passport.config';
 
-import {postRouter} from '../routes/post.router';
-import {userRouter} from "../routes/user.router";
-import {authRouter} from "../routes/auth.router";
+import {requestLoggerMiddleware} from './helpers/request.logger.middleware';
 
-import {unknownPageHandler} from "../helpers/unknown.page.handler";
+import {postRouter} from './routes/post.router';
+import {userRouter} from './routes/user.router';
+import {authRouter} from './routes/auth.router';
+
+import {unknownPageHandler} from './helpers/unknown.page.handler';
 
 config();
 
@@ -18,12 +21,10 @@ const app: Application = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(requestLoggerMiddleware);
-
-// app.get('/', (req: Request, res: Response, next: NextFunction) => {
-//     res.send('Hello');
-// });
 
 app.use('/post', postRouter);
 app.use('/user', userRouter);
@@ -31,10 +32,7 @@ app.use('/auth', authRouter);
 
 app.use('*', unknownPageHandler);
 
-app.listen(8080, () => console.log('Listening...'));
+app.listen(process.env.DEV_PORT, () => console.log('Listening...'));
 
-const db = 'mongodb://localhost:27017/jsgram';
-connect({db});
-
-
-// npm run dev
+const db_path = process.env.DB_PATH!; // FIXME type
+connect({db_path});
