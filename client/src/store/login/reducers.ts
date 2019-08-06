@@ -1,13 +1,14 @@
-import {LOGIN_CHANGE_EMAIL_TEXT, LOGIN_CHANGE_PASSWORD_TEXT} from "./actions";
+import {LOGIN_CHANGE_EMAIL_TEXT, LOGIN_CHANGE_PASSWORD_TEXT, LOGIN_SEND_REQUEST} from "./actions";
 
 const defaultState = {
     email: '',
-    password: ''
+    password: '',
+    token: ''
 };
 
 interface Action {
     type: string;
-    payload: string;
+    payload: any;
 }
 
 export const loginReducer = (state = defaultState, action: Action) => {
@@ -21,6 +22,11 @@ export const loginReducer = (state = defaultState, action: Action) => {
             return {
                 ...state,
                 password: action.payload
+            };
+        case LOGIN_SEND_REQUEST:
+            return {
+                ...state,
+                token: action.payload
             };
         default:
             return state;

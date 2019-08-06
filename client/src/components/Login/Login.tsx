@@ -5,6 +5,7 @@ interface FormProps {
     password: string;
     setEmailText: Function;
     setPasswordText: Function;
+    getApiData: Function;
 }
 
 export default class Login extends React.Component<FormProps> {
@@ -13,6 +14,7 @@ export default class Login extends React.Component<FormProps> {
         super(props);
         this.onEmailChange = this.onEmailChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
+        this.onGetToken = this.onGetToken.bind(this);
     }
 
     onEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -21,6 +23,10 @@ export default class Login extends React.Component<FormProps> {
 
     onPasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
         this.props.setPasswordText(event.target.value);
+    }
+
+    onGetToken() {
+        this.props.getApiData();
     }
 
     render() {
@@ -49,7 +55,7 @@ export default class Login extends React.Component<FormProps> {
                         />
                     </div>
                     <div>
-                        <button>Sign In</button>
+                        <p onClick={this.onGetToken}>Sign In</p>
                     </div>
                 </form>
             </div>
