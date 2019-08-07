@@ -61,5 +61,11 @@ const mapStateToProps = (state: FormState) => {
 
 export default connect(
   mapStateToProps,
-  { setUsername, setFullname, setEmail, setPassword, registerUser }
+  {
+    setUsername,
+    setFullname,
+    setEmail,
+    setPassword,
+    registerUser
+  }
 )(RegisterContainer);
