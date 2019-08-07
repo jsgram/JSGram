@@ -34,5 +34,5 @@ app.use('*', unknownPageHandler);
 
 app.listen(process.env.DEV_PORT, () => console.log('Listening...'));
 
-const db_path = process.env.DB_PATH!; // FIXME type
-connect({db_path});
+const DB_PATH = process.env.DB_PATH!; // FIXME type
+connect({DB_PATH});

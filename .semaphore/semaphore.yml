@@ -6,10 +6,41 @@ agent:
     os_image: ubuntu1804
 
 blocks:
-  - name: Test
+  - name: Setup
     task:
+      prologue:
+        commands:
+          - checkout
+          - node --version
+          - npm --version
       jobs:
-        - name: TSlint
+        - name: BE Setup
           commands:
+            - cd server
+            - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master
             - npm install
+            - cache store server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json) node_modules
+        - name: FE Setup
+          commands:
+            - cd client
+            - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
+            - npm install
+            - cache store client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json) node_modules
+  - name: Lint
+    task:
+      prologue:
+        commands:
+          - checkout
+          - node --version
+          - npm --version
+      jobs:
+        - name: BE lint
+          commands:
+            - cd server
+            - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master
+            - npm test
+        - name: FE lint
+          commands:
+            - cd client
+            - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
             - npm test
