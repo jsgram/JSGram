@@ -73,17 +73,17 @@ export default class Login extends React.Component<FormProps> {
                 <FormGroup className="text-center login_soft mt-2">
                   <p><img className="logo pb-1"
                           src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
-                          alt=" "/><a href="#">Log in with Facebook</a></p>
+                          alt=" "/><a href="#" className="text-danger">Log in with Facebook</a></p>
                 </FormGroup>
                 <FormGroup className="text-center forgot_pass mt-2">
-                  <p className=""><a href="#">Forgot password?</a></p>
+                  <p className=""><a href="#" className="text-danger">Forgot password?</a></p>
                 </FormGroup>
               </div>
             </Form>
             <Form className="bg-white mt-3">
               <div className="border">
                 <FormGroup className="text-center register_acc mt-2">
-                  <p className="pt-2">Still don't have an account?<a href="#" className="pl-1">Register</a></p>
+                  <p className="pt-2">Still don't have an account?<a href="#" className="pl-1 text-danger">Register</a></p>
                 </FormGroup>
               </div>
             </Form>
