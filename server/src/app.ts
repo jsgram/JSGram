@@ -1,4 +1,4 @@
-import { config } from 'dotenv';
+import {config} from 'dotenv';
 import express, {Application, Request, Response, NextFunction} from 'express';
 import cors from 'cors';
 import passport from 'passport';
@@ -11,6 +11,7 @@ import {requestLoggerMiddleware} from './helpers/request.logger.middleware';
 import {postRouter} from './routes/post.router';
 import {userRouter} from './routes/user.router';
 import {authRouter} from './routes/auth.router';
+import {confirmUserRouter} from './routes/confirm.user.router';
 
 import {unknownPageHandler} from './helpers/unknown.page.handler';
 
@@ -26,9 +27,11 @@ app.use(passport.session());
 
 app.use(requestLoggerMiddleware);
 
+app.get('/favicon.ico', (req, res) => res.status(204));
 app.use('/post', postRouter);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
+app.use('/confirm', confirmUserRouter);
 
 app.use('*', unknownPageHandler);
 
