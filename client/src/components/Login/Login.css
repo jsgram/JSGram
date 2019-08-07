@@ -1,0 +1,28 @@
+.header {
+    flex: 1 0 auto;
+}
+
+.picture {
+    height: 110px;
+}
+
+.logo {
+    width: 34px;
+}
+
+.login_soft a{
+    font-weight: 700;
+    color: red;
+    font-size: 18px;
+}
+
+.forgot_pass a{
+    text-decoration: none;
+    color: red;
+}
+
+.register_acc a{
+    font-weight: 700;
+    color: red;
+}
+
