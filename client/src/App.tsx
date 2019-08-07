@@ -7,6 +7,7 @@ import RegisterContainer from "./components/Register/RegisterContainer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 import AlertContainer from "./components/Alert/AlertContainer";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const store = createStore(
   rootReducer,

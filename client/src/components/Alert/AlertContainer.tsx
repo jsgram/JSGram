@@ -1,16 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { showAlert, clearAlert } from "../../store/alert/actions";
+import { clearAlert } from "../../store/alert/actions";
 import Alert from "./Alert";
 
 interface AlertProps {
-  showAlert: Function;
   clearAlert: Function;
   message: string;
+  color: string;
 }
 
 interface Alert {
   message: string;
+  color: string;
 }
 
 interface AlertState {
@@ -18,22 +19,22 @@ interface AlertState {
 }
 
 const AlertContainer: React.FunctionComponent<AlertProps> = ({
-  showAlert,
-  clearAlert,
-  message
+  message,
+  color,
+  clearAlert
 }) => {
   return (
     <div>
-      <Alert showAlert={showAlert} clearAlert={clearAlert} message={message} />
+      <Alert clearAlert={clearAlert} message={message} color={color} />
     </div>
   );
 };
 
 const mapStateToProps = (state: AlertState) => {
-  return { message: state.alert.message };
+  return { message: state.alert.message, color: state.alert.color };
 };
 
 export default connect(
   mapStateToProps,
-  { showAlert, clearAlert }
+  { clearAlert }
 )(AlertContainer);

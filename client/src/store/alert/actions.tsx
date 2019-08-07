@@ -1,6 +1,7 @@
-export const showAlert = (message: string) => ({
+export const showAlert = (message: string, color: string) => ({
   type: "SHOW_ALERT",
-  payload: message
+  message,
+  color
 });
 
 export const clearAlert = () => ({ type: "CLEAR_ALERT" });
