@@ -1,4 +1,4 @@
-import {NextFunction, Request, Response} from "express";
+import {NextFunction, Request, Response} from 'express';
 
 export const findById = (req: Request, res: Response, next: NextFunction) => {
 
