@@ -4,7 +4,7 @@ interface Action {
   color: string;
 }
 
-const initialState = { message: "" };
+const initialState = { message: "", color: "" };
 
 export const alertReducer = (state = initialState, action: Action) => {
   switch (action.type) {
