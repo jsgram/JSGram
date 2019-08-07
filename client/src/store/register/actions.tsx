@@ -19,7 +19,7 @@ export const setPassword = (password: string) => ({
 });
 
 export const registerUser = (user: object) => async (dispatch: Function) => {
-  const url = "https://jsonplaceholder.typicode.com/posts";
+  const url = "http://localhost:8080/user";
   const response = await fetch(url, {
     method: "POST",
     headers: { "content-type": "application/json" },

@@ -37,9 +37,10 @@ class Register extends React.Component<FormProps> {
           onSubmit={e => {
             e.preventDefault();
             const user = {
-              userId: this.props.username,
-              title: this.props.email,
-              body: this.props.password
+              username: this.props.username,
+              fullName: this.props.fullname,
+              email: this.props.email,
+              password: this.props.password
             };
             this.props.registerUser(user);
           }}
