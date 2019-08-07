@@ -7,7 +7,7 @@ import RegisterContainer from "./components/Register/RegisterContainer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 
-const store = createStore(
+export const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunkMiddleware))
 );
