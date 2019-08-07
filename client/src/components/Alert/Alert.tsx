@@ -13,20 +13,6 @@ const Alert: React.FunctionComponent<AlertProps> = ({
 }) => {
   return (
     <div>
-      {/* <button
-        onClick={() => {
-          showAlert("dsfsdfsdf");
-        }}
-      >
-        ShowAlert
-      </button>
-      <button
-        onClick={() => {
-          clearAlert();
-        }}
-      >
-        clearAlert
-      </button> */}
       <div>{message}</div>
     </div>
   );
