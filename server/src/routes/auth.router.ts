@@ -2,6 +2,7 @@ import {Router} from 'express';
 import passport from 'passport';
 
 import {register} from '../controllers/auth.controllers/register';
+import {login} from '../controllers/auth.controllers/login';
 import {encodeJWT} from '../helpers/jwt.encoders';
 
 const authRouter = Router();
@@ -30,4 +31,8 @@ authRouter.post('/register',
         });
     },
 );
+
+authRouter.post('/login', login);
+authRouter.get('/error', (req, res) => res.send('error'));
+authRouter.get('/', (req, res) => res.send('good'));
 export {authRouter};
