@@ -34,9 +34,7 @@ authRouter.post('/register',
 
 authRouter.post('/login', (req: any, res) => {
   const token = encodeJWT(req.body.email, process.env.SECRET_KEY!);
-  console.log(token);
-  res.cookie('jwt', token);
-  res.redirect('/auth/');
+  res.send(token);
 }, login);
 authRouter.get('/error', (req, res) => res.send('error'));
 authRouter.get('/', (req, res) => res.send('good'));
