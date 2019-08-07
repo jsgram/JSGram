@@ -23,12 +23,12 @@ passport.use(
     User.findOne({email: username}, function (err, user) {
       if (user) {
         bcrypt.compare(password, user.password, function (err, result) {
-          if (result == true){
+          if (result == true) {
             console.log('good');
             return done(null, user);
-          }else{
+          } else {
             console.log('error');
-            return done(null, false, { message: 'Incorrect' });
+            return done(null, false, {message: 'Incorrect'});
           }
         });
       }

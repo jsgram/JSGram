@@ -1,8 +1,5 @@
 import {NextFunction, Request, Response} from 'express';
-import bcrypt from 'bcrypt';
 import passport from 'passport';
-
-import {IUserModel, User} from '../../models/user.model';
 
 
 export const login = (req: Request, res: Response, next: NextFunction) => {

@@ -8,31 +8,36 @@ import {encodeJWT} from '../helpers/jwt.encoders';
 const authRouter = Router();
 
 authRouter.post('/register',
-    register,
-    passport.authenticate('register'),
-    (req, res) => {
-        const token = encodeJWT(req.user.username, process.env.SECRET_KEY!);
+  register,
+  passport.authenticate('register'),
+  (req, res) => {
+    const token = encodeJWT(req.user.username, process.env.SECRET_KEY!);
 
-        res.set('Set-Cookie', 'session=' + token);
-        res.status(201).json({
-            meta: {},
-            data: {
-                email: req.user.email,
-                fullName: req.user.fullName,
-                username: req.user.username,
-                dateOfBirth: req.user.dateOfBirth,
-                createdAt: req.user.createdAt,
-                photoPath: req.user.photoPath,
-                bio: req.user.bio,
-                isAdmin: req.user.isAdmin,
-                posts: req.user.posts,
-            },
-            errors: [],
-        });
-    },
+    //res.set('Set-Cookie', 'session=' + token);
+    res.status(201).json({
+      meta: {},
+      data: {
+        email: req.user.email,
+        fullName: req.user.fullName,
+        username: req.user.username,
+        dateOfBirth: req.user.dateOfBirth,
+        createdAt: req.user.createdAt,
+        photoPath: req.user.photoPath,
+        bio: req.user.bio,
+        isAdmin: req.user.isAdmin,
+        posts: req.user.posts,
+      },
+      errors: [],
+    });
+  },
 );
 
-authRouter.post('/login', login);
+authRouter.post('/login', (req: any, res) => {
+  const token = encodeJWT(req.body.email, process.env.SECRET_KEY!);
+  console.log(token);
+  res.cookie('jwt', token);
+  res.redirect('/auth/');
+}, login);
 authRouter.get('/error', (req, res) => res.send('error'));
 authRouter.get('/', (req, res) => res.send('good'));
 export {authRouter};
