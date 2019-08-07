@@ -26,6 +26,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(requestLoggerMiddleware);
+// Win/Linux link incompatibility prevents symlink to encapsulated path
+app.use(express.static('../client/build'));
 
 app.get('/favicon.ico', (req, res) => res.status(204));
 app.use('/post', postRouter);
