@@ -33,7 +33,8 @@ export const loginReducer = (state = defaultState, action: Action) => {
     case LOGIN_PENDING:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: ''
       };
     case LOGIN_SUCCESS:
       return {
