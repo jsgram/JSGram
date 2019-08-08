@@ -12,8 +12,6 @@ authRouter.post('/register',
   passport.authenticate('register'),
   (req, res) => {
     const token = encodeJWT(req.user.username, process.env.SECRET_KEY!);
-
-    //res.set('Set-Cookie', 'session=' + token);
     res.status(201).json({
       meta: {},
       data: {
@@ -32,10 +30,5 @@ authRouter.post('/register',
   },
 );
 
-authRouter.post('/login', (req: any, res) => {
-  const token = encodeJWT(req.body.email, process.env.SECRET_KEY!);
-  res.send(token);
-}, login);
-authRouter.get('/error', (req, res) => res.send('error'));
-authRouter.get('/', (req, res) => res.send('good'));
+authRouter.post('/login', login);
 export {authRouter};

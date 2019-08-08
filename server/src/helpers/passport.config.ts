@@ -18,27 +18,25 @@ passport.use(
   'local',
   new LocalStrategy({
     usernameField: 'email',
-    passwordField: 'password'
-  }, function (username, password, done) {
-    User.findOne({email: username}, function (err, user) {
+    passwordField: 'password',
+  }, function(username, password, done) {
+    User.findOne({email: username}, function(err, user) {
       if (user) {
-        bcrypt.compare(password, user.password, function (err, result) {
-          if (result == true) {
-            console.log('good');
+        bcrypt.compare(password, user.password, function(error, result) {
+          if (result === true) {
             return done(null, user);
           } else {
-            console.log('error');
             return done(null, false, {message: 'Incorrect'});
           }
         });
       }
-    })
+    });
   }));
 
-passport.serializeUser<any, any>(function (user, done) { // FIXME types
+passport.serializeUser<any, any>(function(user, done) {
   done(null, user.username);
 });
 
-passport.deserializeUser(function (id, done) {
+passport.deserializeUser(function(id, done) {
   done(null, false);
 });
