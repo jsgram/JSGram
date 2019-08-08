@@ -2,12 +2,12 @@ import React from "react";
 import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./store/reducers";
 import { Provider } from "react-redux";
-import LoginContainer from "./components/Login/LoginContainer";
-import RegisterContainer from "./components/Register/RegisterContainer";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import routes from "./routes"
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
+import {Footer} from "./components/Footer/Footer"
 import AlertContainer from "./components/Alert/AlertContainer";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 export const store = createStore(
   rootReducer,
@@ -17,13 +17,9 @@ export const store = createStore(
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <div>
-        <AlertContainer />
-        <RegisterContainer />
-      </div>
-      <div>
-        <LoginContainer />
-      </div>
+      <AlertContainer />
+      {routes}
+      <Footer />
     </Provider>
   );
 };

@@ -1,0 +1,24 @@
+@import './variables';
+
+.footer-link {
+  a {
+    font-size: 16px;
+
+    span {
+      font-size: 16px;
+    }
+  }
+
+  .footer {
+    flex: 0 0 auto;
+  }
+}
+
+.page-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.list-unstyled {
+  display: flex;
+}
