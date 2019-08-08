@@ -3,14 +3,19 @@ import {
   REGISTER_SET_FULLNAME,
   REGISTER_SET_EMAIL,
   REGISTER_SET_PASSWORD,
-  REGISTER_USER
+  REGISTER_USER,
+  REGISTER_PENDING,
+  REGISTER_SUCCESS,
+  REGISTER_ERROR
 } from "./actionTypes";
 
 const initialState = {
   username: "",
   fullname: "",
   email: "",
-  password: ""
+  password: "",
+  loading: false,
+  error: ""
 };
 
 interface Action {
@@ -39,6 +44,23 @@ export const registerReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         password: action.payload
+      };
+    case REGISTER_PENDING:
+      return {
+        ...state,
+        loading: true,
+        error: ""
+      };
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        loading: false
+      };
+    case REGISTER_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false
       };
     case REGISTER_USER:
       return {
