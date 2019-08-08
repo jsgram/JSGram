@@ -6,6 +6,8 @@ import LoginContainer from "./components/Login/LoginContainer";
 import RegisterContainer from "./components/Register/RegisterContainer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
+import AlertContainer from "./components/Alert/AlertContainer";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export const store = createStore(
   rootReducer,
@@ -16,6 +18,7 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <div>
+        <AlertContainer />
         <RegisterContainer />
       </div>
       <div>
