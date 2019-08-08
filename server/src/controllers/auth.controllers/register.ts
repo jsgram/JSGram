@@ -16,27 +16,27 @@ declare const process: {
 export const register = async (req: Request,
                                res: Response,
                                next: NextFunction) => {
-    const {email, fullName, username, password}: IUserModel = req.body;
+  const {email, fullName, username, password}: IUserModel = req.body;
 
-    // TODO validation
-    if (!email || !fullName || !username || !password) {
-        throw new Error('Some field is empty');
-    }
+  // TODO validation
+  if (!email || !fullName || !username || !password) {
+    throw new Error('Some field is empty');
+  }
 
-    const saltRounds: number = 12;
+  const saltRounds: number = 12;
 
-    const salt: string = bcrypt.genSaltSync(saltRounds);
-    const hash: string = bcrypt.hashSync(password, salt);
+  const salt: string = bcrypt.genSaltSync(saltRounds);
+  const hash: string = bcrypt.hashSync(password, salt);
 
-    try {
-        const createdUser: IUserModel = await User.create({
-            email,
-            fullName,
-            username,
-            password: hash,
-        });
-        next();
-    } catch (e) {
-        next(e);
-    }
+  try {
+    const createdUser: IUserModel = await User.create({
+      email,
+      fullName,
+      username,
+      password: hash,
+    });
+    next();
+  } catch (e) {
+    next(e);
+  }
 };
