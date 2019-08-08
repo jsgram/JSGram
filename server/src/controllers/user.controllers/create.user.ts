@@ -79,11 +79,10 @@ const sendEmail = async (user: IUserModel) => {
         html: `<h1 style="color: lightcoral">Congratulation, ${username}, click the <a href="${url}">link</a> to verify your account</h1>`,
     };
 
-    transporter.sendMail(mailOptions, (err) => {
-        if (err) {
-            console.error(err);
-        }
-    });
+    const successSend = await transporter.sendMail(mailOptions);
+    if (!successSend) {
+        throw new Error('Email wasn\'t sent');
+    }
 };
 
 export const create = async (req: Request,
