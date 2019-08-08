@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Form, FormGroup, Input} from 'reactstrap';
 import './Login.scss';
 import logo from '../../logo.png';
-//import logo from "*.png";
+
 
 interface FormProps {
   email: string;
@@ -41,7 +41,7 @@ export default class Login extends React.Component<FormProps> {
             <Form className="mt-4 bg-white">
               <div className="border">
                 <FormGroup className="text-center">
-                  <img className="picture" src={logo} alt=""/>
+                  <img className="picture" src={logo} alt="logo"/>
                 </FormGroup>
                 <FormGroup className="col-lg-10 offset-lg-1">
                   <Input className="form-control form-control-lg"
@@ -64,15 +64,13 @@ export default class Login extends React.Component<FormProps> {
                           onClick={this.onGetToken}
                           size="lg" block>Log In</Button>
                 </FormGroup>
-                <div className="d-flex justify-content-around">
-                  <div className="col-lg-5 "><hr/></div>
-                  <div>OR</div>
-                  <div className="col-lg-5 "><hr/></div>
+                <div className="d-flex justify-content-around line">
+                  <div><span></span>OR<span></span></div>
                 </div>
                 <FormGroup className="text-center login-soft mt-2">
                   <p><img className="logo pb-1"
                           src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
-                          alt=" "/><a href="#" className="text-danger">Log in with Facebook</a></p>
+                          alt="facebook_logo"/><a href="#" className="text-danger">Log in with Facebook</a></p>
                 </FormGroup>
                 <FormGroup className="text-center forgot-pass mt-2">
                   <p className=""><a href="#" className="text-danger">Forgot password?</a></p>

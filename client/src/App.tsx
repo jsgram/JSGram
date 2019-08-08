@@ -18,15 +18,9 @@ const store = createStore(
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <div>
         <RegisterContainer />
-      </div>
-      <div>
         <LoginContainer />
-      </div>
-      <div>
         <Footer />
-      </div>
     </Provider>
   );
 };
