@@ -1,38 +1,54 @@
-import axios from 'axios';
-import {store} from "../../App";
+import API from '../api';
+import {store} from '../../App';
+import {
+  LOGIN_CHANGE_EMAIL_TEXT,
+  LOGIN_CHANGE_PASSWORD_TEXT,
+  LOGIN_PENDING,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR
+} from './actionTypes';
 
-export const LOGIN_CHANGE_EMAIL_TEXT = 'LOGIN_CHANGE_EMAIL_TEXT';
-export const LOGIN_CHANGE_PASSWORD_TEXT = 'LOGIN_CHANGE_PASSWORD_TEXT';
-export const LOGIN_SEND_REQUEST = 'LOGIN_SEND_REQUEST';
+const TOKEN = 'TOKEN';
 
 export const setEmailText = (email: string) => ({
-    type: LOGIN_CHANGE_EMAIL_TEXT,
-    payload: email
+  type: LOGIN_CHANGE_EMAIL_TEXT,
+  payload: email
 });
 
 export const setPasswordText = (password: string) => ({
-    type: LOGIN_CHANGE_PASSWORD_TEXT,
-    payload: password
+  type: LOGIN_CHANGE_PASSWORD_TEXT,
+  payload: password
 });
 
-export const getApiDataAsync = (token: any) => ({
-    type: LOGIN_SEND_REQUEST,
-    payload: token
+export const loginPending = () => ({
+  type: LOGIN_PENDING
 });
 
+export const loginSuccess = () => ({
+  type: LOGIN_SUCCESS
+});
+
+export const loginError = (error: any) => ({
+  type: LOGIN_ERROR,
+  payload: error
+});
 
 export const getApiData = () => {
-    return (dispatch: Function) => {
-      const {email, password} = store.getState().login;
-        axios.post('http://localhost:8080/auth/login', {
-            email,
-            password
-        })
-            .then((response: any) => response)
-            .then(json => dispatch(getApiDataAsync(json.data)))
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
+  return (dispatch: Function) => {
+    const {login: {email, password}} = store.getState();
+    dispatch(loginPending());
+    API.post(('/auth/login'), {
+      email,
+      password
+    })
+      .then((response) => response)
+      .then(json => {
+        dispatch(loginSuccess());
+        localStorage.setItem(TOKEN, json.data.token);
+      })
+      .catch(function(error) {
+        dispatch(loginError(error));
+      });
+  };
 
 };

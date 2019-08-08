@@ -7,6 +7,7 @@ import routes from "./routes"
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 import {Footer} from "./components/Footer/Footer"
+import AlertContainer from "./components/Alert/AlertContainer";
 
 export const store = createStore(
   rootReducer,
@@ -16,6 +17,7 @@ export const store = createStore(
 const App: React.FC = () => {
   return (
     <Provider store={store}>
+      <AlertContainer />
       {routes}
       <Footer />
     </Provider>

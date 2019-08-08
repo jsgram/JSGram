@@ -1,26 +1,27 @@
 import mongoose from 'mongoose';
 
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 
 type TInput = {
-    db_path: string;
-}
+    DB_PATH: string;
+};
 
-export default ({db_path}: TInput) => {
+export default ({DB_PATH}: TInput) => {
 
     const connect = () => {
         mongoose
             .connect(
-                db_path,
-                {useNewUrlParser: true}
+                DB_PATH,
+                {useNewUrlParser: true},
             )
             .then(() => {
-                return console.info(`Successfully connected to ${db_path}`);
+                return console.info(`Successfully connected to ${DB_PATH}`);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('Error connecting to database: ', error);
                 return process.exit(1);
-            })
+            });
     };
     connect();
 
