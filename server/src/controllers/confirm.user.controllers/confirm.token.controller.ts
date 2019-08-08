@@ -6,9 +6,9 @@ export const confirm = async (req: Request,
                               res: Response,
                               next: NextFunction) => {
     try {
-        const tokenEmail: string = req.params.token;
+        const tokenFromEmail: string = req.params.token;
 
-        const token = await Token.findOne({token: tokenEmail});
+        const token = await Token.findOne({token: tokenFromEmail});
         if (!token) {
             throw new Error(`Token doesn't exist`);
         }

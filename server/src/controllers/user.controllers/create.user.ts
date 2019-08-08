@@ -64,13 +64,14 @@ export const create = async (req: Request,
             },
         });
 
-        const url = `http://localhost:8080/confirm/${token.token}`;
+        const url = `http://${req.headers.host}/confirm/${token.token}`;
 
         const mailOptions = {
             from: process.env.EMAIL,
             to: email,
             subject: 'JSgram Account verification',
-            html: `<h1 style="color: red">Hello, ${fullName}, please verify your account by clicking the <a href="${url}">link</a></h1>`,
+            // tslint:disable-next-line:max-line-length
+            html: `<h1 style="color: lightcoral">Congratulation, ${fullName}, click the <a href="${url}">link</a> to verify your account</h1>`,
         };
 
         transporter.sendMail(mailOptions, (err) => {

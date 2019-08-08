@@ -12,6 +12,7 @@ import {postRouter} from './routes/post.router';
 import {userRouter} from './routes/user.router';
 import {authRouter} from './routes/auth.router';
 import {confirmUserRouter} from './routes/confirm.user.router';
+import {forgotPassword} from './routes/forgot.password';
 
 import {unknownPageHandler} from './helpers/unknown.page.handler';
 
@@ -32,6 +33,7 @@ app.use('/post', postRouter);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
 app.use('/confirm', confirmUserRouter);
+app.use('/forgot-password', forgotPassword);
 
 app.use('*', unknownPageHandler);
 
