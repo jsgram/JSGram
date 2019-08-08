@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 
 type TInput = {
     DB_PATH: string;

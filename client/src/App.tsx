@@ -9,7 +9,7 @@ import thunkMiddleware from "redux-thunk";
 import AlertContainer from "./components/Alert/AlertContainer";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const store = createStore(
+export const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunkMiddleware))
 );
