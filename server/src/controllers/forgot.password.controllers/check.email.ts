@@ -4,50 +4,57 @@ import crypto from 'crypto';
 import {ITokenModel, Token} from '../../models/token.model';
 import nodemailer from 'nodemailer';
 
-const existEmail = async (bodyEmail: string) => {
+const existEmail = async (bodyEmail: string, next: NextFunction) => {
+    try {
+        if (!bodyEmail) {
+            throw new Error('Email field is empty');
+        }
 
-    if (!bodyEmail) {
-        throw new Error('Email field is empty');
+        const user = await User.findOne({email: bodyEmail});
+        if (!user) {
+            throw new Error(`Email doesn't exist`);
+        }
+
+        return user;
+    } catch (e) {
+        next(e);
     }
-
-    const user = await User.findOne({email: bodyEmail});
-    if (!user) {
-        throw new Error(`Email doesn't exist`);
-    }
-
-    return user;
 };
 
-const sendEmail = async (user: IUserModel) => {
-    const token: ITokenModel = await Token.create({
-        user: user._id,
-        token: crypto.randomBytes(16).toString('hex'),
-    });
+const sendEmail = async (user: IUserModel, next: NextFunction) => {
+    try {
+        const token: ITokenModel = await Token.create({
+            user: user._id,
+            token: crypto.randomBytes(16).toString('hex'),
+        });
 
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.EMAIL,
-            pass: process.env.EMAIL_PASS,
-        },
-    });
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
 
-    const newToken = token.token;
-    const url = `${process.env.BACK_PATH}/forgot-password/${newToken}`;
+        const newToken = token.token;
+        const url = `${process.env.BACK_PATH}/forgot-password/${newToken}`;
 
-    const {email, username} = user;
+        const {email, username} = user;
 
-    const mailOptions = {
-        from: process.env.EMAIL,
-        to: email,
-        subject: 'JSgram Account verification',
-        // tslint:disable-next-line:max-line-length
-        html: `<h1 style="color: lightcoral">Dear, ${username}, please click the <a href="${url}">link</a> to change your password</h1>`,
-    };
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: email,
+            subject: 'JSgram Account verification',
+            // tslint:disable-next-line:max-line-length
+            html: `<h1 style="color: lightcoral">Dear, ${username}, please click the <a href="${url}">link</a> to change your password</h1>`,
+        };
 
-    const successSend = await transporter.sendMail(mailOptions);
-    if (!successSend) {
-        throw new Error('Email wasn\'t sent');
+        const successSend = await transporter.sendMail(mailOptions);
+        if (!successSend) {
+            throw new Error('Email wasn\'t sent');
+        }
+    } catch (e) {
+        next(e);
     }
 };
 
@@ -57,9 +64,13 @@ export const checkEmail = async (req: Request,
     try {
         const bodyEmail: string = req.body.email;
 
-        const user = await existEmail(req.body.email);
+        const user = await existEmail(req.body.email, next);
+        if (!user) {
+            throw new Error('The email address you have entered isn\'t ' +
+                'associated with another account');
+        }
 
-        await sendEmail(user);
+        await sendEmail(user, next);
         res.json(
             // tslint:disable-next-line:max-line-length
             {status: `To change your password, please check your email: ${bodyEmail}`});
