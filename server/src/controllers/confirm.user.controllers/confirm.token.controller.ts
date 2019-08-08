@@ -13,11 +13,12 @@ export const confirm = async (req: Request,
             throw new Error(`Token doesn't exist`);
         }
 
-        await User.findOneAndUpdate(token.user,
+        const VerifiedUser = await User.findOneAndUpdate(
+            {_id: token.user},
             {isVerified: true},
             {new: true});
 
-        res.redirect('/user');
+        res.json({VerifiedUser, token});
     } catch (e) {
         next(e);
     }
