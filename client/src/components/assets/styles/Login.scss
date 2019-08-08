@@ -1,3 +1,5 @@
+@import './variables';
+
 .header {
     flex: 1 0 auto;
 }
@@ -12,16 +14,16 @@
 
 .login_soft a{
     font-weight: 700;
-    color: red;
+    color: $color-red;
     font-size: 18px;
 }
 
 .forgot_pass a{
     text-decoration: none;
-    color: red;
+    color: $color-red;
 }
 
 .register_acc a{
     font-weight: 700;
-    color: red;
+    color: $color-red;
 }

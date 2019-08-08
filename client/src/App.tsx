@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import routes from "./routes"
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
-import Footer from "./components/Footer/Footer"
+import {Footer} from "./components/Footer/Footer"
 
 export const store = createStore(
   rootReducer,

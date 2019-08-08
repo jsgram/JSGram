@@ -4,8 +4,8 @@ import { Button, Form, FormGroup } from 'reactstrap';
 import { Link } from "react-router-dom";
 import * as Yup from 'yup';
 
-import './../ValidationStyle.scss';
-import logo from '../../logo.png';
+import './../assets/styles/ValidationStyle.scss';
+import logo from './../assets/img/logo.png';
 
 interface FormProps {
   email: string;
@@ -21,8 +21,8 @@ export default class Forgot extends React.Component<FormProps> {
             .email('Please Enter an valid Email')
             .required('Email is required')
         })}
-        onSubmit={fields => {
-          alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 1))
+        onSubmit={() => {
+          // TODO it will be implememted later
         }}
       >
 
@@ -61,7 +61,10 @@ export default class Forgot extends React.Component<FormProps> {
                         <span></span>OR<span></span>
                       </div>
                       <FormGroup className="text-center login_soft">
-                        <p className="pt-2">Still don't have an account?<Link to="/auth/register" className="pl-1">Register</Link></p>
+                        <p className="pt-2">
+                          Still don't have an account?
+                          <Link to="/auth/register" className="pl-1">Register</Link>
+                        </p>
                       </FormGroup>
                     </div>
                   </Form>

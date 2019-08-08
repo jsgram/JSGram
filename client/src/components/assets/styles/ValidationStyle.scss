@@ -1,17 +1,19 @@
+@import './variables';
+
 .input-feedback {
-  color: red;
-  font-size: 0.85rem;
+  color: $color-red;
+  font-size: 14px;
   font-weight: 500;
 }
 
 .or-devider {
-  color: #525656;
+  color: $color-grey-black;
   text-align: center;
 
   span {
     display: inline-block;
     height: 1px;
-    background: gainsboro;
+    background: $grey-grey;
     width: 34%;
     margin: 5px;
     margin-left: 10px;

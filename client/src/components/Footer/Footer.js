@@ -1,18 +1,23 @@
 import React from 'react'
-import './Footer.scss'
+import './../assets/styles/Footer.scss'
 
 const footerLink = [
-    { label: 'About us', href: '#' },
-    { label: 'Github', href: '#' },
-    { label: 'Demos', href: '#' },
-    { label: 'Softserve', href: '#' }
+    { id: 1, label: 'About us', href: '#' },
+    { id: 2, label: 'Github', href: '#' },
+    { id: 3, label: 'Demos', href: '#' },
+    { id: 4, label: 'Softserve', href: '#' }
 ]
 
-const Footer = () => (
-    <div className="container-fluid text-center footer-link footer">
-        {footerLink.map((footer) => (<a className="pr-3 text-danger" href={footer.href}>{footer.label}</a>))}
+export const Footer = () => (
+    <div className="page-footer">
+        <ul className="list-unstyled">
+            {
+                footerLink.map((footer) => (
+                    <li key={footer.id}>
+                        <a className="pr-3 text-danger" href={footer.href}>{footer.label}</a>
+                    </li>))
+            }
+        </ul>
         <span className="pl-4">© 2019 JSgram</span>
     </div>
 )
-
-export default Footer;

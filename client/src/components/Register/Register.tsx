@@ -4,8 +4,8 @@ import { Button, Form, FormGroup } from 'reactstrap';
 import { Link } from "react-router-dom";
 import * as Yup from 'yup';
 
-import './../ValidationStyle.scss';
-import logo from '../../logo.png';
+import './../assets/styles/ValidationStyle.scss';
+import logo from './../assets/img/logo.png';
 
 interface FormProps {
   username: string;
@@ -56,8 +56,8 @@ class Register extends React.Component<FormProps> {
             .min(8, 'Password must be at least 8 characters')
             .required('Password is required'),
         })}
-        onSubmit={fields => {
-          alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4))
+        onSubmit={() => {
+          // TODO it will be implememted later
         }}
       >
 
@@ -78,7 +78,7 @@ class Register extends React.Component<FormProps> {
                         <FormGroup className="text-center login_soft mt-2">
                           <p><img className="logo pb-1"
                             src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
-                            alt=" " /><a href="#">Log in with Facebook</a></p>
+                            alt="Log in with Facebook" /><a href="#">Log in with Facebook</a></p>
                         </FormGroup>
                         <div className="or-devider mb-3">
                           <span></span>OR<span></span>
