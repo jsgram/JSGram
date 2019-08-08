@@ -1,0 +1,20 @@
+.input-feedback {
+  color: red;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.or-devider {
+  color: #525656;
+  text-align: center;
+
+  span {
+    display: inline-block;
+    height: 1px;
+    background: gainsboro;
+    width: 34%;
+    margin: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}

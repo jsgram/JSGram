@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {store} from "../../App";
 
 export const LOGIN_CHANGE_EMAIL_TEXT = 'LOGIN_CHANGE_EMAIL_TEXT';
 export const LOGIN_CHANGE_PASSWORD_TEXT = 'LOGIN_CHANGE_PASSWORD_TEXT';
@@ -22,13 +23,13 @@ export const getApiDataAsync = (token: any) => ({
 
 export const getApiData = () => {
     return (dispatch: Function) => {
-        axios.post('https://jsonplaceholder.typicode.com/posts', {
-            title: 'foo',
-            body: 'bar',
-            userId: 1
+      const {email, password} = store.getState().login;
+        axios.post('http://localhost:8080/auth/login', {
+            email,
+            password
         })
             .then((response: any) => response)
-            .then(json => dispatch(getApiDataAsync(json.data.title)))
+            .then(json => dispatch(getApiDataAsync(json.data)))
             .catch(function (error) {
                 console.log(error);
             });
