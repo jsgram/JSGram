@@ -4,10 +4,11 @@ import rootReducer from "./store/reducers";
 import { Provider } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginContainer from "./components/Login/LoginContainer";
-import Footer from "./components/Footer/Footer"
+import {Footer} from "./components/Footer/Footer";
 import RegisterContainer from "./components/Register/RegisterContainer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
+
 
 
 const store = createStore(
@@ -20,7 +21,7 @@ const App: React.FC = () => {
     <Provider store={store}>
         <RegisterContainer />
         <LoginContainer />
-        <Footer />
+        <Footer/>
     </Provider>
   );
 };
