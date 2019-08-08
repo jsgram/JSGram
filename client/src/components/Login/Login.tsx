@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Form, FormGroup, Input} from 'reactstrap';
-import './Login.css';
+import './Login.scss';
 import logo from '../../logo.png';
 //import logo from "*.png";
 
@@ -45,44 +45,43 @@ export default class Login extends React.Component<FormProps> {
                 </FormGroup>
                 <FormGroup className="col-lg-10 offset-lg-1">
                   <Input className="form-control form-control-lg"
-                         placeholder="Email Address" type="email"
+                         placeholder="Email Address"
+                         type="email"
                          value={this.props.email}
                          onChange={this.onEmailChange}
                   />
                 </FormGroup>
                 <FormGroup className="col-lg-10 offset-lg-1">
-                  <Input className="form-control form-control-lg" placeholder="Password" type="password"
+                  <Input className="form-control form-control-lg"
+                         placeholder="Password"
+                         type="password"
                          value={this.props.password}
                          onChange={this.onPasswordChange}
                   />
                 </FormGroup>
                 <FormGroup className="col-lg-10 offset-lg-1">
-                  <Button color="danger" onClick={this.onGetToken} size="lg" block>Log In</Button>
+                  <Button color="danger"
+                          onClick={this.onGetToken}
+                          size="lg" block>Log In</Button>
                 </FormGroup>
                 <div className="d-flex justify-content-around">
-                  <div className="col-lg-5 ">
-                    <hr/>
-                  </div>
-                  <div>
-                    OR
-                  </div>
-                  <div className="col-lg-5 ">
-                    <hr/>
-                  </div>
+                  <div className="col-lg-5 "><hr/></div>
+                  <div>OR</div>
+                  <div className="col-lg-5 "><hr/></div>
                 </div>
-                <FormGroup className="text-center login_soft mt-2">
+                <FormGroup className="text-center login-soft mt-2">
                   <p><img className="logo pb-1"
                           src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
                           alt=" "/><a href="#" className="text-danger">Log in with Facebook</a></p>
                 </FormGroup>
-                <FormGroup className="text-center forgot_pass mt-2">
+                <FormGroup className="text-center forgot-pass mt-2">
                   <p className=""><a href="#" className="text-danger">Forgot password?</a></p>
                 </FormGroup>
               </div>
             </Form>
             <Form className="bg-white mt-3">
               <div className="border">
-                <FormGroup className="text-center register_acc mt-2">
+                <FormGroup className="text-center register-acc mt-2">
                   <p className="pt-2">Still don't have an account?<a href="#" className="pl-1 text-danger">Register</a></p>
                 </FormGroup>
               </div>
