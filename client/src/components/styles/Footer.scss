@@ -1,0 +1,17 @@
+@import 'variables';
+
+.footer {
+    flex: 0 0 auto;
+  }
+
+
+.page-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.footer-link {
+  display: flex;
+  list-style-type: none;
+}
+

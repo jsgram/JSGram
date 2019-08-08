@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Form, FormGroup, Input} from 'reactstrap';
-import '../assets/styles/Login.scss';
+import '../styles/Login.scss';
 import logo from '../assets/logo.png';
 
 
