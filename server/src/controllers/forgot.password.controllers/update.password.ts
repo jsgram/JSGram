@@ -11,6 +11,7 @@ export const updatePassword = async (req: Request,
         const {password} = req.body;
 
         const tokenExist = await Token.findOne({token});
+        console.log('TOKEN>', token);
         if (!tokenExist) {
             throw new Error(`Token doesn't exist`);
         }
