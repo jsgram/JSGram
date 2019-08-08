@@ -27,9 +27,7 @@ export const create = async (req: Request,
       throw new Error('Some field is empty');
     }
 
-    const saltRounds: number = 12;
-
-    const salt: string = bcrypt.genSaltSync(saltRounds);
+    const salt: string = bcrypt.genSaltSync(parseInt(process.env.BCRYPT_SALT_ROUNDS!));
     const hash: string = bcrypt.hashSync(password, salt);
     const emailExist = await User.countDocuments({email});
     if (emailExist) {
@@ -64,7 +62,7 @@ export const create = async (req: Request,
       },
     });
 
-    const url = `http://localhost:8080/confirm/${token.token}`;
+    const url = `${process.env.REACT_APP_BASE_API}/confirm/${token.token}`;
 
     const mailOptions = {
       from: process.env.EMAIL,
