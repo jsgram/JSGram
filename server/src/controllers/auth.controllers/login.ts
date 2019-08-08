@@ -13,7 +13,7 @@ export const login = (req: Request, res: Response, next: NextFunction) => {
       }
       req.logIn(user, function(error) {
         if (error) {
-          return next(error);
+          throw Error(error);
         }
         const token = encodeJWT(req.body.email, process.env.SECRET_KEY!);
         return res.json({token});
