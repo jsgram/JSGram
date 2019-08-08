@@ -3,7 +3,6 @@ import {
   REGISTER_SET_FULLNAME,
   REGISTER_SET_EMAIL,
   REGISTER_SET_PASSWORD,
-  REGISTER_USER,
   REGISTER_PENDING,
   REGISTER_SUCCESS,
   REGISTER_ERROR
@@ -53,18 +52,13 @@ export const registerReducer = (state = initialState, action: Action) => {
       };
     case REGISTER_SUCCESS:
       return {
-        ...state,
-        loading: false
+        ...initialState
       };
     case REGISTER_ERROR:
       return {
         ...state,
         error: action.payload,
         loading: false
-      };
-    case REGISTER_USER:
-      return {
-        ...initialState
       };
     default:
       return state;

@@ -3,7 +3,6 @@ import {
   REGISTER_SET_FULLNAME,
   REGISTER_SET_EMAIL,
   REGISTER_SET_PASSWORD,
-  REGISTER_USER,
   REGISTER_PENDING,
   REGISTER_SUCCESS,
   REGISTER_ERROR
@@ -48,7 +47,6 @@ export const registerUser = (user: object) => (dispatch: Function) => {
   dispatch(registerPending());
   API.post("/user", user)
     .then(response => {
-      dispatch({ type: REGISTER_USER });
       dispatch(registerSuccess());
       dispatch(showAlert(response.data.status, "success"));
     })
