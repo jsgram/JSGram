@@ -1,9 +1,11 @@
-import axios from 'axios';
+import API from '../api';
 import {store} from '../../App';
+import {
+  LOGIN_CHANGE_EMAIL_TEXT,
+  LOGIN_CHANGE_PASSWORD_TEXT
+} from './actionTypes';
 
-export const LOGIN_CHANGE_EMAIL_TEXT = 'LOGIN_CHANGE_EMAIL_TEXT';
-export const LOGIN_CHANGE_PASSWORD_TEXT = 'LOGIN_CHANGE_PASSWORD_TEXT';
-export const LOGIN_SEND_REQUEST = 'LOGIN_SEND_REQUEST';
+const TOKEN = 'TOKEN';
 
 export const setEmailText = (email: string) => ({
   type: LOGIN_CHANGE_EMAIL_TEXT,
@@ -17,14 +19,14 @@ export const setPasswordText = (password: string) => ({
 
 export const getApiData = () => {
   return (dispatch: Function) => {
-    const {email, password} = store.getState().login;
-    axios.post((process.env.REACT_APP_NOT_SECRET_CODE + '/auth/login'), {
+    const {login: {email, password}} = store.getState();
+    API.post(('/auth/login'), {
       email,
       password
     })
       .then((response) => response)
       .then(json => {
-        localStorage.setItem('TOKEN', json.data.token);
+        localStorage.setItem(TOKEN, json.data.token);
       })
       .catch(function(error) {
         console.log(error);
