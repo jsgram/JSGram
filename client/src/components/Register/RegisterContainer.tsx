@@ -59,13 +59,15 @@ const mapStateToProps = (state: FormState) => {
   };
 };
 
+const mapDispatchToProps = {
+  setUsername,
+  setFullname,
+  setEmail,
+  setPassword,
+  registerUser
+};
+
 export default connect(
   mapStateToProps,
-  {
-    setUsername,
-    setFullname,
-    setEmail,
-    setPassword,
-    registerUser
-  }
+  mapDispatchToProps
 )(RegisterContainer);

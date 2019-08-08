@@ -22,17 +22,12 @@ const AlertContainer: React.FunctionComponent<AlertProps> = ({
   message,
   color,
   clearAlert
-}) => {
-  return (
-    <div>
-      <Alert clearAlert={clearAlert} message={message} color={color} />
-    </div>
-  );
-};
+}) => <Alert clearAlert={clearAlert} message={message} color={color} />;
 
-const mapStateToProps = (state: AlertState) => {
-  return { message: state.alert.message, color: state.alert.color };
-};
+const mapStateToProps = (state: AlertState) => ({
+  message: state.alert.message,
+  color: state.alert.color
+});
 
 export default connect(
   mapStateToProps,

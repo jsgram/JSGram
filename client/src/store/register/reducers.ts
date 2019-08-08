@@ -1,3 +1,11 @@
+import {
+  REGISTER_SET_USERNAME,
+  REGISTER_SET_FULLNAME,
+  REGISTER_SET_EMAIL,
+  REGISTER_SET_PASSWORD,
+  REGISTER_USER
+} from "./actionTypes";
+
 const initialState = {
   username: "",
   fullname: "",
@@ -12,27 +20,27 @@ interface Action {
 
 export const registerReducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case "REGISTER_USERNAME":
+    case REGISTER_SET_USERNAME:
       return {
         ...state,
         username: action.payload
       };
-    case "REGISTER_FULLNAME":
+    case REGISTER_SET_FULLNAME:
       return {
         ...state,
         fullname: action.payload
       };
-    case "REGISTER_EMAIL":
+    case REGISTER_SET_EMAIL:
       return {
         ...state,
         email: action.payload
       };
-    case "REGISTER_PASSWORD":
+    case REGISTER_SET_PASSWORD:
       return {
         ...state,
         password: action.payload
       };
-    case "REGISTER_USER":
+    case REGISTER_USER:
       return {
         ...initialState
       };
