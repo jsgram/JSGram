@@ -4,6 +4,8 @@ import { Button, Form, FormGroup } from 'reactstrap';
 import { Link } from "react-router-dom";
 import * as Yup from 'yup';
 
+import API from '../../store/api';
+
 import './../assets/styles/ValidationStyle.scss';
 import logo from './../assets/img/logo.png';
 
@@ -12,6 +14,22 @@ interface FormProps {
 }
 
 export default class Forgot extends React.Component<FormProps> {
+  async submitHandler(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    /*
+    const messageSuccess: string = `Thanks! Please check ${this.state.status} for a link to reset your password. `;
+    const messageError: string = 'No users found';
+    // null is no alert, false is error alert, true is success alert
+    */
+
+    const el: HTMLFormElement = event.target as HTMLFormElement;
+    const payload: FormProps = { email: el.value[0] };
+    API.post('/forgot-password', payload)
+       .then(res => res) // TODO alert
+       .catch(e => { throw new Error(e) });
+  };
+
   render() {
     return (
       <Formik
@@ -21,9 +39,7 @@ export default class Forgot extends React.Component<FormProps> {
             .email('Please Enter an valid Email')
             .required('Email is required')
         })}
-        onSubmit={() => {
-          // TODO it will be implememted later
-        }}
+        onSubmit={() => {}}
       >
 
         {props => {
@@ -32,7 +48,7 @@ export default class Forgot extends React.Component<FormProps> {
             <div className="container-fluid header">
               <FormGroup className="row justify-content-center align-items-center">
                 <FormGroup className="col-sm-8 col-md-6 col-lg-6 col-xl-4">
-                  <Form className="mt-4 bg-white" onSubmit={handleSubmit}>
+                  <Form className="mt-4 bg-white" onSubmit={event => this.submitHandler(event)}>
                     <div className="border">
                       <FormGroup className="text-center">
                         <img className="picture" src={logo} alt="JSGram" />
