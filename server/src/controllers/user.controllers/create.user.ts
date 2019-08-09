@@ -4,6 +4,7 @@ import {Token, ITokenModel} from '../../models/token.model';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
+import validateInput from '../../helpers/validation';
 
 const createUser = async (user: IUserModel, next: NextFunction) => {
     try {
@@ -19,11 +20,7 @@ const createUser = async (user: IUserModel, next: NextFunction) => {
             isAdmin,
             isVerified,
             posts,
-        }: IUserModel = user;
-
-        if (!email || !fullName || !username || !password) {
-            throw new Error('Some field is empty');
-        }
+        }: IUserModel = user;       
 
         const saltRounds: number = 12;
 
@@ -99,6 +96,10 @@ export const create = async (req: Request,
                              next: NextFunction) => {
     try {
         const user = await createUser(req.body, next);
+        const {errors,isValid} = validateInput(req.body);
+		if(!isValid){
+            res.json(errors);          
+        }
         if (!user) {
             throw new Error('User wasn\'t created');
         }
