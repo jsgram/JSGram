@@ -31,4 +31,8 @@ authRouter.post('/register',
 );
 
 authRouter.post('/login', login);
+authRouter.post('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+);
 export {authRouter};
