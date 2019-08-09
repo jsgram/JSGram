@@ -31,9 +31,8 @@ passport.use(
       bcrypt.compare(password, user.password, function (error, result) {
         if (result) {
           return done(null, user);
-        } else {
-          return done(err, false, {message: 'Incorrect'});
         }
+        return done(err, false, {message: 'Incorrect'}); 
       });
     });
   }));
