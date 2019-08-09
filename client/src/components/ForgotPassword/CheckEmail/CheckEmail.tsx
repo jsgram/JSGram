@@ -12,18 +12,20 @@ class CheckEmail extends React.Component<FormProps> {
         this.props.setEmail(event.target.value);
     };
 
+    onCheckEmail = (event: React.FormEvent<HTMLFormElement>) => {
+        const email = {
+            email: this.props.email
+        };
+        this.props.checkEmail(email);
+        event.preventDefault();
+    };
+
     render() {
         return (
             <div>
                 <h1>Check E-mail</h1>
                 <form
-                    onSubmit={e => {
-                        e.preventDefault();
-                        const email = {
-                            email: this.props.email
-                        };
-                        this.props.checkEmail(email);
-                    }}
+                    onSubmit={this.onCheckEmail}
                 >
                     <div>
                         <label htmlFor="email">Email: </label>

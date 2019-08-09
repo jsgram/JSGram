@@ -27,7 +27,6 @@ export const checkPasswordError = (error: string) => ({
 export const checkEmail = (email: string) => async (dispatch: Function) => {
     try {
         dispatch(checkPasswordPending());
-        console.log('aaaaaa');
         const res = await API.post('/forgot-password', email);
         console.log(res);
         if(!res){
