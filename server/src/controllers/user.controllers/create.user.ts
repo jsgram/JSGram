@@ -5,9 +5,7 @@ import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 
-export const create = async (req: Request,
-                             res: Response,
-                             next: NextFunction) => {
+const createUser = async (user: IUserModel, next: NextFunction) => {
     try {
         const {
             email,
@@ -21,7 +19,7 @@ export const create = async (req: Request,
             isAdmin,
             isVerified,
             posts,
-        }: IUserModel = req.body;
+        }: IUserModel = user;
 
         if (!email || !fullName || !username || !password) {
             throw new Error('Some field is empty');
@@ -50,9 +48,21 @@ export const create = async (req: Request,
             isVerified,
             posts,
         });
+        if (!createdUser) {
+            throw new Error('User didn\'t create');
+        }
 
+        return createdUser;
+    } catch (e) {
+        next(e);
+    }
+};
+
+const sendEmail = async (user: IUserModel, next: NextFunction) => {
+    try {
+        const {_id, email, username} = user;
         const token: ITokenModel = await Token.create({
-            user: createdUser._id,
+            user: _id,
             token: crypto.randomBytes(16).toString('hex'),
         });
 
@@ -64,23 +74,37 @@ export const create = async (req: Request,
             },
         });
 
-        const url = `http://localhost:8080/confirm/${token.token}`;
+        const url = `${process.env.BACK_PATH!}/confirm/${token.token}`;
 
         const mailOptions = {
             from: process.env.EMAIL,
             to: email,
             subject: 'JSgram Account verification',
-            html: `<h1 style="color: red">Hello, ${fullName}, please verify your account by clicking the <a href="${url}">link</a></h1>`,
+            // tslint:disable-next-line:max-line-length
+            html: `<h1 style="color: lightcoral">Congratulation, ${username}, click the <a href="${url}">link</a> to verify your account</h1>`,
         };
 
-        transporter.sendMail(mailOptions, (err) => {
-            if (err) {
-                console.error(err);
-            }
-            res.json(
-                {status: `A verification email has been sent to ${email}`});
-        });
+        const successSend = await transporter.sendMail(mailOptions);
+        if (!successSend) {
+            throw new Error('Email wasn\'t sent');
+        }
+    } catch (e) {
+        next(e);
+    }
+};
 
+export const create = async (req: Request,
+                             res: Response,
+                             next: NextFunction) => {
+    try {
+        const user = await createUser(req.body, next);
+        if (!user) {
+            throw new Error('User wasn\'t created');
+        }
+
+        await sendEmail(user, next);
+        res.json(
+            {status: `A verification email has been sent to ${user.email}`});
     } catch (e) {
         next(e);
     }

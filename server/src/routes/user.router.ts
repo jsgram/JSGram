@@ -5,12 +5,10 @@ import {create} from '../controllers/user.controllers/create.user';
 import {update} from '../controllers/user.controllers/update.user.by.id';
 import {remove} from '../controllers/user.controllers/remove.user.by.id';
 
-const userRouter = Router();
+export const userRouter = Router();
 
 userRouter.get('/', findAll);
 userRouter.get('/:id', findById);
 userRouter.post('/', create);
 userRouter.put('/:id', update);
 userRouter.delete('/:id', remove);
-
-export {userRouter};
