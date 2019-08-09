@@ -9,6 +9,7 @@ export const confirm = async (req: Request,
         const tokenFromEmail: string = req.params.token;
 
         const token = await Token.findOne({token: tokenFromEmail});
+
         if (!token) {
             throw new Error(`Token doesn't exist`);
         }
@@ -18,7 +19,7 @@ export const confirm = async (req: Request,
             {isVerified: true},
             {new: true});
 
-        res.json({VerifiedUser, token});
+        res.redirect(`${process.env.FRONT_PATH}/${tokenFromEmail}`);
     } catch (e) {
         next(e);
     }
