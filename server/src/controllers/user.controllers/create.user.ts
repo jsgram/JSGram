@@ -74,7 +74,8 @@ const sendEmail = async (user: IUserModel, next: NextFunction) => {
             },
         });
 
-        const url = `${process.env.BACK_PATH!}/confirm/${token.token}`;
+        const newToken = token.token;
+        const url = `${process.env.BACK_PATH!}/confirm/${newToken}`;
 
         const mailOptions = {
             from: process.env.EMAIL,
