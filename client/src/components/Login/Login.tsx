@@ -35,8 +35,8 @@ export default class Login extends React.Component<FormProps> {
   render() {
     return (
       <div className="container-fluid header">
-        <FormGroup className="row justify-content-center align-items-center">
-          <FormGroup className="col-sm-8 col-md-6 col-xl-5">
+        <div className="row justify-content-center align-items-center">
+          <div className="col-sm-8 col-md-6 col-xl-5">
             <Form className="mt-4 bg-white">
               <div className="border">
                 <FormGroup className="col-lg-10 offset-lg-1 text-center">
@@ -80,8 +80,8 @@ export default class Login extends React.Component<FormProps> {
                 </FormGroup>
               </div>
             </Form>
-          </FormGroup>
-        </FormGroup>
+          </div>
+        </div>
       </div>
     );
   }
