@@ -19,12 +19,10 @@ export const store = createStore(
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <div>
         <AlertContainer />
         <RegisterContainer />
         <LoginContainer />
         <Footer/>
-      </div>
     </Provider>
   );
 };
