@@ -4,9 +4,7 @@ import nodemailer from 'nodemailer';
 import {ITokenModel, Token} from '../../models/token.model';
 import crypto from 'crypto';
 
-export const resend = async (req: Request,
-                             res: Response,
-                             next: NextFunction) => {
+export const resend = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         interface IEmail {
             email: string;
@@ -24,7 +22,7 @@ export const resend = async (req: Request,
             token: crypto.randomBytes(16).toString('hex'),
         });
 
-        const transport = nodemailer.createTransport({
+        const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
                 user: 'jsgramsoftserve@gmail.com',
@@ -41,13 +39,13 @@ export const resend = async (req: Request,
             html: `<h1 style="color: red">Hello, ${user.username} , please verify your account by clicking the <a href="${url}">link</a></h1>`,
         };
 
-        transport.sendMail(mailOptions, (err) => {
-            if (err) {
-                console.log(err);
-            }
-            res.json(
-                {text: `A verification email has been sent to ${email}`});
-        });
+        const successSend = await transporter.sendMail(mailOptions);
+        if (!successSend) {
+            throw new Error('Email wasn\'t sent');
+        }
+
+        res.json(
+            {text: `A verification email has been sent to ${email}`});
     } catch (e) {
         next(e);
     }

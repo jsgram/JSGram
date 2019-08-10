@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import {ITokenModel, Token} from '../../models/token.model';
 import nodemailer from 'nodemailer';
 
-const existEmail = async (bodyEmail: string, next: NextFunction) => {
+const existEmail = async (bodyEmail: string, next: NextFunction): Promise<IUserModel | void> => {
     try {
         if (!bodyEmail) {
             throw new Error('Email field is empty');
@@ -21,7 +21,7 @@ const existEmail = async (bodyEmail: string, next: NextFunction) => {
     }
 };
 
-const sendEmail = async (user: IUserModel, next: NextFunction) => {
+const sendEmail = async (user: IUserModel, next: NextFunction): Promise<void> => {
     try {
         const token: ITokenModel = await Token.create({
             user: user._id,
@@ -39,13 +39,12 @@ const sendEmail = async (user: IUserModel, next: NextFunction) => {
         const newToken = token.token;
         const url = `${process.env.BACK_PATH}/forgot-password/${newToken}`;
 
-        const {email, username} = user;
+        const {email, username}: IUserModel = user;
 
         const mailOptions = {
             from: process.env.EMAIL,
             to: email,
             subject: 'JSgram Account verification',
-            // tslint:disable-next-line:max-line-length
             html: `<h1 style="color: lightcoral">Dear, ${username}, please click the <a href="${url}">link</a> to change your password</h1>`,
         };
 
@@ -58,9 +57,7 @@ const sendEmail = async (user: IUserModel, next: NextFunction) => {
     }
 };
 
-export const checkEmail = async (req: Request,
-                                 res: Response,
-                                 next: NextFunction) => {
+export const checkEmail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const bodyEmail: string = req.body.email;
 
@@ -72,7 +69,6 @@ export const checkEmail = async (req: Request,
 
         await sendEmail(user, next);
         res.json(
-            // tslint:disable-next-line:max-line-length
             {status: `To change your password, please check your email: ${bodyEmail}`});
     } catch (e) {
         next(e);

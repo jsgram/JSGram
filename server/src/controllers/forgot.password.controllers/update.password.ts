@@ -1,14 +1,12 @@
 import {NextFunction, Request, Response} from 'express';
-import {Token} from '../../models/token.model';
-import {User} from '../../models/user.model';
+import {ITokenModel, Token} from '../../models/token.model';
+import {IUserModel, User} from '../../models/user.model';
 import bcrypt from 'bcrypt';
 
-export const updatePassword = async (req: Request,
-                                     res: Response,
-                                     next: NextFunction) => {
+export const updatePassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {token} = req.params;
-        const {password} = req.body;
+        const {token}: ITokenModel = req.params;
+        const {password}: IUserModel = req.body;
 
         const tokenExist = await Token.findOne({token});
         if (!tokenExist) {

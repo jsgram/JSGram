@@ -1,14 +1,14 @@
-import {Router} from 'express';
+import {Router, Request, Response} from 'express';
 import passport from 'passport';
 
 import {login} from '../controllers/auth.controllers/login';
 import {encodeJWT} from '../helpers/jwt.encoders';
 
-const authRouter = Router();
+export const authRouter = Router();
 
 authRouter.post('/register',
     passport.authenticate('register'),
-    (req, res) => {
+    (req: Request, res: Response) => {
         const token = encodeJWT(req.user.username, process.env.SECRET_KEY!);
 
         res.set('Set-Cookie', 'session=' + token);
@@ -31,5 +31,3 @@ authRouter.post('/register',
 );
 
 authRouter.post('/login', login);
-
-export {authRouter};

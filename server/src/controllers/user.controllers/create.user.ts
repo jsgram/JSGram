@@ -5,7 +5,7 @@ import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 
-const createUser = async (user: IUserModel, next: NextFunction) => {
+const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserModel | void> => {
     try {
         const {
             email,
@@ -58,9 +58,9 @@ const createUser = async (user: IUserModel, next: NextFunction) => {
     }
 };
 
-const sendEmail = async (user: IUserModel, next: NextFunction) => {
+const sendEmail = async (user: IUserModel, next: NextFunction): Promise<void> => {
     try {
-        const {_id, email, username} = user;
+        const {_id, email, username}: IUserModel = user;
         const token: ITokenModel = await Token.create({
             user: _id,
             token: crypto.randomBytes(16).toString('hex'),
@@ -81,7 +81,6 @@ const sendEmail = async (user: IUserModel, next: NextFunction) => {
             from: process.env.EMAIL,
             to: email,
             subject: 'JSgram Account verification',
-            // tslint:disable-next-line:max-line-length
             html: `<h1 style="color: lightcoral">Congratulation, ${username}, click the <a href="${url}">link</a> to verify your account</h1>`,
         };
 
@@ -94,9 +93,7 @@ const sendEmail = async (user: IUserModel, next: NextFunction) => {
     }
 };
 
-export const create = async (req: Request,
-                             res: Response,
-                             next: NextFunction) => {
+export const create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const user = await createUser(req.body, next);
         if (!user) {
