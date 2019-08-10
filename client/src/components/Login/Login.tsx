@@ -27,7 +27,7 @@ class Login extends React.Component<any> {
             component={this.renderField}
             label="password"
           />
-          <button disabled={submitting}>Submit</button>
+          <button disabled={submitting}>Log In</button>
           {submitting && <Spinner color="dark" />}
         </form>
       </div>

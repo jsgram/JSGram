@@ -39,7 +39,7 @@ class Register extends React.Component<any> {
             component={this.renderField}
             label="password"
           />
-          <button disabled={submitting}>Submit</button>
+          <button disabled={submitting}>Register</button>
           {submitting && <Spinner color="dark" />}
         </form>
       </div>

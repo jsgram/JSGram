@@ -21,7 +21,7 @@ class ChekEmail extends React.Component<any> {
             component={this.renderField}
             label="email"
           />
-          <button disabled={submitting}>Submit</button>
+          <button disabled={submitting}>Check</button>
           {submitting && <Spinner color="dark" />}
         </form>
       </div>
