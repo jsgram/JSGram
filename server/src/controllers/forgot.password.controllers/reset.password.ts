@@ -1,11 +1,9 @@
 import {NextFunction, Request, Response} from 'express';
-import {Token} from '../../models/token.model';
+import {ITokenModel, Token} from '../../models/token.model';
 
-export const resetPassword = async (req: Request,
-                                    res: Response,
-                                    next: NextFunction) => {
+export const resetPassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const tokenFromEmail: string = req.params.token;
+        const {token: tokenFromEmail}: ITokenModel = req.params;
 
         const token = await Token.findOne({token: tokenFromEmail});
         if (!token) {
