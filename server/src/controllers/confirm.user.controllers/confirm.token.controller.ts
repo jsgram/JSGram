@@ -1,14 +1,16 @@
 import {NextFunction, Request, Response} from 'express';
-import {Token} from '../../models/token.model';
 import {User} from '../../models/user.model';
+import {tokenExist} from '../../common.db.request/token.exist';
 
 export const confirm = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const tokenFromEmail: string = req.params.token;
-        const token = await Token.findOne({token: tokenFromEmail});
+        const tokenFromEmail = req.params.token;
+
+        const token = await tokenExist(tokenFromEmail, next);
         if (!token) {
             throw new Error(`Token doesn't exist`);
         }
+
         await User.findOneAndUpdate(
             {_id: token.user},
             {isVerified: true},

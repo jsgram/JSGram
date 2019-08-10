@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+mongoose.set('useNewUrlParserє', true);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 

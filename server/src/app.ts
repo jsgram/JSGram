@@ -1,7 +1,7 @@
-import {config} from 'dotenv';
 import express, {Application, Request, Response} from 'express';
-import cors from 'cors';
 import passport from 'passport';
+import {config} from 'dotenv';
+import cors from 'cors';
 
 import connect from './connect';
 import './helpers/passport.config';
@@ -40,5 +40,5 @@ app.use(errorHandler);
 
 app.listen(process.env.DEV_PORT, () => console.info('Listening...'));
 
-const DB_PATH = process.env.DB_PATH!; // FIXME type
+const DB_PATH = process.env.DB_PATH!;
 connect({DB_PATH});
