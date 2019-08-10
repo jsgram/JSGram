@@ -3,6 +3,7 @@ import {createStore, applyMiddleware} from "redux";
 import rootReducer from "./store/reducers";
 import {Provider} from "react-redux";
 import LoginContainer from "./components/Login/LoginContainer";
+import {Footer} from "./components/Footer/Footer";
 import RegisterContainer from "./components/Register/RegisterContainer";
 import {composeWithDevTools} from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
@@ -11,8 +12,8 @@ import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export const store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(thunkMiddleware))
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunkMiddleware))
 );
 
 const App: React.FC = () => {
@@ -22,6 +23,7 @@ const App: React.FC = () => {
                     <RegisterContainer/>
                     <LoginContainer/>
                     <ForgotPassword/>
+                    <Footer/>
         </Provider>
     );
 };
