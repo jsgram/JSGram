@@ -3,7 +3,7 @@ import {ITokenModel, Token} from '../../models/token.model';
 
 export const resetPassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {token: tokenFromEmail}: ITokenModel = req.params.token;
+        const {token: tokenFromEmail}: ITokenModel = req.params;
 
         const token = await Token.findOne({token: tokenFromEmail});
         if (!token) {

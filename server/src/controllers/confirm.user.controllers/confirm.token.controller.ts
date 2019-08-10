@@ -6,7 +6,6 @@ import {tokenExist} from '../../common.db.request/token.exist';
 export const confirm = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const {token: tokenFromEmail}: ITokenModel = req.params;
-        console.info(tokenFromEmail);
 
         const token = await tokenExist(tokenFromEmail, next);
         if (!token) {
