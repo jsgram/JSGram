@@ -40,41 +40,34 @@ export default class Login extends React.Component<FormProps> {
           <FormGroup className="col-sm-8 col-md-6 col-xl-5">
             <Form className="mt-4 bg-white">
               <div className="border">
-                <FormGroup className="text-center">
+                <FormGroup className="col-lg-10 offset-lg-1 text-center">
                   <img className="picture" src={logo} alt="logo"/>
-                </FormGroup>
-                <FormGroup className="col-lg-10 offset-lg-1">
                   <Input className="form-control form-control-lg"
                          placeholder="Email Address"
                          type="email"
                          value={this.props.email}
                          onChange={this.onEmailChange}
                   />
-                </FormGroup>
-                <FormGroup className="col-lg-10 offset-lg-1">
-                  <Input className="form-control form-control-lg"
+                  <Input className="form-control form-control-lg mt-3"
                          placeholder="Password"
                          type="password"
                          value={this.props.password}
                          onChange={this.onPasswordChange}
-                  />
-                </FormGroup>
-                <FormGroup className="col-lg-10 offset-lg-1">
-                  <Button color="danger"
+                         />
+                  <Button className="mt-3"
+                          color="danger"
                           onClick={this.onGetToken}
                           size="lg" block>Log In</Button>
                 </FormGroup>
                 <div className="d-flex justify-content-around line">
                   <div><span></span>OR<span></span></div>
                 </div>
-                <FormGroup className="text-center login-soft mt-2">
-                  <p><img className="logo pb-1"
-                          src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
-                          alt="Facebook logo"/><a href="#" className="text-danger">Log in with Facebook</a></p>
-                </FormGroup>
-                <FormGroup className="text-center forgot-pass mt-2">
-                  <p><a href="#" className="text-danger">Forgot password?</a></p>
-                </FormGroup>
+                <div className="text-center mt-2">
+                <p><img className="logo pb-1"
+                        src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
+                        alt="Facebook logo"/><a href="#" className="text-danger login-soft">Log in with Facebook</a></p>
+                <p><a href="#" className="text-danger forgot-pass">Forgot password?</a></p>
+                </div>
               </div>
             </Form>
             <Form className="bg-white mt-3">

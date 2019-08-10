@@ -1,3 +1,5 @@
+@import "variables";
+
 .header {
     flex: 1 0 auto;
 }
@@ -6,13 +8,9 @@
     width: 34px;
 }
 
-.login-soft a{
+.login-soft {
     font-weight: 700;
     font-size: 1rem;
-}
-
-.forgot-pass a{
-    text-decoration: none;
 }
 
 .register-acc a{
@@ -23,7 +21,7 @@
   display: inline-block;
   height: 1px;
   width: 150px;
-  background: #DCDCDC;
+  background: $color-grey;
   margin: 5px;
 }
 
