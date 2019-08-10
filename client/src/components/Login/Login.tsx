@@ -42,7 +42,7 @@ export default class Login extends React.Component<any> {
                   >
                     Log In
                   </Button>
-                  {submitting && <Spinner color="dark" />}
+                  {submitting && <Spinner className="mt-3" color="dark" />}
                 </FormGroup>
                 <div className="d-flex justify-content-around line">
                   <div>

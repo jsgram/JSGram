@@ -1,7 +1,13 @@
 import React from "react";
 import { Input } from "reactstrap";
 
-export const renderField = ({ input, type, className, placeholder }: any) => (
+export const renderField = ({
+  input,
+  type,
+  className,
+  placeholder,
+  meta
+}: any) => (
   <div>
     <Input
       className={className}
@@ -9,5 +15,8 @@ export const renderField = ({ input, type, className, placeholder }: any) => (
       {...input}
       type={type}
     />
+    {meta.error && meta.touched && (
+      <span className="text-danger">{meta.error}</span>
+    )}
   </div>
 );
