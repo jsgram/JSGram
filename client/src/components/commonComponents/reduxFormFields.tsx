@@ -1,9 +1,13 @@
 import React from "react";
+import { Input } from "reactstrap";
 
-export const renderField = ({ input, label, type }: any) => (
+export const renderField = ({ input, type, className, placeholder }: any) => (
   <div>
-    <label>{label}</label>
-
-    <input {...input} type={type} />
+    <Input
+      className={className}
+      placeholder={placeholder}
+      {...input}
+      type={type}
+    />
   </div>
 );

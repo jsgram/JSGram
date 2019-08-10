@@ -4,6 +4,17 @@ import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { loginUser } from "../../store/login/actions";
 
+const validate = (user: any) => {
+  const errors: any = {};
+  if (!user.email) {
+    errors.email = "Required!";
+  }
+  if (!user.password) {
+    errors.password = "Required!";
+  }
+  return errors;
+};
+
 class LoginContainer extends React.Component<any> {
   onSubmit = (user: any) => {
     return this.props.loginUser(user);
@@ -26,6 +37,7 @@ export default connect(
   { loginUser }
 )(
   reduxForm({
-    form: "loginForm"
+    form: "loginForm",
+    validate
   })(LoginContainer)
 );

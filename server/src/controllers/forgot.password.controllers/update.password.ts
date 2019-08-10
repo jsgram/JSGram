@@ -1,28 +1,22 @@
 import {NextFunction, Request, Response} from 'express';
-import {Token} from '../../models/token.model';
-import {User} from '../../models/user.model';
-import bcrypt from 'bcrypt';
+import {ITokenModel} from '../../models/token.model';
+import {IUserModel, User} from '../../models/user.model';
+import {tokenExist} from '../../common.db.request/token.exist';
+import {hashPassword} from '../../helpers/hash.password';
 
-export const updatePassword = async (req: Request,
-                                     res: Response,
-                                     next: NextFunction) => {
+export const updatePassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {token} = req.params;
-        const {password} = req.body;
+        const {token: tokenFromEmail}: ITokenModel = req.params;
+        const {password}: IUserModel = req.body;
 
-        const tokenExist = await Token.findOne({token});
-        if (!tokenExist) {
+        const token = await tokenExist(tokenFromEmail, next);
+        if (!token) {
             throw new Error(`Token doesn't exist`);
         }
 
-        const saltRounds: number = 12;
-
-        const salt: string = bcrypt.genSaltSync(saltRounds);
-        const hash: string = bcrypt.hashSync(password, salt);
-
         const userWithNewPassword = await User.findByIdAndUpdate(
-            {_id: tokenExist.user},
-            {password: hash},
+            {_id: token.user},
+            {password: hashPassword(password)},
             {new: true},
         );
 

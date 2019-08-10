@@ -1,5 +1,4 @@
 import {Schema, Document, Model, model} from 'mongoose';
-
 import {IPost} from './post.model';
 
 export interface IUserModel extends Document {
