@@ -3,35 +3,34 @@ import {Button, Form, FormGroup, Input} from 'reactstrap';
 import '../styles/Login.scss';
 import logo from '../assets/logo.png';
 
-
 interface FormProps {
-  email: string;
-  password: string;
-  setEmailText: Function;
-  setPasswordText: Function;
-  getApiData: Function;
+    email: string;
+    password: string;
+    setEmailText: Function;
+    setPasswordText: Function;
+    getApiData: Function;
 }
 
 export default class Login extends React.Component<FormProps> {
 
-  constructor(props: FormProps) {
-    super(props);
-    this.onEmailChange = this.onEmailChange.bind(this);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
-    this.onGetToken = this.onGetToken.bind(this);
-  }
+    constructor(props: FormProps) {
+        super(props);
+        this.onEmailChange = this.onEmailChange.bind(this);
+        this.onPasswordChange = this.onPasswordChange.bind(this);
+        this.onGetToken = this.onGetToken.bind(this);
+    }
 
-  onEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.props.setEmailText(event.target.value);
-  }
+    onEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
+        this.props.setEmailText(event.target.value);
+    }
 
-  onPasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.props.setPasswordText(event.target.value);
-  }
+    onPasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
+        this.props.setPasswordText(event.target.value);
+    }
 
-  onGetToken() {
-    this.props.getApiData();
-  }
+    onGetToken() {
+        this.props.getApiData();
+    }
 
   render() {
     return (
@@ -43,14 +42,18 @@ export default class Login extends React.Component<FormProps> {
                 <FormGroup className="col-lg-10 offset-lg-1 text-center">
                   <img className="picture" src={logo} alt="logo"/>
                   <Input className="form-control form-control-lg"
-                         placeholder="Email Address"
-                         type="email"
+                         type="text"
+                         name="login"
+                         autoComplete="off"
+                         placeholder="E-mail"
+                         spellCheck={false}
                          value={this.props.email}
                          onChange={this.onEmailChange}
                   />
                   <Input className="form-control form-control-lg mt-3"
-                         placeholder="Password"
                          type="password"
+                         name="password"
+                         placeholder="Password"
                          value={this.props.password}
                          onChange={this.onPasswordChange}
                          />
@@ -83,3 +86,5 @@ export default class Login extends React.Component<FormProps> {
     );
   }
 }
+
+
