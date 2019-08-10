@@ -22,7 +22,7 @@ export const sendEmail = async (user: IUserModel, message: any, next: NextFuncti
         });
 
         const newToken = token.token;
-        const url = `http://localhost:8080/confirm/${newToken}`;
+        const url = `${process.env.FRONT_PATH}/${newToken}`;
 
         const mailOptions = {
             from: 'jsgramsoftserve@gmail.com',

@@ -1,11 +1,11 @@
 import {NextFunction, Request, Response} from 'express';
-import {tokenExist} from '../../common.db.request/token.exist';
+import {ITokenModel, Token} from '../../models/token.model';
 
 export const resetPassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const tokenFromEmail: string = req.params.token;
+        const {token: tokenFromEmail}: ITokenModel = req.params.token;
 
-        const token = await tokenExist(tokenFromEmail, next);
+        const token = await Token.findOne({token: tokenFromEmail});
         if (!token) {
             throw new Error(`Token doesn't exist`);
         }

@@ -4,3 +4,5 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
     res.status(res.statusCode)
         .json({message: err.message});
 };
+
+export default 1;

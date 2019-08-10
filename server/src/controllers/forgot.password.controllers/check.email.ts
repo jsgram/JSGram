@@ -1,11 +1,12 @@
 import {Request, Response, NextFunction} from 'express';
+import {IUserModel} from '../../models/user.model';
 import {sendEmail} from '../../helpers/send.email';
 import {userExist} from '../../common.db.request/user.exist';
 import {forgotPasswordMessage} from '../../helpers/send.email.message';
 
 export const checkEmail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const email: string = req.body.email;
+        const {email}: IUserModel = req.body;
         if (!email) {
             throw new Error('Email field is empty');
         }
