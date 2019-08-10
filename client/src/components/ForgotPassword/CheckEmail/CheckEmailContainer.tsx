@@ -1,49 +1,28 @@
 import React from "react";
-import { connect } from "react-redux";
-import CheckEmail from './CheckEmail';
-import {
-    setEmail,
-    checkEmail
-} from "../../../store/checkEmail/action";
+import CheckEmail from "./CheckEmail";
+import { reduxForm } from "redux-form";
+import API from "../../../store/api";
+import { showAlert } from "../../../store/alert/actions";
 
-interface FormProps {
-    email: string;
-    setEmail: Function;
-    checkEmail: Function;
+class CheckEmailContainer extends React.Component<any> {
+  onSubmit = (email: any, dispatch: Function) => {
+    return API.post("/forgot-password", email)
+      .then(response => {
+        dispatch(showAlert(response.data.status, "success"));
+      })
+      .catch(err => console.log(err));
+  };
+
+  render() {
+    const { handleSubmit, submitting } = this.props;
+    return (
+      <CheckEmail
+        handleSubmit={handleSubmit}
+        onSubmit={this.onSubmit}
+        submitting={submitting}
+      />
+    );
+  }
 }
 
-interface CheckEmailState {
-    email: string;
-}
-
-interface FormState {
-    checkEmail: CheckEmailState;
-}
-
-class CheckEmailContainer extends React.Component<FormProps, FormState> {
-    render() {
-        return (
-            <CheckEmail
-                email={this.props.email}
-                setEmail={this.props.setEmail}
-                checkEmail={this.props.checkEmail}
-            />
-        );
-    }
-}
-
-const mapStateToProps = (state: FormState) => {
-    return {
-        email: state.checkEmail.email,
-    };
-};
-
-const mapDispatchToProps = {
-    setEmail,
-    checkEmail
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CheckEmailContainer);
+export default reduxForm({ form: "checkEmailForm" })(CheckEmailContainer);

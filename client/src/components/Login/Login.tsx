@@ -1,64 +1,38 @@
-import React from 'react';
+import React from "react";
+import { Field } from "redux-form";
+import { Spinner } from "reactstrap";
 
-interface FormProps {
-    email: string;
-    password: string;
-    setEmailText: Function;
-    setPasswordText: Function;
-    getApiData: Function;
+class Login extends React.Component<any> {
+  renderField = ({ input, label, type }: any) => (
+    <div>
+      <label>{label}</label>
+
+      <input {...input} type={type} />
+    </div>
+  );
+  render() {
+    const { handleSubmit, onSubmit, submitting } = this.props;
+    return (
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Field
+            name="email"
+            type="text"
+            component={this.renderField}
+            label="email"
+          />
+          <Field
+            name="password"
+            type="password"
+            component={this.renderField}
+            label="password"
+          />
+          <button disabled={submitting}>Submit</button>
+          {submitting && <Spinner color="dark" />}
+        </form>
+      </div>
+    );
+  }
 }
 
-export default class Login extends React.Component<FormProps> {
-
-    constructor(props: FormProps) {
-        super(props);
-        this.onEmailChange = this.onEmailChange.bind(this);
-        this.onPasswordChange = this.onPasswordChange.bind(this);
-        this.onGetToken = this.onGetToken.bind(this);
-    }
-
-    onEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
-        this.props.setEmailText(event.target.value);
-    }
-
-    onPasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
-        this.props.setPasswordText(event.target.value);
-    }
-
-    onGetToken() {
-        this.props.getApiData();
-    }
-
-    render() {
-        return (
-            <div>
-                <h3>Sign In</h3>
-                <form>
-                    <div>
-                        <input
-                            type="text"
-                            name="login"
-                            autoComplete="off"
-                            placeholder="E-mail"
-                            spellCheck={false}
-                            value={this.props.email}
-                            onChange={this.onEmailChange}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            value={this.props.password}
-                            onChange={this.onPasswordChange}
-                        />
-                    </div>
-                    <div>
-                        <p onClick={this.onGetToken}>Sign In</p>
-                    </div>
-                </form>
-            </div>
-        );
-    }
-}
+export default Login;

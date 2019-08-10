@@ -1,51 +1,31 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from "react";
 import Login from "./Login";
-import {setEmailText, setPasswordText, getApiData} from "../../store/login/actions";
+import { reduxForm } from "redux-form";
+import API from "../../store/api";
+import { showAlert } from "../../store/alert/actions";
 
-interface FormProps {
-    email: string;
-    password: string;
-    token: any;
-    setEmailText: Function;
-    setPasswordText: Function;
-    getApiData: Function;
+const TOKEN = "TOKEN";
+
+class LoginContainer extends React.Component<any> {
+  onSubmit = (user: any, dispatch: Function) => {
+    return API.post("/auth/login", user)
+      .then(response => {
+        localStorage.setItem(TOKEN, response.data.token);
+        dispatch(showAlert(response.data.status, "success"));
+      })
+      .catch(err => console.log(err));
+  };
+
+  render() {
+    const { handleSubmit, submitting } = this.props;
+    return (
+      <Login
+        handleSubmit={handleSubmit}
+        onSubmit={this.onSubmit}
+        submitting={submitting}
+      />
+    );
+  }
 }
 
-interface LoginState {
-    email: string;
-    password: string;
-    token: any;
-}
-
-
-interface FormState {
-    login: LoginState;
-}
-
-class LoginContainer extends React.Component<FormProps, FormState> {
-    render() {
-        return <Login email={this.props.email}
-                      password={this.props.password}
-                      setEmailText={this.props.setEmailText}
-                      setPasswordText={this.props.setPasswordText}
-                      getApiData={this.props.getApiData}
-        />;
-    }
-}
-
-const mapStateToProps = (state: FormState) => {
-    return {
-        email: state.login.email,
-        password: state.login.password,
-        token: state.login.token
-    };
-};
-
-const mapDispatchToProps = {
-    setEmailText,
-    setPasswordText,
-    getApiData
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
+export default reduxForm({ form: "loginForm" })(LoginContainer);

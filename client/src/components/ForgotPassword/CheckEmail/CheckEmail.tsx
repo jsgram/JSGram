@@ -1,49 +1,32 @@
 import React from "react";
+import { Field } from "redux-form";
+import { Spinner } from "reactstrap";
 
-interface FormProps {
-    email: string;
-    setEmail: Function;
-    checkEmail: Function;
+class ChekEmail extends React.Component<any> {
+  renderField = ({ input, label, type }: any) => (
+    <div>
+      <label>{label}</label>
+
+      <input {...input} type={type} />
+    </div>
+  );
+  render() {
+    const { handleSubmit, onSubmit, submitting } = this.props;
+    return (
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Field
+            name="email"
+            type="text"
+            component={this.renderField}
+            label="email"
+          />
+          <button disabled={submitting}>Submit</button>
+          {submitting && <Spinner color="dark" />}
+        </form>
+      </div>
+    );
+  }
 }
 
-class CheckEmail extends React.Component<FormProps> {
-
-    onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.props.setEmail(event.target.value);
-    };
-
-    onCheckEmail = (event: React.FormEvent<HTMLFormElement>) => {
-        const email = {
-            email: this.props.email
-        };
-        this.props.checkEmail(email);
-        event.preventDefault();
-    };
-
-    render() {
-        return (
-            <div>
-                <h1>Check E-mail</h1>
-                <form
-                    onSubmit={this.onCheckEmail}
-                >
-                    <div>
-                        <label htmlFor="email">Email: </label>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="E-mail"
-                            value={this.props.email}
-                            onChange={this.onEmailChange}
-                        />
-                    </div>
-                    <div>
-                        <button>Check Email</button>
-                    </div>
-                </form>
-            </div>
-        );
-    }
-}
-
-export default CheckEmail;
+export default ChekEmail;
