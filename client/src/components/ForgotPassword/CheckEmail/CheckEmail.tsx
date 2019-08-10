@@ -1,15 +1,9 @@
 import React from "react";
 import { Field } from "redux-form";
 import { Spinner } from "reactstrap";
+import { renderField } from "../../commonComponents/reduxFormFields";
 
 class ChekEmail extends React.Component<any> {
-  renderField = ({ input, label, type }: any) => (
-    <div>
-      <label>{label}</label>
-
-      <input {...input} type={type} />
-    </div>
-  );
   render() {
     const { handleSubmit, onSubmit, submitting } = this.props;
     return (
@@ -18,7 +12,7 @@ class ChekEmail extends React.Component<any> {
           <Field
             name="email"
             type="text"
-            component={this.renderField}
+            component={renderField}
             label="email"
           />
           <button disabled={submitting}>Check</button>

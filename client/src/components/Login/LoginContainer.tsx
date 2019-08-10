@@ -1,17 +1,12 @@
 import React from "react";
 import Login from "./Login";
 import { reduxForm } from "redux-form";
-import API from "../../store/api";
-
-const TOKEN = "TOKEN";
+import { connect } from "react-redux";
+import { loginUser } from "../../store/login/actions";
 
 class LoginContainer extends React.Component<any> {
   onSubmit = (user: any) => {
-    return API.post("/auth/login", user)
-      .then(response => {
-        localStorage.setItem(TOKEN, response.data.token);
-      })
-      .catch(err => console.log(err));
+    return this.props.loginUser(user);
   };
 
   render() {
@@ -26,4 +21,11 @@ class LoginContainer extends React.Component<any> {
   }
 }
 
-export default reduxForm({ form: "loginForm" })(LoginContainer);
+export default connect(
+  null,
+  { loginUser }
+)(
+  reduxForm({
+    form: "loginForm"
+  })(LoginContainer)
+);
