@@ -40,5 +40,5 @@ app.use(errorHandler);
 
 app.listen(process.env.DEV_PORT, () => console.info('Listening...'));
 
-const DB_PATH = process.env.DB_PATH!;
-connect({DB_PATH});
+const DB_PATH = process.env.DB_PATH;
+connect(`${DB_PATH}`);

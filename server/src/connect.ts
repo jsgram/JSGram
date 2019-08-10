@@ -4,11 +4,7 @@ mongoose.set('useNewUrlParserє', true);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 
-interface ITInput {
-    DB_PATH: string;
-}
-
-export default ({DB_PATH}: ITInput): void => {
+export default (DB_PATH: string): void => {
 
     const connect = async (): Promise<void> => {
         try {
