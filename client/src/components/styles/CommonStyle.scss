@@ -38,14 +38,10 @@
 }
 
 .main-phone {
-  background-image: url(../assets/main-phone.png);
-  height: 70%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
   position: absolute;
+  background: center / contain no-repeat url(../assets/main-phone.png);
+  height: 70%;
   left: 0;
   top: 70px;
-  bottom: 0;
   right: 0;
 }

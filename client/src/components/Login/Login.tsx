@@ -15,24 +15,17 @@ interface FormProps {
 
 export default class Login extends React.Component<FormProps> {
 
-  constructor(props: FormProps) {
-    super(props);
-    this.onEmailChange = this.onEmailChange.bind(this);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
-    this.onGetToken = this.onGetToken.bind(this);
-  }
-
-  onEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
+  onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.props.setEmailText(event.target.value);
-  }
+  };
 
-  onPasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
+  onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.props.setPasswordText(event.target.value);
-  }
+  };
 
-  onGetToken() {
+  onGetToken = () => {
     this.props.getApiData();
-  }
+  };
 
   render() {
     return (
