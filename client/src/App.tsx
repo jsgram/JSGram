@@ -23,6 +23,7 @@ const App: React.FC = () => {
       <RegisterContainer/>
       <LoginContainer/>
       <a href="http://localhost:8080/auth/facebook">Login with Facebook</a>
+      <a href="http://localhost:8080/auth/google">Sign In with Google</a>
       <ForgotPassword/>
       <Footer/>
     </Provider>

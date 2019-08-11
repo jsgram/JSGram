@@ -1,6 +1,7 @@
 import passport from 'passport';
 import {Strategy as LocalStrategy} from 'passport-local';
 import {Strategy as FacebookStrategy} from 'passport-facebook';
+import {OAuth2Strategy as GoogleStrategy} from 'passport-google-oauth';
 import bcrypt from 'bcrypt';
 import {config} from 'dotenv';
 
@@ -50,13 +51,22 @@ passport.use(new FacebookStrategy({
     callbackURL: process.env.FACEBOOK_CALLBACK_URL!,
     profileFields: ['id', 'displayName', 'email'],
   },
-  function(accessToken: any, refreshToken: any, profile: any, done: any) {
+  function (accessToken: any, refreshToken: any, profile: any, done: any) {
     console.log(profile._json);
     done(null, profile);
   },
 ));
 
-
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID!,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    callbackURL: process.env.GOOGLE_CALLBACK_URL!,
+  },
+  function(accessToken: any, refreshToken: any, profile: any, done: any) {
+    console.log(profile);
+    done(null, profile);
+  },
+));
 
 passport.serializeUser<any, any>((user: IUserModel, done: any) => { // FIXME types
   done(null, user.username);

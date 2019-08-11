@@ -17,6 +17,7 @@ import {unknownPageHandler} from './helpers/unknown.page.handler';
 import {errorHandler} from './helpers/error.handler';
 import {requestLoggerMiddleware} from './helpers/request.logger.middleware';
 import {facebookRouter} from "./routes/facebook.router";
+import {googleRouter} from "./routes/google.router";
 
 
 const app: Application = express();
@@ -36,6 +37,7 @@ app.use('/auth', authRouter);
 app.use('/confirm', confirmUserRouter);
 app.use('/forgot-password', forgotPassword);
 app.use(facebookRouter);
+app.use(googleRouter);
 
 app.use('*', unknownPageHandler);
 app.use(errorHandler);
