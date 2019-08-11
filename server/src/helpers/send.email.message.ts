@@ -1,12 +1,11 @@
 export const createUserMessage = (username: string, url: string): string => {
-    return `
+    // language=HTML
+  return `
       <table width = "100%" cellpadding = "8" cellspacing = "0" style = "font-family: Constantia;">
   <thead>
     <td style="vertical-align: top">
   <img
-    src="https://scontent.fiev9-1.fna.fbcdn.net/v/t1.0-9/67803471_649342798898692_1093386776778637312 +
-    _n.jpg?_nc_cat=110&_nc_oc=AQmy99m2Bn1Ft6Gmn8dfK_GXdp1SEdWxaPjStP0cQ0C0RITIFXczhHUfPZv9UT1qrWE&_nc +
-    _ht=scontent.fiev9-1.fna&oh=db72bf62323f628b2060a1c8dcc74900&oe=5DE02342"
+    src="https://is.gd/YJvPQR"
   alt="JSgram Logo"
   style="width: 200px;" />
   <img
@@ -29,7 +28,7 @@ export const createUserMessage = (username: string, url: string): string => {
   </tr>
   <tr>
   <td style="font-size: 20px; padding-top: 30px; font-weight: 700;">
-  <a href=${url}>link</a>
+  <a href=${url}>Click this link and complete your registration</a>
   </td>
   </tr>
   <tr>
