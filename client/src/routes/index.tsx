@@ -12,12 +12,12 @@ const routes = (
         <div className="container-fluid header">
             <div className="row justify-content-center align-items-center">
                 <div className="col-sm-8 col-md-6 col-xl-5">
-                    <Route exact path="/auth/register" component={RegisterContainer} />
+                    <Route exact path="/register" component={RegisterContainer} />
                 </div>
             </div>
         </div>
-        <Route exact path="/auth/login" component={LoginContainer} />
-        <Route exact path="/auth/password/reset" component={ForgotPassword} />
+        <Route exact path="/login" component={LoginContainer} />
+        <Route exact path="/password-reset" component={ForgotPassword} />
     </Router>
 )
 

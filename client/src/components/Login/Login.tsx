@@ -71,14 +71,14 @@ export default class Login extends React.Component<FormProps> {
                   <p><img className="logo pb-1"
                     src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
                     alt="Facebook logo" /><a href="#" className="text-danger login-soft">Log in with Facebook</a></p>
-                  <p className=""><Link to="/auth/password/reset" className="pl-1">Forgot password?</Link></p>
+                  <p className=""><Link to="/password-reset" className="pl-1">Forgot password?</Link></p>
                 </div>
               </div>
             </Form>
             <Form className="bg-white mt-3">
               <div className="border">
                 <FormGroup className="text-center register-acc mt-2">
-                  <p className="pt-2">Still don't have an account?<Link to="/auth/register" className="pl-1">Register</Link></p>
+                  <p className="pt-2">Still don't have an account?<Link to="/register" className="pl-1">Register</Link></p>
                 </FormGroup>
               </div>
             </Form>

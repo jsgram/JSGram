@@ -103,7 +103,7 @@ class Register extends React.Component<FormProps> {
         <Form className="bg-white mt-3">
           <div className="border">
             <FormGroup className="text-center register_acc mt-2">
-              <p className="pt-2">Have an account?<Link to="/auth/login" className="pl-1">Log in</Link></p>
+              <p className="pt-2">Have an account?<Link to="/login" className="pl-1">Log in</Link></p>
             </FormGroup>
           </div>
         </Form>
