@@ -1,5 +1,4 @@
 export const createUserMessage = (username: string, url: string): string => {
-    // language=HTML
   return `
       <table width = "100%" cellpadding = "8" cellspacing = "0" style = "font-family: Constantia;">
   <thead>
