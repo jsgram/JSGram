@@ -17,15 +17,16 @@ export const store = createStore(
 );
 
 const App: React.FC = () => {
-    return (
-        <Provider store={store}>
-                    <AlertContainer/>
-                    <RegisterContainer/>
-                    <LoginContainer/>
-                    <ForgotPassword/>
-                    <Footer/>
-        </Provider>
-    );
+  return (
+    <Provider store={store}>
+      <AlertContainer/>
+      <RegisterContainer/>
+      <LoginContainer/>
+      <a href="http://localhost:8080/auth/facebook">Login with Facebook</a>
+      <ForgotPassword/>
+      <Footer/>
+    </Provider>
+  );
 };
 
 export default App;
