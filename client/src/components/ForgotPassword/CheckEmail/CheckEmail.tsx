@@ -1,4 +1,9 @@
 import React from "react";
+import { Button, Form, FormGroup } from 'reactstrap';
+import { Link } from "react-router-dom";
+
+import './../../styles/CommonStyle.scss';
+import logo from './../../assets/logo.png';
 
 interface FormProps {
     email: string;
@@ -22,25 +27,37 @@ class CheckEmail extends React.Component<FormProps> {
 
     render() {
         return (
-            <div>
-                <h1>Check E-mail</h1>
-                <form
-                    onSubmit={this.onCheckEmail}
-                >
-                    <div>
-                        <label htmlFor="email">Email: </label>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="E-mail"
-                            value={this.props.email}
-                            onChange={this.onEmailChange}
-                        />
+            <div className="container-fluid header">
+                <div className="row justify-content-center align-items-center">
+                    <div className="col-sm-8 col-md-6 col-xl-5">
+                        <Form className="mt-4 bg-white" onSubmit={this.onCheckEmail}>
+                            <div className="border">
+                                <FormGroup className="col-lg-10 offset-lg-1 text-center">
+                                    <Link to="/"><img className="picture" src={logo} alt="logo" /></Link>
+                                    <input className="form-control form-control-lg mt-3"
+                                        type="text"
+                                        name="email"
+                                        autoComplete="off"
+                                        placeholder="E-mail"
+                                        spellCheck={false}
+                                        value={this.props.email}
+                                        onChange={this.onEmailChange}
+                                    />
+                                    <Button className="mt-3" color="danger" size="lg" block>Send</Button>
+                                </FormGroup>
+                                <div className="or-devider">
+                                    <span></span>OR<span></span>
+                                </div>
+                                <FormGroup className="text-center login_soft">
+                                    <p className="pt-2">
+                                        Still don't have an account?
+                                        <Link to="/auth/register" className="pl-1">Register</Link>
+                                    </p>
+                                </FormGroup>
+                            </div>
+                        </Form>
                     </div>
-                    <div>
-                        <button>Check Email</button>
-                    </div>
-                </form>
+                </div>
             </div>
         );
     }
