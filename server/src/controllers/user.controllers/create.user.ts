@@ -3,6 +3,8 @@ import {IUserModel, User} from '../../models/user.model';
 import {sendEmail} from '../../helpers/send.email';
 import {createUserMessage} from '../../helpers/send.email.message';
 import {hashPassword} from '../../helpers/hash.password';
+import validateInput from '../../helpers/validation';
+
 
 const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserModel | void> => {
     try {
@@ -20,10 +22,7 @@ const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserMo
             posts,
         }: IUserModel = user;
 
-        if (!email || !fullName || !username || !password) {
-            throw new Error('Some field is empty');
-        }
-
+       
         const emailExist = await User.countDocuments({email});
         if (emailExist) {
             throw new Error('The email address you have entered is ' +
@@ -51,6 +50,10 @@ const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserMo
 export const create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const user = await createUser(req.body, next);
+        const {errors,isValid} = validateInput(req.body);
+		if(!isValid){
+            res.json(errors);          
+        }
         if (!user) {
             throw new Error('User wasn\'t created');
         }
