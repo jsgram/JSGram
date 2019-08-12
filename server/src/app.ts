@@ -16,9 +16,7 @@ import {forgotPassword} from './routes/forgot.password';
 import {unknownPageHandler} from './helpers/unknown.page.handler';
 import {errorHandler} from './helpers/error.handler';
 import {requestLoggerMiddleware} from './helpers/request.logger.middleware';
-import {facebookRouter} from "./routes/facebook.router";
 import {googleRouter} from "./routes/google.router";
-
 
 const app: Application = express();
 
@@ -36,7 +34,6 @@ app.use('/user', userRouter);
 app.use('/auth', authRouter);
 app.use('/confirm', confirmUserRouter);
 app.use('/forgot-password', forgotPassword);
-app.use(facebookRouter);
 app.use(googleRouter);
 
 app.use('*', unknownPageHandler);
@@ -46,4 +43,3 @@ app.listen(process.env.DEV_PORT, () => console.info('Listening...'));
 
 const DB_PATH = process.env.DB_PATH;
 connect(`${DB_PATH}`);
-
