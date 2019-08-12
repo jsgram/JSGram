@@ -6,5 +6,5 @@ export const registerUser = (user: object) => (dispatch: Function) => {
     .then(response => {
       dispatch(showAlert(response.data.status, "success"));
     })
-    .catch(err => console.log(err.message));
+    .catch(err => console.log(err));
 };
