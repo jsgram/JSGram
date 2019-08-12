@@ -1,4 +1,9 @@
 import React from "react";
+import { Button, Form, FormGroup, Input } from 'reactstrap';
+import { Link } from "react-router-dom";
+
+import '../styles/CommonStyle.scss';
+import logo from '../assets/logo.png';
 
 interface FormProps {
   username: string;
@@ -29,62 +34,85 @@ class Register extends React.Component<FormProps> {
     this.props.setPassword(event.target.value);
   };
 
+  handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const user = {
+      username: this.props.username,
+      fullName: this.props.fullname,
+      email: this.props.email,
+      password: this.props.password
+    };
+    this.props.registerUser(user);
+  }
+
   render() {
     return (
       <div>
-        <h1>Register</h1>
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            const user = {
-              username: this.props.username,
-              fullName: this.props.fullname,
-              email: this.props.email,
-              password: this.props.password
-            };
-            this.props.registerUser(user);
-          }}
-        >
-          <div>
-            <label htmlFor="username">Username: </label>
-            <input
-              type="text"
-              name="username"
-              value={this.props.username}
-              onChange={this.onUsernameChange}
-            />
+        <Form className="mt-4 bg-white" onSubmit={() => this.handleSubmit}>
+          <div className="border">
+            <FormGroup className="col-lg-10 offset-lg-1 text-center">
+              <Link to="/"><img className="picture" src={logo} alt="logo" /></Link>
+              <p>Sign up to see photos from your friends.</p>
+              <p>
+                <img className="logo pb-1"
+                  src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
+                  alt="Facebook logo" /><a href="#" className="text-danger login-soft">Log in with Facebook</a>
+              </p>
+              <div className="or-devider">
+                <span></span>OR<span></span>
+              </div>
+              <Input className="form-control form-control-lg mt-3"
+                name="username"
+                type="text"
+                autoComplete="off"
+                placeholder="Username"
+                spellCheck={false}
+                value={this.props.username}
+                onChange={this.onUsernameChange}
+              />
+              <Input className="form-control form-control-lg mt-3"
+                name="fullname"
+                type="text"
+                autoComplete="off"
+                placeholder="Fullname"
+                spellCheck={false}
+                value={this.props.fullname}
+                onChange={this.onFullnameChange}
+              />
+              <Input className="form-control form-control-lg mt-3"
+                name="email"
+                type="text"
+                autoComplete="off"
+                placeholder="E-mail"
+                spellCheck={false}
+                value={this.props.email}
+                onChange={this.onEmailChange}
+              />
+              <Input className="form-control form-control-lg mt-3"
+                name="password"
+                type="text"
+                autoComplete="off"
+                placeholder="Password"
+                spellCheck={false}
+                value={this.props.password}
+                onChange={this.onPasswordChange}
+              />
+              <Button className="mt-3"
+                color="danger"
+                size="lg" block>Register</Button>
+            </FormGroup>
+            <div className="text-center col-lg-10 offset-lg-1">
+              <p>By signing up, you agree to share High Quelity photos of cats on a daily basis</p>
+            </div>
           </div>
-          <div>
-            <label htmlFor="fullname">Fullname: </label>
-            <input
-              type="text"
-              name="fullname"
-              value={this.props.fullname}
-              onChange={this.onFullnameChange}
-            />
+        </Form>
+        <Form className="bg-white mt-3">
+          <div className="border">
+            <FormGroup className="text-center register_acc mt-2">
+              <p className="pt-2">Have an account?<Link to="/login" className="pl-1">Log in</Link></p>
+            </FormGroup>
           </div>
-          <div>
-            <label htmlFor="email">Email: </label>
-            <input
-              type="email"
-              name="email"
-              value={this.props.email}
-              onChange={this.onEmailChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password: </label>
-            <input
-              type="password"
-              name="password"
-              value={this.props.password}
-              onChange={this.onPasswordChange}
-            />
-          </div>
-          <div>
-            <button>Register</button>
-          </div>
-        </form>
+        </Form>
       </div>
     );
   }
