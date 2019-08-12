@@ -10,6 +10,7 @@ import thunkMiddleware from "redux-thunk";
 import AlertContainer from "./components/Alert/AlertContainer";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'font-awesome/css/font-awesome.min.css';
 
 export const store = createStore(
   rootReducer,
