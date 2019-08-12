@@ -1,14 +1,16 @@
 @import "variables";
 
-.header {
-    flex: 1 0 auto;
+html {
+  height: 100%;
+
+}
+body {
+  min-height:100%;
+  position:relative;
+  padding-bottom: 70px;
 }
 
-.logo {
-    width: 34px;
-}
-
-.login-soft {
+.login-google {
     font-weight: 700;
     font-size: 1rem;
 }
@@ -31,9 +33,7 @@
     height: 1px;
     background: $color-grey;
     width: 34%;
-    margin: 5px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 5px 10px 0 10px;
   }
 }
 
@@ -45,3 +45,4 @@
   top: 70px;
   right: 0;
 }
+

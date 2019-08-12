@@ -8,6 +8,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 import AlertContainer from "./components/Alert/AlertContainer";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'font-awesome/css/font-awesome.min.css';
 
 export const store = createStore(
   rootReducer,

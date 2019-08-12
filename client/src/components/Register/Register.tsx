@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Form, FormGroup, Input } from 'reactstrap';
 import { Link } from "react-router-dom";
-
 import '../styles/CommonStyle.scss';
 import logo from '../assets/logo.png';
 
@@ -54,9 +53,8 @@ class Register extends React.Component<FormProps> {
               <Link to="/"><img className="picture" src={logo} alt="logo" /></Link>
               <p>Sign up to see photos from your friends.</p>
               <p>
-                <img className="logo pb-1"
-                  src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
-                  alt="Facebook logo" /><a href="#" className="text-danger login-soft">Log in with Facebook</a>
+                <i className="fa fa-google-plus" />
+                <a href="#" className="text-danger login-google pl-2">Log in with Google</a>
               </p>
               <div className="or-devider">
                 <span></span>OR<span></span>
@@ -109,7 +107,7 @@ class Register extends React.Component<FormProps> {
         <Form className="bg-white mt-3">
           <div className="border">
             <FormGroup className="text-center register_acc mt-2">
-              <p className="pt-2">Have an account?<Link to="/login" className="pl-1">Log in</Link></p>
+              <p className="pt-2">Have an account?<Link to="/login" className="text-danger pl-1">Log in</Link></p>
             </FormGroup>
           </div>
         </Form>
