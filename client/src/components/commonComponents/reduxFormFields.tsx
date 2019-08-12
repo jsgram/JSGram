@@ -8,15 +8,15 @@ export const renderField = ({
   placeholder,
   meta
 }: any) => (
-  <div>
-    <Input
-      className={className}
-      placeholder={placeholder}
-      {...input}
-      type={type}
-    />
-    {meta.error && meta.touched && (
-      <span className="text-danger">{meta.error}</span>
-    )}
-  </div>
-);
+    <div>
+      <Input
+        className={className}
+        placeholder={placeholder}
+        {...input}
+        type={type}
+      />
+      {meta.error && meta.touched && (
+        <span className="text-danger">{meta.error}</span>
+      )}
+    </div>
+  );

@@ -1,9 +1,10 @@
 import React from "react";
 import { Field } from "redux-form";
+import { Link } from "react-router-dom";
 import { Spinner } from "reactstrap";
 import { renderField } from "../commonComponents/reduxFormFields";
 import { Button, Form, FormGroup } from "reactstrap";
-import "../styles/Login.scss";
+import "../styles/CommonStyle.scss";
 import logo from "../assets/logo.png";
 
 export default class Login extends React.Component<any> {
@@ -16,14 +17,14 @@ export default class Login extends React.Component<any> {
             <Form className="mt-4 bg-white" onSubmit={handleSubmit(onSubmit)}>
               <div className="border">
                 <FormGroup className="col-lg-10 offset-lg-1 text-center">
-                  <img className="picture" src={logo} alt="logo" />
+                  <Link to="/">
+                    <img className="picture" src={logo} alt="logo" />
+                  </Link>{" "}
                   <Field
                     className="form-control form-control-lg"
                     type="text"
                     name="email"
-                    autoComplete="off"
                     placeholder="E-mail"
-                    spellCheck={false}
                     component={renderField}
                   />
                   <Field
@@ -45,10 +46,8 @@ export default class Login extends React.Component<any> {
                   {submitting && <Spinner className="mt-3" color="dark" />}
                 </FormGroup>
                 <div className="d-flex justify-content-around line">
-                  <div>
-                    <span />
-                    OR
-                    <span />
+                  <div className="or-devider">
+                    <span></span>OR<span></span>
                   </div>
                 </div>
                 <div className="text-center mt-2">
@@ -62,10 +61,10 @@ export default class Login extends React.Component<any> {
                       Log in with Facebook
                     </a>
                   </p>
-                  <p>
-                    <a href="#" className="text-danger forgot-pass">
+                  <p className="text-danger forgot-pass">
+                    <Link to="/password-reset" className="pl-1">
                       Forgot password?
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -75,9 +74,9 @@ export default class Login extends React.Component<any> {
                 <FormGroup className="text-center register-acc mt-2">
                   <p className="pt-2">
                     Still don't have an account?
-                    <a href="#" className="pl-1 text-danger">
+                    <Link to="/register" className="pl-1">
                       Register
-                    </a>
+                    </Link>
                   </p>
                 </FormGroup>
               </div>

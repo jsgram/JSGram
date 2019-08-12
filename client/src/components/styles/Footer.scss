@@ -1,10 +1,5 @@
 @import 'variables';
 
-.footer {
-    flex: 0 0 auto;
-  }
-
-
 .page-footer {
   display: flex;
   justify-content: center;
@@ -15,3 +10,9 @@
   list-style-type: none;
 }
 
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

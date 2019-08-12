@@ -1,41 +1,99 @@
 import React from "react";
 import { Field } from "redux-form";
-import { Spinner } from "reactstrap";
+import { Link } from "react-router-dom";
+import { Button, Form, FormGroup, Spinner } from "reactstrap";
 import { renderField } from "../commonComponents/reduxFormFields";
+import "../styles/CommonStyle.scss";
+import logo from "../assets/logo.png";
 
 class Register extends React.Component<any> {
   render() {
     const { handleSubmit, onSubmit, submitting } = this.props;
     return (
       <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Field
-            name="username"
-            type="text"
-            component={renderField}
-            label="username"
-          />
-          <Field
-            name="fullName"
-            type="text"
-            component={renderField}
-            label="fullname"
-          />
-          <Field
-            name="email"
-            type="text"
-            component={renderField}
-            label="email"
-          />
-          <Field
-            name="password"
-            type="password"
-            component={renderField}
-            label="password"
-          />
-          <button disabled={submitting}>Register</button>
-          {submitting && <Spinner color="dark" />}
-        </form>
+        <Form className="mt-4 bg-white" onSubmit={handleSubmit(onSubmit)}>
+          <div className="border">
+            <FormGroup className="col-lg-10 offset-lg-1 text-center">
+              <Link to="/">
+                <img className="picture" src={logo} alt="logo" />
+              </Link>
+              <p>Sign up to see photos from your friends!</p>
+              <p>
+                <img
+                  className="logo pb-1"
+                  src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
+                  alt="Facebook logo"
+                />
+                <a href="#" className="text-danger login-soft">
+                  Log in with Facebook
+                </a>
+              </p>
+              <div className="or-devider">
+                <span></span>OR<span></span>
+              </div>
+              <Field
+                name="username"
+                type="text"
+                component={renderField}
+                label="username"
+                placeholder="Username"
+                className="form-control form-control-lg mt-3"
+              />
+              <Field
+                name="fullName"
+                type="text"
+                component={renderField}
+                label="fullname"
+                placeholder="Fullname"
+                className="form-control form-control-lg mt-3"
+              />
+              <Field
+                name="email"
+                type="text"
+                component={renderField}
+                label="email"
+                placeholder="E-mail"
+                className="form-control form-control-lg mt-3"
+              />
+              <Field
+                name="password"
+                type="password"
+                component={renderField}
+                label="Password"
+                placeholder="Password"
+                className="form-control form-control-lg mt-3"
+              />
+              <Button
+                className="mt-3"
+                disabled={submitting}
+                color="danger"
+                size="lg"
+                block
+              >
+                Register
+              </Button>
+              {submitting && <Spinner className="mt-3" color="dark" />}
+            </FormGroup>
+            <div className="text-center col-lg-10 offset-lg-1">
+              <p>
+                By signing up, you agree to share high quality photos of cats on
+                a daily basis.
+              </p>
+            </div>
+          </div>
+        </Form>
+        <Form className="bg-white mt-3">
+          <div className="border">
+            <FormGroup className="text-center register_acc mt-2">
+              <p className="pt-2">
+                Have an account?
+                <Link to="/login" className="pl-1">
+                  Log in
+                </Link>
+              </p>
+            </FormGroup>
+          </div>
+        </Form>
       </div>
     );
   }

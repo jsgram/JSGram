@@ -2,9 +2,9 @@ import React from 'react';
 
 const ChangePassword: React.FC = () => {
     return (
-        <div>
-            CHANGE PASSWORD COMPONENT
-        </div>
+            // TODO it will be implememted later
+            //CHANGE PASSWORD COMPONENT
+            <div></div>
     )
 };
 
