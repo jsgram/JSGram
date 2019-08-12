@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Form, FormGroup, Input } from 'reactstrap';
 import { Link } from "react-router-dom";
-
 import '../styles/CommonStyle.scss';
 import logo from '../assets/logo.png';
 
@@ -69,8 +68,8 @@ export default class Login extends React.Component<FormProps> {
                 </div>
                 <div className="text-center mt-2">
                   <p><i className="fa fa-google-plus" />
-                    <a href="#" className="text-danger login-soft pl-2">Log in with Google</a></p>
-                  <p><a href="#" className="text-danger forgot-pass">Forgot password?</a></p>
+                    <a href="#" className="text-danger login-soft pl-2">Log in with Facebook</a></p>
+                  <p className=""><Link to="/password-reset" className="pl-1">Forgot password?</Link></p>
                 </div>
               </div>
             </Form>
