@@ -34,28 +34,29 @@ class Register extends React.Component<FormProps> {
     this.props.setPassword(event.target.value);
   };
 
+  handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const user = {
+      username: this.props.username,
+      fullName: this.props.fullname,
+      email: this.props.email,
+      password: this.props.password
+    };
+    this.props.registerUser(user);
+  }
+
   render() {
     return (
       <div>
-        <Form className="mt-4 bg-white" onSubmit={e => {
-          e.preventDefault();
-          const user = {
-            username: this.props.username,
-            fullName: this.props.fullname,
-            email: this.props.email,
-            password: this.props.password
-          };
-          this.props.registerUser(user);
-        }
-        }>
+        <Form className="mt-4 bg-white" onSubmit={() => this.handleSubmit}>
           <div className="border">
             <FormGroup className="col-lg-10 offset-lg-1 text-center">
               <Link to="/"><img className="picture" src={logo} alt="logo" /></Link>
               <p>Sign up to see photos from your friends.</p>
               <p>
                 <img className="logo pb-1"
-                    src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
-                    alt="Facebook logo" /><a href="#" className="text-danger login-soft">Log in with Facebook</a>
+                  src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
+                  alt="Facebook logo" /><a href="#" className="text-danger login-soft">Log in with Facebook</a>
               </p>
               <div className="or-devider">
                 <span></span>OR<span></span>

@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import {Main} from "../components/Main/MainContainer"
+import {Main} from "../components/Main/Landing"
 import LoginContainer from "../components/Login/LoginContainer";
 import RegisterContainer from "../components/Register/RegisterContainer";
 import ForgotPassword from "../components/ForgotPassword/ForgotPassword";
