@@ -1,6 +1,8 @@
 import React from 'react';
-import {Button, Form, FormGroup, Input} from 'reactstrap';
-import '../styles/Login.scss';
+import { Button, Form, FormGroup, Input } from 'reactstrap';
+import { Link } from "react-router-dom";
+
+import '../styles/CommonStyle.scss';
 import logo from '../assets/logo.png';
 
 interface FormProps {
@@ -40,15 +42,15 @@ export default class Login extends React.Component<FormProps> {
             <Form className="mt-4 bg-white">
               <div className="border">
                 <FormGroup className="col-lg-10 offset-lg-1 text-center">
-                  <img className="picture" src={logo} alt="logo"/>
+                  <Link to="/"><img className="picture" src={logo} alt="logo" /></Link>
                   <Input className="form-control form-control-lg"
-                         type="text"
-                         name="login"
-                         autoComplete="off"
-                         placeholder="E-mail"
-                         spellCheck={false}
-                         value={this.props.email}
-                         onChange={this.onEmailChange}
+                    type="text"
+                    name="login"
+                    autoComplete="off"
+                    placeholder="E-mail"
+                    spellCheck={false}
+                    value={this.props.email}
+                    onChange={this.onEmailChange}
                   />
                   <Input className="form-control form-control-lg mt-3"
                          type="password"
@@ -58,12 +60,12 @@ export default class Login extends React.Component<FormProps> {
                          onChange={this.onPasswordChange}
                   />
                   <Button className="mt-3"
-                          color="danger"
-                          onClick={this.onGetToken}
-                          size="lg" block>Log In</Button>
+                    color="danger"
+                    onClick={this.onGetToken}
+                    size="lg" block>Log In</Button>
                 </FormGroup>
-                <div className="d-flex justify-content-around line">
-                  <div><span></span>OR<span></span></div>
+                <div className="or-devider">
+                  <span></span>OR<span></span>
                 </div>
                 <div className="text-center mt-2">
                   <p><i className="fa fa-google-plus" />
@@ -75,8 +77,8 @@ export default class Login extends React.Component<FormProps> {
             <Form className="bg-white mt-3">
               <div className="border">
                 <FormGroup className="text-center register-acc mt-2">
-                  <p className="pt-2">Still don't have an account?<a href="#" className="pl-1 text-danger">Register</a>
-                  </p>
+                  <p className="pt-2">Still don't have an account?
+                    <Link to="/register" className="pl-1">Register</Link></p>
                 </FormGroup>
               </div>
             </Form>
@@ -86,5 +88,3 @@ export default class Login extends React.Component<FormProps> {
     );
   }
 }
-
-
