@@ -1,0 +1,47 @@
+@import "variables";
+
+.header {
+    flex: 1 0 auto;
+}
+
+.logo {
+    width: 34px;
+}
+
+.login-soft {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.pl-1, 
+.register-acc a {
+    font-weight: 700;
+    color: $color-red;
+    &:hover {
+      color: $color-red;
+    }
+}
+
+.or-devider {
+  color: $color-grey-black;
+  text-align: center;
+
+  span {
+    display: inline-block;
+    height: 1px;
+    background: $color-grey;
+    width: 34%;
+    margin: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.main-phone {
+  position: absolute;
+  background: center / contain no-repeat url(../assets/main-phone.png);
+  height: 70%;
+  left: 0;
+  top: 70px;
+  right: 0;
+}

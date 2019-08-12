@@ -1,14 +1,12 @@
 import React from "react";
-import {createStore, applyMiddleware} from "redux";
+import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./store/reducers";
-import {Provider} from "react-redux";
-import LoginContainer from "./components/Login/LoginContainer";
-import {Footer} from "./components/Footer/Footer";
-import RegisterContainer from "./components/Register/RegisterContainer";
-import {composeWithDevTools} from "redux-devtools-extension";
+import { Provider } from "react-redux";
+import routes from "./routes"
+import { Footer } from "./components/Footer/Footer";
+import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 import AlertContainer from "./components/Alert/AlertContainer";
-import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export const store = createStore(
@@ -19,13 +17,9 @@ export const store = createStore(
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <AlertContainer/>
-      <RegisterContainer/>
-      <LoginContainer/>
-      <a href="http://localhost:8080/auth/facebook">Login with Facebook</a>
-      <a href="http://localhost:8080/auth/google">Sign In with Google</a>
-      <ForgotPassword/>
-      <Footer/>
+      <AlertContainer />
+      {routes}
+      <Footer />
     </Provider>
   );
 };
