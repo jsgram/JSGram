@@ -11,10 +11,6 @@ const Alert: React.FunctionComponent<AlertProps> = ({
   clearAlert,
   message,
   color
-}) => (
-  <div>
-    {message && <UncontrolledAlert color={color}>{message}</UncontrolledAlert>}
-  </div>
-);
+}) => message ? <UncontrolledAlert color={color} onClick={() => { clearAlert() }}>{message}</UncontrolledAlert> : null
 
 export default Alert;
