@@ -10,7 +10,7 @@ class Register extends React.Component<any> {
   render() {
     const { handleSubmit, onSubmit, submitting } = this.props;
     return (
-      <div>
+      <div className="header">
         <Form className="mt-4 bg-white" onSubmit={handleSubmit(onSubmit)}>
           <div className="border">
             <FormGroup className="col-lg-10 offset-lg-1 text-center">
@@ -19,13 +19,9 @@ class Register extends React.Component<any> {
               </Link>
               <p>Sign up to see photos from your friends!</p>
               <p>
-                <img
-                  className="logo pb-1"
-                  src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
-                  alt="Facebook logo"
-                />
-                <a href="#" className="text-danger login-soft">
-                  Log in with Facebook
+                <i className="fa fa-google-plus" />
+                <a href="#" className="text-danger login-google pl-2">
+                  Log in with Google
                 </a>
               </p>
               <div className="or-devider">

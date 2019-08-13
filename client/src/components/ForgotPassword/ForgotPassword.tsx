@@ -5,7 +5,7 @@ import ChangePassword from "./ChangePassword/ChangePassword";
 
 const ForgotPassword: React.FC = () => {
     return (
-        <div>
+        <div className="wrapper">
             <CheckEmailContainer/>
             <ChangePassword/>
         </div>

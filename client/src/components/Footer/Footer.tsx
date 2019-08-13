@@ -9,7 +9,7 @@ const footerLink = [
 ];
 
 export const Footer: React.FC = (): ReactElement => (
-  <div className='page-footer footer'>
+  <div className='page-footer footer mt-3'>
     <ul className='footer-link'>
       {
         footerLink.map((footer: { id: number, href: string, label: string }) => (
