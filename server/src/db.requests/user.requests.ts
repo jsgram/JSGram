@@ -1,6 +1,6 @@
-import {NextFunction} from 'express';
-import {IUserModel, User} from '../models/user.model';
-import {hashPassword} from '../helpers/hash.password';
+import { NextFunction } from 'express';
+import { IUserModel, User } from '../models/user.model';
+import { hashPassword } from '../helpers/hash.password';
 
 export const userExist = async (email: string, next: NextFunction): Promise<IUserModel | void | null> => {
     try {
@@ -50,10 +50,14 @@ export const changePassword =
         }
     };
 
-export const checkUserByProp = async (prop: string): Promise<IUserModel> => {
-    const user = await User.findOne({email: prop});
-    if (!user) {
-        throw new Error('User does not exist');
+export const checkUserByProp = async (prop: string, done: any): Promise<IUserModel| undefined> => {
+    try {
+        const user = await User.findOne({email: prop});
+        if (!user) {
+            throw new Error('User does not exist');
+        }
+        return user;
+    } catch (e) {
+        done(null, false);
     }
-    return user;
 };

@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import {ITokenModel, Token} from '../../models/token.model';
 import {IUserModel} from '../../models/user.model';
-import {isTokenExist} from '../../db.requests/token.requests';
+import { deleteToken, isTokenExist } from '../../db.requests/token.requests';
 import {changePassword} from '../../db.requests/user.requests';
 
 export const updatePassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -19,7 +19,7 @@ export const updatePassword = async (req: Request, res: Response, next: NextFunc
             throw new Error('Password did not update');
         }
 
-        const removeToken = await Token.findByIdAndRemove(token.id);
+        const removeToken = await deleteToken(token.id, next);
         if (!removeToken) {
             throw new Error('Token does not remove');
         }
