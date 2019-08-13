@@ -61,7 +61,7 @@ export default class Login extends React.Component<FormProps> {
                   <span></span>OR<span></span>
                 </div>
                 <div className="text-center mt-2">
-                  <p><a href="http://localhost:8080/auth/google" className="text-danger login-soft">Log in with Google</a></p>
+                  <p><a href={process.env.REACT_APP_GOOGLE_AUTH_URL} className="text-danger login-soft">Log in with Google</a></p>
                   <p className=""><Link to="/password-reset" className="pl-1">Forgot password?</Link></p>
                 </div>
               </div>

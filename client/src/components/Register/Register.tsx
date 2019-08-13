@@ -54,7 +54,7 @@ class Register extends React.Component<FormProps> {
               <Link to="/"><img className="picture" src={logo} alt="logo" /></Link>
               <p>Sign up to see photos from your friends.</p>
               <p>
-                <a href="http://localhost:8080/auth/google" className="text-danger login-soft">Log in with Google</a>
+                <a href={process.env.REACT_APP_GOOGLE_AUTH_URL} className="text-danger login-soft">Log in with Google</a>
               </p>
               <div className="or-devider">
                 <span></span>OR<span></span>

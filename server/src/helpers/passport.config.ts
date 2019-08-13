@@ -5,13 +5,14 @@ import bcrypt from 'bcrypt';
 
 import {IUserModel, User} from '../models/user.model';
 import {createGoogleUser} from './google.auth';
+import {checkUserByProp} from '../common.db.request/user.checkEmail';
 
 passport.use(
   'register',
   new LocalStrategy(
     async (username: string, password: string, done: any): Promise<void> => {
       try {
-        const user = await User.findOne({username});
+        const user = await checkUserByProp(username);
         return done(null, user);
       } catch (e) {
         return done(e);
@@ -25,23 +26,23 @@ passport.use(
   new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
-  }, (username: string, password: string, done: any): void => {
-    User.findOne({email: username}, (err: Error, user: IUserModel) => {
-      if (err) {
-        return done(err);
-      }
+  }, async (email: string, password: string, done: any): Promise<void> => {
+
+    try {
+      const user = await checkUserByProp(email);
       if (!user) {
         return done(null, false);
       }
-
       bcrypt.compare(password, user.password, (error: Error, result: boolean) => {
         if (result) {
           return done(null, user);
         }
-        return done(err, false, {message: 'Incorrect'});
       });
-    });
-  }));
+    } catch (e) {
+      return done(e);
+    }
+  }),
+);
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID!,
@@ -49,21 +50,19 @@ passport.use(new GoogleStrategy({
     callbackURL: process.env.GOOGLE_CALLBACK_URL!,
   },
   async (accessToken: string, refreshToken: string, profile: any, done: any): Promise<void> => {
+    const {email, name}: { email: string, name: string } = profile._json;
     try {
-
-      const {email, name}: { email: string, name: string } = profile._json;
-      User.findOne({email}, (err: Error, user: IUserModel) => {
-        if (!user) {
-          const newUser = createGoogleUser(email, name);
-          return done(null, newUser);
-        }
-
-        return done(null, user);
-      });
+      const user = await checkUserByProp(email);
+      if (!user) {
+        const newUser = await createGoogleUser(email, name);
+        return done(null, newUser);
+      }
+      return done(null, user);
     } catch (e) {
       return done(e);
     }
-  }));
+  }),
+);
 
 passport.serializeUser<any, any>((user: IUserModel, done: any) => { // FIXME types
   done(null, user.username);
