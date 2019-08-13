@@ -1,5 +1,5 @@
-export const createUserMessage = (username: string, url: string): string => {
-  return `
+export const createUserMessage = (username: string, token: string): string => {
+    return `
       <table width = "100%" cellpadding = "8" cellspacing = "0" style = "font-family: Constantia;">
   <thead>
     <td style="vertical-align: top">
@@ -27,7 +27,7 @@ export const createUserMessage = (username: string, url: string): string => {
   </tr>
   <tr>
   <td style="font-size: 20px; padding-top: 30px; font-weight: 700;">
-  <a href=${url}>Click this link and complete your registration</a>
+  <a href=${process.env.BACK_PATH}/confirm/${token}>Click this link and complete your registration</a>
   </td>
   </tr>
   <tr>
@@ -48,14 +48,14 @@ export const createUserMessage = (username: string, url: string): string => {
   </table>`;
 };
 
-export const resendTokenMessage = (username: string, url: string): string => {
+export const resendTokenMessage = (username: string, token: string): string => {
     return `<h1 style="color: lightcoral">
 Hello, ${username} , please verify your account by clicking the
-<a href="${url}"> link</a></h1>`;
+<a href="${process.env.BACK_PATH}/confirm/${token}"> link</a></h1>`;
 };
 
-export const forgotPasswordMessage = (username: string, url: string): string => {
+export const forgotPasswordMessage = (username: string, token: string): string => {
     return `<h1 style="color: lightcoral">
 Dear, ${username}, please click the
-<a href="${url}">link</a> to change your password</h1>`;
+<a href="${process.env.BACK_PATH}/forgot-password/${token}">link</a> to change your password</h1>`;
 };
