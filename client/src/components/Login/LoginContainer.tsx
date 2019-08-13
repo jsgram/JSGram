@@ -1,51 +1,33 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from "react";
 import Login from "./Login";
-import {setEmailText, setPasswordText, getApiData} from "../../store/login/actions";
+import { reduxForm } from "redux-form";
+import { connect } from "react-redux";
+import { loginUser } from "../../store/login/actions";
+import validate from '../../utils/validation'
 
-interface FormProps {
-    email: string;
-    password: string;
-    token: any;
-    setEmailText: Function;
-    setPasswordText: Function;
-    getApiData: Function;
+class LoginContainer extends React.Component<any> {
+  onSubmit = (user: { email: string, password: string }) => {
+    return this.props.loginUser(user);
+  };
+
+  render() {
+    const { handleSubmit, submitting } = this.props;
+    return (
+      <Login
+        handleSubmit={handleSubmit}
+        onSubmit={this.onSubmit}
+        submitting={submitting}
+      />
+    );
+  }
 }
 
-interface LoginState {
-    email: string;
-    password: string;
-    token: any;
-}
-
-
-interface FormState {
-    login: LoginState;
-}
-
-class LoginContainer extends React.Component<FormProps, FormState> {
-    render() {
-        return <Login email={this.props.email}
-                      password={this.props.password}
-                      setEmailText={this.props.setEmailText}
-                      setPasswordText={this.props.setPasswordText}
-                      getApiData={this.props.getApiData}
-        />;
-    }
-}
-
-const mapStateToProps = (state: FormState) => {
-    return {
-        email: state.login.email,
-        password: state.login.password,
-        token: state.login.token
-    };
-};
-
-const mapDispatchToProps = {
-    setEmailText,
-    setPasswordText,
-    getApiData
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
+export default connect(
+  null,
+  { loginUser }
+)(
+  reduxForm({
+    form: "loginForm",
+    validate
+  })(LoginContainer)
+);

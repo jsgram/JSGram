@@ -1,14 +1,16 @@
 @import "variables";
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .header {
     flex: 1 0 auto;
 }
 
-.logo {
-    width: 34px;
-}
-
-.login-soft {
+.login-google {
     font-weight: 700;
     font-size: 1rem;
 }
@@ -31,16 +33,14 @@
     height: 1px;
     background: $color-grey;
     width: 34%;
-    margin: 5px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 5px 10px 0 10px;
   }
 }
 
 .main-phone {
   position: absolute;
   background: center / contain no-repeat url(../assets/main-phone.png);
-  height: 70%;
+  height: 600px;
   left: 0;
   top: 70px;
   right: 0;
