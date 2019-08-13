@@ -1,10 +1,13 @@
 {
-  "rulesDirectory": [],
+  "rulesDirectory": [
+    "node_modules/tslint-eslint-rules/dist/rules"
+  ],
   "defaultSeverity": "error",
   "extends": [
     "tslint:recommended"
   ],
-  "jsRules": {},
+  "jsRules": {
+  },
   "rules": {
     "object-literal-sort-keys": false,
     "ordered-imports": false,
@@ -45,6 +48,10 @@
     "no-console": [
       true,
       "log"
+    ],
+    "ter-indent": [
+      true,
+      4
     ]
   },
   "linterOptions": {

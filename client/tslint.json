@@ -45,6 +45,11 @@
     "no-console": [
       true,
       "log"
+    ],
+    "indent": [
+      true,
+      "spaces",
+      4
     ]
   },
   "linterOptions": {

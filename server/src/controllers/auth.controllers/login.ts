@@ -16,7 +16,7 @@ export const login = (req: Request, res: Response, next: NextFunction): void => 
                 if (error) {
                     return next(error);
                 }
-                const token = encodeJWT(req.body.email, process.env.SECRET_KEY!);
+                const token = encodeJWT(req.body.email, process.env.SECRET_KEY);
                 return res.json({token});
             });
         })(req, res, next);

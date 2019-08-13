@@ -5,6 +5,6 @@ export const authRouter = Router();
 
 authRouter.post('/login', login);
 authRouter.post('/logout', (req: Request, res: Response) => {
-  req.logout();
-  res.redirect('/');
+    req.logout();
+    res.redirect('/');
 });

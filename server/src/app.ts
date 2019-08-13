@@ -2,6 +2,7 @@ import express, {Application, Request, Response} from 'express';
 import passport from 'passport';
 import {config} from 'dotenv';
 import cors from 'cors';
+import path from 'path';
 
 import connect from './connect';
 import './helpers/passport.config';
@@ -15,6 +16,22 @@ import {forgotPassword} from './routes/forgot.password';
 import {unknownPageHandler} from './helpers/unknown.page.handler';
 import {errorHandler} from './helpers/error.handler';
 import {requestLoggerMiddleware} from './helpers/request.logger.middleware';
+
+// Credit: https://stackoverflow.com/a/53981706
+declare global {
+    namespace NodeJS {
+        interface ProcessEnv { // tslint:disable-line interface-name
+            DB_PATH: string;
+            DEV_PORT: number;
+            BACK_PASS: string;
+            FRONT_PASS: string;
+            STATIC_PATH: string;
+            SECRET_KEY: string;
+            EMAIL: string;
+            EMAIL_PASS: string;
+        }
+    }
+}
 
 config();
 
@@ -35,10 +52,14 @@ app.use('/auth', authRouter);
 app.use('/confirm', confirmUserRouter);
 app.use('/forgot-password', forgotPassword);
 
+// Symlinking client build to server directory appears to be a better solution
+// Unfortunately Win/Linux link incompatibility hurdles this option
+const STATIC_PATH: string = path.resolve(process.env.STATIC_PATH);
+app.use('/', express.static(STATIC_PATH));
+
 app.use('*', unknownPageHandler);
 app.use(errorHandler);
 
 app.listen(process.env.DEV_PORT, () => console.info('Listening...'));
 
-const DB_PATH = process.env.DB_PATH;
-connect(`${DB_PATH}`);
+connect(process.env.DB_PATH);
