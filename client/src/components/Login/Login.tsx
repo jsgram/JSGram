@@ -61,9 +61,7 @@ export default class Login extends React.Component<FormProps> {
                   <span></span>OR<span></span>
                 </div>
                 <div className="text-center mt-2">
-                  <p><img className="logo pb-1"
-                    src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
-                    alt="Facebook logo" /><a href="#" className="text-danger login-soft">Log in with Facebook</a></p>
+                  <p><a href={process.env.REACT_APP_GOOGLE_AUTH_URL} className="text-danger login-soft">Log in with Google</a></p>
                   <p className=""><Link to="/password-reset" className="pl-1">Forgot password?</Link></p>
                 </div>
               </div>
