@@ -1,28 +1,24 @@
 import {NextFunction, Request, Response} from 'express';
-import {ITokenModel, Token} from '../../models/token.model';
+import {ITokenModel} from '../../models/token.model';
 import {IUserModel, User} from '../../models/user.model';
-import {isTokenExist} from '../../db.requests/token.requsets';
-import {changePassword} from '../../db.requests/user.requests';
+import {tokenExist} from '../../common.db.request/token.exist';
+import {hashPassword} from '../../helpers/hash.password';
 
 export const updatePassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const {token: tokenFromEmail}: ITokenModel = req.params;
         const {password}: IUserModel = req.body;
 
-        const token = await isTokenExist(tokenFromEmail, next);
+        const token = await tokenExist(tokenFromEmail, next);
         if (!token) {
             throw new Error(`Token doesn't exist`);
         }
 
-        const userWithNewPassword = await changePassword(token.user, password, next);
-        if (!userWithNewPassword) {
-            throw new Error('Password did not update');
-        }
-
-        const removeToken = await Token.findByIdAndRemove(token.id);
-        if (!removeToken) {
-            throw new Error('Token does not remove');
-        }
+        const userWithNewPassword = await User.findByIdAndUpdate(
+            {_id: token.user},
+            {password: hashPassword(password)},
+            {new: true},
+        );
 
         res.json({userWithNewPassword});
     } catch (e) {

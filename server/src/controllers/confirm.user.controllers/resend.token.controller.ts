@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from 'express';
 import {IUserModel} from '../../models/user.model';
 import {sendEmail} from '../../helpers/send.email';
-import {userExist} from '../../db.requests/user.requests';
+import {userExist} from '../../common.db.request/user.exist';
 import {resendTokenMessage} from '../../helpers/send.email.message';
 
 export const resend = async (req: Request, res: Response, next: NextFunction): Promise<void> => {

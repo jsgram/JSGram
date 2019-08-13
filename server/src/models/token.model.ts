@@ -10,7 +10,7 @@ export interface ITokenModel extends Document {
 const TokenSchema: Schema = new Schema({
     user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
     token: {type: String, required: true},
-    createdAt: {type: Date, default: Date.now, expires: 3600, required: true},
+    createdAt: {type: Date, default: Date.now, expires: 43200, required: true},
 });
 
 export const Token: Model<ITokenModel> =
