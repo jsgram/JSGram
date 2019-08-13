@@ -1,53 +1,25 @@
 import {Request, Response, NextFunction} from 'express';
-import {User} from '../../models/user.model';
-import nodemailer from 'nodemailer';
-import {ITokenModel, Token} from '../../models/token.model';
-import crypto from 'crypto';
+import {IUserModel} from '../../models/user.model';
+import {sendEmail} from '../../helpers/send.email';
+import {userExist} from '../../common.db.request/user.exist';
+import {resendTokenMessage} from '../../helpers/send.email.message';
 
-export const resend = async (req: Request,
-                             res: Response,
-                             next: NextFunction) => {
+export const resend = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        interface IEmail {
-            email: string;
+        const {email}: IUserModel = req.body;
+        if (!email) {
+            throw new Error('Email field is empty');
         }
 
-        const {email}: IEmail = req.body;
-
-        const user = await User.findOne({email});
+        const user = await userExist(email, next);
         if (!user) {
             throw new Error(`Email doesn't exist`);
         }
 
-        const token: ITokenModel = await Token.create({
-            user: user._id,
-            token: crypto.randomBytes(16).toString('hex'),
-        });
+        await sendEmail(user, resendTokenMessage, next);
 
-        const transport = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'jsgramsoftserve@gmail.com',
-                pass: '[R3Jr<w2\'<2d7"[p',
-            },
-        });
-
-        const url = `http://localhost:8080/confirm/${token.token}`;
-
-        const mailOptions = {
-            from: 'jsgramsoftserve@gmail.com',
-            to: user.email,
-            subject: 'JSgram Account verification',
-            html: `<h1 style="color: red">Hello, ${user.username} , please verify your account by clicking the <a href="${url}">link</a></h1>`,
-        };
-
-        transport.sendMail(mailOptions, (err) => {
-            if (err) {
-                console.log(err);
-            }
-            res.json(
-                {text: `A verification email has been sent to ${email}`});
-        });
+        res.json(
+            {text: `A verification email has been sent to ${email}`});
     } catch (e) {
         next(e);
     }

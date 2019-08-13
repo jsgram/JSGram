@@ -1,13 +1,11 @@
 import {NextFunction, Request, Response} from 'express';
 import {IUserModel, User} from '../../models/user.model';
-import {Token, ITokenModel} from '../../models/token.model';
-import nodemailer from 'nodemailer';
-import crypto from 'crypto';
-import bcrypt from 'bcrypt';
+import {sendEmail} from '../../helpers/send.email';
+import {createUserMessage} from '../../helpers/send.email.message';
+import {hashPassword} from '../../helpers/hash.password';
+import validateInput, { IValidationError } from '../../helpers/validation';
 
-export const create = async (req: Request,
-                             res: Response,
-                             next: NextFunction) => {
+const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserModel | void> => {
     try {
         const {
             email,
@@ -21,27 +19,19 @@ export const create = async (req: Request,
             isAdmin,
             isVerified,
             posts,
-        }: IUserModel = req.body;
+        }: IUserModel = user;
 
-        if (!email || !fullName || !username || !password) {
-            throw new Error('Some field is empty');
-        }
-
-        const saltRounds: number = 12;
-
-        const salt: string = bcrypt.genSaltSync(saltRounds);
-        const hash: string = bcrypt.hashSync(password, salt);
         const emailExist = await User.countDocuments({email});
         if (emailExist) {
             throw new Error('The email address you have entered is ' +
                 'already associated with another account');
         }
 
-        const createdUser: IUserModel = await User.create({
+        return await User.create({
             email,
             fullName,
             username,
-            password: hash,
+            password: hashPassword(password),
             dateOfBirth,
             createdAt,
             photoPath,
@@ -50,37 +40,28 @@ export const create = async (req: Request,
             isVerified,
             posts,
         });
+    } catch (e) {
+        next(e);
+    }
+};
 
-        const token: ITokenModel = await Token.create({
-            user: createdUser._id,
-            token: crypto.randomBytes(16).toString('hex'),
-        });
+export const create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const {errors, isValid}: {errors: IValidationError, isValid: boolean} = validateInput(req.body);
+        if (!isValid) {
+            res.json(errors);
+            return;
+        }
+        const user = await createUser(req.body, next);
 
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.EMAIL,
-                pass: process.env.EMAIL_PASS,
-            },
-        });
+        if (!user) {
+            throw new Error('User wasn\'t created');
+        }
 
-        const url = `http://localhost:8080/confirm/${token.token}`;
+        await sendEmail(user, createUserMessage, next);
 
-        const mailOptions = {
-            from: process.env.EMAIL,
-            to: email,
-            subject: 'JSgram Account verification',
-            html: `<h1 style="color: red">Hello, ${fullName}, please verify your account by clicking the <a href="${url}">link</a></h1>`,
-        };
-
-        transporter.sendMail(mailOptions, (err) => {
-            if (err) {
-                console.error(err);
-            }
-            res.json(
-                {status: `A verification email has been sent to ${email}`});
-        });
-
+        res.json(
+            {status: `A verification email has been sent to ${user.email}`});
     } catch (e) {
         next(e);
     }

@@ -1,17 +1,23 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import Main from "../components/Main/MainContainer"
+import {Main} from "../components/Main/Landing"
 import LoginContainer from "../components/Login/LoginContainer";
 import RegisterContainer from "../components/Register/RegisterContainer";
-import Forgot from "../components/Forgot/Forgot";
+import ForgotPassword from "../components/ForgotPassword/ForgotPassword";
 
 const routes = (
     <Router>
         <Route exact path="/" component={Main} />
-        <Route exact path="/auth/register" component={RegisterContainer} />
-        <Route exact path="/auth/login" component={LoginContainer} />
-        <Route exact path="/auth/password/reset" component={Forgot} />
+        <div className="container-fluid header">
+            <div className="row justify-content-center align-items-center">
+                <div className="col-sm-8 col-md-6 col-xl-5">
+                    <Route exact path="/register" component={RegisterContainer} />
+                </div>
+            </div>
+        </div>
+        <Route exact path="/login" component={LoginContainer} />
+        <Route exact path="/password-reset" component={ForgotPassword} />
     </Router>
 )
 
