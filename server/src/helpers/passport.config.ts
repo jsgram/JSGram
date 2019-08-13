@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 
 import {IUserModel} from '../models/user.model';
 import {createGoogleUser} from './google.auth';
-import {checkUserByProp} from '../common.db.request/user.checkEmail';
+import {checkUserByProp} from '../db.requests/user.requests';
 import {
     GOOGLE_CALLBACK_URL,
     GOOGLE_CLIENT_ID,
@@ -17,7 +17,7 @@ passport.use(
     new LocalStrategy(
         async (username: string, password: string, done: any): Promise<void> => {
             try {
-                const user = await checkUserByProp(username);
+                const user = await checkUserByProp(username, done);
                 return done(null, user);
             } catch (e) {
                 return done(e);
@@ -34,7 +34,7 @@ passport.use(
     }, async (email: string, password: string, done: any): Promise<void> => {
 
         try {
-            const user = await checkUserByProp(email);
+            const user = await checkUserByProp(email, done);
             if (!user) {
                 return done(null, false);
             }
@@ -59,7 +59,7 @@ passport.use(new GoogleStrategy({
     async (accessToken: string, refreshToken: string, profile: any, done: any): Promise<void> => {
         const {email, name}: { email: string, name: string } = profile._json;
         try {
-            const user = await checkUserByProp(email);
+            const user = await checkUserByProp(email, done);
             if (!user) {
                 const newUser = await createGoogleUser(email, name);
                 return done(null, newUser);

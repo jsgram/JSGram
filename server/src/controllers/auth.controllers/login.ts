@@ -1,26 +1,36 @@
-import { NextFunction, Request, Response } from 'express';
+import {NextFunction, Request, Response} from 'express';
 import passport from 'passport';
-import { encodeJWT } from '../../helpers/jwt.encoders';
-import { IUserModel } from '../../models/user.model';
+import {encodeJWT} from '../../helpers/jwt.encoders';
+import {IUserModel} from '../../models/user.model';
+import {userExist} from '../../db.requests/user.requests';
 
-export const login = (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-): void => {
-    passport.authenticate('local', function(err: Error, user: IUserModel): any {
-        if (err) {
-            return next(err);
+export const login = async (req: Request, res: Response, next: NextFunction,
+): Promise<void> => {
+    try {
+        const checkUser = await userExist(req.body.email, next);
+        if (!checkUser) {
+            throw new Error('User does not exist');
         }
-        if (!user) {
-            return res.redirect('/auth/error');
+
+        if (!checkUser.isVerified) {
+            throw new Error('User is not verified');
         }
-        req.logIn(user, function(error: Error): any {
-            if (error) {
-                return next(error);
+
+        passport.authenticate('local', function(err: Error, user: IUserModel): any {
+            if (err) {
+                return next(err);
             }
-            const token = encodeJWT(req.body.email, process.env.SECRET_KEY);
-            return res.json({ token });
-        });
-    })(req, res, next);
+
+            req.logIn(user, function(error: Error): any {
+                if (error) {
+                    return next(error);
+                }
+
+                const token = encodeJWT(req.body.email, process.env.SECRET_KEY!);
+                return res.json({token});
+            });
+        })(req, res, next);
+    } catch (e) {
+        next(e);
+    }
 };
