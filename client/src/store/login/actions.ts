@@ -1,4 +1,5 @@
 import API from "../api";
+import { showAlert } from "../../store/alert/actions";
 const TOKEN = "TOKEN";
 
 export const loginUser = (user: object) => (dispatch: Function) => {
@@ -6,5 +7,5 @@ export const loginUser = (user: object) => (dispatch: Function) => {
     .then(response => {
       localStorage.setItem(TOKEN, response.data.token);
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err.message));
 };

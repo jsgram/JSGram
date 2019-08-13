@@ -87,7 +87,7 @@ class Register extends React.Component<any> {
             <FormGroup className="text-center register_acc mt-2">
               <p className="pt-2">
                 Have an account?
-                <Link to="/login" className="pl-1">
+                <Link to="/login" className="pl-1 text-danger">
                   Log in
                 </Link>
               </p>

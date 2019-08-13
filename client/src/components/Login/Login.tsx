@@ -19,7 +19,7 @@ export default class Login extends React.Component<any> {
                 <FormGroup className="col-lg-10 offset-lg-1 text-center">
                   <Link to="/">
                     <img className="picture" src={logo} alt="logo" />
-                  </Link>{" "}
+                  </Link>
                   <Field
                     className="form-control form-control-lg"
                     type="text"
@@ -45,13 +45,11 @@ export default class Login extends React.Component<any> {
                   </Button>
                   {submitting && <Spinner className="mt-3" color="dark" />}
                 </FormGroup>
-                <div className="d-flex justify-content-around line">
-                  <div className="or-devider">
-                    <span></span>OR<span></span>
-                  </div>
+                <div className="or-devider">
+                  <span></span>OR<span></span>
                 </div>
                 <div className="text-center mt-2">
-                  <p>
+                  <div>
                     <img
                       className="logo pb-1"
                       src="https://www.armstrongsgroup.com/wp-content/uploads/2017/03/facebook-logo-black-and-white-png.png"
@@ -60,9 +58,9 @@ export default class Login extends React.Component<any> {
                     <a href="#" className="text-danger login-soft">
                       Log in with Facebook
                     </a>
-                  </p>
+                  </div>
                   <p className="text-danger forgot-pass">
-                    <Link to="/password-reset" className="pl-1">
+                    <Link to="/password-reset" className="pl-1 text-danger">
                       Forgot password?
                     </Link>
                   </p>
@@ -74,7 +72,7 @@ export default class Login extends React.Component<any> {
                 <FormGroup className="text-center register-acc mt-2">
                   <p className="pt-2">
                     Still don't have an account?
-                    <Link to="/register" className="pl-1">
+                    <Link to="/register" className="pl-1 text-danger">
                       Register
                     </Link>
                   </p>

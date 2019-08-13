@@ -47,7 +47,7 @@ class CheckEmail extends React.Component<any> {
                 <FormGroup className="text-center login_soft">
                   <p className="pt-2">
                     Still don't have an account?
-                    <Link to="/register" className="pl-1">
+                    <Link to="/register" className="pl-1 text-danger">
                       Register
                     </Link>
                   </p>

@@ -51,7 +51,6 @@
     "@types/reactstrap": "^8.0.1",
     "@types/redux": "^3.6.0",
     "@types/redux-form": "^8.1.4",
-    "@types/yup": "^0.26.22",
     "custom-tslint-formatters": "^2.4.0",
     "tslint": "^5.18.0",
     "tslint-react": "^4.0.0"

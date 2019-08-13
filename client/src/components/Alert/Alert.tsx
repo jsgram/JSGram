@@ -11,10 +11,12 @@ const Alert: React.FunctionComponent<AlertProps> = ({
   clearAlert,
   message,
   color
-}) => (
+}) => {
+  return (
     <div>
-      {message && <UncontrolledAlert color={color}>{message}{setTimeout(() => { clearAlert() }, 5000)}</UncontrolledAlert>}
+      {message && <UncontrolledAlert color={color} onClick={() => { clearAlert() }}>{message}</UncontrolledAlert>}
     </div>
   );
+}
 
 export default Alert;
