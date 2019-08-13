@@ -50,12 +50,9 @@ export const changePassword =
         }
     };
 
-export const checkUserByProp = async (prop: string, done: any): Promise<IUserModel| undefined> => {
+export const checkUserByProp = async (prop: string, done: any): Promise<IUserModel| any> => {
     try {
         const user = await User.findOne({email: prop});
-        if (!user) {
-            throw new Error('User does not exist');
-        }
         return user;
     } catch (e) {
         done(null, false);
