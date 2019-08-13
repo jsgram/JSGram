@@ -3,7 +3,7 @@ import {IUserModel, User} from '../../models/user.model';
 import {sendEmail} from '../../helpers/send.email';
 import {createUserMessage} from '../../helpers/send.email.message';
 import {hashPassword} from '../../helpers/hash.password';
-import validateInput from '../../helpers/validation';
+import validateInput, { IValidationError } from '../../helpers/validation';
 
 const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserModel | void> => {
     try {
@@ -47,11 +47,13 @@ const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserMo
 
 export const create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const user = await createUser(req.body, next);
-        const {errors, isValid}: any = validateInput(req.body);
+        const {errors, isValid}: {errors: IValidationError, isValid: boolean} = validateInput(req.body);
         if (!isValid) {
             res.json(errors);
+            return;
         }
+        const user = await createUser(req.body, next);
+
         if (!user) {
             throw new Error('User wasn\'t created');
         }

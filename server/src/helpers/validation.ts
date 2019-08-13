@@ -2,11 +2,16 @@ import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 import {IUserModel} from '../models/user.model';
 
-export default function validateInput(data: IUserModel): object {
-  interface IError {
-    [propName: string]: string;
-  }
-  const errors: IError = {};
+export interface IValidationError {
+  username?: string;
+  fullName?: string;
+  email?: string;
+  password?: string;
+}
+
+export default function validateInput(data: IUserModel): {errors: IValidationError, isValid: boolean} {
+
+  const errors: IValidationError = {};
 
   if (Validator.isEmpty(data.username)) {
     errors.username = 'Username is required';
