@@ -4,7 +4,9 @@ import {ITokenModel, Token} from '../models/token.model';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 
-export const sendEmail = async (user: IUserModel, message: any, next: NextFunction): Promise<void> => {
+export const sendEmail = async (user: IUserModel,
+                                message: (username: string, url: string) => void,
+                                next: NextFunction): Promise<void> => {
     try {
         const {_id, email, username}: IUserModel = user;
 
@@ -22,9 +24,9 @@ export const sendEmail = async (user: IUserModel, message: any, next: NextFuncti
         });
 
         const newToken = token.token;
-        const url = `${process.env.FRONT_PATH}/${newToken}`;
+        const url = `${process.env.BACK_PATH}/confirm/${newToken}`;
 
-        const mailOptions = {
+        const mailOptions: { from: string, to: string, subject: string, html: any } = {
             from: 'jsgramsoftserve@gmail.com',
             to: email,
             subject: 'JSgram Account verification',

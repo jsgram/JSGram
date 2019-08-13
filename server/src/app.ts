@@ -31,7 +31,7 @@ app.use(requestLoggerMiddleware);
 app.get('/favicon.ico', (req: Request, res: Response) => res.status(204));
 app.use('/post', postRouter);
 app.use('/user', userRouter);
-app.use('/auth', authRouter);
+app.use('/login', authRouter);
 app.use('/confirm', confirmUserRouter);
 app.use('/forgot-password', forgotPassword);
 
