@@ -1,13 +1,9 @@
 @import "variables";
 
-html {
-  height: 100%;
-
-}
-body {
-  min-height:100%;
-  position:relative;
-  padding-bottom: 70px;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .header {
@@ -41,9 +37,7 @@ body {
     height: 1px;
     background: $color-grey;
     width: 34%;
-    margin: 5px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 5px 10px 0 10px;
   }
 }
 
