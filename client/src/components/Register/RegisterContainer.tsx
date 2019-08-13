@@ -1,40 +1,46 @@
-import React from "react";
-import Register from "./Register";
-import { reduxForm } from "redux-form";
-import { connect } from "react-redux";
-import { registerUser } from "../../store/register/actions";
-import validate from '../../utils/validation'
+import React, { ReactNode } from 'react';
+import Register from './Register';
+import { InjectedFormProps, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { registerUser } from '../../store/register/actions';
+import validate from '../../utils/validation';
+import { FormProps } from 'reactstrap';
 
-interface User {
-  username: string;
-  email: string;
-  fullName: string;
-  password: string;
+interface IUser extends InjectedFormProps {
+    username: string;
+    email: string;
+    fullName: string;
+    password: string;
 }
 
 class RegisterContainer extends React.Component<any> {
-  onSubmit = (user: User) => {
-    return this.props.registerUser(user);
-  };
+    constructor(props: any) {
+        super(props);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
 
-  render() {
-    const { handleSubmit, submitting } = this.props;
-    return (
-      <Register
-        handleSubmit={handleSubmit}
-        onSubmit={this.onSubmit}
-        submitting={submitting}
-      />
-    );
-  }
+    public onSubmit(user: IUser): IUser {
+        return this.props.registerUser(user);
+    }
+
+    public render(): ReactNode {
+        const {handleSubmit, submitting}: FormProps = this.props;
+        return (
+            <Register
+                handleSubmit={handleSubmit}
+                onSubmit={this.onSubmit}
+                submitting={submitting}
+            />
+        );
+    }
 }
 
 export default connect(
-  null,
-  { registerUser }
+    null,
+    {registerUser},
 )(
-  reduxForm({
-    form: "registerForm",
-    validate
-  })(RegisterContainer)
+    reduxForm({
+        form: 'registerForm',
+        validate,
+    })(RegisterContainer),
 );

@@ -1,13 +1,13 @@
-import React from "react";
-import { Input } from "reactstrap";
+import React, { ReactElement } from 'react';
+import { Input } from 'reactstrap';
 
 export const renderField = ({
   input,
   type,
   className,
   placeholder,
-  meta
-}: any) => (
+  meta,
+}: any): ReactElement => (
     <div>
       <Input
         className={className}
@@ -16,7 +16,7 @@ export const renderField = ({
         type={type}
       />
       {meta.error && meta.touched && (
-        <span className="text-danger">{meta.error}</span>
+        <span className='text-danger'>{meta.error}</span>
       )}
     </div>
   );

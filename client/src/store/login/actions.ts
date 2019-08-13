@@ -1,11 +1,11 @@
-import API from "../api";
-import { showAlert } from "../../store/alert/actions";
-const TOKEN = "TOKEN";
+import API from '../api';
+const TOKEN = 'TOKEN';
 
-export const loginUser = (user: object) => (dispatch: Function) => {
-  return API.post("/auth/login", user)
-    .then(response => {
-      localStorage.setItem(TOKEN, response.data.token);
-    })
-    .catch(err => console.log(err.message));
+export const loginUser = (user: object): () => Promise<void> => async (): Promise<void> => {
+    try {
+        const res = await API.post('/auth/login', user);
+        localStorage.setItem(TOKEN, res.data.token);
+    } catch (e) {
+        console.error(e.message);
+    }
 };

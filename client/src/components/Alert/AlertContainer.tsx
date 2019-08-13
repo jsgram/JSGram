@@ -1,35 +1,36 @@
-import React from "react";
-import { connect } from "react-redux";
-import { clearAlert } from "../../store/alert/actions";
-import Alert from "./Alert";
+import React, { ReactElement } from 'react';
+import { connect } from 'react-redux';
+import { clearAlert } from '../../store/alert/actions';
+import Alert from './Alert';
 
-interface AlertProps {
-  clearAlert: Function;
-  message: string;
-  color: string;
+interface IAlertProps {
+    clearAlert: () => void;
+    message: string;
+    color: string;
 }
 
-interface Alert {
-  message: string;
-  color: string;
+interface IAlert {
+    message: string;
+    color: string;
 }
 
-interface AlertState {
-  alert: Alert;
+interface IAlertState {
+    alert: IAlert;
 }
 
-const AlertContainer: React.FunctionComponent<AlertProps> = ({
+const AlertContainer: React.FunctionComponent<IAlertProps> = ({
   message,
   color,
-  clearAlert
-}) => <Alert clearAlert={clearAlert} message={message} color={color} />;
+                                                                  // tslint:disable-next-line:no-shadowed-variable
+  clearAlert,
+}: IAlertProps): ReactElement | null => <Alert clearAlert={clearAlert} message={message} color={color} />;
 
-const mapStateToProps = (state: AlertState) => ({
-  message: state.alert.message,
-  color: state.alert.color
+const mapStateToProps = (state: IAlertState): {message: string, color: string} => ({
+    message: state.alert.message,
+    color: state.alert.color,
 });
 
 export default connect(
   mapStateToProps,
-  { clearAlert }
+  { clearAlert },
 )(AlertContainer);

@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
+import CheckEmailContainer from './CheckEmail/CheckEmailContainer';
+import ChangePasswordContainer from './ChangePassword/ChangePasswordContainer';
 
-import CheckEmailContainer from "./CheckEmail/CheckEmailContainer";
-import ChangePassword from "./ChangePassword/ChangePassword";
-
-const ForgotPassword: React.FC = () => {
+const ForgotPassword: React.FC = (): ReactElement => {
     return (
-        <div className="wrapper">
+        <div className='wrapper'>
             <CheckEmailContainer/>
-            <ChangePassword/>
+            <ChangePasswordContainer/>
         </div>
-    )
+    );
 };
 
 export default ForgotPassword;

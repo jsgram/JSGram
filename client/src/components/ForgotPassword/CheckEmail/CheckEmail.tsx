@@ -1,12 +1,13 @@
 import React, { ReactNode } from 'react';
-import { Button, Form, FormGroup, FormProps, Spinner } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import logo from '../../assets/logo.png';
 import { Field } from 'redux-form';
+import { FormProps, Spinner } from 'reactstrap';
 import { renderField } from '../../commonComponents/reduxFormFields';
+import { Button, Form, FormGroup } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import '../../styles/style.scss';
+import logo from './../../assets/logo.png';
 
-class ChangePassword extends React.Component<any> {
+class CheckEmail extends React.Component<any> {
     public render(): ReactNode {
         const {handleSubmit, onSubmit, submitting}: FormProps = this.props;
         return (
@@ -20,12 +21,12 @@ class ChangePassword extends React.Component<any> {
                                         <img className='picture' src={logo} alt='logo'/>
                                     </Link>
                                     <Field
-                                        name='password'
-                                        type='password'
+                                        name='email'
+                                        type='text'
                                         component={renderField}
-                                        label='password'
+                                        label='email'
                                         className='form-control form-control-lg mt-3'
-                                        placeholder='Password'
+                                        placeholder='E-mail'
                                     />
                                     <Button
                                         className='mt-3'
@@ -60,4 +61,4 @@ class ChangePassword extends React.Component<any> {
     }
 }
 
-export default ChangePassword;
+export default CheckEmail;

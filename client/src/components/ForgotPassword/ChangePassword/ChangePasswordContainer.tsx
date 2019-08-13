@@ -1,29 +1,28 @@
 import React, { ReactNode } from 'react';
-import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { checkEmail } from '../../../store/checkEmail/actions';
+import ChangePassword from './ChangePassword';
+import { changePassword } from '../../../store/changePassword/actions';
+import { reduxForm } from 'redux-form';
 import validate from '../../../utils/validation';
-import './../../styles/style.scss';
-import CheckEmail from './CheckEmail';
 import { FormProps } from 'reactstrap';
 
-class CheckEmailContainer extends React.Component<any> {
+class ChangePasswordContainer extends React.Component<any> {
     constructor(props: any) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    public onSubmit(email: string): any {
-        return this.props.checkEmail(email);
+    public onSubmit(password: string): any {
+        return this.props.changePassword(password, window.location.pathname.slice(17));
     }
 
     public render(): ReactNode {
         const {handleSubmit, submitting}: FormProps = this.props;
         return (
-            <CheckEmail
+            <ChangePassword
                 handleSubmit={handleSubmit}
                 onSubmit={this.onSubmit}
-                submitting={submitting}
+                submittting={submitting}
             />
         );
     }
@@ -31,10 +30,10 @@ class CheckEmailContainer extends React.Component<any> {
 
 export default connect(
     null,
-    {checkEmail},
+    {changePassword},
 )(
     reduxForm({
-        form: 'checkEmailForm',
+        form: 'changePassword',
         validate,
-    })(CheckEmailContainer),
+    })(ChangePasswordContainer),
 );

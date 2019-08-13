@@ -16,128 +16,140 @@ const isLocalhost = Boolean(
     window.location.hostname === '[::1]' ||
     // 127.0.0.1/8 is considered localhost for IPv4.
     window.location.hostname.match(
-      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-    )
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/,
+    ),
 );
 
-type Config = {
-  onSuccess?: (registration: ServiceWorkerRegistration) => void;
-  onUpdate?: (registration: ServiceWorkerRegistration) => void;
-};
+// tslint:disable-next-line:interface-name
+interface Config {
+    onSuccess?: (registration: ServiceWorkerRegistration) => void;
+    onUpdate?: (registration: ServiceWorkerRegistration) => void;
+}
 
+// tslint:disable-next-line:typedef
 export function register(config?: Config) {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+    if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(
+        const publicUrl = new URL(
       (process as { env: { [key: string]: string } }).env.PUBLIC_URL,
-      window.location.href
+      window.location.href,
     );
-    if (publicUrl.origin !== window.location.origin) {
+        if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
       // serve assets; see https://github.com/facebook/create-react-app/issues/2374
-      return;
-    }
+            return;
+        }
 
-    window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+        window.addEventListener('load', () => {
+            const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
-      if (isLocalhost) {
+            if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl, config);
+                checkValidServiceWorker(swUrl, config);
 
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
-        navigator.serviceWorker.ready.then(() => {
-          console.log(
+                navigator.serviceWorker.ready.then(() => {
+                    console.info(
             'This web app is being served cache-first by a service ' +
-              'worker. To learn more, visit https://bit.ly/CRA-PWA'
+              'worker. To learn more, visit https://bit.ly/CRA-PWA',
           );
-        });
-      } else {
+                });
+            } else {
         // Is not localhost. Just register service worker
-        registerValidSW(swUrl, config);
-      }
-    });
-  }
+                registerValidSW(swUrl, config);
+            }
+        });
+    }
 }
 
+// tslint:disable-next-line:typedef
 function registerValidSW(swUrl: string, config?: Config) {
-  navigator.serviceWorker
+    navigator.serviceWorker
     .register(swUrl)
+    // tslint:disable-next-line:typedef
     .then(registration => {
-      registration.onupdatefound = () => {
-        const installingWorker = registration.installing;
-        if (installingWorker == null) {
-          return;
-        }
-        installingWorker.onstatechange = () => {
-          if (installingWorker.state === 'installed') {
-            if (navigator.serviceWorker.controller) {
+        // tslint:disable-next-line:typedef
+        registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+            if (installingWorker == null) {
+                return;
+            }
+            // tslint:disable-next-line:typedef
+            installingWorker.onstatechange = () => {
+                if (installingWorker.state === 'installed') {
+                    if (navigator.serviceWorker.controller) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
-              console.log(
+                        console.info(
                 'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
+                  'tabs for this page are closed. See https://bit.ly/CRA-PWA.',
               );
 
               // Execute callback
-              if (config && config.onUpdate) {
-                config.onUpdate(registration);
-              }
-            } else {
+                        if (config && config.onUpdate) {
+                            config.onUpdate(registration);
+                        }
+                    } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
-              console.log('Content is cached for offline use.');
+                        console.info('Content is cached for offline use.');
 
               // Execute callback
-              if (config && config.onSuccess) {
-                config.onSuccess(registration);
-              }
-            }
-          }
+                        if (config && config.onSuccess) {
+                            config.onSuccess(registration);
+                        }
+                    }
+                }
+            };
         };
-      };
     })
+    // tslint:disable-next-line:typedef
     .catch(error => {
-      console.error('Error during service worker registration:', error);
+        console.error('Error during service worker registration:', error);
     });
 }
 
+// tslint:disable-next-line:typedef
 function checkValidServiceWorker(swUrl: string, config?: Config) {
   // Check if the service worker can be found. If it can't reload the page.
-  fetch(swUrl)
+    fetch(swUrl)
+    // tslint:disable-next-line:typedef
     .then(response => {
       // Ensure service worker exists, and that we really are getting a JS file.
-      const contentType = response.headers.get('content-type');
-      if (
+        const contentType = response.headers.get('content-type');
+        if (
         response.status === 404 ||
         (contentType != null && contentType.indexOf('javascript') === -1)
       ) {
         // No service worker found. Probably a different app. Reload the page.
-        navigator.serviceWorker.ready.then(registration => {
-          registration.unregister().then(() => {
-            window.location.reload();
-          });
-        });
-      } else {
+            // tslint:disable-next-line:typedef
+            navigator.serviceWorker.ready.then(registration => {
+                registration.unregister().then(() => {
+                    window.location.reload();
+                });
+            });
+        } else {
         // Service worker found. Proceed as normal.
-        registerValidSW(swUrl, config);
-      }
+            registerValidSW(swUrl, config);
+        }
     })
     .catch(() => {
-      console.log(
-        'No internet connection found. App is running in offline mode.'
+        console.info(
+        'No internet connection found. App is running in offline mode.',
       );
     });
 }
 
+// tslint:disable-next-line:typedef
 export function unregister() {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(registration => {
-      registration.unregister();
-    });
-  }
+    if ('serviceWorker' in navigator) {
+        // tslint:disable-next-line:typedef
+        navigator.serviceWorker.ready.then(registration => {
+            registration.unregister();
+        });
+    }
 }
