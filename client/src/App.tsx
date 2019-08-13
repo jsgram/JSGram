@@ -8,7 +8,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 import AlertContainer from "./components/Alert/AlertContainer";
 import "bootstrap/dist/css/bootstrap.min.css";
-import './components/styles/CommonStyle.scss';
+import './components/styles/style.scss';
 import 'font-awesome/css/font-awesome.min.css';
 
 export const store = createStore(
@@ -20,9 +20,9 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <div className="wrapper">
-      <AlertContainer />
-      {routes}
-      <Footer />
+        <AlertContainer />
+        {routes}
+        <Footer />
       </div>
     </Provider>
   );

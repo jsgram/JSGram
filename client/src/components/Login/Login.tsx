@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Spinner } from "reactstrap";
 import { renderField } from "../commonComponents/reduxFormFields";
 import { Button, Form, FormGroup } from "reactstrap";
-import "../styles/CommonStyle.scss";
+import "../styles/style.scss";
 import logo from "../assets/logo.png";
 
 export default class Login extends React.Component<any> {
@@ -51,8 +51,8 @@ export default class Login extends React.Component<any> {
                 <div className="text-center mt-2">
                   <div>
                     <p><i className="fa fa-google-plus" />
-                    <a href="#" className="text-danger login_google pl-2">
-                      Log in with Google
+                      <a href="#" className="text-danger login_google pl-2">
+                        Log in with Google
                     </a>
                     </p>
                   </div>

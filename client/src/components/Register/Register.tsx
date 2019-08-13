@@ -3,7 +3,7 @@ import { Field } from "redux-form";
 import { Link } from "react-router-dom";
 import { Button, Form, FormGroup, Spinner } from "reactstrap";
 import { renderField } from "../commonComponents/reduxFormFields";
-import "../styles/CommonStyle.scss";
+import "../styles/style.scss";
 import logo from "../assets/logo.png";
 
 class Register extends React.Component<any> {
