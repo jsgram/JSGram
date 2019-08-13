@@ -49,18 +49,10 @@ export default class Login extends React.Component<any> {
                   <span></span>OR<span></span>
                 </div>
                 <div className="text-center mt-2">
-                  <div>
-                    <p><i className="fa fa-google-plus" />
-                      <a href="#" className="text-danger login_google pl-2">
-                        Log in with Google
-                    </a>
-                    </p>
-                  </div>
-                  <p className="text-danger forgot-pass">
-                    <Link to="/password-reset" className="pl-1 text-danger">
-                      Forgot password?
-                    </Link>
-                  </p>
+                  <p>
+                    <i className="fa fa-google-plus" />
+                    <a href={process.env.REACT_APP_GOOGLE_AUTH_URL} className="text-danger login_google pl-2">Log in with Google</a></p>
+                  <p className=""><Link to="/password-reset" className="pl-1">Forgot password?</Link></p>
                 </div>
               </div>
             </Form>

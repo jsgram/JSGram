@@ -1,6 +1,7 @@
 import express, {Application, Request, Response} from 'express';
 import passport from 'passport';
 import {config} from 'dotenv';
+config();
 import cors from 'cors';
 
 import connect from './connect';
@@ -15,8 +16,7 @@ import {forgotPassword} from './routes/forgot.password';
 import {unknownPageHandler} from './helpers/unknown.page.handler';
 import {errorHandler} from './helpers/error.handler';
 import {requestLoggerMiddleware} from './helpers/request.logger.middleware';
-
-config();
+import {googleRouter} from './routes/google.router';
 
 const app: Application = express();
 
@@ -34,6 +34,7 @@ app.use('/user', userRouter);
 app.use('/auth', authRouter);
 app.use('/confirm', confirmUserRouter);
 app.use('/forgot-password', forgotPassword);
+app.use(googleRouter);
 
 app.use('*', unknownPageHandler);
 app.use(errorHandler);
