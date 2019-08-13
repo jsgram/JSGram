@@ -44,7 +44,7 @@ class CheckEmail extends React.Component<any> {
                   OR
                   <span />
                 </div>
-                <FormGroup className="text-center login_soft">
+                <FormGroup className="text-center login_google">
                   <p className="pt-2">
                     Still don't have an account?
                     <Link to="/register" className="pl-1 text-danger">
