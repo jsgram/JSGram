@@ -1,7 +1,9 @@
 import {User} from '../models/user.model';
 import {hashPassword} from './hash.password';
 import {Document} from 'mongoose';
-import {IPost} from '../models/post.model';
+
+const RADIX = 36;
+const PASSWORD_LENGTH_FROM_END = -8;
 
 export interface IGoogleUser extends Document {
   email: string;
@@ -16,7 +18,7 @@ export const getUsername = (email: string): string => {
 };
 
 export const generatePassword = (): string => {
-  return Math.random().toString(36).slice(-8);
+  return Math.random().toString(RADIX).slice(PASSWORD_LENGTH_FROM_END);
 };
 
 export const createGoogleUser = (email: string, name: string): IGoogleUser => {

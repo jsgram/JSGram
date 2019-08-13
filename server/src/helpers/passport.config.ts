@@ -3,9 +3,14 @@ import {Strategy as LocalStrategy} from 'passport-local';
 import {OAuth2Strategy as GoogleStrategy} from 'passport-google-oauth';
 import bcrypt from 'bcrypt';
 
-import {IUserModel, User} from '../models/user.model';
+import {IUserModel} from '../models/user.model';
 import {createGoogleUser} from './google.auth';
 import {checkUserByProp} from '../common.db.request/user.checkEmail';
+import {
+  GOOGLE_CALLBACK_URL,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+} from '../common.constants/google.constants';
 
 passport.use(
   'register',
@@ -45,9 +50,9 @@ passport.use(
 );
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID!,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    callbackURL: process.env.GOOGLE_CALLBACK_URL!,
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: GOOGLE_CALLBACK_URL,
   },
   async (accessToken: string, refreshToken: string, profile: any, done: any): Promise<void> => {
     const {email, name}: { email: string, name: string } = profile._json;

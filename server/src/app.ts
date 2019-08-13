@@ -16,7 +16,7 @@ import {forgotPassword} from './routes/forgot.password';
 import {unknownPageHandler} from './helpers/unknown.page.handler';
 import {errorHandler} from './helpers/error.handler';
 import {requestLoggerMiddleware} from './helpers/request.logger.middleware';
-import {googleRouter} from "./routes/google.router";
+import {googleRouter} from './routes/google.router';
 
 const app: Application = express();
 
