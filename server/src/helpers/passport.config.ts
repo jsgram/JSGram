@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 
 import {IUserModel} from '../models/user.model';
 import {createGoogleUser} from './google.auth';
-import {checkUserByProp} from '../common.db.request/user.checkEmail';
+import {checkUserByProp} from '../db.requests/user.requests';
 import {
     GOOGLE_CALLBACK_URL,
     GOOGLE_CLIENT_ID,
