@@ -1,5 +1,7 @@
 {
-  "rulesDirectory": [],
+  "rulesDirectory": [
+    "node_modules/tslint-eslint-rules/dist/rules"
+  ],
   "defaultSeverity": "error",
   "extends": [
     "tslint:recommended"
@@ -45,6 +47,10 @@
     "no-console": [
       true,
       "log"
+    ],
+    "ter-indent": [
+      true,
+      4
     ]
   },
   "linterOptions": {

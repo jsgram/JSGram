@@ -1,8 +1,9 @@
+import './helpers/globals';
+
 import express, {Application, Request, Response} from 'express';
 import passport from 'passport';
-import {config} from 'dotenv';
-config();
 import cors from 'cors';
+import path from 'path';
 
 import connect from './connect';
 import './helpers/passport.config';
@@ -36,10 +37,14 @@ app.use('/confirm', confirmUserRouter);
 app.use('/forgot-password', forgotPassword);
 app.use(googleRouter);
 
+// Symlinking client build to server directory appears to be a better solution
+// Unfortunately Win/Linux link incompatibility hurdles this option
+const STATIC_PATH: string = path.join(__dirname, process.env.STATIC_PATH);
+app.use('/', express.static(STATIC_PATH));
+
 app.use('*', unknownPageHandler);
 app.use(errorHandler);
 
 app.listen(process.env.DEV_PORT, () => console.info('Listening...'));
 
-const DB_PATH = process.env.DB_PATH;
-connect(`${DB_PATH}`);
+connect(process.env.DB_PATH);
