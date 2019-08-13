@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Login from "./Login";
 import {setEmailText, setPasswordText, getApiData} from "../../store/login/actions";
+import {setToken} from "../../store/login/setToken.helper";
 
 interface FormProps {
     email: string;
@@ -10,6 +11,7 @@ interface FormProps {
     setEmailText: Function;
     setPasswordText: Function;
     getApiData: Function;
+    match: any;
 }
 
 interface LoginState {
@@ -24,7 +26,15 @@ interface FormState {
 }
 
 class LoginContainer extends React.Component<FormProps, FormState> {
-    render() {
+   componentDidMount(): void {
+    const TOKEN = this.props.match.params.token;
+    if (TOKEN) {
+      setToken(TOKEN);
+    }
+
+  }
+
+  render() {
         return <Login email={this.props.email}
                       password={this.props.password}
                       setEmailText={this.props.setEmailText}
@@ -45,7 +55,8 @@ const mapStateToProps = (state: FormState) => {
 const mapDispatchToProps = {
     setEmailText,
     setPasswordText,
-    getApiData
+    getApiData,
+    setToken
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

@@ -7,8 +7,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR
 } from './actionTypes';
-
-const TOKEN = 'TOKEN';
+import {setToken} from "./setToken.helper";
 
 export const setEmailText = (email: string) => ({
   type: LOGIN_CHANGE_EMAIL_TEXT,
@@ -44,7 +43,7 @@ export const getApiData = () => {
       .then((response) => response)
       .then(json => {
         dispatch(loginSuccess());
-        localStorage.setItem(TOKEN, json.data.token);
+        setToken(json.data.token);
       })
       .catch(function(error) {
         dispatch(loginError(error));
