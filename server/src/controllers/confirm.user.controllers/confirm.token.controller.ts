@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from 'express';
-import {ITokenModel, Token} from '../../models/token.model';
+import {ITokenModel} from '../../models/token.model';
 import { deleteToken, isTokenExist } from '../../db.requests/token.requests';
 import {verificateUser} from '../../db.requests/user.requests';
 
@@ -24,6 +24,6 @@ export const confirm = async (req: Request, res: Response, next: NextFunction): 
 
         res.redirect(`${process.env.FRONT_PATH}/login`);
     } catch (e) {
-        next(e);
+        next({message: 'User does not confirm', status: 409});
     }
 };

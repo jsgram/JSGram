@@ -26,6 +26,6 @@ export const updatePassword = async (req: Request, res: Response, next: NextFunc
 
         res.json({userWithNewPassword});
     } catch (e) {
-        next(e);
+        next({message: 'Password does not update', status: 409});
     }
 };

@@ -21,6 +21,6 @@ export const resend = async (req: Request, res: Response, next: NextFunction): P
         res.json(
             {text: `A verification email has been sent to ${email}`});
     } catch (e) {
-        next(e);
+        next({message: 'Verification E-mail does not send to user', status: 409});
     }
 };

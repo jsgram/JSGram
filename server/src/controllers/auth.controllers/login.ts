@@ -13,7 +13,7 @@ export const login = async (req: Request, res: Response, next: NextFunction,
         }
 
         if (!checkUser.isVerified) {
-            throw new Error('User is not verified');
+            throw new Error('User does not verified');
         }
 
         passport.authenticate('local', function(err: Error, user: IUserModel): any {
@@ -31,7 +31,6 @@ export const login = async (req: Request, res: Response, next: NextFunction,
             });
         })(req, res, next);
     } catch (e) {
-        // e.status = 406;
-        next(e);
+        next({message: 'You entered invalid email or password', status: 406});
     }
 };
