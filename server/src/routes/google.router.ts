@@ -20,7 +20,8 @@ googleRouter.get('/auth/google/callback',
             failureRedirect: `${process.env.FRONT_PATH}/auth/login`,
             session: false,
         }),
-    function(req: any, res: any): Response {
+    function(req: any, res: any): void {
         const token = encodeJWT(req.body.email, process.env.SECRET_KEY!);
-        return res.json({token});
+        res.redirect(`${process.env.FRONT_PATH}/login/${token}`);
+
     });
