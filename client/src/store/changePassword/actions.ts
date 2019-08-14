@@ -8,6 +8,6 @@ export const changePassword = (password: string, token: string): (dispatch: Disp
             const res = await API.put(`/forgot-password/${token}`, password);
             dispatch(showAlert(res.data.status, 'success'));
         } catch (e) {
-            console.error(e.message);
+            dispatch(showAlert(e.message, 'danger'));
         }
     };

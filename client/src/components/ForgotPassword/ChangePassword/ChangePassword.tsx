@@ -7,6 +7,7 @@ import { Button, Form, FormGroup, FormProps, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import { renderField } from '../../commonComponents/reduxFormFields';
+import { IUser } from '../../../store/commonInterfaces/commonInterfaces';
 
 class ChangePasswordContainer extends React.Component<any> {
     constructor(props: any) {
@@ -14,7 +15,7 @@ class ChangePasswordContainer extends React.Component<any> {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    public onSubmit(password: string): any {
+    public onSubmit(password: IUser): void {
         return this.props.changePassword(password, this.props.match.params.token);
     }
 

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Input } from 'reactstrap';
 
 export const renderField = ({
@@ -7,7 +7,7 @@ export const renderField = ({
   className,
   placeholder,
   meta,
-}: any): ReactElement => (
+}: any): JSX.Element => (
     <div>
       <Input
         className={className}

@@ -8,6 +8,7 @@ import { Button, Form, FormGroup, FormProps, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import { renderField } from '../../commonComponents/reduxFormFields';
+import { IUser } from '../../../store/commonInterfaces/commonInterfaces';
 
 class CheckEmail extends React.Component<any> {
     constructor(props: any) {
@@ -15,7 +16,7 @@ class CheckEmail extends React.Component<any> {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    public onSubmit(email: string): void {
+    public onSubmit(email: IUser): void {
         return this.props.checkEmail(email);
     }
 

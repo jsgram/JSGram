@@ -1,18 +1,12 @@
 import React from 'react';
-import { Field, InjectedFormProps } from 'redux-form';
+import { Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { FormProps, Spinner } from 'reactstrap';
 import { renderField } from '../commonComponents/reduxFormFields';
 import { Button, Form, FormGroup } from 'reactstrap';
 import '../styles/style.scss';
 import logo from '../assets/logo.png';
-
-interface IUser extends InjectedFormProps {
-    username: string;
-    email: string;
-    fullName: string;
-    password: string;
-}
+import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 
 interface IProps {
     handleSubmit: FormProps;
