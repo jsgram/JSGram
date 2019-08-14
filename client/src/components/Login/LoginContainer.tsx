@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Login from './Login';
 import { InjectedFormProps, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
@@ -23,7 +23,7 @@ class LoginContainer extends React.Component<any> {
         return this.props.loginUser(user);
     }
 
-    public render(): ReactNode {
+    public render(): JSX.Element {
         const {handleSubmit, submitting}: FormProps = this.props;
         return (
             <Login

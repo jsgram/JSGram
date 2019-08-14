@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Register from './Register';
 import { InjectedFormProps, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
@@ -23,7 +23,7 @@ class RegisterContainer extends React.Component<any> {
         return this.props.registerUser(user);
     }
 
-    public render(): ReactNode {
+    public render(): JSX.Element {
         const {handleSubmit, submitting}: FormProps = this.props;
         return (
             <Register

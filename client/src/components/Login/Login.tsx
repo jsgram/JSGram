@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { FormProps, Spinner } from 'reactstrap';
@@ -8,7 +8,7 @@ import '../styles/style.scss';
 import logo from '../assets/logo.png';
 
 export default class Login extends React.Component<any> {
-    public render(): ReactNode {
+    public render(): JSX.Element {
         const {handleSubmit, onSubmit, submitting}: FormProps = this.props;
         return (
             <div className='container-fluid header'>

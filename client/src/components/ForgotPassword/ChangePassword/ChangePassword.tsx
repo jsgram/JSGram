@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { changePassword } from '../../../store/changePassword/actions';
 import { Field, reduxForm } from 'redux-form';
@@ -18,7 +18,7 @@ class ChangePasswordContainer extends React.Component<any> {
         return this.props.changePassword(password, this.props.match.params.token);
     }
 
-    public render(): ReactNode {
+    public render(): JSX.Element {
         const {handleSubmit, submitting}: FormProps = this.props;
         return (
             <div className='container-fluid header'>

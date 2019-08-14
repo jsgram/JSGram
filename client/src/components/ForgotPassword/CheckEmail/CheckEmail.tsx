@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { checkEmail } from '../../../store/checkEmail/actions';
@@ -15,11 +15,11 @@ class CheckEmail extends React.Component<any> {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    public onSubmit(email: string): any {
+    public onSubmit(email: string): void {
         return this.props.checkEmail(email);
     }
 
-    public render(): ReactNode {
+    public render(): JSX.Element {
         const {handleSubmit, submitting}: FormProps = this.props;
         return (
             <div className='container-fluid header'>
