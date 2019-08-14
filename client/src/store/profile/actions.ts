@@ -1,4 +1,5 @@
 import { GET_USER_PENDING, GET_USER_SUCCESS, GET_USER_ERROR, END_LOADING } from './actionTypes';
+import { Dispatch } from 'redux';
 import axios from 'axios';
 
 const ANIMATION_TIMEOUT = 3000;
@@ -25,7 +26,7 @@ export const endLoading = (): {type: string} => ({
 // const jwt = 'jwtjwtjwtjwt';
 
 export const getUser = (): any => {
-    return (dispatch: any): void => {
+    return (dispatch: Dispatch): void => {
         dispatch(getUserPending());
 
         // TODO Remove hardcoded URL and change to real request URL

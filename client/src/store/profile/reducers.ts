@@ -4,16 +4,20 @@ import {
     GET_USER_ERROR,
     END_LOADING,
 } from './actionTypes';
+import {IUserData} from '../../components/Profile/Profile';
 
 interface IState {
-
-    user: any;
+    user: IUserData;
     loading: boolean;
     error: any;
 }
 
 const defaultState = {
-    user: {},
+    user: {
+        first_name: '',
+        last_name: '',
+        avatar: '',
+    },
     loading: false,
     error: '',
 };

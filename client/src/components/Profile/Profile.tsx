@@ -2,13 +2,15 @@ import React from 'react';
 import '../styles/style.scss';
 import { Instagram } from 'react-content-loader';
 
+export interface IUserData {
+    first_name: string;
+    last_name: string;
+    avatar: string;
+}
+
 interface IFormProps {
     getUser: () => void;
-    user: {
-        first_name: string;
-        last_name: string;
-        avatar: string;
-    };
+    user: IUserData;
     loading: boolean;
 }
 
@@ -17,7 +19,7 @@ export default class Profile extends React.Component<IFormProps> {
         this.props.getUser();
     }
 
-    public render(): any {
+    public render(): JSX.Element {
         const { user: { first_name, last_name, avatar }, loading }: any = this.props;
         if (loading) {
             return (<Instagram/>);
