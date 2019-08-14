@@ -6,8 +6,10 @@
 .footer-link {
   display: flex;
   list-style-type: none;
+  padding-left: 0;
 }
 
 .footer {
   flex: 0 0 auto;
+  flex-wrap: wrap;
 }

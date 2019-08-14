@@ -25,7 +25,7 @@ export default class Login extends React.Component<IProps, IUser> {
                             <div className='border'>
                                 <FormGroup className='col-lg-10 offset-lg-1 text-center'>
                                     <Link to='/'>
-                                        <img className='picture' src={logo} alt='logo'/>
+                                        <img className='picture img-fluid' src={logo} alt='logo'/>
                                     </Link>
                                     <Field
                                         className='form-control form-control-lg'
@@ -57,10 +57,12 @@ export default class Login extends React.Component<IProps, IUser> {
                                 </div>
                                 <div className='text-center mt-2'>
                                     <p>
-                                        <i className='fa fa-google-plus'/>
+                                        <i className='fa fa-google'/>
                                         <a href={process.env.REACT_APP_GOOGLE_AUTH_URL}
-                                           className='text-danger login_google pl-2'>Log in with Google</a></p>
-                                    <p className=''><Link to='/password-reset' className='pl-1'>Forgot password?</Link>
+                                           className='text-danger login-google pl-2'>Log in with Google</a></p>
+                                    <p>
+                                        <Link to='/password-reset' className='text-danger pl-1'>
+                                        Forgot password?</Link>
                                     </p>
                                 </div>
                             </div>

@@ -30,7 +30,7 @@ class CheckEmail extends React.Component<any> {
                             <div className='border'>
                                 <FormGroup className='col-lg-10 offset-lg-1 text-center'>
                                     <Link to='/'>
-                                        <img className='picture' src={logo} alt='logo'/>
+                                        <img className='picture img-fluid' src={logo} alt='logo'/>
                                     </Link>
                                     <Field
                                         name='email'
@@ -56,10 +56,10 @@ class CheckEmail extends React.Component<any> {
                                     OR
                                     <span/>
                                 </div>
-                                <FormGroup className='text-center login_soft'>
+                                <FormGroup className='text-center logo-google'>
                                     <p className='pt-2'>
                                         Still don't have an account?
-                                        <Link to='/register' className='pl-1'>
+                                        <Link to='/register' className='text-danger pl-1'>
                                             Register
                                         </Link>
                                     </p>
