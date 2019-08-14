@@ -10,6 +10,7 @@ export const loginUser = (user: object): (dispatch: Dispatch) =>
             const res = await API.post('/auth/login', user);
             localStorage.setItem(TOKEN, res.data.token);
         } catch (e) {
+            console.log(e);
             dispatch(showAlert(e.message, 'danger'));
         }
     };

@@ -4,6 +4,7 @@ export const unknownPageHandler = (req: Request, res: Response, next: NextFuncti
     try {
         throw Error('404, unknown page');
     } catch (e) {
+        e.status = 404;
         next(e);
     }
 };

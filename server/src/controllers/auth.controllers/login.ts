@@ -31,6 +31,7 @@ export const login = async (req: Request, res: Response, next: NextFunction,
             });
         })(req, res, next);
     } catch (e) {
+        // e.status = 406;
         next(e);
     }
 };
