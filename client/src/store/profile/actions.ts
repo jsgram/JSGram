@@ -27,6 +27,8 @@ export const endLoading = (): {type: string} => ({
 export const getUser = (): any => {
     return (dispatch: any): void => {
         dispatch(getUserPending());
+
+        // TODO Remove hardcoded URL and change to real request URL
         axios.get(('https://reqres.in/api/users/2'))
             .then((response: any) => {
                 dispatch(getUserSuccess(response.data.data));

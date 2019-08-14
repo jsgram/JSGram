@@ -3,7 +3,23 @@ import { connect } from 'react-redux';
 import Profile from './Profile';
 import { getUser } from '../../store/profile/actions';
 
-class ProfileContainer extends React.Component<any> {
+interface IStateToProps {
+    user: any;
+    loading: boolean;
+}
+
+interface IDispatchToProps {
+    getUser: () => void;
+}
+
+interface IState {
+    profile: {
+        user: any;
+        loading: boolean;
+    };
+}
+
+class ProfileContainer extends React.Component<IStateToProps & IDispatchToProps> {
     public render(): any {
         return (
             <div className='container'>
@@ -17,14 +33,15 @@ class ProfileContainer extends React.Component<any> {
     }
 }
 
-const mapStateToProps = (state: any): { user: any, loading: boolean } => {
+const mapStateToProps = (state: IState): { user: any, loading: boolean } => {
     return {
         user: state.profile.user,
         loading: state.profile.loading,
     };
 };
 
-export default connect(
-    mapStateToProps,
-    { getUser },
-)(ProfileContainer);
+const mapDispatchToProps = {
+    getUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);

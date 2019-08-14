@@ -1,14 +1,24 @@
 import React from 'react';
 import '../styles/style.scss';
-import {Instagram} from 'react-content-loader';
+import { Instagram } from 'react-content-loader';
 
-export default class Profile extends React.Component<any> {
+interface IFormProps {
+    getUser: () => void;
+    user: {
+        first_name: string;
+        last_name: string;
+        avatar: string;
+    };
+    loading: boolean;
+}
+
+export default class Profile extends React.Component<IFormProps> {
     public componentDidMount(): void {
         this.props.getUser();
     }
 
     public render(): any {
-        const {user: {first_name, last_name, avatar}, loading}: any = this.props;
+        const { user: { first_name, last_name, avatar }, loading }: any = this.props;
         if (loading) {
             return (<Instagram/>);
         }

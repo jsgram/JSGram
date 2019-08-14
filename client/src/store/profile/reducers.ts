@@ -5,13 +5,20 @@ import {
     END_LOADING,
 } from './actionTypes';
 
+interface IState {
+
+    user: any;
+    loading: boolean;
+    error: any;
+}
+
 const defaultState = {
     user: {},
     loading: false,
     error: '',
 };
 
-export const profileReducer = (state: any = defaultState, action: {type: string, payload: any}): void => {
+export const profileReducer = (state: IState = defaultState, action: {type: string, payload: any}): IState => {
     switch (action.type) {
     case GET_USER_PENDING:
         return {
