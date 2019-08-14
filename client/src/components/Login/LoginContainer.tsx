@@ -12,11 +12,11 @@ class LoginContainer extends React.Component<any> {
     return this.props.loginUser(user);
   };
 
+  // TODO Refactor after authorization
   componentDidMount(): void {
-      const TOKEN = this.props.match.params.token;
-      console.log(this.props);
-      if (TOKEN) {
-          setToken(TOKEN);
+      const {token}: {token: string} = this.props.match.params;
+      if (token) {
+          setToken(token);
       }
   }
 
