@@ -1,19 +1,30 @@
 import React, { ReactNode } from 'react';
+import { connect } from 'react-redux';
+import { changePassword } from '../../../store/changePassword/actions';
+import { Field, reduxForm } from 'redux-form';
+import validate from '../../../utils/validation';
 import { Button, Form, FormGroup, FormProps, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
-import { Field } from 'redux-form';
 import { renderField } from '../../commonComponents/reduxFormFields';
-import '../../styles/style.scss';
 
-class ChangePassword extends React.Component<any> {
+class ChangePasswordContainer extends React.Component<any> {
+    constructor(props: any) {
+        super(props);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    public onSubmit(password: string): any {
+        return this.props.changePassword(password, this.props.match.params.token);
+    }
+
     public render(): ReactNode {
-        const {handleSubmit, onSubmit, submitting}: FormProps = this.props;
+        const {handleSubmit, submitting}: FormProps = this.props;
         return (
             <div className='container-fluid header'>
                 <div className='row justify-content-center align-items-center'>
                     <div className='col-sm-8 col-md-6 col-xl-5'>
-                        <Form className='mt-4 bg-white' onSubmit={handleSubmit(onSubmit)}>
+                        <Form className='mt-4 bg-white' onSubmit={handleSubmit(this.onSubmit)}>
                             <div className='border'>
                                 <FormGroup className='col-lg-10 offset-lg-1 text-center'>
                                     <Link to='/'>
@@ -60,4 +71,12 @@ class ChangePassword extends React.Component<any> {
     }
 }
 
-export default ChangePassword;
+export default connect(
+    null,
+    {changePassword},
+)(
+    reduxForm({
+        form: 'changePassword',
+        validate,
+    })(ChangePasswordContainer),
+);

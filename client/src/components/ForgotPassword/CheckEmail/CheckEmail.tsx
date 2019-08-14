@@ -1,20 +1,31 @@
 import React, { ReactNode } from 'react';
-import { Field } from 'redux-form';
-import { FormProps, Spinner } from 'reactstrap';
-import { renderField } from '../../commonComponents/reduxFormFields';
-import { Button, Form, FormGroup } from 'reactstrap';
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { checkEmail } from '../../../store/checkEmail/actions';
+import validate from '../../../utils/validation';
+import './../../styles/style.scss';
+import { Button, Form, FormGroup, FormProps, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import '../../styles/style.scss';
-import logo from './../../assets/logo.png';
+import logo from '../../assets/logo.png';
+import { renderField } from '../../commonComponents/reduxFormFields';
 
 class CheckEmail extends React.Component<any> {
+    constructor(props: any) {
+        super(props);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    public onSubmit(email: string): any {
+        return this.props.checkEmail(email);
+    }
+
     public render(): ReactNode {
-        const {handleSubmit, onSubmit, submitting}: FormProps = this.props;
+        const {handleSubmit, submitting}: FormProps = this.props;
         return (
             <div className='container-fluid header'>
                 <div className='row justify-content-center align-items-center'>
                     <div className='col-sm-8 col-md-6 col-xl-5'>
-                        <Form className='mt-4 bg-white' onSubmit={handleSubmit(onSubmit)}>
+                        <Form className='mt-4 bg-white' onSubmit={handleSubmit(this.onSubmit)}>
                             <div className='border'>
                                 <FormGroup className='col-lg-10 offset-lg-1 text-center'>
                                     <Link to='/'>
@@ -61,4 +72,12 @@ class CheckEmail extends React.Component<any> {
     }
 }
 
-export default CheckEmail;
+export default connect(
+    null,
+    {checkEmail},
+)(
+    reduxForm({
+        form: 'checkEmailForm',
+        validate,
+    })(CheckEmail),
+);

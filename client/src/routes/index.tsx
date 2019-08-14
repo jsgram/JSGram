@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Main } from '../components/Main/Landing';
 import LoginContainer from '../components/Login/LoginContainer';
 import RegisterContainer from '../components/Register/RegisterContainer';
-import ForgotPassword from '../components/ForgotPassword/ForgotPassword';
-import ChangePasswordContainer from '../components/ForgotPassword/ChangePassword/ChangePasswordContainer';
+import ChangePasswordContainer from '../components/ForgotPassword/ChangePassword/ChangePassword';
+import CheckEmailContainer from '../components/ForgotPassword/CheckEmail/CheckEmail';
 
 const routes = (
     <Router>
@@ -17,8 +17,8 @@ const routes = (
             </div>
         </div>
         <Route exact path='/login' component={LoginContainer} />
-        <Route exact path='/password-reset' component={ForgotPassword} />
-        <Route exact path='/password-change/:token' component={ChangePasswordContainer} />
+        <Route exact path='/password-reset' component={CheckEmailContainer} />
+        <Route exact path='/password-reset/:token' component={ChangePasswordContainer} />
     </Router>
 );
 

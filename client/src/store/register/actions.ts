@@ -17,6 +17,6 @@ export const registerUser = (user: IUser): (dispatch: Dispatch) => Promise<void>
             dispatch(showAlert(res.data.status, 'success'));
             dispatch(reset('registerForm'));
         } catch (e) {
-            console.error(e.message);
+            dispatch(showAlert(e.message, 'danger'));
         }
     };

@@ -1,11 +1,15 @@
 import API from '../api';
+import { showAlert } from '../alert/actions';
+import { Dispatch } from 'redux';
+
 const TOKEN = 'TOKEN';
 
-export const loginUser = (user: object): () => Promise<void> => async (): Promise<void> => {
-    try {
-        const res = await API.post('/auth/login', user);
-        localStorage.setItem(TOKEN, res.data.token);
-    } catch (e) {
-        console.error(e.message);
-    }
-};
+export const loginUser = (user: object): (dispatch: Dispatch) =>
+    Promise<void> => async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const res = await API.post('/auth/login', user);
+            localStorage.setItem(TOKEN, res.data.token);
+        } catch (e) {
+            dispatch(showAlert(e.message, 'danger'));
+        }
+    };
