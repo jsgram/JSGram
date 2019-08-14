@@ -15,7 +15,7 @@ const routes = (
                 </div>
             </div>
         </div>
-        <Route exact path="/login" component={LoginContainer} />
+        <Route exact path="/login/:token?" component={LoginContainer} />
         <Route exact path="/password-reset" component={ForgotPassword} />
     </Router>
 )

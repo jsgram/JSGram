@@ -2,8 +2,9 @@ import React from "react";
 import Login from "./Login";
 import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
-import { loginUser, cookieToLocalStorage } from "../../store/login/actions";
+import { loginUser } from "../../store/login/actions";
 import validate from '../../utils/validation'
+import {setToken} from "../../store/login/setToken.helper";
 
 class LoginContainer extends React.Component<any> {
 
@@ -12,7 +13,11 @@ class LoginContainer extends React.Component<any> {
   };
 
   componentDidMount(): void {
-      this.props.cookieToLocalStorage();
+      const TOKEN = this.props.match.params.token;
+      console.log(this.props);
+      if (TOKEN) {
+          setToken(TOKEN);
+      }
   }
 
     render() {
@@ -29,7 +34,7 @@ class LoginContainer extends React.Component<any> {
 
 export default connect(
   null,
-  { loginUser, cookieToLocalStorage }
+  { loginUser }
 )(
   reduxForm({
     form: "loginForm",
