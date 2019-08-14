@@ -1,0 +1,12 @@
+Index: .idea/inspectionProfiles/Project_Default.xml
+===================================================================
+--- .idea/inspectionProfiles/Project_Default.xml	(date 1565809264000)
++++ .idea/inspectionProfiles/Project_Default.xml	(date 1565809264000)
+@@ -1,6 +0,0 @@
+-<component name="InspectionProjectProfileManager">
+-  <profile version="1.0">
+-    <option name="myName" value="Project Default" />
+-    <inspection_tool class="TsLint" enabled="true" level="WARNING" enabled_by_default="true" />
+-  </profile>
+-</component>
+\ No newline at end of file
