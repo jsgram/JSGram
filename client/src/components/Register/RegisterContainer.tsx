@@ -1,17 +1,11 @@
 import React from 'react';
 import Register from './Register';
-import { InjectedFormProps, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { registerUser } from '../../store/register/actions';
 import validate from '../../utils/validation';
 import { FormProps } from 'reactstrap';
-
-interface IUser extends InjectedFormProps {
-    username: string;
-    email: string;
-    fullName: string;
-    password: string;
-}
+import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 
 class RegisterContainer extends React.Component<any> {
     constructor(props: any) {

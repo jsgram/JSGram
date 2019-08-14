@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { loginUser } from '../../store/login/actions';
 import validate from '../../utils/validation';
 import { FormProps } from 'reactstrap';
+import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 
 class LoginContainer extends React.Component<any> {
     constructor(props: any) {
@@ -12,7 +13,7 @@ class LoginContainer extends React.Component<any> {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    public onSubmit(user: { email: string, password: string }): void {
+    public onSubmit(user: IUser): void {
         return this.props.loginUser(user);
     }
 

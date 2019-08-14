@@ -2,13 +2,7 @@ import { showAlert } from '../../store/alert/actions';
 import API from '../api';
 import { reset } from 'redux-form';
 import { Dispatch } from 'redux';
-
-interface IUser {
-    username: string;
-    email: string;
-    fullName: string;
-    password: string;
-}
+import { IUser } from '../commonInterfaces/commonInterfaces';
 
 export const registerUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
