@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field } from 'redux-form';
+import { Field, InjectedFormProps } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { FormProps, Spinner } from 'reactstrap';
 import { renderField } from '../commonComponents/reduxFormFields';
@@ -7,7 +7,20 @@ import { Button, Form, FormGroup } from 'reactstrap';
 import '../styles/style.scss';
 import logo from '../assets/logo.png';
 
-export default class Login extends React.Component<any> {
+interface IUser extends InjectedFormProps {
+    username: string;
+    email: string;
+    fullName: string;
+    password: string;
+}
+
+interface IProps {
+    handleSubmit: FormProps;
+    submitting: FormProps;
+    onSubmit: (user: { email: string, password: string }) => void;
+}
+
+export default class Login extends React.Component<IProps, IUser> {
     public render(): JSX.Element {
         const {handleSubmit, onSubmit, submitting}: FormProps = this.props;
         return (

@@ -1,17 +1,10 @@
 import React from 'react';
 import Login from './Login';
-import { InjectedFormProps, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { loginUser } from '../../store/login/actions';
 import validate from '../../utils/validation';
 import { FormProps } from 'reactstrap';
-
-interface IUser extends InjectedFormProps {
-    username: string;
-    email: string;
-    fullName: string;
-    password: string;
-}
 
 class LoginContainer extends React.Component<any> {
     constructor(props: any) {
@@ -19,7 +12,7 @@ class LoginContainer extends React.Component<any> {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    public onSubmit(user: { email: string, password: string }): IUser {
+    public onSubmit(user: { email: string, password: string }): void {
         return this.props.loginUser(user);
     }
 

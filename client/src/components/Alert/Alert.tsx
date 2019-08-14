@@ -2,16 +2,16 @@ import React, { ReactElement } from 'react';
 import { UncontrolledAlert } from 'reactstrap';
 
 interface IAlertProps {
-    clearAlert: any;
+    cleanAlert: any;
     message: string;
     color: string;
 }
 
 const Alert: React.FunctionComponent<IAlertProps> = ({
-  clearAlert,
+  cleanAlert,
   message,
   color,
-}: {clearAlert: () => void, message: string, color: string}): ReactElement | null => message ?
-    <UncontrolledAlert color={color} onClick={(): void => { clearAlert(); }}>{message}</UncontrolledAlert> : null;
+}: {cleanAlert: () => void, message: string, color: string}): any => message &&
+    <UncontrolledAlert color={color} onClick={(): void => { cleanAlert(); }}>{message}</UncontrolledAlert>;
 
 export default Alert;

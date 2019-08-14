@@ -4,9 +4,9 @@ import { clearAlert } from '../../store/alert/actions';
 import Alert from './Alert';
 
 interface IAlertProps {
-    clearAlert: () => void;
     message: string;
     color: string;
+    cleanAlert: any;
 }
 
 interface IAlert {
@@ -18,12 +18,11 @@ interface IAlertState {
     alert: IAlert;
 }
 
-const AlertContainer: React.FunctionComponent<IAlertProps> = ({
+const AlertContainer: React.FunctionComponent<any> = ({
   message,
   color,
-                                                                  // tslint:disable-next-line:no-shadowed-variable
-  clearAlert,
-}: IAlertProps): ReactElement | null => <Alert clearAlert={clearAlert} message={message} color={color} />;
+  cleanAlert,
+}: IAlertProps): ReactElement | null => <Alert cleanAlert={cleanAlert} message={message} color={color} />;
 
 const mapStateToProps = (state: IAlertState): {message: string, color: string} => ({
     message: state.alert.message,
