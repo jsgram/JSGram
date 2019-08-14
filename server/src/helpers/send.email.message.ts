@@ -61,7 +61,7 @@ export const createUserMessage = (username: string, token: string): string => {
 export const resendTokenMessage = (username: string, token: string): string => {
     return `
         <h1 style="color: lightcoral">
-            Hello, ${username} , please verify your account by clicking the 
+            Hello, ${username} , please verify your account by clicking the
             <a href="${process.env.BACK_PATH}/confirm/${token}"> link</a>
         </h1>
     `;

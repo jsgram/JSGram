@@ -11,7 +11,7 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
         }
 
         const newToken = token.token;
-        res.redirect(`${process.env.FRONT_PATH}/${newToken}`);
+        res.redirect(`${process.env.FRONT_PATH}/password-reset/${newToken}`);
     } catch (e) {
         next(e);
     }

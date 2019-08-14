@@ -1,16 +1,36 @@
-import React from "react";
-import { UncontrolledAlert } from "reactstrap";
+import React from 'react';
+import { connect } from 'react-redux';
+import { clearAlert } from '../../store/alert/actions';
+import { UncontrolledAlert } from 'reactstrap';
 
-interface AlertProps {
-  clearAlert: Function;
-  message: string;
-  color: string;
+interface IAlertProps {
+    message: string;
+    color: string;
+    cleanAlert: any;
 }
 
-const Alert: React.FunctionComponent<AlertProps> = ({
-  clearAlert,
-  message,
-  color
-}) => message ? <UncontrolledAlert color={color} onClick={() => { clearAlert() }}>{message}</UncontrolledAlert> : null
+interface IAlert {
+    message: string;
+    color: string;
+}
 
-export default Alert;
+interface IAlertState {
+    alert: IAlert;
+}
+
+const Alert: React.FunctionComponent<any> = ({
+  message,
+  color,
+  cleanAlert,
+}: IAlertProps): any => message &&
+    <UncontrolledAlert color={color} onclick={(): void => {cleanAlert(); }}>{message}</UncontrolledAlert>;
+
+const mapStateToProps = (state: IAlertState): {message: string, color: string} => ({
+    message: state.alert.message,
+    color: state.alert.color,
+});
+
+export default connect(
+  mapStateToProps,
+  { clearAlert },
+)(Alert);
