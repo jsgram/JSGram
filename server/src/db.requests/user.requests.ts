@@ -6,12 +6,14 @@ export const userExist = async (email: string, next: NextFunction): Promise<IUse
     try {
         const user = await User.findOne({email});
         if (!user) {
-            throw new Error('User does not exist');
+            throw new Error('The email address you have entered isn\'t ' +
+                'associated with another account');
         }
 
         return user;
     } catch (e) {
-        next(e);
+        next({message: 'The email address you have entered isn\'t ' +
+                'associated with another account', status: 409});
     }
 };
 
@@ -23,12 +25,12 @@ export const verificateUser = async (userId: IUserModel, next: NextFunction): Pr
             {new: true},
         );
         if (!updatedUser) {
-            throw new Error('User does not exist');
+            throw new Error('Account does not exist');
         }
 
         return updatedUser;
     } catch (e) {
-        next(e);
+        next({message: 'User does not exist', status: 409});
     }
 };
 
@@ -46,7 +48,7 @@ export const changePassword =
 
             return updatedUser;
         } catch (e) {
-            next(e);
+            next({message: 'Password did not update', status: 409});
         }
     };
 

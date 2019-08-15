@@ -8,6 +8,6 @@ export const checkEmail = (email: object): (dispatch: Dispatch) =>
             const res = await API.post('/forgot-password', email);
             dispatch(showAlert(res.data.status, 'success'));
         } catch (e) {
-            dispatch(showAlert(e.message, 'danger'));
+            dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };

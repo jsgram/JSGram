@@ -22,6 +22,7 @@ export const checkEmail = async (req: Request, res: Response, next: NextFunction
         res.json(
             {status: `To change your password, please check your email: ${email}`});
     } catch (e) {
-        next(e);
+        next({message: 'The email address you have entered isn\'t ' +
+                'associated with another account', status: 409});
     }
 };

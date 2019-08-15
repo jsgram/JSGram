@@ -16,16 +16,16 @@ export const updatePassword = async (req: Request, res: Response, next: NextFunc
 
         const userWithNewPassword = await changePassword(token.user, password, next);
         if (!userWithNewPassword) {
-            throw new Error('Password did not update');
+            throw new Error('Password has not been update');
         }
 
         const removeToken = await deleteToken(token.id, next);
         if (!removeToken) {
-            throw new Error('Token does not remove');
+            throw new Error('Token has not been remove');
         }
 
         res.json({userWithNewPassword});
     } catch (e) {
-        next(e);
+        next({message: 'Password has not been update', status: 409});
     }
 };
