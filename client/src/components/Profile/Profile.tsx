@@ -11,20 +11,33 @@ export interface IUserData {
 interface IFormProps {
     getUser: () => void;
     user: IUserData;
-    loading: boolean;
-    timer: any;
 }
 
 export default class Profile extends React.Component<IFormProps> {
+
+    public state: {loading: boolean} = {
+        loading: true,
+    };
+
+    public animationTimer: any;
+
     public componentDidMount(): void {
         this.props.getUser();
+        this.animationTimer = setTimeout(() => {
+            this.setState({loading: false});
+        },
+            3000,
+        );
     }
     public componentWillUnmount(): void {
-        clearTimeout(this.props.timer);
+        clearTimeout(this.animationTimer);
+        this.animationTimer = 0;
     }
 
     public render(): JSX.Element {
-        const { user: { first_name, last_name, avatar }, loading }: any = this.props;
+        const { first_name, last_name, avatar }: any = this.props.user;
+        const { loading }: {loading: boolean} = this.state;
+
         if (loading) {
             return (<Instagram/>);
         }
