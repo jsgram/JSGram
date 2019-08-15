@@ -5,6 +5,7 @@ import LoginContainer from '../components/Login/LoginContainer';
 import RegisterContainer from '../components/Register/RegisterContainer';
 import ChangePassword from '../components/ForgotPassword/ChangePassword/ChangePassword';
 import CheckEmail from '../components/ForgotPassword/CheckEmail/CheckEmail';
+import ProfileContainer from '../components/Profile/ProfileContainer';
 
 const routes = (
     <Router>
@@ -19,6 +20,7 @@ const routes = (
         <Route exact path='/login' component={LoginContainer} />
         <Route exact path='/password-reset' component={CheckEmail} />
         <Route exact path='/password-reset/:token' component={ChangePassword} />
+        <Route exact path='/profile' component={ProfileContainer}/>
     </Router>
 );
 
