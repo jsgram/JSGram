@@ -6,7 +6,7 @@ import { UncontrolledAlert } from 'reactstrap';
 interface IAlertProps {
     message: string;
     color: string;
-    cleanAlert: any;
+    clearAlert: any;
 }
 
 interface IAlert {
@@ -18,19 +18,34 @@ interface IAlertState {
     alert: IAlert;
 }
 
-const Alert: React.FunctionComponent<any> = ({
-  message,
-  color,
-  cleanAlert,
-}: IAlertProps): any => message &&
-    <UncontrolledAlert color={color} onclick={(): void => {cleanAlert(); }}>{message}</UncontrolledAlert>
+const timer = (cleanAlert: () => void): void => {
+    setTimeout(
+        () => {
+            cleanAlert();
+        }, 5000);
+};
 
-const mapStateToProps = (state: IAlertState): {message: string, color: string} => ({
+const clear = (timerFunc: any): void => {
+    clearTimeout(timerFunc);
+};
+
+const Alert: React.FunctionComponent<any> = ({
+                                                 message,
+                                                 color,
+                                                 // tslint:disable-next-line:no-shadowed-variable
+                                                 clearAlert,
+                                             }: IAlertProps): any => message &&
+    <UncontrolledAlert color={color} onClick={(): void => {
+        clearAlert();
+    }}>
+        {message} {timer(clearAlert)} {clear(timer)}</UncontrolledAlert>;
+
+const mapStateToProps = (state: IAlertState): { message: string, color: string } => ({
     message: state.alert.message,
     color: state.alert.color,
 });
 
 export default connect(
-  mapStateToProps,
-  { clearAlert },
+    mapStateToProps,
+    {clearAlert},
 )(Alert);
