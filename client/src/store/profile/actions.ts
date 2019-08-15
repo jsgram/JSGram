@@ -32,12 +32,13 @@ export const getUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             dispatch(getUserPending());
             // TODO Change hardcoded URL to real
             const res = await axios.get(('https://reqres.in/api/users/2'));
-            const animationTimer = setTimeout(() => {
+            let animationTimer: any = setTimeout(() => {
                 dispatch(endLoading());
             },
                 3000,
             );
             dispatch(getUserSuccess(res.data.data, animationTimer));
+            animationTimer = 0;
 
         } catch (e) {
             dispatch(getUserError(e));
