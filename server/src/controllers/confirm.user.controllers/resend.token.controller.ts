@@ -13,7 +13,7 @@ export const resend = async (req: Request, res: Response, next: NextFunction): P
 
         const user = await userExist(email, next);
         if (!user) {
-            throw new Error(`Email doesn't exist`);
+            throw new Error(`Email does not exist`);
         }
 
         await sendEmail(user, resendTokenMessage, next);

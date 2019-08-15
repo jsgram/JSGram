@@ -13,6 +13,6 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
         const newToken = token.token;
         res.redirect(`${process.env.FRONT_PATH}/password-reset/${newToken}`);
     } catch (e) {
-        next({message: 'Password does not reset', status: 409});
+        next({message: 'Password has not been reset', status: 409});
     }
 };

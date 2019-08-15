@@ -13,7 +13,7 @@ export const login = async (req: Request, res: Response, next: NextFunction,
         }
 
         if (!checkUser.isVerified) {
-            throw new Error('User does not verified');
+            throw new Error('User has not been authenticated');
         }
 
         passport.authenticate('local', function(err: Error, user: IUserModel): any {

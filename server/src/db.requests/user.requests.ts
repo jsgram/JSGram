@@ -25,7 +25,7 @@ export const verificateUser = async (userId: IUserModel, next: NextFunction): Pr
             {new: true},
         );
         if (!updatedUser) {
-            throw new Error('User does not exist');
+            throw new Error('Account does not exist');
         }
 
         return updatedUser;

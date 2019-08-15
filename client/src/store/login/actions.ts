@@ -1,5 +1,5 @@
 import API from '../api';
-import { showAlert } from '../alert/actions';
+import { clearAlert, showAlert } from '../alert/actions';
 import { Dispatch } from 'redux';
 import { IUser } from '../commonInterfaces/commonInterfaces';
 
