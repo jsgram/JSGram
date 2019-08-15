@@ -1,6 +1,6 @@
 export const createUserMessage = (username: string, token: string): string => {
     return `
-        <table width = "100%" cellpadding = "8" cellspacing = "0" style = "font-family: Constantia;">
+        <table width = "100%" cellpadding = "10" cellspacing = "0" style = "font-family: Tahona;">
             <thead>
                 <td style="vertical-align: top">
                     <img
@@ -10,7 +10,7 @@ export const createUserMessage = (username: string, token: string): string => {
                     <img
                         src="https://wnet.ua/sites/default/files/Softserve-logo-RGB_0.png"
                         alt="SoftServe Logo"
-                        style="width: 200px; float: right; margin: 35px 30px 0 0;" />
+                        style="width: 200px; float: right; margin: 35px 20px 0 0;" />
                 </td>
             </thead>
             <tbody align="center">
@@ -37,21 +37,10 @@ export const createUserMessage = (username: string, token: string): string => {
                     </td>
                 </tr>
             </tbody>
-            <tfoot align="center" style="position: absolute; bottom: 0; width: 98%;">
+            <tfoot align="center" style="position: absolute; bottom: 0; width: 100%;
+                        background-color: black; color: white; margin-left: -16px;">
                 <td style="font-size: 18px;">
-                    <a href="javascript:void(0)" style="text-decoration: none; padding-right: 15px; color: red;">
-                        About us
-                    </a>
-                    <a href="javascript:void(0)" style="text-decoration: none; padding-right: 15px; color: red;">
-                        Github
-                    </a>
-                    <a href="javascript:void(0)" style="text-decoration: none; padding-right: 15px; color: red;">
-                        Demos
-                    </a>
-                    <a href="javascript:void(0)" style="text-decoration: none; padding-right: 15px; color: red;">
-                        Softserve
-                    </a>
-                    <span style="padding-left: 50px;">&copy; JSgram</span>
+                    <span>Copyright © 2019 JSgram. All rights reserved.</span>
                 </td>
             </tfoot>
         </table>

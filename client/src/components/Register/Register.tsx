@@ -14,12 +14,12 @@ class Register extends React.Component<any> {
                 <Form className='mt-4 bg-white' onSubmit={handleSubmit(onSubmit)}>
                     <div className='border'>
                         <FormGroup className='col-lg-10 offset-lg-1 text-center'>
-                            <Link to='/'><img className='picture' src={logo} alt='logo'/></Link>
+                            <Link to='/'><img className='picture img-fluid' src={logo} alt='logo'/></Link>
                             <p>Sign up to see photos from your friends.</p>
                             <p>
-                                <i className='fa fa-google-plus'/>
+                                <i className='fa fa-google'/>
                                 <a href={process.env.REACT_APP_GOOGLE_AUTH_URL}
-                                   className='text-danger login_google pl-2'>Log in with Google</a>
+                                   className='text-danger login-google pl-2'>Log in with Google</a>
                             </p>
                             <div className='or-devider'>
                                 <span></span>OR<span></span>
