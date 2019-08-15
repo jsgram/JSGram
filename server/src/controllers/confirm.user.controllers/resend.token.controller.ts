@@ -13,7 +13,7 @@ export const resend = async (req: Request, res: Response, next: NextFunction): P
 
         const user = await userExist(email, next);
         if (!user) {
-            throw new Error(`Email doesn't exist`);
+            throw new Error(`Email does not exist`);
         }
 
         await sendEmail(user, resendTokenMessage, next);
@@ -21,6 +21,6 @@ export const resend = async (req: Request, res: Response, next: NextFunction): P
         res.json(
             {text: `A verification email has been sent to ${email}`});
     } catch (e) {
-        next(e);
+        next({message: 'Verification E-mail does not send to user', status: 409});
     }
 };

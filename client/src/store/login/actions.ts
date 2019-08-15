@@ -1,10 +1,16 @@
-import API from "../api";
-import {setToken} from "./setToken.helper";
+import API from '../api';
+import { clearAlert, showAlert } from '../alert/actions';
+import { Dispatch } from 'redux';
+import { IUser } from '../commonInterfaces/commonInterfaces';
 
-export const loginUser = (user: object) => (dispatch: Function) => {
-  return API.post("/auth/login", user)
-    .then(response => {
-        setToken(response.data.token);
-    })
-    .catch(err => console.log(err.message));
-};
+const TOKEN = 'TOKEN';
+
+export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const res = await API.post('/auth/login', user);
+            localStorage.setItem(TOKEN, res.data.token);
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };

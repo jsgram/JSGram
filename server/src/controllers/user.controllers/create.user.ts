@@ -41,7 +41,8 @@ const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserMo
             posts,
         });
     } catch (e) {
-        next(e);
+        next({message: 'The email address you have entered is ' +
+                'already associated with another account', status: 409});
     }
 };
 
@@ -53,9 +54,8 @@ export const create = async (req: Request, res: Response, next: NextFunction): P
             return;
         }
         const user = await createUser(req.body, next);
-
         if (!user) {
-            throw new Error('User wasn\'t created');
+            throw new Error('Can not create user');
         }
 
         await sendEmail(user, createUserMessage, next);
@@ -63,6 +63,6 @@ export const create = async (req: Request, res: Response, next: NextFunction): P
         res.json(
             {status: `A verification email has been sent to ${user.email}`});
     } catch (e) {
-        next(e);
+        next({message: 'Can not create user', status: 500});
     }
 };

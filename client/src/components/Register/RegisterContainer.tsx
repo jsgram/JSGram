@@ -1,40 +1,40 @@
-import React from "react";
-import Register from "./Register";
-import { reduxForm } from "redux-form";
-import { connect } from "react-redux";
-import { registerUser } from "../../store/register/actions";
-import validate from '../../utils/validation'
-
-interface User {
-  username: string;
-  email: string;
-  fullName: string;
-  password: string;
-}
+import React from 'react';
+import Register from './Register';
+import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { registerUser } from '../../store/register/actions';
+import validate from '../../utils/validation';
+import { FormProps } from 'reactstrap';
+import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 
 class RegisterContainer extends React.Component<any> {
-  onSubmit = (user: User) => {
-    return this.props.registerUser(user);
-  };
+    constructor(props: any) {
+        super(props);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
 
-  render() {
-    const { handleSubmit, submitting } = this.props;
-    return (
-      <Register
-        handleSubmit={handleSubmit}
-        onSubmit={this.onSubmit}
-        submitting={submitting}
-      />
-    );
-  }
+    public onSubmit(user: IUser): IUser {
+        return this.props.registerUser(user);
+    }
+
+    public render(): JSX.Element {
+        const {handleSubmit, submitting}: FormProps = this.props;
+        return (
+            <Register
+                handleSubmit={handleSubmit}
+                onSubmit={this.onSubmit}
+                submitting={submitting}
+            />
+        );
+    }
 }
 
 export default connect(
-  null,
-  { registerUser }
+    null,
+    {registerUser},
 )(
-  reduxForm({
-    form: "registerForm",
-    validate
-  })(RegisterContainer)
+    reduxForm({
+        form: 'registerForm',
+        validate,
+    })(RegisterContainer),
 );

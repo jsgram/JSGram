@@ -1,22 +1,23 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { changePassword } from '../../../store/changePassword/actions';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { checkEmail } from '../../../store/checkEmail/actions';
 import validate from '../../../utils/validation';
+import './../../styles/style.scss';
 import { Button, Form, FormGroup, FormProps, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import { renderField } from '../../commonComponents/reduxFormFields';
 import { IUser } from '../../../store/commonInterfaces/commonInterfaces';
 
-class ChangePasswordContainer extends React.Component<any> {
+class CheckEmail extends React.Component<any> {
     constructor(props: any) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    public onSubmit(password: IUser): void {
-        return this.props.changePassword(password, this.props.match.params.token);
+    public onSubmit(email: IUser): void {
+        return this.props.checkEmail(email);
     }
 
     public render(): JSX.Element {
@@ -29,15 +30,15 @@ class ChangePasswordContainer extends React.Component<any> {
                             <div className='border'>
                                 <FormGroup className='col-lg-10 offset-lg-1 text-center'>
                                     <Link to='/'>
-                                        <img className='picture' src={logo} alt='logo'/>
+                                        <img className='picture img-fluid' src={logo} alt='logo'/>
                                     </Link>
                                     <Field
-                                        name='password'
-                                        type='password'
+                                        name='email'
+                                        type='text'
                                         component={renderField}
-                                        label='password'
+                                        label='email'
                                         className='form-control form-control-lg mt-3'
-                                        placeholder='Password'
+                                        placeholder='E-mail'
                                     />
                                     <Button
                                         className='mt-3'
@@ -55,10 +56,10 @@ class ChangePasswordContainer extends React.Component<any> {
                                     OR
                                     <span/>
                                 </div>
-                                <FormGroup className='text-center login_soft'>
+                                <FormGroup className='text-center logo-google'>
                                     <p className='pt-2'>
                                         Still don't have an account?
-                                        <Link to='/register' className='pl-1'>
+                                        <Link to='/register' className='text-danger pl-1'>
                                             Register
                                         </Link>
                                     </p>
@@ -74,10 +75,10 @@ class ChangePasswordContainer extends React.Component<any> {
 
 export default connect(
     null,
-    {changePassword},
+    {checkEmail},
 )(
     reduxForm({
-        form: 'changePassword',
+        form: 'checkEmailForm',
         validate,
-    })(ChangePasswordContainer),
+    })(CheckEmail),
 );
