@@ -17,8 +17,9 @@ interface IFormProps {
 
 export default class Profile extends React.Component<IFormProps> {
 
-    public state: {loading: boolean} = {
+    public state: {loading: boolean, loaded: boolean} = {
         loading: this.props.loading,
+        loaded: false,
     };
     public timerHandle: any = 0;
 
@@ -26,10 +27,11 @@ export default class Profile extends React.Component<IFormProps> {
         this.props.getUser();
 
     }
-    public componentDidUpdate(): void {
-        if (this.props.loading && this.props.loaded) {
+    public componentDidUpdate(prevProps: any): void {
+        if (prevProps.loaded !== this.props.loaded && this.props.loaded) {
+            console.log('test');
             this.timerHandle = setTimeout(() => {
-                this.setState({loading: false});
+                this.setState({loaded: true});
                 this.timerHandle = 0;
             },
                 3000,
@@ -42,10 +44,10 @@ export default class Profile extends React.Component<IFormProps> {
     }
 
     public render(): JSX.Element {
-        const { first_name, last_name, avatar }: any = this.props.user;
-        const { loading }: {loading: boolean} = this.state;
+        const { user: {first_name, last_name, avatar} }: any = this.props;
+        const { loaded }: {loaded: boolean} = this.state;
 
-        if (loading) {
+        if (!loaded) {
             return (<Instagram/>);
         }
         return (
