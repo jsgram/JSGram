@@ -8,6 +8,7 @@ import {IUserData} from '../../components/Profile/Profile';
 interface IState {
     user: IUserData;
     error: any;
+    loaded: boolean;
 }
 
 const defaultState = {
@@ -17,11 +18,13 @@ const defaultState = {
         avatar: '',
     },
     error: '',
+    loading: true,
+    loaded: false,
 };
 
 export const profileReducer = (
         state: IState = defaultState,
-        action: { type: string, payload: any }): IState => {
+        action: { type: string, payload: any, loaded: boolean }): IState => {
     switch (action.type) {
     case GET_USER_PENDING:
         return {
@@ -32,6 +35,7 @@ export const profileReducer = (
         return {
             ...state,
             user: action.payload,
+            loaded: true,
         };
     case GET_USER_ERROR:
         return {

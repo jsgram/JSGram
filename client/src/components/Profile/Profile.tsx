@@ -11,27 +11,34 @@ export interface IUserData {
 interface IFormProps {
     getUser: () => void;
     user: IUserData;
+    loading: boolean;
+    loaded: boolean;
 }
 
 export default class Profile extends React.Component<IFormProps> {
 
     public state: {loading: boolean} = {
-        loading: true,
+        loading: this.props.loading,
     };
-
-    public animationTimer: any;
+    public timerHandle: any = 0;
 
     public componentDidMount(): void {
         this.props.getUser();
-        this.animationTimer = setTimeout(() => {
-            this.setState({loading: false});
-        },
-            3000,
-        );
+
+    }
+    public componentDidUpdate(): void {
+        if (this.props.loading && this.props.loaded) {
+            this.timerHandle = setTimeout(() => {
+                this.setState({loading: false});
+                this.timerHandle = 0;
+            },
+                3000,
+            );
+        }
     }
     public componentWillUnmount(): void {
-        clearTimeout(this.animationTimer);
-        this.animationTimer = 0;
+        clearTimeout(this.timerHandle);
+        this.timerHandle = 0;
     }
 
     public render(): JSX.Element {

@@ -5,6 +5,8 @@ import { getUser } from '../../store/profile/actions';
 
 interface IStateToProps {
     user: IUserData;
+    loading: boolean;
+    loaded: boolean;
 }
 
 interface IState {
@@ -17,6 +19,8 @@ class ProfileContainer extends React.Component <any> {
             <div className='container'>
                 <Profile
                     user={this.props.user}
+                    loading={this.props.loading}
+                    loaded={this.props.loaded}
                     getUser={this.props.getUser}
                 />
             </div>
@@ -24,8 +28,10 @@ class ProfileContainer extends React.Component <any> {
     }
 }
 
-const mapStateToProps = (state: IState): { user: any } => ({
+const mapStateToProps = (state: IState): { user: any, loading: boolean, loaded: boolean } => ({
     user: state.profile.user,
+    loading: state.profile.loading,
+    loaded: state.profile.loaded,
 });
 
 const mapDispatchToProps = {
