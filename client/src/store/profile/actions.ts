@@ -31,6 +31,7 @@ export const getUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(getUserPending());
+            // TODO Change hardcoded URL to real
             const res = await axios.get(('https://reqres.in/api/users/2'));
             dispatch(getUserSuccess(res.data.data));
             setTimeout(() => {
