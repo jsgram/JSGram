@@ -29,7 +29,6 @@ export default class Profile extends React.Component<IFormProps> {
     }
     public componentDidUpdate(prevProps: any): void {
         if (prevProps.loaded !== this.props.loaded && this.props.loaded) {
-            console.log('test');
             this.timerHandle = setTimeout(() => {
                 this.setState({loaded: true});
                 this.timerHandle = 0;
