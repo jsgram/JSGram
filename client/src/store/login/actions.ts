@@ -11,6 +11,6 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             const res = await API.post('/auth/login', user);
             localStorage.setItem(TOKEN, res.data.token);
         } catch (e) {
-            dispatch(showAlert(e.response.data.message.toString(), 'danger'));
+            dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };
