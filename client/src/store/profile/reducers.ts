@@ -9,7 +9,6 @@ interface IState {
     user: IUserData;
     error: any;
     loaded: boolean;
-    loading: boolean;
 }
 
 const defaultState = {
@@ -19,7 +18,6 @@ const defaultState = {
         avatar: '',
     },
     error: '',
-    loading: true,
     loaded: false,
 };
 
@@ -30,7 +28,6 @@ export const profileReducer = (
     case GET_USER_PENDING:
         return {
             ...state,
-            loading: true,
             loaded: false,
             error: '',
         };
@@ -39,13 +36,11 @@ export const profileReducer = (
             ...state,
             user: action.payload,
             loaded: true,
-            loading: false,
         };
     case GET_USER_ERROR:
         return {
             ...state,
             error: action.payload,
-            loading: false,
             loaded: false,
         };
     default:

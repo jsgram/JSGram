@@ -11,14 +11,12 @@ export interface IUserData {
 interface IFormProps {
     getUser: () => void;
     user: IUserData;
-    loading: boolean;
     loaded: boolean;
 }
 
 export default class Profile extends React.Component<IFormProps> {
 
-    public state: {loading: boolean, loaded: boolean} = {
-        loading: this.props.loading,
+    public state: {loaded: boolean} = {
         loaded: false,
     };
     public timerHandle: any = 0;

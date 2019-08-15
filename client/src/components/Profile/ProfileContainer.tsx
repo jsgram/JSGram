@@ -5,7 +5,6 @@ import { getUser } from '../../store/profile/actions';
 
 interface IStateToProps {
     user: IUserData;
-    loading: boolean;
     loaded: boolean;
 }
 
@@ -19,7 +18,6 @@ class ProfileContainer extends React.Component <any> {
             <div className='container'>
                 <Profile
                     user={this.props.user}
-                    loading={this.props.loading}
                     loaded={this.props.loaded}
                     getUser={this.props.getUser}
                 />
@@ -28,9 +26,8 @@ class ProfileContainer extends React.Component <any> {
     }
 }
 
-const mapStateToProps = (state: IState): { user: any, loading: boolean, loaded: boolean } => ({
+const mapStateToProps = (state: IState): { user: any, loaded: boolean } => ({
     user: state.profile.user,
-    loading: state.profile.loading,
     loaded: state.profile.loaded,
 });
 
