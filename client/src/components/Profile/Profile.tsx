@@ -12,11 +12,15 @@ interface IFormProps {
     getUser: () => void;
     user: IUserData;
     loading: boolean;
+    timer: any;
 }
 
 export default class Profile extends React.Component<IFormProps> {
     public componentDidMount(): void {
         this.props.getUser();
+    }
+    public componentWillUnmount(): void {
+        clearTimeout(this.props.timer);
     }
 
     public render(): JSX.Element {

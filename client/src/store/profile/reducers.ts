@@ -10,6 +10,7 @@ interface IState {
     user: IUserData;
     loading: boolean;
     error: any;
+    timer: any;
 }
 
 const defaultState = {
@@ -20,9 +21,10 @@ const defaultState = {
     },
     loading: false,
     error: '',
+    timer: null,
 };
 
-export const profileReducer = (state: IState = defaultState, action: {type: string, payload: any}): IState => {
+export const profileReducer = (state: IState = defaultState, action: {type: string, payload: any, timer: any}): IState => {
     switch (action.type) {
     case GET_USER_PENDING:
         return {
@@ -34,6 +36,7 @@ export const profileReducer = (state: IState = defaultState, action: {type: stri
         return {
             ...state,
             user: action.payload,
+            timer: action.timer,
         };
     case END_LOADING:
         return {
