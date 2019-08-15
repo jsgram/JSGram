@@ -26,11 +26,7 @@ const defaultState = {
 
 export const profileReducer = (
         state: IState = defaultState,
-        action: {
-            type: string, 
-            payload: any, 
-            timer: any
-    }): IState => {
+        action: { type: string, payload: any, timer: any }): IState => {
     switch (action.type) {
     case GET_USER_PENDING:
         return {
