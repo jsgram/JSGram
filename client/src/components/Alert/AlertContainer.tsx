@@ -2,16 +2,17 @@ import React from 'react';
 import * as actions from '../../store/alert/actions';
 import Alert from './Alert';
 import { connect } from 'react-redux';
+import { FormProps } from 'reactstrap';
 
-const AlertContainer: React.FunctionComponent<any> = ({
+const AlertContainer: React.FunctionComponent<FormProps> = ({
                                                           message,
                                                           color,
                                                           clearAlert,
-                                                      }: any): JSX.Element | null => !!message ? (
+                                                      }: FormProps): JSX.Element | null => !!message ? (
     <Alert clearAlert={clearAlert} message={message} color={color}/>
 ) : null;
 
-const mapStateToProps = (state: any): { message: string, color: string } => ({
+const mapStateToProps = (state: FormProps): { message: string, color: string } => ({
     message: state.alert.message,
     color: state.alert.color,
 });

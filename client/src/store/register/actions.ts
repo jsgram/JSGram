@@ -11,13 +11,6 @@ export const registerUser = (user: IUser): (dispatch: Dispatch) => Promise<void>
             dispatch(showAlert(res.data.status, 'success'));
             dispatch(reset('registerForm'));
         } catch (e) {
-            if (e.message.includes('409')) {
-                dispatch(showAlert('The email address you have entered is ' +
-                    'already associated with another account', 'danger'));
-            } else if (e.message.includes('500')) {
-                dispatch(showAlert('Sorry, can not create user', 'danger'));
-            } else {
-                dispatch(showAlert(e.message, 'danger'));
-            }
+            dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };
