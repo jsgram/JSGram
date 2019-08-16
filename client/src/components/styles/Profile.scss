@@ -1,0 +1,29 @@
+@import "variables";
+@import "mixin";
+
+.profile {
+  margin: 0 auto;
+  @include mobile-break;
+
+  &-name {
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+
+  &-info {
+    flex-direction: column;
+  }
+}
+
+.followers {
+  a {
+    text-decoration: none;
+    color: $color-black;
+    font-size: 1rem;
+
+    &:hover {
+      text-decoration: none;
+      color: $color-black;
+    }
+  }
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import '../styles/style.scss';
-import {Instagram} from 'react-content-loader';
+import { Instagram } from 'react-content-loader';
+import { Button } from 'reactstrap';
+import '../styles/Profile.scss';
 import Cropper from '../Cropper/Cropper';
 
 export interface IUserData {
@@ -51,31 +53,39 @@ export default class Profile extends React.Component<IFormProps> {
             return (<Instagram/>);
         }
         return (
-            <div>
+            <div className='container'>
                 <div className='row'>
-                    <div className='col-3'>
-                        <img src={avatar} className='img-fluid' height='150' alt='test'/>
-                    </div>
-                    <div className='col-9'>
-                        <div className='row'>
-                            <h4>{first_name} {last_name}</h4>
-                            <div className='btn btn-primary ml-3'>Follow</div>
+                    <div className='profile d-flex mt-5'>
+                        <div className='col-4 mr-sm-4'>
+                            <img
+                                src={avatar}
+                                className='img-fluid rounded-circle'
+                                height='150' alt = 'avatar'/>
                         </div>
-                        <div className='row'>
-                            <div className='row col-8'>
-                                <div className='col-4'>300 posts</div>
-                                <div className='col-4'>300 followers</div>
-                                <div className='col-4'>300 subscribers</div>
+                        <div>
+                            <p className='profile-name'>
+                                {first_name} {last_name}
+                                <Button className='bg-dark ml-2 btn'>
+                                    Edit profile
+                                </Button>
+                            </p>
+                            <div className='d-flex followers'>
+                                <div>
+                                    <a href='#' className='mr-sm-4 mr-3'>Posts</a>
+                                    <p>1000</p>
+                                </div>
+                                <div>
+                                    <a href='#' className='mr-sm-4 mr-3'>Followers</a>
+                                    <p className='ml-3'>50m</p>
+                                </div>
+                                <div>
+                                    <a href='#'>Following</a>
+                                    <p className='ml-4'>12</p>
+                                </div>
                             </div>
-                        </div>
-                        <div className='row'>
-                            <div className='col-8'>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum iusto nesciunt
-                                    repudiandae vel! Accusamus aliquid animi consequatur, consequuntur cumque dolorem
-                                    eum eveniet fugit iste labore magni, obcaecati perferendis rerum veniam!
-                                </p>
-                            </div>
+                            <Button className='btn' color='danger'><i
+                                className='fa fa-plus pr-3'/>Add
+                                Post</Button>
                         </div>
                     </div>
                 </div>
