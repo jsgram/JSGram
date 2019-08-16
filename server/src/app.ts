@@ -19,12 +19,13 @@ import { unknownPageHandler } from './helpers/unknown.page.handler';
 import { errorHandler } from './helpers/error.handler';
 import { requestLoggerMiddleware } from './helpers/request.logger.middleware';
 import { googleRouter } from './routes/google.router';
+import { profileRouter } from './routes/profile.router';
 
 const app: Application = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -37,6 +38,7 @@ app.use('/user', userRouter);
 app.use('/auth', authRouter);
 app.use('/confirm', confirmUserRouter);
 app.use('/forgot-password', forgotPassword);
+app.use('/profile', profileRouter);
 app.use(googleRouter);
 
 // Symlinking client build to server directory appears to be a better solution
