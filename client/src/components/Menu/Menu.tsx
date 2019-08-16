@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab} from '@fortawesome/free-brands-svg-icons'
 import {faHeart,faCompass,faSearch,faUser} from '@fortawesome/free-solid-svg-icons'
-import './App.css'
+
  
 library.add(fab, faHeart,faCompass,faSearch,faUser)
 
-export default class App extends React.Component {
+export default class Menu extends React.Component {
   render() {
     return (
       <nav className='navbar'>
