@@ -1,4 +1,4 @@
-import { showAlert } from '../../store/alert/actions';
+import { showAlert } from '../alert/actions';
 import API from '../api';
 import { reset } from 'redux-form';
 import { Dispatch } from 'redux';
