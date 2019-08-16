@@ -8,7 +8,6 @@ import path from 'path';
 import connect from './connect';
 import './helpers/passport.config';
 
-
 import { newsRouter } from './routes/news.router';
 import { postRouter } from './routes/post.router';
 import { userRouter } from './routes/user.router';
