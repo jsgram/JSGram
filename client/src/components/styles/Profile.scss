@@ -4,15 +4,15 @@
 .profile {
   margin: 0 auto;
   @include mobile-break;
-}
 
-.profile-name {
-  font-weight: 700;
-  font-size: 1.3rem;
-}
+  &-name {
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
 
-.profile-info {
-  flex-direction: column;
+  &-info {
+    flex-direction: column;
+  }
 }
 
 .followers {
