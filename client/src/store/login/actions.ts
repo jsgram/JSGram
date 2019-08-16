@@ -9,6 +9,9 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const res = await API.post('/auth/login', user);
+            if (res.status === 200) {
+                dispatch(showAlert('Welcome', 'success'));
+            }
             localStorage.setItem(TOKEN, res.data.token);
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
