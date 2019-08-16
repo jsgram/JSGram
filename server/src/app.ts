@@ -8,6 +8,8 @@ import path from 'path';
 import connect from './connect';
 import './helpers/passport.config';
 
+
+import { newsRouter } from './routes/news.router';
 import { postRouter } from './routes/post.router';
 import { userRouter } from './routes/user.router';
 import { authRouter } from './routes/auth.router';
@@ -18,7 +20,6 @@ import { unknownPageHandler } from './helpers/unknown.page.handler';
 import { errorHandler } from './helpers/error.handler';
 import { requestLoggerMiddleware } from './helpers/request.logger.middleware';
 import { googleRouter } from './routes/google.router';
-
 import { profileRouter } from './routes/profile.router';
 
 const app: Application = express();
@@ -32,6 +33,7 @@ app.use(passport.session());
 app.use(requestLoggerMiddleware);
 
 app.get('/favicon.ico', (req: Request, res: Response) => res.status(204));
+app.use('/', newsRouter);
 app.use('/post', postRouter);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
