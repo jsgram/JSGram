@@ -1,5 +1,7 @@
+@import "variables";
+
 @mixin mobile-break() {
-  @media screen and (max-width: 393px) {
+  @media screen and (max-width: $break-small) {
     .btn {
       font-size: 0.75rem;
     }
