@@ -1,0 +1,159 @@
+.navbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.5em;
+  height: 60px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding-right: 0.3em;
+}
+
+.logo h1 {
+  font-family: "Georgia";
+  font-weight: italic;
+  margin: 0;
+  padding-left: 0.5em;
+}
+
+ul {
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
+
+ul li {
+  display: inline;
+  list-style: none;
+}
+
+.center {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 59%;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.input {
+  outline: 0;
+  -webkit-transition: 3s;
+  transition: 3s;
+}
+
+.input[type=search] {
+  padding-left: 1.3em;
+  font-weight: italic;
+  font-size: 15px;
+  color: black;
+}
+
+.input::-webkit-input-placeholder {
+  padding-left: 0;
+  font-weight: italic;
+  font-size: 15px;
+  color: #aaa;
+}
+
+.input:-ms-input-placeholder {
+  padding-left: 0;
+  font-weight: italic;
+  font-size: 15px;
+  color: #aaa;
+}
+
+.input::-ms-input-placeholder {
+  padding-left: 0;
+  font-weight: italic;
+  font-size: 15px;
+  color: #aaa;
+}
+
+.input::placeholder {
+  padding-left: 0;
+  font-weight: italic;
+  font-size: 15px;
+  color: #aaa;
+}
+
+.center:hover .site-search {
+  color: #c40e0e;
+  -webkit-transition: 3s;
+  transition: 3s;
+}
+
+.center:hover .input {
+  border-radius: 20px;
+  -webkit-transition: 3s;
+  transition: 3s;
+}
+
+.site-search {
+  position: absolute;
+  padding: 12px 5px;
+  color: #aaa;
+}
+
+.compass:hover, .heart:hover, .user:hover {
+  color: #c40e0e;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.logo:hover .inst, .logo:hover h1 {
+  color: #c40e0e;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+@media screen and (max-width: 1800px) {
+  .input {
+    width: 290px;
+  }
+  li {
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .input {
+    width: 99%;
+  }
+  li {
+    padding: 10px;
+  }
+  .logo h1 {
+    padding-left: 0.1em;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  li {
+    padding: 5px;
+  }
+}
+/*# sourceMappingURL=Menu.css.map */

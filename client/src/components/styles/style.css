@@ -1,0 +1,55 @@
+.wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+}
+
+.login-google {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.pl-1,
+.register-acc a {
+  font-weight: 700;
+  color: #f00;
+}
+
+.pl-1:hover,
+.register-acc a:hover {
+  color: #f00;
+}
+
+.or-devider {
+  color: #525656;
+  text-align: center;
+}
+
+.or-devider span {
+  display: inline-block;
+  height: 1px;
+  background: #dcdcdc;
+  width: 34%;
+  margin: 0 10px 4px 10px;
+}
+
+.main-phone {
+  position: absolute;
+  background: center/contain no-repeat url(../assets/main-phone.png);
+  height: 600px;
+  left: 0;
+  top: 70px;
+  right: 0;
+}
+/*# sourceMappingURL=style.css.map */
