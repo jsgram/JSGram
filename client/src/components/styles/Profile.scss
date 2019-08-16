@@ -1,0 +1,55 @@
+body {
+  background-color: #f4f4f4;
+}
+
+.profile {
+  margin: 0 auto;
+}
+
+.profile-name {
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.button {
+  font-size: 0.9rem;
+}
+
+.profile-info {
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+  font-size: 1rem;
+}
+
+a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+@media screen and (max-width: 383px) {
+  .profile-name {
+    font-size: 1rem;
+  }
+
+  .button {
+    font-size: 0.7rem;
+  }
+
+  .followers {
+    font-size: 0.7rem;
+  }
+
+  a {
+    font-size: 0.7rem;
+  }
+}
+
+
+
+
+
+
