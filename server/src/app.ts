@@ -45,8 +45,6 @@ app.use(googleRouter);
 const STATIC_PATH: string = path.join(__dirname, process.env.STATIC_PATH);
 app.use('/', express.static(STATIC_PATH));
 
-app.use(express.static('uploads'));
-
 app.use('*', unknownPageHandler);
 app.use(errorHandler);
 

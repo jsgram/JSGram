@@ -1,50 +1,66 @@
 import { Request, Response } from 'express';
-import { User } from '../../models/user.model';
-import fs from 'fs';
+import aws from 'aws-sdk';
 import multer from 'multer';
+import multerS3 from 'multer-s3';
+import { handlePhotoChange } from '../../db.requests/userProfile.requests';
 
-const storage = multer.diskStorage({
-    destination: (req: Express.Request, file: Express.Multer.File,
-                  cb: (error: Error | null, destination: string) => void): void => {
-        cb(null, './uploads/');
-    },
-    filename: (req: Express.Request, file: Express.Multer.File,
-               cb: (error: Error | null, filename: string) => void): void => {
-        cb(null, Date.now() + file.originalname);
-    },
+const bucket = 'jsgram-profile-images';
+const acl = 'public-read';
+
+aws.config.update({
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    region: process.env.AWS_REGION,
 });
 
-const fileFilter = (req: Request, file: any, cb: any): void => {
+const s3 = new aws.S3();
+
+const fileFilter = (req: Request, file: Express.Multer.File,
+                    cb: (error: Error | null, acceptFile: boolean) => void): void => {
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
         cb(null, true);
     } else {
-        cb(new Error('Please, choose a valid image'), false);
+        cb(new Error('Please, choose an image in a JPEG or PNG format.'), false);
     }
 };
 
-export const upload = multer({
-    storage,
-    limits: { fileSize: 1024 * 1024 * 5 },
+const upload = multer({
     fileFilter,
+    limits: { fileSize: 1024 * 1024 * 2 },
+    storage: multerS3({
+        s3,
+        bucket,
+        acl,
+        metadata: (req: Request, file: Express.Multer.File,
+                   cb: (error: Error | null, metadata: any) => void): void => {
+            cb(null, {userID: req.body.id});
+        },
+        key: (req: Request, file: Express.Multer.File,
+              cb: (error: Error | null, key: string) => void): void => {
+            cb(null, Date.now().toString());
+        },
+    }),
 });
 
-const handlePhotoChange = async (req: Request): Promise<any> => {
-    const user: any = await User.findOneAndUpdate(
-        { _id: req.body.id },
-        { photoPath: req.file ? req.file.path : '' },
-    );
-    if (user.photoPath) {
-        fs.unlink(user.photoPath, (err: Error | null) => {
-            if (err) {
-                throw err;
-            }
-        });
-    }
-    return req.file ? req.file.path : '';
-};
+const singleUpload = upload.single('userPhoto');
 
-export const handlePhoto = async (req: Request, res: Response): Promise<any> => {
-    const photoPath = await handlePhotoChange(req);
-    const status = photoPath ? 'Photo was successfully uploaded' : 'Photo was successfully deleted';
-    res.json({ status, photoPath });
+export const handlePhoto = (req: Request, res: Response): void => {
+    singleUpload(req, res, async (err: Error) => {
+        if (err) {
+            return res.status(422).send({errors: [{title: 'File upload error', detail: err.message}]});
+        }
+        const photoPath = await handlePhotoChange(req);
+        if (photoPath.previousPhoto) {
+            s3.deleteObject({
+                Bucket: bucket,
+                Key: photoPath.previousPhoto,
+            }, (error: Error, data: any): void => {
+                if (error) {
+                    throw new Error(error.message);
+                }
+            });
+        }
+        const status = photoPath.newPhoto ? 'Photo was successfully uploaded' : 'Photo was successfully deleted';
+        res.json({ status, photoPath: photoPath.newPhoto });
+    });
 };
