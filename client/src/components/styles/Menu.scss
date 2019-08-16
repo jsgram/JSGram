@@ -1,0 +1,112 @@
+.navbar {
+    display: flex;
+    padding: 0.5em;
+    height: 60px;
+    justify-content: space-around;
+    position: relative;
+    align-items: center;
+  }
+  
+  .logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding-right: 0.3em;
+    h1 {
+      font-family: "Georgia";
+      font-weight: italic;
+      margin: 0;
+      padding-left: 0.5em;
+    }
+  }
+  
+  ul {
+    padding: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    li {
+      display: inline;
+      list-style: none;
+    }
+  }
+  
+  .center {
+    position: relative;
+    display: flex;
+    height: 59%;
+    align-content: center;
+  }
+  
+  .input {
+    outline: 0;
+    transition: 3s;
+    &[type=search] {
+      padding-left: 1.3em;
+      font-weight: italic;
+      font-size: 15px;
+      color: black;
+    }
+    &::placeholder {
+      padding-left: 0;
+      font-weight: italic;
+      font-size: 15px;
+      color: #aaa;
+    }
+  }
+  
+  .center:hover {
+    .site-search {
+      color: #c40e0e;
+      transition: 3s;
+    }
+    .input {
+      border-radius: 20px;
+      transition: 3s;
+    }
+  }
+  
+  .site-search {
+    position: absolute;
+    padding: 12px 5px;
+    color: #aaa;
+  }
+  
+  .compass:hover, .heart:hover, .user:hover {
+    color: #c40e0e;
+    transition: 0.4s;
+  }
+  
+  .logo:hover {
+    .inst, h1 {
+      color: #c40e0e;
+      transition: 0.4s;
+    }
+  }
+  
+  @media screen and (max-width: 1800px) {
+    .input {
+      width: 290px;
+    }
+    li {
+      padding: 15px;
+    }
+  }
+  
+  @media screen and (max-width: 700px) {
+    .input {
+      width: 99%;
+    }
+    li {
+      padding: 10px;
+    }
+    .logo h1 {
+      padding-left: 0.1em;
+    }
+  }
+  
+  @media screen and (max-width: 400px) {
+    li {
+      padding: 5px;
+    }
+  }
