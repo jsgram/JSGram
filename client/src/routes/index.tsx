@@ -6,22 +6,30 @@ import RegisterContainer from '../components/Register/RegisterContainer';
 import ChangePassword from '../components/ForgotPassword/ChangePassword/ChangePassword';
 import CheckEmail from '../components/ForgotPassword/CheckEmail/CheckEmail';
 import ProfileContainer from '../components/Profile/ProfileContainer';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
+import Feed from '../components/Main/Feed';
+import {Logout} from '../components/Logout';
 
-const routes = (
+const isToken = localStorage.getItem('TOKEN');
+
+export const routes = (
     <Router>
-        <Route exact path='/' component={Main} />
+        <PublicRoute exact auth={isToken} path='/login' component={LoginContainer} />
+        <PublicRoute exact auth={isToken} path='/password-reset' component={CheckEmail} />
+        <PublicRoute exact auth={isToken} path='/password-reset/:token' component={ChangePassword} />
+        <PrivateRoute auth={isToken} path='/profile' component={ProfileContainer} />
+        <PrivateRoute exact auth={isToken} path='/logout' component={Logout} />
+        {isToken ? (
+            <PrivateRoute exact auth={isToken} path='/' component={Feed} />) : (
+                <Route exact path='/' component={Main} />
+        )}
         <div className='container-fluid header'>
             <div className='row justify-content-center align-items-center'>
                 <div className='col-sm-8 col-md-6 col-xl-5'>
-                    <Route exact path='/register' component={RegisterContainer} />
+                    <PublicRoute exact auth={isToken} path='/register' component={RegisterContainer} />
                 </div>
             </div>
         </div>
-        <Route exact path='/login' component={LoginContainer} />
-        <Route exact path='/password-reset' component={CheckEmail} />
-        <Route exact path='/password-reset/:token' component={ChangePassword} />
-        <Route exact path='/profile' component={ProfileContainer}/>
     </Router>
 );
-
-export default routes;
