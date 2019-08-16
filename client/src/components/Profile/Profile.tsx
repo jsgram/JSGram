@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/style.scss';
-import {Instagram} from 'react-content-loader';
-import {Button} from 'reactstrap';
+import { Instagram } from 'react-content-loader';
+import { Button } from 'reactstrap';
 import '../styles/Profile.scss';
 
 export interface IUserData {
@@ -18,7 +18,7 @@ interface IFormProps {
 
 export default class Profile extends React.Component<IFormProps> {
 
-    public state: { loaded: boolean } = {
+    public state: {loaded: boolean} = {
         loaded: false,
     };
     public timerHandle: any = 0;
@@ -46,7 +46,7 @@ export default class Profile extends React.Component<IFormProps> {
 
     public render(): JSX.Element {
         const {user: {first_name, last_name, avatar}}: any = this.props;
-        const {loaded}: { loaded: boolean } = this.state;
+        const {loaded}: {loaded: boolean} = this.state;
 
         if (!loaded) {
             return (<Instagram/>);
@@ -64,7 +64,7 @@ export default class Profile extends React.Component<IFormProps> {
                             <div>
                                 <p className='profile-name'>
                                     {first_name} {last_name}
-                                    <Button className='button bg-dark ml-md-2 ml-sm-2 ml-2'>
+                                    <Button className='bg-dark ml-md-2 ml-sm-2 ml-2 btn'>
                                         Edit profile
                                     </Button>
                                 </p>
@@ -82,7 +82,7 @@ export default class Profile extends React.Component<IFormProps> {
                                         <p className='ml-4'>12</p>
                                     </div>
                                 </div>
-                                <Button className='mt-md-2 mt-sm-1 mt-0 button' color='danger' size='lg'><i
+                                <Button className='btn' color='danger'><i
                                     className='fa fa-plus pr-3' />Add
                                     Post</Button>
                             </div>

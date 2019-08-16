@@ -1,13 +1,13 @@
 @import "variables";
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+html {
+  height: 100%;
 }
 
-.header {
-    flex: 1 0 auto;
+body {
+  min-height:100%;
+  position:relative;
+  padding-bottom: 70px;
 }
 
 .login-google {
@@ -15,7 +15,7 @@
     font-size: 1rem;
 }
 
-.pl-1, 
+.pl-1,
 .register-acc a {
     font-weight: 700;
     color: $color-red;
