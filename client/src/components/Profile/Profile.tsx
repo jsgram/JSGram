@@ -1,6 +1,8 @@
 import React from 'react';
 import '../styles/style.scss';
-import { Instagram } from 'react-content-loader';
+import {Instagram} from 'react-content-loader';
+import {Button} from 'reactstrap';
+import '../styles/Profile.scss';
 
 export interface IUserData {
     first_name: string;
@@ -16,7 +18,7 @@ interface IFormProps {
 
 export default class Profile extends React.Component<IFormProps> {
 
-    public state: {loaded: boolean} = {
+    public state: { loaded: boolean } = {
         loaded: false,
     };
     public timerHandle: any = 0;
@@ -25,6 +27,7 @@ export default class Profile extends React.Component<IFormProps> {
         this.props.getUser();
 
     }
+
     public componentDidUpdate(prevProps: any): void {
         if (prevProps.loaded !== this.props.loaded && this.props.loaded) {
             this.timerHandle = setTimeout(() => {
@@ -35,42 +38,54 @@ export default class Profile extends React.Component<IFormProps> {
             );
         }
     }
+
     public componentWillUnmount(): void {
         clearTimeout(this.timerHandle);
         this.timerHandle = 0;
     }
 
     public render(): JSX.Element {
-        const { user: {first_name, last_name, avatar} }: any = this.props;
-        const { loaded }: {loaded: boolean} = this.state;
+        const {user: {first_name, last_name, avatar}}: any = this.props;
+        const {loaded}: { loaded: boolean } = this.state;
 
         if (!loaded) {
             return (<Instagram/>);
         }
         return (
-            <div className='row'>
-                <div className='col-3'>
-                    <img src={avatar} className='img-fluid' height='150' alt='test'/>
-                </div>
-                <div className='col-9'>
+            <div className='profile-header'>
+                <div className='container'>
                     <div className='row'>
-                        <h4>{first_name} {last_name}</h4>
-                        <div className='btn btn-primary ml-3'>Follow</div>
-                    </div>
-                    <div className='row'>
-                        <div className='row col-8'>
-                            <div className='col-4'>300 posts</div>
-                            <div className='col-4'>300 followers</div>
-                            <div className='col-4'>300 subscribers</div>
-                        </div>
-                    </div>
-                    <div className='row'>
-                        <div className='col-8'>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum iusto nesciunt
-                                repudiandae vel! Accusamus aliquid animi consequatur, consequuntur cumque dolorem
-                                eum eveniet fugit iste labore magni, obcaecati perferendis rerum veniam!
-                            </p>
+                        <div className='profile d-flex mt-5'>
+                            <div className='col-md-4 col-sm-4 col-4 mr-md-4 mr-sm-4'>
+                                <img
+                                    src={avatar}
+                                    className='img-fluid rounded-circle' />
+                            </div>
+                            <div>
+                                <p className='profile-name'>
+                                    {first_name} {last_name}
+                                    <Button className='button bg-dark ml-md-2 ml-sm-2 ml-2'>
+                                        Edit profile
+                                    </Button>
+                                </p>
+                                <div className='d-flex followers'>
+                                    <div>
+                                        <a href='#' className='mr-md-4 mr-sm-4 mr-3'>Posts</a>
+                                        <p>1000</p>
+                                    </div>
+                                    <div>
+                                        <a href='#' className='mr-md-4 mr-sm-4 mr-3'>Followers</a>
+                                        <p className='ml-3'>50m</p>
+                                    </div>
+                                    <div>
+                                        <a href='#'>Following</a>
+                                        <p className='ml-4'>12</p>
+                                    </div>
+                                </div>
+                                <Button className='mt-md-2 mt-sm-1 mt-0 button' color='danger' size='lg'><i
+                                    className='fa fa-plus pr-3' />Add
+                                    Post</Button>
+                            </div>
                         </div>
                     </div>
                 </div>
