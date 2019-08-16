@@ -3,23 +3,3 @@ $color-grey-black: #525656;
 $color-grey: #dcdcdc;
 $color-snow: #f4f4f4;
 $color-black: #000;
-
-@mixin mobile-break() {
-  @media screen and (max-width: 393px) {
-    .btn {
-      font-size: 0.75rem;
-    }
-
-    .profile-name {
-      font-size: 1rem;
-    }
-
-    .followers {
-      font-size: 0.8rem;
-
-      a {
-        font-size: 0.8rem;
-      }
-    }
-  }
-}
