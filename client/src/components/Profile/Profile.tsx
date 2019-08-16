@@ -18,7 +18,7 @@ interface IFormProps {
 
 export default class Profile extends React.Component<IFormProps> {
 
-    public state: { loaded: boolean } = {
+    public state: {loaded: boolean} = {
         loaded: false,
     };
     public timerHandle: any = 0;
