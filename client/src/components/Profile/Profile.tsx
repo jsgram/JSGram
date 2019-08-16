@@ -3,6 +3,7 @@ import '../styles/style.scss';
 import { Instagram } from 'react-content-loader';
 import { Button } from 'reactstrap';
 import '../styles/Profile.scss';
+import Cropper from '../Cropper/Cropper';
 
 export interface IUserData {
     first_name: string;
@@ -18,7 +19,7 @@ interface IFormProps {
 
 export default class Profile extends React.Component<IFormProps> {
 
-    public state: {loaded: boolean} = {
+    public state: { loaded: boolean } = {
         loaded: false,
     };
     public timerHandle: any = 0;
@@ -45,8 +46,8 @@ export default class Profile extends React.Component<IFormProps> {
     }
 
     public render(): JSX.Element {
-        const { user: {first_name, last_name, avatar} }: any = this.props;
-        const { loaded }: {loaded: boolean} = this.state;
+        const {user: {first_name, last_name, avatar}}: any = this.props;
+        const {loaded}: { loaded: boolean } = this.state;
 
         if (!loaded) {
             return (<Instagram/>);
@@ -58,7 +59,8 @@ export default class Profile extends React.Component<IFormProps> {
                         <div className='col-4 mr-sm-4'>
                             <img
                                 src={avatar}
-                                className='img-fluid rounded-circle'/>
+                                className='img-fluid rounded-circle'
+                                height='150' alt = 'avatar'/>
                         </div>
                         <div>
                             <p className='profile-name'>
@@ -87,6 +89,7 @@ export default class Profile extends React.Component<IFormProps> {
                         </div>
                     </div>
                 </div>
+                <Cropper/>
             </div>
         );
     }
