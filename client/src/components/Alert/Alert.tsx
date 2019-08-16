@@ -23,7 +23,7 @@ const Alert: React.FunctionComponent<any> = ({
   color,
   cleanAlert,
 }: IAlertProps): any => message &&
-    <UncontrolledAlert color={color} onclick={(): void => {cleanAlert(); }}>{message}</UncontrolledAlert>
+    <UncontrolledAlert color={color} onClick={(): void => {cleanAlert(); }}>{message}</UncontrolledAlert>;
 
 const mapStateToProps = (state: IAlertState): {message: string, color: string} => ({
     message: state.alert.message,
