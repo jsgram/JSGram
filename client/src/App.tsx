@@ -19,7 +19,6 @@ export const store = createStore(
 
 const App: React.FC = (): ReactElement => {
     return (
-        
         <Provider store={store}>
                 {/* <Menu/> */}
                 <AlertContainer/>
