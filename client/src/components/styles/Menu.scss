@@ -18,7 +18,7 @@
 }}
 @mixin red_transition(){
     color: $dark_red;
-    transition: 0.7s;
+    transition: 0.5s;
   }
 @mixin input_text($padding-left,$color){
     padding-left:$padding-left ;
@@ -45,7 +45,7 @@
 
 ul {
   @include flex_item(normal,normal);
-  padding-left:5%;
+  padding-left:1%;
   li {
     display: inline;
     list-style: none;
@@ -83,7 +83,10 @@ ul {
   @include position(7px 4px 7px 7px,absolute,22px);
   color: $color-grey;
 }
-.compass_icon:hover,.heart_icon:hover,.user_icon:hover,.logo_component:hover {
+.compass_icon:hover, 
+.heart_icon:hover,
+.user_icon:hover,
+.logo_component:hover {
   .inst_icon, .jsgram{
     @include red_transition();
 }.center-component:hover {
