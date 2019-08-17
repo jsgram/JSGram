@@ -19,7 +19,7 @@ import {errorHandler} from './helpers/error.handler';
 import {requestLoggerMiddleware} from './helpers/request.logger.middleware';
 import {googleRouter} from './routes/google.router';
 
-const app: Application = express();
+export const app: Application = express();
 
 app.use(cors());
 app.use(express.json());
@@ -45,6 +45,6 @@ app.use('/', express.static(STATIC_PATH));
 app.use('*', unknownPageHandler);
 app.use(errorHandler);
 
-app.listen(process.env.DEV_PORT, () => console.info('Listening...'));
+//app.listen(process.env.DEV_PORT, () => console.info('Listening...'));
 
-connect(process.env.DB_PATH);
+//connect(process.env.DB_PATH);

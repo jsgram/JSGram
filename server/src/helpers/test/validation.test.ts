@@ -5,23 +5,14 @@ import isEmpty from 'lodash/isEmpty';
 import {User, IUserModel} from '../../models/user.model';
 import mockingoose from 'mockingoose';
 
-jest.mock('validator');
-
-describe('Validate user registration input:', () => {
-    const mockValidatorIsEmpty: jest.SpyInstance = jest.spyOn(Validator, 'isEmpty');
-    const mockValidatorIsEmail: jest.SpyInstance = jest.spyOn(Validator, 'isEmail');
-    const mockValidatorIsLength: jest.SpyInstance = jest.spyOn(Validator, 'isLength');
-
-    afterEach(() => {
-        mockValidatorIsEmpty.mockClear();
-    });
-
-    test('no { email, fullName, username, password } fields provided', async () => {
-        mockValidatorIsEmpty.mockReturnValue(true);
-        mockValidatorIsEmail.mockReturnValueOnce(true);
-        mockValidatorIsLength.mockReturnValueOnce(true);
+describe('Validate registration form helper:', () => {
+    test('validate input - failure (no fields provided)', async () => {
+        Validator.isEmpty = jest.fn(() => true);
+        Validator.isEmail = jest.fn(() => true);
+        Validator.isLength = jest.fn(() => true);
         jest.mock('lodash/isEmpty', () => false);
 
+        const inp = {};
         const out = {
             errors: {
                 email: 'Email is required',
@@ -31,16 +22,17 @@ describe('Validate user registration input:', () => {
             },
             isValid: false,
         };
-        mockingoose(User).toReturn({}, 'findOne');
+
+        mockingoose(User).toReturn(inp, 'findOne');
         const fakeUser = await User.findOne({});
 
         expect(validateInput(<IUserModel>fakeUser)).toStrictEqual(out);
     });
 
-    test('invalid { email, password } fields', async () => {
-        mockValidatorIsEmpty.mockReturnValue(false);
-        mockValidatorIsEmail.mockReturnValueOnce(false);
-        mockValidatorIsLength.mockReturnValueOnce(false);
+    test('validate input - failure (invalid email and password fields provided)', async () => {
+        Validator.isEmpty = jest.fn(() => false);
+        Validator.isEmail = jest.fn(() => false);
+        Validator.isLength = jest.fn(() => false);
         jest.mock('lodash/isEmpty', () => false);
 
         const inp = {
@@ -56,16 +48,17 @@ describe('Validate user registration input:', () => {
             },
             isValid: false,
         };
+
         mockingoose(User).toReturn(inp, 'findOne');
         const fakeUser = await User.findOne({});
 
         expect(validateInput(<IUserModel>fakeUser)).toStrictEqual(out);
     });
 
-    test('all input is valid', async () => {
-        mockValidatorIsEmpty.mockReturnValue(false);
-        mockValidatorIsEmail.mockReturnValueOnce(true);
-        mockValidatorIsLength.mockReturnValueOnce(true);
+    test('validate input - success', async () => {
+        Validator.isEmpty = jest.fn(() => false);
+        Validator.isEmail = jest.fn(() => true);
+        Validator.isLength = jest.fn(() => true);
         jest.mock('lodash/isEmpty', () => true);
 
         const inp = {
@@ -78,6 +71,7 @@ describe('Validate user registration input:', () => {
             errors: {},
             isValid: true,
         };
+
         mockingoose(User).toReturn(inp, 'findOne');
         const fakeUser = await User.findOne({});
 
