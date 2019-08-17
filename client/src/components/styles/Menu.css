@@ -1,4 +1,4 @@
-.navbar {
+.navig {
   padding: 0.5em;
   position: relative;
   height: 60px;
@@ -12,7 +12,7 @@
       justify-content: space-around;
 }
 
-.logo {
+.logo_component {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -26,8 +26,8 @@
   height: 28px;
 }
 
-.logo h1 {
-  font-family: "Georgia";
+.logo_component .jsgram {
+  font-family: "Georgian";
   font-weight: italic;
 }
 
@@ -41,6 +41,7 @@ ul {
   -webkit-box-pack: normal;
       -ms-flex-pack: normal;
           justify-content: normal;
+  padding-left: 5%;
 }
 
 ul li {
@@ -48,7 +49,7 @@ ul li {
   list-style: none;
 }
 
-.center {
+.center-component {
   padding: 0;
   position: relative;
   height: 59%;
@@ -65,117 +66,121 @@ ul li {
       align-content: center;
 }
 
-.input {
+.input_input {
   outline: 0;
   -webkit-transition: 3s;
   transition: 3s;
 }
 
-.input::-webkit-input-placeholder {
+.input_input::-webkit-input-placeholder {
   padding-left: 0em;
   font-weight: italic;
-  font-size: 15px;
   color: #dcdcdc;
 }
 
-.input:-ms-input-placeholder {
+.input_input:-ms-input-placeholder {
   padding-left: 0em;
   font-weight: italic;
-  font-size: 15px;
   color: #dcdcdc;
 }
 
-.input::-ms-input-placeholder {
+.input_input::-ms-input-placeholder {
   padding-left: 0em;
   font-weight: italic;
-  font-size: 15px;
   color: #dcdcdc;
 }
 
-.input::placeholder {
+.input_input::placeholder {
   padding-left: 0em;
   font-weight: italic;
-  font-size: 15px;
   color: #dcdcdc;
 }
 
-.input[type=search] {
+.input_input[type=search] {
   padding-left: 1.33rem;
   font-weight: italic;
-  font-size: 15px;
   color: #000;
 }
 
-.center:hover .site-search {
+.center-component:hover .find_icon {
   color: #c40e0e;
   -webkit-transition: 0.7s;
   transition: 0.7s;
 }
 
-.center:hover .input {
+.center-component:hover .input_input {
   border-radius: 20px;
   -webkit-transition: 3s;
   transition: 3s;
 }
 
-.site-search {
+.find_icon {
   padding: 7px 4px 7px 7px;
   position: absolute;
   height: 22px;
   color: #dcdcdc;
 }
 
-.compass:hover, .heart:hover, .user:hover, .logo:hover {
+.compass_icon:hover, .heart_icon:hover, .user_icon:hover, .logo_component:hover {
   color: #c40e0e;
   -webkit-transition: 0.7s;
   transition: 0.7s;
 }
 
-.compass:hover .inst, .compass:hover h1, .heart:hover .inst, .heart:hover h1, .user:hover .inst, .user:hover h1, .logo:hover .inst, .logo:hover h1 {
+.compass_icon:hover .inst_icon, .compass_icon:hover .jsgram, .heart_icon:hover .inst_icon, .heart_icon:hover .jsgram, .user_icon:hover .inst_icon, .user_icon:hover .jsgram, .logo_component:hover .inst_icon, .logo_component:hover .jsgram {
   color: #c40e0e;
   -webkit-transition: 0.7s;
   transition: 0.7s;
 }
 
-.compass:hover .center:hover .site-search, .heart:hover .center:hover .site-search, .user:hover .center:hover .site-search, .logo:hover .center:hover .site-search {
+.compass_icon:hover .center-component:hover .find_icon, .heart_icon:hover .center-component:hover .find_icon, .user_icon:hover .center-component:hover .find_icon, .logo_component:hover .center-component:hover .find_icon {
   color: #c40e0e;
   -webkit-transition: 0.7s;
   transition: 0.7s;
 }
 
 @media screen and (max-width: 1800px) {
-  .input {
+  .input_input {
     width: 290px;
   }
-  li {
+  .li_component {
     padding: 15px;
   }
-  .logo h1 {
-    padding-left: 0.5em;
+  .logo_component .jsgram {
+    padding-left: 0.6em;
+  }
+  .navig {
+    background-color: white;
   }
 }
 
 @media screen and (max-width: 700px) {
-  .input {
+  .input_input {
     width: 99%;
   }
-  li {
+  .li_component {
     padding: 10px;
   }
-  .logo h1 {
-    padding-left: 0.5em;
+  .logo_component .jsgram {
+    padding-left: 0.6em;
+  }
+  .navig {
+    background-color: white;
   }
 }
 
 @media screen and (max-width: 420px) {
-  .input {
-    width: 99%;
+  .input_input {
+    width: 90px;
   }
-  li {
-    padding: 5px;
+  .li_component {
+    padding: 3px;
   }
-  .logo h1 {
+  .logo_component .jsgram {
     padding-left: 0.1em;
+  }
+  .navig {
+    background-color: red;
   }
 }
 /*# sourceMappingURL=Menu.css.map */

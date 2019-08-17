@@ -10,19 +10,19 @@ class Menu extends React.Component {
     public render():
     JSX.Element {
         return (
-      <nav className='navbar'>
-        <div className='logo'>
-        <FontAwesomeIcon className='inst' icon={['fab', 'instagram']} size='lg'/>
-        <h1>JSGram</h1>
+      <nav className='navig'>
+        <div className='logo_component'>
+        <FontAwesomeIcon className='inst_icon' icon={['fab', 'instagram']} size='lg'/>
+        <h1 className="jsgram">JSGram</h1>
         </div>
-        <div className='center'>
-          <FontAwesomeIcon className='site-search' icon={faSearch} size='xs'/>
-        <input type='search' className='input' name='q' placeholder='Search'></input>
+        <div className='center-component'>
+          <FontAwesomeIcon className='find_icon' icon={faSearch} size='xs'/>
+        <input type='search' className='input_input' name='q' placeholder='Search'></input>
         </div>
         <ul className='list'>
-          <li><FontAwesomeIcon className='compass' icon={faCompass} size='lg'/></li>
-          <li><FontAwesomeIcon className='heart' icon={faHeart}  size='lg'/></li>
-          <li><FontAwesomeIcon className='user' icon={faUser} size='lg'/></li>
+          <li className='li_component'><FontAwesomeIcon className='compass_icon' icon={faCompass} size='lg'/></li>
+          <li className='li_component'><FontAwesomeIcon className='heart_icon' icon={faHeart}  size='lg'/></li>
+          <li className='li_component'><FontAwesomeIcon className='user_icon' icon={faUser} size='lg'/></li>
         </ul>
       </nav>
         );

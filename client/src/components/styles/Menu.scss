@@ -4,25 +4,28 @@
   align-items:  $align;
   justify-content:$justify;
 }
-@mixin adaptiveness($max_width,$width,$padding,$padding-left){
+@mixin adaptiveness($max_width,$width,$padding,$padding-left,$color){
 @media screen and (max-width: $max_width){
-.input {
+.input_input {
   width: $width;
 }
-li {
+.li_component {
   padding: $padding;
 }
-.logo h1 {
+.logo_component .jsgram {
     padding-left: $padding-left;
-  }}}
+  }
+  .navig{
+      background-color:$color;
+  }
+}}
 @mixin red_transition(){
     color: $dark_red;
     transition: 0.7s;
   }
-@mixin input($padding-left,$color){
+@mixin input_text($padding-left,$color){
     padding-left:$padding-left ;
     font-weight: italic;
-    font-size: 15px;
     color: $color;
   }
 @mixin position($padding,$position,$height){
@@ -30,68 +33,69 @@ li {
   position:$position;
   height:$height;
 }
-.navbar {
+.navig {
   @include position(0.5em,relative,60px);
   @include flex_item(center,space-around);
 }
-.logo {
+.logo_component {
   @include flex-item(center,space-around);
   @include position(0 0.3em 0 0 ,static,28px);
-  h1 {
-    font-family: "Georgia";
+  .jsgram{
+    font-family: "Georgian";
     font-weight: italic;
   }
 }
 
 ul {
   @include flex_item(normal,normal);
+  padding-left:5%;
   li {
     display: inline;
     list-style: none;
   }
 }
 
-.center {
+.center-component {
   @include position(0,relative,59%);
   @include flex_item(normal,normal);
-  align-content: center;
+  align-content:center;
 }
 
-.input {
+.input_input{
   outline: 0;
   transition: 3s;
   &::placeholder{
-    @include input(0em,$color-grey);
+    @include input_text(0em,$color-grey);
   }
   &[type=search]
   {
-    @include input(1.33rem,$color-black);
+    @include input_text(1.33rem,$color-black);
  }
 }
 
-.center:hover {
-  .site-search {
+.center-component:hover {
+  .find_icon {
     @include red_transition();
   }
-  .input {
+  .input_input  {
     border-radius: 20px;
     transition: 3s;
   }
 }
-.site-search {
+.find_icon {
   @include position(7px 4px 7px 7px,absolute,22px);
   color: $color-grey;
 }
-.compass:hover,.heart:hover,.user:hover,.logo:hover {
-  .inst, h1 {
+.compass_icon:hover,.heart_icon:hover,.user_icon:hover,.logo_component:hover {
+  .inst_icon, .jsgram{
     @include red_transition();
-}.center:hover {
-  .site-search {
+}.center-component:hover {
+  .find_icon {
     @include red_transition();
   }
 }
 @include red_transition();
 }
-@include adaptiveness($break-large,290px,15px,0.5em);
-@include adaptiveness($break-medium,99%,10px,0.5em);
-@include adaptiveness($break-small,99%,5px,0.1em);
+@include adaptiveness($break-large,290px,15px,0.6em,white);
+@include adaptiveness($break-medium,99%,10px,0.6em,white);
+@include adaptiveness($break-small,90px,3px,0.1em,red);
