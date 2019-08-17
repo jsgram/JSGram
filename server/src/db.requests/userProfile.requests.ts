@@ -1,9 +1,9 @@
-import { User } from '../models/user.model';
-import { NextFunction } from 'express';
+import { User, IUserModel } from '../models/user.model';
+import { Request, NextFunction } from 'express';
 
-export const findById = async (id: string, next: NextFunction): Promise<any> => {
+export const findById = async (id: string, next: NextFunction): Promise<IUserModel | void | null> => {
     try {
-        const user: any = await User.findById(id);
+        const user = await User.findById(id);
         if (!user) {
             throw new Error('There is no user with this id.');
         }
@@ -13,7 +13,7 @@ export const findById = async (id: string, next: NextFunction): Promise<any> => 
     }
 };
 
-export const handlePhotoChange = async (req: any): Promise<any> => {
+export const handlePhotoChange = async (req: Request): Promise<any> => {
     const user: any = await User.findOneAndUpdate(
         { _id: req.body.id },
         { photoPath: req.file ? req.file.location : '' },

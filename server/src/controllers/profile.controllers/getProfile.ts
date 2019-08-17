@@ -1,7 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 import { findById } from '../../db.requests/userProfile.requests';
+import { IUserModel } from '../../models/user.model';
 
-export const getProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+interface IFakeUser {
+    posts: string[];
+    followers: string[];
+    following: string[];
+    description: string;
+}
+
+export const getProfile = async (req: Request, res: Response, next: NextFunction):
+                                Promise<IUserModel | null | void> => {
     try {
     // TO DO: delete fake user, instead use data from DB
         const fakeUser = {
@@ -13,9 +22,13 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
                           'consequuntur cumque dolorem eum eveniet fugit iste labore magni,' +
                           'obcaecati perferendis rerum veniam!',
         };
-        const { posts, followers, following, description }: any = fakeUser;
+        const { posts, followers, following, description }: IFakeUser = fakeUser;
 
         const user = await findById(req.params.id, next);
+
+        if (!user) {
+            throw new Error('There is no user with this id.');
+        }
 
         const userProfile = {
             posts: posts.length,
