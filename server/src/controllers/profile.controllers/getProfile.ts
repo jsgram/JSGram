@@ -23,6 +23,7 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
             following: following.length,
             description,
             fullName: user.fullName,
+            username: user.username,
             photo: user.photoPath,
         };
 
