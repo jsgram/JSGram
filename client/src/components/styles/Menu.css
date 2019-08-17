@@ -149,9 +149,6 @@ ul li {
   .logo_component .jsgram {
     padding-left: 0.6em;
   }
-  .navig {
-    background-color: white;
-  }
 }
 
 @media screen and (max-width: 700px) {
@@ -164,9 +161,6 @@ ul li {
   .logo_component .jsgram {
     padding-left: 0.6em;
   }
-  .navig {
-    background-color: white;
-  }
 }
 
 @media screen and (max-width: 420px) {
@@ -178,9 +172,6 @@ ul li {
   }
   .logo_component .jsgram {
     padding-left: 0.1em;
-  }
-  .navig {
-    background-color: red;
   }
 }
 /*# sourceMappingURL=Menu.css.map */

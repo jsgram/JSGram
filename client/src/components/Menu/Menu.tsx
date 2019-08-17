@@ -13,7 +13,7 @@ class Menu extends React.Component {
       <nav className='navig'>
         <div className='logo_component'>
         <FontAwesomeIcon className='inst_icon' icon={['fab', 'instagram']} size='lg'/>
-        <h1 className="jsgram">JSGram</h1>
+        <h1 className='jsgram'>JSGram</h1>
         </div>
         <div className='center-component'>
           <FontAwesomeIcon className='find_icon' icon={faSearch} size='xs'/>
