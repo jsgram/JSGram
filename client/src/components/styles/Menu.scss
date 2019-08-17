@@ -1,0 +1,97 @@
+@import "variables";
+@mixin flex_item($align,$justify){
+  display: flex;
+  align-items:  $align;
+  justify-content:$justify;
+}
+@mixin adaptiveness($max_width,$width,$padding,$padding-left){
+@media screen and (max-width: $max_width){
+.input {
+  width: $width;
+}
+li {
+  padding: $padding;
+}
+.logo h1 {
+    padding-left: $padding-left;
+  }}}
+@mixin red_transition(){
+    color: $dark_red;
+    transition: 0.7s;
+  }
+@mixin input($padding-left,$color){
+    padding-left:$padding-left ;
+    font-weight: italic;
+    font-size: 15px;
+    color: $color;
+  }
+@mixin position($padding,$position,$height){
+  padding:$padding;
+  position:$position;
+  height:$height;
+}
+.navbar {
+  @include position(0.5em,relative,60px);
+  @include flex_item(center,space-around);
+}
+.logo {
+  @include flex-item(center,space-around);
+  @include position(0 0.3em 0 0 ,static,28px);
+  h1 {
+    font-family: "Georgia";
+    font-weight: italic;
+  }
+}
+
+ul {
+  @include flex_item(normal,normal);
+  li {
+    display: inline;
+    list-style: none;
+  }
+}
+
+.center {
+  @include position(0,relative,59%);
+  @include flex_item(normal,normal);
+  align-content: center;
+}
+
+.input {
+  outline: 0;
+  transition: 3s;
+  &::placeholder{
+    @include input(0em,$color-grey);
+  }
+  &[type=search]
+  {
+    @include input(1.33rem,$color-black);
+ }
+}
+
+.center:hover {
+  .site-search {
+    @include red_transition();
+  }
+  .input {
+    border-radius: 20px;
+    transition: 3s;
+  }
+}
+.site-search {
+  @include position(7px 4px 7px 7px,absolute,22px);
+  color: $color-grey;
+}
+.compass:hover,.heart:hover,.user:hover,.logo:hover {
+  .inst, h1 {
+    @include red_transition();
+}.center:hover {
+  .site-search {
+    @include red_transition();
+  }
+}
+@include red_transition();
+}
+@include adaptiveness($break-large,290px,15px,0.5em);
+@include adaptiveness($break-medium,99%,10px,0.5em);
+@include adaptiveness($break-small,99%,5px,0.1em);

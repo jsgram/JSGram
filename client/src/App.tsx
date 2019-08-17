@@ -10,6 +10,7 @@ import AlertContainer from './components/Alert/AlertContainer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './components/styles/style.scss';
 import 'font-awesome/css/font-awesome.min.css';
+import Menu from './components/Menu/Menu';
 
 export const store = createStore(
     rootReducer,
@@ -18,7 +19,9 @@ export const store = createStore(
 
 const App: React.FC = (): ReactElement => {
     return (
+        
         <Provider store={store}>
+                {/* <Menu/> */}
                 <AlertContainer/>
                 {routes}
                 <Footer/>

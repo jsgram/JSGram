@@ -1,0 +1,181 @@
+.navbar {
+  padding: 0.5em;
+  position: relative;
+  height: 60px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 0 0.3em 0 0;
+  position: static;
+  height: 28px;
+}
+
+.logo h1 {
+  font-family: "Georgia";
+  font-weight: italic;
+}
+
+ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: normal;
+      -ms-flex-align: normal;
+          align-items: normal;
+  -webkit-box-pack: normal;
+      -ms-flex-pack: normal;
+          justify-content: normal;
+}
+
+ul li {
+  display: inline;
+  list-style: none;
+}
+
+.center {
+  padding: 0;
+  position: relative;
+  height: 59%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: normal;
+      -ms-flex-align: normal;
+          align-items: normal;
+  -webkit-box-pack: normal;
+      -ms-flex-pack: normal;
+          justify-content: normal;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.input {
+  outline: 0;
+  -webkit-transition: 3s;
+  transition: 3s;
+}
+
+.input::-webkit-input-placeholder {
+  padding-left: 0em;
+  font-weight: italic;
+  font-size: 15px;
+  color: #dcdcdc;
+}
+
+.input:-ms-input-placeholder {
+  padding-left: 0em;
+  font-weight: italic;
+  font-size: 15px;
+  color: #dcdcdc;
+}
+
+.input::-ms-input-placeholder {
+  padding-left: 0em;
+  font-weight: italic;
+  font-size: 15px;
+  color: #dcdcdc;
+}
+
+.input::placeholder {
+  padding-left: 0em;
+  font-weight: italic;
+  font-size: 15px;
+  color: #dcdcdc;
+}
+
+.input[type=search] {
+  padding-left: 1.33rem;
+  font-weight: italic;
+  font-size: 15px;
+  color: #000;
+}
+
+.center:hover .site-search {
+  color: #c40e0e;
+  -webkit-transition: 0.7s;
+  transition: 0.7s;
+}
+
+.center:hover .input {
+  border-radius: 20px;
+  -webkit-transition: 3s;
+  transition: 3s;
+}
+
+.site-search {
+  padding: 7px 4px 7px 7px;
+  position: absolute;
+  height: 22px;
+  color: #dcdcdc;
+}
+
+.compass:hover, .heart:hover, .user:hover, .logo:hover {
+  color: #c40e0e;
+  -webkit-transition: 0.7s;
+  transition: 0.7s;
+}
+
+.compass:hover .inst, .compass:hover h1, .heart:hover .inst, .heart:hover h1, .user:hover .inst, .user:hover h1, .logo:hover .inst, .logo:hover h1 {
+  color: #c40e0e;
+  -webkit-transition: 0.7s;
+  transition: 0.7s;
+}
+
+.compass:hover .center:hover .site-search, .heart:hover .center:hover .site-search, .user:hover .center:hover .site-search, .logo:hover .center:hover .site-search {
+  color: #c40e0e;
+  -webkit-transition: 0.7s;
+  transition: 0.7s;
+}
+
+@media screen and (max-width: 1800px) {
+  .input {
+    width: 290px;
+  }
+  li {
+    padding: 15px;
+  }
+  .logo h1 {
+    padding-left: 0.5em;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .input {
+    width: 99%;
+  }
+  li {
+    padding: 10px;
+  }
+  .logo h1 {
+    padding-left: 0.5em;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .input {
+    width: 99%;
+  }
+  li {
+    padding: 5px;
+  }
+  .logo h1 {
+    padding-left: 0.1em;
+  }
+}
+/*# sourceMappingURL=Menu.css.map */
