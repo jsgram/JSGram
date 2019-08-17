@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react';
+import React, { ReactElement } from 'react';
 import '../styles/Menu.scss';
 export const Menu: React.FC = (): ReactElement => (
       <nav className='navig'>

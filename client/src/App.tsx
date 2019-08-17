@@ -9,7 +9,7 @@ import thunkMiddleware from 'redux-thunk';
 import AlertContainer from './components/Alert/AlertContainer';
 import './components/styles/style.scss';
 import 'font-awesome/css/font-awesome.min.css';
-import {Menu} from './components/Menu/Menu';
+import { Menu } from './components/Menu/Menu';
 import 'bootstrap/dist/css/bootstrap.min.css';
 export const store = createStore(
     rootReducer,
