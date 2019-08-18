@@ -8,5 +8,4 @@ export const PrivateRoute = ({ component: Component, auth, ...rest }: any): any 
             : <Redirect to={{ pathname: '/login' }} />
     );
     return <Route {...rest} render={routeComponent} />;
-
 };

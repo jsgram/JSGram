@@ -8,5 +8,4 @@ export const PublicRoute = ({ component: Component, auth, ...rest }: any): any =
             : <Redirect to={{ pathname: '/' }} />
     );
     return <Route {...rest} render={routeComponent} />;
-
 };
