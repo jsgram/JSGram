@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-interface IError {
+export interface IError {
     status: number;
     message: string;
 }
