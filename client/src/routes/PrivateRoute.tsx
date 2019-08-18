@@ -1,7 +1,7 @@
-import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
 
-export const PrivateRoute = ({ component: Component, auth, ...rest }: any) => {
+export const PrivateRoute = ({ component: Component, auth, ...rest }: any): any => {
     const routeComponent = (props: string) => (
         auth
             ? <Component {...props} />

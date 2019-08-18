@@ -20,7 +20,8 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
         }
     };
 
-export const logOut = () => {
+export const logOut = (): void => {
     localStorage.removeItem(TOKEN);
 }
 
+export const isToken = localStorage.getItem(TOKEN);
