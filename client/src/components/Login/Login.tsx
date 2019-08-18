@@ -18,7 +18,7 @@ export default class Login extends React.Component<IProps, IUser> {
     public render(): JSX.Element {
         const {handleSubmit, onSubmit, submitting}: FormProps = this.props;
         return (
-            <div className='container-fluid header'>
+            <div className='container-fluid'>
                 <div className='row justify-content-center align-items-center'>
                     <div className='col-sm-8 col-md-6 col-xl-5'>
                         <Form className='mt-4 bg-white' onSubmit={handleSubmit(onSubmit)}>
