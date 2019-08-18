@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { findById } from '../../db.requests/userProfile.requests';
+import { tokenVerification } from '../../helpers/token.verification';
 import { IUserModel } from '../../models/user.model';
 
 interface IFakeUser {
@@ -10,9 +10,13 @@ interface IFakeUser {
 }
 
 export const getProfile = async (req: Request, res: Response, next: NextFunction):
-                                Promise<IUserModel | null | void> => {
+                                 Promise<IUserModel | null | void> => {
     try {
-    // TO DO: delete fake user, instead use data from DB
+        const token = req.get('Authorization');
+        if (!token) {
+            return res.redirect(`${process.env.FRONT_PATH}/login`);
+        }
+        // TO DO: delete fake user, instead use data from DB
         const fakeUser = {
             posts: ['post1', 'post2', 'post3'],
             followers: ['follower1', 'follower2', 'follower3'],
@@ -24,10 +28,9 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
         };
         const { posts, followers, following, description }: IFakeUser = fakeUser;
 
-        const user = await findById(req.params.id, next);
-
+        const user: any = await tokenVerification(token, res, next);
         if (!user) {
-            throw new Error('There is no user with this id.');
+            throw new Error('User does not exist');
         }
 
         const userProfile = {
@@ -40,8 +43,8 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
             photo: user.photoPath,
         };
 
-        res.json(userProfile);
+        res.json({userProfile});
     } catch (e) {
-        next(e.message);
+        next(e);
     }
 };
