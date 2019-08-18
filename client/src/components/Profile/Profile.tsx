@@ -8,9 +8,10 @@ import Cropper from '../Cropper/Cropper';
 export interface IUserData {
     posts: number;
     followers: number;
-    subscribers: number;
+    following: number;
     description: string;
     fullName: string;
+    username: string;
     photo: string;
 }
 
@@ -49,7 +50,7 @@ export default class Profile extends React.Component<IFormProps> {
     }
 
     public render(): JSX.Element {
-        const {user: {posts, followers, subscribers, fullName, description, photo}}: any = this.props;
+        const {user: {posts, followers, following, fullName, username, description, photo}}: any = this.props;
         const {loaded}: { loaded: boolean } = this.state;
 
         if (!loaded) {
@@ -62,8 +63,11 @@ export default class Profile extends React.Component<IFormProps> {
                         <div className='col-4 mr-sm-4'>
                             <img
                                 src={photo}
-                                className='img-fluid rounded-circle'
-                                height='150' alt = 'avatar'/>
+                                className='img-fluid rounded-circle float-right'
+                                alt='avatar'
+                                height={150}
+                                width={150}
+                            />
                         </div>
                         <div>
                             <p className='profile-name'>
@@ -83,10 +87,11 @@ export default class Profile extends React.Component<IFormProps> {
                                 </div>
                                 <div>
                                     <a href='#'>Following</a>
-                                    <p className='ml-4'>{subscribers}</p>
+                                    <p className='ml-4'>{following}</p>
                                 </div>
                             </div>
                             <div className='description'>
+                                <strong>{username}</strong>
                                 <p>{description}</p>
                             </div>
                             <Button className='btn' color='danger'><i

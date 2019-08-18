@@ -15,9 +15,10 @@ const defaultState = {
     user: {
         posts: 0,
         followers: 0,
-        subscribers: 0,
+        following: 0,
         description: '',
         fullName: '',
+        username: '',
         photo: '',
     },
     error: '',
