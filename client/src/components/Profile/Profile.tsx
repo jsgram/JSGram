@@ -6,9 +6,12 @@ import '../styles/Profile.scss';
 import Cropper from '../Cropper/Cropper';
 
 export interface IUserData {
-    first_name: string;
-    last_name: string;
-    avatar: string;
+    posts: number;
+    followers: number;
+    subscribers: number;
+    description: string;
+    fullName: string;
+    photo: string;
 }
 
 interface IFormProps {
@@ -46,7 +49,7 @@ export default class Profile extends React.Component<IFormProps> {
     }
 
     public render(): JSX.Element {
-        const {user: {first_name, last_name, avatar}}: any = this.props;
+        const {user: {posts, followers, subscribers, fullName, description, photo}}: any = this.props;
         const {loaded}: { loaded: boolean } = this.state;
 
         if (!loaded) {
@@ -58,13 +61,13 @@ export default class Profile extends React.Component<IFormProps> {
                     <div className='profile d-flex mt-5'>
                         <div className='col-4 mr-sm-4'>
                             <img
-                                src={avatar}
+                                src={photo}
                                 className='img-fluid rounded-circle'
                                 height='150' alt = 'avatar'/>
                         </div>
                         <div>
                             <p className='profile-name'>
-                                {first_name} {last_name}
+                                {fullName}
                                 <Button className='bg-dark ml-2 btn'>
                                     Edit profile
                                 </Button>
@@ -72,20 +75,24 @@ export default class Profile extends React.Component<IFormProps> {
                             <div className='d-flex followers'>
                                 <div>
                                     <a href='#' className='mr-sm-4 mr-3'>Posts</a>
-                                    <p>1000</p>
+                                    <p>{posts}</p>
                                 </div>
                                 <div>
                                     <a href='#' className='mr-sm-4 mr-3'>Followers</a>
-                                    <p className='ml-3'>50m</p>
+                                    <p className='ml-3'>{followers}</p>
                                 </div>
                                 <div>
                                     <a href='#'>Following</a>
-                                    <p className='ml-4'>12</p>
+                                    <p className='ml-4'>{subscribers}</p>
                                 </div>
                             </div>
+                            <div className='description'>
+                                <p>{description}</p>
+                            </div>
                             <Button className='btn' color='danger'><i
-                                className='fa fa-plus pr-3'/>Add
-                                Post</Button>
+                                className='fa fa-plus pr-3'/>
+                                Add Post
+                            </Button>
                         </div>
                     </div>
                 </div>
