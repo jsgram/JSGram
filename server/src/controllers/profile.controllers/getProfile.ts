@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import { tokenVerification } from '../../helpers/token.verification';
 
 interface IFakeUser {
     posts: string[];
@@ -11,10 +10,6 @@ interface IFakeUser {
 export const getProfile = async (req: Request, res: Response, next: NextFunction):
                                  Promise<void> => {
     try {
-        const token = req.get('Authorization');
-        if (!token) {
-            return res.redirect(`${process.env.FRONT_PATH}/login`);
-        }
         // TO DO: delete fake user, instead use data from DB
         const fakeUser = {
             posts: ['post1', 'post2', 'post3'],
@@ -27,10 +22,7 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
         };
         const { posts, followers, following, description }: IFakeUser = fakeUser;
 
-        const user = await tokenVerification(token, res, next);
-        if (!user) {
-            throw new Error('User does not exist');
-        }
+        const user = res.locals.user;
 
         const userProfile = {
             posts: posts.length,
