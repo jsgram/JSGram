@@ -49,7 +49,8 @@ export const handlePhoto = (req: Request, res: Response): void => {
         if (err) {
             return res.status(422).send({errors: [{title: 'File upload error', detail: err.message}]});
         }
-        const photoPath = await handlePhotoChange(req);
+        const id = res.locals.user.id;
+        const photoPath = await handlePhotoChange(req, id);
         if (photoPath.previousPhoto) {
             s3.deleteObject({
                 Bucket: bucket,
