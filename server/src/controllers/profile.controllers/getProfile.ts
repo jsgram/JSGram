@@ -8,14 +8,8 @@ interface IFakeUser {
     description: string;
 }
 
-interface IUser {
-    username?: string;
-    fullName?: string;
-    photoPath?: string;
-}
-
 export const getProfile = async (req: Request, res: Response, next: NextFunction):
-                                 Promise<IUser | null | void> => {
+                                 Promise<void> => {
     try {
         const token = req.get('Authorization');
         if (!token) {
