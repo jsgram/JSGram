@@ -10,7 +10,7 @@ export const API = axios.create({
 
 API.interceptors.request.use((config: any) => {
     const token = localStorage.getItem(TOKEN);
-    config.headers.Authorization =  token || '';
+    config.headers['x-access-token'] =  token || '';
     return config;
 });
 
