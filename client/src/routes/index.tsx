@@ -10,6 +10,7 @@ import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 import Feed from '../components/Main/Feed';
 import { Logout } from '../components/Logout';
+
 import { isToken } from '../store/login/actions';
 
 export const routes = (
