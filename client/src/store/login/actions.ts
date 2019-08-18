@@ -4,8 +4,6 @@ import { Dispatch } from 'redux';
 import { IUser } from '../commonInterfaces/commonInterfaces';
 import {setToken} from './setToken.helper';
 
-const TOKEN = 'TOKEN';
-
 export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {

@@ -14,10 +14,9 @@ export const tokenVerification =
             if (!data) {
                 throw new Error('Can not decode token');
             }
+            const {email}: any = data;
 
-            const {username}: any = data;
-
-            const user = await userExist(username, next);
+            const user = await userExist(email, next);
             if (!user) {
                 res.redirect(`${process.env.FRONT_PASS}/login`);
                 throw new Error('Not valid token');

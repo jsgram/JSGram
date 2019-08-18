@@ -1,8 +1,9 @@
 import {GET_USER_PENDING, GET_USER_SUCCESS, GET_USER_ERROR} from './actionTypes';
 import {Dispatch} from 'redux';
-import axios from 'axios';
+import API from '../api';
 import {IUserData} from '../../components/Profile/Profile';
 import {IUser} from '../commonInterfaces/commonInterfaces';
+import {TOKEN} from '../login/setToken.helper';
 
 export const getUserPending = (): { type: string } => ({
     type: GET_USER_PENDING,
@@ -18,17 +19,15 @@ export const getUserError = (error: Error): { type: string, payload: Error } => 
     payload: error,
 });
 
-// TODO Pass jwt to post request
-// const jwt = 'jwtjwtjwtjwt';
-
 export const getUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
+            const token = localStorage.getItem(TOKEN);
             dispatch(getUserPending());
-            // TODO Change hardcoded URL to real
-            const res = await axios.get(('http://localhost:8080/profile/5d59536ed4813a3694a229c5'));
-            console.log(res.data);
-            dispatch(getUserSuccess(res.data));
+            const res = await API.get(('http://localhost:8080/profile/'), {
+                headers: { Authorization: token },
+            });
+            dispatch(getUserSuccess(res.data.userProfile));
         } catch (e) {
             dispatch(getUserError(e));
         }

@@ -4,6 +4,7 @@ import { Instagram } from 'react-content-loader';
 import { Button } from 'reactstrap';
 import '../styles/Profile.scss';
 import Cropper from '../Cropper/Cropper';
+import noAvatar from '../assets/noAvatar.svg';
 
 export interface IUserData {
     posts: number;
@@ -62,7 +63,7 @@ export default class Profile extends React.Component<IFormProps> {
                     <div className='profile d-flex mt-5'>
                         <div className='col-4 mr-sm-4'>
                             <img
-                                src={photo}
+                                src={photo || noAvatar }
                                 className='img-fluid rounded-circle float-right'
                                 alt='avatar'
                                 height={150}
