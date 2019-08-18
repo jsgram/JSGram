@@ -4,7 +4,7 @@ import { handlePhoto } from '../controllers/profile.controllers/handlePhoto';
 
 export const profileRouter = Router();
 
-profileRouter.get('/:id', getProfile);
+profileRouter.get('/', getProfile);
 
 profileRouter.post('/photo', handlePhoto);
 profileRouter.put('/photo', handlePhoto);

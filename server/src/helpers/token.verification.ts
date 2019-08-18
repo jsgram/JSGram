@@ -1,10 +1,10 @@
 import { Response, NextFunction } from 'express';
 import { decodeJWT } from './jwt.encoders';
 import { userExist } from '../db.requests/user.requests';
-import { IUser } from '../../../client/src/store/commonInterfaces/commonInterfaces';
+import { IUserModel } from '../models/user.model';
 
 export const tokenVerification =
-    async (token: string, res: Response, next: NextFunction): Promise<IUser | undefined> => {
+    async (token: string, res: Response, next: NextFunction): Promise<IUserModel | undefined> => {
         try {
             if (!token) {
                 res.redirect(`${process.env.FRONT_PATH}/login`);
