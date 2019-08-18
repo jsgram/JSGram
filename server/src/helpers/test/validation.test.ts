@@ -26,7 +26,7 @@ describe('Validate registration form helper:', () => {
         mockingoose(User).toReturn(inp, 'findOne');
         const fakeUser = await User.findOne({});
 
-        expect(validateInput(<IUserModel>fakeUser)).toStrictEqual(out);
+        expect(validateInput(fakeUser as IUserModel)).toStrictEqual(out);
     });
 
     test('validate input - failure (invalid email and password fields provided)', async () => {
@@ -52,7 +52,7 @@ describe('Validate registration form helper:', () => {
         mockingoose(User).toReturn(inp, 'findOne');
         const fakeUser = await User.findOne({});
 
-        expect(validateInput(<IUserModel>fakeUser)).toStrictEqual(out);
+        expect(validateInput(fakeUser as IUserModel)).toStrictEqual(out);
     });
 
     test('validate input - success', async () => {
@@ -75,6 +75,6 @@ describe('Validate registration form helper:', () => {
         mockingoose(User).toReturn(inp, 'findOne');
         const fakeUser = await User.findOne({});
 
-        expect(validateInput(<IUserModel>fakeUser)).toStrictEqual(out);
+        expect(validateInput(fakeUser as IUserModel)).toStrictEqual(out);
     });
 });

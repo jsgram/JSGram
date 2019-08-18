@@ -4,8 +4,6 @@ import {encodeJWT} from '../../helpers/jwt.encoders';
 import {IUserModel} from '../../models/user.model';
 import {userExist} from '../../db.requests/user.requests';
 
-export const login = async (req: Request, res: Response, next: NextFunction): Promise<string> => 'cat';
-/*
 export const login = async (req: Request, res: Response, next: NextFunction,
 ): Promise<void> => {
     try {
@@ -36,4 +34,3 @@ export const login = async (req: Request, res: Response, next: NextFunction,
         next({message: 'You entered invalid email or password', status: 406});
     }
 };
-*/
