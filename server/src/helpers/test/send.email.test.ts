@@ -1,17 +1,18 @@
 import {sendEmail} from '../send.email';
-//import express from 'express';
 
-//jest.mock('express');
+import {User, IUserModel} from '../../models/user.model';
+import mockingoose from 'mockingoose';
 
-describe.skip('Verification email transmission:', () => {
-    test('email not sent, error thrown', () => {
-        /*
-        const mockSign: jest.SpyInstance = jest.spyOn(jsonwebtoken, 'sign');
-        mockSign.mockReturnValueOnce('fakejsonwebtoken');
-        expect(encodeJWT('username', 'secret')).toBe('fakejsonwebtoken');
-        */
-    });
+const fakeNext = jest.fn(() => { /* */ });
 
-    test('email sent successfully', () => {
+describe('Email sender controller:', () => {
+    test.skip('send email - failure', async () => {
+        mockingoose(User).toReturn({email: 'a@a.a'}, 'findOne');
+        const fakeUser = await User.findOne({});
+        const mockMessage = jest.fn((u1: string, u2: string): void => { /* */ });
+
+        // TODO mock Token and nodemailer
+        const ans = await sendEmail(fakeUser as IUserModel, mockMessage, fakeNext);
+        expect(ans).toBe(undefined);
     });
 });

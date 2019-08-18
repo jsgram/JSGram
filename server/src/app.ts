@@ -5,7 +5,6 @@ import passport from 'passport';
 import cors from 'cors';
 import path from 'path';
 
-import connect from './connect';
 import './helpers/passport.config';
 
 import {postRouter} from './routes/post.router';
@@ -44,7 +43,3 @@ app.use('/', express.static(STATIC_PATH));
 
 app.use('*', unknownPageHandler);
 app.use(errorHandler);
-
-//app.listen(process.env.DEV_PORT, () => console.info('Listening...'));
-
-//connect(process.env.DB_PATH);

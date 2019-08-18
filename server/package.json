@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/app.js",
-    "dev": "nodemon src/app.ts",
+    "dev": "nodemon src/server.ts",
     "build": "tsc -p .",
     "lint": "tslint --formatters-dir node_modules/custom-tslint-formatters/formatters --format grouped src/**/*.{ts,tsx}",
     "test": "jest"

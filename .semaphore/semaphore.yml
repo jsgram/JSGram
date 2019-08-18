@@ -44,3 +44,28 @@ blocks:
             - cd client
             - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
             - npm run lint
+  - name: Test
+    task:
+      prologue:
+        commands:
+          - checkout
+          - node --version
+          - npm --version
+      env_vars:
+          - name: GOOGLE_CLIENT_ID
+            value: 'somesecretgoogleclientid'
+          - name: GOOGLE_CLIENT_SECRET
+            value: 'somesecretgoogleclientsecret'
+          - name: GOOGLE_CALLBACK_URL
+            value: 'http://localhost:8080/auth/google/callback'
+          - name: STATIC_PATH
+            value: 'somefakestaticpath'
+      jobs:
+        - name: BE test
+          commands:
+            - cd server
+            - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master
+            - npm run test
+        - name: FE test
+          commands:
+            - echo hello world
