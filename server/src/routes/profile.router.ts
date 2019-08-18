@@ -7,6 +7,6 @@ export const profileRouter = Router();
 
 profileRouter.get('/', isAuthorized, getProfile);
 
-profileRouter.post('/photo', handlePhoto);
-profileRouter.put('/photo', handlePhoto);
-profileRouter.delete('/photo', handlePhoto);
+profileRouter.post('/photo', isAuthorized, handlePhoto);
+profileRouter.put('/photo', isAuthorized, handlePhoto);
+profileRouter.delete('/photo', isAuthorized, handlePhoto);
