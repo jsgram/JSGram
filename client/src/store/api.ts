@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {TOKEN} from './login/setToken.helper';
 
-let API = axios.create({
+const API = axios.create({
     baseURL: process.env.REACT_APP_BASE_API,
     headers: {
         'Content-Type': 'application/json',
