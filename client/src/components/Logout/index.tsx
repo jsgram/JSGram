@@ -3,12 +3,13 @@ import { history } from '../../history';
 import { logOut } from '../../store/login/actions';
 
 export class Logout extends React.Component<any> {
-    public componentWillMount() {
-         logOut();
-         history.push('/login');
+    public componentWillMount(): any {
+        logOut();
+        history.push('/login');
     }
 
-    public render() {
+    public render(): any {
         return null;
     }
+
 }
