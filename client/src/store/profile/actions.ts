@@ -3,7 +3,6 @@ import {Dispatch} from 'redux';
 import API from '../api';
 import {IUserData} from '../../components/Profile/Profile';
 import {IUser} from '../commonInterfaces/commonInterfaces';
-import {TOKEN} from '../login/setToken.helper';
 
 export const getUserPending = (): { type: string } => ({
     type: GET_USER_PENDING,
@@ -22,11 +21,8 @@ export const getUserError = (error: Error): { type: string, payload: Error } => 
 export const getUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const token = localStorage.getItem(TOKEN);
             dispatch(getUserPending());
-            const res = await API.get(('http://localhost:8080/profile/'), {
-                headers: { Authorization: token },
-            });
+            const res = await API.get('/profile');
             dispatch(getUserSuccess(res.data.userProfile));
         } catch (e) {
             dispatch(getUserError(e));
