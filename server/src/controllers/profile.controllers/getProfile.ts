@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { tokenVerification } from '../../helpers/token.verification';
-import { IUserModel } from '../../models/user.model';
 
 interface IFakeUser {
     posts: string[];
@@ -9,8 +8,14 @@ interface IFakeUser {
     description: string;
 }
 
+interface IUser {
+    username?: string;
+    fullName?: string;
+    photoPath?: string;
+}
+
 export const getProfile = async (req: Request, res: Response, next: NextFunction):
-                                 Promise<IUserModel | null | void> => {
+                                 Promise<IUser | null | void> => {
     try {
         const token = req.get('Authorization');
         if (!token) {
@@ -28,7 +33,7 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
         };
         const { posts, followers, following, description }: IFakeUser = fakeUser;
 
-        const user: any = await tokenVerification(token, res, next);
+        const user = await tokenVerification(token, res, next);
         if (!user) {
             throw new Error('User does not exist');
         }
