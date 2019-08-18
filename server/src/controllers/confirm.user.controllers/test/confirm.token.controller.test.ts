@@ -39,12 +39,12 @@ describe('Confirm token controller:', () => {
         const mockIsTokenExist = jest.spyOn(tr, 'isTokenExist');
         mockIsTokenExist.mockReturnValue(new Promise((res: any): Promise<null> => res(null))); // FIXME any
 
-        const ans = {
+        const answer = {
             message: 'User has not been authenticated',
             status: 409,
         };
 
         await confirm(request, response, fakeNext);
-        expect(fakeNext).toHaveBeenLastCalledWith(ans);
+        expect(fakeNext).toHaveBeenLastCalledWith(answer);
     });
 });

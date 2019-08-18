@@ -49,12 +49,12 @@ describe('Update password controller:', () => {
             password: '',
         };
 
-        const ans = {
+        const answer = {
             message: 'Password has not been update',
             status: 409,
         };
 
         await updatePassword(request, response, fakeNext);
-        expect(fakeNext).toHaveBeenLastCalledWith(ans);
+        expect(fakeNext).toHaveBeenLastCalledWith(answer);
     });
 });

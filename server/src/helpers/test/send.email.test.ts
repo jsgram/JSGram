@@ -12,7 +12,7 @@ describe('Email sender controller:', () => {
         const mockMessage = jest.fn((u1: string, u2: string): void => { /* */ });
 
         // TODO mock Token and nodemailer
-        const ans = await sendEmail(fakeUser as IUserModel, mockMessage, fakeNext);
-        expect(ans).toBe(undefined);
+        const answer = await sendEmail(fakeUser as IUserModel, mockMessage, fakeNext);
+        expect(answer).toBe(undefined);
     });
 });

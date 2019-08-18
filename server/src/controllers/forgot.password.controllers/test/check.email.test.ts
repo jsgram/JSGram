@@ -33,12 +33,12 @@ describe('Check email controller:', () => {
             email: '',
         };
 
-        const ans = {
+        const answer = {
             message: 'The email address you have entered isn\'t associated with another account',
             status: 409,
         };
 
         await checkEmail(request, response, fakeNext);
-        expect(fakeNext).toHaveBeenLastCalledWith(ans);
+        expect(fakeNext).toHaveBeenLastCalledWith(answer);
     });
 });

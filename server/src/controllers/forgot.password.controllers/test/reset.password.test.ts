@@ -13,14 +13,14 @@ describe('Reset password controller:', () => {
     test.skip('reset password - success', async () => {
         // TODO fix DB connection issue
         // TODO mock Token.findOne
-        const ans = await resetPassword(request, response, fakeNext);
-        expect(ans).toBe(undefined);
+        const answer = await resetPassword(request, response, fakeNext);
+        expect(answer).toBe(undefined);
     });
 
     test.skip('reset password - failure', async () => {
         // TODO fix DB connection issue
         // TODO mock Token.findOne
-        const ans = await resetPassword(request, response, fakeNext);
-        expect(ans).toBe(undefined);
+        const answer = await resetPassword(request, response, fakeNext);
+        expect(answer).toBe(undefined);
     });
 });
