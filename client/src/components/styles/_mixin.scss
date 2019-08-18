@@ -19,3 +19,34 @@
     }
   }
 }
+@mixin flex_item($align,$justify){
+  display: flex;
+  align-items:  $align;
+  justify-content:$justify;
+}
+@mixin adaptiveness($max_width,$width,$padding,$padding-left){
+@media screen and (max-width: $max_width){
+.input_input {
+  width: $width;
+}
+.li_component {
+  padding: $padding;
+}
+.logo_component .jsgram {
+    padding-left: $padding-left;
+  }
+}}
+@mixin red_transition(){
+    color: $dark_red;
+    transition: 0.5s;
+  }
+@mixin input_text($padding-left,$color){
+    padding-left:$padding-left ;
+    font-weight: italic;
+    color: $color;
+  }
+@mixin position($padding,$position,$height){
+  padding:$padding;
+  position:$position;
+  height:$height;
+}

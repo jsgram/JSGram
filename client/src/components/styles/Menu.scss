@@ -1,35 +1,5 @@
 @import "variables";
-@mixin flex_item($align,$justify){
-  display: flex;
-  align-items:  $align;
-  justify-content:$justify;
-}
-@mixin adaptiveness($max_width,$width,$padding,$padding-left){
-@media screen and (max-width: $max_width){
-.input_input {
-  width: $width;
-}
-.li_component {
-  padding: $padding;
-}
-.logo_component .jsgram {
-    padding-left: $padding-left;
-  }
-}}
-@mixin red_transition(){
-    color: $dark_red;
-    transition: 0.5s;
-  }
-@mixin input_text($padding-left,$color){
-    padding-left:$padding-left ;
-    font-weight: italic;
-    color: $color;
-  }
-@mixin position($padding,$position,$height){
-  padding:$padding;
-  position:$position;
-  height:$height;
-}
+@import "mixin";
 .navig {
   @include position(0.5em,relative,60px);
   @include flex_item(center,space-around);
@@ -40,19 +10,19 @@
   .jsgram{
     font-family: "Georgian";
     font-weight: italic;
+    font-size: 26px;
   }
 }
 
-ul {
+.icons_list{
   @include flex_item(normal,normal);
   padding-left:1%;
-  li {
+  .li_component{
     display: inline;
     list-style: none;
   }
 }
-
-.center-component {
+.center_part {
   @include position(0,relative,59%);
   @include flex_item(normal,normal);
   align-content:center;
@@ -70,7 +40,7 @@ ul {
  }
 }
 
-.center-component:hover {
+.center_part:hover {
   .find_icon {
     @include red_transition();
   }
@@ -83,13 +53,11 @@ ul {
   @include position(7px 4px 7px 7px,absolute,22px);
   color: $color-grey;
 }
-.compass_icon:hover, 
-.heart_icon:hover,
-.user_icon:hover,
+.li_component:hover
 .logo_component:hover {
   .inst_icon, .jsgram{
     @include red_transition();
-}.center-component:hover {
+}.center_part:hover {
   .find_icon {
     @include red_transition();
   }
@@ -98,4 +66,4 @@ ul {
 }
 @include adaptiveness($break-large,290px,15px,0.6em);
 @include adaptiveness($break-medium,99%,10px,0.6em);
-@include adaptiveness($break-small,90px,3px,0.1em);
+@include adaptiveness($break-small,90px,3px,0.1em)
