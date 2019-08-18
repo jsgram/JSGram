@@ -19,3 +19,8 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };
+
+export const logOut = () => {
+    localStorage.removeItem(TOKEN);
+}
+

@@ -9,7 +9,7 @@ import ProfileContainer from '../components/Profile/ProfileContainer';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 import Feed from '../components/Main/Feed';
-import {Logout} from '../components/Logout';
+import { Logout } from '../components/Logout';
 
 const isToken = localStorage.getItem('TOKEN');
 
@@ -19,7 +19,7 @@ export const routes = (
         <PublicRoute exact auth={isToken} path='/password-reset' component={CheckEmail} />
         <PublicRoute exact auth={isToken} path='/password-reset/:token' component={ChangePassword} />
         <PrivateRoute auth={isToken} path='/profile' component={ProfileContainer} />
-        <PrivateRoute exact auth={isToken} path='/logout' component={Logout} />
+        <Route exact path='/logout' component={Logout} />
         {isToken ? (
             <PrivateRoute exact auth={isToken} path='/' component={Feed} />) : (
             <PublicRoute exact path='/' component={Main} />
