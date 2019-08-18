@@ -1,6 +1,6 @@
 import {GET_USER_PENDING, GET_USER_SUCCESS, GET_USER_ERROR} from './actionTypes';
 import {Dispatch} from 'redux';
-import API from '../api';
+import {API} from '../api';
 import {IUserData} from '../../components/Profile/Profile';
 import {IUser} from '../commonInterfaces/commonInterfaces';
 

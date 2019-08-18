@@ -1,5 +1,5 @@
 import { showAlert } from '../alert/actions';
-import API from '../api';
+import {AuthAPI} from '../api';
 import { reset } from 'redux-form';
 import { Dispatch } from 'redux';
 import { IUser } from '../commonInterfaces/commonInterfaces';
@@ -7,7 +7,7 @@ import { IUser } from '../commonInterfaces/commonInterfaces';
 export const registerUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const res = await API.post('/user', user);
+            const res = await AuthAPI.post('/user', user);
             dispatch(showAlert(res.data.status, 'success'));
             dispatch(reset('registerForm'));
         } catch (e) {
