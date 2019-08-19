@@ -1,4 +1,4 @@
-import {AuthAPI} from '../api';
+import {API} from '../api';
 import { showAlert } from '../alert/actions';
 import { Dispatch } from 'redux';
 import { IUser } from '../commonInterfaces/commonInterfaces';
@@ -7,7 +7,7 @@ import {setToken} from './setToken.helper';
 export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const res = await AuthAPI.post('/auth/login', user);
+            const res = await API.post('/auth/login', user);
             if (res.status === 200) {
                 dispatch(showAlert('Welcome', 'success'));
             }
