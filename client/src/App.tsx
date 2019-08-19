@@ -18,10 +18,11 @@ export const store = createStore(
 const App: React.FC = (): ReactElement => {
     return (
         <Provider store={store}>
-        <AlertContainer/>
-        {routes}
-        <Footer/>
+                <AlertContainer/>
+                {routes}
+                <Footer/>
         </Provider>
     );
 };
+
 export default App;

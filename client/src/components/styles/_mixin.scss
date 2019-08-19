@@ -32,10 +32,11 @@
 .li_component {
   padding: $padding;
 }
-.logo_component .jsgram {
+.logo_component 
+{
+  .jsgram {
     padding-left: $padding-left;
-  }
-}}
+  }}}}
 @mixin red_transition(){
     color: $dark_red;
     transition: 0.5s;

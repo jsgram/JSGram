@@ -17,11 +17,9 @@
 .icons_list{
   @include flex_item(normal,normal);
   padding-left:1%;
-  .li_component{
-    display: inline;
-    list-style: none;
+  list-style: none;
   }
-}
+
 .center_part {
   @include position(0,relative,59%);
   @include flex_item(normal,normal);
@@ -53,17 +51,15 @@
   @include position(7px 4px 7px 7px,absolute,22px);
   color: $color-grey;
 }
-.li_component:hover
+.li_component:hover,
 .logo_component:hover {
-  .inst_icon, .jsgram{
     @include red_transition();
-}.center_part:hover {
+}
+.center_part:hover {
   .find_icon {
     @include red_transition();
   }
-}
-@include red_transition();
-}
+} 
 @include adaptiveness($break-large,290px,15px,0.6em);
 @include adaptiveness($break-medium,99%,10px,0.6em);
 @include adaptiveness($break-small,90px,3px,0.1em)

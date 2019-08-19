@@ -5,6 +5,7 @@ import { Button } from 'reactstrap';
 import '../styles/Profile.scss';
 import Cropper from '../Cropper/Cropper';
 import noAvatar from '../assets/noAvatar.svg';
+import { Menu } from '../Menu/Menu'
 
 export interface IUserData {
     posts: number;
@@ -58,7 +59,9 @@ export default class Profile extends React.Component<IFormProps> {
             return (<Instagram/>);
         }
         return (
+
             <div className='container'>
+                <Menu/>
                 <div className='row'>
                     <div className='profile d-flex mt-5'>
                         <div className='col-4 mr-sm-4'>
