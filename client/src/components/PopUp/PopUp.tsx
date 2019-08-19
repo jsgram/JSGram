@@ -7,7 +7,7 @@ interface IModalState {
 }
 
 interface IProps {
-  deletePhoto: () => void;
+    deletePhoto: () => void;
 }
 
 export default class PopUpModal extends React.Component<IProps, IModalState> {
