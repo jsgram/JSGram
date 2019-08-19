@@ -45,5 +45,4 @@ export const deletePhoto = (): (dispatch: Dispatch) => Promise<void> =>
         } catch (e) {
             dispatch(showAlert(e.message, 'danger'));
         }
-
     };
