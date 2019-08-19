@@ -8,7 +8,14 @@ import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
 import { showAlert } from '../alert/actions';
 
-export const setAvatarToCropper = (avatar: any): {type: string, payload: File} => ({
+const data = (file: File): FormData => {
+    const formData = new FormData();
+    formData.append('userPhoto', file);
+    formData.append('enctype', 'multipart/form-data');
+    return formData;
+};
+
+export const setAvatarToCropper = (avatar: any): { type: string, payload: File } => ({
     type: SET_AVATAR_TO_CROPPER,
     payload: avatar,
 });
@@ -30,13 +37,8 @@ export const uploadAvatarError = (error: Error): { type: string, payload: Error 
 export const uploadAvatar = (avatar: File): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const data = new FormData();
-            data.append('userPhoto', avatar);
-            data.append('enctype', 'multipart/form-data');
-            const res = await AuthAPI.post('/profile/photo', data);
-            if (res.status === 200) {
-                dispatch(showAlert('Successfully uploaded', 'success'));
-            }
+            const res = await AuthAPI.post('/profile/photo', data(avatar));
+            dispatch(showAlert('Successfully uploaded', 'success'));
             dispatch(uploadAvatarSuccess(res.data.userProfile));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
