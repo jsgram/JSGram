@@ -102,7 +102,7 @@ export default class Profile extends React.Component<IFormProps> {
                         </div>
                     </div>
                 </div>
-                <PopUpModal />
+                <PopUpModal initialModalState={false}/>
             </div>
         );
     }
