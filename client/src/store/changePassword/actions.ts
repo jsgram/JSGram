@@ -1,5 +1,5 @@
 import { showAlert } from '../../store/alert/actions';
-import API from '../api';
+import {API} from '../api';
 import { Dispatch } from 'redux';
 
 export const changePassword = (password: string, token: string): (dispatch: Dispatch) => Promise<void> =>
