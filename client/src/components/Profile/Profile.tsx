@@ -78,11 +78,6 @@ export default class Profile extends React.Component<IFormProps> {
                                 <Button className='bg-dark ml-2 btn'>
                                     Edit profile
                                 </Button>
-                                <Button className='bg-dark ml-2 btn'
-                                        onClick={(): void => {this.props.deletePhoto(); }}
-                                >
-                                    Delete Photo
-                                </Button>
                                 {this.props.loading && <Spinner className='mt-3' color='dark'/>}
                             </p>
                             <div className='d-flex followers'>
@@ -107,10 +102,10 @@ export default class Profile extends React.Component<IFormProps> {
                                 className='fa fa-plus pr-3'/>
                                 Add Post
                             </Button>
+                            <PopUpModal deletePhoto={this.props.deletePhoto}/>
                         </div>
                     </div>
                 </div>
-                <PopUpModal/>
             </div>
         );
     }

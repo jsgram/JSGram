@@ -6,7 +6,7 @@ interface IModalState {
     modal: boolean;
 }
 
-export default class PopUpModal extends React.Component<{}, IModalState> {
+export default class PopUpModal extends React.Component<any, IModalState> {
     constructor(props: {}) {
         super(props);
         this.state = {
@@ -25,13 +25,17 @@ export default class PopUpModal extends React.Component<{}, IModalState> {
     public render(): JSX.Element {
         return (
           <div>
+            <Button className="mt-3" color="danger" onClick={this.toggle}>Change Profile Photo</Button>
               <Modal isOpen={this.state.modal} toggle={this.toggle} >
               <ModalHeader toggle={this.toggle}>Change Profile Photo</ModalHeader>
               <ModalBody>
                 <Cropper/>
               </ModalBody>
               <ModalFooter>
-                <Button color='secondary' onClick={this.toggle}>Cancel</Button>
+              <Button color='danger' onClick={() => {
+                this.props.deletePhoto();
+                this.toggle();}}>Delete Current Photo</Button>
+              <Button color='secondary' onClick={this.toggle}>Cancel</Button>
               </ModalFooter>
             </Modal>
           </div>
