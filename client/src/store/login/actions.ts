@@ -2,7 +2,7 @@ import {API} from '../api';
 import { showAlert } from '../alert/actions';
 import { Dispatch } from 'redux';
 import { IUser } from '../commonInterfaces/commonInterfaces';
-import { setToken } from './setToken.helper';
+import { setToken, TOKEN } from './setToken.helper';
 import { history } from '../../history';
 
 export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
