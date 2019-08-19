@@ -59,6 +59,6 @@ export const deletePhoto = (): (dispatch: Dispatch) => Promise<void> =>
             dispatch(deletePhotoSuccess(res.data.photoPath));
             dispatch(showAlert(res.data.status, 'success'));
         } catch (e) {
-            dispatch(deletePhotoError(e));
+            dispatch(deletePhotoError(e.message));
         }
     };
