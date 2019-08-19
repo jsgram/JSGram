@@ -31,10 +31,6 @@ const upload = multer({
         s3,
         bucket,
         acl,
-        metadata: (req: Request, file: Express.Multer.File,
-                   cb: (error: Error | null, metadata: any) => void): void => {
-            cb(null, {userID: req.body.id});
-        },
         key: (req: Request, file: Express.Multer.File,
               cb: (error: Error | null, key: string) => void): void => {
             cb(null, Date.now().toString());
