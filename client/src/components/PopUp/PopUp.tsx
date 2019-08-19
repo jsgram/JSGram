@@ -5,15 +5,12 @@ import Cropper from '../Cropper/Cropper';
 interface IModalState {
     modal: boolean;
 }
-interface IInitialModalState {
-    initialModalState: boolean;
-}
 
-export default class PopUpModal extends React.Component<IInitialModalState, IModalState> {
-    constructor(props: IInitialModalState) {
+export default class PopUpModal extends React.Component<{}, IModalState> {
+    constructor(props: IModalState) {
         super(props);
         this.state = {
-            modal: props.initialModalState,
+            modal: false,
         };
 
         this.toggle = this.toggle.bind(this);
@@ -28,7 +25,7 @@ export default class PopUpModal extends React.Component<IInitialModalState, IMod
     public render(): JSX.Element {
         return (
           <div>
-            <Modal isOpen={this.state.modal} toggle={this.toggle} >
+              <Modal isOpen={this.state.modal} toggle={this.toggle} >
               <ModalHeader toggle={this.toggle}>Change Profile Photo</ModalHeader>
               <ModalBody>
                 <Cropper/>
