@@ -18,6 +18,7 @@ export interface IUserData {
 
 interface IFormProps {
     getUser: () => void;
+    deletePhoto: () => void;
     user: IUserData;
     loaded: boolean;
 }
@@ -102,7 +103,7 @@ export default class Profile extends React.Component<IFormProps> {
                         </div>
                     </div>
                 </div>
-                <Cropper/>
+                <Cropper deletePhoto={this.props.deletePhoto}/>
             </div>
         );
     }

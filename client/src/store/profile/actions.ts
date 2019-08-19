@@ -1,8 +1,9 @@
-import {GET_USER_PENDING, GET_USER_SUCCESS, GET_USER_ERROR} from './actionTypes';
-import {Dispatch} from 'redux';
-import {AuthAPI} from '../api';
-import {IUserData} from '../../components/Profile/Profile';
-import {IUser} from '../commonInterfaces/commonInterfaces';
+import { GET_USER_PENDING, GET_USER_SUCCESS, GET_USER_ERROR, DELETE_PHOTO_SUCCESS } from './actionTypes';
+import { Dispatch } from 'redux';
+import { AuthAPI } from '../api';
+import { IUserData } from '../../components/Profile/Profile';
+import { IUser } from '../commonInterfaces/commonInterfaces';
+import { showAlert } from '../alert/actions';
 
 export const getUserPending = (): { type: string } => ({
     type: GET_USER_PENDING,
@@ -26,6 +27,23 @@ export const getUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             dispatch(getUserSuccess(res.data.userProfile));
         } catch (e) {
             dispatch(getUserError(e));
+        }
+
+    };
+
+export const deletePhotoSuccess = (photoPath: string): { type: string, payload: string } => ({
+    type: DELETE_PHOTO_SUCCESS,
+    payload: photoPath,
+});
+
+export const deletePhoto = (): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const res = await AuthAPI.delete('/profile/photo');
+            dispatch(deletePhotoSuccess(res.data.photoPath));
+            dispatch(showAlert(res.data.status, 'success'));
+        } catch (e) {
+            dispatch(showAlert(e.message, 'danger'));
         }
 
     };

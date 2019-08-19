@@ -2,8 +2,10 @@ import React from 'react';
 import Avatar from 'react-avatar-edit';
 import noAvatar from '../assets/noAvatar.svg';
 import {Button} from 'reactstrap';
-
-class Cropper extends React.Component {
+interface IFormProps {
+    deletePhoto: () => void;
+}
+class Cropper extends React.Component<IFormProps> {
 
     public FILE_SIZE: number = 2000000;
 
@@ -43,6 +45,9 @@ class Cropper extends React.Component {
             elem.target.value = '';
         }
     }
+    public onPhotoDelete = (): void => {
+        this.props.deletePhoto();
+    }
 
     public render(): JSX.Element {
         return (
@@ -71,6 +76,7 @@ class Cropper extends React.Component {
                         src={this.state.src || ''}
                     />
                 <Button className='mt-3' outline color='danger' size='lg'>Save avatar</Button>
+                <Button onClick = { this.onPhotoDelete } className='bg-dark ml-2 btn'>Delete photo</Button>
             </div>
 
         );
