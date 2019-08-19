@@ -5,7 +5,7 @@ import {createUserMessage} from '../../helpers/send.email.message';
 import {hashPassword} from '../../helpers/hash.password';
 import validateInput, {IValidationError} from '../../helpers/validation';
 
-const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserModel | void> => {
+export const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserModel | void> => {
     try {
         const {
             email,

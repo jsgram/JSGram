@@ -1,11 +1,9 @@
-import API from '../api';
+import {API} from '../api';
 import { showAlert } from '../alert/actions';
 import { Dispatch } from 'redux';
 import { IUser } from '../commonInterfaces/commonInterfaces';
 import { setToken } from './setToken.helper';
 import { history } from '../../history';
-
-const TOKEN = 'TOKEN';
 
 export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {

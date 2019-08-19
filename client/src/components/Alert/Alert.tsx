@@ -19,7 +19,7 @@ export default class Alert extends React.Component<FormProps> {
     public render(): JSX.Element {
         const {message, color}: FormProps = this.props;
         return message && (
-            <UncontrolledAlert color={color} onClick={(): void => {
+            <UncontrolledAlert color={color} className='fixed-top' onClick={(): void => {
                 clearAlert();
             }}>{message}</UncontrolledAlert>
         );

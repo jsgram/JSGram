@@ -13,9 +13,13 @@ interface IState {
 
 const defaultState = {
     user: {
-        first_name: '',
-        last_name: '',
-        avatar: '',
+        posts: 0,
+        followers: 0,
+        following: 0,
+        description: '',
+        fullName: '',
+        username: '',
+        photo: '',
     },
     error: '',
     loaded: false,
