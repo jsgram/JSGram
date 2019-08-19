@@ -1,9 +1,22 @@
 import React from 'react';
 import Avatar from 'react-avatar-edit';
 import noAvatar from '../assets/noAvatar.svg';
-import {Button} from 'reactstrap';
+import { Button } from 'reactstrap';
+import { setAvatarToCropper, uploadAvatar } from '../../store/cropper/actions';
+import { connect } from 'react-redux';
+import fs from 'fs';
 
-class Cropper extends React.Component {
+interface IStateToProps {
+    avatar: File;
+    loaded: boolean;
+    error: Error;
+}
+
+interface IState {
+    cropper: IStateToProps;
+}
+
+class Cropper extends React.Component<any> {
 
     public FILE_SIZE: number = 2000000;
 
@@ -24,9 +37,10 @@ class Cropper extends React.Component {
         transition: 'border .24s ease-in-out',
     };
 
-    public state: { preview: null | string, src: null | string } = {
+    public state: { preview: null | string, src: null | string, selectedFile: any } = {
         preview: null,
         src: null,
+        selectedFile: null,
     };
 
     public onClose = (): void => {
@@ -44,10 +58,17 @@ class Cropper extends React.Component {
         }
     }
 
+    public onFileLoad = (data: any): any => {
+        this.props.setAvatarToCropper(data);
+    }
+
+    public onClick = (): void => {
+        this.props.uploadAvatar(this.props.avatar);
+    }
+
     public render(): JSX.Element {
         return (
             <div className='text-center' style={{maxWidth: 560, margin: '0 auto'}}>
-
                 <div className='text-center'>
                     <img
                         height={100}
@@ -58,23 +79,35 @@ class Cropper extends React.Component {
                     />
                 </div>
 
-                    <Avatar
-                        width={560}
-                        height={500}
-                        imageWidth={250}
-                        imageHeight={250}
-                        borderStyle={this.dropZoneStyle}
-                        shadingColor='white'
-                        onCrop={this.onCrop}
-                        onClose={this.onClose}
-                        onBeforeFileLoad={this.onBeforeFileLoad}
-                        src={this.state.src || ''}
-                    />
-                <Button className='mt-3' outline color='danger' size='lg'>Save avatar</Button>
+                <Avatar
+                    width={560}
+                    height={500}
+                    imageWidth={250}
+                    imageHeight={250}
+                    borderStyle={this.dropZoneStyle}
+                    shadingColor='white'
+                    onCrop={this.onCrop}
+                    onClose={this.onClose}
+                    onBeforeFileLoad={this.onBeforeFileLoad}
+                    onFileLoad={this.onFileLoad}
+                    src={this.state.src || ''}
+                />
+                <Button className='mt-3' outline color='danger' size='lg' onClick={this.onClick}>Save avatar</Button>
             </div>
 
         );
     }
 }
 
-export default Cropper;
+const mapStateToProps = (state: IState): { avatar: File, loaded: boolean, error: Error } => ({
+    avatar: state.cropper.avatar,
+    loaded: state.cropper.loaded,
+    error: state.cropper.error,
+});
+
+const mapDispatchToProps = {
+    uploadAvatar,
+    setAvatarToCropper,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cropper);
