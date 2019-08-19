@@ -2,6 +2,9 @@ import {
     GET_USER_PENDING,
     GET_USER_SUCCESS,
     GET_USER_ERROR,
+    DELETE_PHOTO_PENDING,
+    DELETE_PHOTO_SUCCESS,
+    DELETE_PHOTO_ERROR,
 } from './actionTypes';
 import {IUserData} from '../../components/Profile/Profile';
 
@@ -9,6 +12,7 @@ interface IState {
     user: IUserData;
     error: any;
     loaded: boolean;
+    loading: boolean;
 }
 
 const defaultState = {
@@ -23,6 +27,7 @@ const defaultState = {
     },
     error: '',
     loaded: false,
+    loading: false,
 };
 
 export const profileReducer = (
@@ -46,6 +51,26 @@ export const profileReducer = (
             ...state,
             error: action.payload,
             loaded: false,
+        };
+    case DELETE_PHOTO_PENDING:
+        return {
+            ...state,
+            loading: true,
+        };
+    case DELETE_PHOTO_SUCCESS:
+        return {
+            ...state,
+            user: {
+                ...state.user,
+                photo: action.payload,
+            },
+            loading: false,
+        };
+    case DELETE_PHOTO_ERROR:
+        return {
+            ...state,
+            error: action.payload,
+            loading: false,
         };
     default:
         return state;

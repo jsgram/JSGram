@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/style.scss';
 import { Instagram } from 'react-content-loader';
-import { Button } from 'reactstrap';
+import { Button, Spinner } from 'reactstrap';
 import '../styles/Profile.scss';
 import Cropper from '../Cropper/Cropper';
 import noAvatar from '../assets/noAvatar.svg';
@@ -18,8 +18,10 @@ export interface IUserData {
 
 interface IFormProps {
     getUser: () => void;
+    deletePhoto: () => void;
     user: IUserData;
     loaded: boolean;
+    loading: boolean;
 }
 
 export default class Profile extends React.Component<IFormProps> {
@@ -76,6 +78,12 @@ export default class Profile extends React.Component<IFormProps> {
                                 <Button className='bg-dark ml-2 btn'>
                                     Edit profile
                                 </Button>
+                                <Button className='bg-dark ml-2 btn'
+                                        onClick={(): void => {this.props.deletePhoto(); }}
+                                >
+                                    Delete Photo
+                                </Button>
+                                {this.props.loading && <Spinner className='mt-3' color='dark'/>}
                             </p>
                             <div className='d-flex followers'>
                                 <div>
