@@ -59,10 +59,10 @@ class Cropper extends React.Component {
                 </div>
 
                     <Avatar
-                        width={560}
-                        height={500}
-                        imageWidth={250}
-                        imageHeight={250}
+                        width={450}
+                        height={300}
+                        imageWidth={300}
+                        imageHeight={300}
                         borderStyle={this.dropZoneStyle}
                         shadingColor='white'
                         onCrop={this.onCrop}

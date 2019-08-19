@@ -3,7 +3,7 @@ import '../styles/style.scss';
 import { Instagram } from 'react-content-loader';
 import { Button } from 'reactstrap';
 import '../styles/Profile.scss';
-import Cropper from '../Cropper/Cropper';
+import PopUpModal from '../PopUp/PopUp';
 import noAvatar from '../assets/noAvatar.svg';
 
 export interface IUserData {
@@ -102,7 +102,7 @@ export default class Profile extends React.Component<IFormProps> {
                         </div>
                     </div>
                 </div>
-                <Cropper/>
+                <PopUpModal />
             </div>
         );
     }
