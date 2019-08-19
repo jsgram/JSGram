@@ -7,7 +7,7 @@ interface IModalState {
 }
 
 export default class PopUpModal extends React.Component<{}, IModalState> {
-    constructor(props: IModalState) {
+    constructor(props: {}) {
         super(props);
         this.state = {
             modal: false,
