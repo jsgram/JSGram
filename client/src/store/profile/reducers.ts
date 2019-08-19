@@ -55,7 +55,7 @@ export const profileReducer = (
             user: {
                 ...state.user,
                 photo: action.payload,
-            }
+            },
         };
     default:
         return state;
