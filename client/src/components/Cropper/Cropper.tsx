@@ -2,18 +2,17 @@ import React from 'react';
 import Avatar from 'react-avatar-edit';
 import noAvatar from '../assets/noAvatar.svg';
 import { Button } from 'reactstrap';
-import { setAvatarToCropper, uploadAvatar } from '../../store/cropper/actions';
+import { setAvatarToCropper, uploadPostAvatar } from '../../store/cropper/actions';
 import { connect } from 'react-redux';
-import fs from 'fs';
+import {IState} from '../../store/cropper/reducers';
 
-interface IStateToProps {
-    avatar: File;
-    loaded: boolean;
-    error: Error;
+interface ICropperState {
+    cropper: IState;
 }
 
-interface IState {
-    cropper: IStateToProps;
+interface ILocalState {
+    preview: null | string;
+    src: null | string;
 }
 
 class Cropper extends React.Component<any> {
@@ -37,10 +36,9 @@ class Cropper extends React.Component<any> {
         transition: 'border .24s ease-in-out',
     };
 
-    public state: { preview: null | string, src: null | string, selectedFile: any } = {
+    public state: ILocalState = {
         preview: null,
         src: null,
-        selectedFile: null,
     };
 
     public onClose = (): void => {
@@ -63,7 +61,7 @@ class Cropper extends React.Component<any> {
     }
 
     public onClick = (): void => {
-        this.props.uploadAvatar(this.props.avatar);
+        this.props.uploadPostAvatar(this.props.avatar);
     }
 
     public render(): JSX.Element {
@@ -99,14 +97,14 @@ class Cropper extends React.Component<any> {
     }
 }
 
-const mapStateToProps = (state: IState): { avatar: File, loaded: boolean, error: Error } => ({
+const mapStateToProps = (state: ICropperState): IState => ({
     avatar: state.cropper.avatar,
     loaded: state.cropper.loaded,
     error: state.cropper.error,
 });
 
 const mapDispatchToProps = {
-    uploadAvatar,
+    uploadPostAvatar,
     setAvatarToCropper,
 };
 

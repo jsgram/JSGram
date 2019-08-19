@@ -34,10 +34,21 @@ export const uploadAvatarError = (error: Error): { type: string, payload: Error 
     payload: error,
 });
 
-export const uploadAvatar = (avatar: File): (dispatch: Dispatch) => Promise<void> =>
+export const uploadPostAvatar = (avatar: File): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const res = await AuthAPI.post('/profile/photo', data(avatar));
+            dispatch(showAlert('Successfully uploaded', 'success'));
+            dispatch(uploadAvatarSuccess(res.data.userProfile));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const uploadPutAvatar = (avatar: File): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const res = await AuthAPI.put('/profile/photo', data(avatar));
             dispatch(showAlert('Successfully uploaded', 'success'));
             dispatch(uploadAvatarSuccess(res.data.userProfile));
         } catch (e) {

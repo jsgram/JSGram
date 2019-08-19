@@ -6,14 +6,14 @@ import {
 } from './actionTypes';
 
 export interface IState {
-    avatar: any;
-    error: any;
+    avatar: File | null;
+    error: Error | null;
     loaded: boolean;
 }
 
 const defaultState = {
-    avatar: '',
-    error: '',
+    avatar: null,
+    error: null,
     loaded: false,
 };
 
@@ -29,7 +29,7 @@ export const cropperReducer = (state: IState = defaultState, action: { type: str
         return {
             ...state,
             loaded: false,
-            error: '',
+            error: null,
         };
     case UPLOAD_AVATAR_SUCCESS:
         return {
