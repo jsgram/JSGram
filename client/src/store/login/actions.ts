@@ -26,6 +26,7 @@ export const logOut = (): (dispatch: Dispatch) => Promise<void> =>
         try {
             localStorage.removeItem(TOKEN);
         } catch (e) {
+            throw e;
         }
     };
 
