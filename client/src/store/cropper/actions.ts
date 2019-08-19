@@ -43,7 +43,7 @@ export const uploadPostAvatar = (avatar: File): (dispatch: Dispatch) => Promise<
             dispatch(uploadAvatarSuccess(res.data.userProfile));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
-            dispatch(uploadAvatarError(e));
+            dispatch(uploadAvatarError(e.response.data));
         }
     };
 
