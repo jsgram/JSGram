@@ -1,10 +1,10 @@
 import React from 'react';
 import Avatar from 'react-avatar-edit';
 import noAvatar from '../assets/noAvatar.svg';
-import { Button } from 'reactstrap';
+import { Button, Spinner } from 'reactstrap';
 import { setAvatarToCropper, uploadPostAvatar } from '../../store/cropper/actions';
 import { connect } from 'react-redux';
-import {IState} from '../../store/cropper/reducers';
+import { IState } from '../../store/cropper/reducers';
 
 interface ICropperState {
     cropper: IState;
@@ -90,7 +90,19 @@ class Cropper extends React.Component<any> {
                     onFileLoad={this.onFileLoad}
                     src={this.state.src || ''}
                 />
-                <Button className='mt-3' outline color='danger' size='lg' onClick={this.onClick}>Save avatar</Button>
+                {this.props.loading ? (
+                    <Spinner className='mt-3' color='dark'/>
+                ) : (
+                    <Button
+                        className='mt-3'
+                        outline
+                        color='danger'
+                        size='lg'
+                        onClick={this.onClick}
+                    >
+                        Save avatar
+                    </Button>
+                )}
             </div>
 
         );
@@ -101,6 +113,7 @@ const mapStateToProps = (state: ICropperState): IState => ({
     avatar: state.cropper.avatar,
     loaded: state.cropper.loaded,
     error: state.cropper.error,
+    loading: state.cropper.loading,
 });
 
 const mapDispatchToProps = {
