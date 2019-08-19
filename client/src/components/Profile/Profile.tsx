@@ -4,11 +4,16 @@ import { Instagram } from 'react-content-loader';
 import { Button } from 'reactstrap';
 import '../styles/Profile.scss';
 import Cropper from '../Cropper/Cropper';
+import noAvatar from '../assets/noAvatar.svg';
 
 export interface IUserData {
-    first_name: string;
-    last_name: string;
-    avatar: string;
+    posts: number;
+    followers: number;
+    following: number;
+    description: string;
+    fullName: string;
+    username: string;
+    photo: string;
 }
 
 interface IFormProps {
@@ -46,7 +51,7 @@ export default class Profile extends React.Component<IFormProps> {
     }
 
     public render(): JSX.Element {
-        const {user: {first_name, last_name, avatar}}: any = this.props;
+        const {user: {posts, followers, following, fullName, username, description, photo}}: any = this.props;
         const {loaded}: { loaded: boolean } = this.state;
 
         if (!loaded) {
@@ -58,13 +63,16 @@ export default class Profile extends React.Component<IFormProps> {
                     <div className='profile d-flex mt-5'>
                         <div className='col-4 mr-sm-4'>
                             <img
-                                src={avatar}
-                                className='img-fluid rounded-circle'
-                                height='150' alt = 'avatar'/>
+                                src={photo || noAvatar }
+                                className='img-fluid rounded-circle float-right'
+                                alt='avatar'
+                                height={150}
+                                width={150}
+                            />
                         </div>
                         <div>
                             <p className='profile-name'>
-                                {first_name} {last_name}
+                                {fullName}
                                 <Button className='bg-dark ml-2 btn'>
                                     Edit profile
                                 </Button>
@@ -72,20 +80,25 @@ export default class Profile extends React.Component<IFormProps> {
                             <div className='d-flex followers'>
                                 <div>
                                     <a href='#' className='mr-sm-4 mr-3'>Posts</a>
-                                    <p>1000</p>
+                                    <p>{posts}</p>
                                 </div>
                                 <div>
                                     <a href='#' className='mr-sm-4 mr-3'>Followers</a>
-                                    <p className='ml-3'>50m</p>
+                                    <p className='ml-3'>{followers}</p>
                                 </div>
                                 <div>
                                     <a href='#'>Following</a>
-                                    <p className='ml-4'>12</p>
+                                    <p className='ml-4'>{following}</p>
                                 </div>
                             </div>
+                            <div className='description'>
+                                <strong>{username}</strong>
+                                <p>{description}</p>
+                            </div>
                             <Button className='btn' color='danger'><i
-                                className='fa fa-plus pr-3'/>Add
-                                Post</Button>
+                                className='fa fa-plus pr-3'/>
+                                Add Post
+                            </Button>
                         </div>
                     </div>
                 </div>

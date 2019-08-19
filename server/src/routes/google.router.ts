@@ -21,7 +21,7 @@ googleRouter.get('/auth/google/callback',
             session: false,
         }),
     function(req: any, res: any): void {
-        const token = encodeJWT(req.body.email, process.env.SECRET_KEY!);
+        const token = encodeJWT(req.user.email, process.env.SECRET_KEY!);
         res.redirect(`${process.env.FRONT_PATH}/login/${token}`);
 
     });
