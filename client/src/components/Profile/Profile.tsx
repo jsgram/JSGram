@@ -64,7 +64,7 @@ export default class Profile extends React.Component<IFormProps> {
                         <div className='col-4 mr-sm-4'>
                             <img
                                 src={photo || noAvatar }
-                                className='img-fluid rounded-circle float-right'
+                                className='img-fluid float-right'
                                 alt='avatar'
                                 height={150}
                                 width={150}
@@ -80,18 +80,18 @@ export default class Profile extends React.Component<IFormProps> {
                             <div className='d-flex followers'>
                                 <div>
                                     <a href='#' className='mr-sm-4 mr-3'>Posts</a>
-                                    <p>{posts}</p>
+                                    <p className='pl-2'>{posts}</p>
                                 </div>
                                 <div>
                                     <a href='#' className='mr-sm-4 mr-3'>Followers</a>
-                                    <p className='ml-3'>{followers}</p>
+                                    <p className='pl-4'>{followers}</p>
                                 </div>
                                 <div>
                                     <a href='#'>Following</a>
-                                    <p className='ml-4'>{following}</p>
+                                    <p className='pl-4'>{following}</p>
                                 </div>
                             </div>
-                            <div className='description'>
+                            <div className='description text-justify'>
                                 <strong>{username}</strong>
                                 <p>{description}</p>
                             </div>
