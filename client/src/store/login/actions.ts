@@ -2,8 +2,8 @@ import API from '../api';
 import { showAlert } from '../alert/actions';
 import { Dispatch } from 'redux';
 import { IUser } from '../commonInterfaces/commonInterfaces';
-import { history } from '../../history';
 import { setToken } from './setToken.helper';
+import { history } from '../../history';
 
 const TOKEN = 'TOKEN';
 
@@ -21,8 +21,12 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
         }
     };
 
-export const logOut = (): void => {
-    localStorage.removeItem(TOKEN);
-}
+export const logOut = (): (dispatch: Dispatch) => Promise<void> =>
+    async (): Promise<void> => {
+        try {
+            localStorage.removeItem(TOKEN);
+        } catch (e) {
+        }
+    };
 
 export const isToken = localStorage.getItem(TOKEN);

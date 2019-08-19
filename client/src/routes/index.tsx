@@ -9,7 +9,7 @@ import ProfileContainer from '../components/Profile/ProfileContainer';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 import Feed from '../components/Main/Feed';
-import { Logout } from '../components/Logout';
+import Logout from '../components/Logout/LogoutContainer';
 import { isToken } from '../store/login/actions';
 
 export const routes = (
@@ -22,7 +22,7 @@ export const routes = (
         {isToken ? (
             <PrivateRoute exact auth={isToken} path='/' component={Feed} />) : (
             <PublicRoute exact path='/' component={Main} />
-        )}
+            )}
         <div className='container-fluid header'>
             <div className='row justify-content-center align-items-center'>
                 <div className='col-sm-8 col-md-6 col-xl-5'>
