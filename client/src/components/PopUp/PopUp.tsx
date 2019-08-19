@@ -6,8 +6,12 @@ interface IModalState {
     modal: boolean;
 }
 
-export default class PopUpModal extends React.Component<any, IModalState> {
-    constructor(props: {}) {
+interface IProps {
+  deletePhoto: () => void;
+}
+
+export default class PopUpModal extends React.Component<IProps, IModalState> {
+    constructor(props: IProps) {
         super(props);
         this.state = {
             modal: false,
