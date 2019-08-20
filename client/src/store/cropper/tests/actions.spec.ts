@@ -15,7 +15,7 @@ import expect from 'expect';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('CheckEmail', () => {
+describe('Cropper test', () => {
 
     afterEach(() => {
         fetchMock.reset();
@@ -29,7 +29,7 @@ describe('CheckEmail', () => {
         expect(data(image)).toEqual(formData);
     });
 
-    it('uploads photo', () => {
+    it('upload photo', () => {
 
         fetchMock.post(`${process.env.REACT_APP_BASE_API!}/profile/photo`, {
             headers: {'content-type': 'application/json'},

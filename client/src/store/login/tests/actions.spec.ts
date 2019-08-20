@@ -12,14 +12,14 @@ import expect from 'expect';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('CheckEmail', () => {
+describe('Login test', () => {
 
     afterEach(() => {
         fetchMock.reset();
         fetchMock.restore();
     });
 
-    it('shows alert', () => {
+    it('Login async test', () => {
 
         fetchMock.post(`${process.env.REACT_APP_BASE_API!}/auth/login/`, {
             headers: {'content-type': 'application/json'},

@@ -12,14 +12,14 @@ import expect from 'expect';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('ChangePassword', () => {
+describe('ChangePassword test', () => {
 
     afterEach(() => {
         fetchMock.reset();
         fetchMock.restore();
     });
 
-    it('shows alert', () => {
+    it('ChangePassword async action', () => {
 
         const token = 'tokentoken';
 
