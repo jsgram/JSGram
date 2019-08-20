@@ -33,7 +33,7 @@ export const getUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             const res = await AuthAPI.get('/profile');
             dispatch(getUserSuccess(res.data.userProfile));
         } catch (e) {
-            if (e.response.status === 500) {
+            if (e.response.status === 401) {
                 history.push('/logout');
                 dispatch(showAlert(e.response.data.message, 'danger'));
             }
