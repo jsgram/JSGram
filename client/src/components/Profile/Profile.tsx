@@ -5,7 +5,9 @@ import { Button } from 'reactstrap';
 import '../styles/Profile.scss';
 import Cropper from '../Cropper/Cropper';
 import noAvatar from '../assets/noAvatar.svg';
+
 import { Menu } from '../Menu/Menu';
+
 
 export interface IUserData {
     posts: number;
