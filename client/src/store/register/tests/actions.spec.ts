@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { API } from '../../api';
-import * as t from '../../alert/actionTypes';
+import * as types from '../../alert/actionTypes';
 import { registerUser } from '../actions';
 
 import fetchMock from 'fetch-mock';
@@ -24,13 +24,13 @@ describe('Register test', () => {
         fetchMock.put(`${process.env.REACT_APP_BASE_API!}/user/`, {
             headers: {'content-type': 'application/json'},
             body: {
-                data: [1, 2, 3], status: 'ok',
+                status: 'ok',
             },
         });
 
         const expectedActions = [
             {
-                type: t.SHOW_ALERT,
+                type: types.SHOW_ALERT,
                 message: 'test',
                 color: 'test',
             },
@@ -41,7 +41,7 @@ describe('Register test', () => {
                 type: '@@redux-form/RESET',
             },
             {
-                type: t.SHOW_ALERT,
+                type: types.SHOW_ALERT,
                 message: 'Can not create user',
                 color: 'danger',
             },
@@ -49,7 +49,7 @@ describe('Register test', () => {
 
         const expectedErrorActions = [
             {
-                type: t.SHOW_ALERT,
+                type: types.SHOW_ALERT,
                 message: 'The email address you have entered is already associated with another account',
                 color: 'danger',
             },

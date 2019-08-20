@@ -1,11 +1,11 @@
 import { showAlert, clearAlert } from '../actions';
-import * as t from '../actionTypes';
+import * as types from '../actionTypes';
 
 describe('Alert actions', () => {
     it('showAlert', () => {
 
         const expectedAction = {
-            type: t.SHOW_ALERT,
+            type: types.SHOW_ALERT,
             message: 'test',
             color: 'test',
         };
@@ -15,7 +15,7 @@ describe('Alert actions', () => {
 
     it('clearAlert', () => {
         expect(clearAlert()).toEqual({
-            type: t.CLEAR_ALERT,
+            type: types.CLEAR_ALERT,
         });
     });
 });

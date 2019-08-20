@@ -1,11 +1,11 @@
 import { alertReducer, initialState } from '../reducers';
-import * as t from '../actionTypes';
+import * as types from '../actionTypes';
 
 describe('alert reducer test', () => {
     it('SHOW_ALERT', () => {
 
         const action: any = {
-            type: t.SHOW_ALERT,
+            type: types.SHOW_ALERT,
             message: 'test',
             color: 'test',
         };
@@ -20,7 +20,7 @@ describe('alert reducer test', () => {
     it('CLEAR_ALERT', () => {
 
         const action: any = {
-            type: t.CLEAR_ALERT,
+            type: types.CLEAR_ALERT,
         };
 
         expect(alertReducer(initialState, action)).toEqual({

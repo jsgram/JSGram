@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { API } from '../../api';
-import * as t from '../../alert/actionTypes';
+import * as types from '../../alert/actionTypes';
 import { checkEmail } from '../actions';
 
 import fetchMock from 'fetch-mock';
@@ -24,13 +24,13 @@ describe('CheckEmail test', () => {
         fetchMock.put(`${process.env.REACT_APP_BASE_API!}/forgot-password/`, {
             headers: {'content-type': 'application/json'},
             body: {
-                data: [1, 2, 3], status: 'ok',
+                status: 'ok',
             },
         });
 
         const expectedActions = [
             {
-                type: t.SHOW_ALERT,
+                type: types.SHOW_ALERT,
                 message: 'test',
                 color: 'test',
             },
@@ -38,7 +38,7 @@ describe('CheckEmail test', () => {
 
         const expectedErrorActions = [
             {
-                type: t.SHOW_ALERT,
+                type: types.SHOW_ALERT,
                 message: 'The email address you have entered isn\'t associated with another account',
                 color: 'danger',
             },

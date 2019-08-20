@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import {API} from '../../api';
-import * as t from '../../alert/actionTypes';
+import * as types from '../../alert/actionTypes';
 import {changePassword} from '../actions';
 
 import fetchMock from 'fetch-mock';
@@ -35,7 +35,7 @@ describe('ChangePassword test', () => {
 
         const expectedActions = [
             {
-                type: t.SHOW_ALERT,
+                type: types.SHOW_ALERT,
                 message: 'test',
                 color: 'test',
             },
@@ -43,7 +43,7 @@ describe('ChangePassword test', () => {
 
         const expectedErrorActions = [
             {
-                type: t.SHOW_ALERT,
+                type: types.SHOW_ALERT,
                 message: 'Token does not exist',
                 color: 'danger',
             },

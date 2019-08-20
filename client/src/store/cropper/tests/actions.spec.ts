@@ -3,8 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { API } from '../../api';
-import * as t from '../actionTypes';
-import * as t_alert from '../../alert/actionTypes';
+import * as types from '../actionTypes';
 import {data, uploadPostAvatar, uploadAvatarPending, uploadAvatarError} from '../actions';
 
 import image from '../../../components/assets/logo.png';
@@ -38,10 +37,10 @@ describe('Cropper test', () => {
 
         const expectedActions = [
             {
-                type: t.UPLOAD_AVATAR_PENDING,
+                type: types.UPLOAD_AVATAR_PENDING,
             },
             {
-                type: t.UPLOAD_AVATAR_SUCCESS,
+                type: types.UPLOAD_AVATAR_SUCCESS,
                 payload: image,
             },
         ];
@@ -53,7 +52,7 @@ describe('Cropper test', () => {
             expect(uploadAvatarPending()).toEqual(expectedActions);
         })
         .catch((e: Error) => {
-            expect(uploadAvatarPending()).toEqual({type: t.UPLOAD_AVATAR_PENDING});
+            expect(uploadAvatarPending()).toEqual({type: types.UPLOAD_AVATAR_PENDING});
         });
     });
 

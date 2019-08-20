@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { API } from '../../api';
-import * as t from '../../alert/actionTypes';
+import * as types from '../../alert/actionTypes';
 import { loginUser } from '../actions';
 
 import fetchMock from 'fetch-mock';
@@ -30,7 +30,7 @@ describe('Login test', () => {
 
         const expectedActions = [
             {
-                type: t.SHOW_ALERT,
+                type: types.SHOW_ALERT,
                 message: 'Welcome',
                 color: 'success',
             },
@@ -38,7 +38,7 @@ describe('Login test', () => {
 
         const expectedErrorActions = [
             {
-                type: t.SHOW_ALERT,
+                type: types.SHOW_ALERT,
                 message: 'You entered invalid email or password',
                 color: 'danger',
             },
