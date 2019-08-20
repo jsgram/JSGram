@@ -41,7 +41,7 @@ export const createUser = async (user: IUserModel, next: NextFunction): Promise<
             posts,
         });
     } catch (e) {
-        next({message: 'The email address you have entered is ' +
+        next({message: 'The email address or username you have entered is ' +
                 'already associated with another account', status: 409});
     }
 };
