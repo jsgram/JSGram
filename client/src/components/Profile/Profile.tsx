@@ -8,7 +8,6 @@ import noAvatar from '../assets/noAvatar.svg';
 
 import { Menu } from '../Menu/Menu';
 
-
 export interface IUserData {
     posts: number;
     followers: number;
