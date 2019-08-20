@@ -1,9 +1,6 @@
 import { GET_USER_PENDING,
          GET_USER_SUCCESS,
          GET_USER_ERROR,
-         DELETE_PHOTO_PENDING,
-         DELETE_PHOTO_SUCCESS,
-         DELETE_PHOTO_ERROR,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
