@@ -1,62 +1,69 @@
-import configureMockStore from 'redux-mock-store';
-
 import thunk from 'redux-thunk';
+import moxios from 'moxios';
+import configureMockStore from 'redux-mock-store';
+import {showAlert} from '../../alert/actions';
+import {getUserError, getUserPending, getUserSuccess, loginUser} from '../actions';
 
-import { API } from '../../api';
-import * as types from '../../alert/actionTypes';
-import { loginUser } from '../actions';
+export const startState = {};
 
-import fetchMock from 'fetch-mock';
-import expect from 'expect';
+export const mockStore = configureMockStore([thunk]);
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
-
-describe('Login test', () => {
-
-    afterEach(() => {
-        fetchMock.reset();
-        fetchMock.restore();
+export const makeMockStore = (state: any = {}): any => {
+    return mockStore({
+        ...startState,
+        ...state,
     });
+};
 
-    it('Login async test', () => {
+const mockSuccess = (data: any): any => ({status: 200, response: {data}});
 
-        fetchMock.post(`${process.env.REACT_APP_BASE_API!}/auth/login/`, {
-            headers: {'content-type': 'application/json'},
-            body: {
-                status: 'ok',
-            },
+describe('loginUser', () => {
+    beforeEach(() => moxios.install());
+    afterEach(() => moxios.uninstall());
+
+    it('dispatches loginUser with server data on success', () => {
+        const store = makeMockStore();
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
         });
 
-        const expectedActions = [
-            {
-                type: types.SHOW_ALERT,
-                message: 'Welcome',
-                color: 'success',
-            },
-        ];
-
-        const expectedErrorActions = [
-            {
-                type: types.SHOW_ALERT,
-                message: 'You entered invalid email or password',
-                color: 'danger',
-            },
-        ];
-
-        const store = mockStore({});
-
-        const mockUser = {
-            email: 'test@test.ua',
-            password: 'testdksfskfjdlsfj',
+        const user = {
+            email: 'lol@lol.ua',
+            password: 'lollollol',
         };
 
-        return store.dispatch<any>(loginUser( mockUser)).then(() => {
-            expect(store.getActions()).toEqual(expectedActions);
-        })
-        .catch((e: Error) => {
-            expect(store.getActions()).toEqual(expectedErrorActions);
-        });
+        const expected = [
+            showAlert('Welcome', 'success'),
+            getUserPending(),
+            getUserSuccess(user),
+        ];
+        store.dispatch(loginUser(user))
+            .then(() => {
+                const actual = store.getActions();
+                expect(actual).toEqual(expected);
+            })
+        ;
     });
 
+    it('dispatches loginUser with server data on error', () => {
+        const store = makeMockStore();
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
+        });
+
+        const user = {};
+        const err = new Error();
+
+        const expected = [
+            showAlert(
+                'The email address you have entered isn\'t associated with another account',
+                'danger',
+            ),
+        ];
+        store.dispatch(loginUser(user))
+            .then(() => {
+                const actual = store.getActions();
+                expect(actual).toEqual(expected);
+            });
+    });
 });

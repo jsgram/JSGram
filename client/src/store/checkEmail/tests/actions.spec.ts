@@ -1,58 +1,59 @@
-import configureMockStore from 'redux-mock-store';
-
 import thunk from 'redux-thunk';
+import moxios from 'moxios';
+import configureMockStore from 'redux-mock-store';
+import {showAlert} from '../../alert/actions';
+import {checkEmail} from '../actions';
 
-import { API } from '../../api';
-import * as types from '../../alert/actionTypes';
-import { checkEmail } from '../actions';
+export const startState = {};
 
-import fetchMock from 'fetch-mock';
-import expect from 'expect';
+export const mockStore = configureMockStore([thunk]);
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
-
-describe('CheckEmail test', () => {
-
-    afterEach(() => {
-        fetchMock.reset();
-        fetchMock.restore();
+export const makeMockStore = (state: any = {}): any => {
+    return mockStore({
+        ...startState,
+        ...state,
     });
+};
 
-    it('CheckEmail async action', () => {
+const mockSuccess = (data: any): any => ({status: 200, response: {data}});
 
-        fetchMock.put(`${process.env.REACT_APP_BASE_API!}/forgot-password/`, {
-            headers: {'content-type': 'application/json'},
-            body: {
-                status: 'ok',
-            },
+describe('Check email', () => {
+    beforeEach(() => moxios.install());
+    afterEach(() => moxios.uninstall());
+
+    it('dispatches checkEmail with server data on success', () => {
+        const store = makeMockStore();
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
         });
 
-        const expectedActions = [
-            {
-                type: types.SHOW_ALERT,
-                message: 'test',
-                color: 'test',
-            },
+        const expected = [
+            showAlert('Good', 'success'),
         ];
-
-        const expectedErrorActions = [
-            {
-                type: types.SHOW_ALERT,
-                message: 'The email address you have entered isn\'t associated with another account',
-                color: 'danger',
-            },
-        ];
-
-        const store = mockStore({});
-
-        return store.dispatch<any>(checkEmail( 'test@test.com')).then(() => {
-            expect(store.getActions()).toEqual(expectedActions);
-        })
-        .catch((e: Error) => {
-            expect(store.getActions()).toEqual(expectedErrorActions);
-        });
-
+        store.dispatch(checkEmail('art256100@gmail.com'))
+            .then(() => {
+                const actual = store.getActions();
+                expect(actual).toEqual(expected);
+            });
     });
 
+    it('dispatches checkEmail with server data on error', () => {
+        const store = makeMockStore();
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
+        });
+
+        const expected = [
+            showAlert(
+                'The email address you have entered isn\'t associated with another account',
+                'danger',
+            ),
+        ];
+        store.dispatch(checkEmail('hgfjhfchjkbx'))
+            .then(() => {
+                const actual = store.getActions();
+                expect(actual).toEqual(expected);
+            });
+
+    });
 });

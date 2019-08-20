@@ -1,62 +1,60 @@
-import configureMockStore from 'redux-mock-store';
-
 import thunk from 'redux-thunk';
-
-import {API} from '../../api';
-import * as types from '../../alert/actionTypes';
+import moxios from 'moxios';
+import configureMockStore from 'redux-mock-store';
+import {showAlert} from '../../alert/actions';
 import {changePassword} from '../actions';
+import {encodeJWT} from "../../../../../server/src/helpers/jwt.encoders";
 
-import fetchMock from 'fetch-mock';
-import expect from 'expect';
+export const startState = {};
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+export const mockStore = configureMockStore([thunk]);
 
-describe('ChangePassword test', () => {
-
-    afterEach(() => {
-        fetchMock.reset();
-        fetchMock.restore();
+export const makeMockStore = (state: any = {}): any => {
+    return mockStore({
+        ...startState,
+        ...state,
     });
+};
 
-    it('ChangePassword async action', () => {
+const mockSuccess = (data: any): any => ({status: 200, response: {data}});
 
-        const token = 'tokentoken';
+describe('Check email', () => {
+    beforeEach(() => moxios.install());
+    afterEach(() => moxios.uninstall());
 
-        fetchMock.put(`${process.env.REACT_APP_BASE_API!}/forgot-password/${token}`, {
-            headers: {'content-type': 'application/json'},
-            body: {
-                data: {
-                    status: 'test',
-                    message: 'test',
-                },
-            },
+    it('dispatches changePassword with server data on success', () => {
+        const store = makeMockStore();
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
         });
 
-        const expectedActions = [
-            {
-                type: types.SHOW_ALERT,
-                message: 'test',
-                color: 'test',
-            },
+        const expected = [
+            showAlert('', 'success'),
         ];
-
-        const expectedErrorActions = [
-            {
-                type: types.SHOW_ALERT,
-                message: 'Token does not exist',
-                color: 'danger',
-            },
-        ];
-
-        const store = mockStore({});
-
-        return store.dispatch<any>(changePassword('password', token)).then(() => {
-            expect(store.getActions()).toEqual(expectedActions);
-        })
-            .catch((e: Error) => {
-                expect(store.getActions()).toEqual(expectedErrorActions);
+        store.dispatch(changePassword('test123123', '9db4777228fe704ce4527edab89e6bc5'))
+            .then(() => {
+                const actual = store.getActions();
+                expect(actual).toEqual(expected);
             });
     });
 
+    it('dispatches changePassword with server data on error', () => {
+        const store = makeMockStore();
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
+        });
+
+        const expected = [
+            showAlert(
+                'Token does not exist',
+                'danger',
+            ),
+        ];
+        store.dispatch(changePassword('hgfjhfchjkbx', 'jksdhfksjhfks'))
+            .then(() => {
+                const actual = store.getActions();
+                expect(actual).toEqual(expected);
+            });
+
+    });
 });

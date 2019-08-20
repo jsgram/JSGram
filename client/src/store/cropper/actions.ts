@@ -47,7 +47,7 @@ export const uploadPostAvatar = (avatar: File | string): (dispatch: Dispatch) =>
         }
     };
 
-export const uploadPutAvatar = (avatar: File): (dispatch: Dispatch) => Promise<void> =>
+export const uploadPutAvatar = (avatar: File | string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const res = await AuthAPI.put('/profile/photo', data(avatar));

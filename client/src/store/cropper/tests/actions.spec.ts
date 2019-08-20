@@ -1,59 +1,79 @@
-import configureMockStore from 'redux-mock-store';
-
 import thunk from 'redux-thunk';
-
-import { API } from '../../api';
-import * as types from '../actionTypes';
-import {data, uploadPostAvatar, uploadAvatarPending, uploadAvatarError} from '../actions';
-
+import moxios from 'moxios';
+import configureMockStore from 'redux-mock-store';
+import {showAlert} from '../../alert/actions';
+import {uploadAvatarPending, uploadAvatarSuccess, uploadPostAvatar, uploadPutAvatar} from '../actions';
 import image from '../../../components/assets/logo.png';
 
-import fetchMock from 'fetch-mock';
-import expect from 'expect';
+export const startState = {};
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+export const mockStore = configureMockStore([thunk]);
 
-describe('Cropper test', () => {
-
-    afterEach(() => {
-        fetchMock.reset();
-        fetchMock.restore();
+export const makeMockStore = (state: any = {}): any => {
+    return mockStore({
+        ...startState,
+        ...state,
     });
+};
 
-    it('data', () => {
-        const formData = new FormData();
-        formData.append('userPhoto', image);
-        formData.append('enctype', 'multipart/form-data');
-        expect(data(image)).toEqual(formData);
-    });
+const mockSuccess = (): any => ({status: 200});
 
-    it('upload photo', () => {
+describe('Avatar cropper', () => {
+    beforeEach(() => moxios.install());
+    afterEach(() => moxios.uninstall());
 
-        fetchMock.post(`${process.env.REACT_APP_BASE_API!}/profile/photo`, {
-            headers: {'content-type': 'application/json'},
-
+    it('dispatches uploadPostAvatar with server data on success', () => {
+        const store = makeMockStore();
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
         });
 
-        const expectedActions = [
-            {
-                type: types.UPLOAD_AVATAR_PENDING,
-            },
-            {
-                type: types.UPLOAD_AVATAR_SUCCESS,
-                payload: image,
-            },
+        const user = {
+            posts: 2,
+            followers: 3,
+            following: 4,
+            description: 'test',
+            fullName: 'test',
+            username: 'test',
+            photo: 'test',
+        };
+
+        const expected = [
+            uploadAvatarPending(),
+            showAlert('Successfully uploaded', 'success'),
+            uploadAvatarSuccess(user),
         ];
-
-        const store = mockStore({});
-
-        return store.dispatch<any>(uploadPostAvatar(image))
-        .then(() => {
-            expect(uploadAvatarPending()).toEqual(expectedActions);
-        })
-        .catch((e: Error) => {
-            expect(uploadAvatarPending()).toEqual({type: types.UPLOAD_AVATAR_PENDING});
-        });
+        store.dispatch(uploadPostAvatar(image))
+            .then(() => {
+                const actual = store.getActions();
+                expect(actual).toEqual(expected);
+            });
     });
 
+    it('dispatches uploadPutAvatar with server data on success', () => {
+        const store = makeMockStore();
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
+        });
+
+        const user = {
+            posts: 2,
+            followers: 3,
+            following: 4,
+            description: 'test',
+            fullName: 'test',
+            username: 'test',
+            photo: 'test',
+        };
+
+        const expected = [
+            showAlert('Successfully uploaded', 'success'),
+            uploadAvatarSuccess(user),
+        ];
+        store.dispatch(uploadPutAvatar(image))
+            .then(() => {
+                const actual = store.getActions();
+                expect(actual).toEqual(expected);
+            });
+    });
 });

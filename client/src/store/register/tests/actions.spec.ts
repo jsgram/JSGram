@@ -1,76 +1,66 @@
-import configureMockStore from 'redux-mock-store';
-
 import thunk from 'redux-thunk';
+import moxios from 'moxios';
+import configureMockStore from 'redux-mock-store';
+import {showAlert} from '../../alert/actions';
+import {registerUser} from '../actions';
+import {reset} from 'redux-form';
 
-import { API } from '../../api';
-import * as types from '../../alert/actionTypes';
-import { registerUser } from '../actions';
+export const startState = {};
 
-import fetchMock from 'fetch-mock';
-import expect from 'expect';
+export const mockStore = configureMockStore([thunk]);
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
-
-describe('Register test', () => {
-
-    afterEach(() => {
-        fetchMock.reset();
-        fetchMock.restore();
+export const makeMockStore = (state: any = {}): any => {
+    return mockStore({
+        ...startState,
+        ...state,
     });
+};
 
-    it('Register async action', () => {
+const mockSuccess = (data: any): any => ({status: 200, response: {data}});
 
-        fetchMock.put(`${process.env.REACT_APP_BASE_API!}/user/`, {
-            headers: {'content-type': 'application/json'},
-            body: {
-                status: 'ok',
-            },
+describe('registerUser', () => {
+    beforeEach(() => moxios.install());
+    afterEach(() => moxios.uninstall());
+
+    it('dispatches registerUser with server data on success', () => {
+        const store = makeMockStore();
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
         });
 
-        const expectedActions = [
-            {
-                type: types.SHOW_ALERT,
-                message: 'test',
-                color: 'test',
-            },
-            {
-                meta: {
-                    form: 'registerForm',
-                },
-                type: '@@redux-form/RESET',
-            },
-            {
-                type: types.SHOW_ALERT,
-                message: 'Can not create user',
-                color: 'danger',
-            },
-        ];
-
-        const expectedErrorActions = [
-            {
-                type: types.SHOW_ALERT,
-                message: 'The email address you have entered is already associated with another account',
-                color: 'danger',
-            },
-        ];
-
-        const store = mockStore({});
-
-        const mockUser = {
-            username: 'test',
-            email: 'test@test.ua',
-            fullName: 'test',
-            password: 'testdksfskfjdlsfj',
-            photoPath: 'test',
+        const user = {
+            fullName: 'test test',
+            username: 'sdgsdhdhsdf',
+            email: 'testtest123324235@test.com',
+            password: 'testtest',
         };
 
-        return store.dispatch<any>(registerUser( mockUser)).then(() => {
-            expect(store.getActions()).toEqual(expectedActions);
-        })
-            .catch((e: Error) => {
-                expect(store.getActions()).toEqual(expectedErrorActions);
+        const expected = [
+            showAlert('Welcome', 'success'),
+            reset('registerForm'),
+        ];
+        store.dispatch(registerUser(user))
+            .then(() => {
+                const actual = store.getActions();
+                expect(actual).toEqual(expected);
             });
     });
 
+    it('dispatches registerUser with server data on error', () => {
+        const store = makeMockStore();
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
+        });
+
+        const user = {};
+
+        const expected = [
+            showAlert('Can not create user', 'danger'),
+        ];
+        store.dispatch(registerUser(user))
+            .then(() => {
+                const actual = store.getActions();
+                expect(actual).toEqual(expected);
+            });
+    });
 });
