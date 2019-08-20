@@ -2,10 +2,10 @@ import { API } from '../api';
 import { showAlert } from '../alert/actions';
 import { Dispatch } from 'redux';
 import { IUser } from '../commonInterfaces/commonInterfaces';
-import { setToken } from './setToken.helper';
+import { setToken, TOKEN } from './setToken.helper';
+import { history } from '../../history';
 import { GET_USER_PENDING, GET_USER_SUCCESS, GET_USER_ERROR } from '../profile/actionTypes';
 import { IUserData } from '../../components/Profile/Profile';
-import { TOKEN } from '../login/setToken.helper';
 
 export const getUserPending = (): { type: string } => ({
     type: GET_USER_PENDING,
@@ -27,6 +27,7 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             const res = await API.post('/auth/login', user);
             if (res.status === 200) {
                 dispatch(showAlert('Welcome', 'success'));
+                history.push('/feed');
             }
             setToken(res.data.token);
             dispatch(getUserPending());
@@ -36,6 +37,15 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             });
 
             dispatch(getUserSuccess(get.data));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const logOut = (): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            localStorage.removeItem(TOKEN);
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
