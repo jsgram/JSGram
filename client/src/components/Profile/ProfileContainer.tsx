@@ -13,7 +13,7 @@ interface IState {
     profile: IStateToProps;
 }
 
-class ProfileContainer extends React.Component <any> {
+export class ProfileContainer extends React.Component <any> {
     public render(): JSX.Element {
         return (
             <div className='container'>

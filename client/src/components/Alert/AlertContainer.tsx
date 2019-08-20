@@ -4,7 +4,7 @@ import Alert from './Alert';
 import { connect } from 'react-redux';
 import { FormProps } from 'reactstrap';
 
-const AlertContainer: React.FunctionComponent<FormProps> = ({
+export const AlertContainer: React.FunctionComponent<FormProps> = ({
                                                           message,
                                                           color,
                                                           clearAlert,

@@ -15,7 +15,7 @@ interface ILocalState {
     src: null | string;
 }
 
-class Cropper extends React.Component<any> {
+export class Cropper extends React.Component<any> {
 
     public FILE_SIZE: number = 2000000;
 
@@ -51,7 +51,7 @@ class Cropper extends React.Component<any> {
 
     public onBeforeFileLoad = (elem: any): void => {
         if (elem.target.files[0].size > this.FILE_SIZE) {
-            alert('File is too big!');
+            // alert('File is too big!');
             elem.target.value = '';
         }
     }

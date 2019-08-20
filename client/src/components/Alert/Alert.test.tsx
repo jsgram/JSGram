@@ -1,32 +1,32 @@
 import Alert from './Alert';
+import * as reactstrap from 'reactstrap';
 
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import React from 'react';
 
-configure({ adapter: new Adapter() });
-
-const props = {
-    message: 'somemessage',
-    color: 'somecolor',
-    clearAlert: () => 'somehandler',
-};
-
-const alert = new Alert(props);
-const renderer = shallow(<Alert {...props} />);
-
 describe('Alert component:', () => {
+    const props = {
+        message: 'somemessage',
+        color: 'somecolor',
+        clearAlert: (): string => 'somehandler',
+    };
+    let renderer;
+
+    beforeEach(() => {
+        reactstrap.UncontrolledAlert = jest.fn(() => (<div>{props.message}</div>));
+        renderer = shallow(<Alert {...props} />);
+    });
+
     test('componentDidMount - success', () => {
-        alert.componentDidMount();
-        expect(alert.timeout).toBe(3);
+        expect(renderer.instance().timeout).toBe(2);
     });
 
     test('componentWillUnmount - success', () => {
-        alert.componentWillUnmount();
-        expect(alert.timeout).toBe(0);
+        renderer.instance().componentWillUnmount();
+        expect(renderer.instance().timeout).toBe(0);
     });
 
     test('render - success', () => {
-        expect(renderer.html()).toHaveLength(195);
+        expect(renderer.html()).toBe('<div>somemessage</div>');
     });
 });

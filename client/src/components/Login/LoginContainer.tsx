@@ -8,7 +8,7 @@ import { FormProps } from 'reactstrap';
 import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import {setToken} from '../../store/login/setToken.helper';
 
-class LoginContainer extends React.Component<any> {
+export class LoginContainer extends React.Component<any> {
     constructor(props: any) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);

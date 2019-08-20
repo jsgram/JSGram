@@ -7,7 +7,7 @@ import validate from '../../utils/validation';
 import { FormProps } from 'reactstrap';
 import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 
-class RegisterContainer extends React.Component<any> {
+export class RegisterContainer extends React.Component<any> {
     constructor(props: any) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
