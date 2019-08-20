@@ -1,11 +1,11 @@
-import {API} from '../api';
+import { API } from '../api';
 import { showAlert } from '../alert/actions';
 import { Dispatch } from 'redux';
 import { IUser } from '../commonInterfaces/commonInterfaces';
-import {setToken} from './setToken.helper';
-import {GET_USER_PENDING, GET_USER_SUCCESS, GET_USER_ERROR} from '../profile/actionTypes';
-import {IUserData} from '../../components/Profile/Profile';
-import {TOKEN} from '../login/setToken.helper';
+import { setToken } from './setToken.helper';
+import { GET_USER_PENDING, GET_USER_SUCCESS, GET_USER_ERROR } from '../profile/actionTypes';
+import { IUserData } from '../../components/Profile/Profile';
+import { TOKEN } from '../login/setToken.helper';
 
 export const getUserPending = (): { type: string } => ({
     type: GET_USER_PENDING,
@@ -32,7 +32,7 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             dispatch(getUserPending());
             const token = localStorage.getItem(TOKEN);
             const get = await API.get(('/'), {
-                headers: { Authorization: token },
+                headers: {Authorization: token},
             });
 
             dispatch(getUserSuccess(get.data));
