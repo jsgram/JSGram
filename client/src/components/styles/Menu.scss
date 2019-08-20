@@ -32,6 +32,7 @@
 .navigation-input_search{
   outline: 0;
   transition: 3s;
+  height:30px;
   &::placeholder{
     @include input_text(0em,$color-grey);
   }
