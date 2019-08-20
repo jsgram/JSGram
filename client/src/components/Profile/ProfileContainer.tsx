@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Profile, {IUserData} from './Profile';
-import { getUser } from '../../store/profile/actions';
+import { getUser, deletePhoto } from '../../store/profile/actions';
 
 interface IStateToProps {
     user: IUserData;
     loaded: boolean;
+    loading: boolean;
 }
 
 interface IState {
@@ -19,20 +20,24 @@ class ProfileContainer extends React.Component <any> {
                 <Profile
                     user={this.props.user}
                     loaded={this.props.loaded}
+                    loading={this.props.loading}
                     getUser={this.props.getUser}
+                    deletePhoto={this.props.deletePhoto}
                 />
             </div>
         );
     }
 }
 
-const mapStateToProps = (state: IState): { user: any, loaded: boolean } => ({
+const mapStateToProps = (state: IState): { user: any, loaded: boolean, loading: boolean } => ({
     user: state.profile.user,
     loaded: state.profile.loaded,
+    loading: state.profile.loading,
 });
 
 const mapDispatchToProps = {
     getUser,
+    deletePhoto,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);

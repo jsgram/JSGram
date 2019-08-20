@@ -1,9 +1,9 @@
 import React from 'react';
 import '../styles/style.scss';
 import { Instagram } from 'react-content-loader';
-import { Button } from 'reactstrap';
+import { Button, Spinner } from 'reactstrap';
 import '../styles/Profile.scss';
-import Cropper from '../Cropper/Cropper';
+import PopUpModal from '../PopUp/PopUp';
 import noAvatar from '../assets/noAvatar.svg';
 
 import { Menu } from '../Menu/Menu';
@@ -21,8 +21,10 @@ export interface IUserData {
 
 interface IFormProps {
     getUser: () => void;
+    deletePhoto: () => void;
     user: IUserData;
     loaded: boolean;
+    loading: boolean;
 }
 
 export default class Profile extends React.Component<IFormProps> {
@@ -81,6 +83,7 @@ export default class Profile extends React.Component<IFormProps> {
                                 <Button className='bg-dark ml-2 btn'>
                                     Edit profile
                                 </Button>
+                                {this.props.loading && <Spinner className='mt-3' color='dark'/>}
                             </p>
                             <div className='d-flex followers'>
                                 <div>
@@ -104,10 +107,10 @@ export default class Profile extends React.Component<IFormProps> {
                                 className='fa fa-plus pr-3'/>
                                 Add Post
                             </Button>
+                            <PopUpModal deletePhoto={this.props.deletePhoto}/>
                         </div>
                     </div>
                 </div>
-                <Cropper/>
             </div>
         );
     }
