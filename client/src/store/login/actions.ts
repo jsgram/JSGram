@@ -33,7 +33,7 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             dispatch(getUserPending());
             const token = localStorage.getItem(TOKEN);
             const get = await API.get(('/'), {
-                headers: { Authorization: token },
+                headers: {Authorization: token},
             });
 
             dispatch(getUserSuccess(get.data));
