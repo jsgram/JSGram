@@ -5,6 +5,7 @@ import { Button, Spinner } from 'reactstrap';
 import '../styles/Profile.scss';
 import PopUpModal from '../PopUp/PopUp';
 import noAvatar from '../assets/noAvatar.svg';
+import { Menu } from '../Menu/Menu';
 
 export interface IUserData {
     posts: number;
@@ -39,9 +40,9 @@ export default class Profile extends React.Component<IFormProps> {
     public componentDidUpdate(prevProps: any): void {
         if (prevProps.loaded !== this.props.loaded && this.props.loaded) {
             this.timerHandle = setTimeout(() => {
-                this.setState({loaded: true});
-                this.timerHandle = 0;
-            },
+                    this.setState({loaded: true});
+                    this.timerHandle = 0;
+                },
                 3000,
             );
         }
@@ -60,33 +61,35 @@ export default class Profile extends React.Component<IFormProps> {
             return (<Instagram/>);
         }
         return (
-            <div className='container'>
-                <div className='row'>
-                    <div className='profile d-flex mt-5'>
-                        <div className='col-4 mr-sm-4'>
+            <div>
+                <Menu/>
+                <div className='container'>
+                    {/* tslint:disable-next-line:max-line-length */}
+                    <div className='row profile d-flex mt-5 justify-content-lg-center justify-content-sm-around justify-content-center'>
+                        <div className='mr-lg-5'>
                             <img
-                                src={photo || noAvatar }
-                                className='img-fluid float-right'
+                                src={photo || noAvatar}
+                                className='img-fluid rounded-circle float-right'
                                 alt='avatar'
                                 height={150}
                                 width={150}
                             />
                         </div>
-                        <div>
+                        <div className='ml-lg-5'>
                             <p className='profile-name'>
                                 {fullName}
-                                <Button className='bg-dark ml-2 btn'>
+                                <Button className='bg-dark ml-4 btn'>
                                     Edit profile
                                 </Button>
                                 {this.props.loading && <Spinner className='mt-3' color='dark'/>}
                             </p>
                             <div className='d-flex followers'>
                                 <div>
-                                    <a href='#' className='mr-sm-4 mr-3'>Posts</a>
+                                    <a href='#' className='mr-sm-5 mr-3'>Posts</a>
                                     <p className='pl-2'>{posts}</p>
                                 </div>
                                 <div>
-                                    <a href='#' className='mr-sm-4 mr-3'>Followers</a>
+                                    <a href='#' className='mr-sm-5 mr-3'>Followers</a>
                                     <p className='pl-4'>{followers}</p>
                                 </div>
                                 <div>

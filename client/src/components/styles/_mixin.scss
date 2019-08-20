@@ -1,21 +1,9 @@
 @import "variables";
 
-@mixin mobile-break() {
+@mixin break-for-mobile() {
   @media screen and (max-width: $break-small) {
-    .btn {
-      font-size: 0.75rem;
-    }
-
-    .profile-name {
-      font-size: 1rem;
-    }
-
-    .followers {
-      font-size: 0.8rem;
-
-      a {
-        font-size: 0.8rem;
-      }
+    .has-search {
+      display: none;
     }
   }
 }
