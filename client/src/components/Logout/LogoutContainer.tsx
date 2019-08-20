@@ -4,7 +4,7 @@ import { logOut } from '../../store/login/actions';
 import { connect } from 'react-redux';
 
 class Logout extends React.Component<any> {
-    public componentWillMount(): any {
+    public componentWillMount(): void {
         this.props.logOut();
         history.push('/login');
     }
