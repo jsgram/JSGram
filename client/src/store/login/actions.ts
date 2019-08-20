@@ -27,5 +27,3 @@ export const logOut = (): (dispatch: Dispatch) => Promise<void> =>
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };
-
-
