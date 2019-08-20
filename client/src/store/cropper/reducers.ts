@@ -12,7 +12,7 @@ export interface IState {
     loading: boolean;
 }
 
-const defaultState = {
+export const defaultState = {
     avatar: null,
     error: null,
     loaded: false,
