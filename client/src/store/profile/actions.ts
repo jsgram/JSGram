@@ -1,9 +1,11 @@
-import { GET_USER_PENDING,
-         GET_USER_SUCCESS,
-         GET_USER_ERROR,
-         DELETE_PHOTO_PENDING,
-         DELETE_PHOTO_SUCCESS,
-         DELETE_PHOTO_ERROR,
+import {
+    GET_USER_PENDING,
+    GET_USER_SUCCESS,
+    GET_USER_ERROR,
+    DELETE_PHOTO_PENDING,
+    DELETE_PHOTO_SUCCESS,
+    DELETE_PHOTO_ERROR,
+    SET_PHOTO_PATH,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
@@ -42,7 +44,7 @@ export const getUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
 
     };
 
-export const deletePhotoPending = (): { type: string} => ({
+export const deletePhotoPending = (): { type: string } => ({
     type: DELETE_PHOTO_PENDING,
 });
 
@@ -67,3 +69,8 @@ export const deletePhoto = (): (dispatch: Dispatch) => Promise<void> =>
             dispatch(deletePhotoError(e.message));
         }
     };
+
+export const setPhoto = (photo: string): {type: string, payload: string} => ({
+    type: SET_PHOTO_PATH,
+    payload: photo,
+});

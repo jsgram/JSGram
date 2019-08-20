@@ -3,6 +3,7 @@ import Avatar from 'react-avatar-edit';
 import noAvatar from '../assets/noAvatar.svg';
 import { Button, Spinner } from 'reactstrap';
 import { setAvatarToCropper, uploadPostAvatar } from '../../store/cropper/actions';
+import { setPhoto } from '../../store/profile/actions';
 import { connect } from 'react-redux';
 import { IState } from '../../store/cropper/reducers';
 
@@ -60,8 +61,9 @@ class Cropper extends React.Component<any> {
         this.props.setAvatarToCropper(data);
     }
 
-    public onClick = (): void => {
-        this.props.uploadPostAvatar(this.props.avatar);
+    public onClick = async (): Promise<void> => {
+        const photo = await (this.props.uploadPostAvatar(this.props.avatar));
+        this.props.setPhoto(photo);
     }
 
     public render(): JSX.Element {
@@ -118,6 +120,7 @@ const mapStateToProps = (state: ICropperState): IState => ({
 const mapDispatchToProps = {
     uploadPostAvatar,
     setAvatarToCropper,
+    setPhoto,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cropper);

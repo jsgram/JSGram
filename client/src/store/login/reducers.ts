@@ -21,6 +21,7 @@ const defaultState = {
         fullName: '',
         username: '',
         photo: '',
+        photoPath: '',
     },
     error: '',
     loaded: false,
