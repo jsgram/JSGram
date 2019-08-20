@@ -21,8 +21,8 @@ export const routes = (
         <Route exact path='/logout' component={Logout} />
         {isToken ? (
             <PrivateRoute exact auth={isToken} path='/' component={Feed} />) : (
-            <PublicRoute exact path='/' component={Main} />
-            )}
+            <PublicRoute exact auth={isToken} path='/' component={Main} />
+        )}
         <div className='container-fluid header'>
             <div className='row justify-content-center align-items-center'>
                 <div className='col-sm-8 col-md-6 col-xl-5'>
