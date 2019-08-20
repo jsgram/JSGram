@@ -6,10 +6,10 @@
   @include flex_item(center,space-around);
   margin-top:20px;
 }
-.logo_component {
+.navigation-logo {
   @include flex-item(center,space-around);
-  @include position(0 0.3em 0 0 ,static,28px);
-  .jsgram{
+  @include position(0 0.5em 0 0 ,static,28px);
+  .navigation-logo_jsgram{
     font-family: "Georgian";
     font-weight: italic;
     font-size: 26px;
@@ -17,19 +17,19 @@
   }
 }
 
-.icons_list{
+.navigation-icons_list{
   @include flex_item(normal,normal);
   padding-left:1%;
   list-style: none;
   }
 
-.center_part {
+.navigation-center {
   @include position(0,relative,59%);
   @include flex_item(normal,normal);
   align-content:center;
 }
 
-.input_input{
+.navigation-input_search{
   outline: 0;
   transition: 3s;
   &::placeholder{
@@ -41,11 +41,11 @@
  }
 }
 
-.center_part:hover {
+.navigation-center:hover {
   .find_icon {
     @include red_transition();
   }
-  .input_input  {
+  .navigation-input_search {
     border-radius: 20px;
     transition: 3s;
   }
@@ -55,15 +55,15 @@
   color: $color-grey;
 }
 .li_component:hover,
-.logo_component:hover {
+.navigation-logo:hover {
     @include red_transition();
 }
-.center_part:hover {
+.navigation-center:hover {
   .find_icon {
     @include red_transition();
   }
 } 
- .icons_list{
+ .navigation-icons_list{
   margin-top: 0 ;
   margin-bottom: 0;
 }

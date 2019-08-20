@@ -26,15 +26,15 @@
 }
 @mixin adaptiveness($max_width,$width,$padding,$padding-left){
 @media screen and (max-width: $max_width){
-.input_input {
+.navigation-input_search {
   width: $width;
 }
 .li_component {
   padding: $padding;
 }
-.logo_component 
+.navigation-logo
 {
-  .jsgram {
+  .navigation-logo_jsgram {
     padding-left: $padding-left;
   }}}}
 @mixin red_transition(){
