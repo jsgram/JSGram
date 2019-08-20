@@ -3,7 +3,7 @@ import moxios from 'moxios';
 import configureMockStore from 'redux-mock-store';
 import {showAlert} from '../../alert/actions';
 import {changePassword} from '../actions';
-import {encodeJWT} from "../../../../../server/src/helpers/jwt.encoders";
+import {encodeJWT} from '../../../../../server/src/helpers/jwt.encoders';
 
 export const startState = {};
 
