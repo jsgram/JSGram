@@ -11,7 +11,7 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             const res = await API.post('/auth/login', user);
             if (res.status === 200) {
                 dispatch(showAlert('Welcome', 'success'));
-                history.push('/');
+                history.push('/feed');
             }
             setToken(res.data.token);
         } catch (e) {
@@ -20,12 +20,12 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
     };
 
 export const logOut = (): (dispatch: Dispatch) => Promise<void> =>
-    async (): Promise<void> => {
+    async (dispatch: Dispatch): Promise<void> => {
         try {
             localStorage.removeItem(TOKEN);
         } catch (e) {
-            throw e;
+            dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };
 
-export const isToken = localStorage.getItem(TOKEN);
+

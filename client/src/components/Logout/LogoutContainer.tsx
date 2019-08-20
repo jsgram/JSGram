@@ -8,7 +8,7 @@ class Logout extends React.Component<any> {
         this.props.logOut();
         history.push('/login');
     }
-    public render(): any {
+    public render(): null {
         return null;
     }
 }
