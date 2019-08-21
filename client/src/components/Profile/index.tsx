@@ -3,7 +3,7 @@ import '../../styles/style.scss';
 import { Instagram } from 'react-content-loader';
 import { Button, Spinner } from 'reactstrap';
 import './Profile.scss';
-import PopUpModal from '../PopUp/PopUp';
+import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 
 export interface IUserData {
@@ -24,9 +24,9 @@ interface IFormProps {
     loading: boolean;
 }
 
-export default class Profile extends React.Component<IFormProps> {
+export default class Index extends React.Component<IFormProps> {
 
-    public state: {loaded: boolean} = {
+    public state: { loaded: boolean } = {
         loaded: false,
     };
     public timerHandle: any = 0;
@@ -53,8 +53,8 @@ export default class Profile extends React.Component<IFormProps> {
     }
 
     public render(): JSX.Element {
-        const { user: {posts, followers, following, fullName, username, description, photo} }: any = this.props;
-        const { loaded }: {loaded: boolean} = this.state;
+        const {user: {posts, followers, following, fullName, username, description, photo}}: any = this.props;
+        const {loaded}: { loaded: boolean } = this.state;
 
         if (!loaded) {
             return (
@@ -64,10 +64,8 @@ export default class Profile extends React.Component<IFormProps> {
             );
         }
         return (
-            <div>
-                {/* tslint:disable-next-line:max-line-length */}
-                <div
-                    className='row profile d-flex pt-5 justify-content-lg-center justify-content-sm-around justify-content-center'>
+            // tslint:disable-next-line:max-line-length
+                <div className='row profile d-flex pt-5 justify-content-lg-center justify-content-sm-around justify-content-center'>
                     <div className='mr-lg-5'>
                         <img
                             src={photo || noAvatar}
@@ -110,7 +108,6 @@ export default class Profile extends React.Component<IFormProps> {
                         <PopUpModal deletePhoto={this.props.deletePhoto}/>
                     </div>
                 </div>
-            </div>
         );
     }
 }

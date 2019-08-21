@@ -14,7 +14,7 @@ interface IProps {
     onSubmit: (user: { email: string, password: string }) => void;
 }
 
-export default class Login extends React.Component<IProps, IUser> {
+export default class Index extends React.Component<IProps, IUser> {
     public render(): JSX.Element {
         const {handleSubmit, onSubmit, submitting}: FormProps = this.props;
         return (

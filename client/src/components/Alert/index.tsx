@@ -2,7 +2,7 @@ import React from 'react';
 import { FormProps, UncontrolledAlert } from 'reactstrap';
 import { clearAlert } from '../../store/alert/actions';
 
-export default class Alert extends React.Component<FormProps> {
+export default class Index extends React.Component<FormProps> {
     public timeout: any = null;
 
     public componentDidMount(): void {

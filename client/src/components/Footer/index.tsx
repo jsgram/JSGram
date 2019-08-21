@@ -8,7 +8,7 @@ const footerLink = [
     {id: 4, label: 'Softserve', href: '#'},
 ];
 
-export const Footer: React.FC = (): ReactElement => (
+export const Index: React.FC = (): ReactElement => (
     <div className='page-footer footer mt-3'>
         <ul className='footer-link'>
             {

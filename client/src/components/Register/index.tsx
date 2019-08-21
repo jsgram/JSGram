@@ -6,7 +6,7 @@ import { renderField } from '../СommonComponents/reduxFormFields';
 import '../../styles/style.scss';
 import logo from '../../assets/logo.png';
 
-class Register extends React.Component<any> {
+class Index extends React.Component<any> {
     public render(): JSX.Element {
         const {handleSubmit, onSubmit, submitting}: FormProps = this.props;
         return (
@@ -92,4 +92,4 @@ class Register extends React.Component<any> {
     }
 }
 
-export default Register;
+export default Index;

@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './store/reducers';
 import { Provider } from 'react-redux';
-import routes from './routes';
-import { Footer } from './components/Footer/Footer';
+import { routes } from './routes/';
+import { Index } from './components/Footer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import AlertContainer from './containers/AlertContainer/AlertContainer';
@@ -21,7 +21,7 @@ const App: React.FC = (): ReactElement => {
         <Provider store={store}>
                 <AlertContainer/>
                 {routes}
-                <Footer/>
+                <Index/>
         </Provider>
     );
 };

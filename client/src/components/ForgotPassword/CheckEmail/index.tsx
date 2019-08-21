@@ -10,7 +10,7 @@ import logo from '../../../assets/logo.png';
 import { renderField } from '../../СommonComponents/reduxFormFields';
 import { IUser } from '../../../store/commonInterfaces/commonInterfaces';
 
-class CheckEmail extends React.Component<any> {
+class Index extends React.Component<any> {
     constructor(props: any) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
@@ -80,5 +80,5 @@ export default connect(
     reduxForm({
         form: 'checkEmailForm',
         validate,
-    })(CheckEmail),
+    })(Index),
 );
