@@ -5,6 +5,7 @@ import { Button, Spinner } from 'reactstrap';
 import '../styles/Profile.scss';
 import PopUpModal from '../PopUp/PopUp';
 import noAvatar from '../assets/noAvatar.svg';
+import { Menu } from '../Menu/Menu';
 
 export interface IUserData {
     posts: number;
@@ -61,6 +62,7 @@ export default class Profile extends React.Component<IFormProps> {
         }
         return (
             <div className='container'>
+                <Menu/>
                 <div className='row'>
                     <div className='profile d-flex mt-5'>
                         <div className='col-4 mr-sm-4'>
