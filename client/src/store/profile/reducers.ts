@@ -5,7 +5,7 @@ import {
     DELETE_PHOTO_PENDING,
     DELETE_PHOTO_SUCCESS,
     DELETE_PHOTO_ERROR,
-    SET_PHOTO_PATH,
+    SET_PHOTO_TO_STATE,
 } from './actionTypes';
 import {IUserData} from '../../components/Profile/Profile';
 
@@ -73,7 +73,7 @@ export const profileReducer = (
             error: action.payload,
             loading: false,
         };
-    case SET_PHOTO_PATH:
+    case SET_PHOTO_TO_STATE:
         return {
             ...state,
             user: {

@@ -5,7 +5,7 @@ import {
     DELETE_PHOTO_PENDING,
     DELETE_PHOTO_SUCCESS,
     DELETE_PHOTO_ERROR,
-    SET_PHOTO_PATH,
+    SET_PHOTO_TO_STATE,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
@@ -70,7 +70,7 @@ export const deletePhoto = (): (dispatch: Dispatch) => Promise<void> =>
         }
     };
 
-export const setPhoto = (photo: string): {type: string, payload: string} => ({
-    type: SET_PHOTO_PATH,
+export const setPhotoToState = (photo: string): {type: string, payload: string} => ({
+    type: SET_PHOTO_TO_STATE,
     payload: photo,
 });
