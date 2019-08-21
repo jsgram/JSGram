@@ -5,7 +5,7 @@ import {createUserMessage} from '../../helpers/send.email.message';
 import {hashPassword} from '../../helpers/hash.password';
 import validateInput, {IValidationError} from '../../helpers/validation';
 
-const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserModel | void> => {
+export const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserModel | void> => {
     try {
         const {
             email,
@@ -41,7 +41,7 @@ const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserMo
             posts,
         });
     } catch (e) {
-        next({message: 'The email address you have entered is ' +
+        next({message: 'The email address or username you have entered is ' +
                 'already associated with another account', status: 409});
     }
 };

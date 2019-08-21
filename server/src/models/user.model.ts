@@ -36,7 +36,6 @@ const UserSchema: Schema = new Schema({
     },
     dateOfBirth: {type: Date},
     createdAt: {type: Date, default: Date.now, required: true},
-    photoPath: {type: String},
     bio: {type: String, minlength: 4, maxlength: 200},
     isAdmin: {type: Boolean, default: false, required: true},
     isVerified: {type: Boolean, default: false, required: true},
@@ -44,6 +43,7 @@ const UserSchema: Schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Post',
     }],
+    photoPath: {type: String, default: '', required: false},
 });
 
 export const User: Model<IUserModel> = model<IUserModel>('User', UserSchema);
