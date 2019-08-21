@@ -64,7 +64,7 @@ export default class Profile extends React.Component<IFormProps> {
             // tslint:disable-next-line:max-line-length
                     <div className='row profile d-flex pt-5 justify-content-lg-center justify-content-sm-around justify-content-center'>
                         <div className='mr-lg-5 mr-3'>
-                            <img               
+                            <img
                                 src={photo || noAvatar }
                                 className='img-fluid rounded-circle float-right'
                                 alt='avatar'
