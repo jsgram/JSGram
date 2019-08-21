@@ -2,7 +2,7 @@ import React from 'react';
 import Avatar from 'react-avatar-edit';
 import noAvatar from '../assets/noAvatar.svg';
 import { Button, Spinner } from 'reactstrap';
-import { setAvatarToCropper, uploadPostAvatar } from '../../store/cropper/actions';
+import { setAvatarToCropper, uploadPostAvatar, createFile } from '../../store/cropper/actions';
 import { connect } from 'react-redux';
 import { IState } from '../../store/cropper/reducers';
 
@@ -45,18 +45,9 @@ class Cropper extends React.Component<any> {
         this.setState({preview: null});
     }
 
-    public urlToFile = async (url: string, filename: string, mimeType: string): Promise<File> => {
-        const mime = mimeType || (url.match(/^data:([^;]+);/) || '')[1];
-        const res = await fetch(url);
-        const buf = await res.arrayBuffer();
-        return new File([buf], filename, {type: mime});
-
-    }
-
     public onCrop = async (preview: any): Promise<void> => {
         this.setState({preview});
-        const file = await this.urlToFile(preview, 'avatar', 'image/png');
-        this.props.setAvatarToCropper(file);
+        this.props.createFile(preview);
     }
 
     public onBeforeFileLoad = (elem: any): void => {
@@ -115,6 +106,7 @@ class Cropper extends React.Component<any> {
 
 const mapStateToProps = (state: ICropperState): IState => ({
     avatar: state.cropper.avatar,
+    file: state.cropper.file,
     loaded: state.cropper.loaded,
     error: state.cropper.error,
     loading: state.cropper.loading,
@@ -123,6 +115,7 @@ const mapStateToProps = (state: ICropperState): IState => ({
 const mapDispatchToProps = {
     uploadPostAvatar,
     setAvatarToCropper,
+    createFile,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cropper);

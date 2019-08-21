@@ -8,11 +8,19 @@ import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
 import { showAlert } from '../alert/actions';
 
-const data = (file: File): FormData => {
+export const data = (file: File): FormData => {
     const formData = new FormData();
     formData.append('userPhoto', file);
     formData.append('enctype', 'multipart/form-data');
     return formData;
+};
+
+export const urlToFile = async (url: string, filename: string, mimeType: string): Promise<File> => {
+    const mime = mimeType || (url.match(/^data:([^;]+);/) || '')[1];
+    const res = await fetch(url);
+    const buf = await res.arrayBuffer();
+    return new File([buf], filename, {type: mime});
+
 };
 
 export const setAvatarToCropper = (avatar: any): { type: string, payload: File } => ({
@@ -33,6 +41,16 @@ export const uploadAvatarError = (error: Error): { type: string, payload: Error 
     type: UPLOAD_AVATAR_ERROR,
     payload: error,
 });
+
+export const createFile = (preview: string): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const newFile = await urlToFile(preview, 'avatar', 'image/png');
+            dispatch(setAvatarToCropper(newFile));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
 
 export const uploadPostAvatar = (avatar: File): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
