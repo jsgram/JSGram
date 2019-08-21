@@ -1,0 +1,33 @@
+extends:
+  - stylelint-config-sass-guidelines
+  - stylelint-config-rational-order
+rules:
+  at-rule-blacklist: ['debug']
+  color-hex-length: 'long'
+  comment-no-empty: true
+  declaration-block-no-duplicate-properties: true
+  declaration-no-important: true
+  font-family-no-duplicate-names: true
+  function-name-case: 'lower'
+  max-nesting-depth: 2
+  no-duplicate-selectors: true
+  no-empty-first-line: true
+  order/properties-alphabetical-order: null
+  selector-max-id: 0
+  selector-no-qualifying-type: null
+  selector-max-compound-selectors: 3
+  selector-list-comma-newline-after: null
+ignoreFiles:
+  - '**/*.pdf'
+  - '**/*.md'
+  - '**/*.json'
+  - '**/*.sh'
+  - '**/*.png'
+  - '**/*.jpg'
+  - '**/*.ico'
+  - '**/*.svg'
+  - '**/*.html'
+  - '**/*.js'
+  - '**/*.jsx'
+  - '**/*.ts'
+  - '**/*.tsx'

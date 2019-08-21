@@ -5,15 +5,15 @@
 
 .footer-link {
   display: flex;
-  list-style-type: none;
   padding-left: 0;
+  list-style-type: none;
 }
 
 .footer {
   position: absolute;
-  left: 0;
   right: 0;
   bottom: 0;
-  height: 50px;
+  left: 0;
   flex-wrap: wrap;
+  height: 50px;
 }

@@ -1,12 +1,12 @@
-@import "variables";
+@import 'variables';
 
 html {
   height: 100%;
 }
 
 body {
-  min-height: 100%;
   position: relative;
+  min-height: 100%;
   padding-bottom: 70px;
 }
 
@@ -17,8 +17,8 @@ body {
 
 .pl-1,
 .register-acc a {
-  font-weight: 700;
   color: $color-red;
+  font-weight: 700;
 
   &:hover {
     color: $color-red;
@@ -31,18 +31,18 @@ body {
 
   span {
     display: inline-block;
-    height: 1px;
-    background: $color-grey;
     width: 34%;
-    margin: 0 10px 4px 10px;
+    height: 1px;
+    margin: 0 10px 4px;
+    background: $color-grey;
   }
 }
 
 .main-phone {
   position: absolute;
-  background: center / contain no-repeat url(../assets/main-phone.png);
-  height: 600px;
-  left: 0;
   top: 70px;
   right: 0;
+  left: 0;
+  height: 600px;
+  background: center / contain no-repeat url('../assets/main-phone.png');
 }
