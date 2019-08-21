@@ -11,7 +11,6 @@ import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
 import { IUserData } from '../../components/Profile/Profile';
 import { IUser } from '../commonInterfaces/commonInterfaces';
-import { history } from '../../history';
 import { showAlert } from '../alert/actions';
 
 export const getUserPending = (): { type: string } => ({
@@ -35,13 +34,9 @@ export const getUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             const res = await AuthAPI.get('/profile');
             dispatch(getUserSuccess(res.data.userProfile));
         } catch (e) {
-            if (e.response.status === 401) {
-                history.push('/logout');
-                dispatch(showAlert(e.response.data.message, 'danger'));
-            }
+            dispatch(showAlert(e.response.data.message, 'danger'));
             dispatch(getUserError(e));
         }
-
     };
 
 export const deletePhotoPending = (): { type: string } => ({
