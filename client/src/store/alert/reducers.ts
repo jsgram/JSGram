@@ -11,7 +11,7 @@ interface IState {
     color: string;
 }
 
-const initialState = {message: '', color: ''};
+export const initialState = {message: '', color: ''};
 
 export const alertReducer = (state: IState = initialState, action: IAction): IState => {
     switch (action.type) {
