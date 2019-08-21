@@ -1,5 +1,5 @@
 import React from 'react';
-import Index from '../../components/Register';
+import Register from '../../components/Register';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { registerUser } from '../../store/register/actions';
@@ -20,7 +20,7 @@ class RegisterContainer extends React.Component<any> {
     public render(): JSX.Element {
         const {handleSubmit, submitting}: FormProps = this.props;
         return (
-            <Index
+            <Register
                 handleSubmit={handleSubmit}
                 onSubmit={this.onSubmit}
                 submitting={submitting}
