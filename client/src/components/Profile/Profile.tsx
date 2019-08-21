@@ -5,6 +5,7 @@ import { Button, Spinner } from 'reactstrap';
 import '../styles/Profile.scss';
 import PopUpModal from '../PopUp/PopUp';
 import noAvatar from '../assets/noAvatar.svg';
+import { Link } from 'react-router-dom';
 
 export interface IUserData {
     posts: number;
@@ -65,7 +66,7 @@ export default class Profile extends React.Component<IFormProps> {
                     <div className='profile d-flex mt-5'>
                         <div className='col-4 mr-sm-4'>
                             <img
-                                src={photo || noAvatar }
+                                src={photo || noAvatar}
                                 className='img-fluid float-right'
                                 alt='avatar'
                                 height={150}
@@ -98,10 +99,12 @@ export default class Profile extends React.Component<IFormProps> {
                                 <strong>{username}</strong>
                                 <p>{description}</p>
                             </div>
-                            <Button className='btn' color='danger'><i
-                                className='fa fa-plus pr-3'/>
-                                Add Post
-                            </Button>
+                            <Link to='/add-post'>
+                                <Button className='btn' color='danger'><i
+                                    className='fa fa-plus pr-3'/>
+                                    Add Post
+                                </Button>
+                            </Link>
                             <PopUpModal deletePhoto={this.props.deletePhoto}/>
                         </div>
                     </div>
