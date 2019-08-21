@@ -1,9 +1,0 @@
-@import "variables";
-
-@mixin break-for-mobile() {
-  @media screen and (max-width: $break-small) {
-    .has-search {
-      display: none;
-    }
-  }
-}

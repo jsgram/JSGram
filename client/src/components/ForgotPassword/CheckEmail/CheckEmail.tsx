@@ -3,11 +3,11 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { checkEmail } from '../../../store/checkEmail/actions';
 import validate from '../../../utils/validation';
-import './../../styles/style.scss';
+import '../../../styles/style.scss';
 import { Button, Form, FormGroup, FormProps, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/logo.png';
-import { renderField } from '../../commonComponents/reduxFormFields';
+import logo from '../../../assets/logo.png';
+import { renderField } from '../../СommonComponents/reduxFormFields';
 import { IUser } from '../../../store/commonInterfaces/commonInterfaces';
 
 class CheckEmail extends React.Component<any> {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Profile, {IUserData} from './Profile';
+import Profile, {IUserData} from '../../components/Profile/Profile';
 import { getUser, deletePhoto } from '../../store/profile/actions';
 
 interface IStateToProps {
@@ -16,7 +16,7 @@ interface IState {
 class ProfileContainer extends React.Component <any> {
     public render(): JSX.Element {
         return (
-            <div className='container'>
+            <div className='container-fluid'>
                 <Profile
                     user={this.props.user}
                     loaded={this.props.loaded}

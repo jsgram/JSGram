@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from './Login';
+import Login from '../../components/Login/Login';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { loginUser } from '../../store/login/actions';

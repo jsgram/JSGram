@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Main } from '../components/Main/Landing';
-import LoginContainer from '../components/Login/LoginContainer';
-import RegisterContainer from '../components/Register/RegisterContainer';
+import LoginContainer from '../containers/LoginContainer/LoginContainer';
+import RegisterContainer from '../containers/RegisterContainer/RegisterContainer';
 import ChangePassword from '../components/ForgotPassword/ChangePassword/ChangePassword';
 import CheckEmail from '../components/ForgotPassword/CheckEmail/CheckEmail';
-import ProfileContainer from '../components/Profile/ProfileContainer';
+import ProfileContainer from '../containers/ProfileContainer/ProfileContainer';
 
 const routes = (
     <Router>

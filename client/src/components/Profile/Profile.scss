@@ -1,7 +1,4 @@
-@import "variables";
-@import "mixin";
-
-
+@import "../../styles/variables";
 
 .profile {
   &-name {
@@ -30,5 +27,6 @@
 .description {
   max-width: 300px;
 }
+
 
 

@@ -2,10 +2,10 @@ import React from 'react';
 import { Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { FormProps, Spinner } from 'reactstrap';
-import { renderField } from '../commonComponents/reduxFormFields';
+import { renderField } from '../СommonComponents/reduxFormFields';
 import { Button, Form, FormGroup } from 'reactstrap';
-import '../styles/style.scss';
-import logo from '../assets/logo.png';
+import '../../styles/style.scss';
+import logo from '../../assets/logo.png';
 import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 
 interface IProps {

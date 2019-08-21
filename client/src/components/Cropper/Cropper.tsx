@@ -1,6 +1,6 @@
 import React from 'react';
 import Avatar from 'react-avatar-edit';
-import noAvatar from '../assets/noAvatar.svg';
+import noAvatar from '../../assets/noAvatar.svg';
 import { Button, Spinner } from 'reactstrap';
 import { setAvatarToCropper, uploadPostAvatar } from '../../store/cropper/actions';
 import { connect } from 'react-redux';
