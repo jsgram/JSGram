@@ -62,7 +62,7 @@ export default class Profile extends React.Component<IFormProps> {
         return (
             // tslint:disable-next-line:max-line-length
                     <div className='row profile d-flex pt-5 justify-content-lg-center justify-content-sm-around justify-content-center'>
-                        <div className='mr-lg-5'>
+                        <div className='mr-lg-5 mr-3'>
                             <img
                                 src={photo || noAvatar }
                                 className='img-fluid rounded-circle float-right'
@@ -72,14 +72,14 @@ export default class Profile extends React.Component<IFormProps> {
                             />
                         </div>
                         <div className='ml-lg-5 d-sm-block d-flex flex-column'>
-                                <p className='profile-name align-self-sm-auto align-self-center'>
+                                <p className='profile-name align-self-center'>
                                 {fullName}
                                 <Button className='bg-dark ml-5 btn'>
                                     Edit profile
                                 </Button>
                                 {this.props.loading && <Spinner className='mt-3' color='dark'/>}
                             </p>
-                            <div className='d-flex followers align-self-sm-auto align-self-center'>
+                            <div className='d-flex followers align-self-center'>
                                 <div>
                                     <a href='#' className='mr-sm-5 mr-3'>Posts</a>
                                     <p className='pl-2'>{posts}</p>
