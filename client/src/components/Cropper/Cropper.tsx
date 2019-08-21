@@ -2,7 +2,7 @@ import React from 'react';
 import Avatar from 'react-avatar-edit';
 import noAvatar from '../assets/noAvatar.svg';
 import { Button, Spinner } from 'reactstrap';
-import { setAvatarToCropper, uploadPostAvatar } from '../../store/cropper/actions';
+import { setAvatarToCropper, uploadPostAvatar, createFile } from '../../store/cropper/actions';
 import { connect } from 'react-redux';
 import { IState } from '../../store/cropper/reducers';
 
@@ -45,8 +45,9 @@ class Cropper extends React.Component<any> {
         this.setState({preview: null});
     }
 
-    public onCrop = (preview: any): void => {
+    public onCrop = async (preview: any): Promise<void> => {
         this.setState({preview});
+        this.props.createFile(preview);
     }
 
     public onBeforeFileLoad = (elem: any): void => {
@@ -54,10 +55,6 @@ class Cropper extends React.Component<any> {
             alert('File is too big!');
             elem.target.value = '';
         }
-    }
-
-    public onFileLoad = (data: any): any => {
-        this.props.setAvatarToCropper(data);
     }
 
     public onClick = (): void => {
@@ -87,7 +84,6 @@ class Cropper extends React.Component<any> {
                     onCrop={this.onCrop}
                     onClose={this.onClose}
                     onBeforeFileLoad={this.onBeforeFileLoad}
-                    onFileLoad={this.onFileLoad}
                     src={this.state.src || ''}
                 />
                 {this.props.loading ? (
@@ -110,6 +106,7 @@ class Cropper extends React.Component<any> {
 
 const mapStateToProps = (state: ICropperState): IState => ({
     avatar: state.cropper.avatar,
+    file: state.cropper.file,
     loaded: state.cropper.loaded,
     error: state.cropper.error,
     loading: state.cropper.loading,
@@ -118,6 +115,7 @@ const mapStateToProps = (state: ICropperState): IState => ({
 const mapDispatchToProps = {
     uploadPostAvatar,
     setAvatarToCropper,
+    createFile,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cropper);
