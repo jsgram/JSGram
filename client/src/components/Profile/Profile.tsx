@@ -61,34 +61,32 @@ export default class Profile extends React.Component<IFormProps> {
             return (<Instagram/>);
         }
         return (
-            <div className='container'>
-                <Menu/>
-                <div className='row'>
-                    <div className='profile d-flex mt-5'>
-                        <div className='col-4 mr-sm-4'>
+                    <div className='row profile d-flex pt-5 justify-content-lg-center justify-content-sm-around justify-content-center'>
+                        <Menu/>
+                        <div className='mr-lg-5 mr-3'>
                             <img
                                 src={photo || noAvatar }
-                                className='img-fluid float-right'
+                                className='img-fluid rounded-circle float-right'
                                 alt='avatar'
                                 height={150}
                                 width={150}
                             />
                         </div>
-                        <div>
-                            <p className='profile-name'>
+                        <div className='ml-lg-5 d-sm-block d-flex flex-column'>
+                                <p className='profile-name align-self-center'>
                                 {fullName}
-                                <Button className='bg-dark ml-2 btn'>
+                                <Button className='bg-dark ml-5 btn'>
                                     Edit profile
                                 </Button>
                                 {this.props.loading && <Spinner className='mt-3' color='dark'/>}
                             </p>
-                            <div className='d-flex followers'>
+                            <div className='d-flex followers align-self-center'>
                                 <div>
-                                    <a href='#' className='mr-sm-4 mr-3'>Posts</a>
+                                    <a href='#' className='mr-sm-5 mr-3'>Posts</a>
                                     <p className='pl-2'>{posts}</p>
                                 </div>
                                 <div>
-                                    <a href='#' className='mr-sm-4 mr-3'>Followers</a>
+                                    <a href='#' className='mr-sm-5 mr-3'>Followers</a>
                                     <p className='pl-4'>{followers}</p>
                                 </div>
                                 <div>
@@ -96,9 +94,9 @@ export default class Profile extends React.Component<IFormProps> {
                                     <p className='pl-4'>{following}</p>
                                 </div>
                             </div>
-                            <div className='description text-justify'>
+                            <div className='description'>
                                 <strong>{username}</strong>
-                                <p>{description}</p>
+                                <p className='text-justify'>{description}</p>
                             </div>
                             <Button className='btn' color='danger'><i
                                 className='fa fa-plus pr-3'/>
@@ -107,8 +105,6 @@ export default class Profile extends React.Component<IFormProps> {
                             <PopUpModal deletePhoto={this.props.deletePhoto}/>
                         </div>
                     </div>
-                </div>
-            </div>
         );
     }
 }

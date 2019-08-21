@@ -1,0 +1,29 @@
+@import 'variables';
+
+.profile {
+  &-name {
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+
+  &-info {
+    flex-direction: column;
+  }
+}
+
+.followers {
+  a {
+    color: $color-black;
+    font-size: 1rem;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-black;
+      text-decoration: none;
+    }
+  }
+}
+
+.description {
+  max-width: 300px;
+}
