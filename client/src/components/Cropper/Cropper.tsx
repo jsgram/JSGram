@@ -45,8 +45,18 @@ class Cropper extends React.Component<any> {
         this.setState({preview: null});
     }
 
-    public onCrop = (preview: any): void => {
+    public urlToFile = async (url: string, filename: string, mimeType: string): Promise<File> => {
+        const mime = mimeType || (url.match(/^data:([^;]+);/) || '')[1];
+        const res = await fetch(url);
+        const buf = await res.arrayBuffer();
+        return new File([buf], filename, {type: mime});
+
+    }
+
+    public onCrop = async (preview: any): Promise<void> => {
         this.setState({preview});
+        const file = await this.urlToFile(preview, 'avatar', 'image/png');
+        this.props.setAvatarToCropper(file);
     }
 
     public onBeforeFileLoad = (elem: any): void => {
@@ -54,10 +64,6 @@ class Cropper extends React.Component<any> {
             alert('File is too big!');
             elem.target.value = '';
         }
-    }
-
-    public onFileLoad = (data: any): any => {
-        this.props.setAvatarToCropper(data);
     }
 
     public onClick = (): void => {
@@ -87,7 +93,6 @@ class Cropper extends React.Component<any> {
                     onCrop={this.onCrop}
                     onClose={this.onClose}
                     onBeforeFileLoad={this.onBeforeFileLoad}
-                    onFileLoad={this.onFileLoad}
                     src={this.state.src || ''}
                 />
                 {this.props.loading ? (
