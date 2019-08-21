@@ -23,8 +23,10 @@ describe('Check email', () => {
 
     it('dispatches checkEmail with server data on success', () => {
         const store = makeMockStore();
+        const successMock = (): {status: number} => ({status: 200});
         moxios.wait(() => {
             const request = moxios.requests.mostRecent();
+            request.respondWith(successMock());
         });
 
         const expected = [
@@ -39,8 +41,10 @@ describe('Check email', () => {
 
     it('dispatches checkEmail with server data on error', () => {
         const store = makeMockStore();
+        const errorMock = (): {status: number} => ({status: 409});
         moxios.wait(() => {
             const request = moxios.requests.mostRecent();
+            request.respondWith(errorMock());
         });
 
         const expected = [

@@ -6,6 +6,7 @@ export const checkEmail = (email: string): (dispatch: Dispatch) =>
     Promise<void> => async (dispatch: Dispatch): Promise<void> => {
         try {
             const res = await API.post('/forgot-password', email);
+            console.log(res.data);
             dispatch(showAlert(res.data.status, 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
