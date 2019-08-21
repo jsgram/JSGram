@@ -1,7 +1,7 @@
 import { showAlert, clearAlert } from '../actions';
 import * as types from '../actionTypes';
 
-describe('Index actions', () => {
+describe('Alert actions', () => {
     it('showAlert', () => {
 
         const expectedAction = {
