@@ -3,14 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/fetch-mock": "^7.3.1",
     "@types/moxios": "^0.4.8",
     "@types/redux-mock-store": "^1.0.1",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "dotenv": "^8.0.0",
-    "fetch-mock": "^7.3.9",
     "font-awesome": "^4.7.0",
+    "history": "^4.9.0",
     "moxios": "^0.4.0",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
@@ -33,7 +32,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "tslint --formatters-dir node_modules/custom-tslint-formatters/formatters --format grouped src/**/*.{ts,tsx}"
+    "lint": "npm-run-all --continue-on-error --parallel lint:*",
+    "lint:tsx": "tslint --formatters-dir node_modules/custom-tslint-formatters/formatters --format grouped src/**/*.{ts,tsx}",
+    "lint:sass": "stylelint ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -61,6 +62,10 @@
     "@types/redux": "^3.6.0",
     "@types/redux-form": "^8.1.4",
     "custom-tslint-formatters": "^2.4.0",
+    "npm-run-all": "^4.1.5",
+    "stylelint": "^10.1.0",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-sass-guidelines": "^6.0.0",
     "tslint": "^5.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^4.0.0"

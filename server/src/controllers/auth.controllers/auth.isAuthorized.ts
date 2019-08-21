@@ -5,17 +5,16 @@ export const isAuthorized = async (req: Request, res: Response, next: NextFuncti
     try {
         const token = req.get('x-access-token');
         if (!token) {
-            return res.status(401).send({errors: [{title: 'Unauthorized', detail: 'No token'}]})
-                      .redirect(`${process.env.FRONT_PATH}/`);
+            return next( {status: 401, message: 'Unauthorized'});
         }
+
         const user = await tokenVerification(token, res, next);
         if (!user) {
-            return res.status(401).send({errors: [{title: 'Unauthorized', detail: 'Invalid token'}]})
-                      .redirect(`${process.env.FRONT_PATH}/`);
+            return next( {status: 401, message: 'Unauthorized'});
         }
         res.locals.user = user;
         next();
     } catch (e) {
-        next(e);
+        next( {status: 401, message: 'Unauthorized'});
     }
 };
