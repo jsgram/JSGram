@@ -6,7 +6,8 @@ import { loginUser } from '../../store/login/actions';
 import validate from '../../utils/validation';
 import { FormProps } from 'reactstrap';
 import { IUser } from '../../store/commonInterfaces/commonInterfaces';
-import {setToken} from '../../store/login/setToken.helper';
+import { setToken } from '../../store/login/setToken.helper';
+import { history } from '../../history';
 
 class LoginContainer extends React.Component<any> {
     constructor(props: any) {
@@ -19,10 +20,11 @@ class LoginContainer extends React.Component<any> {
     }
 
     // TODO Refactor after authorization
-    public componentDidMount(): void {
+    public componentWillMount(): void {
         const {token}: { token: string } = this.props.match.params;
         if (token) {
             setToken(token);
+            history.push('/feed');
         }
     }
 

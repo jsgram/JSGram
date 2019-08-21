@@ -17,7 +17,7 @@ export const routes = (
         <Route exact path='/feed' component={Feed} />
         <Route exact path='/logout' component={Logout} />
         <PublicRoute exact path='/' component={Main} />
-        <PublicRoute exact path='/login' component={LoginContainer} />
+        <PublicRoute path='/login/:token?' component={LoginContainer} />
         <PublicRoute exact path='/password-reset' component={CheckEmail} />
         <PublicRoute exact path='/password-reset/:token' component={ChangePassword} />
         <div className='container-fluid header'>
