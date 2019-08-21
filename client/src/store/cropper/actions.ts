@@ -15,8 +15,10 @@ export const data = (file: File): FormData => {
     return formData;
 };
 
+const base64RegExp = /^data:([^;]+);/;
+
 export const urlToFile = async (url: string, filename: string, mimeType: string): Promise<File> => {
-    const mime = mimeType || (url.match(/^data:([^;]+);/) || '')[1];
+    const mime = mimeType || (url.match(base64RegExp) || '')[1];
     const res = await fetch(url);
     const buf = await res.arrayBuffer();
     return new File([buf], filename, {type: mime});
