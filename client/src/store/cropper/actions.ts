@@ -7,6 +7,7 @@ import {
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
 import { showAlert } from '../alert/actions';
+import { setPhoto } from '../profile/actions';
 
 const data = (file: File): FormData => {
     const formData = new FormData();
@@ -34,14 +35,14 @@ export const uploadAvatarError = (error: Error): { type: string, payload: Error 
     payload: error,
 });
 
-export const uploadPostAvatar = (avatar: File): (dispatch: Dispatch) => Promise<string | undefined> =>
-    async (dispatch: Dispatch): Promise<string | undefined> => {
+export const uploadPostAvatar = (avatar: any): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(uploadAvatarPending());
             const res = await AuthAPI.post('/profile/photo', data(avatar));
             dispatch(showAlert('Successfully uploaded', 'success'));
             dispatch(uploadAvatarSuccess(res.data.userProfile));
-            return res.data.photoPath;
+            dispatch(setPhoto(res.data.photoPath));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
             dispatch(uploadAvatarError(e.response.data));
