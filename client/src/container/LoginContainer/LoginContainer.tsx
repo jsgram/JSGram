@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from './Login';
+import Index from '../../components/Login';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { loginUser } from '../../store/login/actions';
@@ -31,7 +31,7 @@ class LoginContainer extends React.Component<any> {
     public render(): JSX.Element {
         const {handleSubmit, submitting}: FormProps = this.props;
         return (
-            <Login
+            <Index
                 handleSubmit={handleSubmit}
                 onSubmit={this.onSubmit}
                 submitting={submitting}

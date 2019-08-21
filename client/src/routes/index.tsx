@@ -1,14 +1,14 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { Main } from '../components/Main/Landing';
-import LoginContainer from '../components/Login/LoginContainer';
-import RegisterContainer from '../components/Register/RegisterContainer';
-import ChangePassword from '../components/ForgotPassword/ChangePassword/ChangePassword';
-import CheckEmail from '../components/ForgotPassword/CheckEmail/CheckEmail';
-import ProfileContainer from '../components/Profile/ProfileContainer';
+import LoginContainer from '../container/LoginContainer/LoginContainer';
+import RegisterContainer from '../container/RegisterContainer/RegisterContainer';
+import ChangePassword from '../components/ForgotPassword/ChangePassword';
+import CheckEmail from '../components/ForgotPassword/CheckEmail';
+import ProfileContainer from '../container/ProfileContainer/ProfileContainer';
 import { PublicRoute } from './PublicRoute';
 import Feed from '../components/Main/Feed';
-import Logout from '../components/Logout/LogoutContainer';
+import Logout from '../container/LogoutContainer/LogoutContainer';
 import { history } from '../history';
 
 export const routes = (

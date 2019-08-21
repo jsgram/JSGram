@@ -1,6 +1,6 @@
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import React from 'react';
-import Cropper from '../Cropper/Cropper';
+import Cropper from '../Cropper';
 
 interface IModalState {
     modal: boolean;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import '../styles/style.scss';
-import RegisterContainer from '../Register/RegisterContainer';
+import '../../styles/style.scss';
+import RegisterContainer from '../../container/RegisterContainer/RegisterContainer';
 
 export const Main = (): JSX.Element => (
     <Container>

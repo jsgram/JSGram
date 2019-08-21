@@ -5,7 +5,7 @@ import { IUser } from '../commonInterfaces/commonInterfaces';
 import { setToken, TOKEN } from './setToken.helper';
 import { history } from '../../history';
 import { GET_USER_PENDING, GET_USER_SUCCESS, GET_USER_ERROR } from '../profile/actionTypes';
-import { IUserData } from '../../components/Profile/Profile';
+import { IUserData } from '../../components/Profile';
 
 export const getUserPending = (): { type: string } => ({
     type: GET_USER_PENDING,

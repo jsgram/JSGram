@@ -1,10 +1,10 @@
 import React from 'react';
-import '../styles/style.scss';
+import '../../styles/style.scss';
 import { Instagram } from 'react-content-loader';
 import { Button, Spinner } from 'reactstrap';
-import '../styles/Profile.scss';
-import PopUpModal from '../PopUp/PopUp';
-import noAvatar from '../assets/noAvatar.svg';
+import './Profile.scss';
+import PopUpModal from '../PopUp';
+import noAvatar from '../../assets/noAvatar.svg';
 
 export interface IUserData {
     posts: number;
@@ -60,8 +60,8 @@ export default class Profile extends React.Component<IFormProps> {
             return (<Instagram/>);
         }
         return (
-            // tslint:disable-next-line:max-line-length
-                    <div className='row profile d-flex pt-5 justify-content-lg-center justify-content-sm-around justify-content-center'>
+            <div className='row profile d-flex pt-5 justify-content-lg-center `+`
+            justify-content-sm-around justify-content-center'>
                         <div className='mr-lg-5 mr-3'>
                             <img
                                 src={photo || noAvatar }
