@@ -1,11 +1,6 @@
 @import 'variables';
-@import 'mixin';
 
 .profile {
-  @include mobile-break;
-
-  margin: 0 auto;
-
   &-name {
     font-weight: 700;
     font-size: 1.3rem;
