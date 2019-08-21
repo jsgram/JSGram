@@ -7,6 +7,7 @@ import {
 
 export interface IState {
     avatar: File | null;
+    file: File | null;
     error: Error | null;
     loaded: boolean;
     loading: boolean;
@@ -14,6 +15,7 @@ export interface IState {
 
 const defaultState = {
     avatar: null,
+    file: null,
     error: null,
     loaded: false,
     loading: false,
