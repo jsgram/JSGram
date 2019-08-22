@@ -25,7 +25,7 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
         const user = res.locals.user;
 
         const userProfile = {
-            posts: posts.length,
+            posts: user.posts.length,
             followers: followers.length,
             following: following.length,
             description,
