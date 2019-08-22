@@ -7,21 +7,22 @@
     }
   }
 
-  .search {
-    .form-control:focus {
+  .form-control {
+    &:focus {
       border-color: $color-grey;
       box-shadow: none;
     }
-
-    .form-control-feedback {
-      position: absolute;
-      width: 1.7rem;
-      height: 2.3rem;
-      color: $color-grey-dark;
-      line-height: 2.3rem;
-      text-align: center;
-    }
   }
+
+  .form-control-feedback {
+    position: absolute;
+    width: 1.7rem;
+    height: 2.3rem;
+    color: $color-grey-dark;
+    line-height: 2.3rem;
+    text-align: center;
+  }
+
 
   .icon {
     &:hover {
