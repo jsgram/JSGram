@@ -1,14 +1,20 @@
 import { Request, Response } from 'express';
 import { handlePhotoChange } from '../../db.requests/userProfile.requests';
 import { uploadImage } from '../../helpers/uploadImage';
+import { bucket,
+         acl,
+         secretAccessKey,
+         accessKeyId,
+         region,
+         fileSize } from '../../common.constants/aws.multer.profile.constants';
 
 const awsConfig = {
-    bucket: 'jsgram-profile-images',
-    acl: 'public-read',
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    region: process.env.AWS_REGION,
-    fileSize: 1024 * 1024 * 2,
+    bucket,
+    acl,
+    secretAccessKey,
+    accessKeyId,
+    region,
+    fileSize,
 };
 
 const singleUpload = uploadImage(awsConfig).multerInstance.single('userPhoto');
