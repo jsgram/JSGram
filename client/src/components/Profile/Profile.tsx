@@ -5,6 +5,7 @@ import { Button, Spinner } from 'reactstrap';
 import '../styles/Profile.scss';
 import PopUpModal from '../PopUp/PopUp';
 import noAvatar from '../assets/noAvatar.svg';
+import { Link } from 'react-router-dom';
 
 export interface IUserData {
     posts: number;
@@ -60,50 +61,53 @@ export default class Profile extends React.Component<IFormProps> {
             return (<Instagram/>);
         }
         return (
-            // tslint:disable-next-line:max-line-length
-                    <div className='row profile d-flex pt-5 justify-content-lg-center justify-content-sm-around justify-content-center'>
-                        <div className='mr-lg-5 mr-3'>
-                            <img
-                                src={photo || noAvatar }
-                                className='img-fluid rounded-circle float-right'
-                                alt='avatar'
-                                height={150}
-                                width={150}
-                            />
+            <div
+                className='row profile d-flex pt-5 justify-content-lg-center
+                justify-content-sm-around justify-content-center'>
+                <div className='mr-lg-5 mr-3'>
+                    <img
+                        src={photo || noAvatar}
+                        className='img-fluid rounded-circle float-right'
+                        alt='avatar'
+                        height={150}
+                        width={150}
+                    />
+                </div>
+                <div className='ml-lg-5 d-sm-block d-flex flex-column'>
+                    <p className='profile-name align-self-center'>
+                        {fullName}
+                        <Button className='bg-dark ml-5 btn'>
+                            Edit profile
+                        </Button>
+                        {this.props.loading && <Spinner className='mt-3' color='dark'/>}
+                    </p>
+                    <div className='d-flex followers align-self-center'>
+                        <div>
+                            <a href='#' className='mr-sm-5 mr-3'>Posts</a>
+                            <p className='pl-2'>{posts}</p>
                         </div>
-                        <div className='ml-lg-5 d-sm-block d-flex flex-column'>
-                                <p className='profile-name align-self-center'>
-                                {fullName}
-                                <Button className='bg-dark ml-5 btn'>
-                                    Edit profile
-                                </Button>
-                                {this.props.loading && <Spinner className='mt-3' color='dark'/>}
-                            </p>
-                            <div className='d-flex followers align-self-center'>
-                                <div>
-                                    <a href='#' className='mr-sm-5 mr-3'>Posts</a>
-                                    <p className='pl-2'>{posts}</p>
-                                </div>
-                                <div>
-                                    <a href='#' className='mr-sm-5 mr-3'>Followers</a>
-                                    <p className='pl-4'>{followers}</p>
-                                </div>
-                                <div>
-                                    <a href='#'>Following</a>
-                                    <p className='pl-4'>{following}</p>
-                                </div>
-                            </div>
-                            <div className='description'>
-                                <strong>{username}</strong>
-                                <p className='text-justify'>{description}</p>
-                            </div>
-                            <Button className='btn' color='danger'><i
-                                className='fa fa-plus pr-3'/>
-                                Add Post
-                            </Button>
-                            <PopUpModal deletePhoto={this.props.deletePhoto}/>
+                        <div>
+                            <a href='#' className='mr-sm-5 mr-3'>Followers</a>
+                            <p className='pl-4'>{followers}</p>
+                        </div>
+                        <div>
+                            <a href='#'>Following</a>
+                            <p className='pl-4'>{following}</p>
                         </div>
                     </div>
+                    <div className='description'>
+                        <strong>{username}</strong>
+                        <p className='text-justify'>{description}</p>
+                    </div>
+                    <Link to='/add-post'>
+                        <Button className='btn' color='danger'><i
+                            className='fa fa-plus pr-3'/>
+                            Add Post
+                        </Button>
+                    </Link>
+                    <PopUpModal deletePhoto={this.props.deletePhoto}/>
+                </div>
+            </div>
         );
     }
 }
