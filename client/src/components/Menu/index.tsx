@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
-import logo from '../assets/logo.png';
-import {Input} from 'reactstrap';
+import logo from '../../assets/logo.png';
+import { Input } from 'reactstrap';
 import './Menu.scss';
 const Menu: React.FC = (): ReactElement => (
     <div className='container-fluid header-menu'>

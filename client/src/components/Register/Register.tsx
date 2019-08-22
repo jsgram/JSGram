@@ -2,9 +2,9 @@ import React from 'react';
 import { Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { Button, Form, FormGroup, FormProps, Spinner } from 'reactstrap';
-import { renderField } from '../commonComponents/reduxFormFields';
-import '../styles/style.scss';
-import logo from '../assets/logo.png';
+import { renderField } from '../CommonComponents/ReduxFormFields';
+import '../../styles/style.scss';
+import logo from '../../assets/logo.png';
 
 class Register extends React.Component<any> {
     public render(): JSX.Element {

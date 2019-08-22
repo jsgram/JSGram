@@ -2,7 +2,7 @@ import React from 'react';
 import { IState } from '../../store/cropper/reducers';
 import { createFile, setAvatarToCropper, uploadPostAvatar } from '../../store/cropper/actions';
 import { connect } from 'react-redux';
-import Cropper from './Cropper';
+import Cropper from '../../components/Cropper';
 
 interface ICropperState {
     cropper: IState;

@@ -1,6 +1,6 @@
 import React from 'react';
 import * as actions from '../../store/alert/actions';
-import Alert from './Alert';
+import Alert from '../../components/Alert';
 import { connect } from 'react-redux';
 import { FormProps } from 'reactstrap';
 
