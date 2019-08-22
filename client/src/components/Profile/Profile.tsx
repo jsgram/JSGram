@@ -6,8 +6,8 @@ import '../styles/Profile.scss';
 import PopUpModal from '../PopUp/PopUp';
 import noAvatar from '../assets/noAvatar.svg';
 import { Link } from 'react-router-dom';
-import ProfileEditContainer from "../ProfileEdit/ProfileEditContainer";
-import EmailChangeContainer from "../EmailChange/EmailChangeContainer";
+import ProfileEditContainer from '../ProfileEdit/ProfileEditContainer';
+import EmailChangeContainer from '../EmailChange/EmailChangeContainer';
 
 export interface IUserData {
     posts: number;
@@ -42,9 +42,9 @@ export default class Profile extends React.Component<IFormProps> {
     public componentDidUpdate(prevProps: any): void {
         if (prevProps.loaded !== this.props.loaded && this.props.loaded) {
             this.timerHandle = setTimeout(() => {
-                    this.setState({loaded: true});
-                    this.timerHandle = 0;
-                },
+                this.setState({loaded: true});
+                this.timerHandle = 0;
+            },
                 3000,
             );
         }

@@ -13,9 +13,8 @@ export const changeEmail = (): (dispatch: Dispatch) =>
     Promise<void> => async (dispatch: Dispatch): Promise<void> => {
         try {
             const {changeEmail: {email}}: { changeEmail: { email: string } } = store.getState();
-            // const res = await API.post('/forgot-password', email);
             dispatch(showAlert(email, 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
-};
+    };
