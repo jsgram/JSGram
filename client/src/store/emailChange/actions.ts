@@ -1,7 +1,7 @@
-import {SET_EMAIL_TEXT} from './actionTypes';
-import {Dispatch} from 'redux';
-import {store} from '../../App';
-import {showAlert} from '../alert/actions';
+import { SET_EMAIL_TEXT } from './actionTypes';
+import { Dispatch } from 'redux';
+import { store } from '../../App';
+import { showAlert } from '../alert/actions';
 
 export const setEmailText = (email: string): { type: string, payload: string } => ({
     type: SET_EMAIL_TEXT,

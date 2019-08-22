@@ -1,10 +1,10 @@
 import React from 'react';
-import {Field} from 'redux-form';
+import { Field } from 'redux-form';
 import '../styles/style.scss';
-import {Button, Form, FormProps, Spinner} from 'reactstrap';
+import { Button, Form, FormProps, Spinner } from 'reactstrap';
 import '../styles/Profile.scss';
 import noAvatar from '../assets/noAvatar.svg';
-import {renderField} from '../commonComponents/reduxFormFields';
+import { renderField } from '../commonComponents/reduxFormFields';
 import PopUpModal from '../PopUp/PopUp';
 
 export default class ProfileEdit extends React.Component<any> {

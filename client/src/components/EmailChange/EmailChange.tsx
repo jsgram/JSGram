@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/style.scss';
-import {Button, Form, FormProps, Input} from 'reactstrap';
+import { Button, Form, FormProps, Input } from 'reactstrap';
 import '../styles/Profile.scss';
 
 export default class EmailChange extends React.Component<any> {
