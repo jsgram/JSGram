@@ -21,13 +21,13 @@
   }
 }
 
-@media screen and (min-width: 420px) {
+@media screen and (min-width: $break-small) {
   .icons {
     .fa {
       font-size: 30px;
     }
   }
-  
+
   .logo {
     width: 150px;
   }
