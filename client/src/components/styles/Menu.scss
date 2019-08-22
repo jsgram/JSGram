@@ -15,11 +15,20 @@
     text-align: center;
   }}
 
-.fa:hover {
-  color: $dark-red;
+.icons {
+  .fa:hover {
+    color: $dark-red;
+  }
 }
+
 @media screen and (min-width: 420px) {
-  .icon {
-    font-size: 60px;
+  .icons {
+    .fa {
+      font-size: 30px;
+    }
+  }
+  
+  .logo {
+    width: 150px;
   }
 }

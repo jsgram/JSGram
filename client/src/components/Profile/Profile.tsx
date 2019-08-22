@@ -61,9 +61,10 @@ export default class Profile extends React.Component<IFormProps> {
             return (<Instagram/>);
         }
         return (
-                    <div className='row profile d-flex pt-5 justify-content-lg-center justify-content-sm-around justify-content-center'>
-                        <Menu/>
-                        <div className='mr-lg-5 mr-3'>
+            <div className='row profile flex pt-2 justify-content-lg-center
+             justify-content-sm-around justify-content-center'>
+                <Menu/>
+                tslint --fix Profile.tsx<div className='mt-0 mr-lg-5 mr-3'>
                             <img
                                 src={photo || noAvatar }
                                 className='img-fluid rounded-circle float-right'
@@ -96,7 +97,7 @@ export default class Profile extends React.Component<IFormProps> {
                             </div>
                             <div className='description'>
                                 <strong>{username}</strong>
-                                <p className='text-justify'>{description}</p>
+                                <p>{description}</p>
                             </div>
                             <Button className='btn' color='danger'><i
                                 className='fa fa-plus pr-3'/>
