@@ -2,20 +2,13 @@ import React from 'react';
 import Avatar from 'react-avatar-edit';
 import noAvatar from '../assets/noAvatar.svg';
 import { Button, Spinner } from 'reactstrap';
-import { setAvatarToCropper, uploadPostAvatar, createFile } from '../../store/cropper/actions';
-import { connect } from 'react-redux';
-import { IState } from '../../store/cropper/reducers';
-
-interface ICropperState {
-    cropper: IState;
-}
 
 interface ILocalState {
     preview: null | string;
     src: null | string;
 }
 
-class Cropper extends React.Component<any> {
+export default class Cropper extends React.Component<any> {
 
     public FILE_SIZE: number = 2000000;
 
@@ -59,6 +52,7 @@ class Cropper extends React.Component<any> {
 
     public onClick = (): void => {
         this.props.uploadPostAvatar(this.props.avatar);
+        this.props.modalToggle();
     }
 
     public render(): JSX.Element {
@@ -103,19 +97,3 @@ class Cropper extends React.Component<any> {
         );
     }
 }
-
-const mapStateToProps = (state: ICropperState): IState => ({
-    avatar: state.cropper.avatar,
-    file: state.cropper.file,
-    loaded: state.cropper.loaded,
-    error: state.cropper.error,
-    loading: state.cropper.loading,
-});
-
-const mapDispatchToProps = {
-    uploadPostAvatar,
-    setAvatarToCropper,
-    createFile,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cropper);

@@ -1,6 +1,6 @@
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import React from 'react';
-import Cropper from '../Cropper/Cropper';
+import CropperContainer from '../Cropper/CropperContainer';
 
 interface IModalState {
     modal: boolean;
@@ -33,7 +33,7 @@ export default class PopUpModal extends React.Component<IProps, IModalState> {
               <Modal isOpen={this.state.modal} toggle={this.toggle} >
               <ModalHeader toggle={this.toggle}>Change Profile Photo</ModalHeader>
               <ModalBody>
-                <Cropper/>
+                <CropperContainer modalToggle={this.toggle}/>
                 </ModalBody>
                 <ModalFooter>
               <Button color='danger' onClick={(): void => {

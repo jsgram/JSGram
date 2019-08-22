@@ -10,14 +10,16 @@ import { PublicRoute } from './PublicRoute';
 import Feed from '../components/Main/Feed';
 import Logout from '../components/Logout/LogoutContainer';
 import { history } from '../history';
+import AddPost from '../components/AddPost/AddPost';
 
 export const routes = (
     <Router history={history}>
         <Route path='/profile' component={ProfileContainer} />
+        <Route path='/add-post' component={AddPost} />
         <Route exact path='/feed' component={Feed} />
         <Route exact path='/logout' component={Logout} />
         <PublicRoute exact path='/' component={Main} />
-        <PublicRoute exact path='/login' component={LoginContainer} />
+        <PublicRoute path='/login/:token?' component={LoginContainer} />
         <PublicRoute exact path='/password-reset' component={CheckEmail} />
         <PublicRoute exact path='/password-reset/:token' component={ChangePassword} />
         <div className='container-fluid header'>
