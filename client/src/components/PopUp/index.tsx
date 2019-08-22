@@ -1,6 +1,6 @@
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import React from 'react';
-import CropperContainer from '../../containers/CropperContainer/CropperContainer';
+import CropperContainer from '../../containers/CropperContainer';
 
 interface IModalState {
     modal: boolean;

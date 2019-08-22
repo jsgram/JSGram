@@ -6,10 +6,11 @@ import { routes } from './routes';
 import { Footer } from './components/Footer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
-import AlertContainer from './containers/AlertContainer/AlertContainer';
+import AlertContainer from './containers/AlertContainer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/style.scss';
 import 'font-awesome/css/font-awesome.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const store = createStore(
     rootReducer,

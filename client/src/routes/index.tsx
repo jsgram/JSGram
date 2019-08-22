@@ -1,14 +1,14 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { Main } from '../components/Main/Landing';
-import LoginContainer from '../containers/LoginContainer/LoginContainer';
+import LoginContainer from '../containers/LoginContainer';
 import RegisterContainer from '../components/Register/RegisterContainer';
 import ChangePassword from '../components/ForgotPassword/ChangePassword';
 import CheckEmail from '../components/ForgotPassword/CheckEmail';
-import ProfileContainer from '../containers/ProfileContainer/ProfileContainer';
+import ProfileContainer from '../containers/ProfileContainer';
 import { PublicRoute } from './PublicRoute';
 import Feed from '../components/Main/Feed';
-import Logout from '../containers/LogoutContainer/LogoutContainer';
+import Logout from '../containers/LogoutContainer';
 import { history } from '../history';
 import AddPost from '../components/AddPost';
 
