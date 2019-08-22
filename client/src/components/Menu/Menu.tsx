@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import logo from '../assets/logo.png';
 import {Input} from 'reactstrap';
 import '../styles/Menu.scss';
-export const Menu: React.FC = (): ReactElement => (
+const Menu: React.FC = (): ReactElement => (
     <div className='container-fluid'>
         <div className='row justify-content-between bg-white'>
             <div>
@@ -22,3 +22,4 @@ export const Menu: React.FC = (): ReactElement => (
         </div>
     </div>
 );
+export default Menu;
