@@ -64,7 +64,7 @@ export default class Profile extends React.Component<IFormProps> {
             <div className='row profile flex pt-2 justify-content-lg-center
              justify-content-sm-around justify-content-center'>
                 <Menu/>
-                tslint --fix Profile.tsx<div className='mt-0 mr-lg-5 mr-3'>
+            <div className='mt-0 mr-lg-5 mr-3'>
                             <img
                                 src={photo || noAvatar }
                                 className='img-fluid rounded-circle float-right'
