@@ -1,22 +1,16 @@
 import { Post } from '../models/post.model';
 import { IPostModel } from '../models/post.model';
-import { IUserModel } from '../models/user.model';
+import { IUserModel, User } from '../models/user.model';
 
-export const addPost = (author: IUserModel, description: string, imgPath: string, tags: string[]): IPostModel => {
-    const newPost = new Post({
+export const addPost = async (user: IUserModel, description: string, imgPath: string, tags: string[]):
+                              Promise<IPostModel> => {
+    const post = new Post({
         description,
         imgPath,
         tags,
-        author: author.id,
+        author: user.id,
     });
-
-    newPost.save((error: Error, post: IPostModel) => {
-        if (error) {
-            throw new Error('Can not create new post');
-        }
-        author.posts.push(post.id);
-        author.save();
-    });
-
+    const newPost = await post.save();
+    await User.findOneAndUpdate({_id: user.id}, {$push: { posts: newPost.id }});
     return newPost;
 };

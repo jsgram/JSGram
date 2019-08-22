@@ -25,13 +25,13 @@ export const create = (req: Request, res: Response, next: NextFunction): void =>
             return res.status(422).send({errors: [{title: 'File upload error', detail: err.message}]});
         }
         try {
-            const author = res.locals.user;
+            const user = res.locals.user;
             const description = req.body.description;
             const imgPath = req.file.location;
             const hashtagRegex = /\B(\#[a-zA-Z0-9]+\b)/g;
             const tags = req.body.description.match(hashtagRegex);
 
-            const newPost = await addPost(author, description, imgPath, tags);
+            const newPost = await addPost(user, description, imgPath, tags);
             res.json({newPost});
         } catch (e) {
             next({message: 'Can not create new post', status: 500});
