@@ -2,20 +2,13 @@ import React from 'react';
 import Avatar from 'react-avatar-edit';
 import noAvatar from '../assets/noAvatar.svg';
 import { Button, Spinner } from 'reactstrap';
-import { setAvatarToCropper, uploadPostAvatar } from '../../store/cropper/actions';
-import { connect } from 'react-redux';
-import { IState } from '../../store/cropper/reducers';
-
-interface ICropperState {
-    cropper: IState;
-}
 
 interface ILocalState {
     preview: null | string;
     src: null | string;
 }
 
-export class Cropper extends React.Component<any> {
+export default class Cropper extends React.Component<any> {
 
     public FILE_SIZE: number = 2000000;
 
@@ -45,23 +38,20 @@ export class Cropper extends React.Component<any> {
         this.setState({preview: null});
     }
 
-    public onCrop = (preview: any): void => {
+    public onCrop = async (preview: any): Promise<void> => {
         this.setState({preview});
+        this.props.createFile(preview);
     }
 
     public onBeforeFileLoad = (elem: any): void => {
         if (elem.target.files[0].size > this.FILE_SIZE) {
-            // alert('File is too big!');
             elem.target.value = '';
         }
     }
 
-    public onFileLoad = (data: any): any => {
-        this.props.setAvatarToCropper(data);
-    }
-
     public onClick = (): void => {
         this.props.uploadPostAvatar(this.props.avatar);
+        this.props.modalToggle();
     }
 
     public render(): JSX.Element {
@@ -87,7 +77,6 @@ export class Cropper extends React.Component<any> {
                     onCrop={this.onCrop}
                     onClose={this.onClose}
                     onBeforeFileLoad={this.onBeforeFileLoad}
-                    onFileLoad={this.onFileLoad}
                     src={this.state.src || ''}
                 />
                 {this.props.loading ? (
@@ -107,17 +96,3 @@ export class Cropper extends React.Component<any> {
         );
     }
 }
-
-const mapStateToProps = (state: ICropperState): IState => ({
-    avatar: state.cropper.avatar,
-    loaded: state.cropper.loaded,
-    error: state.cropper.error,
-    loading: state.cropper.loading,
-});
-
-const mapDispatchToProps = {
-    uploadPostAvatar,
-    setAvatarToCropper,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cropper);

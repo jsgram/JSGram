@@ -19,14 +19,10 @@ describe('RegisterContainer component:', () => {
             submitting: false,
         };
 
-        // tslint:disable:trailing-comma
         const store = configureStore()(props);
-        renderer = shallow(
-            <Provider store={store}>
-                <RegisterContainer {...props} />
-            </Provider>
-        );
-        // tslint:enable:trailing-comma
+        renderer = shallow(<Provider store={store}>
+                               <RegisterContainer {...props} />
+                           </Provider>);
     });
 
     test('onSubmit - success', () => {

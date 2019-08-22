@@ -20,14 +20,10 @@ describe('CheckEmail component:', () => {
         reactstrap.FormGroup = jest.fn(() => (<div></div>));
         reactstrap.Spinner = jest.fn(() => (<div></div>));
 
-        // tslint:disable:trailing-comma
         const store = configureStore()();
-        renderer = shallow(
-            <Provider store={store}>
-                <CheckEmail handleSubmit={handleSubmit} />
-            </Provider>
-        );
-        // tslint:enable:trailing-comma
+        renderer = shallow(<Provider store={store}>
+                               <CheckEmail handleSubmit={handleSubmit} />
+                           </Provider>);
     });
     test('onSubmit - success', () => {
         // shallow().instance() could be called on parent element only

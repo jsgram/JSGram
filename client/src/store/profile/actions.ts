@@ -1,9 +1,11 @@
-import { GET_USER_PENDING,
-         GET_USER_SUCCESS,
-         GET_USER_ERROR,
-         DELETE_PHOTO_PENDING,
-         DELETE_PHOTO_SUCCESS,
-         DELETE_PHOTO_ERROR,
+import {
+    GET_USER_PENDING,
+    GET_USER_SUCCESS,
+    GET_USER_ERROR,
+    DELETE_PHOTO_PENDING,
+    DELETE_PHOTO_SUCCESS,
+    DELETE_PHOTO_ERROR,
+    SET_PHOTO_TO_STATE,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
@@ -32,12 +34,12 @@ export const getUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             const res = await AuthAPI.get('/profile');
             dispatch(getUserSuccess(res.data.userProfile));
         } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
             dispatch(getUserError(e));
         }
-
     };
 
-export const deletePhotoPending = (): { type: string} => ({
+export const deletePhotoPending = (): { type: string } => ({
     type: DELETE_PHOTO_PENDING,
 });
 
@@ -62,3 +64,8 @@ export const deletePhoto = (): (dispatch: Dispatch) => Promise<void> =>
             dispatch(deletePhotoError(e.message));
         }
     };
+
+export const setPhotoToState = (photo: string): {type: string, payload: string} => ({
+    type: SET_PHOTO_TO_STATE,
+    payload: photo,
+});

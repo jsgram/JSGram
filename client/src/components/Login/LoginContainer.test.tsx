@@ -18,27 +18,28 @@ describe('LoginContainer component:', () => {
         reactstrap.Form = jest.fn(() => (<div></div>));
         settoken.setToken = jest.fn(() => 'somevalue');
 
-        // tslint:disable:trailing-comma
+        const match = { params: { token: 'sometoken' } };
+
         const store = configureStore()();
-        renderer = shallow(
-            <Provider store={store}>
-                <LoginContainer handleSubmit={handleSubmit} />
-            </Provider>
-        );
-        // tslint:enable:trailing-comma
+        renderer = shallow(<Provider store={store}>
+                               <LoginContainer match={match} handleSubmit={handleSubmit} />
+                           </Provider>);
     });
 
     test('onSubmit - success', () => {
         // shallow().instance() could be called on parent element only
         const loginContainer = new LoginContainer({
             loginUser: loginuser.loginUser,
+            match: {
+                params: { token: 'sometoken' },
+            },
         });
         loginContainer.onSubmit();
 
         expect(loginuser.loginUser).toHaveLastReturnedWith('somevalue');
     });
 
-    test('componentDidMount - success', () => {
+    test('componentWillMount - success', () => {
         // shallow().instance() could be called on parent element only
         const loginContainer = new LoginContainer({
             setToken: settoken.setToken,
@@ -46,7 +47,7 @@ describe('LoginContainer component:', () => {
                 params: { token: 'sometoken' },
             },
         });
-        loginContainer.componentDidMount();
+        loginContainer.componentWillMount();
 
         expect(settoken.setToken).toHaveLastReturnedWith('somevalue');
     });
