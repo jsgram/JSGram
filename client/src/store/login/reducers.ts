@@ -3,7 +3,7 @@ import {
     GET_USER_SUCCESS,
     GET_USER_ERROR,
 } from './actionTypes';
-import {IUserData} from '../../components/Profile';
+import { IUserData } from '../../components/Profile';
 
 interface IState {
     user: IUserData;

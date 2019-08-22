@@ -7,7 +7,7 @@ import {
     DELETE_PHOTO_ERROR,
     SET_PHOTO_TO_STATE,
 } from './actionTypes';
-import {IUserData} from '../../components/Profile';
+import { IUserData } from '../../components/Profile';
 
 interface IState {
     user: IUserData;
