@@ -5,7 +5,7 @@ import { Button, Spinner } from 'reactstrap';
 import '../styles/Profile.scss';
 import PopUpModal from '../PopUp/PopUp';
 import noAvatar from '../assets/noAvatar.svg';
-import  Menu  from '../Menu/Menu';
+import Menu from '../Menu/Menu';
 import { Link } from 'react-router-dom';
 
 export interface IUserData {
