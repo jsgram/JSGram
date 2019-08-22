@@ -3,14 +3,14 @@ import logo from '../assets/logo.png';
 import {Input} from 'reactstrap';
 import '../styles/Menu.scss';
 const Menu: React.FC = (): ReactElement => (
-    <div className='container-fluid'>
+    <div className='container-fluid header-menu'>
         <div className='row justify-content-between bg-white'>
             <div>
                 <img src={logo}
                      width={110}
                      className='mb-3 sm-mb-2 sm-mr-5 pt-1 logo'/>
             </div>
-            <div className='w-30 mt-4 mb-4 form-group has-search d-md-block d-none'>
+            <div className='w-30 mt-4 mb-4 form-group search d-md-block d-none'>
                 <span className='fa fa-search form-control-feedback'/>
                 <Input placeholder='Search' type='search' className='form-control px-4'/>
             </div>
