@@ -5,6 +5,8 @@ import { Button, Spinner } from 'reactstrap';
 import '../styles/Profile.scss';
 import PopUpModal from '../PopUp/PopUp';
 import noAvatar from '../assets/noAvatar.svg';
+import ProfileEditContainer from "../ProfileEdit/ProfileEditContainer";
+import EmailChangeContainer from "../EmailChange/EmailChangeContainer";
 
 export interface IUserData {
     posts: number;
@@ -103,6 +105,8 @@ export default class Profile extends React.Component<IFormProps> {
                                 Add Post
                             </Button>
                             <PopUpModal deletePhoto={this.props.deletePhoto}/>
+                            <ProfileEditContainer />
+                            <EmailChangeContainer />
                         </div>
                     </div>
                 </div>
