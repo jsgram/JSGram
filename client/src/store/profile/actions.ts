@@ -9,7 +9,7 @@ import {
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
-import { IUserData } from '../../components/Profile/Profile';
+import { IUserData } from '../../components/Profile';
 import { IUser } from '../commonInterfaces/commonInterfaces';
 import { showAlert } from '../alert/actions';
 

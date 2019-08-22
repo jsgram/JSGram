@@ -1,21 +1,21 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { Main } from '../components/Main/Landing';
-import LoginContainer from '../components/Login/LoginContainer';
+import LoginContainer from '../containers/LoginContainer/LoginContainer';
 import RegisterContainer from '../components/Register/RegisterContainer';
-import ChangePassword from '../components/ForgotPassword/ChangePassword/ChangePassword';
-import CheckEmail from '../components/ForgotPassword/CheckEmail/CheckEmail';
-import ProfileContainer from '../components/Profile/ProfileContainer';
+import ChangePassword from '../components/ForgotPassword/ChangePassword';
+import CheckEmail from '../components/ForgotPassword/CheckEmail';
+import ProfileContainer from '../containers/ProfileContainer/ProfileContainer';
 import { PublicRoute } from './PublicRoute';
 import Feed from '../components/Main/Feed';
-import Logout from '../components/Logout/LogoutContainer';
+import Logout from '../containers/LogoutContainer/LogoutContainer';
 import { history } from '../history';
-import AddPost from '../components/AddPost/AddPost';
+import Index from '../components/AddPost';
 
 export const routes = (
     <Router history={history}>
         <Route path='/profile' component={ProfileContainer} />
-        <Route path='/add-post' component={AddPost} />
+        <Route path='/add-post' component={Index} />
         <Route exact path='/feed' component={Feed} />
         <Route exact path='/logout' component={Logout} />
         <PublicRoute exact path='/' component={Main} />

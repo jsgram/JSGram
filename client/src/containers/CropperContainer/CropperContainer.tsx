@@ -2,7 +2,7 @@ import React from 'react';
 import { IState } from '../../store/cropper/reducers';
 import { createFile, setAvatarToCropper, uploadPostAvatar } from '../../store/cropper/actions';
 import { connect } from 'react-redux';
-import Cropper from './Cropper';
+import Index from '../../components/Cropper';
 
 interface ICropperState {
     cropper: IState;
@@ -11,7 +11,7 @@ interface ICropperState {
 class CropperContainer extends React.Component<any> {
     public render(): JSX.Element {
         return(
-            <Cropper
+            <Index
                 avatar={this.props.avatar}
                 file={this.props.file}
                 loaded={this.props.loaded}

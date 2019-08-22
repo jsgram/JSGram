@@ -1,10 +1,10 @@
 import React from 'react';
-import '../styles/style.scss';
+import '../../styles/style.scss';
 import { Instagram } from 'react-content-loader';
 import { Button, Spinner } from 'reactstrap';
-import '../styles/Profile.scss';
-import PopUpModal from '../PopUp/PopUp';
-import noAvatar from '../assets/noAvatar.svg';
+import './Profile.scss';
+import PopUpModal from '../PopUp';
+import noAvatar from '../../assets/noAvatar.svg';
 import { Link } from 'react-router-dom';
 
 export interface IUserData {

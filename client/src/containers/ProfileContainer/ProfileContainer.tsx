@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Profile, {IUserData} from './Profile';
+import Profile, {IUserData} from '../../components/Profile';
 import { getUser, deletePhoto } from '../../store/profile/actions';
 
 interface IStateToProps {

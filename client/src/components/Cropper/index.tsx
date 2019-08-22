@@ -1,6 +1,6 @@
 import React from 'react';
 import Avatar from 'react-avatar-edit';
-import noAvatar from '../assets/noAvatar.svg';
+import noAvatar from '../../assets/noAvatar.svg';
 import { Button, Spinner } from 'reactstrap';
 
 interface ILocalState {
