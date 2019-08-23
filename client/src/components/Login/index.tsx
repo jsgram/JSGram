@@ -48,9 +48,8 @@ export default class Login extends React.Component<IProps, IUser> {
                                         size='lg'
                                         block
                                     >
-                                        Log In
+                                        {submitting ? <Spinner color='light'/> : 'Log in'}
                                     </Button>
-                                    {submitting && <Spinner className='mt-3' color='dark'/>}
                                 </FormGroup>
                                 <div className='or-devider'>
                                     <span></span>OR<span></span>
