@@ -8,23 +8,7 @@ import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
 import { showAlert } from '../alert/actions';
 import { setPhotoToState } from '../profile/actions';
-
-export const data = (file: File): FormData => {
-    const formData = new FormData();
-    formData.append('userPhoto', file);
-    formData.append('enctype', 'multipart/form-data');
-    return formData;
-};
-
-const base64RegExp = /^data:([^;]+);/;
-
-export const urlToFile = async (url: string, filename: string, mimeType: string): Promise<File> => {
-    const mime = mimeType || (url.match(base64RegExp) || '')[1];
-    const res = await fetch(url);
-    const buf = await res.arrayBuffer();
-    return new File([buf], filename, {type: mime});
-
-};
+import { base64ToFile, dataForAWS } from '../../helpers/upload.photo';
 
 export const setAvatarToCropper = (avatar: any): { type: string, payload: File } => ({
     type: SET_AVATAR_TO_CROPPER,
@@ -45,10 +29,21 @@ export const uploadAvatarError = (error: Error): { type: string, payload: Error 
     payload: error,
 });
 
+export const fileIsTooBig = (elemSize: number): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            if (elemSize > 2000000) {
+                dispatch(showAlert('File is too big', 'danger'));
+            }
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
 export const createFile = (preview: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const newFile = await urlToFile(preview, 'avatar', 'image/png');
+            const newFile = await base64ToFile(preview, 'avatar', 'image/png');
             dispatch(setAvatarToCropper(newFile));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
@@ -59,23 +54,12 @@ export const uploadPostAvatar = (avatar: File): (dispatch: Dispatch) => Promise<
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(uploadAvatarPending());
-            const res = await AuthAPI.post('/profile/photo', data(avatar));
+            const res = await AuthAPI.post('/profile/photo', dataForAWS(avatar));
             dispatch(showAlert('Successfully uploaded', 'success'));
             dispatch(uploadAvatarSuccess(res.data.userProfile));
             dispatch(setPhotoToState(res.data.photoPath));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
             dispatch(uploadAvatarError(e.response.data));
-        }
-    };
-
-export const uploadPutAvatar = (avatar: File): (dispatch: Dispatch) => Promise<void> =>
-    async (dispatch: Dispatch): Promise<void> => {
-        try {
-            const res = await AuthAPI.put('/profile/photo', data(avatar));
-            dispatch(showAlert('Successfully uploaded', 'success'));
-            dispatch(uploadAvatarSuccess(res.data.userProfile));
-        } catch (e) {
-            dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };

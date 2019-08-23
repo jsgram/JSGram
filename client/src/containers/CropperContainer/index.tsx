@@ -1,6 +1,6 @@
 import React from 'react';
 import { IState } from '../../store/cropper/reducers';
-import { createFile, setAvatarToCropper, uploadPostAvatar } from '../../store/cropper/actions';
+import { createFile, setAvatarToCropper, uploadPostAvatar, fileIsTooBig } from '../../store/cropper/actions';
 import { connect } from 'react-redux';
 import Cropper from '../../components/Cropper';
 
@@ -20,6 +20,7 @@ class CropperContainer extends React.Component<any> {
                 uploadPostAvatar={this.props.uploadPostAvatar}
                 setAvatarToCropper={this.props.setAvatarToCropper}
                 createFile={this.props.createFile}
+                fileIsTooBig={this.props.fileIsTooBig}
                 modalToggle={this.props.modalToggle}
             />
         );
@@ -38,6 +39,7 @@ const mapDispatchToProps = {
     uploadPostAvatar,
     setAvatarToCropper,
     createFile,
+    fileIsTooBig,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CropperContainer);
