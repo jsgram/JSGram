@@ -1,5 +1,5 @@
 import React from 'react';
-import { DropzoneState, useDropzone } from 'react-dropzone';
+import { DropzoneOptions, DropzoneState, useDropzone } from 'react-dropzone';
 
 interface IProps {
     selectImage: (imageFile: File) => void;

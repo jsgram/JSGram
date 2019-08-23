@@ -1,11 +1,10 @@
 import React from 'react';
 import { Button } from 'reactstrap';
-import { AuthAPI } from '../../store/api';
 import Cropper from 'react-easy-crop';
-import PostPhoto from './PostPost';
-import { history } from '../../history';
-import AddPostDropZone from './AddPostDropZone';
-import { base64ToFile, dataForAWS, getCroppedImg } from '../../helpers/upload.photo';
+import PostPhoto from '../PostPost';
+import { history } from '../../../history';
+import AddPostDropZone from '../AddPostDropZone';
+import { getCroppedImg } from '../../../helpers/upload.photo';
 
 interface IArea {
     width: number;
@@ -23,7 +22,8 @@ interface IState {
     croppedImage: string;
 }
 
-export default class AddPost extends React.Component {
+export default class AddPostCropper extends React.Component<any> {
+
     public state: IState = {
         imageSrc: '',
         crop: {x: 0, y: 0},
@@ -81,17 +81,8 @@ export default class AddPost extends React.Component {
     }
 
     // 9 Upload img file to server
-    // TODO move to redux later
-    public uploadPost = async (): Promise<void> => {
-        try {
-            const newFile = await base64ToFile(this.state.croppedImage, 'avatar', 'image/png');
-            const res = await AuthAPI.post('/profile/photo', dataForAWS(newFile));
-            if (res.status === 200) {
-                history.push('/profile');
-            }
-        } catch (e) {
-            console.error(e);
-        }
+    public uploadPost = (): void => {
+        this.props.uploadPost(this.state.croppedImage);
     }
 
     public render(): JSX.Element {
