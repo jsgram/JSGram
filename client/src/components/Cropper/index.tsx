@@ -42,10 +42,11 @@ export default class Cropper extends React.Component<any> {
     }
 
     public onBeforeFileLoad = (
-        elem: React.ChangeEvent<HTMLFormElement |
-            null> |
-            React.ChangeEvent<HTMLInputElement>): void => {
-        if (this.props.checkFileSize(elem.target.files[0].size)) {
+        elem: any): void => {
+        this.props.checkFileSize(elem.target.files[0].size);
+
+        const FILE_SIZE = 2000000;
+        if (elem.target.files[0].size > FILE_SIZE) {
             elem.target.value = '';
         }
     }

@@ -2,14 +2,14 @@ import React from 'react';
 import { DropzoneOptions, DropzoneState, useDropzone } from 'react-dropzone';
 
 interface IProps {
-    selectImage: (imageFile: File) => void;
+    uploadImageToCropper: (imageFile: File) => void;
 }
 
 const AddPostDropZone = (props: IProps): JSX.Element => {
-    const {selectImage}: IProps = props;
+    const {uploadImageToCropper}: IProps = props;
     const { getRootProps, getInputProps}: DropzoneState = useDropzone({
         accept: 'image/jpeg, image/png',
-        onDrop: (files: any): void => selectImage(files[0]),
+        onDrop: (files: any): void => uploadImageToCropper(files[0]),
     });
 
     // TODO Move style to scss

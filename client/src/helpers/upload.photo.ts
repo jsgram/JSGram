@@ -1,3 +1,4 @@
+// Append necessary fields to fields for AWS
 export const dataForAWS = (file: File): FormData => {
     const formData = new FormData();
     formData.append('userPhoto', file);
@@ -5,8 +6,8 @@ export const dataForAWS = (file: File): FormData => {
     return formData;
 };
 
+// Create File from base64
 const base64RegExp = /^data:([^;]+);/;
-
 export const base64ToFile = async (url: string, filename: string, mimeType: string): Promise<File> => {
     const mime = mimeType || (url.match(base64RegExp) || '')[1];
     const res = await fetch(url);
@@ -15,8 +16,15 @@ export const base64ToFile = async (url: string, filename: string, mimeType: stri
 
 };
 
+// Create blob url
+export const createBlobUrl = (image: Blob, onloadendCallback: any): void => {
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onloadend = onloadendCallback;
+};
+
 // 5 Create new image (not file) inside getCroppedImg
-export const createImage = (url: string): Promise<any> =>
+export const createImg = (url: string): Promise<any> =>
     new Promise<any>((resolve: any, reject: any): any => {
         const image = new Image();
         image.addEventListener('load', () => resolve(image));
@@ -28,7 +36,7 @@ export const createImage = (url: string): Promise<any> =>
 
 // 6 Create cropped image in url
 export const getCroppedImg = async (imageSrc: string, pixelCrop: any): Promise<any> => {
-    const image = await createImage(imageSrc);
+    const image = await createImg(imageSrc);
     const canvas = document.createElement('canvas');
     canvas.width = pixelCrop.width;
     canvas.height = pixelCrop.height;

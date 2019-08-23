@@ -25,9 +25,7 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const res = await API.post('/auth/login', user);
-            if (res.status === 200) {
-                history.push('/feed');
-            }
+            history.push('/feed');
             setToken(res.data.token);
             dispatch(getUserPending());
             const token = localStorage.getItem(TOKEN);

@@ -4,7 +4,7 @@ import Cropper from 'react-easy-crop';
 import PostPhoto from '../PostPost';
 import { history } from '../../../history';
 import AddPostDropZone from '../AddPostDropZone';
-import { getCroppedImg } from '../../../helpers/upload.photo';
+import { getCroppedImg, createBlobUrl } from '../../../helpers/upload.photo';
 
 interface IArea {
     width: number;
@@ -44,13 +44,10 @@ export default class AddPostCropper extends React.Component<IProps> {
     }
 
     // 1 Select image
-    public selectImage = (imageFile: File): void => {
-        const reader = new FileReader();
-        reader.readAsDataURL(imageFile);
-        reader.onloadend = (): void => {
-            const imageSrc = reader.result;
-            this.setState({imageSrc});
-        };
+    public onUploadImageToCropper = (imageFile: File): void => {
+        createBlobUrl(imageFile, (data: any) => {
+            this.setState({imageSrc: data.target.result});
+        });
     }
 
     // 2 Set crop position to Cropper
@@ -72,21 +69,18 @@ export default class AddPostCropper extends React.Component<IProps> {
     // 6 Create cropped image in url inside getCroppedImg
     // 7 Transform to blob url inside getCroppedImg
     // 8 Transform cropped img in base64 to file
-    public showCroppedImage = async (): Promise<void> => {
+    public onShowCroppedImage = async (): Promise<void> => {
         const cropped = await getCroppedImg(
             this.state.imageSrc,
             this.state.croppedAreaPixels,
         );
-        const reader = new FileReader();
-        reader.readAsDataURL(cropped);
-        reader.onloadend = (): void => {
-            const croppedImage = reader.result;
-            this.setState({croppedImage});
-        };
+        createBlobUrl(cropped, (data: any) => {
+            this.setState({croppedImage: data.target.result});
+        });
     }
 
     // 9 Upload img file to server
-    public uploadPost = (): void => {
+    public onUploadPost = (): void => {
         this.props.uploadPost(this.state.croppedImage);
     }
 
@@ -96,7 +90,7 @@ export default class AddPostCropper extends React.Component<IProps> {
                 <Button className='btn' color='danger' onClick={this.previousPage}>Cancel</Button>
                 <Button
                     className='btn' color='danger'
-                    onClick={this.state.croppedImage ? this.uploadPost : this.showCroppedImage}
+                    onClick={this.state.croppedImage ? this.onUploadPost : this.onShowCroppedImage}
                     disabled={!this.state.imageSrc}
                 >
                     {this.state.croppedImage ? 'Post' : 'Next'}
@@ -125,7 +119,7 @@ export default class AddPostCropper extends React.Component<IProps> {
                                             />
                                         ) : (
                                             <AddPostDropZone
-                                                selectImage={this.selectImage}
+                                                uploadImageToCropper={this.onUploadImageToCropper}
                                             />
                                         )
                                 }
