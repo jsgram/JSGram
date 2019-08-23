@@ -1,66 +1,66 @@
-import React from 'react';
-import { Field } from 'redux-form';
+import React, {ReactElement} from 'react';
+import {Field} from 'redux-form';
 import '../styles/style.scss';
-import { Button, Form, FormProps, Spinner } from 'reactstrap';
+import {Button, Form, FormProps, Spinner} from 'reactstrap';
 import '../styles/Profile.scss';
 import noAvatar from '../assets/noAvatar.svg';
-import { renderField } from '../commonComponents/reduxFormFields';
+import {renderField} from '../commonComponents/reduxFormFields';
 import PopUpModal from '../PopUp/PopUp';
 
-export default class ProfileEdit extends React.Component<any> {
+const ProfileEdit = (props: any): ReactElement => {
 
-    public render(): JSX.Element {
-        const {handleSubmit, onChangeProfile, submitting}: FormProps = this.props;
-        const {photo}: { photo: string } = this.props.initialValues;
-        return (
-            <div>
+    const {handleSubmit, onChangeProfile, submitting}: FormProps = props;
+    const {photo}: { photo: string } = props.initialValues;
+    return (
+        <div>
 
-                <Form className='mt-4 bg-white text-center border p-4' onSubmit={handleSubmit(onChangeProfile)}>
-                    <img
-                        src={photo || noAvatar}
-                        className='img-fluid'
-                        alt='avatar'
-                        height={150}
-                        width={150}
-                    />
-                    <PopUpModal deletePhoto={this.props.deletePhoto}/>
-                    <Field
-                        name='fullName'
-                        type='text'
-                        component={renderField}
-                        label='fullname'
-                        placeholder='Fullname'
-                        className='form-control'
-                    />
-                    <Field
-                        name='username'
-                        type='text'
-                        component={renderField}
-                        label='username'
-                        placeholder='Username'
-                        className='form-control mt-3'
-                    />
-                    <Field
-                        name='description'
-                        type='textarea'
-                        component={renderField}
-                        label='description'
-                        placeholder='Description'
-                        className='form-control mt-3'
-                    />
-                    <Button
-                        className='btn mt-3'
-                        color='danger'
-                        disabled={submitting}
-                    >
-                        <i className='fa fa-save pr-3'/>
-                        Save profile
-                    </Button>
-                    {submitting && <Spinner className='mt-3' color='dark'/>}
+            <Form className='mt-4 bg-white text-center border p-4' onSubmit={handleSubmit(onChangeProfile)}>
+                <img
+                    src={photo || noAvatar}
+                    className='img-fluid'
+                    alt='avatar'
+                    height={150}
+                    width={150}
+                />
+                <PopUpModal deletePhoto={props.deletePhoto}/>
+                <Field
+                    name='fullName'
+                    type='text'
+                    component={renderField}
+                    label='fullname'
+                    placeholder='Fullname'
+                    className='form-control'
+                />
+                <Field
+                    name='username'
+                    type='text'
+                    component={renderField}
+                    label='username'
+                    placeholder='Username'
+                    className='form-control mt-3'
+                />
+                <Field
+                    name='description'
+                    type='textarea'
+                    component={renderField}
+                    label='description'
+                    placeholder='Description'
+                    className='form-control mt-3'
+                />
+                <Button
+                    className='btn mt-3'
+                    color='danger'
+                    disabled={submitting}
+                >
+                    <i className='fa fa-save pr-3'/>
+                    Save profile
+                </Button>
+                {submitting && <Spinner className='mt-3' color='dark'/>}
 
-                </Form>
-            </div>
+            </Form>
+        </div>
 
-        );
-    }
-}
+    );
+};
+
+export default ProfileEdit;

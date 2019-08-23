@@ -1,46 +1,40 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import '../styles/style.scss';
-import { Button, Form, FormProps, Input } from 'reactstrap';
+import { Button, Form, Input } from 'reactstrap';
 import '../styles/Profile.scss';
 
-export default class EmailChange extends React.Component<any> {
+const EmailChange = (props: any): ReactElement => {
 
-    constructor(props: FormProps) {
-        super(props);
-        this.onEmailChange = this.onEmailChange.bind(this);
-        this.changeEmail = this.changeEmail.bind(this);
-    }
+    const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        props.setEmailText(event.target.value);
+    };
 
-    public onEmailChange(event: React.ChangeEvent<HTMLInputElement>): void {
-        this.props.setEmailText(event.target.value);
-    }
+    const changeEmail = (): void => {
+        props.changeEmail();
+    };
 
-    public changeEmail(): void {
-        this.props.changeEmail();
-    }
+    return (
+        <div>
+            <Form className='mt-4 bg-white text-center border p-4'>
+                <h3>Change Email</h3>
+                <Input
+                    className='form-control'
+                    value={props.email}
+                    onChange={onEmailChange}
 
-    public render(): JSX.Element {
-        return (
-            <div>
-                <Form className='mt-4 bg-white text-center border p-4'>
-                    <h3>Change Email</h3>
-                    <Input
-                        className='form-control'
-                        value={this.props.email}
-                        onChange={this.onEmailChange}
+                />
+                <Button
+                    className='btn mt-3'
+                    color='danger'
+                    onClick={changeEmail}
+                >
+                    <i className='fa fa-edit pr-3'/>
+                    Change
+                </Button>
+            </Form>
+        </div>
 
-                    />
-                    <Button
-                        className='btn mt-3'
-                        color='danger'
-                        onClick={this.changeEmail}
-                    >
-                        <i className='fa fa-edit pr-3'/>
-                        Change
-                    </Button>
-                </Form>
-            </div>
+    );
+};
 
-        );
-    }
-}
+export default EmailChange;

@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { IUserData } from '../Profile/Profile';
 import EmailChange from '../EmailChange/EmailChange';
 import { changeEmail, setEmailText } from '../../store/emailChange/actions';
 
 interface IStateToProps {
-    user: IUserData;
+    setEmailText: any;
+    email: string;
+    changeEmail: any;
 }
 
-class EmailChangeContainer extends React.Component <any> {
+class EmailChangeContainer extends React.Component <IStateToProps> {
 
     public render(): JSX.Element {
         return (
@@ -23,11 +24,9 @@ class EmailChangeContainer extends React.Component <any> {
     }
 }
 
-const mapStateToProps = (state: any): {email: string} => {
-    return {
-        email: state.changeEmail.email,
-    };
-};
+const mapStateToProps = (state: any): {email: string} => ({
+    email: state.changeEmail.email,
+});
 
 const mapDispatchToProps = {
     setEmailText,
