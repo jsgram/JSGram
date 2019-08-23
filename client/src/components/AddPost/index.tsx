@@ -5,7 +5,7 @@ import Cropper from 'react-easy-crop';
 import PostPhoto from './PostPost';
 import { history } from '../../history';
 import AddPostDropZone from './AddPostDropZone';
-import { base64ToFile, dataForAWS } from '../../helpers/upload.photo';
+import { base64ToFile, dataForAWS, getCroppedImg } from '../../helpers/upload.photo';
 
 interface IArea {
     width: number;
@@ -63,50 +63,12 @@ export default class AddPost extends React.Component {
         this.setState({croppedAreaPixels});
     }
 
-    // 5 Create new image (not file)
-    public createImage = (url: string): Promise<any> =>
-        new Promise<any>((resolve: any, reject: any): any => {
-            const image = new Image();
-            image.addEventListener('load', () => resolve(image));
-            // tslint:disable-next-line:typedef
-            image.addEventListener('error', error => reject(error));
-            image.setAttribute('crossOrigin', 'anonymous');
-            image.src = url;
-        })
-
-    // 6 Create cropped image in url
-    public getCroppedImg = async (imageSrc: string, pixelCrop: any): Promise<any> => {
-        const image = await this.createImage(imageSrc);
-        const canvas = document.createElement('canvas');
-        canvas.width = pixelCrop.width;
-        canvas.height = pixelCrop.height;
-        const ctx = canvas.getContext('2d');
-
-        // @ts-ignore
-        ctx.drawImage(
-            image,
-            pixelCrop.x,
-            pixelCrop.y,
-            pixelCrop.width,
-            pixelCrop.height,
-            0,
-            0,
-            pixelCrop.width,
-            pixelCrop.height,
-        );
-
-        // 7 Transform to blob url
-        return new Promise((resolve: any, reject: any): any => {
-            // tslint:disable-next-line:typedef
-            canvas.toBlob(blob => {
-                resolve((blob));
-            }, 'image/jpeg');
-        });
-    }
-
+    // 5 Create new image (not file) inside getCroppedImg
+    // 6 Create cropped image in url inside getCroppedImg
+    // 7 Transform to blob url inside getCroppedImg
     // 8 Transform cropped img in base64 to file
     public showCroppedImage = async (): Promise<void> => {
-        const cropped = await this.getCroppedImg(
+        const cropped = await getCroppedImg(
             this.state.imageSrc,
             this.state.croppedAreaPixels,
         );
