@@ -15,14 +15,19 @@ interface IArea {
 
 interface IState {
     imageSrc: string;
-    crop: {x: number, y: number};
+    crop: { x: number, y: number };
     zoom: number;
     aspect: number;
     croppedAreaPixels: null;
     croppedImage: string;
 }
 
-export default class AddPostCropper extends React.Component<any> {
+export interface IProps {
+    croppedImage: string;
+    uploadPost: (croppedImage: string) => void;
+}
+
+export default class AddPostCropper extends React.Component<IProps> {
 
     public state: IState = {
         imageSrc: '',
@@ -32,6 +37,7 @@ export default class AddPostCropper extends React.Component<any> {
         croppedAreaPixels: null,
         croppedImage: '',
     };
+
     // Helper
     public previousPage = (): void => {
         history.go(-1);
@@ -40,7 +46,6 @@ export default class AddPostCropper extends React.Component<any> {
     // 1 Select image
     public selectImage = (imageFile: File): void => {
         const reader = new FileReader();
-        // 1.1 Transform to base64
         reader.readAsDataURL(imageFile);
         reader.onloadend = (): void => {
             const imageSrc = reader.result;
@@ -92,6 +97,7 @@ export default class AddPostCropper extends React.Component<any> {
                 <Button
                     className='btn' color='danger'
                     onClick={this.state.croppedImage ? this.uploadPost : this.showCroppedImage}
+                    disabled={!this.state.imageSrc}
                 >
                     {this.state.croppedImage ? 'Post' : 'Next'}
                 </Button>

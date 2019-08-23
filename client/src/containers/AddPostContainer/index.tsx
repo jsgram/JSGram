@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { uploadPost } from '../../store/addPost/action';
-import AddPostCropper from '../../components/AddPost/AddPostCropper';
+import AddPostCropper, {IProps} from '../../components/AddPost/AddPostCropper';
 
-class AddPostContainer extends React.Component<any> {
+class AddPostContainer extends React.Component<IProps> {
     public render(): JSX.Element {
         return(
             <AddPostCropper
