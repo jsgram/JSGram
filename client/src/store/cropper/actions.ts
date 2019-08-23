@@ -35,7 +35,7 @@ export const checkFileSize = (elemSize: number): (dispatch: Dispatch) => void =>
         if (elemSize > FILE_SIZE) {
             dispatch(showAlert('File is too big', 'danger'));
         }
-    }
+    };
 
 export const createFile = (preview: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
