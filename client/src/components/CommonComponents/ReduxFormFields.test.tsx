@@ -1,4 +1,4 @@
-import { renderField } from './renderField';
+import { renderField } from './ReduxFormFields';
 import * as reactstrap from 'reactstrap';
 
 import { shallow } from 'enzyme';

@@ -1,4 +1,4 @@
-import { LoginContainer } from './LoginContainer';
+import { LoginContainer } from './index';
 import * as loginuser from '../../store/login/actions';
 import * as settoken from '../../store/login/setToken.helper';
 import * as reactstrap from 'reactstrap';

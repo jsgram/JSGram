@@ -1,4 +1,4 @@
-import { CheckEmail } from './CheckEmail';
+import { CheckEmail } from './index';
 import * as reactstrap from 'reactstrap';
 import * as checkemail from '../../../store/checkEmail/actions';
 

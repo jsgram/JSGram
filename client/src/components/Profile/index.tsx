@@ -1,10 +1,11 @@
 import React from 'react';
-import '../styles/style.scss';
+import '../../styles/style.scss';
 import { Instagram } from 'react-content-loader';
 import { Button, Spinner } from 'reactstrap';
-import '../styles/Profile.scss';
-import PopUpModal from '../PopUp/PopUp';
-import noAvatar from '../assets/noAvatar.svg';
+import './Profile.scss';
+import PopUpModal from '../PopUp';
+import noAvatar from '../../assets/noAvatar.svg';
+import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 
 export interface IUserData {
@@ -62,12 +63,13 @@ export default class Profile extends React.Component<IFormProps> {
         }
         return (
             <div
-                className='row profile d-flex pt-5 justify-content-lg-center
+                className='row profile d-flex pt-2 justify-content-lg-center
                 justify-content-sm-around justify-content-center'>
+                <Menu/>
                 <div className='mr-lg-5 mr-3'>
                     <img
                         src={photo || noAvatar}
-                        className='img-fluid rounded-circle float-right'
+                        className='img-fluid float-right'
                         alt='avatar'
                         height={150}
                         width={150}

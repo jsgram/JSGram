@@ -1,4 +1,4 @@
-import { Cropper } from './Cropper';
+import { Cropper } from './index';
 import * as reactstrap from 'reactstrap';
 import * as cropperactions from '../../store/cropper/actions';
 

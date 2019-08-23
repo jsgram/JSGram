@@ -1,4 +1,4 @@
-import { Footer } from './Footer';
+import { Footer } from './index';
 
 import { shallow } from 'enzyme';
 import React from 'react';

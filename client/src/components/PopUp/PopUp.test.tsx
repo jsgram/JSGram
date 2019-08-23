@@ -1,4 +1,4 @@
-import PopUpModal from './PopUp';
+import PopUpModal from './index';
 import * as reactstrap from 'reactstrap';
 
 import { shallow } from 'enzyme';

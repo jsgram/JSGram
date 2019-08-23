@@ -1,4 +1,4 @@
-import { ChangePasswordContainer } from './ChangePassword';
+import { ChangePasswordContainer } from './index';
 import * as reactstrap from 'reactstrap';
 import * as changepassword from '../../../store/changePassword/actions';
 

@@ -1,4 +1,4 @@
-import { ProfileContainer } from './ProfileContainer';
+import { ProfileContainer } from './index';
 
 import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';

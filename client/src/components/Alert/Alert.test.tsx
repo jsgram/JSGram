@@ -1,4 +1,4 @@
-import Alert from './Alert';
+import Alert from './index';
 import * as reactstrap from 'reactstrap';
 
 import { shallow } from 'enzyme';

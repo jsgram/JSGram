@@ -1,4 +1,4 @@
-import { AlertContainer } from './AlertContainer';
+import { AlertContainer } from './index';
 
 import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';

@@ -1,4 +1,4 @@
-import Login from './Login';
+import Login from './index';
 import * as reactstrap from 'reactstrap';
 
 import { shallow } from 'enzyme';

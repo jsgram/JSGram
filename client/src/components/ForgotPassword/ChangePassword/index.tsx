@@ -1,23 +1,22 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { checkEmail } from '../../../store/checkEmail/actions';
+import { changePassword } from '../../../store/changePassword/actions';
+import { Field, reduxForm } from 'redux-form';
 import validate from '../../../utils/validation';
-import './../../styles/style.scss';
 import { Button, Form, FormGroup, FormProps, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/logo.png';
-import { renderField } from '../../commonComponents/reduxFormFields';
+import logo from '../../../assets/logo.png';
+import { renderField } from '../../CommonComponents/ReduxFormFields';
 import { IUser } from '../../../store/commonInterfaces/commonInterfaces';
 
-export class CheckEmail extends React.Component<any> {
+export class ChangePasswordContainer extends React.Component<any> {
     constructor(props: any) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    public onSubmit(email: IUser): void {
-        return this.props.checkEmail(email);
+    public onSubmit(password: IUser): void {
+        return this.props.changePassword(password, this.props.match.params.token);
     }
 
     public render(): JSX.Element {
@@ -30,15 +29,15 @@ export class CheckEmail extends React.Component<any> {
                             <div className='border'>
                                 <FormGroup className='col-lg-10 offset-lg-1 text-center'>
                                     <Link to='/'>
-                                        <img className='picture img-fluid' src={logo} alt='logo'/>
+                                        <img className='picture' src={logo} alt='logo'/>
                                     </Link>
                                     <Field
-                                        name='email'
-                                        type='text'
+                                        name='password'
+                                        type='password'
                                         component={renderField}
-                                        label='email'
+                                        label='password'
                                         className='form-control form-control-lg mt-3'
-                                        placeholder='E-mail'
+                                        placeholder='Password'
                                     />
                                     <Button
                                         className='mt-3'
@@ -47,19 +46,18 @@ export class CheckEmail extends React.Component<any> {
                                         size='lg'
                                         block
                                     >
-                                        Send
+                                        {submitting ? <Spinner color='light'/> : 'Send'}
                                     </Button>
-                                    {submitting && <Spinner className='mt-3' color='dark'/>}
                                 </FormGroup>
                                 <div className='or-devider'>
                                     <span/>
                                     OR
                                     <span/>
                                 </div>
-                                <FormGroup className='text-center logo-google'>
+                                <FormGroup className='text-center login_soft'>
                                     <p className='pt-2'>
                                         Still don't have an account?
-                                        <Link to='/register' className='text-danger pl-1'>
+                                        <Link to='/register' className='pl-1'>
                                             Register
                                         </Link>
                                     </p>
@@ -75,10 +73,10 @@ export class CheckEmail extends React.Component<any> {
 
 export default connect(
     null,
-    {checkEmail},
+    {changePassword},
 )(
     reduxForm({
-        form: 'checkEmailForm',
+        form: 'changePassword',
         validate,
-    })(CheckEmail),
+    })(ChangePasswordContainer),
 );

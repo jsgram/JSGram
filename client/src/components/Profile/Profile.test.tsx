@@ -1,4 +1,4 @@
-import Profile from './Profile';
+import Profile from './index';
 import * as reactstrap from 'reactstrap';
 
 import { shallow } from 'enzyme';
