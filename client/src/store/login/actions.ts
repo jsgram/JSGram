@@ -26,7 +26,6 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
         try {
             const res = await API.post('/auth/login', user);
             if (res.status === 200) {
-                dispatch(showAlert('Welcome', 'success'));
                 history.push('/feed');
             }
             setToken(res.data.token);

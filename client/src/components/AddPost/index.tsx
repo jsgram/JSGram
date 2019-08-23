@@ -14,14 +14,23 @@ interface IArea {
     y: number;
 }
 
+interface IState {
+    imageSrc: string;
+    crop: {x: number, y: number};
+    zoom: number;
+    aspect: number;
+    croppedAreaPixels: null;
+    croppedImage: string;
+}
+
 export default class AddPost extends React.Component {
-    public state: any = {
-        imageSrc: null,
+    public state: IState = {
+        imageSrc: '',
         crop: {x: 0, y: 0},
         zoom: 1,
         aspect: 3 / 3,
         croppedAreaPixels: null,
-        croppedImage: null,
+        croppedImage: '',
     };
     // Helper
     public previousPage = (): void => {
@@ -39,22 +48,22 @@ export default class AddPost extends React.Component {
         };
     }
 
-    // 2
+    // 2 Set crop position to Cropper
     public onCropChange = (crop: any): void => {
         this.setState({crop});
     }
 
-    // 3
+    // 3 Set zoom to Cropper
     public onZoomChange = (zoom: number): void => {
         this.setState({zoom});
     }
 
-    // 4
+    // 4 Save crop area
     public onCropComplete = (croppedArea: IArea, croppedAreaPixels: IArea): void => {
         this.setState({croppedAreaPixels});
     }
 
-    // 5 Not file
+    // 5 Create new image (not file)
     public createImage = (url: string): Promise<any> =>
         new Promise<any>((resolve: any, reject: any): any => {
             const image = new Image();
@@ -110,6 +119,7 @@ export default class AddPost extends React.Component {
     }
 
     // 9 Upload img file to server
+    // TODO move to redux later
     public uploadPost = async (): Promise<void> => {
         try {
             const newFile = await base64ToFile(this.state.croppedImage, 'avatar', 'image/png');

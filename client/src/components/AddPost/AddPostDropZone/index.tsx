@@ -1,13 +1,18 @@
 import React from 'react';
-import { useDropzone } from 'react-dropzone';
+import { DropzoneState, useDropzone } from 'react-dropzone';
 
-const AddPostDropZone = (props: any): JSX.Element => {
-    const {selectImage}: any = props;
-    const { getRootProps, getInputProps}: any = useDropzone({
+interface IProps {
+    selectImage: (imageFile: File) => void;
+}
+
+const AddPostDropZone = (props: IProps): JSX.Element => {
+    const {selectImage}: IProps = props;
+    const { getRootProps, getInputProps}: DropzoneState = useDropzone({
         accept: 'image/jpeg, image/png',
         onDrop: (files: any): void => selectImage(files[0]),
     });
 
+    // TODO Move style to scss
     return (
         <section className='container flex'>
             <div {...getRootProps({className: 'dropzone'})}
