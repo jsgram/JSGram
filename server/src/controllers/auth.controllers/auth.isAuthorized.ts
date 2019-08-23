@@ -5,16 +5,16 @@ export const isAuthorized = async (req: Request, res: Response, next: NextFuncti
     try {
         const token = req.get('x-access-token');
         if (!token) {
-            return next( {status: 401, message: 'Unauthorized'});
+            return next({status: 401, message: 'Unauthorized'});
         }
 
         const user = await tokenVerification(token, res, next);
         if (!user) {
-            return next( {status: 401, message: 'Unauthorized'});
+            return next({status: 401, message: 'Unauthorized'});
         }
         res.locals.user = user;
         next();
     } catch (e) {
-        next( {status: 401, message: 'Unauthorized'});
+        next({status: 401, message: 'Unauthorized'});
     }
 };

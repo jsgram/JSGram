@@ -13,7 +13,7 @@ export interface IPostModel extends Document {
 const PostSchema: Schema = new Schema({
     author: {type: Schema.Types.ObjectId, ref: 'User'},
     imgPath: {type: String, required: true},
-    description: {type: String, minlength: 3, maxlength: 1000},
+    description: {type: String, default: '', maxlength: 1000},
     comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
     tags: [{type: String}],
     likes: [{type: Schema.Types.ObjectId, ref: 'Like'}],
