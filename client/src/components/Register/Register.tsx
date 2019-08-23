@@ -63,9 +63,8 @@ class Register extends React.Component<any> {
                                 size='lg'
                                 block
                             >
-                                Register
+                                {submitting ? <Spinner color='light'/> : 'Register'}
                             </Button>
-                            {submitting && <Spinner className='mt-3' color='dark'/>}
                         </FormGroup>
                         <div className='text-center col-lg-10 offset-lg-1'>
                             <p>
