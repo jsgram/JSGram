@@ -14,3 +14,14 @@ export const base64ToFile = async (url: string, filename: string, mimeType: stri
     return new File([buf], filename, {type: mime});
 
 };
+
+export const selectImage = (imageFile: File): void => {
+    const reader = new FileReader();
+    // 1.1 Transform to base64
+    reader.readAsDataURL(imageFile);
+    let imageSrc;
+    reader.onloadend = (): void => {
+        imageSrc = reader.result;
+    };
+    return imageSrc;
+};
