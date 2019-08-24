@@ -7,6 +7,8 @@ import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
+import ProfileEditContainer from '../ProfileEdit/ProfileEditContainer';
+import EmailChange from '../EmailChange/EmailChange';
 
 export interface IUserData {
     posts: number;
@@ -108,6 +110,8 @@ export default class Profile extends React.Component<IFormProps> {
                         </Button>
                     </Link>
                     <PopUpModal deletePhoto={this.props.deletePhoto}/>
+                    <ProfileEditContainer/>
+                    <EmailChange/>
                 </div>
             </div>
         );
