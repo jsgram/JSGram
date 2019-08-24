@@ -72,4 +72,3 @@ export const sendChangingEmail = async (email: string,
         next(e);
     }
 };
-
