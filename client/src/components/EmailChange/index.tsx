@@ -9,7 +9,7 @@ interface IStateToProps {
     changeEmail: any;
 }
 
-class EmailChange extends React.Component <IStateToProps> {
+class Index extends React.Component <IStateToProps> {
 
     public onEmailChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         this.props.setEmailText(event.target.value);
@@ -49,4 +49,4 @@ const mapDispatchToProps = {
     changeEmail,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmailChange);
+export default connect(mapStateToProps, mapDispatchToProps)(Index);

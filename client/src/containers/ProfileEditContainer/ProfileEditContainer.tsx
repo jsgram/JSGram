@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ProfileEdit from './ProfileEdit';
+import ProfileEdit from '../../components/ProfileEdit';
 import { reduxForm } from 'redux-form';
 import validate from '../../utils/validation';
 import { FormProps } from 'reactstrap';
 import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import { editProfile } from '../../store/profileEdit/actions';
-import { IUserData } from '../Profile';
+import { IUserData } from '../../components/Profile';
 
 interface IStateToProps {
     user: IUserData;
