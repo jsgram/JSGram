@@ -1,40 +1,52 @@
-import React, { ReactElement } from 'react';
-import '../styles/style.scss';
-import { Button, Form, Input } from 'reactstrap';
-import '../styles/Profile.scss';
+import React from 'react';
+import { connect } from 'react-redux';
+import { changeEmail, setEmailText } from '../../store/emailChange/actions';
+import {Button, Form, Input} from "reactstrap";
 
-const EmailChange = (props: any): ReactElement => {
+interface IStateToProps {
+    setEmailText: any;
+    email: string;
+    changeEmail: any;
+}
 
-    const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        props.setEmailText(event.target.value);
-    };
+class EmailChange extends React.Component <IStateToProps> {
 
-    const changeEmail = (): void => {
-        props.changeEmail();
-    };
+    public onEmailChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        this.props.setEmailText(event.target.value);
+    }
 
-    return (
-        <div>
-            <Form className='mt-4 bg-white text-center border p-4'>
-                <h3>Change Email</h3>
-                <Input
-                    className='form-control'
-                    value={props.email}
-                    onChange={onEmailChange}
+    public render(): JSX.Element {
+        return (
+            <div className='container'>
+                <Form className='mt-4 bg-white text-center border p-4'>
+                    <h3>Change Email</h3>
+                    <Input
+                        className='form-control'
+                        value={this.props.email}
+                        onChange={this.onEmailChange}
 
-                />
-                <Button
-                    className='btn mt-3'
-                    color='danger'
-                    onClick={changeEmail}
-                >
-                    <i className='fa fa-edit pr-3'/>
-                    Change
-                </Button>
-            </Form>
-        </div>
+                    />
+                    <Button
+                        className='btn mt-3'
+                        color='danger'
+                        onClick={this.props.changeEmail}
+                    >
+                        <i className='fa fa-edit pr-3'/>
+                        Change
+                    </Button>
+                </Form>
+            </div>
+        );
+    }
+}
 
-    );
+const mapStateToProps = (state: any): {email: string} => ({
+    email: state.changeEmail.email,
+});
+
+const mapDispatchToProps = {
+    setEmailText,
+    changeEmail,
 };
 
-export default EmailChange;
+export default connect(mapStateToProps, mapDispatchToProps)(EmailChange);

@@ -6,8 +6,19 @@ import '../styles/Profile.scss';
 import noAvatar from '../assets/noAvatar.svg';
 import {renderField} from '../commonComponents/reduxFormFields';
 import PopUpModal from '../PopUp/PopUp';
+import {IUser} from "../../store/commonInterfaces/commonInterfaces";
 
-const ProfileEdit = (props: any): ReactElement => {
+interface IProps {
+    initialValues: {
+        photo: string;
+    };
+    deletePhoto: () => void;
+    handleSubmit: () => void;
+    onChangeProfile: (user: IUser) => IUser;
+    submitting: boolean;
+}
+
+const ProfileEdit = (props: IProps): ReactElement => {
 
     const {handleSubmit, onChangeProfile, submitting}: FormProps = props;
     const {photo}: { photo: string } = props.initialValues;

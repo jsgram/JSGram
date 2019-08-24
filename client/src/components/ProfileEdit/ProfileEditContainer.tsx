@@ -42,6 +42,7 @@ class ProfileEditContainer extends React.Component <any> {
                     onChangeProfile={this.onChangeProfile}
                     submitting={submitting}
                     initialValues={this.props.initialValues}
+                    deletePhoto={this.props.deletePhoto}
                 />
             </div>
         );
