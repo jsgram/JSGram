@@ -8,7 +8,7 @@ import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
 import { showAlert } from '../alert/actions';
 import { setPhotoToState } from '../profile/actions';
-import { base64ToFile, dataForAWS } from '../../helpers/upload.photo';
+import { base64ToFile, createDataForAWS } from '../../helpers/upload.photo';
 
 export const setAvatarToCropper = (avatar: any): { type: string, payload: File } => ({
     type: SET_AVATAR_TO_CROPPER,
@@ -30,10 +30,11 @@ export const uploadAvatarError = (error: Error): { type: string, payload: Error 
 });
 
 const FILE_SIZE = 2000000;
-export const checkFileSize = (elemSize: number): (dispatch: Dispatch) => void =>
+export const checkFileSize = (elemTarget: any): (dispatch: Dispatch) => void =>
     (dispatch: Dispatch): void => {
-        if (elemSize > FILE_SIZE) {
+        if (elemTarget.files[0].size > FILE_SIZE) {
             dispatch(showAlert('File is too big', 'danger'));
+            elemTarget.value = '';
         }
     };
 
@@ -51,7 +52,7 @@ export const uploadPostAvatar = (avatar: File): (dispatch: Dispatch) => Promise<
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(uploadAvatarPending());
-            const res = await AuthAPI.post('/profile/photo', dataForAWS(avatar));
+            const res = await AuthAPI.post('/profile/photo', createDataForAWS(avatar));
             dispatch(showAlert('Successfully uploaded', 'success'));
             dispatch(uploadAvatarSuccess(res.data.userProfile));
             dispatch(setPhotoToState(res.data.photoPath));

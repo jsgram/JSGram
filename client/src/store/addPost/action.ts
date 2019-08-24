@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { showAlert } from '../alert/actions';
-import { base64ToFile, dataForAWS } from '../../helpers/upload.photo';
+import { base64ToFile, createDataForAWS } from '../../helpers/upload.photo';
 import { AuthAPI } from '../api';
 import { history } from '../../history';
 
@@ -9,7 +9,7 @@ export const uploadPost = (croppedImage: string): (dispatch: Dispatch) => Promis
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const newFile = await base64ToFile(croppedImage, 'avatar', 'image/png');
-            await AuthAPI.post('/profile/photo', dataForAWS(newFile));
+            await AuthAPI.post('/profile/photo', createDataForAWS(newFile));
             history.push('/profile');
             dispatch(showAlert('Successfully uploaded', 'success'));
         } catch (e) {

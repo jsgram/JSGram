@@ -2,6 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { uploadPost } from '../../store/addPost/action';
 import AddPostCropper, {IProps} from '../../components/AddPost/AddPostCropper';
+import {IState} from '../../store/addPost/reducers';
+
+export interface ILocalState {
+    addPost: IState;
+}
 
 class AddPostContainer extends React.Component<IProps> {
     public render(): JSX.Element {
@@ -14,7 +19,7 @@ class AddPostContainer extends React.Component<IProps> {
     }
 }
 
-const mapStateToProps = (state: any): any => ({
+const mapStateToProps = (state: ILocalState): IState => ({
     croppedImage: state.addPost.croppedImage,
 });
 
