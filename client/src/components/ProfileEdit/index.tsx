@@ -62,9 +62,8 @@ const ProfileEdit = (props: IProps): ReactElement => {
                     disabled={submitting}
                 >
                     <i className='fa fa-save pr-3'/>
-                    Save profile
+                    {submitting && <Spinner className='mt-3' color='white'/> || 'Save profile'}
                 </Button>
-                {submitting && <Spinner className='mt-3' color='dark'/>}
 
             </Form>
         </div>

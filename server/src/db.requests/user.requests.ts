@@ -60,3 +60,29 @@ export const checkUserByProp = async (prop: string, done: any): Promise<IUserMod
         done(null, false);
     }
 };
+
+export const editUser = async (
+    userEmail: string,
+    newUser: any,
+    next: NextFunction,
+): Promise<IUserModel | void | null> => {
+    try {
+        const { username, fullName, description }: any = newUser;
+        const userWithSameUsername = await User.findOne({username});
+        if (userWithSameUsername) {
+            throw new Error('There is a user with the same username');
+        }
+        const updatedUser = await User.findOneAndUpdate(
+            {email: userEmail},
+            {username, fullName, bio: description},
+            {new: true},
+        );
+        if (!updatedUser) {
+            throw new Error('Account does not exist');
+        }
+
+        return updatedUser;
+    } catch (e) {
+        next({message: 'Username is not unique', status: 409});
+    }
+};
