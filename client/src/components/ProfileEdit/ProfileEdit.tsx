@@ -6,7 +6,7 @@ import '../styles/Profile.scss';
 import noAvatar from '../assets/noAvatar.svg';
 import {renderField} from '../commonComponents/reduxFormFields';
 import PopUpModal from '../PopUp/PopUp';
-import {IUser} from "../../store/commonInterfaces/commonInterfaces";
+import {IUser} from '../../store/commonInterfaces/commonInterfaces';
 
 interface IProps {
     initialValues: {
