@@ -6,6 +6,7 @@ const Menu: React.FC = (): ReactElement => (
     <div className='container-fluid header-menu'>
         <div className='row justify-content-between bg-white'>
                 <img src={logo}
+                     alt='logo'
                      width={110}
                      className='mb-3 sm-mb-2 sm-mr-5 pt-1 logo'/>
             <div className='w-30 mt-4 mb-4 form-group search d-md-block d-none'>

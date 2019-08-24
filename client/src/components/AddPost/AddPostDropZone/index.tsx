@@ -1,5 +1,5 @@
 import React from 'react';
-import { DropzoneOptions, DropzoneState, useDropzone } from 'react-dropzone';
+import { DropzoneState, useDropzone } from 'react-dropzone';
 
 interface IProps {
     uploadImageToCropper: (imageFile: File) => void;

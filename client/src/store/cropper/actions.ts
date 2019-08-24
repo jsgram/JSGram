@@ -29,13 +29,9 @@ export const uploadAvatarError = (error: Error): { type: string, payload: Error 
     payload: error,
 });
 
-const FILE_SIZE = 2000000;
-export const checkFileSize = (elemTarget: any): (dispatch: Dispatch) => void =>
+export const informFileIsTooBig = (): (dispatch: Dispatch) => void =>
     (dispatch: Dispatch): void => {
-        if (elemTarget.files[0].size > FILE_SIZE) {
-            dispatch(showAlert('File is too big', 'danger'));
-            elemTarget.value = '';
-        }
+        dispatch(showAlert('File is too big', 'danger'));
     };
 
 export const createFile = (preview: string): (dispatch: Dispatch) => Promise<void> =>
