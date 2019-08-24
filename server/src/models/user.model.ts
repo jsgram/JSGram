@@ -1,5 +1,5 @@
-import {Schema, Document, Model, model} from 'mongoose';
-import {IPost} from './post.model';
+import { Schema, Document, Model, model } from 'mongoose';
+import { IPostModel } from './post.model';
 
 export interface IUserModel extends Document {
     email: string;
@@ -12,7 +12,7 @@ export interface IUserModel extends Document {
     bio?: string;
     isAdmin: boolean;
     isVerified: boolean;
-    posts?: IPost['_id'];
+    posts?: IPostModel['_id'];
 }
 
 const UserSchema: Schema = new Schema({
