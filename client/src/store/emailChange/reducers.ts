@@ -13,12 +13,12 @@ interface IAction {
 
 export const changeEmailReducer = (state: {email: string} = defaultState, action: IAction): any => {
     switch (action.type) {
-        case SET_EMAIL_TEXT:
-            return {
-                ...state,
-                email: action.payload,
-            };
-        default:
-            return state;
+    case SET_EMAIL_TEXT:
+        return {
+            ...state,
+            email: action.payload,
+        };
+    default:
+        return state;
     }
 };

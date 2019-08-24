@@ -11,10 +11,10 @@ export const setEmailText = (email: string): { type: string, payload: string } =
 // TODO Add real api call and change alert message
 export const changeEmail = (): (dispatch: Dispatch) =>
     Promise<void> => async (dispatch: Dispatch): Promise<void> => {
-    try {
-        const {changeEmail: {email}}: { changeEmail: { email: string } } = store.getState();
-        dispatch(showAlert(email, 'success'));
-    } catch (e) {
-        dispatch(showAlert(e.response.data.message, 'danger'));
-    }
-};
+        try {
+            const {changeEmail: {email}}: { changeEmail: { email: string } } = store.getState();
+            dispatch(showAlert(email, 'success'));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
