@@ -54,31 +54,31 @@ export default class Sidebar extends React.Component<IFormProps> {
                                 <Nav className='navbar w-100'>
                                     <ul className='navbar-nav'>
                                         <li className='nav-item'>
-                                            <NavLink 
-                                                exact 
-                                                to='/profile/edit' 
-                                                activeClassName='active' 
+                                            <NavLink
+                                                exact
+                                                to='/profile/edit'
+                                                activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-edit'></i>
-                                                    Edit Information 
+                                                    Edit Information
                                             </NavLink>
                                         </li>
                                         <li className='nav-item'>
-                                            <NavLink 
-                                                to='/profile/edit/change-email' 
-                                                activeClassName='active' 
+                                            <NavLink
+                                                to='/profile/edit/change-email'
+                                                activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-envelope'></i>
-                                                    Change Email 
+                                                    Change Email
                                             </NavLink>
                                         </li>
                                         <li className='nav-item'>
-                                            <NavLink 
-                                                to='/profile/edit/change-password' 
-                                                activeClassName='active' 
+                                            <NavLink
+                                                to='/profile/edit/change-password'
+                                                activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-key'></i>
-                                                    Change Password 
+                                                    Change Password
                                             </NavLink>
                                         </li>
                                     </ul>
