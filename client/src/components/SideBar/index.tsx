@@ -33,7 +33,7 @@ export default class SideBar extends React.Component<IFormProps> {
                 <Container>
                     <Row className="profile">
                         <Col md='4' lg='3' className='mt-3'>
-                            <div className="edit-sidebar">
+                            <div className="edit-content">
                                 <div className="profile-userpic">
                                     <img
                                         src={photo || noAvatar}
@@ -85,7 +85,7 @@ export default class SideBar extends React.Component<IFormProps> {
                                 </Nav>
                             </div>
                         </Col>
-                        <Col md='8' className='mt-3'>
+                        <Col md='8' lg='9' className='mt-3'>
                             <div className="edit-content">
                                 {SidebarRoute}
                             </div>

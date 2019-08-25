@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { changeEmail, setEmailText } from '../../store/emailChange/actions';
-import {Button, Form, Input} from 'reactstrap';
+import { Button, Form, Input, Container, FormGroup, Label, Col } from 'reactstrap';
 
 interface IStateToProps {
     setEmailText: any;
@@ -17,25 +17,30 @@ class Index extends React.Component <IStateToProps> {
 
     public render(): JSX.Element {
         return (
-            <div className='container'>
+            <Container>
                 <Form className='mt-4 bg-white text-center p-4'>
-                    <h3>Change Email</h3>
-                    <Input
-                        className='form-control'
-                        value={this.props.email}
-                        onChange={this.onEmailChange}
-
-                    />
+                    <FormGroup row>
+                        <Label className='col-sm-3'>
+                            Change Email
+                        </Label>
+                        <Col className='col-sm-9'>
+                            <Input
+                                className='form-control'
+                                value={this.props.email}
+                                onChange={this.onEmailChange}
+                            />
+                        </Col>
+                    </FormGroup>
                     <Button
                         className='btn mt-3'
                         color='danger'
                         onClick={this.props.changeEmail}
                     >
                         <i className='fa fa-edit pr-3'/>
-                        Change
+                        Change Email
                     </Button>
                 </Form>
-            </div>
+            </Container>
         );
     }
 }
