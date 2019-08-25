@@ -6,19 +6,6 @@
   box-shadow: 0px 0px 8px -7px $color-dove-gray;
 }
 
-.profile-userpic {
-  justify-content: center;
-  display: flex;
-  img {
-    width: 50%;
-    height: 50%;
-  }
-}
-
-.profile-usertitle {
-  text-align: center;
-  margin-top: 20px;
-}
 
 .profile-usertitle-name {
   color: $color-waikawa-gray;
@@ -26,16 +13,12 @@
   margin-bottom: 7px;
 }
 
-.profile-usertitle-job {
+.profile-title {
   text-transform: uppercase;
   color: $color-danube;
   font-size: 12px;
   font-weight: 600;
   margin-bottom: 15px;
-}
-
-.navbar-nav {
-  width: 100%;
 }
 
 .nav-item {

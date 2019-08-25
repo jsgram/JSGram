@@ -34,24 +34,24 @@ export default class Sidebar extends React.Component<IFormProps> {
                     <Row className='profile'>
                         <Col md='4' lg='3' className='mt-3'>
                             <div className='edit-content'>
-                                <div className='profile-userpic'>
+                                <div className='d-flex justify-content-center'>
                                     <img
                                         src={photo || noAvatar}
-                                        className='img-fluid'
+                                        className='img-fluid w-50'
                                         alt='avatar'
                                         height={150}
                                         width={150}
                                     />
                                 </div>
-                                <div className='profile-usertitle'>
+                                <div className='mt-2 text-center'>
                                     <div className='profile-usertitle-name'>
                                         {fullName}
                                     </div>
-                                    <div className='profile-usertitle-job'>
+                                    <div className='profile-title'>
                                         Edit Profile
                                     </div>
                                 </div>
-                                <Nav className='navbar'>
+                                <Nav className='navbar w-100'>
                                     <ul className='navbar-nav'>
                                         <li className='nav-item'>
                                             <NavLink 
