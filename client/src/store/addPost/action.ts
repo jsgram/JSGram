@@ -5,17 +5,17 @@ import { AuthAPI } from '../api';
 import { history } from '../../history';
 import { RESET_ADD_POST, SET_CROPPED_IMAGE_FOR_POST, SET_DESCRIPTION_FOR_POST } from './actionTypes';
 
-export const setCroppedImageForPost = (croppedImage: string): { type: string, payload: any} => ({
+export const setCroppedImageForPost = (croppedImage: string): { type: string, payload: any } => ({
     type: SET_CROPPED_IMAGE_FOR_POST,
     payload: croppedImage,
 });
 
-export const setDescriptionForPost = (description: string): { type: string, payload: any} => ({
+export const setDescriptionForPost = (description: string): { type: string, payload: any } => ({
     type: SET_DESCRIPTION_FOR_POST,
     payload: description,
 });
 
-export const resetAddPost = (): {type: string, payload: any} => ({
+export const resetAddPost = (): { type: string, payload: any } => ({
     type: RESET_ADD_POST,
     payload: '',
 });

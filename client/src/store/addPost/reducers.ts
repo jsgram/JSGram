@@ -28,7 +28,7 @@ export const addPostReducers = (state: IState = defaultState, action: any): any 
         return {
             croppedImage: '',
             description: '',
-        }
+        };
 
     default:
         return state;
