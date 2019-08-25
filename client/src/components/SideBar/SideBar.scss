@@ -7,43 +7,49 @@
 }
 
 .profile-usertitle-name {
-  color: $color-waikawa-gray;
   margin-bottom: 7px;
+  color: $color-waikawa-gray;
   font-weight: 600;
 }
 
 .profile-title {
+  margin-bottom: 15px;
   color: $color-danube;
   text-transform: uppercase;
-  margin-bottom: 15px;
   font-weight: 600;
   font-size: 12px;
 }
 
 .nav-item {
   border-bottom: 1px solid $aqua-haze;
+
   a {
     color: $color-gull-gray;
     font-weight: 500;
     font-size: 14px;
+
     i {
       margin-right: 8px;
       font-size: 14px;
     }
+
     &:hover {
       color: $color-danube;
       background-color: $color-light-blue;
     }
   }
+
   .active {
-    background-color: $color-light-blue;
     margin-left: -2px;
-    border-left: 2px solid $dark-red;
+    background-color: $color-light-blue;
     color: $dark-red;
+    border-left: 2px solid $dark-red;
+
     &:hover {
       color: $dark-red;
     }
   }
+
   &:last-child {
     border-bottom: 0;
   }
