@@ -25,6 +25,7 @@ export const defaultState = {
         fullName: '',
         username: '',
         photo: '',
+        email: '',
     },
     error: '',
     loaded: false,

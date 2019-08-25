@@ -2,6 +2,12 @@ import { NextFunction } from 'express';
 import { IUserModel, User } from '../models/user.model';
 import { hashPassword } from '../helpers/hash.password';
 
+interface INewUser {
+    username: string;
+    fullName: string;
+    description: string;
+}
+
 export const userExist = async (email: string, next: NextFunction): Promise<IUserModel | void | null> => {
     try {
         const user = await User.findOne({email});
@@ -58,5 +64,31 @@ export const checkUserByProp = async (prop: string, done: any): Promise<IUserMod
         return user;
     } catch (e) {
         done(null, false);
+    }
+};
+
+export const editUser = async (
+    userEmail: string,
+    newUser: any,
+    next: NextFunction,
+): Promise<IUserModel | void | null> => {
+    try {
+        const { username, fullName, description }: INewUser = newUser;
+        const userWithSameUsername = await User.findOne({username});
+        if (userWithSameUsername) {
+            throw new Error('There is a user with the same username');
+        }
+        const updatedUser = await User.findOneAndUpdate(
+            {email: userEmail},
+            {username, fullName, bio: description},
+            {new: true},
+        );
+        if (!updatedUser) {
+            throw new Error('Account does not exist');
+        }
+
+        return updatedUser;
+    } catch (e) {
+        next({message: 'Username is not unique', status: 409});
     }
 };
