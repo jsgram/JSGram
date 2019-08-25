@@ -10,12 +10,12 @@ import { PublicRoute } from './PublicRoute';
 import Feed from '../components/Main/Feed';
 import Logout from '../containers/LogoutContainer';
 import { history } from '../history';
-import AddPost from '../components/AddPost';
+import AddPostContainer from '../containers/AddPostContainer';
 
 export const routes = (
     <Router history={history}>
         <Route path='/profile' component={ProfileContainer} />
-        <Route path='/add-post' component={AddPost} />
+        <Route path='/add-post' component={AddPostContainer} />
         <Route exact path='/feed' component={Feed} />
         <Route exact path='/logout' component={Logout} />
         <PublicRoute exact path='/' component={Main} />

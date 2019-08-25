@@ -50,11 +50,11 @@ const ProfileEdit = (props: IProps): ReactElement => {
                     <Label className='col-sm-3'>Bio</Label>
                     <Col className='col-sm-9'>
                         <Field name='description'
-                               type='textarea'
-                               component={renderField}
-                               label='description'
-                               placeholder='Description'
-                               className='form-control'/>
+                            type='textarea'
+                            component={renderField}
+                            label='description'
+                            placeholder='Description'
+                            className='form-control'/>
                     </Col>
                 </FormGroup>
 
@@ -62,10 +62,10 @@ const ProfileEdit = (props: IProps): ReactElement => {
                     className='align-self-center btn mt-3'
                     color='danger'
                     disabled={submitting}>
-                    <i className='fa fa-save pr-3'/>
-                    Save profile
-                </Button>
-                {submitting && <Spinner className='mt-3' color='dark'/>}
+                        <i className='fa fa-save pr-3'/>
+                        Save profile
+                    </Button>
+                    {submitting && <Spinner className='mt-3' color='dark'/>}
             </Form>
         </div>
 

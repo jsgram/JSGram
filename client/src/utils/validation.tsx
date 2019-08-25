@@ -5,6 +5,13 @@ interface IUser {
     password?: string;
 }
 
+interface IPasswordChange {
+    oldPassword?: string;
+    newPassword?: string;
+    newPasswordConfirm?: string;
+    [index: string]: any;
+}
+
 const validate = (user: IUser): IUser => {
     const errors: IUser = {};
     const validEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -22,6 +29,26 @@ const validate = (user: IUser): IUser => {
     if (!user.password || user.password.length < 8) {
         errors.password = 'Please, enter your password!';
     }
+    return errors;
+};
+
+export const validatePasswordChange = (data: IPasswordChange): IPasswordChange => {
+    const errors: IPasswordChange = {};
+
+    for (const field in data) {
+        if (data[field].length < 8) {
+            errors[field] = 'Password must be at least 8 characters long.';
+        }
+    }
+
+    if (data.newPassword !== data.newPasswordConfirm) {
+        errors.newPassword = errors.newPasswordConfirm = 'Entered passwords do not match.';
+    }
+
+    if (data.oldPassword === data.newPassword) {
+        errors.oldPassword = errors.newPassword = 'New password equals to the old one.';
+    }
+
     return errors;
 };
 
