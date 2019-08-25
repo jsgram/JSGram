@@ -1,11 +1,10 @@
 import {NextFunction, Request, Response} from 'express';
-import {ITokenModel} from '../../models/token.model';
 import { deleteToken, isTokenExist } from '../../db.requests/token.requests';
 import {verificateUser} from '../../db.requests/user.requests';
 
 export const confirm = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {token: tokenFromEmail}: ITokenModel = req.params;
+        const {token: tokenFromEmail}: any = req.params; // FIXME
 
         const token = await isTokenExist(tokenFromEmail, next);
         if (!token) {
