@@ -8,6 +8,8 @@ import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 
+import ProfilePasswordChange from '../ProfilePasswordChange';
+
 export interface IUserData {
     posts: number;
     followers: number;
@@ -111,6 +113,7 @@ export default class Profile extends React.Component<IFormProps> {
                     </Link>
                     <PopUpModal deletePhoto={this.props.deletePhoto}/>
                 </div>
+                <ProfilePasswordChange />
             </div>
         );
     }

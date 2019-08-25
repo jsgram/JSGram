@@ -1,12 +1,12 @@
 import {NextFunction, Request, Response} from 'express';
-import {ITokenModel, Token} from '../../models/token.model';
+import {Token} from '../../models/token.model';
 import {IUserModel} from '../../models/user.model';
 import { deleteToken, isTokenExist } from '../../db.requests/token.requests';
 import {changePassword} from '../../db.requests/user.requests';
 
 export const updatePassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {token: tokenFromEmail}: ITokenModel = req.params;
+        const {token: tokenFromEmail}: any = req.params;
         const {password}: IUserModel = req.body;
 
         const token = await isTokenExist(tokenFromEmail, next);
