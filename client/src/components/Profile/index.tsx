@@ -11,6 +11,8 @@ import ProfileEditContainer from '../../containers/ProfileEditContainer/ProfileE
 import EmailChange from '../EmailChange';
 
 import ProfilePasswordChange from '../ProfilePasswordChange';
+import ProfileSubscribeTo from '../ProfileSubscribeTo';
+import ProfilePrivacy from '../ProfilePrivacy';
 
 export interface IUserData {
     posts: number;
@@ -116,6 +118,8 @@ export default class Profile extends React.Component<IFormProps> {
                     <EmailChange/>
                 </div>
                 <ProfilePasswordChange />
+                <ProfileSubscribeTo />
+                <ProfilePrivacy />
             </div>
         );
     }
