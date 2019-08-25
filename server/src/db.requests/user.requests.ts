@@ -2,6 +2,12 @@ import { NextFunction } from 'express';
 import { IUserModel, User } from '../models/user.model';
 import { hashPassword } from '../helpers/hash.password';
 
+interface INewUser {
+    username: string;
+    fullName: string;
+    description: string;
+}
+
 export const userExist = async (email: string, next: NextFunction): Promise<IUserModel | void | null> => {
     try {
         const user = await User.findOne({email});
@@ -67,7 +73,7 @@ export const editUser = async (
     next: NextFunction,
 ): Promise<IUserModel | void | null> => {
     try {
-        const { username, fullName, description }: any = newUser;
+        const { username, fullName, description }: INewUser = newUser;
         const userWithSameUsername = await User.findOne({username});
         if (userWithSameUsername) {
             throw new Error('There is a user with the same username');

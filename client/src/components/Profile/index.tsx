@@ -7,7 +7,7 @@ import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
-import ProfileEditContainer from '../../containers/ProfileEditContainer/ProfileEditContainer';
+import ProfileEditContainer from '../../containers/ProfileEditContainer';
 import EmailChange from '../EmailChange';
 
 export interface IUserData {

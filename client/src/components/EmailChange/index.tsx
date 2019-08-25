@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { changeEmail, setEmailText } from '../../store/emailChange/actions';
-import {Button, Form, Input} from 'reactstrap';
-import {IUser} from '../../store/commonInterfaces/commonInterfaces';
+import { Button, Form, Input } from 'reactstrap';
+import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 
 interface IStateToProps {
     setEmailText: any;

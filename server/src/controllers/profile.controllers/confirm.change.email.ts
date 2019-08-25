@@ -1,10 +1,16 @@
-import {NextFunction, Request, Response} from 'express';
-import {decodeJWT} from '../../helpers/jwt.encoders';
-import {IUserModel, User} from '../../models/user.model';
+import { NextFunction, Request, Response } from 'express';
+import { decodeJWT } from '../../helpers/jwt.encoders';
+import { User } from '../../models/user.model';
+
+interface IChangeEmailParams {
+    oldEmail: string;
+    email: string;
+    token: string;
+}
 
 export const confirmChangeEmail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { oldEmail, email, token }: {oldEmail: string, email: string, token: string} = req.params;
+        const { oldEmail, email, token }: IChangeEmailParams = req.params;
 
         const checkToken: any = decodeJWT(token, process.env.SECRET_KEY!);
 
