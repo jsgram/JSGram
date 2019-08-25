@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'reactstrap';
 import Cropper from 'react-easy-crop';
 import PostPhoto from '../PostPost';
 import { history } from '../../../history';
@@ -86,15 +85,7 @@ export default class AddPostCropper extends React.Component<IProps> {
 
     public render(): JSX.Element {
         return (
-            <div className='text-center'>
-                <Button className='btn' color='danger' onClick={this.previousPage}>Cancel</Button>
-                <Button
-                    className='btn' color='danger'
-                    onClick={this.state.croppedImage ? this.onUploadPost : this.onShowCroppedImage}
-                    disabled={!this.state.imageSrc}
-                >
-                    {this.state.croppedImage ? 'Post' : 'Next'}
-                </Button>
+            <div className='mt-2 mx-auto post'>
                 {this.state.croppedImage ?
                     (
                         <PostPhoto
@@ -104,7 +95,7 @@ export default class AddPostCropper extends React.Component<IProps> {
                         <div
                             className='row d-flex pt-10 justify-content-lg-center
                 justify-content-sm-around justify-content-center'>
-                            <div style={{height: '30em', width: '30em', marginTop: '3em', position: 'relative'}}>
+                            <div className='mt-2 mx-auto post'>
                                 {
                                     this.state.imageSrc ?
                                         (
@@ -126,6 +117,14 @@ export default class AddPostCropper extends React.Component<IProps> {
                             </div>
                         </div>)
                 }
+                <button className='mt-3 ml-0 button' onClick={this.previousPage}>Cancel</button>
+                <button
+                    className='mt-3 ml-0 button'
+                    onClick={this.state.croppedImage ? this.onUploadPost : this.onShowCroppedImage}
+                    disabled={!this.state.imageSrc}
+                >
+                    {this.state.croppedImage ? 'Post' : 'Next'}
+                </button>
             </div>
         );
     }
