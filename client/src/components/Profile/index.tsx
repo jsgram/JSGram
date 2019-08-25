@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import ProfileEditContainer from '../../containers/ProfileEditContainer/ProfileEditContainer';
 import EmailChange from '../EmailChange';
 
+import ProfilePasswordChange from '../ProfilePasswordChange';
+
 export interface IUserData {
     posts: number;
     followers: number;
@@ -113,6 +115,7 @@ export default class Profile extends React.Component<IFormProps> {
                     <ProfileEditContainer/>
                     <EmailChange/>
                 </div>
+                <ProfilePasswordChange />
             </div>
         );
     }
