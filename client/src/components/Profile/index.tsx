@@ -78,9 +78,11 @@ export default class Profile extends React.Component<IFormProps> {
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
                     <p className='profile-name align-self-center'>
                         {fullName}
-                        <Button className='bg-dark ml-5 btn'>
-                            Edit profile
-                        </Button>
+                        <Link to='/profile/edit'>
+                            <button className='bg-dark ml-5 btn text-white'>
+                                Edit profile
+                            </button>
+                        </Link>
                         {this.props.loading && <Spinner className='mt-3' color='dark'/>}
                     </p>
                     <div className='d-flex followers align-self-center'>

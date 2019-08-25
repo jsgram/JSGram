@@ -1,0 +1,74 @@
+@import '../../styles/variables';
+
+.profile-sidebar,
+.profile-content {
+    padding: 20px 0 10px 0;
+    border: 1px solid #f5f5f5;
+    box-shadow: 0px 0px 8px -7px #737373;
+}
+
+.profile-userpic {
+  justify-content: center;
+  display: flex;
+  img {
+    width: 50%;
+    height: 50%;
+  }
+}
+
+.profile-usertitle {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-usertitle-name {
+  color: #5a7391;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.profile-usertitle-job {
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.navbar-nav {
+  width: 100%;
+}
+
+.nav-item {
+  border-bottom: 1px solid #f0f4f7;
+  a {
+      color: #93a3b5;
+      font-size: 14px;
+      font-weight: 500;
+      i {
+        margin-right: 8px;
+        font-size: 14px;
+      }
+      &:hover {
+        background-color: #fafcfd;
+        color: #5b9bd1;
+      }
+  }
+  .active {
+    background-color: #f6f9fb;
+    border-left: 2px solid $dark-red;
+    padding-left: 7px !important;
+    color: $dark-red;
+    &:hover {
+      color: $dark-red;
+    }
+  }
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.nav-link {
+  padding-left: 9px !important;
+}
