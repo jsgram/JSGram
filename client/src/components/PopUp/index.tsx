@@ -26,6 +26,11 @@ export default class PopUpModal extends React.Component<IProps, IModalState> {
         });
     }
 
+    public deletePhoto(): void {
+        this.props.deletePhoto();
+        this.toggle();
+    }
+
     public render(): JSX.Element {
         return (
           <div>
@@ -35,8 +40,7 @@ export default class PopUpModal extends React.Component<IProps, IModalState> {
               <ModalBody>
                 <CropperContainer modalToggle={this.toggle}/>
                 <Button className='mt-3' outline size='lg' color='danger' onClick={(): void => {
-                    this.props.deletePhoto();
-                    this.toggle(); }}>Delete Current Photo</Button>
+                    this.deletePhoto(); }}>Delete Current Photo</Button>
                 </ModalBody>
             </Modal>
           </div>
