@@ -51,8 +51,8 @@ export default class Sidebar extends React.Component<IFormProps> {
                                         Edit Profile
                                     </div>
                                 </div>
-                                <Nav className='navbar w-100'>
-                                    <ul className='navbar-nav'>
+                                <Nav className='navbar'>
+                                    <ul className='navbar-nav w-100'>
                                         <li className='nav-item'>
                                             <NavLink
                                                 exact

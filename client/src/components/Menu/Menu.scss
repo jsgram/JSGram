@@ -24,13 +24,13 @@
   }
 
   .icon {
+    color: $color-black;
     &:hover {
       color: $dark-red;
     }
     @media screen and (min-width: $break-small) {
       font-size: 30px;
     }
-    color: $color-black;
   }
 }
 
