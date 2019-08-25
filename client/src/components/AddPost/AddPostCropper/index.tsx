@@ -88,50 +88,50 @@ export default class AddPostCropper extends React.Component<IProps> {
 
     public render(): JSX.Element {
         return (
-            <div className='text-center'>
-                {this.state.croppedImage ?
-                    (
-                        <PostPhoto
-                            croppedImage={this.state.croppedImage}
-                        />
-                    ) : (
-                        <Container>
-                            <Row>
-                                <text className=' mx-auto mt-3 post-label'>New post</text>
-                            </Row>
-                            <div className='cropper-photo mx-auto'>
-                                {
-                                    this.state.imageSrc ?
-                                        (
-                                            < Cropper
-                                                image={this.state.imageSrc}
-                                                crop={this.state.crop}
-                                                zoom={this.state.zoom}
-                                                aspect={this.state.aspect}
-                                                onCropChange={this.onCropChange}
-                                                onCropComplete={this.onCropComplete}
-                                                onZoomChange={this.onZoomChange}
-                                            />
-                                        ) : (
-                                            <AddPostDropZone
-                                                uploadImageToCropper={this.onUploadImageToCropper}
-                                            />
-                                        )
-                                }
-                            </div>
-                        </Container>)
-                }
-                <Row className='justify-content-between post mx-auto'>
-                    <button className='mt-3 ml-0 button' onClick={this.previousPage}>Cancel</button>
-                    <button
-                        className='mt-3 mr-0 button'
-                        onClick={this.state.croppedImage ? this.onUploadPost : this.onShowCroppedImage}
-                        disabled={!this.state.imageSrc}
-                    >
-                        {this.state.croppedImage ? 'Post' : 'Next'}
-                    </button>
-                </Row>
-            </div>
+                <div className='text-center'>
+                    {this.state.croppedImage ?
+                        (
+                            <PostPhoto
+                                croppedImage={this.state.croppedImage}
+                            />
+                        ) : (
+                            <Container>
+                                <Row>
+                                    <text className=' mx-auto mt-3 post-label'>New post</text>
+                                </Row>
+                                <div className='cropper-photo mt-3 border-style mx-auto'>
+                                    {
+                                        this.state.imageSrc ?
+                                            (
+                                                < Cropper
+                                                    image={this.state.imageSrc}
+                                                    crop={this.state.crop}
+                                                    zoom={this.state.zoom}
+                                                    aspect={this.state.aspect}
+                                                    onCropChange={this.onCropChange}
+                                                    onCropComplete={this.onCropComplete}
+                                                    onZoomChange={this.onZoomChange}
+                                                />
+                                            ) : (
+                                                <AddPostDropZone
+                                                    uploadImageToCropper={this.onUploadImageToCropper}
+                                                />
+                                            )
+                                    }
+                                </div>
+                            </Container>)
+                    }
+                    <Row className='justify-content-between post mx-auto'>
+                        <button className='mt-3 ml-0 button' onClick={this.previousPage}>Cancel</button>
+                        <button
+                            className='mt-3 ml-0 button'
+                            onClick={this.state.croppedImage ? this.onUploadPost : this.onShowCroppedImage}
+                            disabled={!this.state.imageSrc}
+                        >
+                            {this.state.croppedImage ? 'Post' : 'Next'}
+                        </button>
+                    </Row>
+                </div>
         );
     }
 }

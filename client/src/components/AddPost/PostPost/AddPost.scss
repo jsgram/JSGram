@@ -33,7 +33,7 @@
 
   .form-control {
     height: 5em;
-    @media screen and (max-width:$break-small){
+    @media screen and (max-width:$break-small) {
       height: 9em;
     }
 
@@ -50,9 +50,26 @@
 }
 
 .cropper-photo {
-  height: 30em;
   width: 30em;
-  margin-top: 3em;
-  position: relative;
-  background-color: $color-grey;
+  height: 30em;
+  @media screen and (max-width:$break-medium) {
+    width: 20em;
+    height: 20em;
+  }
+  @media screen and (max-width:$break-small) {
+    width: 15em;
+    height: 15em;
+  }
+}
+
+.border-style {
+  color: #bdbdbd;
+  background-color: #fafafa;
+  border-color: #eeeeee;
+  border-style: dashed;
+}
+
+.upload-text {
+  width: 100%;
+  padding-top: 45%;
 }
