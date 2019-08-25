@@ -16,7 +16,7 @@ const AddPostDropZone = (props: IProps): JSX.Element => {
 
     return (
         <Container>
-            <Row {...getRootProps({className: 'cropper-photo'})}>
+            <Row {...getRootProps({className: 'border-style cropper-photo'})}>
                 <input {...getInputProps({})}/>
                 <p className='upload-text'>Drag your photo here or click to select it.</p>
             </Row>
