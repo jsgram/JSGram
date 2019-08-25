@@ -1,10 +1,10 @@
 import React from 'react';
-import { Container, Nav, Col, Row } from 'reactstrap';
-import './SideBar.scss';
-import noAvatar from '../../assets/noAvatar.svg';
 import { NavLink } from 'react-router-dom';
+import { Container, Nav, Col, Row } from 'reactstrap';
+import noAvatar from '../../assets/noAvatar.svg';
 import { SidebarRoute } from '../../routes/SidebarRoute';
 import Menu from '../Menu';
+import './Sidebar.scss';
 
 export interface IUserData {
     fullName: string;
@@ -16,7 +16,7 @@ interface IFormProps {
     user: IUserData;
 }
 
-export default class SideBar extends React.Component<IFormProps> {
+export default class Sidebar extends React.Component<IFormProps> {
     public componentDidMount(): void {
         this.props.getUser();
     }
@@ -31,10 +31,10 @@ export default class SideBar extends React.Component<IFormProps> {
                     <Menu/>
                 </div>
                 <Container>
-                    <Row className="profile">
+                    <Row className='profile'>
                         <Col md='4' lg='3' className='mt-3'>
-                            <div className="edit-content">
-                                <div className="profile-userpic">
+                            <div className='edit-content'>
+                                <div className='profile-userpic'>
                                     <img
                                         src={photo || noAvatar}
                                         className='img-fluid'
@@ -43,41 +43,41 @@ export default class SideBar extends React.Component<IFormProps> {
                                         width={150}
                                     />
                                 </div>
-                                <div className="profile-usertitle">
-                                    <div className="profile-usertitle-name">
+                                <div className='profile-usertitle'>
+                                    <div className='profile-usertitle-name'>
                                         {fullName}
                                     </div>
-                                    <div className="profile-usertitle-job">
+                                    <div className='profile-usertitle-job'>
                                         Edit Profile
                                     </div>
                                 </div>
-                                <Nav className="navbar">
-                                    <ul className="navbar-nav">
-                                        <li className="nav-item">
+                                <Nav className='navbar'>
+                                    <ul className='navbar-nav'>
+                                        <li className='nav-item'>
                                             <NavLink 
                                                 exact 
                                                 to='/profile/edit' 
-                                                activeClassName="active" 
-                                                className="nav-link">
-                                                    <i className="fa fa-edit"></i>
+                                                activeClassName='active' 
+                                                className='nav-link pl-2'>
+                                                    <i className='fa fa-edit'></i>
                                                     Edit Information 
                                             </NavLink>
                                         </li>
-                                        <li className="nav-item">
+                                        <li className='nav-item'>
                                             <NavLink 
                                                 to='/profile/edit/change-email' 
-                                                activeClassName="active" 
-                                                className="nav-link">
-                                                    <i className="fa fa-envelope"></i>
+                                                activeClassName='active' 
+                                                className='nav-link pl-2'>
+                                                    <i className='fa fa-envelope'></i>
                                                     Change Email 
                                             </NavLink>
                                         </li>
-                                        <li className="nav-item">
+                                        <li className='nav-item'>
                                             <NavLink 
                                                 to='/profile/edit/change-password' 
-                                                activeClassName="active" 
-                                                className="nav-link">
-                                                    <i className="fa fa-key"></i>
+                                                activeClassName='active' 
+                                                className='nav-link pl-2'>
+                                                    <i className='fa fa-key'></i>
                                                     Change Password 
                                             </NavLink>
                                         </li>
@@ -86,13 +86,14 @@ export default class SideBar extends React.Component<IFormProps> {
                             </div>
                         </Col>
                         <Col md='8' lg='9' className='mt-3'>
-                            <div className="edit-content">
+                            <div className='edit-content'>
                                 {SidebarRoute}
                             </div>
                         </Col>
                     </Row>
                 </Container>
-            </div>);
+            </div>
+        );
     }
 
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SideBar, { IUserData } from '../../components/SideBar';
+import Sidebar, { IUserData } from '../../components/Sidebar';
 import { getUser } from '../../store/profile/actions';
 
 interface IStateToProps {
@@ -11,11 +11,11 @@ interface IState {
     profile: IStateToProps;
 }
 
-class SideBarContainer extends React.Component <any> {
+class SidebarContainer extends React.Component <any> {
     public render(): JSX.Element {
         return (
             <div className='container'>
-                <SideBar
+                <Sidebar
                     user={this.props.user}
                     getUser={this.props.getUser}
                 />
@@ -32,4 +32,4 @@ const mapDispatchToProps = {
     getUser,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideBarContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer);

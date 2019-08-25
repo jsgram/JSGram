@@ -1,12 +1,10 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { Form, Label, Button, Spinner, FormProps, FormGroup, Col } from 'reactstrap';
+import { Field, reduxForm } from 'redux-form';
 import { changeProfilePassword } from '../../store/changePassword/actions';
 import { validatePasswordChange as validate } from '../../utils/validation';
 import { renderField } from '../CommonComponents/ReduxFormFields';
-
-import React from 'react';
-import { connect } from 'react-redux';
-import { Form, Row, Label, Button, Spinner, FormProps, FormGroup, Col } from 'reactstrap';
-import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
 
 interface IStateToProps {
     changeProfilePassword: any; // FIXME
@@ -26,18 +24,19 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME
         const { handleSubmit, submitting }: FormProps = this.props;
         return (
             <React.Fragment>
-                <Form className='d-flex flex-column mt-4 bg-white p-4' onSubmit={handleSubmit(this.onSubmit)}>
+                <h3 className='text-center font-weight-light text-secondary text-uppercase'>Change Password</h3>
+                <Form className='d-flex flex-column mt-3 bg-white p-4' onSubmit={handleSubmit(this.onSubmit)}>
                     <FormGroup row>
                         <Label className='col-sm-3' for='oldPassword'>
                             Old Password
                         </Label>
                         <Col className='col-sm-9'>
-                        <Field
-                            className='form-control'
-                            type='password'
-                            name='oldPassword'
-                            component={renderField}
-                        />
+                            <Field
+                                className='form-control'
+                                type='password'
+                                name='oldPassword'
+                                component={renderField}
+                            />
                         </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -45,19 +44,16 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME
                             New Password
                         </Label>
                         <Col className='col-sm-9'>
-                        <Field
-                            className='form-control'
-                            type='password'
-                            name='newPassword'
-                            component={renderField}
-                        />
+                            <Field
+                                className='form-control'
+                                type='password'
+                                name='newPassword'
+                                component={renderField}
+                            />
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label
-                            className='col-sm-3'
-                            for='newPasswordConfirm'
-                        >
+                        <Label className='col-sm-3' for='newPasswordConfirm'>
                             Confirm New Password
                         </Label>
                         <Col className='col-sm-9'>

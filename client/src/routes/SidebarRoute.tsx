@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import ProfileEditContainer from '../containers/ProfileEditContainer/ProfileEditContainer';
+import ProfileEditContainer from '../containers/ProfileEditContainer';
 import EmailChange from '../components/EmailChange';
 import ProfilePasswordChange from '../components/ProfilePasswordChange';
 
