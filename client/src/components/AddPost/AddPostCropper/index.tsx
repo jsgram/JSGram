@@ -19,12 +19,15 @@ interface IState {
     zoom: number;
     aspect: number;
     croppedAreaPixels: null;
-    croppedImage: string;
 }
 
 export interface IProps {
     croppedImage: string;
-    uploadPost: (croppedImage: string) => void;
+    description: string;
+    uploadPost: (croppedImage: string, description: string, resetState: () => void) => void;
+    setCroppedImageForPost: any;
+    setDescriptionForPost: any;
+    resetAddPost: any;
 }
 
 export default class AddPostCropper extends React.Component<IProps> {
@@ -35,12 +38,12 @@ export default class AddPostCropper extends React.Component<IProps> {
         zoom: 1,
         aspect: 3 / 3,
         croppedAreaPixels: null,
-        croppedImage: '',
     };
 
     // Helper
     public previousPage = (): void => {
         history.go(-1);
+        this.props.resetAddPost();
     }
 
     // 1 Select image
@@ -75,30 +78,36 @@ export default class AddPostCropper extends React.Component<IProps> {
             this.state.croppedAreaPixels,
         );
         createBlobUrl(cropped, (data: any) => {
-            this.setState({croppedImage: data.target.result});
+            this.props.setCroppedImageForPost(data.target.result);
         });
     }
 
     // 9 Upload img file to server
     public onUploadPost = (): void => {
-        this.props.uploadPost(this.state.croppedImage);
+        this.props.uploadPost(this.props.croppedImage,
+            this.props.description,
+            this.props.resetAddPost);
     }
 
     public render(): JSX.Element {
+        const {imageSrc, crop, zoom, aspect}: any = this.state;
+        const {croppedImage, description, setDescriptionForPost}: any = this.props;
         return (
             <div className='text-center'>
                 <Button className='btn' color='danger' onClick={this.previousPage}>Cancel</Button>
                 <Button
                     className='btn' color='danger'
-                    onClick={this.state.croppedImage ? this.onUploadPost : this.onShowCroppedImage}
-                    disabled={!this.state.imageSrc}
+                    onClick={croppedImage ? this.onUploadPost : this.onShowCroppedImage}
+                    disabled={!imageSrc}
                 >
-                    {this.state.croppedImage ? 'Post' : 'Next'}
+                    {croppedImage ? 'Post' : 'Next'}
                 </Button>
-                {this.state.croppedImage ?
+                {croppedImage ?
                     (
                         <PostPhoto
-                            croppedImage={this.state.croppedImage}
+                            croppedImage={croppedImage}
+                            description={description}
+                            setDescriptionForPost={setDescriptionForPost}
                         />
                     ) : (
                         <div
@@ -106,13 +115,13 @@ export default class AddPostCropper extends React.Component<IProps> {
                 justify-content-sm-around justify-content-center'>
                             <div style={{height: '30em', width: '30em', marginTop: '3em', position: 'relative'}}>
                                 {
-                                    this.state.imageSrc ?
+                                    imageSrc ?
                                         (
                                             < Cropper
-                                                image={this.state.imageSrc}
-                                                crop={this.state.crop}
-                                                zoom={this.state.zoom}
-                                                aspect={this.state.aspect}
+                                                image={imageSrc}
+                                                crop={crop}
+                                                zoom={zoom}
+                                                aspect={aspect}
                                                 onCropChange={this.onCropChange}
                                                 onCropComplete={this.onCropComplete}
                                                 onZoomChange={this.onZoomChange}

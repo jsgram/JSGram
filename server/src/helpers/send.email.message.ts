@@ -37,12 +37,6 @@ export const createUserMessage = (username: string, token: string): string => {
                     </td>
                 </tr>
             </tbody>
-            <tfoot align="center" style="position: absolute; bottom: 0; width: 100%;
-                        background-color: black; color: white; margin-left: -16px;">
-                <td style="font-size: 18px;">
-                    <span>Copyright © 2019 JSgram. All rights reserved.</span>
-                </td>
-            </tfoot>
         </table>
     `;
 };

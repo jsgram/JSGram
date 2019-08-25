@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { Main } from '../components/Main/Landing';
 import LoginContainer from '../containers/LoginContainer';
-import RegisterContainer from '../components/Register/RegisterContainer';
+import RegisterContainer from '../containers/RegisterContainer';
 import ChangePassword from '../components/ForgotPassword/ChangePassword';
 import CheckEmail from '../components/ForgotPassword/CheckEmail';
 import ProfileContainer from '../containers/ProfileContainer';
