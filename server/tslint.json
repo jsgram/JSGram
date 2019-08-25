@@ -51,7 +51,8 @@
     "ter-indent": [
       true,
       4
-    ]
+    ],
+    "object-curly-spacing": [true]
   },
   "linterOptions": {
     "exclude": [

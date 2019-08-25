@@ -32,6 +32,7 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
             fullName: user.fullName,
             username: user.username,
             photo: user.photoPath,
+            settings: user.settings,
         };
 
         res.json({userProfile});
