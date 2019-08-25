@@ -11,13 +11,13 @@ import Feed from '../components/Main/Feed';
 import SideBarContainer from '../containers/SideBarContainer';
 import Logout from '../containers/LogoutContainer';
 import { history } from '../history';
-import AddPost from '../components/AddPost';
+import AddPostContainer from '../containers/AddPostContainer';
 
 export const routes = (
     <Router history={history}>
         <Switch>
             <Route exact path='/profile' component={ProfileContainer} />
-            <Route path='/add-post' component={AddPost} />
+            <Route path='/add-post' component={AddPostContainer} />
             <Route exact path='/feed' component={Feed} />
             <Route path='/profile/edit' component={SideBarContainer} />
             <Route exact path='/logout' component={Logout} />

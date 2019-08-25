@@ -9,6 +9,7 @@ const Menu: React.FC = (): ReactElement => (
         <div className='row justify-content-between bg-white'>
             <Link to='/'>
                 <img src={logo}
+                    alt='logo'
                     width={110}
                     className='mb-3 sm-mb-2 sm-mr-5 pt-1 logo'/>
             </Link>

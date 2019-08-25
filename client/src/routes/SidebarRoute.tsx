@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Menu from '../components/Menu';
-import ProfileContainer from '../containers/ProfileContainer';
+import ProfileEditContainer from '../containers/ProfileEditContainer/ProfileEditContainer';
+import EmailChange from '../components/EmailChange';
 
 export const SidebarRoute = (
 <Switch>
-    <Route exact path="/profile/edit" component={Menu} />
-    <Route path='/profile/edit/change-email' component={ProfileContainer} />
+    <Route exact path="/profile/edit" component={ProfileEditContainer} />
+    <Route path='/profile/edit/change-email' component={EmailChange} />
     <Route path='/profile/edit/change-password' component={Menu} />
 </Switch>);

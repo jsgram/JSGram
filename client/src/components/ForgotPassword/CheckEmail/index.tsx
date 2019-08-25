@@ -47,9 +47,8 @@ class CheckEmail extends React.Component<any> {
                                         size='lg'
                                         block
                                     >
-                                        Send
+                                        {submitting ? <Spinner color='light'/> : 'Send'}
                                     </Button>
-                                    {submitting && <Spinner className='mt-3' color='dark'/>}
                                 </FormGroup>
                                 <div className='or-devider'>
                                     <span/>
