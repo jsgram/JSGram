@@ -2,8 +2,11 @@ import React from 'react';
 import Cropper from 'react-easy-crop';
 import PostPhoto from '../PostPost';
 import { history } from '../../../history';
+import { Container, Row, Input} from 'reactstrap';
 import AddPostDropZone from '../AddPostDropZone';
 import { getCroppedImg, createBlobUrl } from '../../../helpers/upload.photo';
+import '../PostPost/AddPost.scss';
+import { secretAccessKey } from './../../../../../server/src/common.constants/aws.multer.profile.constants';
 
 interface IArea {
     width: number;
@@ -85,17 +88,18 @@ export default class AddPostCropper extends React.Component<IProps> {
 
     public render(): JSX.Element {
         return (
-            <div className='mt-2 mx-auto post'>
+            <div className='text-center'>
                 {this.state.croppedImage ?
                     (
                         <PostPhoto
                             croppedImage={this.state.croppedImage}
                         />
                     ) : (
-                        <div
-                            className='row d-flex pt-10 justify-content-lg-center
-                justify-content-sm-around justify-content-center'>
-                            <div className='mt-2 mx-auto post'>
+                        <Container>
+                            <Row>
+                                <text className=' mx-auto mt-3 post-label'>New post</text>
+                            </Row>
+                            <div className='cropper-photo mx-auto'>
                                 {
                                     this.state.imageSrc ?
                                         (
@@ -115,16 +119,18 @@ export default class AddPostCropper extends React.Component<IProps> {
                                         )
                                 }
                             </div>
-                        </div>)
+                        </Container>)
                 }
-                <button className='mt-3 ml-0 button' onClick={this.previousPage}>Cancel</button>
-                <button
-                    className='mt-3 ml-0 button'
-                    onClick={this.state.croppedImage ? this.onUploadPost : this.onShowCroppedImage}
-                    disabled={!this.state.imageSrc}
-                >
-                    {this.state.croppedImage ? 'Post' : 'Next'}
-                </button>
+                <Row className='justify-content-between post mx-auto'>
+                    <button className='mt-3 ml-0 button' onClick={this.previousPage}>Cancel</button>
+                    <button
+                        className='mt-3 mr-0 button'
+                        onClick={this.state.croppedImage ? this.onUploadPost : this.onShowCroppedImage}
+                        disabled={!this.state.imageSrc}
+                    >
+                        {this.state.croppedImage ? 'Post' : 'Next'}
+                    </button>
+                </Row>
             </div>
         );
     }
