@@ -4,6 +4,26 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+execution_time_limit:
+  minutes: 2
+
+
+promotions:
+  - name: BE Deploy
+    pipeline_file: backend-deploy.yml
+    auto_promote_on:
+      - result: passed
+        branch:
+          - "master"
+          - "dev"
+  - name: FE Deploy
+    pipeline_file: frontend-deploy.yml
+    auto_promote_on:
+      - result: passed
+        branch:
+          - "master"
+          - "dev"
+
 
 blocks:
   - name: Setup
@@ -26,6 +46,7 @@ blocks:
             - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
             - npm install
             - cache store client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json) node_modules
+
   - name: Lint
     task:
       prologue:
@@ -44,6 +65,7 @@ blocks:
             - cd client
             - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
             - npm run lint
+
   - name: Test
     task:
       prologue:
@@ -65,7 +87,9 @@ blocks:
           commands:
             - cd server
             - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master
-            - npm run test
+            - npm test
         - name: FE test
           commands:
-            - echo hello world
+            - cd client
+            - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
+            - npm test
