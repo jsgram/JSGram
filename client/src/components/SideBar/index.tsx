@@ -9,11 +9,6 @@ import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import './Sidebar.scss';
 
-interface IFormProps {
-    getUser: Function;
-    user: IUser;
-}
-
 interface IStateToProps {
     user: IUser;
 }
@@ -22,7 +17,7 @@ interface IState {
     profile: IStateToProps;
 }
 
-class Sidebar extends React.Component<IFormProps> {
+class Sidebar extends React.Component<any> {
     public componentDidMount(): void {
         this.props.getUser();
     }

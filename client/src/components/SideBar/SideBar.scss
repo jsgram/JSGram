@@ -15,8 +15,8 @@
 .profile-title {
   margin-bottom: 15px;
   color: $color-danube;
-  text-transform: uppercase;
   font-weight: 600;
+  text-transform: uppercase;
   font-size: 12px;
 }
 
@@ -41,8 +41,8 @@
 
   .active {
     margin-left: -2px;
-    background-color: $color-light-blue;
     color: $dark-red;
+    background-color: $color-light-blue;
     border-left: 2px solid $dark-red;
 
     &:hover {
