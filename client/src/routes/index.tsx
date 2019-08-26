@@ -10,7 +10,7 @@ import { PublicRoute } from './PublicRoute';
 import Feed from '../components/Main/Feed';
 import Logout from '../containers/LogoutContainer';
 import { history } from '../history';
-import Sidebar from '../components/Sidebar';
+import SideBar from '../components/SideBar';
 import AddPostContainer from '../containers/AddPostContainer';
 
 export const routes = (
@@ -19,7 +19,7 @@ export const routes = (
             <Route exact path='/profile' component={ProfileContainer} />
             <Route path='/add-post' component={AddPostContainer} />
             <Route exact path='/feed' component={Feed} />
-            <Route path='/profile/edit' component={Sidebar} />
+            <Route path='/profile/edit' component={SideBar} />
             <Route exact path='/logout' component={Logout} />
             <PublicRoute exact path='/' component={Main} />
             <PublicRoute path='/login/:token?' component={LoginContainer} />

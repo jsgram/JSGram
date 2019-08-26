@@ -17,7 +17,7 @@ interface IState {
     profile: IStateToProps;
 }
 
-class Sidebar extends React.Component<any> {
+class SideBar extends React.Component<any> {
     public componentDidMount(): void {
         this.props.getUser();
     }
@@ -107,4 +107,4 @@ const mapDispatchToProps = {
     getUser,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
