@@ -10,8 +10,6 @@ interface ILocalState {
 
 export default class Cropper extends React.Component<any> {
 
-    public FILE_SIZE: number = 2000000;
-
     public dropZoneStyle: any = {
         width: '100%',
         margin: '0 auto',
@@ -68,7 +66,7 @@ export default class Cropper extends React.Component<any> {
                 </div>
 
                 <Avatar
-                    width={450}
+                    width={this.dropZoneStyle.width}
                     height={300}
                     imageWidth={300}
                     imageHeight={300}

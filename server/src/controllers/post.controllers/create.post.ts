@@ -29,7 +29,8 @@ export const create = (req: Request, res: Response, next: NextFunction): void =>
             const description = req.body.description;
             const imgPath = req.file.location;
             const hashtagRegex = /\B(\#[a-zA-Z0-9]+\b)/g;
-            const tags = req.body.description.match(hashtagRegex);
+            const hashTags = description && description.match(hashtagRegex);
+            const tags = hashTags ? hashTags.map((tag: string) => tag.slice(1)) : [];
 
             const newPost = await addPost(user, description, imgPath, tags);
             res.json({newPost});
