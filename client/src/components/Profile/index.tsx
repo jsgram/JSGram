@@ -7,11 +7,6 @@ import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
-import ProfileEditContainer from '../../containers/ProfileEditContainer';
-import EmailChange from '../EmailChange';
-
-import ProfilePasswordChange from '../ProfilePasswordChange';
-
 export interface IUserData {
     posts: number;
     followers: number;
@@ -83,9 +78,11 @@ export default class Profile extends React.Component<IFormProps> {
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
                     <p className='profile-name align-self-center'>
                         {fullName}
-                        <Button className='bg-dark ml-sm-4 ml-2 btn'>
-                            Edit profile
-                        </Button>
+                        <Link to='/profile/edit'>
+                            <button className='bg-dark ml-5 btn text-white'>
+                                Edit profile
+                            </button>
+                        </Link>
                         {this.props.loading && <Spinner className='mt-3' color='dark'/>}
                     </p>
                     <div className='d-flex followers align-self-center'>
@@ -110,10 +107,7 @@ export default class Profile extends React.Component<IFormProps> {
                         </Button>
                     </Link>
                     <PopUpModal deletePhoto={this.props.deletePhoto}/>
-                    <ProfileEditContainer/>
-                    <EmailChange/>
                 </div>
-                <ProfilePasswordChange />
             </div>
         );
     }

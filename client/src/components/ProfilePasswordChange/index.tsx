@@ -1,12 +1,10 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { Form, Label, Button, Spinner, FormProps, FormGroup, Col } from 'reactstrap';
+import { Field, reduxForm } from 'redux-form';
 import { changeProfilePassword } from '../../store/changePassword/actions';
 import { validatePasswordChange as validate } from '../../utils/validation';
 import { renderField } from '../CommonComponents/ReduxFormFields';
-
-import React from 'react';
-import { connect } from 'react-redux';
-import { Form, Row, Label, Button, FormProps } from 'reactstrap';
-import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
 
 class ProfilePasswordChange extends React.Component<any> { // FIXME
     constructor(props: any) {
@@ -22,58 +20,55 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME
         const { handleSubmit, submitting }: FormProps = this.props;
         return (
             <React.Fragment>
-                <h3>Change Password</h3>
-                <Form className='container mt-4 bg-white text-center p-4' onSubmit={handleSubmit(this.onSubmit)}>
-                    <Row className='align-items-center mt-3'>
-                        <Label className='col-lg-2 text-left text-right-lg font-weight-bold p-0 mb-0' for='oldPassword'>
+                <h3 className='text-center font-weight-light text-secondary text-uppercase'>Change Password</h3>
+                <Form className='d-flex flex-column mt-3 bg-white p-4' onSubmit={handleSubmit(this.onSubmit)}>
+                    <FormGroup row>
+                        <Label className='col-sm-3' for='oldPassword'>
                             Old Password
                         </Label>
-                        <Field
-                            className='col-lg-10 form-control-lg'
-                            type='password'
-                            name='oldPassword'
-                            component={renderField}
-                        />
-                    </Row>
-                    <Row className='align-items-center mt-3'>
-                        <Label className='col-lg-2 text-left text-right-lg font-weight-bold p-0 mb-0' for='newPassword'>
+                        <Col className='col-sm-9'>
+                            <Field
+                                className='form-control'
+                                type='password'
+                                name='oldPassword'
+                                component={renderField}
+                            />
+                        </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                        <Label className='col-sm-3' for='newPassword'>
                             New Password
                         </Label>
-                        <Field
-                            className='col-lg-10 form-control-lg'
-                            type='password'
-                            name='newPassword'
-                            component={renderField}
-                        />
-                    </Row>
-                    <Row className='align-items-center mt-3'>
-                        <Label
-                            className='col-lg-2 text-left text-right-lg font-weight-bold p-0 mb-0'
-                            for='newPasswordConfirm'
-                        >
+                        <Col className='col-sm-9'>
+                            <Field
+                                className='form-control'
+                                type='password'
+                                name='newPassword'
+                                component={renderField}
+                            />
+                        </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                        <Label className='col-sm-3' for='newPasswordConfirm'>
                             Confirm New Password
                         </Label>
+                        <Col className='col-sm-9'>
                         <Field
-                            className='col-lg-10 form-control-lg'
+                            className='form-control'
                             type='password'
                             name='newPasswordConfirm'
                             component={renderField}
                         />
-                    </Row>
-                    <Row className='mt-4'>
-                        <Button
-                            className='btn offset-lg-2 mt-3'
-                            color='danger'
-                            disabled={submitting}
-                        >
-                            Change Password
-                        </Button>
-                    </Row>
-                    <Row className='mt-4'>
-                        <Link className='offset-lg-2 text-danger pl-1' to='/password-reset'>
-                            Forgot Password?
-                        </Link>
-                    </Row>
+                        </Col>
+                    </FormGroup>
+                    <Button
+                        className='align-self-center btn mt-3'
+                        color='danger'
+                        disabled={submitting}
+                    >
+                        <i className='fa fa-edit pr-3' />
+                        {submitting ? <Spinner color='light' /> : 'Change Password'}
+                    </Button>
                 </Form>
             </React.Fragment>
         );
