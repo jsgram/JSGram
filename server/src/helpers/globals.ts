@@ -5,7 +5,7 @@ declare global {
     namespace NodeJS {
         interface ProcessEnv { // tslint:disable-line interface-name
             DB_PATH: string;
-            DEV_PORT: number;
+            PORT: string;
             BACK_PASS: string;
             FRONT_PASS: string;
             STATIC_PATH: string;
