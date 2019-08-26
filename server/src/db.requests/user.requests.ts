@@ -75,7 +75,7 @@ export const editUser = async (
     try {
         const { username, fullName, description }: INewUser = newUser;
         const userWithSameUsername = await User.findOne({username});
-        if (userWithSameUsername) {
+        if (userWithSameUsername && userWithSameUsername.email !== userEmail) {
             throw new Error('There is a user with the same username');
         }
         const updatedUser = await User.findOneAndUpdate(
