@@ -42,7 +42,11 @@ blocks:
 
             - >
               echo '{
-                      "root": "./"
+                      "root": "./",
+                      "clean_urls": false,
+                      "routes": {
+                        "/**": "index.html"
+                      }
                     }' > static.json
 
             - git init
