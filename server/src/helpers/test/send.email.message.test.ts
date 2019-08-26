@@ -8,7 +8,7 @@ describe('Email message template helper:', () => {
     });
 
     test('create user registration message - success', () => {
-        expect(createUserMessage('username', 'token')).toHaveLength(2042);
+        expect(createUserMessage('username', 'token')).toHaveLength(1704);
     });
 
     test('create resend token message - success', () => {

@@ -1,7 +1,8 @@
 // Append necessary fields to fields for AWS
-export const createDataForAWS = (file: File): FormData => {
+export const createDataForAWS = (AWSFieldName: string, file: File, description: string = ''): FormData => {
     const formData = new FormData();
-    formData.append('userPhoto', file);
+    formData.append(AWSFieldName, file);
+    formData.append('description', description);
     formData.append('enctype', 'multipart/form-data');
     return formData;
 };
