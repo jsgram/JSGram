@@ -8,9 +8,9 @@ import CheckEmail from '../components/ForgotPassword/CheckEmail';
 import ProfileContainer from '../containers/ProfileContainer';
 import { PublicRoute } from './PublicRoute';
 import Feed from '../components/Main/Feed';
-import Sidebar from '../components/Sidebar';
 import Logout from '../containers/LogoutContainer';
 import { history } from '../history';
+import Sidebar from '../components/Sidebar';
 import AddPostContainer from '../containers/AddPostContainer';
 
 export const routes = (
