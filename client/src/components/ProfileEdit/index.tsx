@@ -17,8 +17,8 @@ const ProfileEdit = (props: IProps): ReactElement => {
         <div>
             <h3 className='text-center font-weight-light text-secondary text-uppercase'>Edit Information</h3>
             <Form className='d-flex flex-column mt-3 bg-white p-4' onSubmit={handleSubmit(onChangeProfile)}>
-                <FormGroup row>
-                    <Label className='col-sm-3'>Name</Label>
+                <FormGroup row className="align-items-center">
+                    <Label className='col-sm-3 m-0'>Name</Label>
                     <Col className='col-sm-9'>
                         <Field name='fullName'
                             type='text'
@@ -28,8 +28,8 @@ const ProfileEdit = (props: IProps): ReactElement => {
                             className='form-control' />
                     </Col>
                 </FormGroup>
-                <FormGroup row>
-                    <Label className='col-sm-3'>Username</Label>
+                <FormGroup row className="align-items-center">
+                    <Label className='col-sm-3 m-0'>Username</Label>
                     <Col className='col-sm-9'>
                         <Field name='username'
                             type='text'
@@ -39,8 +39,8 @@ const ProfileEdit = (props: IProps): ReactElement => {
                             className='form-control' />
                     </Col>
                 </FormGroup>
-                <FormGroup row>
-                    <Label className='col-sm-3'>Bio</Label>
+                <FormGroup row className="align-items-center">
+                    <Label className='col-sm-3 m-0'>Bio</Label>
                     <Col className='col-sm-9'>
                         <Field name='description'
                             type='textarea'
@@ -60,7 +60,6 @@ const ProfileEdit = (props: IProps): ReactElement => {
                 </Button>
             </Form>
         </div>
-
     );
 };
 

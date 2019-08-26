@@ -1,14 +1,12 @@
 import { changeProfilePassword } from '../../store/changePassword/actions';
 import { validatePasswordChange as validate } from '../../utils/validation';
-import { passwordFieldProfile } from '../CommonComponents/ReduxFormFields';
+import { renderField } from '../CommonComponents/ReduxFormFields';
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Form, Label, Button, Spinner, FormProps, FormGroup, Col } from 'reactstrap';
+import { FormProps, Form, FormGroup, Col, Label, Button, Spinner } from 'reactstrap';
 import { Field, reduxForm } from 'redux-form';
-import { changeProfilePassword } from '../../store/changePassword/actions';
-import { validatePasswordChange as validate } from '../../utils/validation';
-import { renderField } from '../CommonComponents/ReduxFormFields';
+import { Link } from 'react-router-dom';
 
 class ProfilePasswordChange extends React.Component<any> { // FIXME
     constructor(props: any) {
@@ -23,63 +21,58 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME
     public render(): JSX.Element {
         const { handleSubmit, submitting }: FormProps = this.props;
         return (
-            <Form className='container mt-4 bg-white text-center p-4' onSubmit={handleSubmit(this.onSubmit)}>
-                <h3 className='font-weight-bold text-left mb-4'>Change Password:</h3>
-                <Row className='align-items-center mt-3'>
-                    <Label className='col-lg-2 text-left text-lg-right font-weight-bold p-0 pr-3 mb-0'
-                        for='oldPassword'
-                    >
-                        Old Password
-                    </Label>
-                    <Field
-                        className='col-lg-10'
-                        type='password'
-                        name='oldPassword'
-                        component={passwordFieldProfile}
-                    />
-                </Row>
-                <Row className='align-items-center mt-3'>
-                    <Label className='col-lg-2 text-left text-lg-right font-weight-bold p-0 pr-3 mb-0'
-                        for='newPassword'
-                    >
-                        New Password
-                    </Label>
-                    <Field
-                        className='col-lg-10'
-                        type='password'
-                        name='newPassword'
-                        component={passwordFieldProfile}
-                    />
-                </Row>
-                <Row className='align-items-center mt-3'>
-                    <Label
-                        className='col-lg-2 text-left text-lg-right font-weight-bold p-0 pr-3 mb-0'
-                        for='newPasswordConfirm'
-                    >
-                        Confirm New Password
-                    </Label>
-                    <Field
-                        className='col-lg-10'
-                        type='password'
-                        name='newPasswordConfirm'
-                        component={passwordFieldProfile}
-                    />
-                </Row>
-                <Row className='mt-4'>
+            <div className="container"><div> {/* Required in order to match style with non redux-form elements */}
+                <h3 className='text-center font-weight-light text-secondary text-uppercase'>Change Password</h3>
+                <Form className='d-flex flex-column mt-3 bg-white p-4' onSubmit={handleSubmit(this.onSubmit)}>
+                    <FormGroup row className='align-items-center'>
+                        <Label className='col-sm-3 m-0' for='oldPassword'>
+                            Old Password
+                        </Label>
+                        <Col className='col-sm-9 m-0'>
+                            <Field
+                                name='oldPassword'
+                                type='password'
+                                component={renderField}
+                            />
+                        </Col>
+                    </FormGroup>
+                    <FormGroup row className='align-items-center'>
+                        <Label className='col-sm-3 m-0' for='newPassword'>
+                            New Password
+                        </Label>
+                        <Col className='col-sm-9 m-0'>
+                            <Field
+                                name='newPassword'
+                                type='password'
+                                component={renderField}
+                            />
+                        </Col>
+                    </FormGroup>
+                    <FormGroup row className='align-items-center'>
+                        <Label className='col-sm-3 m-0' for='confirmPassword'>
+                            Confirm Password
+                        </Label>
+                        <Col className='col-sm-9 m-0'>
+                            <Field
+                                name='confirmPassword'
+                                type='password'
+                                component={renderField}
+                            />
+                        </Col>
+                    </FormGroup>
                     <Button
-                        className='btn offset-lg-2 mt-3'
+                        className='align-self-center btn mt-3'
                         color='danger'
                         disabled={submitting}
                     >
-                        Change Password
+                        <i className='fa fa-lock pr-3' />
+                        {submitting ? <Spinner color='light' /> : 'Change Password'}
                     </Button>
-                </Row>
-                <Row className='mt-4'>
-                    <Link className='offset-lg-2 text-danger pl-1' to='/password-reset'>
+                    <Link className='align-self-center d-block text-danger pl-1 mt-3' to='/password-reset'>
                         Forgot Password?
                     </Link>
-                </Row>
-            </Form>
+                </Form>
+            </div></div>
         );
     }
 }

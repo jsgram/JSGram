@@ -22,34 +22,65 @@ class ProfileSubscribeTo extends React.Component<any> { // FIXME
 
     public render(): JSX.Element {
         return (
-            <Form className='container mt-4 bg-white text-left p-4' onChange={this.onSubmit}>
-                <h3 className='font-weight-bold mb-4'>Subscribe to:</h3>
-                <Label className='font-weight-bold'>
-                    <Input type='checkbox' name='newsEmails' checked={this.props.settings} />
-                    News emails
-                </Label>
-                <div className='text-secondary mb-4'>Find out first about new products.</div>
-                <Label className='font-weight-bold'>
-                    <Input type='checkbox' name='reminderEmails' checked={this.props.settings} />
-                    Reminder emails
-                </Label>
-                <div className='text-secondary mb-4'>Stay up to date with things you may have missed.</div>
-                <Label className='font-weight-bold'>
-                    <Input type='checkbox' name='productEmails' checked={this.props.settings} />
-                    Product emails
-                </Label>
-                <div className='text-secondary mb-4'>Get tips on using Instagram's tools.</div>
-                <Label className='font-weight-bold'>
-                    <Input type='checkbox' name='researchEmails' checked={this.props.settings} />
-                    Research emails
-                </Label>
-                <div className='text-secondary mb-4'>Provide feedback and participate in research studies.</div>
-                <Label className='font-weight-bold'>
-                    <Input type='checkbox' name='textMessages' checked={this.props.settings} />
-                    Text (SMS) Messages
-                </Label>
-                <div className='text-secondary mb-4'>Get reminder notifications delivered by text message.</div>
-            </Form>
+            <div className="container ml-4 mr-4">
+                <h3 className='text-center font-weight-light text-secondary text-uppercase'>Subscribe to</h3>
+                <Form className='d-flex flex-column mt-3 bg-white p-4' onChange={this.onSubmit}>
+                    <Label className='d-flex align-items-center'>
+                        <Input
+                            name='newsEmails'
+                            type='checkbox'
+                            className='position-static m-0 mr-2'
+                            checked={this.props.settings}
+                        />
+                        News emails
+                    </Label>
+                    <div className='font-italic text-secondary mb-4'>Find out first about new products.</div>
+
+                    <Label className='d-flex align-items-center'>
+                        <Input
+                            name='reminderEmails'
+                            type='checkbox'
+                            className='position-static m-0 mr-2'
+                            checked={this.props.settings}
+                        />
+                        Reminder emails
+                    </Label>
+                    <div className='font-italic text-secondary mb-4'>Stay up to date with things you may have missed.</div>
+
+                    <Label className='d-flex align-items-center'>
+                        <Input
+                            name='productEmails'
+                            type='checkbox'
+                            className='position-static m-0 mr-2'
+                            checked={this.props.settings}
+                        />
+                        Product emails
+                    </Label>
+                    <div className='font-italic text-secondary mb-4'>Get tips on using Instagram's tools.</div>
+
+                    <Label className='d-flex align-items-center'>
+                        <Input
+                            name='researchEmails'
+                            type='checkbox'
+                            className='position-static m-0 mr-2'
+                            checked={this.props.settings}
+                        />
+                        Research emails
+                    </Label>
+                    <div className='font-italic text-secondary mb-4'>Provide feedback and participate in research studies.</div>
+
+                    <Label className='d-flex align-items-center'>
+                        <Input
+                            name='textMessages'
+                            type='checkbox'
+                            className='position-static m-0 mr-2'
+                            checked={this.props.settings}
+                        />
+                        Text (SMS) Messages
+                    </Label>
+                    <div className='text-secondary mb-4'>Get reminder notifications delivered by text message.</div>
+                </Form>
+            </div>
         );
     }
 }
