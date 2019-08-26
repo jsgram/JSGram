@@ -87,21 +87,18 @@ export default class Profile extends React.Component<IFormProps> {
                     </p>
                     <div className='d-flex followers align-self-center'>
                         <div>
-                            <a href='#/' className='mr-sm-5 mr-3'>Posts</a>
-                            <p className='pl-2'>{posts}</p>
+                            <a href='#/' className='mr-5'><b>{posts}</b> posts</a>
                         </div>
                         <div>
-                            <a href='#/' className='mr-sm-5 mr-3'>Followers</a>
-                            <p className='pl-4'>{followers}</p>
+                            <a href='#/' className='mr-5'><b>{followers}</b> followers</a>
                         </div>
                         <div>
-                            <a href='#/'>Following</a>
-                            <p className='pl-4'>{following}</p>
+                            <a href='#/'><b>{following}</b> following</a>
                         </div>
                     </div>
-                    <div className='description'>
+                    <div className='description mt-4'>
                         <strong>{username}</strong>
-                        <p className='text-justify'>{description}</p>
+                        <p>{description}</p>
                     </div>
                     <Link to='/add-post'>
                         <Button className='btn' color='danger'><i
