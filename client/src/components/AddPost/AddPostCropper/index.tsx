@@ -6,7 +6,6 @@ import { Container, Row, Input, Button, Spinner} from 'reactstrap';
 import AddPostDropZone from '../AddPostDropZone';
 import { getCroppedImg, createBlobUrl } from '../../../helpers/upload.photo';
 import '../PostPost/AddPost.scss';
-import { secretAccessKey } from './../../../../../server/src/common.constants/aws.multer.profile.constants';
 
 interface IArea {
     width: number;
