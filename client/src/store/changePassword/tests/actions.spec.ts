@@ -3,7 +3,6 @@ import moxios from 'moxios';
 import configureMockStore from 'redux-mock-store';
 import {showAlert} from '../../alert/actions';
 import {changePassword} from '../actions';
-import {encodeJWT} from '../../../../../server/src/helpers/jwt.encoders';
 
 export const startState = {};
 
@@ -16,8 +15,6 @@ export const makeMockStore = (state: any = {}): any => {
     });
 };
 
-const mockSuccess = (data: any): any => ({status: 200, response: {data}});
-
 describe('Check email', () => {
     beforeEach(() => moxios.install());
     afterEach(() => moxios.uninstall());
@@ -25,7 +22,7 @@ describe('Check email', () => {
     it('dispatches changePassword with server data on success', () => {
         const store = makeMockStore();
         moxios.wait(() => {
-            const request = moxios.requests.mostRecent();
+            moxios.requests.mostRecent();
         });
 
         const expected = [
@@ -41,7 +38,7 @@ describe('Check email', () => {
     it('dispatches changePassword with server data on error', () => {
         const store = makeMockStore();
         moxios.wait(() => {
-            const request = moxios.requests.mostRecent();
+            moxios.requests.mostRecent();
         });
 
         const expected = [

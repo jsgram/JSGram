@@ -1,0 +1,58 @@
+version: v1.0
+name: JSgram CI
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+execution_time_limit:
+  minutes: 2
+
+
+blocks:
+  - name: FE Deploy
+    task:
+      prologue:
+        commands:
+          - checkout
+          - node --version
+          - npm --version
+          - git --version
+          - echo "machine git.heroku.com
+                    login ${HEROKU_USER}
+                    password ${HEROKU_PASSWORD}" >> $HOME/.netrc
+          - git config --global user.email "${GIT_EMAIL}"
+          - git config --global user.name "${GIT_USER}"
+      env_vars:
+        - name: GIT_EMAIL
+          value: deployer@fakedomain.com
+        - name: GIT_USER
+          value: deployer
+      secrets:
+        - name: heroku
+      jobs:
+        - name: FE deploy
+          commands:
+            - export REACT_APP_BASE_API="https://jsgram-backend-${SEMAPHORE_GIT_BRANCH}.herokuapp.com"
+            - export REACT_APP_GOOGLE_AUTH_URL="https://jsgram-backend-${SEMAPHORE_GIT_BRANCH}.herokuapp.com/auth/google"
+
+            - cd client
+            - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
+            - npm run build
+            - cd build
+
+            - >
+              echo '{
+                      "root": "./",
+                      "clean_urls": false,
+                      "routes": {
+                        "/**": "index.html"
+                      }
+                    }' > static.json
+
+            - git init
+            - git remote add heroku "https://git.heroku.com/jsgram-frontend-${SEMAPHORE_GIT_BRANCH}.git"
+            - git remote show heroku
+
+            - git add .
+            - git commit -m "Deploy commit"
+            - git push --force --set-upstream heroku master

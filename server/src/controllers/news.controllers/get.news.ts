@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { tokenVerification } from '../../helpers/token.verification';
-import { IUser } from '../../../../client/src/store/commonInterfaces/commonInterfaces';
+import { IUserModel } from '../../models/user.model';
 
 export const getNews = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -14,7 +14,7 @@ export const getNews = async (req: Request, res: Response, next: NextFunction): 
         if (!user) {
             throw new Error('User does not exist');
         }
-        const {fullName, email}: IUser = user;
+        const {fullName, email}: IUserModel = user;
 
         res.json({
             fullName,
