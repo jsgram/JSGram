@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { uploadPost, setCroppedImageForPost, setDescriptionForPost, resetAddPost } from '../../store/addPost/action';
+import * as action from '../../store/addPost/action';
 import AddPostCropper, { IProps } from '../../components/AddPost/AddPostCropper';
 import {IState} from '../../store/addPost/reducers';
 
@@ -31,10 +31,9 @@ const mapStateToProps = (state: ILocalState): IState => ({
 });
 
 const mapDispatchToProps = {
-    uploadPost,
-    setCroppedImageForPost,
-    setDescriptionForPost,
-    resetAddPost,
-};
-
+    uploadPost: action.uploadPost,
+    setCroppedImageForPost: action.setCroppedImageForPost,
+    setDescriptionForPost: action.setDescriptionForPost,
+    resetAddPost: action.resetAddPost,
+}
 export default connect(mapStateToProps, mapDispatchToProps)(AddPostContainer);
