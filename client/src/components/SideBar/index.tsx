@@ -7,7 +7,7 @@ import { getUser } from '../../store/profile/actions';
 import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
-import './Sidebar.scss';
+import './SideBar.scss';
 
 interface IStateToProps {
     user: IUser;
