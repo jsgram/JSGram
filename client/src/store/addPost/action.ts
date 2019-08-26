@@ -3,7 +3,29 @@ import { showAlert } from '../alert/actions';
 import { base64ToFile, createDataForAWS } from '../../helpers/upload.photo';
 import { AuthAPI } from '../api';
 import { history } from '../../history';
-import { RESET_ADD_POST, SET_CROPPED_IMAGE_FOR_POST, SET_DESCRIPTION_FOR_POST } from './actionTypes';
+import {
+    GET_POST_ERROR,
+    GET_POST_PENDING,
+    GET_POST_SUCCESS,
+    RESET_ADD_POST,
+    SET_CROPPED_IMAGE_FOR_POST,
+    SET_DESCRIPTION_FOR_POST,
+} from './actionTypes';
+import { IUserData } from '../../components/Profile';
+
+export const getPostPending = (): { type: string } => ({
+    type: GET_POST_PENDING,
+});
+
+export const getPostSuccess = (post: IUserData): { type: string, payload: any } => ({
+    type: GET_POST_SUCCESS,
+    payload: post,
+});
+
+export const getPostError = (error: Error): { type: string, payload: Error } => ({
+    type: GET_POST_ERROR,
+    payload: error,
+});
 
 export const setCroppedImageForPost = (croppedImage: string): { type: string, payload: any } => ({
     type: SET_CROPPED_IMAGE_FOR_POST,
@@ -24,12 +46,15 @@ export const uploadPost = (croppedImage: string, description: string, resetState
     (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
+            dispatch(getPostPending());
             const newFile = await base64ToFile(croppedImage, 'post', 'image/png');
-            await AuthAPI.post('/post', createDataForAWS('postImage', newFile, description));
+            const res = await AuthAPI.post('/post', createDataForAWS('postImage', newFile, description));
+            dispatch(getPostSuccess(res.data));
             history.push('/profile');
             resetState();
             dispatch(showAlert('Successfully uploaded', 'success'));
         } catch (e) {
-            showAlert(e.response.data.message, 'danger');
+            dispatch(showAlert(e.response.data.message, 'danger'));
+            dispatch(getPostError(e));
         }
     };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'reactstrap';
+import { Button, Spinner } from 'reactstrap';
 import Cropper from 'react-easy-crop';
 import PostPhoto from '../PostPost';
 import { history } from '../../../history';
@@ -24,6 +24,7 @@ interface IState {
 export interface IProps {
     croppedImage: string;
     description: string;
+    loading: boolean;
     uploadPost: (croppedImage: string, description: string, resetState: () => void) => void;
     setCroppedImageForPost: any;
     setDescriptionForPost: any;
@@ -101,6 +102,7 @@ export default class AddPostCropper extends React.Component<IProps> {
                     disabled={!imageSrc}
                 >
                     {croppedImage ? 'Post' : 'Next'}
+                    {this.props.loading && <Spinner className='spinner-border spinner-border-sm' />}
                 </Button>
                 {croppedImage ?
                     (
