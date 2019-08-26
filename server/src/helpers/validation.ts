@@ -37,3 +37,7 @@ export default function validateInput(data: IUserModel): {errors: IValidationErr
         isValid: isEmpty(errors),
     };
 }
+
+export const isValidPassword = function(password: string): boolean {
+    return typeof password === 'string' && password.length >= 8 ? true : false;
+};

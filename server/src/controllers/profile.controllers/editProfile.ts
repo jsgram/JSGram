@@ -1,4 +1,5 @@
 import {NextFunction, Request, Response} from 'express';
+
 import { editUser } from '../../db.requests/user.requests';
 
 export const editProfile = async (req: Request, res: Response, next: NextFunction): Promise<any> => {

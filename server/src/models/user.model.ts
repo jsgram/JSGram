@@ -1,12 +1,15 @@
 import { Schema, Document, Model, model } from 'mongoose';
 import { IPostModel } from './post.model';
 
-interface IUserModelSettings {
+export interface IUserNotifications {
     isNewsEmail: boolean;
     isReminderEmail: boolean;
     isProductEmail: boolean;
     isResearchEmail: boolean;
     isTextMessage: boolean;
+}
+
+export interface IUserPrivacy {
     isPrivateAccount: boolean;
     isActivityStatus: boolean;
     isStorySharing: boolean;
@@ -23,7 +26,8 @@ export interface IUserModel extends Document {
     bio?: string;
     isAdmin: boolean;
     isVerified: boolean;
-    settings?: IUserModelSettings;
+    notifications?: IUserNotifications;
+    privacy?: IUserPrivacy;
     posts?: IPostModel['_id'];
 }
 
@@ -76,7 +80,7 @@ const UserSchema: Schema = new Schema({
         default: false,
         required: true,
     },
-    settings: {
+    notifications: {
         isNewsEmail: {
             type: Boolean,
             default: true,
@@ -95,11 +99,13 @@ const UserSchema: Schema = new Schema({
         },
         isTextMessage: {
             type: Boolean,
-            default: true,
+            default: false,
         },
+    },
+    privacy: {
         isPrivateAccount: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         isActivityStatus: {
             type: Boolean,

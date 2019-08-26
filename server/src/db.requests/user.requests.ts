@@ -1,6 +1,8 @@
 import { NextFunction } from 'express';
 import { IUserModel, User } from '../models/user.model';
 import { hashPassword } from '../helpers/hash.password';
+import { IUserSettings } from '../controllers/profile.controllers/editProfileSettings';
+import { IUserPassword } from '../controllers/profile.controllers/editPassword';
 
 interface INewUser {
     username: string;
@@ -90,5 +92,29 @@ export const editUser = async (
         return updatedUser;
     } catch (e) {
         next({message: 'Username is not unique', status: 409});
+    }
+};
+
+export const editUserPassword = async (username: string, password: string): Promise<IUserModel | null> => {
+    try {
+        return await User.findOneAndUpdate(
+            { username },
+            { password: hashPassword(password) },
+        );
+    } catch (e) {
+        throw new Error(`Database error while updating user password.`);
+    }
+};
+
+export const editUserSettings = async (user: IUserSettings): Promise<IUserModel | null> => {
+    try {
+        const { username, notifications, privacy }: IUserSettings = user;
+
+        return await User.findOneAndUpdate(
+            { username },
+            { notifications, privacy },
+        );
+    } catch (e) {
+        throw new Error(`Database error while updating user settings.`);
     }
 };
