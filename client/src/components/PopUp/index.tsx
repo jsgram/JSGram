@@ -26,21 +26,26 @@ export default class PopUpModal extends React.Component<IProps, IModalState> {
         });
     }
 
+    public deletePhoto(): void {
+        this.props.deletePhoto();
+        this.toggle();
+    }
+
     public render(): JSX.Element {
         return (
           <div>
             <Button className='mt-3' color='danger' onClick={this.toggle}>Change Profile Photo</Button>
-              <Modal isOpen={this.state.modal} toggle={this.toggle} >
+              <Modal className='text-center' isOpen={this.state.modal} toggle={this.toggle} >
               <ModalHeader toggle={this.toggle}>Change Profile Photo</ModalHeader>
               <ModalBody>
                 <CropperContainer modalToggle={this.toggle}/>
+                <Button className='mt-3' outline size='lg' color='danger' onClick={(): void => {
+                    this.deletePhoto(); }}>Delete Current Photo</Button>
                 </ModalBody>
                 <ModalFooter>
-              <Button color='danger' onClick={(): void => {
-                  this.props.deletePhoto();
-                  this.toggle(); }}>Delete Current Photo</Button>
-              <Button color='secondary' onClick={this.toggle}>Cancel</Button>
-              </ModalFooter>
+                    <Button className='m-auto' outline color='secondary' onClick={(): void => {
+                        this.toggle(); }}>Cancel</Button>
+                </ModalFooter>
             </Modal>
           </div>
         );

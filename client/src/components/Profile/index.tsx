@@ -7,12 +7,6 @@ import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
-import ProfileEditContainer from '../../containers/ProfileEditContainer';
-import EmailChange from '../EmailChange';
-
-import ProfilePasswordChange from '../ProfilePasswordChange';
-import ProfileSubscribeTo from '../ProfileSubscribeTo';
-import ProfilePrivacy from '../ProfilePrivacy';
 
 export interface IUserData {
     posts: number;

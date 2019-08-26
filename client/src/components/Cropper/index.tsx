@@ -70,7 +70,7 @@ export default class Cropper extends React.Component<any> {
                 </div>
 
                 <Avatar
-                    width={450}
+                    width={this.dropZoneStyle.width}
                     height={300}
                     imageWidth={300}
                     imageHeight={300}

@@ -18,13 +18,15 @@ class ProfilePrivacy extends React.Component<any> { // FIXME
     }
 
     public onSubmit(event: any): any { // FIXME
-        if (!isValidSettings(event)) return;
+        if (!isValidSettings(event)) {
+            return;
+        }
         this.props.changeSubscription(event);
     }
 
     public render(): JSX.Element {
         return (
-            <div className="container ml-4 mr-4">
+            <div className='container ml-4 mr-4'>
                 <h3 className='text-center font-weight-light text-secondary text-uppercase'>Privacy and Security</h3>
                 <Form className='container mt-4 bg-white text-left p-4' onChange={this.onSubmit}>
                     <Label className='d-flex align-items-center'>
@@ -37,7 +39,8 @@ class ProfilePrivacy extends React.Component<any> { // FIXME
                         Private Account
                     </Label>
                     <p className='font-italic text-secondary mb-4'>
-                        When your account is private, only people you approve can see your photos and videos on JSgram.
+                        When your account is private, only people you approve
+                        can see your photos and videos on JSgram.
                         Your existing followers won't be affected.
                     </p>
 
@@ -51,8 +54,10 @@ class ProfilePrivacy extends React.Component<any> { // FIXME
                         Show Activity Status
                     </Label>
                     <p className='font-italic text-secondary mb-4'>
-                        Allow accounts you follow and anyone you message to see when you were last active on JSgram apps.
-                        When this is turned off, you won't be able to see the activity status of other accounts.
+                        Allow accounts you follow and anyone you message
+                        to see when you were last active on JSgram apps.
+                        When this is turned off, you won't be able to see
+                        the activity status of other accounts.
                     </p>
 
                     <Label className='d-flex align-items-center'>
