@@ -16,8 +16,6 @@ export const makeMockStore = (state: any = {}): any => {
     });
 };
 
-const mockSuccess = (data: any): any => ({status: 200, response: {data}});
-
 describe('registerUser', () => {
     beforeEach(() => moxios.install());
     afterEach(() => moxios.uninstall());
@@ -25,7 +23,7 @@ describe('registerUser', () => {
     it('dispatches registerUser with server data on success', () => {
         const store = makeMockStore();
         moxios.wait(() => {
-            const request = moxios.requests.mostRecent();
+            moxios.requests.mostRecent();
         });
 
         const user = {
@@ -49,7 +47,7 @@ describe('registerUser', () => {
     it('dispatches registerUser with server data on error', () => {
         const store = makeMockStore();
         moxios.wait(() => {
-            const request = moxios.requests.mostRecent();
+            moxios.requests.mostRecent();
         });
 
         const user = {};
