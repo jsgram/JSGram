@@ -2,7 +2,7 @@ import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import configureMockStore from 'redux-mock-store';
 import {showAlert} from '../../alert/actions';
-import {getUserError, getUserPending, getUserSuccess, loginUser} from '../actions';
+import {getUserPending, getUserSuccess, loginUser} from '../actions';
 
 export const startState = {};
 
@@ -15,8 +15,6 @@ export const makeMockStore = (state: any = {}): any => {
     });
 };
 
-const mockSuccess = (data: any): any => ({status: 200, response: {data}});
-
 describe('loginUser', () => {
     beforeEach(() => moxios.install());
     afterEach(() => moxios.uninstall());
@@ -24,7 +22,7 @@ describe('loginUser', () => {
     it('dispatches loginUser with server data on success', () => {
         const store = makeMockStore();
         moxios.wait(() => {
-            const request = moxios.requests.mostRecent();
+            moxios.requests.mostRecent();
         });
 
         const user = {
@@ -48,11 +46,10 @@ describe('loginUser', () => {
     it('dispatches loginUser with server data on error', () => {
         const store = makeMockStore();
         moxios.wait(() => {
-            const request = moxios.requests.mostRecent();
+            moxios.requests.mostRecent();
         });
 
         const user = {};
-        const err = new Error();
 
         const expected = [
             showAlert(

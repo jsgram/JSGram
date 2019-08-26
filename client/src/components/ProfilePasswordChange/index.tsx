@@ -6,10 +6,6 @@ import { changeProfilePassword } from '../../store/changePassword/actions';
 import { validatePasswordChange as validate } from '../../utils/validation';
 import { renderField } from '../CommonComponents/ReduxFormFields';
 
-interface IStateToProps {
-    changeProfilePassword: any; // FIXME
-}
-
 class ProfilePasswordChange extends React.Component<any> { // FIXME
     constructor(props: any) {
         super(props);
