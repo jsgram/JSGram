@@ -90,8 +90,8 @@ export default class AddPostCropper extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        const {imageSrc, crop, zoom, aspect}: any = this.state;
-        const {croppedImage, description, setDescriptionForPost}: any = this.props;
+        const {imageSrc, crop, zoom, aspect}: IState = this.state;
+        const {croppedImage, description, setDescriptionForPost}: IProps = this.props;
         return (
             <div className='text-center'>
                 <Button className='btn' color='danger' onClick={this.previousPage}>Cancel</Button>
