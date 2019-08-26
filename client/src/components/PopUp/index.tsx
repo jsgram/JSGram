@@ -42,6 +42,10 @@ export default class PopUpModal extends React.Component<IProps, IModalState> {
                 <Button className='mt-3' outline size='lg' color='danger' onClick={(): void => {
                     this.deletePhoto(); }}>Delete Current Photo</Button>
                 </ModalBody>
+                <ModalFooter>
+                    <Button className='m-auto' outline color='secondary' onClick={(): void => {
+                        this.toggle(); }}>Cancel</Button>
+                </ModalFooter>
             </Modal>
           </div>
         );
