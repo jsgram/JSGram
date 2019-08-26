@@ -101,8 +101,10 @@ export default class AddPostCropper extends React.Component<IProps> {
                     onClick={croppedImage ? this.onUploadPost : this.onShowCroppedImage}
                     disabled={!imageSrc}
                 >
-                    {croppedImage ? 'Post' : 'Next'}
-                    {this.props.loading && <Spinner className='spinner-border spinner-border-sm' />}
+                    {
+                     this.props.loading ? <Spinner className='spinner-border spinner-border-sm' />
+                     : croppedImage ? 'Post' : 'Next'
+                    }
                 </Button>
                 {croppedImage ?
                     (
