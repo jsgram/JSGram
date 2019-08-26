@@ -1,22 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Container, Nav, Col, Row } from 'reactstrap';
-import noAvatar from '../../assets/noAvatar.svg';
 import { SidebarRoute } from '../../routes/SidebarRoute';
+import { getUser } from '../../store/profile/actions';
+import { IUser } from '../../store/commonInterfaces/commonInterfaces';
+import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import './Sidebar.scss';
 
-export interface IUserData {
-    fullName: string;
-    photo: string;
-}
-
 interface IFormProps {
-    getUser: () => void;
-    user: IUserData;
+    getUser: Function;
+    user: IUser;
 }
 
-export default class Sidebar extends React.Component<IFormProps> {
+interface IStateToProps {
+    user: IUser;
+}
+
+interface IState {
+    profile: IStateToProps;
+}
+
+class Sidebar extends React.Component<IFormProps> {
     public componentDidMount(): void {
         this.props.getUser();
     }
@@ -24,7 +30,7 @@ export default class Sidebar extends React.Component<IFormProps> {
     public render(): JSX.Element {
         const { user: { fullName, photo } }: any = this.props;
         return (
-            <div>
+            <Container>
                 <div
                     className='row profile d-flex pt-2 justify-content-lg-center
                     justify-content-sm-around justify-content-center'>
@@ -92,8 +98,18 @@ export default class Sidebar extends React.Component<IFormProps> {
                         </Col>
                     </Row>
                 </Container>
-            </div>
+            </Container>
         );
     }
 
 }
+
+const mapStateToProps = (state: IState): { user: IUser } => ({
+    user: state.profile.user,
+});
+
+const mapDispatchToProps = {
+    getUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

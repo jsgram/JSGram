@@ -8,7 +8,7 @@ import CheckEmail from '../components/ForgotPassword/CheckEmail';
 import ProfileContainer from '../containers/ProfileContainer';
 import { PublicRoute } from './PublicRoute';
 import Feed from '../components/Main/Feed';
-import SidebarContainer from '../containers/SidebarContainer';
+import Sidebar from '../components/Sidebar';
 import Logout from '../containers/LogoutContainer';
 import { history } from '../history';
 import AddPostContainer from '../containers/AddPostContainer';
@@ -19,7 +19,7 @@ export const routes = (
             <Route exact path='/profile' component={ProfileContainer} />
             <Route path='/add-post' component={AddPostContainer} />
             <Route exact path='/feed' component={Feed} />
-            <Route path='/profile/edit' component={SidebarContainer} />
+            <Route path='/profile/edit' component={Sidebar} />
             <Route exact path='/logout' component={Logout} />
             <PublicRoute exact path='/' component={Main} />
             <PublicRoute path='/login/:token?' component={LoginContainer} />
