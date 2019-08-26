@@ -7,7 +7,7 @@ import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
-import ProfileEditContainer from '../../containers/ProfileEditContainer/ProfileEditContainer';
+import ProfileEditContainer from '../../containers/ProfileEditContainer';
 import EmailChange from '../EmailChange';
 
 import ProfilePasswordChange from '../ProfilePasswordChange';
@@ -22,6 +22,7 @@ export interface IUserData {
     fullName: string;
     username: string;
     photo: string;
+    email: string;
 }
 
 interface IFormProps {

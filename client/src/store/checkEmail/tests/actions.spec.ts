@@ -15,8 +15,6 @@ export const makeMockStore = (state: any = {}): any => {
     });
 };
 
-const mockSuccess = (data: any): any => ({status: 200, response: {data}});
-
 describe('Check email', () => {
     beforeEach(() => moxios.install());
     afterEach(() => moxios.uninstall());

@@ -17,7 +17,6 @@ interface IProps {
 const ProfileEdit = (props: IProps): ReactElement => {
 
     const {handleSubmit, onChangeProfile, submitting}: FormProps = props;
-    const {photo}: { photo: string } = props.initialValues;
     return (
         <div>
 
