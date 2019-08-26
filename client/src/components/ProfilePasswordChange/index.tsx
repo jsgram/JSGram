@@ -4,9 +4,11 @@ import { passwordFieldProfile } from '../CommonComponents/ReduxFormFields';
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Form, Row, Label, Button, FormProps } from 'reactstrap';
+import { Form, Label, Button, Spinner, FormProps, FormGroup, Col } from 'reactstrap';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
+import { changeProfilePassword } from '../../store/changePassword/actions';
+import { validatePasswordChange as validate } from '../../utils/validation';
+import { renderField } from '../CommonComponents/ReduxFormFields';
 
 class ProfilePasswordChange extends React.Component<any> { // FIXME
     constructor(props: any) {

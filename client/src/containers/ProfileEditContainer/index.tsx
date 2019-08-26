@@ -14,7 +14,6 @@ interface IStateToProps {
 
 interface IState {
     profile: IStateToProps;
-    initialName: any;
 }
 
 class ProfileEditContainer extends React.Component <any> {
@@ -41,8 +40,6 @@ class ProfileEditContainer extends React.Component <any> {
                     handleSubmit={handleSubmit}
                     onChangeProfile={this.onChangeProfile}
                     submitting={submitting}
-                    initialValues={this.props.initialValues}
-                    deletePhoto={this.props.deletePhoto}
                 />
             </div>
         );
