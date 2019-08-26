@@ -14,8 +14,16 @@ export default class PostPhoto extends React.Component<any> {
                 <text className=' mx-auto mt-3 post-label'>New post</text>
             </Row>
             <Row  className= 'mt-2 mx-auto post'>
-                <img src={this.props.croppedImage} className='img-fluid rounded' alt='Here is a post photo.'/>
-                <Input className='mt-3' type='textarea' name='text' placeholder='Write a caption'/>
+                <img src={croppedImage} className='img-fluid rounded' alt='Here is a post photo.'/>
+                <Input
+                    className='mt-3'
+                    type='textarea'
+                    name='description'
+                    placeholder='Write a caption...'
+                    spellCheck={false}
+                    value={description}
+                    onChange={this.onDescriptionChange}
+                />
             </Row>
         </Container>
         );
