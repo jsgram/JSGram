@@ -3,6 +3,7 @@
 
 .post-label {
   font-size: 2em;
+
   @media screen and (max-width:$break-small) {
     font-size: 1.2em;
   }
@@ -10,9 +11,11 @@
 
 .post {
   width: 30em;
+
   @media screen and (max-width:$break-medium) {
     width: 20em;
   }
+
   @media screen and (max-width:$break-small) {
     width: 15em;
   }
@@ -25,6 +28,7 @@
     background-color: $color-button;
     border-style: none;
     border-radius: 6px;
+
     @media screen and (max-width:$break-small) {
       width: 70px;
       height: 31px;
@@ -34,6 +38,7 @@
 
   .form-control {
     height: 5em;
+
     @media screen and (max-width:$break-small) {
       height: 9em;
     }
@@ -60,20 +65,23 @@
     width: 20em;
     height: 20em;
   }
+
   @media screen and (max-width:$break-small) {
     width: 15em;
     height: 15em;
   }
 }
 
-.border-style {
-  color: $color1;
-  background-color: $color2;
-  border-color: $color3;
-  border-style: dashed;
-}
+.drop-zone {
+  .border-style {
+    color: $color-silver;
+    background-color: $color-alabaster;
+    border-color: $color-gallery;
+    border-style: dashed;
+  }
 
-.upload-text {
-  width: 100%;
-  margin-top: 45%;
+  .upload-text {
+    width: 100%;
+    margin-top: 45%;
+  }
 }
