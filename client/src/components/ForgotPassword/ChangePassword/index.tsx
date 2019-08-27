@@ -9,7 +9,7 @@ import logo from '../../../assets/logo.png';
 import { renderField } from '../../CommonComponents/ReduxFormFields';
 import { IUser } from '../../../store/commonInterfaces/commonInterfaces';
 
-class ChangePasswordContainer extends React.Component<any> {
+export class ChangePasswordContainer extends React.Component<any> {
     constructor(props: any) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);

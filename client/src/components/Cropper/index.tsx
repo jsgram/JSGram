@@ -41,12 +41,8 @@ export default class Cropper extends React.Component<any> {
         this.props.createFile(preview);
     }
 
-    public onBeforeFileLoad = (
-        elem: any): void => {
-        const FILE_SIZE = 2000000;
-        if (elem.target.files[0].size > FILE_SIZE) {
-            // this.props.checkFileSize(elem.target.files[0].size);
-            this.props.informFileIsTooBig();
+    public onBeforeFileLoad = (elem: any): void => {
+        if (elem.target.files[0].size > this.FILE_SIZE) {
             elem.target.value = '';
         }
     }
