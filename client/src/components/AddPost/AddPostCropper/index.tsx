@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, Spinner } from 'reactstrap';
 import Cropper from 'react-easy-crop';
 import PostPhoto from '../PostPost';
 import { history } from '../../../history';
+import { Container, Row, Input, Button, Spinner} from 'reactstrap';
 import AddPostDropZone from '../AddPostDropZone';
 import { getCroppedImg, createBlobUrl } from '../../../helpers/upload.photo';
+import '../PostPost/AddPost.scss';
 
 interface IArea {
     width: number;
@@ -94,52 +95,55 @@ export default class AddPostCropper extends React.Component<IProps> {
         const {imageSrc, crop, zoom, aspect}: IState = this.state;
         const {croppedImage, description, setDescriptionForPost}: IProps = this.props;
         return (
-            <div className='text-center'>
-                <Button className='btn' color='danger' onClick={this.previousPage}>Cancel</Button>
-                <Button
-                    className='btn' color='danger'
-                    onClick={croppedImage ? this.onUploadPost : this.onShowCroppedImage}
-                    disabled={!imageSrc}
-                >
-                    {
-                     this.props.loading ? <Spinner className='spinner-border spinner-border-sm' />
-                     : croppedImage ? 'Post' : 'Next'
+                <div className='text-center'>
+                    {croppedImage ?
+                        (
+                            <PostPhoto
+                                croppedImage={croppedImage}
+                                description={description}
+                                setDescriptionForPost={setDescriptionForPost}
+                            />
+                        ) : (
+                            <Container>
+                                <Row>
+                                    <text className=' mx-auto mt-3 post-label'>New post</text>
+                                </Row>
+                                <div className='cropper-photo mt-3 mx-auto'>
+                                    {
+                                        imageSrc ?
+                                            (
+                                                < Cropper
+                                                    image={imageSrc}
+                                                    crop={crop}
+                                                    zoom={zoom}
+                                                    aspect={aspect}
+                                                    onCropChange={this.onCropChange}
+                                                    onCropComplete={this.onCropComplete}
+                                                    onZoomChange={this.onZoomChange}
+                                                />
+                                            ) : (
+                                                <AddPostDropZone
+                                                    uploadImageToCropper={this.onUploadImageToCropper}
+                                                />
+                                            )
+                                    }
+                                </div>
+                            </Container>)
                     }
-                </Button>
-                {croppedImage ?
-                    (
-                        <PostPhoto
-                            croppedImage={croppedImage}
-                            description={description}
-                            setDescriptionForPost={setDescriptionForPost}
-                        />
-                    ) : (
-                        <div
-                            className='row d-flex pt-10 justify-content-lg-center
-                justify-content-sm-around justify-content-center'>
-                            <div style={{height: '30em', width: '30em', marginTop: '3em', position: 'relative'}}>
-                                {
-                                    imageSrc ?
-                                        (
-                                            < Cropper
-                                                image={imageSrc}
-                                                crop={crop}
-                                                zoom={zoom}
-                                                aspect={aspect}
-                                                onCropChange={this.onCropChange}
-                                                onCropComplete={this.onCropComplete}
-                                                onZoomChange={this.onZoomChange}
-                                            />
-                                        ) : (
-                                            <AddPostDropZone
-                                                uploadImageToCropper={this.onUploadImageToCropper}
-                                            />
-                                        )
-                                }
-                            </div>
-                        </div>)
-                }
-            </div>
+                    <Row className='justify-content-between post mx-auto'>
+                        <button className='mt-3 ml-0 button' onClick={this.previousPage}>Cancel</button>
+                        <button
+                            className='mt-3 ml-0 button'
+                            onClick={croppedImage ? this.onUploadPost : this.onShowCroppedImage}
+                            disabled={!imageSrc}
+                        >
+                        {
+                            this.props.loading ? <Spinner className='spinner-border spinner-border-sm' />
+                            : croppedImage ? 'Post' : 'Next'
+                        }
+                        </button>
+                    </Row>
+                </div>
         );
     }
 }

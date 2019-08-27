@@ -1,5 +1,7 @@
 import React from 'react';
 import { DropzoneState, useDropzone } from 'react-dropzone';
+import { Container, Row, Input} from 'reactstrap';
+import '../PostPost/AddPost.scss';
 
 interface IProps {
     uploadImageToCropper: (imageFile: File) => void;
@@ -12,22 +14,13 @@ const AddPostDropZone = (props: IProps): JSX.Element => {
         onDrop: (files: any): void => uploadImageToCropper(files[0]),
     });
 
-    // TODO Move style to scss
     return (
-        <section className='container flex'>
-            <div {...getRootProps({className: 'dropzone'})}
-                 style={{
-                     margin: '0 auto',
-                     height: '30em',
-                     width: '30em',
-                     marginTop: '3em',
-                     position: 'relative',
-                     backgroundColor: 'lightgray',
-                 }}>
+        <Container className='drop-zone'>
+            <Row {...getRootProps({className: 'border-style cropper-photo'})}>
                 <input {...getInputProps({})}/>
-                <p>Drag 'n' drop photo here, or click to select photo</p>
-            </div>
-        </section>
+                <p className='upload-text'>Drag your photo here or click to select it.</p>
+            </Row>
+        </Container>
     );
 };
 
