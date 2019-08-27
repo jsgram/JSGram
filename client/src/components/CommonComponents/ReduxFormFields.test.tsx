@@ -1,4 +1,4 @@
-import { renderField } from './ReduxFormFields';
+import { renderField } from './ReduxFormFields'; // tslint:disable-line:no-unused-variable
 import * as reactstrap from 'reactstrap';
 
 import { shallow } from 'enzyme';

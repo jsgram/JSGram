@@ -1,4 +1,4 @@
-import Register from './Register';
+import Register from './index';
 import * as reactstrap from 'reactstrap';
 
 import { shallow } from 'enzyme';

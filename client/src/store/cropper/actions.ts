@@ -48,7 +48,7 @@ export const uploadPostAvatar = (avatar: File): (dispatch: Dispatch) => Promise<
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(uploadAvatarPending());
-            const res = await AuthAPI.post('/profile/photo', createDataForAWS(avatar));
+            const res = await AuthAPI.post('/profile/photo', createDataForAWS('userPhoto', avatar));
             dispatch(showAlert('Successfully uploaded', 'success'));
             dispatch(uploadAvatarSuccess(res.data.userProfile));
             dispatch(setPhotoToState(res.data.photoPath));

@@ -1,4 +1,4 @@
-import { RegisterContainer } from './RegisterContainer';
+import { RegisterContainer } from './index';
 import * as reactstrap from 'reactstrap';
 
 import { shallow } from 'enzyme';
