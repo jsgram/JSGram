@@ -20,6 +20,7 @@ export const changePasswordReducer = (
         return {
             ...state,
             loaded: false,
+            loading: true,
             error: '',
         };
     case CHANGE_PASSWORD_SUCCESS:
@@ -27,12 +28,14 @@ export const changePasswordReducer = (
             ...state,
             password: action.payload,
             loaded: true,
+            loading: false,
         };
     case CHANGE_PASSWORD_ERROR:
         return {
             ...state,
             error: action.payload,
             loaded: false,
+            loading: false,
         };
     default:
         return state;
