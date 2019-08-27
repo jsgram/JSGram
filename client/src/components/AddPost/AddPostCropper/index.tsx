@@ -2,7 +2,7 @@ import React from 'react';
 import Cropper from 'react-easy-crop';
 import PostPhoto from '../PostPost';
 import { history } from '../../../history';
-import { Container, Row, Input, Button, Spinner} from 'reactstrap';
+import { Container, Row, Spinner} from 'reactstrap';
 import AddPostDropZone from '../AddPostDropZone';
 import { getCroppedImg, createBlobUrl } from '../../../helpers/upload.photo';
 import '../PostPost/AddPost.scss';
@@ -106,7 +106,7 @@ export default class AddPostCropper extends React.Component<IProps> {
                         ) : (
                             <Container>
                                 <Row>
-                                    <text className=' mx-auto mt-3 post-label'>New post</text>
+                                    <div className=' mx-auto mt-3 post-label'>New post</div>
                                 </Row>
                                 <div className='cropper-photo mt-3 mx-auto'>
                                     {
