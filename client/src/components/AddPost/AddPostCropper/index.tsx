@@ -106,7 +106,7 @@ export default class AddPostCropper extends React.Component<IProps> {
                         ) : (
                             <Container>
                                 <Row>
-                                    <text className=' mx-auto mt-3 post-label'>New post</text>
+                                    <div className=' mx-auto mt-3 post-label'>New post</div>
                                 </Row>
                                 <div className='cropper-photo mt-3 mx-auto'>
                                     {
