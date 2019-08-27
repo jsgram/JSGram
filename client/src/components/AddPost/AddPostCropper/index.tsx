@@ -2,7 +2,7 @@ import React from 'react';
 import Cropper from 'react-easy-crop';
 import PostPhoto from '../PostPost';
 import { history } from '../../../history';
-import { Container, Row, Input, Button, Spinner} from 'reactstrap';
+import { Container, Row, Spinner} from 'reactstrap';
 import AddPostDropZone from '../AddPostDropZone';
 import { getCroppedImg, createBlobUrl } from '../../../helpers/upload.photo';
 import '../PostPost/AddPost.scss';
