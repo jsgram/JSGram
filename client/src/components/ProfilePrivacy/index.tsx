@@ -11,13 +11,13 @@ interface IStateToProps {
     settings: any;
 }
 
-class ProfilePrivacy extends React.Component<any> { // FIXME
+class ProfilePrivacy extends React.Component<any> { // FIXME any type
     constructor(props: any) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    public onSubmit(event: any): any { // FIXME
+    public onSubmit(event: any): any { // FIXME any type
         if (!isValidSettings(event)) {
             return;
         }

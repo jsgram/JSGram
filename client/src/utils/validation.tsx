@@ -52,14 +52,8 @@ export const validatePasswordChange = (data: IPasswordChange): IPasswordChange =
     return errors;
 };
 
-export const isValidSettings = (data: any): boolean => {
-    for (const field in data) {
-        if (typeof data[field] !== 'boolean') {
-            return false;
-        }
-    }
-
-    return true;
-};
+export const isValidSettings = (data: any): boolean => (
+    Object.values(data).every((value: any): boolean => typeof value === 'boolean')
+);
 
 export default validate;

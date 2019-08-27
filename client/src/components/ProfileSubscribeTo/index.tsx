@@ -9,13 +9,13 @@ interface IStateToProps {
     settings: any;
 }
 
-class ProfileSubscribeTo extends React.Component<any> { // FIXME
+class ProfileSubscribeTo extends React.Component<any> { // FIXME any type
     constructor(props: any) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    public onSubmit(event: any): any { // FIXME
+    public onSubmit(event: any): any { // FIXME any type
         if (!isValidSettings(event)) {
             return;
         }

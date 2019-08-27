@@ -23,7 +23,7 @@ class Index extends React.Component <IStateToProps> {
 
     public render(): JSX.Element {
         return (
-            <div className='container'><div> {/* Required in order to match style with non redux-form elements */}
+            <div>
                 <h3 className='text-center font-weight-light text-secondary text-uppercase'>Change Email</h3>
                 <Form className='d-flex flex-column mt-3 bg-white p-4'>
                     <FormGroup row className='align-items-center'>
@@ -47,7 +47,7 @@ class Index extends React.Component <IStateToProps> {
                         Change Email
                     </Button>
                 </Form>
-            </div></div>
+            </div>
         );
     }
 }

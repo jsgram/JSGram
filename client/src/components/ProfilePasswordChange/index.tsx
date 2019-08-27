@@ -8,20 +8,20 @@ import { FormProps, Form, FormGroup, Col, Label, Button, Spinner } from 'reactst
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 
-class ProfilePasswordChange extends React.Component<any> { // FIXME
+class ProfilePasswordChange extends React.Component<any> { // FIXME any type
     constructor(props: any) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    public onSubmit(data: any): any { // FIXME
+    public onSubmit(data: any): any { // FIXME any type
         this.props.changeProfilePassword(data.oldPassword, data.newPassword);
     }
 
     public render(): JSX.Element {
         const { handleSubmit, submitting }: FormProps = this.props;
         return (
-            <div className='container'><div> {/* Required in order to match style with non redux-form elements */}
+            <div>
                 <h3 className='text-center font-weight-light text-secondary text-uppercase'>Change Password</h3>
                 <Form className='d-flex flex-column mt-3 bg-white p-4' onSubmit={handleSubmit(this.onSubmit)}>
                     <FormGroup row className='align-items-center'>
@@ -72,7 +72,7 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME
                         Forgot Password?
                     </Link>
                 </Form>
-            </div></div>
+            </div>
         );
     }
 }

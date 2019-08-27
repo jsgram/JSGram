@@ -35,13 +35,11 @@ class ProfileEditContainer extends React.Component <any> {
     public render(): JSX.Element {
         const {handleSubmit, submitting}: FormProps = this.props;
         return (
-            <div className='container'>
-                <ProfileEdit
-                    handleSubmit={handleSubmit}
-                    onChangeProfile={this.onChangeProfile}
-                    submitting={submitting}
-                />
-            </div>
+            <ProfileEdit
+                handleSubmit={handleSubmit}
+                onChangeProfile={this.onChangeProfile}
+                submitting={submitting}
+            />
         );
     }
 }
