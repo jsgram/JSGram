@@ -1,4 +1,4 @@
-export const getTags = (description: string): any => {
+export const getTags = (description: string): string[] => {
     const hashtagRegex = /\B(\#[a-zA-Z0-9]+\b)/g;
 
     const hashTags = description && description.match(hashtagRegex);
