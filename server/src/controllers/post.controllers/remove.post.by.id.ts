@@ -21,7 +21,7 @@ export const remove = async (req: Request, res: Response, next: NextFunction): P
     try {
         const userId = res.locals.user.id;
         const postId = req.params.id;
-        const delPost = await deletePost(postId, userId);
+        const delPost = await deletePost(postId, userId, next);
 
         uploadImage(awsConfig).s3.deleteObject({
             Bucket: awsConfig.bucket,
@@ -33,6 +33,6 @@ export const remove = async (req: Request, res: Response, next: NextFunction): P
         });
         res.json({message: 'Post was successfully deleted', delPost});
     } catch (e) {
-        next({message: 'Can not delete post', status: 500});
+        next({message: 'Couldn\'t delete post', status: 500});
     }
 };

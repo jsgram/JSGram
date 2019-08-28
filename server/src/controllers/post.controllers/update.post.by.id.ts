@@ -8,7 +8,7 @@ export const update = async (req: Request, res: Response, next: NextFunction): P
         const description = req.body.description;
         const tags = getTags(description);
 
-        const updPost = await updatePost(id, description, tags);
+        const updPost = await updatePost(id, description, tags, next);
 
         res.json({message: 'Post was successfully updated', updPost});
     } catch (e) {
