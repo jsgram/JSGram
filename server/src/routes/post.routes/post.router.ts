@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { findAll } from '../../controllers/post.controllers/find.all.posts';
 import { findById } from '../../controllers/post.controllers/find.post.by.id';
 import { create } from '../../controllers/post.controllers/create.post';
 import { update } from '../../controllers/post.controllers/update.post.by.id';
@@ -8,9 +7,7 @@ import { isAuthorized } from '../../controllers/auth.controllers/auth.isAuthoriz
 
 export const postRouter = Router();
 
+postRouter.get('/:id', isAuthorized, findById);
 postRouter.post('/', isAuthorized, create);
-
-postRouter.get('/', findAll);
-postRouter.get('/:id', findById);
-postRouter.put('/:id', update);
+postRouter.patch('/:id', update);
 postRouter.delete('/:id', remove);

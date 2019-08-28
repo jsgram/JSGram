@@ -1,14 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
-import { IUserModel } from '../../models/user.model';
-import { Post } from '../../models/post.model';
+import { getPostsWithPagination } from '../../db.requests/get.posts.with.pagination';
+import { getUserByUsername } from '../../db.requests/user.requests';
 
 interface IParams {
     page: number;
+    URLUserName: string;
 }
 
-export const getProfile = async (req: Request, res: Response, next: NextFunction):
-    Promise<void> => {
+export const getProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
+        const { URLUserName, page }: IParams = req.params;
+        const user = await getUserByUsername(URLUserName, next);
+
         const {
             posts,
             followers,
@@ -18,11 +21,10 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
             username,
             photoPath,
             email,
-        }: IUserModel = res.locals.user;
+        }: any = user;
 
-        const {page}: IParams = req.params;
         const skip = (page - 1) * 9;
-        const postsAll = await Post.find({_id: {$in: posts}}).sort({createdAt: -1}).limit(2).skip(skip);
+        const postsAll = await getPostsWithPagination(posts, skip, next);
 
         const userProfile = {
             posts: posts.length,

@@ -26,12 +26,12 @@ export const getUserError = (error: Error): { type: string, payload: Error } => 
     payload: error,
 });
 
-export const getUser = (): (dispatch: Dispatch) => Promise<void> =>
+export const getUser = (username: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(getUserPending());
             // TODO change with pagination
-            const res = await AuthAPI.get('/profile/1');
+            const res = await AuthAPI.get(`/profile/${username}/1`);
             dispatch(getUserSuccess(res.data.userProfile));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
