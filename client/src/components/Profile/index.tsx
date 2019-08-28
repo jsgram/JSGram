@@ -7,6 +7,7 @@ import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
+import PostContainer from '../../containers/PostContainer';
 export interface IUserData {
     posts: number;
     followers: number;
@@ -107,6 +108,9 @@ export default class Profile extends React.Component<IFormProps> {
                         </Button>
                     </Link>
                     <PopUpModal deletePhoto={this.props.deletePhoto}/>
+                </div>
+                <div className='container'>
+                    <PostContainer/>
                 </div>
             </div>
         );
