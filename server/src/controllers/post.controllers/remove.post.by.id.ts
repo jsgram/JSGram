@@ -19,8 +19,9 @@ const awsConfig = {
 
 export const remove = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const id = req.params.id;
-        const delPost = await deletePost(id);
+        const userId = res.locals.user.id;
+        const postId = req.params.id;
+        const delPost = await deletePost(postId, userId);
 
         uploadImage(awsConfig).s3.deleteObject({
             Bucket: awsConfig.bucket,
