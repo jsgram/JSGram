@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { decodeJWT } from '../../helpers/jwt.encoders';
-import { User } from '../../models/user.model';
+import { decodeJWT } from '../../../helpers/jwt.encoders';
+import { User } from '../../../models/user.model';
 
 interface IChangeEmailParams {
     oldEmail: string;

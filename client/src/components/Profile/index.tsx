@@ -8,7 +8,7 @@ import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 export interface IUserData {
-    posts: number;
+    posts: any;
     followers: number;
     following: number;
     description: string;

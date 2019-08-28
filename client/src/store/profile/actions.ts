@@ -10,7 +10,6 @@ import {
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
 import { IUserData } from '../../components/Profile';
-import { IUser } from '../commonInterfaces/commonInterfaces';
 import { showAlert } from '../alert/actions';
 
 export const getUserPending = (): { type: string } => ({
@@ -27,11 +26,12 @@ export const getUserError = (error: Error): { type: string, payload: Error } => 
     payload: error,
 });
 
-export const getUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
+export const getUser = (): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(getUserPending());
-            const res = await AuthAPI.get('/profile');
+            // TODO change with pagination
+            const res = await AuthAPI.get('/profile/1');
             dispatch(getUserSuccess(res.data.userProfile));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));

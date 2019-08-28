@@ -1,4 +1,4 @@
-import {authRouter} from '../auth.router';
+import {authRouter} from '../auth.routes/auth.router';
 
 import {app} from '../../app';
 import request from 'supertest';

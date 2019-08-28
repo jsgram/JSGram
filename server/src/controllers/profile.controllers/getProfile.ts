@@ -1,33 +1,39 @@
 import { Request, Response, NextFunction } from 'express';
+import { IUserModel } from '../../models/user.model';
+import { Post } from '../../models/post.model';
 
-interface IFakeUser {
-    posts: string[];
-    followers: string[];
-    following: string[];
+interface IParams {
+    page: number;
 }
 
 export const getProfile = async (req: Request, res: Response, next: NextFunction):
     Promise<void> => {
     try {
-        // TO DO: delete fake user, instead use data from DB
-        const fakeUser = {
-            posts: ['post1', 'post2', 'post3'],
-            followers: ['follower1', 'follower2', 'follower3'],
-            following: ['subscriber1', 'subscriber2'],
-        };
-        const { posts, followers, following }: IFakeUser = fakeUser;
+        const {
+            posts,
+            followers,
+            following,
+            bio,
+            fullName,
+            username,
+            photoPath,
+            email,
+        }: IUserModel = res.locals.user;
 
-        const user = res.locals.user;
+        const {page}: IParams = req.params;
+        const skip = (page - 1) * 9;
+        const postsAll = await Post.find({_id: {$in: posts}}).sort({createdAt: -1}).limit(2).skip(skip);
 
         const userProfile = {
-            posts: user.posts.length,
+            posts: posts.length,
             followers: followers.length,
             following: following.length,
-            description: user.bio,
-            fullName: user.fullName,
-            username: user.username,
-            photo: user.photoPath,
-            email: user.email,
+            description: bio,
+            fullName,
+            username,
+            photo: photoPath,
+            email,
+            postsAll,
         };
 
         res.json({userProfile});
