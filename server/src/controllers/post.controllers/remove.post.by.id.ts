@@ -1,5 +1,37 @@
-import {NextFunction, Request, Response} from 'express';
+import { NextFunction, Request, Response } from 'express';
+import { deletePost } from '../../db.requests/deletePost.request';
+import { uploadImage } from '../../helpers/uploadImage';
+import { bucket,
+    acl,
+    secretAccessKey,
+    accessKeyId,
+    region,
+    fileSize } from '../../common.constants/aws.multer.post.constants';
 
-export const remove = (req: Request, res: Response, next: NextFunction): void => {
-    // TODO it will be implemented later
+const awsConfig = {
+    bucket,
+    acl,
+    secretAccessKey,
+    accessKeyId,
+    region,
+    fileSize,
+};
+
+export const remove = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const id = req.params.id;
+        const delPost = await deletePost(id);
+
+        uploadImage(awsConfig).s3.deleteObject({
+            Bucket: awsConfig.bucket,
+            Key: delPost.imgPath.split('/').pop(),
+        }, (error: Error, data: any): void => {
+            if (error) {
+                throw new Error(error.message);
+            }
+        });
+        res.json({message: 'Post was successfully deleted', delPost});
+    } catch (e) {
+        next({message: 'Can not delete post', status: 500});
+    }
 };

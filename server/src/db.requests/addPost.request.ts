@@ -1,6 +1,5 @@
-import { Post } from '../models/post.model';
-import { IPostModel } from '../models/post.model';
-import { IUserModel, User } from '../models/user.model';
+import { Post, IPostModel } from '../models/post.model';
+import { User, IUserModel } from '../models/user.model';
 
 export const addPost = async (user: IUserModel, description: string, imgPath: string, tags: string[]):
                               Promise<IPostModel> => {
