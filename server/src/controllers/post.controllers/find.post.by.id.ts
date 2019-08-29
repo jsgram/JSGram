@@ -1,5 +1,16 @@
-import {NextFunction, Request, Response} from 'express';
+import { NextFunction, Request, Response } from 'express';
+import { findPostById } from '../../db.requests/find.post.by.id';
 
-export const findById = (req: Request, res: Response, next: NextFunction): void => {
-    // TODO it will be implemented later
+interface IParams {
+    id: string;
+}
+
+export const findById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const {id}: IParams = req.params;
+        const post = await findPostById(id, next);
+        res.json({post});
+    } catch (e) {
+        next(e);
+    }
 };

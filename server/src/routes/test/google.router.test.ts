@@ -1,4 +1,4 @@
-import {googleRouter} from '../google.router';
+import {googleRouter} from '../auth.routes/google.router';
 
 import {app} from '../../app';
 import request from 'supertest';

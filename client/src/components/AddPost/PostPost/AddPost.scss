@@ -1,0 +1,87 @@
+@import '../../../styles/variables';
+
+
+.post-label {
+  font-size: 2em;
+
+  @media screen and (max-width:$break-small) {
+    font-size: 1.2em;
+  }
+}
+
+.post {
+  width: 30em;
+
+  @media screen and (max-width:$break-medium) {
+    width: 20em;
+  }
+
+  @media screen and (max-width:$break-small) {
+    width: 15em;
+  }
+
+  .button {
+    width: 100px;
+    height: 39px;
+    color: $color-snow;
+    font-size: 18px;
+    background-color: $color-button;
+    border-style: none;
+    border-radius: 6px;
+
+    @media screen and (max-width:$break-small) {
+      width: 70px;
+      height: 31px;
+      font-size: 15px;
+    }
+  }
+
+  .form-control {
+    height: 5em;
+
+    @media screen and (max-width:$break-small) {
+      height: 9em;
+    }
+
+    &:focus {
+      border-color: $color-snow;
+      box-shadow: none;
+    }
+
+    input[type=text] {
+      padding-top: 0;
+      font-size: 9px;
+    }
+  }
+}
+
+.cropper-photo {
+  position: relative;
+  width: 30em;
+  height: 30em;
+  outline: none;
+
+  @media screen and (max-width:$break-medium) {
+    width: 20em;
+    height: 20em;
+  }
+
+  @media screen and (max-width:$break-small) {
+    width: 15em;
+    height: 15em;
+  }
+}
+
+.drop-zone {
+  .border-style {
+    color: $color-silver;
+    background-color: $color-alabaster;
+    border-color: $color-gallery;
+    border-style: dashed;
+  }
+
+  .upload-text {
+    width: 100%;
+    margin-top: 45%;
+  }
+}

@@ -1,35 +1,43 @@
 import { Request, Response, NextFunction } from 'express';
+import { getPostsWithPagination } from '../../db.requests/get.posts.with.pagination';
+import { getUserByUsername } from '../../db.requests/user.requests';
 
-interface IFakeUser {
-    posts: string[];
-    followers: string[];
-    following: string[];
+interface IParams {
+    page: number;
+    URLUserName: string;
 }
 
-export const getProfile = async (req: Request, res: Response, next: NextFunction):
-    Promise<void> => {
+export const getProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        // TO DO: delete fake user, instead use data from DB
-        const fakeUser = {
-            posts: ['post1', 'post2', 'post3'],
-            followers: ['follower1', 'follower2', 'follower3'],
-            following: ['subscriber1', 'subscriber2'],
-        };
-        const { posts, followers, following }: IFakeUser = fakeUser;
+        const { URLUserName, page }: IParams = req.params;
+        const user = await getUserByUsername(URLUserName, next);
 
-        const user = res.locals.user;
+        const {
+            posts,
+            followers,
+            following,
+            bio,
+            fullName,
+            username,
+            photoPath,
+            email,
+        }: any = user;
+
+        const skip = (page - 1) * 9;
+        const postsAll = await getPostsWithPagination(posts, skip, next);
 
         const userProfile = {
-            posts: user.posts.length,
+            posts: posts.length,
             followers: followers.length,
             following: following.length,
-            description: user.bio,
-            fullName: user.fullName,
-            username: user.username,
-            photo: user.photoPath,
+            description: bio,
+            fullName,
+            username,
+            photo: photoPath,
             notifications: user.notifications,
             privacy: user.privacy,
-            email: user.email,
+            email,
+            postsAll,
         };
 
         res.json({userProfile});

@@ -28,16 +28,18 @@ export interface IUserModel extends Document {
     isVerified: boolean;
     notifications?: IUserNotifications;
     privacy?: IUserPrivacy;
+    followers?: IUserModel['_id'];
+    following?: IUserModel['_id'];
     posts?: IPostModel['_id'];
 }
 
 const UserSchema: Schema = new Schema({
     email: {
         type: String,
-        required: true,
         unique: true,
         minlength: 3,
         maxlength: 40,
+        required: true,
     },
     fullName: {
         type: String,
@@ -47,15 +49,15 @@ const UserSchema: Schema = new Schema({
     },
     username: {
         type: String,
-        required: true,
-        unique: true,
         minlength: 3,
         maxlength: 40,
+        unique: true,
+        required: true,
     },
     password: {
         type: String,
-        required: true,
         match: /^[\w\$/.]{60}$/,
+        required: true,
     },
     dateOfBirth: {
         type: Date,
@@ -67,8 +69,9 @@ const UserSchema: Schema = new Schema({
     },
     bio: {
         type: String,
-        minlength: 4,
+        default: '',
         maxlength: 200,
+        required: false,
     },
     isAdmin: {
         type: Boolean,
@@ -80,6 +83,18 @@ const UserSchema: Schema = new Schema({
         default: false,
         required: true,
     },
+    followers: [{
+        type: Schema.Types.ObjectId,
+        default: [],
+        ref: 'User',
+        required: true,
+    }],
+    following: [{
+        type: Schema.Types.ObjectId,
+        default: [],
+        ref: 'User',
+        required: true,
+    }],
     notifications: {
         isNewsEmail: {
             type: Boolean,
@@ -118,7 +133,9 @@ const UserSchema: Schema = new Schema({
     },
     posts: [{
         type: Schema.Types.ObjectId,
+        default: [],
         ref: 'Post',
+        required: true,
     }],
     photoPath: {
         type: String,

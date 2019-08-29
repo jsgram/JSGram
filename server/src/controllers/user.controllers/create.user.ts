@@ -27,7 +27,7 @@ export const createUser = async (user: IUserModel, next: NextFunction): Promise<
                 'already associated with another account');
         }
 
-        return await User.create({
+        const userCreated = await User.create({
             email,
             fullName,
             username,
@@ -40,8 +40,10 @@ export const createUser = async (user: IUserModel, next: NextFunction): Promise<
             isVerified,
             posts,
         });
+
+        return userCreated;
     } catch (e) {
-        next({message: 'The email address or username you have entered is ' +
+        next({message: 'The email address you have entered is ' +
                 'already associated with another account', status: 409});
     }
 };

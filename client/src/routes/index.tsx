@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { Main } from '../components/Main/Landing';
 import LoginContainer from '../containers/LoginContainer';
-import RegisterContainer from '../components/Register/RegisterContainer';
+import RegisterContainer from '../containers/RegisterContainer';
 import ChangePassword from '../components/ForgotPassword/ChangePassword';
 import CheckEmail from '../components/ForgotPassword/CheckEmail';
 import ProfileContainer from '../containers/ProfileContainer';
@@ -16,7 +16,7 @@ import AddPostContainer from '../containers/AddPostContainer';
 export const routes = (
     <Router history={history}>
         <Switch>
-            <Route exact path='/profile' component={ProfileContainer} />
+            <Route exact path='/profile/:username?' component={ProfileContainer} />
             <Route path='/add-post' component={AddPostContainer} />
             <Route exact path='/feed' component={Feed} />
             <Route path='/profile/edit' component={SideBar} />

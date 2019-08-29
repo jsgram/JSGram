@@ -77,7 +77,7 @@ export const editUser = async (
     try {
         const { username, fullName, description }: INewUser = newUser;
         const userWithSameUsername = await User.findOne({username});
-        if (userWithSameUsername) {
+        if (userWithSameUsername && userWithSameUsername.email !== userEmail) {
             throw new Error('There is a user with the same username');
         }
         const updatedUser = await User.findOneAndUpdate(
@@ -116,5 +116,18 @@ export const editUserSettings = async (user: IUserSettings): Promise<IUserModel 
         );
     } catch (e) {
         throw new Error(`Database error while updating user settings.`);
+    }
+};
+
+export const getUserByUsername = async (username: string, next: NextFunction): Promise<IUserModel | void | null> => {
+    try {
+        const user = await User.findOne({username});
+        if (!user) {
+            throw new Error('User does not exist');
+        }
+
+        return user;
+    } catch (e) {
+        next({message: 'User does not exist', status: 409});
     }
 };

@@ -26,8 +26,8 @@ class Index extends React.Component <IStateToProps> {
             <div>
                 <h3 className='text-center font-weight-light text-secondary text-uppercase'>Change Email</h3>
                 <Form className='d-flex flex-column mt-3 bg-white p-4'>
-                    <FormGroup row>
-                        <Label className='col-sm-3'>
+                    <FormGroup row className='align-items-center'>
+                        <Label className='col-sm-3 m-0'>
                             Change Email
                         </Label>
                         <Col className='col-sm-9'>
