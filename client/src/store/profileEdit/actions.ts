@@ -3,7 +3,6 @@ import { Dispatch } from 'redux';
 import { IUser } from '../commonInterfaces/commonInterfaces';
 import {AuthAPI} from '../api';
 
-// TODO Add real api request
 export const editProfile = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {

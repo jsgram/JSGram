@@ -1,19 +1,34 @@
 import {
     GET_POSTS_PENDING,
     GET_POSTS_SUCCESS,
-    GET_POSTS_ERROR, GET_MORE_POSTS_SUCCESS,
+    GET_POSTS_ERROR, GET_MORE_POSTS_SUCCESS, ALL_POSTS_LOADED,
 } from './actionTypes';
 
-// TODO Change to real data
+export interface IPost {
+    description: string;
+    comments: any;
+    tags: any;
+    likes: any;
+    _id: string;
+    imgPath: string;
+    author: string;
+    createdAt: string;
+}
 
 const defaultState = {
     posts: [
         {
-            avatar: '',
-            first_name: '',
-            id: 100,
+            description: '',
+            comments: [],
+            tags: [],
+            likes: [],
+            _id: '',
+            imgPath: '',
+            author: '',
+            createdAt: '',
         },
     ],
+    loaded: false,
 };
 
 export const postReducer = (
@@ -37,6 +52,11 @@ export const postReducer = (
     case GET_POSTS_ERROR:
         return {
             ...state,
+        };
+    case ALL_POSTS_LOADED:
+        return {
+            ...state,
+            loaded: action.payload,
         };
     default:
         return state;

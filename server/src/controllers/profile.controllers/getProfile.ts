@@ -9,7 +9,7 @@ interface IParams {
 
 export const getProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { URLUserName, page }: IParams = req.params;
+        const { URLUserName }: IParams = req.params;
         const user = await getUserByUsername(URLUserName, next);
 
         const {
@@ -23,9 +23,6 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
             email,
         }: any = user;
 
-        const skip = (page - 1) * 9;
-        const postsAll = await getPostsWithPagination(posts, skip, next);
-
         const userProfile = {
             posts: posts.length,
             followers: followers.length,
@@ -35,10 +32,25 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
             username,
             photo: photoPath,
             email,
-            postsAll,
         };
 
         res.json({userProfile});
+    } catch (e) {
+        next(e);
+    }
+};
+
+export const getProfilePosts = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const { URLUserName, page }: IParams = req.params;
+        const user = await getUserByUsername(URLUserName, next);
+
+        const {posts}: any = user;
+
+        const skip = (page - 1) * 9;
+        const postsAll = await getPostsWithPagination(posts, skip, next);
+
+        res.json({postsAll});
     } catch (e) {
         next(e);
     }
