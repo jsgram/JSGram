@@ -1,4 +1,4 @@
-import {forgotPassword} from '../forgot.password';
+import {forgotPassword} from '../forgot.password.controllers/forgot.password';
 
 import {app} from '../../app';
 import request from 'supertest';

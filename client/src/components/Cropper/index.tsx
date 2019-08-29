@@ -71,7 +71,6 @@ export default class Cropper extends React.Component<any> {
                     width={this.dropZoneStyle.width}
                     height={300}
                     imageWidth={300}
-                    imageHeight={300}
                     borderStyle={this.dropZoneStyle}
                     shadingColor='white'
                     onCrop={this.onCrop}

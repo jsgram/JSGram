@@ -8,6 +8,7 @@ import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 import ProfilePost from '../ProfilePost';
+
 export interface IUserData {
     posts: number;
     followers: number;
@@ -20,12 +21,13 @@ export interface IUserData {
 }
 
 interface IFormProps {
-    getUser: () => void;
+    getUser: (username: string) => void;
     deletePhoto: () => void;
     addLike: any;
     user: IUserData;
     loaded: boolean;
     loading: boolean;
+    username: string;
 }
 
 export default class Profile extends React.Component<IFormProps> {
@@ -36,7 +38,7 @@ export default class Profile extends React.Component<IFormProps> {
     public timerHandle: any = 0;
 
     public componentDidMount(): void {
-        this.props.getUser();
+        this.props.getUser(this.props.username);
 
     }
 

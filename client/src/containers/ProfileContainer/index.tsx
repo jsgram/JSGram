@@ -13,8 +13,13 @@ interface IState {
     profile: IStateToProps;
 }
 
+interface IParams {
+    username: string;
+}
+
 export class ProfileContainer extends React.Component <any> {
     public render(): JSX.Element {
+        const {username}: IParams = this.props.match.params;
         return (
             <div className='container'>
                 <Profile
@@ -24,6 +29,7 @@ export class ProfileContainer extends React.Component <any> {
                     getUser={this.props.getUser}
                     deletePhoto={this.props.deletePhoto}
                     addLike={this.props}
+                    username={username}
                 />
             </div>
         );

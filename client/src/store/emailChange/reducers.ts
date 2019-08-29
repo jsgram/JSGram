@@ -6,12 +6,16 @@ const defaultState = {
     email: '',
 };
 
+interface IState {
+    email: string;
+}
+
 interface IAction {
     type: string;
     payload: any;
 }
 
-export const changeEmailReducer = (state: {email: string} = defaultState, action: IAction): any => {
+export const changeEmailReducer = (state: IState = defaultState, action: IAction): IState => {
     switch (action.type) {
     case SET_EMAIL_TEXT:
         return {
