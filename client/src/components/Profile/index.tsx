@@ -20,11 +20,12 @@ export interface IUserData {
 }
 
 interface IFormProps {
-    getUser: () => void;
+    getUser: (username: string) => void;
     deletePhoto: () => void;
     user: IUserData;
     loaded: boolean;
     loading: boolean;
+    username: string;
 }
 
 export default class Profile extends React.Component<IFormProps> {
@@ -35,7 +36,7 @@ export default class Profile extends React.Component<IFormProps> {
     public timerHandle: any = 0;
 
     public componentDidMount(): void {
-        this.props.getUser();
+        this.props.getUser(this.props.username);
 
     }
 

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { sendChangingEmail } from '../../helpers/send.email';
-import { changeEmailMessage } from '../../helpers/send.email.change.email';
+import { sendChangingEmail } from '../../../helpers/send.email';
+import { changeEmailMessage } from '../../../helpers/send.email.change.email';
 import Validator from 'validator';
 
 interface IChangeEmail {

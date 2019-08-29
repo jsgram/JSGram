@@ -16,7 +16,7 @@ import AddPostContainer from '../containers/AddPostContainer';
 export const routes = (
     <Router history={history}>
         <Switch>
-            <Route exact path='/profile' component={ProfileContainer} />
+            <Route exact path='/profile/:username?' component={ProfileContainer} />
             <Route path='/add-post' component={AddPostContainer} />
             <Route exact path='/feed' component={Feed} />
             <Route path='/profile/edit' component={SideBar} />

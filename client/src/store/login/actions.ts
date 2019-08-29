@@ -27,13 +27,6 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             const res = await API.post('/auth/login', user);
             history.push('/feed');
             setToken(res.data.token);
-            dispatch(getUserPending());
-            const token = localStorage.getItem(TOKEN);
-            const get = await API.get(('/'), {
-                headers: {Authorization: token},
-            });
-
-            dispatch(getUserSuccess(get.data));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
