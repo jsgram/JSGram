@@ -31,8 +31,9 @@
 .button-comment {
   background-color: $color-alabaster;
   color: $color-danube;
+
   &:disabled {
-    opacity: .3;
+    opacity: 0.3;
     pointer-events: none;
   }
 }
