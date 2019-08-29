@@ -1,4 +1,4 @@
-import { API, AuthAPI } from '../api';
+import { API } from '../api';
 import { showAlert } from '../alert/actions';
 import { Dispatch } from 'redux';
 import { IUser } from '../commonInterfaces/commonInterfaces';
@@ -27,9 +27,6 @@ export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
             const res = await API.post('/auth/login', user);
             history.push('/feed');
             setToken(res.data.token);
-            dispatch(getUserPending());
-            const get = await AuthAPI.get('/');
-            dispatch(getUserSuccess(get.data));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }

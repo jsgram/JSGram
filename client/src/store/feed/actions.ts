@@ -8,6 +8,7 @@ export const setUsername = (username: string): { type: string, payload: string }
     payload: username,
 });
 
+// TODO FIX with feed component
 export const getUserInfoFromToken = (): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
