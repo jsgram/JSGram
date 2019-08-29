@@ -23,6 +23,7 @@ export class ProfileContainer extends React.Component <any> {
                     loading={this.props.loading}
                     getUser={this.props.getUser}
                     deletePhoto={this.props.deletePhoto}
+                    addLike={this.props}
                 />
             </div>
         );

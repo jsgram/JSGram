@@ -7,6 +7,7 @@ import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
+import ProfilePost from '../ProfilePost';
 export interface IUserData {
     posts: number;
     followers: number;
@@ -21,6 +22,7 @@ export interface IUserData {
 interface IFormProps {
     getUser: () => void;
     deletePhoto: () => void;
+    addLike: any;
     user: IUserData;
     loaded: boolean;
     loading: boolean;
@@ -108,6 +110,7 @@ export default class Profile extends React.Component<IFormProps> {
                     </Link>
                     <PopUpModal deletePhoto={this.props.deletePhoto}/>
                 </div>
+                <ProfilePost deletePhoto={this.props.deletePhoto} addLike={this.props.addLike} />
             </div>
         );
     }
