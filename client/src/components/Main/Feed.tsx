@@ -15,10 +15,6 @@ interface IProps {
 }
 
 class Feed extends React.Component<IProps> {
-    public state: any = {
-        username: null,
-    };
-
     public async componentDidMount(): Promise<void> {
         this.props.getUserInfoFromToken();
     }

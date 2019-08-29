@@ -9,5 +9,5 @@ export const postRouter = Router();
 
 postRouter.get('/:id', isAuthorized, findById);
 postRouter.post('/', isAuthorized, create);
-postRouter.patch('/:id', update);
-postRouter.delete('/:id', remove);
+postRouter.patch('/:id', isAuthorized, update);
+postRouter.delete('/:id', isAuthorized, remove);

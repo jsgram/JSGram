@@ -41,7 +41,7 @@ const UserSchema: Schema = new Schema({
     dateOfBirth: {type: Date},
     createdAt: {type: Date, default: Date.now, required: true},
     photoPath: {type: String, default: '', required: false},
-    bio: {type: String, default: '', maxlength: 200, required: true},
+    bio: {type: String, default: '', maxlength: 200, required: false},
     isAdmin: {type: Boolean, default: false, required: true},
     isVerified: {type: Boolean, default: false, required: true},
     followers: [{
