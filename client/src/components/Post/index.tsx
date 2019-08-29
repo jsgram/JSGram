@@ -10,18 +10,13 @@ interface IProps {
 
 export default class Post extends React.Component<IProps> {
 
-    public state: {page: number} = {
-        page: 1,
-    };
 
     public getMorePosts = (): void => {
-        this.props.getMorePostsAsync(this.state.page);
-        this.setState({page: this.state.page + 1});
+        this.props.getMorePostsAsync(2);
     }
 
     public componentDidMount(): void {
         this.props.getPostsAsync();
-        this.setState({page: this.state.page + 1});
     }
 
 

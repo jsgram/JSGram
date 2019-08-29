@@ -42,7 +42,6 @@ export const getMorePostsAsync = (page: number): (dispatch: Dispatch) => Promise
         try {
             const res = await axios.get(`https://reqres.in/api/users?page=${page}`);
             dispatch(getPostsPending());
-            console.log('ttt: ', res.data.data);
             dispatch(getMorePostsSuccess(res.data.data));
         } catch (e) {
             dispatch(getPostsError(e));
