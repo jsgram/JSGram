@@ -82,6 +82,24 @@ class SideBar extends React.Component<any> {
                                                     Change Password
                                             </NavLink>
                                         </li>
+                                        <li className='nav-item'>
+                                            <NavLink
+                                                to='/profile/edit/subscribe-to'
+                                                activeClassName='active'
+                                                className='nav-link pl-2'>
+                                                    <i className='fa fa-check-circle'></i>
+                                                    Subscribe To
+                                            </NavLink>
+                                        </li>
+                                        <li className='nav-item'>
+                                            <NavLink
+                                                to='/profile/edit/privacy'
+                                                activeClassName='active'
+                                                className='nav-link pl-2'>
+                                                    <i className='fa fa-user-secret'></i>
+                                                    Privacy and Security
+                                            </NavLink>
+                                        </li>
                                     </ul>
                                 </Nav>
                             </div>

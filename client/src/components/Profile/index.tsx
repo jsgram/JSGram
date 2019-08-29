@@ -7,6 +7,7 @@ import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
+
 export interface IUserData {
     posts: number;
     followers: number;

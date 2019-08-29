@@ -9,8 +9,8 @@ import { isAuthorized } from '../controllers/auth.controllers/auth.isAuthorized'
 export const postRouter = Router();
 
 postRouter.post('/', isAuthorized, create);
+postRouter.patch('/:id', isAuthorized, update);
+postRouter.delete('/:id', isAuthorized, remove);
 
 postRouter.get('/', findAll);
 postRouter.get('/:id', findById);
-postRouter.put('/:id', update);
-postRouter.delete('/:id', remove);
