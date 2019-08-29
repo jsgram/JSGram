@@ -1,16 +1,8 @@
 import {
     GET_POSTS_PENDING,
     GET_POSTS_SUCCESS,
-    GET_POSTS_ERROR,
+    GET_POSTS_ERROR, GET_MORE_POSTS_SUCCESS,
 } from './actionTypes';
-
-// interface IPosts {
-//     image: string;
-//     description: string;
-//     likes: number;
-// }
-//
-// interface IPostsItems extends Array<IPosts> {}
 
 // TODO Change to real data
 
@@ -36,6 +28,11 @@ export const postReducer = (
         return {
             ...state,
             posts: action.payload,
+        };
+    case GET_MORE_POSTS_SUCCESS:
+        return {
+            ...state,
+            posts: [...state.posts, ...action.payload],
         };
     case GET_POSTS_ERROR:
         return {

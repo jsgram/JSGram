@@ -1,16 +1,29 @@
 import React from 'react';
 import '../../styles/style.scss';
+import { Waypoint } from 'react-waypoint';
 
 interface IProps {
     posts: any;
     getPostsAsync: () => void;
+    getMorePostsAsync: (page: number) => void;
 }
 
 export default class Post extends React.Component<IProps> {
 
+    public state: {page: number} = {
+        page: 1,
+    };
+
+    public getMorePosts = (): void => {
+        this.props.getMorePostsAsync(this.state.page);
+        this.setState({page: this.state.page + 1});
+    }
+
     public componentDidMount(): void {
         this.props.getPostsAsync();
+        this.setState({page: this.state.page + 1});
     }
+
 
     // TODO Change to real props
 
@@ -21,7 +34,7 @@ export default class Post extends React.Component<IProps> {
 
         const postItems = this.props.posts.posts.map((post: any, i: number) => {
             const {avatar, first_name, id}: any = post;
-            return(
+            return (
                 <div className='col-md-4 text-center mt-2' key={i}>
                     <img src={avatar} alt=''/>
                     <p>{first_name}</p>
@@ -31,8 +44,18 @@ export default class Post extends React.Component<IProps> {
         })
 
         return (
-            <div className='row'>
-                {postItems}
+            <div>
+
+                <div className='row'>
+                    {postItems}
+                </div>
+                <Waypoint
+                    onEnter={(): void => {
+                        this.getMorePosts();
+                        console.log('enter');
+                    }}
+                    onLeave={(): void => console.log('leave')}
+                />
             </div>
         );
     }
