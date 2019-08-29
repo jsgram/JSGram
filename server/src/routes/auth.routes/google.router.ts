@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import passport from 'passport';
-import {encodeJWT} from '../helpers/jwt.encoders';
-import {GOOGLE_SCOPE_EMAIL, GOOGLE_SCOPE_PROFILE} from '../common.constants/google.constants';
+import {encodeJWT} from '../../helpers/jwt.encoders';
+import {GOOGLE_SCOPE_EMAIL, GOOGLE_SCOPE_PROFILE} from '../../common.constants/google.constants';
 
 export const googleRouter = Router();
 

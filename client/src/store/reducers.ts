@@ -6,6 +6,7 @@ import {cropperReducer } from './cropper/reducers';
 import { addPostReducers } from './addPost/reducers';
 import {changeEmailReducer} from './emailChange/reducers';
 import {postReducer} from './post/reducers';
+import { feedReducer } from './feed/reducers';
 
 export default combineReducers({
     form: formReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
     addPost: addPostReducers,
     changeEmail: changeEmailReducer,
     posts: postReducer,
+    feed: feedReducer,
 });
