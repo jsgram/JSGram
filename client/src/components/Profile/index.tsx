@@ -2,12 +2,11 @@ import React from 'react';
 import '../../styles/style.scss';
 import { Instagram } from 'react-content-loader';
 import { Button, Spinner } from 'reactstrap';
-import './style.scss';
+import './Profile.scss';
 import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
-import ProfilePost from '../ProfilePost';
 
 export interface IUserData {
     posts: number;
@@ -23,7 +22,6 @@ export interface IUserData {
 interface IFormProps {
     getUser: (username: string) => void;
     deletePhoto: () => void;
-    addLike: any;
     user: IUserData;
     loaded: boolean;
     loading: boolean;
@@ -112,7 +110,6 @@ export default class Profile extends React.Component<IFormProps> {
                     </Link>
                     <PopUpModal deletePhoto={this.props.deletePhoto}/>
                 </div>
-                <ProfilePost deletePhoto={this.props.deletePhoto} addLike={this.props.addLike} />
             </div>
         );
     }

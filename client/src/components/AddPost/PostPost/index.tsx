@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Input} from 'reactstrap';
-import './style.scss';
+import '../PostPost/AddPost.scss';
 
 export default class PostPhoto extends React.Component<any> {
     public onDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>): void => {

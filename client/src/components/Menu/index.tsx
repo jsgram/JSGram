@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import logo from '../../assets/logo.png';
 import { Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import './style.scss';
+import './Menu.scss';
 
 const Menu: any = ({username}: any): ReactElement => (
     <div className='container-fluid header-menu'>

@@ -5,7 +5,7 @@ import { history } from '../../../history';
 import { Container, Row, Spinner} from 'reactstrap';
 import AddPostDropZone from '../AddPostDropZone';
 import { getCroppedImg, createBlobUrl } from '../../../helpers/upload.photo';
-import '../PostPost/style.scss';
+import '../PostPost/AddPost.scss';
 
 interface IArea {
     width: number;
