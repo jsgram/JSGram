@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ILikeModel } from '../../models/like.model';
-import { deleteLike } from '../../db.requests/delete.like';
-import { removeLikeIdFromPost } from '../../db.requests/remove.like.id.from.post';
+import { deleteLike, removeLikeIdFromPost } from '../../db.requests/remove.like.requsets';
 
 export const removeLike = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ILikeModel } from '../../models/like.model';
-import { countLike } from '../../db.requests/count.like';
-import { createLike } from '../../db.requests/create.like';
-import { addLikeIdToPost } from '../../db.requests/add.like.id.to.post';
+import { countLike, createLike, addLikeIdToPost } from '../../db.requests/add.like.requests';
 
 export const addLike = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
