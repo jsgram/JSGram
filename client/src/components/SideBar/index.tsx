@@ -17,25 +17,19 @@ interface IState {
     profile: IStateToProps;
 }
 
-interface IParams {
-    username: string;
-}
-
 class SideBar extends React.Component<any> {
     public componentDidMount(): void {
-        const {username}: IParams = this.props.match.params;
-        this.props.getUser(username);
+        this.props.getUser();
     }
 
     public render(): JSX.Element {
         const { user: { fullName, photo } }: any = this.props;
-        const {username}: IParams = this.props.match.params;
         return (
             <Container>
                 <div
                     className='row profile d-flex pt-2 justify-content-lg-center
                     justify-content-sm-around justify-content-center'>
-                    <Menu username={username}/>
+                    <Menu/>
                 </div>
                 <Container>
                     <Row className='profile'>
@@ -63,7 +57,7 @@ class SideBar extends React.Component<any> {
                                         <li className='nav-item'>
                                             <NavLink
                                                 exact
-                                                to={`/profile/${username}/edit`}
+                                                to='/profile/edit'
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-edit'></i>
@@ -72,7 +66,7 @@ class SideBar extends React.Component<any> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${username}/edit/change-email`}
+                                                to='/profile/edit/change-email'
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-envelope'></i>
@@ -81,7 +75,7 @@ class SideBar extends React.Component<any> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${username}/edit/change-password`}
+                                                to='/profile/edit/change-password'
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-key'></i>
@@ -90,7 +84,7 @@ class SideBar extends React.Component<any> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${username}/edit/subscribe-to`}
+                                                to='/profile/edit/subscribe-to'
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-check-circle'></i>
@@ -99,7 +93,7 @@ class SideBar extends React.Component<any> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${username}/edit/privacy`}
+                                                to='/profile/edit/privacy'
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-user-secret'></i>

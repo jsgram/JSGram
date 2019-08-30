@@ -19,7 +19,7 @@ export const routes = (
             <Route exact path='/profile/:username?' component={ProfileContainer} />
             <Route path='/add-post' component={AddPostContainer} />
             <Route exact path='/feed' component={Feed} />
-            <Route path='/profile/:username/edit' component={SideBar} />
+            <Route path='/profile/edit' component={SideBar} />
             <Route exact path='/logout' component={Logout} />
             <PublicRoute exact path='/' component={Main} />
             <PublicRoute path='/login/:token?' component={LoginContainer} />

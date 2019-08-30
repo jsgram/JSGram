@@ -8,10 +8,10 @@ import ProfilePrivacy from '../components/ProfilePrivacy';
 
 export const SidebarRoute = (
 <Switch>
-    <Route exact path='/profile/:username/edit' component={ProfileEditContainer} />
-    <Route path='/profile/:username/edit/change-email' component={EmailChange} />
-    <Route path='/profile/:username/edit/change-password' component={ProfilePasswordChange} />
-    <Route path='/profile/:username/edit/subscribe-to' component={ProfileSubscribeTo} />
-    <Route path='/profile/:username/edit/privacy' component={ProfilePrivacy} />
+    <Route exact path='/profile/edit' component={ProfileEditContainer} />
+    <Route path='/profile/edit/change-email' component={EmailChange} />
+    <Route path='/profile/edit/change-password' component={ProfilePasswordChange} />
+    <Route path='/profile/edit/subscribe-to' component={ProfileSubscribeTo} />
+    <Route path='/profile/edit/privacy' component={ProfilePrivacy} />
 </Switch>
 );
