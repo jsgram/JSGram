@@ -5,7 +5,7 @@ import configureStore from 'redux-mock-store';
 import React from 'react';
 import { Provider } from 'react-redux';
 
-describe('ProfileContainer component:', () => {
+describe.skip('ProfileContainer component:', () => {
     let renderer;
 
     beforeEach(() => {

@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import { handlePhotoChange } from '../../db.requests/userProfile.requests';
-import { uploadImage } from '../../helpers/uploadImage';
+import { handlePhotoChange } from '../../../db.requests/userProfile.requests';
+import { uploadImage } from '../../../helpers/uploadImage';
 import { bucket,
          acl,
          secretAccessKey,
          accessKeyId,
          region,
-         fileSize } from '../../common.constants/aws.multer.profile.constants';
+         fileSize } from '../../../common.constants/aws.multer.profile.constants';
 
 const awsConfig = {
     bucket,

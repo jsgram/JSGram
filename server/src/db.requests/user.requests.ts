@@ -92,3 +92,16 @@ export const editUser = async (
         next({message: 'Username is not unique', status: 409});
     }
 };
+
+export const getUserByUsername = async (username: string, next: NextFunction): Promise<IUserModel | void | null> => {
+    try {
+        const user = await User.findOne({username});
+        if (!user) {
+            throw new Error('User does not exist');
+        }
+
+        return user;
+    } catch (e) {
+        next({message: 'User does not exist', status: 409});
+    }
+};

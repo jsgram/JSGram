@@ -50,7 +50,7 @@ export const uploadPost = (croppedImage: string, description: string, resetState
             const newFile = await base64ToFile(croppedImage, 'post', 'image/png');
             const res = await AuthAPI.post('/post', createDataForAWS('postImage', newFile, description));
             dispatch(getPostSuccess(res.data));
-            history.push('/profile');
+            history.go(-1);
             resetState();
             dispatch(showAlert('Successfully uploaded', 'success'));
         } catch (e) {

@@ -1,4 +1,4 @@
-import {confirmUserRouter} from '../confirm.user.router';
+import {confirmUserRouter} from '../confirm.user.routes/confirm.user.router';
 
 import {app} from '../../app';
 import request from 'supertest';

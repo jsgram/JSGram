@@ -7,18 +7,19 @@ import path from 'path';
 
 import './helpers/passport.config';
 
-import { newsRouter } from './routes/news.router';
-import { postRouter } from './routes/post.router';
-import { userRouter } from './routes/user.router';
-import { authRouter } from './routes/auth.router';
-import { confirmUserRouter } from './routes/confirm.user.router';
-import { forgotPassword } from './routes/forgot.password';
+import { feedRouter } from './routes/feed.routes/feed.router';
+import { postRouter } from './routes/post.routes/post.router';
+import { userRouter } from './routes/user.routes/user.router';
+import { authRouter } from './routes/auth.routes/auth.router';
+import { confirmUserRouter } from './routes/confirm.user.routes/confirm.user.router';
+import { forgotPassword } from './routes/forgot.password.controllers/forgot.password';
+import { googleRouter } from './routes/auth.routes/google.router';
+import { profileRouter } from './routes/profile.routes/profile.router';
+import { likesRouter } from './routes/likes.router/like.router';
 
 import { unknownPageHandler } from './helpers/unknown.page.handler';
 import { errorHandler } from './helpers/error.handler';
 import { requestLoggerMiddleware } from './helpers/request.logger.middleware';
-import { googleRouter } from './routes/google.router';
-import { profileRouter } from './routes/profile.router';
 
 export const app: Application = express();
 
@@ -31,13 +32,14 @@ app.use(passport.session());
 app.use(requestLoggerMiddleware);
 
 app.get('/favicon.ico', (req: Request, res: Response) => res.status(204));
-app.use('/', newsRouter);
+app.use('/', feedRouter);
 app.use('/post', postRouter);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
 app.use('/confirm', confirmUserRouter);
 app.use('/forgot-password', forgotPassword);
 app.use('/profile', profileRouter);
+app.use('/likes', likesRouter);
 app.use(googleRouter);
 
 // Symlinking client build to server directory appears to be a better solution
