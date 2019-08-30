@@ -21,10 +21,9 @@ export const store = createStore(
 const App: React.FC = (): ReactElement => {
     return (
         <Provider store={store}>
-            <Post/>
-            {/* <AlertContainer/>
+            <AlertContainer/>
             {routes}
-            <Footer/> */}
+            <Footer/>
         </Provider>
     );
 };
