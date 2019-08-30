@@ -1,6 +1,7 @@
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 import {IUserModel} from '../models/user.model';
+import { IUserSubscriptions, IUserPrivacy } from '../models/user.model';
 
 export interface IValidationError {
     username?: string;
@@ -41,3 +42,7 @@ export default function validateInput(data: IUserModel): {errors: IValidationErr
 export const isValidPassword = function(password: string): boolean {
     return typeof password === 'string' && password.length >= 8 ? true : false;
 };
+
+export const isValidSettings = (data: IUserSubscriptions | IUserPrivacy): boolean => (
+    Object.values(data).every((value: any): boolean => typeof value === 'boolean')
+);

@@ -15,15 +15,15 @@ export const initialState = {message: '', color: ''};
 
 export const alertReducer = (state: IState = initialState, action: IAction): IState => {
     switch (action.type) {
-    case SHOW_ALERT:
-        return {
-            ...state,
-            message: action.message,
-            color: action.color,
-        };
-    case CLEAR_ALERT:
-        return {...initialState};
-    default:
-        return state;
+        case SHOW_ALERT:
+            return {
+                ...state,
+                message: action.message,
+                color: action.color,
+            };
+        case CLEAR_ALERT:
+            return {...initialState};
+        default:
+            return state;
     }
 };

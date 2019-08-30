@@ -106,13 +106,14 @@ export const editUserPassword = async (username: string, password: string): Prom
     }
 };
 
-export const editUserSettings = async (user: IUserSettings): Promise<IUserModel | null> => {
+export const editUserSettings = async (username: string, settings: IUserSettings): Promise<IUserModel | null> => {
     try {
-        const { username, notifications, privacy }: IUserSettings = user;
+        const { subscriptions, privacy }: IUserSettings = settings;
 
         return await User.findOneAndUpdate(
             { username },
-            { notifications, privacy },
+            { subscriptions, privacy },
+            { new: true },
         );
     } catch (e) {
         throw new Error(`Database error while updating user settings.`);

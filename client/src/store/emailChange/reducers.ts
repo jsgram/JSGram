@@ -17,12 +17,12 @@ interface IAction {
 
 export const changeEmailReducer = (state: IState = defaultState, action: IAction): IState => {
     switch (action.type) {
-    case SET_EMAIL_TEXT:
-        return {
-            ...state,
-            email: action.payload,
-        };
-    default:
-        return state;
+        case SET_EMAIL_TEXT:
+            return {
+                ...state,
+                email: action.payload,
+            };
+        default:
+            return state;
     }
 };

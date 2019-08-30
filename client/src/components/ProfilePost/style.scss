@@ -10,11 +10,11 @@
     overflow: hidden;
 
     .comments {
+      box-sizing: content-box;
       width: 100%;
       height: 220px;
-      overflow-y: scroll;
       padding-right: 26px;
-      box-sizing: content-box;
+      overflow-y: scroll;
     }
   }
 
@@ -30,8 +30,8 @@
   }
 
   .button-comment {
-    background-color: $color-alabaster;
     color: $color-danube;
+    background-color: $color-alabaster;
 
     &:disabled {
       opacity: 0.3;

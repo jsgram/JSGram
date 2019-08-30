@@ -6,14 +6,14 @@ import { isValidPassword } from '../../helpers/validation';
 import { isCorrectPassword } from '../../helpers/hash.password';
 
 export interface IUserPassword {
-    username: string;
     oldPassword: string;
     newPassword: string;
 }
 
 export const editPassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { username, oldPassword, newPassword }: IUserPassword = req.body;
+        const username = req.params.username;
+        const { oldPassword, newPassword }: IUserPassword = req.body;
 
         if (!isValidPassword(oldPassword) ||
             !isValidPassword(newPassword) || oldPassword === newPassword) {
@@ -29,7 +29,7 @@ export const editPassword = async (req: Request, res: Response, next: NextFuncti
         const oldPasswordMatch = await isCorrectPassword(oldPassword, existingUser.password);
 
         if (!oldPasswordMatch) {
-            throw new Error(`Password input is invalid.`);
+            throw new Error('Password input is invalid.');
         }
 
         const updatedUser = await editUserPassword(username, newPassword);
@@ -38,10 +38,10 @@ export const editPassword = async (req: Request, res: Response, next: NextFuncti
             throw new Error(`Cannot update password of user ${username}.`);
         }
 
-        res.json({ status: 'Password updated successfully.' });
+        res.json({ message: 'Password updated successfully.', status: 200 });
     } catch (e) {
         if (e.message) {
-            next({ message: e.message, status: 409 });
+            next({ message: e.message, status: 400 });
         } else {
             next({ message: 'Generic error while updating password.', status: 500 });
         }

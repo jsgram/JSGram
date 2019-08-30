@@ -1,7 +1,7 @@
 import { Schema, Document, Model, model } from 'mongoose';
 import { IPostModel } from './post.model';
 
-export interface IUserNotifications {
+export interface IUserSubscriptions {
     isNewsEmail: boolean;
     isReminderEmail: boolean;
     isProductEmail: boolean;
@@ -26,7 +26,7 @@ export interface IUserModel extends Document {
     bio?: string;
     isAdmin: boolean;
     isVerified: boolean;
-    notifications?: IUserNotifications;
+    subscriptions?: IUserSubscriptions;
     privacy?: IUserPrivacy;
     followers?: IUserModel['_id'];
     following?: IUserModel['_id'];
@@ -95,7 +95,7 @@ const UserSchema: Schema = new Schema({
         ref: 'User',
         required: true,
     }],
-    notifications: {
+    subscriptions: {
         isNewsEmail: {
             type: Boolean,
             default: true,

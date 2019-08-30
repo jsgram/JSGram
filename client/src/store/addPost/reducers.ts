@@ -20,43 +20,43 @@ export const defaultState = {
 
 export const addPostReducers = (state: IState = defaultState, action: any): any => {
     switch (action.type) {
-    case GET_POST_PENDING:
-        return {
-            ...state,
-            loading: true,
-            error: '',
-        };
-    case GET_POST_SUCCESS:
-        return {
-            ...state,
-            post: action.payload,
-            loading: false,
-        };
-    case GET_POST_ERROR:
-        return {
-            ...state,
-            error: action.payload,
-            loading: false,
-        };
-    case SET_CROPPED_IMAGE_FOR_POST:
-        return {
-            ...state,
-            croppedImage: action.payload,
-        };
+        case GET_POST_PENDING:
+            return {
+                ...state,
+                loading: true,
+                error: '',
+            };
+        case GET_POST_SUCCESS:
+            return {
+                ...state,
+                post: action.payload,
+                loading: false,
+            };
+        case GET_POST_ERROR:
+            return {
+                ...state,
+                error: action.payload,
+                loading: false,
+            };
+        case SET_CROPPED_IMAGE_FOR_POST:
+            return {
+                ...state,
+                croppedImage: action.payload,
+            };
 
-    case SET_DESCRIPTION_FOR_POST:
-        return {
-            ...state,
-            description: action.payload,
-        };
+        case SET_DESCRIPTION_FOR_POST:
+            return {
+                ...state,
+                description: action.payload,
+            };
 
-    case RESET_ADD_POST:
-        return {
-            croppedImage: '',
-            description: '',
-        };
+        case RESET_ADD_POST:
+            return {
+                croppedImage: '',
+                description: '',
+            };
 
-    default:
-        return state;
+        default:
+            return state;
     }
 };

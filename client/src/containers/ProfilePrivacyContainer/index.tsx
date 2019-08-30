@@ -1,40 +1,41 @@
-import { changePrivacy } from '../../store/changeSettings/actions';
-import { isValidSettings } from '../../utils/validation';
+import { changeSettings } from '../../store/profile/actions';
+import { isValidSettings as validate } from '../../utils/validation';
+import { renderField } from '../../components/CommonComponents/ReduxFormFields';
+import { IUserSubscriptions } from '../ProfileSubscriptionsContainer';
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Form, Label, Input, FormProps } from 'reactstrap';
+import { Form, Label, FormProps } from 'reactstrap';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 
 import { Link } from 'react-router-dom';
 
-interface IStateToProps {
-    settings: any;
+export interface IUserPrivacy {
+    isPrivateAccount: boolean;
+    isActivityStatus: boolean;
+    isStorySharing: boolean;
 }
 
-class ProfilePrivacy extends React.Component<any> { // FIXME any type
-    constructor(props: any) {
-        super(props);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
+class ProfilePrivacyContainer extends React.Component<any> { // FIXME any type
+    public componentWillUnmount(): void {
+        const { username, subscriptions, initialValues, finalValues }: FormProps = this.props;
 
-    public onSubmit(event: any): any { // FIXME any type
-        if (!isValidSettings(event)) {
-            return;
+        if (JSON.stringify(initialValues) !== JSON.stringify(finalValues)) {
+            this.props.changeSettings(username, subscriptions, finalValues);
         }
-        this.props.changeSubscription(event);
     }
 
     public render(): JSX.Element {
         return (
-            <div className='container ml-4 mr-4'>
+            <div className='container'>
                 <h3 className='text-center font-weight-light text-secondary text-uppercase'>Privacy and Security</h3>
-                <Form className='container mt-4 bg-white text-left p-4' onChange={this.onSubmit}>
+                <Form className='container mt-4 bg-white text-left p-4'>
                     <Label className='d-flex align-items-center'>
-                        <Input
-                            name='privateAccount'
+                        <Field
+                            name='isPrivateAccount'
                             type='checkbox'
                             className='position-static m-0 mr-2'
-                            checked={this.props.settings}
+                            component={renderField}
                         />
                         Private Account
                     </Label>
@@ -45,11 +46,11 @@ class ProfilePrivacy extends React.Component<any> { // FIXME any type
                     </p>
 
                     <Label className='d-flex align-items-center'>
-                        <Input
-                            name='showActivityStatus'
+                        <Field
+                            name='isActivityStatus'
                             type='checkbox'
                             className='position-static m-0 mr-2'
-                            checked={this.props.settings}
+                            component={renderField}
                         />
                         Show Activity Status
                     </Label>
@@ -61,11 +62,11 @@ class ProfilePrivacy extends React.Component<any> { // FIXME any type
                     </p>
 
                     <Label className='d-flex align-items-center'>
-                        <Input
-                            name='photosOfYou'
+                        <Field
+                            name='isStorySharing'
                             type='checkbox'
                             className='position-static m-0 mr-2'
-                            checked={this.props.settings}
+                            component={renderField}
                         />
                         Photos of You
                     </Label>
@@ -90,12 +91,29 @@ class ProfilePrivacy extends React.Component<any> { // FIXME any type
     }
 }
 
-const mapStateToProps = (state: FormProps): IStateToProps => ({
-    settings: state.profile.user.settings,
+const mapStateToProps = (state: FormProps): {
+    username: string,
+    subscriptions: IUserSubscriptions,
+    initialValues: IUserPrivacy,
+    finalValues: IUserPrivacy,
+} => ({
+    username: state.profile.user.username,
+    subscriptions: state.profile.user.subscriptions,
+    initialValues: state.profile.user.privacy,
+    finalValues: formValueSelector('changePrivacy')(state,
+        'isPrivateAccount',
+        'isActivityStatus',
+        'isStorySharing',
+    ),
 });
 
 const mapDispatchToProps = {
-    changePrivacy,
+    changeSettings,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePrivacy);
+const elementWrapper = reduxForm({
+    form: 'changePrivacy',
+    validate,
+})(ProfilePrivacyContainer);
+
+export default connect(mapStateToProps, mapDispatchToProps)(elementWrapper);
