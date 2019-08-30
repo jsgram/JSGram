@@ -1,8 +1,8 @@
 import React from 'react';
 import '../../styles/style.scss';
-import { Waypoint } from 'react-waypoint';
-import { IUserData } from '../Profile';
-import { IPost } from '../../store/post/reducers';
+import {Waypoint} from 'react-waypoint';
+import {IUserData} from '../Profile';
+import {IPost} from '../../store/post/reducers';
 
 interface IProps {
     posts: any;
@@ -13,7 +13,7 @@ interface IProps {
 
 export default class Post extends React.Component<IProps> {
 
-    public state: {page: number} = {
+    public state: { page: number } = {
         page: 1,
     };
 
@@ -31,7 +31,7 @@ export default class Post extends React.Component<IProps> {
         const postItems = this.props.posts.posts.map((post: IPost, i: number) => {
             const {description, imgPath}: any = post;
             return (
-                <div className='col-md-4 text-center mt-2' key={i}>
+                <div className='col-md-4 text-center mt-2' key={i} data-toggle='modal' data-target='#exampleModal'>
                     <img src={imgPath} className='img-fluid' alt=''/>
                     <p>{description}</p>
                     <p>Likes: 0</p>
@@ -46,7 +46,9 @@ export default class Post extends React.Component<IProps> {
                     {postItems}
                 </div>
                 <Waypoint
-                    onEnter={(): void => {this.getMorePosts(); }}
+                    onEnter={(): void => {
+                        this.getMorePosts();
+                    }}
                 />
             </div>
         );
