@@ -77,13 +77,10 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                 <div className='row mt-5 profile-post'>
                     {
                         this.postPhoto.map((post: {
-                                id: number,
-                                imgPath: string,
-                                postDescription: string,
-                                userAvatar: string,
-                                userName: string,
-                            }) => (
-                                <div className='col-sm-4 text-center pt-2 user-post'>
+                            id: number, imgPath: string, postDescription: string,
+                            userAvatar: string, userName: string,
+                        }) => (
+                                <div className='col-sm-4 text-center pt-2 post-photo'>
                                     <img
                                         src={post.imgPath}
                                         height={293}
