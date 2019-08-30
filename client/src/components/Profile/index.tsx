@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/style.scss';
 import { Instagram } from 'react-content-loader';
 import { Button, Spinner } from 'reactstrap';
-import './Profile.scss';
+import './style.scss';
 import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';

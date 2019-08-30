@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, ModalHeader } from 'reactstrap';
-import './ProfilePost.scss';
+import './style.scss';
 
 interface IModalState {
     modal: boolean;
@@ -71,10 +71,11 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
         this.addLikeForPost();
     }
 
-    public renderPost = (): any => {
-        return (
+    public render(): JSX.Element {
+        const renderPost = (): any => {
+            return (
             <div className='container '>
-                <div className='row mt-5'>
+                <div className='row mt-5 wrapper'>
                     {
                         this.postPhoto.map((post: {
                             id: number,
@@ -84,7 +85,7 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                             userName: string,
                         }) => {
                             return (
-                                        <div className='col-sm-4 text-center pt-2 user-post' key={post.id}>
+                                        <div className='col-sm-4 text-center pt-2 user-post'>
                                             <img
                                                 src={post.imgPath}
                                                 height={293}
@@ -92,7 +93,7 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                                                 onClick={this.toggle}
                                                 className='img-fluid'
                                             />
-                                        <Modal className='modal-dial modal-lg modal-dialog-centered'
+                                        <Modal className='wrapper modal-dial modal-lg modal-dialog-centered'
                                                isOpen={this.state.modal}
                                                toggle={this.toggle}>
                                             <div className='modal-body p-0'>
@@ -208,12 +209,8 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                     }
                 </div>
             </div>
-        );
-    }
-
-    public render(): JSX.Element {
-        return (
-            this.renderPost()
-        );
+            );
+        };
+        return (renderPost());
     }
 }
