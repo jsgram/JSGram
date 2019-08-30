@@ -1,4 +1,5 @@
 import { Schema, Document, model } from 'mongoose';
+import { ILikeModel } from './like.model';
 
 export interface IPostModel extends Document {
     author: string;
@@ -6,7 +7,7 @@ export interface IPostModel extends Document {
     description?: string;
     comments?: any[];
     tags?: string[];
-    likes?: any[];
+    likes?: ILikeModel['_id'];
     createdAt: Date;
 }
 
@@ -16,7 +17,7 @@ const PostSchema: Schema = new Schema({
     description: {type: String, default: '', maxlength: 1000},
     comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
     tags: [{type: String}],
-    likes: [{type: Schema.Types.ObjectId, ref: 'Like'}],
+    likes: [{type: Schema.Types.ObjectId, default: [], ref: 'Like', required: true}],
     createdAt: {type: Date, default: Date.now, required: true},
 });
 

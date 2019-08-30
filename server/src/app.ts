@@ -15,6 +15,7 @@ import { confirmUserRouter } from './routes/confirm.user.routes/confirm.user.rou
 import { forgotPassword } from './routes/forgot.password.controllers/forgot.password';
 import { googleRouter } from './routes/auth.routes/google.router';
 import { profileRouter } from './routes/profile.routes/profile.router';
+import { likesRouter } from './routes/likes.router/like.router';
 
 import { unknownPageHandler } from './helpers/unknown.page.handler';
 import { errorHandler } from './helpers/error.handler';
@@ -38,6 +39,7 @@ app.use('/auth', authRouter);
 app.use('/confirm', confirmUserRouter);
 app.use('/forgot-password', forgotPassword);
 app.use('/profile', profileRouter);
+app.use('/likes', likesRouter);
 app.use(googleRouter);
 
 // Symlinking client build to server directory appears to be a better solution
