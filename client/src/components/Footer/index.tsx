@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import './Footer.scss';
+import './style.scss';
 
 const footerLink = [
     {id: 1, label: 'About us', href: '#'},
