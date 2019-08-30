@@ -4,7 +4,7 @@ import './ProfilePost.scss';
 
 interface IModalState {
     modal: boolean;
-    flag: boolean;
+    postLike: boolean;
 }
 
 interface IProps {
@@ -37,12 +37,12 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
             userName: 'volodiarevura',
         },
     ];
-
+// TODO fix post like
     constructor(props: IProps) {
         super(props);
         this.state = {
             modal: false,
-            flag: false,
+            postLike: false,
         };
 
         this.toggle = this.toggle.bind(this);
@@ -57,7 +57,7 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
 
     public addLikeForPost(): any {
         this.setState({
-            flag: true,
+            postLike: true,
         });
     }
 
@@ -91,7 +91,6 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                                                 alt='post'
                                                 onClick={this.toggle}
                                                 className='img-fluid'
-                                                key={post.id}
                                             />
                                         <Modal className='modal-dial modal-lg modal-dialog-centered'
                                                isOpen={this.state.modal}
@@ -145,7 +144,7 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                                                             </div>
                                                             <div className='d-lg-none d-block mt-1 mb-2'>
                                                                 <i className=
-                                                                       {this.state.flag ?
+                                                                       {this.state.postLike ?
                                                                            'fa fa-heart fa-lg pr-1 like' :
                                                                            'fa fa-heart-o fa-lg pr-1'}
                                                                    onClick={this.addLikeForPost}
@@ -174,7 +173,7 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                                                             </div>
                                                             <div className='d-lg-block d-none mt-1'>
                                                                 <i className=
-                                                                       {this.state.flag ?
+                                                                       {this.state.postLike ?
                                                                            'fa fa-heart fa-lg pr-1 like' :
                                                                            'fa fa-heart-o fa-lg pr-1'}
                                                                    onClick={this.addLikeForPost}
