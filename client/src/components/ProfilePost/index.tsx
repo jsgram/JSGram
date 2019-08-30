@@ -74,7 +74,7 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
     public render(): JSX.Element {
         const renderPost = (): any => (
             <div className='container '>
-                <div className='row mt-5 wrapper'>
+                <div className='row mt-5 profile-post'>
                     {
                         this.postPhoto.map((post: {
                                 id: number,
@@ -91,7 +91,7 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                                         onClick={this.toggle}
                                         className='img-fluid'
                                     />
-                                    <Modal className='wrapper modal-dial modal-lg modal-dialog-centered'
+                                    <Modal className='profile-post modal-dial modal-lg modal-dialog-centered'
                                            isOpen={this.state.modal}
                                            toggle={this.toggle}>
                                         <div className='modal-body p-0'>
