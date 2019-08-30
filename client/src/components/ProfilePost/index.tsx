@@ -78,132 +78,131 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                 <div className='row mt-5 wrapper'>
                     {
                         this.postPhoto.map((post: {
-                            id: number,
-                            imgPath: string,
-                            postDescription: string,
-                            userAvatar: string,
-                            userName: string,
-                        }) => {
-                            return (
-                                        <div className='col-sm-4 text-center pt-2 user-post'>
-                                            <img
-                                                src={post.imgPath}
-                                                height={293}
-                                                alt='post'
-                                                onClick={this.toggle}
-                                                className='img-fluid'
-                                            />
-                                        <Modal className='wrapper modal-dial modal-lg modal-dialog-centered'
-                                               isOpen={this.state.modal}
-                                               toggle={this.toggle}>
-                                            <div className='modal-body p-0'>
-                                                <div className='container p-0'>
-                                                    <div className='row'>
-                                                        <div className='col-lg-8'>
-                                                            <ModalHeader className='d-lg-none display-1'
-                                                                         toggle={this.toggle}>
+                                id: number,
+                                imgPath: string,
+                                postDescription: string,
+                                userAvatar: string,
+                                userName: string,
+                            }) => (
+                                <div className='col-sm-4 text-center pt-2 user-post'>
+                                    <img
+                                        src={post.imgPath}
+                                        height={293}
+                                        alt='post'
+                                        onClick={this.toggle}
+                                        className='img-fluid'
+                                    />
+                                    <Modal className='wrapper modal-dial modal-lg modal-dialog-centered'
+                                           isOpen={this.state.modal}
+                                           toggle={this.toggle}>
+                                        <div className='modal-body p-0'>
+                                            <div className='container p-0'>
+                                                <div className='row'>
+                                                    <div className='col-lg-8'>
+                                                        <ModalHeader className='d-lg-none display-1'
+                                                                     toggle={this.toggle}>
+                                                            <div>
+                                                                <img
+                                                                    src={post.userAvatar}
+                                                                    alt='avatar'
+                                                                    width={32}
+                                                                    height={32}
+                                                                    className='img-fluid rounded-circle mt-2 mr-2'
+                                                                />
+                                                                <span>{post.userName}</span>
+                                                            </div>
+                                                        </ModalHeader>
+                                                        <img
+                                                            src={post.imgPath}
+                                                            className='w-100 img-fluid'
+                                                            alt='post'/>
+                                                    </div>
+                                                    <div className='col-lg-4'>
+                                                        <div className='d-lg-block d-none'>
+                                                            <img
+                                                                src={post.userAvatar}
+                                                                alt='avatar'
+                                                                width={32}
+                                                                height={32}
+                                                                className='img-fluid rounded-circle mt-2 mr-2'
+                                                            />
+                                                            <span>{post.userName}</span>
+                                                            <div className='d-lg-block d-none'>
+                                                                <hr className='mb-0'/>
+                                                            </div>
+                                                            <img
+                                                                src={post.userAvatar}
+                                                                alt='avatar'
+                                                                width={32}
+                                                                height={32}
+                                                                className='img-fluid rounded-circle mt-2 mr-2'
+                                                            />
+                                                            <span>{post.userName}</span>
+                                                            <p>{post.postDescription}</p>
+                                                        </div>
+                                                        <div className='d-lg-none d-block mt-1 mb-2'>
+                                                            <i className=
+                                                                   {this.state.postLike ?
+                                                                       'fa fa-heart fa-lg pr-1 like' :
+                                                                       'fa fa-heart-o fa-lg pr-1'}
+                                                               onClick={this.addLikeForPost}
+                                                            />
+                                                            <span>72 likes</span>
+                                                        </div>
+                                                        <div className='description-post'>
+                                                            <div className='comments'>
                                                                 <div>
                                                                     <img
                                                                         src={post.userAvatar}
                                                                         alt='avatar'
                                                                         width={32}
                                                                         height={32}
-                                                                        className='img-fluid rounded-circle mt-2 mr-2'
+                                                                        className='img-fluid rounded-circle
+                                                                            mt-2 mr-2'
                                                                     />
                                                                     <span>{post.userName}</span>
+                                                                    <p>Today is a nice day.Today is a
+                                                                        nice day.Today is a nice day</p>
                                                                 </div>
-                                                            </ModalHeader>
-                                                            <img
-                                                                src={post.imgPath}
-                                                                className='w-100 img-fluid'
-                                                                alt='post'/>
+                                                            </div>
                                                         </div>
-                                                        <div className='col-lg-4'>
-                                                            <div className='d-lg-block d-none'>
-                                                                <img
-                                                                    src={post.userAvatar}
-                                                                    alt='avatar'
-                                                                    width={32}
-                                                                    height={32}
-                                                                    className='img-fluid rounded-circle mt-2 mr-2'
-                                                                />
-                                                                <span>{post.userName}</span>
-                                                                <div className='d-lg-block d-none'>
-                                                                    <hr className='mb-0'/>
-                                                                </div>
-                                                                <img
-                                                                    src={post.userAvatar}
-                                                                    alt='avatar'
-                                                                    width={32}
-                                                                    height={32}
-                                                                    className='img-fluid rounded-circle mt-2 mr-2'
-                                                                />
-                                                                <span>{post.userName}</span>
-                                                                <p>{post.postDescription}</p>
-                                                            </div>
-                                                            <div className='d-lg-none d-block mt-1 mb-2'>
-                                                                <i className=
-                                                                       {this.state.postLike ?
-                                                                           'fa fa-heart fa-lg pr-1 like' :
-                                                                           'fa fa-heart-o fa-lg pr-1'}
-                                                                   onClick={this.addLikeForPost}
-                                                                />
-                                                                <span>72 likes</span>
-                                                            </div>
-                                                            <div className='description-post'>
-                                                                <div className='comments'>
-                                                                    <div>
-                                                                        <img
-                                                                            src={post.userAvatar}
-                                                                            alt='avatar'
-                                                                            width={32}
-                                                                            height={32}
-                                                                            className='img-fluid rounded-circle
-                                                                            mt-2 mr-2'
-                                                                        />
-                                                                        <span>{post.userName}</span>
-                                                                        <p>Today is a nice day.Today is a
-                                                                            nice day.Today is a nice day</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className='d-lg-block d-none'>
-                                                                <hr className='mt-0'/>
-                                                            </div>
-                                                            <div className='d-lg-block d-none mt-1'>
-                                                                <i className=
-                                                                       {this.state.postLike ?
-                                                                           'fa fa-heart fa-lg pr-1 like' :
-                                                                           'fa fa-heart-o fa-lg pr-1'}
-                                                                   onClick={this.addLikeForPost}
-                                                                />
-                                                                <span>72 likes</span>
-                                                            </div>
-                                                            <div className='d-lg-block d-none'>
-                                                                <hr/>
-                                                            </div>
-                                                            <div className='mt-3'>
+                                                        <div className='d-lg-block d-none'>
+                                                            <hr className='mt-0'/>
+                                                        </div>
+                                                        <div className='d-lg-block d-none mt-1'>
+                                                            <i className=
+                                                                   {this.state.postLike ?
+                                                                       'fa fa-heart fa-lg pr-1 like' :
+                                                                       'fa fa-heart-o fa-lg pr-1'}
+                                                               onClick={this.addLikeForPost}
+                                                            />
+                                                            <span>72 likes</span>
+                                                        </div>
+                                                        <div className='d-lg-block d-none'>
+                                                            <hr/>
+                                                        </div>
+                                                        <div className='mt-3'>
                                         <textarea
                                             className='add-comment p-0 border-0'
                                             placeholder='Add your comment...'
                                             autoComplete='off'>
                                         </textarea>
-                                                                <button
-                                                                    className='button-comment p-0 border-0
+                                                            <button
+                                                                className='button-comment p-0 border-0
                                                         float-lg-none float-right'
-                                                                    type='submit'
-                                                                    disabled>
-                                                                    Add comment
-                                                                </button>
-                                                            </div>
+                                                                type='submit'
+                                                                disabled>
+                                                                Add comment
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </Modal>
-                                    </div>
-                            );
-                        })
+                                        </div>
+                                    </Modal>
+                                </div>
+                            ),
+                        )
                     }
                 </div>
             </div>
