@@ -69,7 +69,7 @@ export default class Profile extends React.Component<IFormProps> {
             <div
                 className='row profile d-flex pt-2 justify-content-lg-center
                 justify-content-sm-around justify-content-center'>
-                <Menu/>
+                <Menu username={this.props.username}/>
                 <div className='mr-lg-5 mr-3'>
                     <img
                         src={photo || noAvatar}
@@ -82,7 +82,7 @@ export default class Profile extends React.Component<IFormProps> {
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
                     <p className='profile-name align-self-center'>
                         {fullName}
-                        <Link to='/profile/edit'>
+                        <Link to={`/profile/${this.props.username}/edit`}>
                             <button className='bg-dark ml-5 btn text-white'>
                                 Edit profile
                             </button>
