@@ -131,8 +131,6 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                                                                 <div className='d-lg-block d-none'>
                                                                     <hr className='mb-0'/>
                                                                 </div>
-                                                            </div>
-                                                            <div className='d-lg-block d-none'>
                                                                 <img
                                                                     src={post.userAvatar}
                                                                     alt='avatar'
