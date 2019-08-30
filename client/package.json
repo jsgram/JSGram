@@ -9,8 +9,6 @@
     "dotenv": "^8.0.0",
     "font-awesome": "^4.7.0",
     "history": "^4.9.0",
-    "jquery": "^3.4.1",
-    "mdbreact": "^4.19.1",
     "react": "^16.8.6",
     "react-avatar-edit": "^0.8.3",
     "react-content-loader": "^4.2.2",
