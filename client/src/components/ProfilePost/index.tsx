@@ -37,6 +37,7 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
             userName: 'volodiarevura',
         },
     ];
+
 // TODO fix post like
     constructor(props: IProps) {
         super(props);
@@ -72,7 +73,7 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
     }
 
     public render(): JSX.Element {
-        const renderPost = (): any => (
+        return (
             <div className='container '>
                 <div className='row mt-5 profile-post'>
                     {
@@ -202,7 +203,6 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                     }
                 </div>
             </div>
-            );
-        return (renderPost());
+        );
     }
 }
