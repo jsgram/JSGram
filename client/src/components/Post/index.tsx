@@ -1,7 +1,7 @@
 import React from 'react';
 import {menuData} from '../Post/menu-data';
 import {Container, Row} from 'reactstrap';
-import './Post.scss';
+import './style.scss';
 import { booleanLiteral, JSXElement } from '@babel/types';
 export class Post extends React.Component<{}, { isMenuOpen: boolean }> {
     constructor( props: any ) {
@@ -16,7 +16,7 @@ export class Post extends React.Component<{}, { isMenuOpen: boolean }> {
     public render(): JSX.Element {
         const { isMenuOpen }: { isMenuOpen: boolean }  = this.state;
         return(
-        <div>
+        <div className='burger-menu'>
                 <Container className=' ml-2 dots' onClick={this.handleMenuButtonClick}>
                     <Row><text className='mt-1'>.</text></Row>
                     <Row><text className='mt-1'>.</text></Row>

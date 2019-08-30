@@ -4,7 +4,6 @@ import rootReducer from './store/reducers';
 import { Provider } from 'react-redux';
 import { routes } from './routes';
 import { Footer } from './components/Footer';
-import {Post} from './components/Post';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import AlertContainer from './containers/AlertContainer';
