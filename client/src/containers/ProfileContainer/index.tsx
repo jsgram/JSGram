@@ -27,8 +27,6 @@ export class ProfileContainer extends React.Component <any> {
                     loaded={this.props.loaded}
                     loading={this.props.loading}
                     getUser={this.props.getUser}
-                    deletePhoto={this.props.deletePhoto}
-                    addLike={this.props}
                     username={username}
                 />
             </div>

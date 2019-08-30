@@ -1,7 +1,7 @@
 import {
     GET_POSTS_PENDING,
     GET_POSTS_SUCCESS,
-    GET_POSTS_ERROR, GET_MORE_POSTS_SUCCESS, ALL_POSTS_LOADED,
+    GET_POSTS_ERROR, GET_MORE_POSTS_SUCCESS, ALL_POSTS_LOADED, CLEAR_LOADED,
 } from './actionTypes';
 
 export interface IPost {
@@ -57,6 +57,11 @@ export const postReducer = (
         return {
             ...state,
             loaded: action.payload,
+        };
+    case CLEAR_LOADED:
+        return {
+            ...state,
+            loaded: false,
         };
     default:
         return state;
