@@ -1,7 +1,7 @@
 import React from 'react';
 import { DropzoneState, useDropzone } from 'react-dropzone';
 import { Container, Row } from 'reactstrap';
-import '../PostPost/AddPost.scss';
+import '../PostPost/style.scss';
 
 interface IProps {
     uploadImageToCropper: (imageFile: File) => void;

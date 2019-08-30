@@ -7,7 +7,7 @@ import { getUser } from '../../store/profile/actions';
 import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
-import './SideBar.scss';
+import './style.scss';
 
 interface IStateToProps {
     user: IUser;
@@ -17,19 +17,25 @@ interface IState {
     profile: IStateToProps;
 }
 
+interface IParams {
+    username: string;
+}
+
 class SideBar extends React.Component<any> {
     public componentDidMount(): void {
-        this.props.getUser();
+        const {username}: IParams = this.props.match.params;
+        this.props.getUser(username);
     }
 
     public render(): JSX.Element {
         const { user: { fullName, photo } }: any = this.props;
+        const {username}: IParams = this.props.match.params;
         return (
             <Container>
                 <div
                     className='row profile d-flex pt-2 justify-content-lg-center
                     justify-content-sm-around justify-content-center'>
-                    <Menu/>
+                    <Menu username={username}/>
                 </div>
                 <Container>
                     <Row className='profile'>
@@ -57,7 +63,7 @@ class SideBar extends React.Component<any> {
                                         <li className='nav-item'>
                                             <NavLink
                                                 exact
-                                                to='/profile/edit'
+                                                to={`/profile/${username}/edit`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-edit'></i>
@@ -66,7 +72,7 @@ class SideBar extends React.Component<any> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to='/profile/edit/change-email'
+                                                to={`/profile/${username}/edit/change-email`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-envelope'></i>
@@ -75,7 +81,7 @@ class SideBar extends React.Component<any> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to='/profile/edit/change-password'
+                                                to={`/profile/${username}/edit/change-password`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-key'></i>
@@ -84,7 +90,7 @@ class SideBar extends React.Component<any> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to='/profile/edit/subscribe-to'
+                                                to={`/profile/${username}/edit/subscribe-to`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-check-circle'></i>
@@ -93,7 +99,7 @@ class SideBar extends React.Component<any> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to='/profile/edit/privacy'
+                                                to={`/profile/${username}/edit/privacy`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-user-secret'></i>

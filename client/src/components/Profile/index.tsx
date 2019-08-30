@@ -2,11 +2,12 @@ import React from 'react';
 import '../../styles/style.scss';
 import { Instagram } from 'react-content-loader';
 import { Button, Spinner } from 'reactstrap';
-import './Profile.scss';
+import './style.scss';
 import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
+import ProfilePost from '../ProfilePost';
 
 export interface IUserData {
     posts: number;
@@ -22,6 +23,7 @@ export interface IUserData {
 interface IFormProps {
     getUser: (username: string) => void;
     deletePhoto: () => void;
+    addLike: any;
     user: IUserData;
     loaded: boolean;
     loading: boolean;
@@ -67,7 +69,7 @@ export default class Profile extends React.Component<IFormProps> {
             <div
                 className='row profile d-flex pt-2 justify-content-lg-center
                 justify-content-sm-around justify-content-center'>
-                <Menu/>
+                <Menu username={this.props.username}/>
                 <div className='mr-lg-5 mr-3'>
                     <img
                         src={photo || noAvatar}
@@ -80,7 +82,7 @@ export default class Profile extends React.Component<IFormProps> {
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
                     <p className='profile-name align-self-center'>
                         {fullName}
-                        <Link to='/profile/edit'>
+                        <Link to={`/profile/${this.props.username}/edit`}>
                             <button className='bg-dark ml-5 btn text-white'>
                                 Edit profile
                             </button>
@@ -110,6 +112,7 @@ export default class Profile extends React.Component<IFormProps> {
                     </Link>
                     <PopUpModal deletePhoto={this.props.deletePhoto}/>
                 </div>
+                <ProfilePost deletePhoto={this.props.deletePhoto} addLike={this.props.addLike} />
             </div>
         );
     }
