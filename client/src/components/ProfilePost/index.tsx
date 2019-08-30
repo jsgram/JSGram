@@ -72,8 +72,7 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
     }
 
     public render(): JSX.Element {
-        const renderPost = (): any => {
-            return (
+        const renderPost = (): any => (
             <div className='container '>
                 <div className='row mt-5 wrapper'>
                     {
@@ -207,7 +206,6 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                 </div>
             </div>
             );
-        };
         return (renderPost());
     }
 }
