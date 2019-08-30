@@ -2,12 +2,14 @@ import React from 'react';
 import '../../styles/style.scss';
 import { Instagram } from 'react-content-loader';
 import { Button, Spinner } from 'reactstrap';
-import './Profile.scss';
+import './style.scss';
 import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 import PostContainer from '../../containers/PostContainer';
+import ProfilePost from '../ProfilePost';
+
 export interface IUserData {
     posts: number;
     followers: number;
@@ -22,6 +24,7 @@ export interface IUserData {
 interface IFormProps {
     getUser: (username: string) => void;
     deletePhoto: () => void;
+    addLike: any;
     user: IUserData;
     loaded: boolean;
     loading: boolean;
@@ -113,6 +116,7 @@ export default class Profile extends React.Component<IFormProps> {
                 <div className='container'>
                     <PostContainer/>
                 </div>
+                <ProfilePost deletePhoto={this.props.deletePhoto} addLike={this.props.addLike} />
             </div>
         );
     }
