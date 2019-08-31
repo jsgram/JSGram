@@ -1,5 +1,5 @@
 import React from 'react';
-import {menuData} from '../Post/menu-data';
+import {menuData} from './menu-data';
 import {Container, Row} from 'reactstrap';
 import './style.scss';
 import { booleanLiteral, JSXElement } from '@babel/types';
@@ -17,13 +17,14 @@ export class Post extends React.Component<{}, { isMenuOpen: boolean }> {
         const { isMenuOpen }: { isMenuOpen: boolean }  = this.state;
         return(
         <div className='burger-menu'>
-                <Container className=' ml-2 dots' onClick={this.handleMenuButtonClick}>
+            {/* <i className='fa fa-ellipsis-v'onClick = { this.handleMenuButtonClick }/> */}
+                <Container className='dots' onClick={this.handleMenuButtonClick}>
                     <Row><text className='mt-1'>.</text></Row>
                     <Row><text className='mt-1'>.</text></Row>
                     <Row><text className='mt-1'>.</text></Row>
                 </Container>
             {menuData.length && (
-                <nav className={ `navig ml-3 mt-2 ${ isMenuOpen ? 'show-menu' : ''}` }>
+                <nav className={ `navig ${ isMenuOpen ? 'show-menu' : ''}` }>
                 <ul className='list-unstyled menu-items'>
                     { menuData.map((item: any) => (
                         <li className='menu-list' key={item.label}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, ModalHeader } from 'reactstrap';
 import './style.scss';
+import { Post } from '../MenuPost';
 
 interface IModalState {
     modal: boolean;
@@ -99,12 +100,13 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                                                         <ModalHeader className='d-lg-none display-1'
                                                                      toggle={this.toggle}>
                                                             <div>
+                                                                <Post/>
                                                                 <img
                                                                     src={post.userAvatar}
                                                                     alt='avatar'
                                                                     width={32}
                                                                     height={32}
-                                                                    className='img-fluid rounded-circle mt-2 mr-2'
+                                                                    className='img-fluid rounded-circle mt-2 ml-4'
                                                                 />
                                                                 <span>{post.userName}</span>
                                                             </div>
@@ -116,6 +118,7 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                                                     </div>
                                                     <div className='col-lg-4'>
                                                         <div className='d-lg-block d-none'>
+                                                            <div className='row'>
                                                             <img
                                                                 src={post.userAvatar}
                                                                 alt='avatar'
@@ -123,7 +126,9 @@ export default class ProfilePost extends React.Component<IProps, IModalState> {
                                                                 height={32}
                                                                 className='img-fluid rounded-circle mt-2 mr-2'
                                                             />
-                                                            <span>{post.userName}</span>
+                                                            <span className='mt-2'>{post.userName}</span>
+                                                            <Post/>
+                                                            </div>
                                                             <div className='d-lg-block d-none'>
                                                                 <hr className='mb-0'/>
                                                             </div>

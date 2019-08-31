@@ -1,0 +1,57 @@
+@import '../../styles/variables';
+
+.burger-menu {
+  .dots {
+    position: absolute;
+    font-weight: bold;
+    font-size: 30px;
+    @media screen and (min-width: $break-md) {
+      margin-left: 3em;
+    }
+    line-height: 3px;
+    cursor: default;
+  }
+
+  .navig {
+    position: absolute;
+    left: -300vw;
+    width: 120px;
+    height: 95px;
+    background-color: $color-white;
+    border: 0.5px solid $color-grey;
+    border-radius: 0.3em;
+    opacity: 0.9;
+  }
+
+  li {
+    &:first-of-type {
+      border-bottom: 2px solid $color-grey;
+    }
+  }
+
+
+  .menu-link {
+    color: $color-black;
+    font-size: 20px;
+    font-family: 'Times New Roman';
+    text-decoration: none;
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
+
+  .show-menu {
+    top: 3em;
+    left: 0.7em;
+    @media screen and (min-width: $break-md) {
+      top: 2.2em;
+      left: 8.8em;
+    }
+  }
+}
+
+
+
+
+
