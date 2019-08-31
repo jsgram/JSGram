@@ -73,7 +73,7 @@ export default class Profile extends React.Component<IFormProps> {
                 <div className='mr-lg-5 mr-3'>
                     <img
                         src={photo || noAvatar}
-                        className='img-fluid float-right'
+                        className='img-fluid float-right mb-2'
                         alt='avatar'
                         height={150}
                         width={150}
