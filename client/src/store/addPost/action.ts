@@ -42,6 +42,11 @@ export const resetAddPost = (): { type: string, payload: any } => ({
     payload: '',
 });
 
+export const informFileError = (message: string): (dispatch: Dispatch) => void =>
+    (dispatch: Dispatch): void => {
+        dispatch(showAlert(message, 'danger'));
+    };
+
 export const uploadPost = (croppedImage: string, description: string, resetState: () => void):
     (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {

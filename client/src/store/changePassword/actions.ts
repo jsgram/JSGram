@@ -4,6 +4,7 @@ import { AuthAPI } from '../api';
 import { Dispatch } from 'redux';
 import { IUser } from '../commonInterfaces/commonInterfaces';
 import { CHANGE_PASSWORD_PENDING, CHANGE_PASSWORD_SUCCESS, CHANGE_PASSWORD_ERROR } from './actionTypes';
+import { history } from '../../history';
 
 export const changePasswordPending = (): { type: string } => ({
     type: CHANGE_PASSWORD_PENDING,
@@ -22,8 +23,9 @@ export const changePasswordError = (error: Error): { type: string, payload: Erro
 export const changePassword = (password: string, token: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const res = await API.put(`/forgot-password/${token}`, password);
-            dispatch(showAlert(res.data.status, 'success'));
+            await API.put(`/forgot-password/${token}`, password);
+            dispatch(showAlert('You have changed password successfully', 'success'));
+            history.push('/login');
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }

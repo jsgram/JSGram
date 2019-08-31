@@ -1,0 +1,1 @@
+export const SET_NEW_USERNAME = 'SET_NEW_USERNAME';
