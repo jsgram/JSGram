@@ -73,7 +73,7 @@ export default class Profile extends React.Component<IFormProps> {
                 <div className='mr-lg-5 mr-3'>
                     <img
                         src={photo || noAvatar}
-                        className='img-fluid float-right'
+                        className='img-fluid float-right mb-2'
                         alt='avatar'
                         height={150}
                         width={150}
@@ -83,18 +83,18 @@ export default class Profile extends React.Component<IFormProps> {
                     <p className='profile-name align-self-center'>
                         {fullName}
                         <Link to={`/profile/${this.props.username}/edit`}>
-                            <button className='bg-dark ml-5 btn text-white'>
+                            <button className='bg-dark ml-sm-5 ml-3 btn text-white'>
                                 Edit profile
                             </button>
                         </Link>
                         {this.props.loading && <Spinner className='mt-3' color='dark'/>}
                     </p>
-                    <div className='d-flex followers align-self-center'>
+                    <div className='d-flex followers justify-content-between'>
                         <div>
-                            <a href='#/' className='mr-5'><b>{posts}</b> posts</a>
+                            <a href='#/' className='mr-2'><b>{posts}</b> posts</a>
                         </div>
                         <div>
-                            <a href='#/' className='mr-5'><b>{followers}</b> followers</a>
+                            <a href='#/' className='mr-2'><b>{followers}</b> followers</a>
                         </div>
                         <div>
                             <a href='#/'><b>{following}</b> following</a>
