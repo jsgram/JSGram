@@ -21,10 +21,10 @@ describe('Validation function:', () => {
             password: '',
         };
         const output = {
-            email: 'Please, enter your email!',
-            fullName: 'Please, enter your fullname!',
-            password: 'Please, enter your password!',
-            username: 'Please, enter your username!',
+            email: 'Please, enter your email.',
+            fullName: 'Please, enter your fullname.',
+            password: 'Please, enter your password.',
+            username: 'Please, enter your username.',
         };
 
         expect(validate(input)).toStrictEqual(output);
