@@ -1,11 +1,24 @@
 import React from 'react';
-import { IState } from '../../store/cropper/reducers';
+// import { IState } from '../../store/cropper/reducers';
 import { createFile, setAvatarToCropper, uploadPostAvatar, informFileIsTooBig } from '../../store/cropper/actions';
 import { connect } from 'react-redux';
 import Cropper from '../../components/Cropper';
+import { IUserData } from '../../components/Profile';
+
+interface IState {
+    avatar: File | null;
+    file: File | null;
+    error: Error | null;
+    loaded: boolean;
+    loading: boolean;
+    user: IUserData;
+}
 
 interface ICropperState {
     cropper: IState;
+    profile: {
+        user: IUserData;
+    };
 }
 
 class CropperContainer extends React.Component<any> {
@@ -17,6 +30,7 @@ class CropperContainer extends React.Component<any> {
                 loaded={this.props.loaded}
                 error={this.props.error}
                 loading={this.props.loading}
+                user={this.props.user}
                 uploadPostAvatar={this.props.uploadPostAvatar}
                 setAvatarToCropper={this.props.setAvatarToCropper}
                 createFile={this.props.createFile}
@@ -33,6 +47,7 @@ const mapStateToProps = (state: ICropperState): IState => ({
     loaded: state.cropper.loaded,
     error: state.cropper.error,
     loading: state.cropper.loading,
+    user: state.profile.user,
 });
 
 const mapDispatchToProps = {
