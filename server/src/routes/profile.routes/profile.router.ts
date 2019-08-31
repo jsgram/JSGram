@@ -6,8 +6,8 @@ import { editRouter } from './edit.routes/edit.routes';
 
 export const profileRouter = Router();
 
-profileRouter.get('/:URLUserName', isAuthorized, getProfile);
-profileRouter.get('/:URLUserName/posts/:page', isAuthorized, getProfilePosts);
+profileRouter.get('/:userName', isAuthorized, getProfile);
+profileRouter.get('/:userName/posts/:page', isAuthorized, getProfilePosts);
 
 profileRouter.use('/', editRouter);
 profileRouter.use('/photo', photoRouter);

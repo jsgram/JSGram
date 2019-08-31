@@ -3,7 +3,7 @@ import '../../styles/style.scss';
 import { Waypoint } from 'react-waypoint';
 import { IUserData } from '../Profile';
 import { IPost } from '../../store/post/reducers';
-import { Modal, ModalHeader } from 'reactstrap';
+import { Modal, ModalHeader, Spinner } from 'reactstrap';
 import './style.scss';
 
 interface IProps {
@@ -37,7 +37,9 @@ export default class Post extends React.Component<IProps> {
 
     public getMorePosts = (): void => {
         this.setState({page: this.state.page + 1});
-        this.props.getMorePostsAsync(this.props.user.username, this.state.page);
+        if (!this.props.posts.loaded) {
+            this.props.getMorePostsAsync(this.props.user.username, this.state.page);
+        }
     }
 
     public componentDidMount(): void {
@@ -46,7 +48,7 @@ export default class Post extends React.Component<IProps> {
 
     public render(): JSX.Element {
         return (
-            <div className='container '>
+            <div className='container justify-content-center'>
                 <div className='row mt-5 profile-post'>
                     {
                         this.props.posts.posts.map((post: IPost, i: number) => (
@@ -54,7 +56,7 @@ export default class Post extends React.Component<IProps> {
                                     <img
                                         src={post.imgPath}
                                         height={293}
-                                        alt='post'
+                                        alt=''
                                         onClick={(): void => this.toggle(post)}
                                         className='img-fluid'
                                     />
@@ -68,6 +70,9 @@ export default class Post extends React.Component<IProps> {
                             this.getMorePosts();
                         }}
                     />
+                </div>
+                <div className='w-100 d-flex align-items-center justify-content-center'>
+                    {this.props.posts.loading && <Spinner className='mt-3' color='dark'/>}
                 </div>
                 <Modal className='profile-post modal-dial modal-lg modal-dialog-centered'
                        isOpen={this.state.modal}

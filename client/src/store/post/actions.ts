@@ -4,30 +4,27 @@ import { Dispatch } from 'redux';
 import {
     ALL_POSTS_LOADED, CLEAR_LOADED,
     GET_MORE_POSTS_SUCCESS,
-    GET_POSTS_ERROR,
     GET_POSTS_PENDING,
     GET_POSTS_SUCCESS,
 } from './actionTypes';
 import { store } from '../../App';
 import { IPost } from './reducers';
 
-export const getPostsPending = (): { type: string } => ({
+export const getPostsPending = (): { type: string, loading: boolean } => ({
     type: GET_POSTS_PENDING,
+    loading: true,
 });
 
-export const getPostsSuccess = (posts: IPost): { type: string, payload: any } => ({
+export const getPostsSuccess = (posts: IPost): { type: string, payload: any, loading: boolean } => ({
     type: GET_POSTS_SUCCESS,
     payload: posts,
+    loading: false,
 });
 
-export const getMorePostsSuccess = (posts: any): { type: string, payload: any } => ({
+export const getMorePostsSuccess = (posts: any): { type: string, payload: any, loading: boolean } => ({
     type: GET_MORE_POSTS_SUCCESS,
     payload: posts,
-});
-
-export const getPostsError = (error: Error): { type: string, payload: Error } => ({
-    type: GET_POSTS_ERROR,
-    payload: error,
+    loading: false,
 });
 
 export const allPostsLoaded = (): { type: string, payload: boolean } => ({
@@ -43,13 +40,12 @@ export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise
     async (dispatch: Dispatch): Promise<void> => {
         try {
 
-            const res = await AuthAPI.get(`/profile/${username}/posts/1`);
             dispatch(getPostsPending());
+            const res = await AuthAPI.get(`/profile/${username}/posts/1`);
 
             dispatch(getPostsSuccess(res.data.postsAll));
             dispatch(clearLoaded());
         } catch (e) {
-            dispatch(getPostsError(e));
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };
@@ -60,8 +56,8 @@ export const getMorePostsAsync = (username: string, page: number): (dispatch: Di
             if (store.getState().posts.loaded) {
                 return;
             }
-            const res = await AuthAPI.get(`/profile/${username}/posts/${page}`);
             dispatch(getPostsPending());
+            const res = await AuthAPI.get(`/profile/${username}/posts/${page}`);
 
             if (!res.data.postsAll.length) {
                 dispatch(allPostsLoaded());
@@ -70,7 +66,6 @@ export const getMorePostsAsync = (username: string, page: number): (dispatch: Di
 
             dispatch(getMorePostsSuccess(res.data.postsAll));
         } catch (e) {
-            dispatch(getPostsError(e));
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };
