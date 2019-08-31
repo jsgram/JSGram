@@ -76,7 +76,6 @@ export default class AddPostCropper extends React.Component<IProps> {
     // 4 Save crop area
     public onCropComplete = (croppedArea: IArea, croppedAreaPixels: IArea): void => {
         if (croppedAreaPixels.width < 293 || croppedAreaPixels.height < 293) {
-            // this.setState({imgSrc: ''});
             this.resetImageSrc();
             this.props.informFileError('Image is too small');
         }
