@@ -7,15 +7,13 @@ import { deletePhoto } from '../../store/profile/actions';
 export class PostContainer extends React.Component <any> {
     public render(): JSX.Element {
         return (
-            <div className='container'>
-                <Post
-                    userPosts={this.props.userPosts}
-                    user={this.props.user}
-                    getPostsAsync={this.props.getPostsAsync}
-                    getMorePostsAsync={this.props.getMorePostsAsync}
-                    deletePhoto={this.props.deletePhoto}
-                />
-            </div>
+            <Post
+                userPosts={this.props.userPosts}
+                user={this.props.user}
+                getPostsAsync={this.props.getPostsAsync}
+                getMorePostsAsync={this.props.getMorePostsAsync}
+                deletePhoto={this.props.deletePhoto}
+            />
         );
     }
 }
