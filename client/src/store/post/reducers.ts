@@ -58,7 +58,7 @@ export const postReducer = (
     case ALL_POSTS_LOADED:
         return {
             ...state,
-            loaded: action.payload,
+            loaded: true,
             loading: false,
         };
     case CLEAR_LOADED:

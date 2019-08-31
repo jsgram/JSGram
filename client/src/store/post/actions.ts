@@ -23,9 +23,8 @@ export const getMorePostsSuccess = (posts: any): { type: string, payload: any } 
     payload: posts,
 });
 
-export const allPostsLoaded = (): { type: string, payload: boolean } => ({
+export const allPostsLoaded = (): { type: string} => ({
     type: ALL_POSTS_LOADED,
-    payload: true,
 });
 
 export const clearLoaded = (): { type: string } => ({
