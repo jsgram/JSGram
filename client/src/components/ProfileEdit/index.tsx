@@ -11,7 +11,6 @@ interface IProps {
 }
 
 const ProfileEdit = (props: IProps): ReactElement => {
-
     const { handleSubmit, onChangeProfile, submitting }: FormProps = props;
     return (
         <div>

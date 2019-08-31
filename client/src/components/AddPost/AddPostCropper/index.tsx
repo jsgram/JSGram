@@ -2,7 +2,7 @@ import React from 'react';
 import Cropper from 'react-easy-crop';
 import PostPhoto from '../PostPost';
 import { history } from '../../../history';
-import { Container, Row, Spinner} from 'reactstrap';
+import { Container, Row, Spinner } from 'reactstrap';
 import AddPostDropZone from '../AddPostDropZone';
 import { getCroppedImg, createBlobUrl } from '../../../helpers/upload.photo';
 import '../PostPost/style.scss';
@@ -18,6 +18,7 @@ interface IState {
     imageSrc: string;
     crop: { x: number, y: number };
     zoom: number;
+    maxZoom: number;
     aspect: number;
     croppedAreaPixels: null;
 }
@@ -30,6 +31,8 @@ export interface IProps {
     setCroppedImageForPost: any;
     setDescriptionForPost: any;
     resetAddPost: any;
+    informFileError: (message: string) => void;
+
 }
 
 export default class AddPostCropper extends React.Component<IProps> {
@@ -38,6 +41,7 @@ export default class AddPostCropper extends React.Component<IProps> {
         imageSrc: '',
         crop: {x: 0, y: 0},
         zoom: 1,
+        maxZoom: 2,
         aspect: 3 / 3,
         croppedAreaPixels: null,
     };
@@ -65,8 +69,16 @@ export default class AddPostCropper extends React.Component<IProps> {
         this.setState({zoom});
     }
 
+    public resetImageSrc = (): void => {
+        this.setState({imageSrc: ''});
+    }
+
     // 4 Save crop area
     public onCropComplete = (croppedArea: IArea, croppedAreaPixels: IArea): void => {
+        if (croppedAreaPixels.width < 293 || croppedAreaPixels.height < 293) {
+            this.resetImageSrc();
+            this.props.informFileError('Image is too small');
+        }
         this.setState({croppedAreaPixels});
     }
 
@@ -92,58 +104,64 @@ export default class AddPostCropper extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        const {imageSrc, crop, zoom, aspect}: IState = this.state;
-        const {croppedImage, description, setDescriptionForPost}: IProps = this.props;
+        const {imageSrc, crop, zoom, maxZoom, aspect}: IState = this.state;
+        const {croppedImage, description, setDescriptionForPost, informFileError}: IProps = this.props;
         return (
-                <div className='text-center'>
-                    {croppedImage ?
-                        (
-                            <PostPhoto
-                                croppedImage={croppedImage}
-                                description={description}
-                                setDescriptionForPost={setDescriptionForPost}
-                            />
-                        ) : (
-                            <Container>
-                                <Row>
-                                    <div className=' mx-auto mt-3 post-label'>New post</div>
-                                </Row>
-                                <div className='cropper-photo mt-3 mx-auto'>
-                                    {
-                                        imageSrc ?
-                                            (
+            <div className='text-center'>
+                {croppedImage ?
+                    (
+                        <PostPhoto
+                            croppedImage={croppedImage}
+                            description={description}
+                            setDescriptionForPost={setDescriptionForPost}
+                        />
+                    ) : (
+                        <Container>
+                            <Row>
+                                <div className=' mx-auto mt-3 post-label'>New post</div>
+                            </Row>
+                            <div className='cropper-photo mt-3 mx-auto'>
+                                {
+                                    imageSrc ?
+                                        (
+                                            <div>
                                                 < Cropper
                                                     image={imageSrc}
                                                     crop={crop}
                                                     zoom={zoom}
+                                                    maxZoom={maxZoom}
                                                     aspect={aspect}
                                                     onCropChange={this.onCropChange}
                                                     onCropComplete={this.onCropComplete}
                                                     onZoomChange={this.onZoomChange}
                                                 />
-                                            ) : (
-                                                <AddPostDropZone
-                                                    uploadImageToCropper={this.onUploadImageToCropper}
-                                                />
-                                            )
-                                    }
-                                </div>
-                            </Container>)
-                    }
-                    <Row className='justify-content-between post mx-auto'>
-                        <button className='mt-3 ml-0 button' onClick={this.previousPage}>Cancel</button>
-                        <button
-                            className='mt-3 ml-0 button'
-                            onClick={croppedImage ? this.onUploadPost : this.onShowCroppedImage}
-                            disabled={!imageSrc}
-                        >
+                                                <p>Scroll to zoom</p>
+                                            </div>
+                                        ) : (
+                                            <AddPostDropZone
+                                                uploadImageToCropper={this.onUploadImageToCropper}
+                                                informFileError={informFileError}
+                                                resetImageSrc={this.resetImageSrc}
+                                            />
+                                        )
+                                }
+                            </div>
+                        </Container>)
+                }
+                <Row className='justify-content-between post mx-auto'>
+                    <button className='mt-3 ml-0 button' onClick={this.previousPage}>Cancel</button>
+                    <button
+                        className='mt-3 ml-0 button'
+                        onClick={croppedImage ? this.onUploadPost : this.onShowCroppedImage}
+                        disabled={!imageSrc}
+                    >
                         {
-                            this.props.loading ? <Spinner className='spinner-border spinner-border-sm' />
-                            : croppedImage ? 'Post' : 'Next'
+                            this.props.loading ? <Spinner className='spinner-border spinner-border-sm'/>
+                                : croppedImage ? 'Post' : 'Next'
                         }
-                        </button>
-                    </Row>
-                </div>
+                    </button>
+                </Row>
+            </div>
         );
     }
 }
