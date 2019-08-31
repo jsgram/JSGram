@@ -15,6 +15,6 @@ export default combineReducers({
     cropper: cropperReducer,
     addPost: addPostReducers,
     changeEmail: changeEmailReducer,
-    posts: postReducer,
+    userPosts: postReducer,
     feed: feedReducer,
 });

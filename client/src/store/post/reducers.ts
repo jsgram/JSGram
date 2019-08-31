@@ -41,19 +41,19 @@ export const postReducer = (
     case GET_POSTS_PENDING:
         return {
             ...state,
-            loading: action.loading,
+            loading: true,
         };
     case GET_POSTS_SUCCESS:
         return {
             ...state,
             posts: action.payload,
-            loading: action.loading,
+            loading: false,
         };
     case GET_MORE_POSTS_SUCCESS:
         return {
             ...state,
             posts: [...state.posts, ...action.payload],
-            loading: action.loading,
+            loading: false,
         };
     case ALL_POSTS_LOADED:
         return {

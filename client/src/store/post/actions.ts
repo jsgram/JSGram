@@ -7,24 +7,20 @@ import {
     GET_POSTS_PENDING,
     GET_POSTS_SUCCESS,
 } from './actionTypes';
-import { store } from '../../App';
 import { IPost } from './reducers';
 
-export const getPostsPending = (): { type: string, loading: boolean } => ({
+export const getPostsPending = (): { type: string } => ({
     type: GET_POSTS_PENDING,
-    loading: true,
 });
 
-export const getPostsSuccess = (posts: IPost): { type: string, payload: any, loading: boolean } => ({
+export const getPostsSuccess = (posts: IPost): { type: string, payload: any } => ({
     type: GET_POSTS_SUCCESS,
     payload: posts,
-    loading: false,
 });
 
-export const getMorePostsSuccess = (posts: any): { type: string, payload: any, loading: boolean } => ({
+export const getMorePostsSuccess = (posts: any): { type: string, payload: any } => ({
     type: GET_MORE_POSTS_SUCCESS,
     payload: posts,
-    loading: false,
 });
 
 export const allPostsLoaded = (): { type: string, payload: boolean } => ({
@@ -53,9 +49,6 @@ export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise
 export const getMorePostsAsync = (username: string, page: number): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            if (store.getState().posts.loaded) {
-                return;
-            }
             dispatch(getPostsPending());
             const res = await AuthAPI.get(`/profile/${username}/posts/${page}`);
 

@@ -7,7 +7,7 @@ import { Modal, ModalHeader, Spinner } from 'reactstrap';
 import './style.scss';
 
 interface IProps {
-    posts: any;
+    userPosts: any;
     user: IUserData;
     getPostsAsync: (username: string) => void;
     getMorePostsAsync: (username: string, page: number) => void;
@@ -37,7 +37,7 @@ export default class Post extends React.Component<IProps> {
 
     public getMorePosts = (): void => {
         this.setState({page: this.state.page + 1});
-        if (!this.props.posts.loaded) {
+        if (!this.props.userPosts.loaded) {
             this.props.getMorePostsAsync(this.props.user.username, this.state.page);
         }
     }
@@ -51,7 +51,7 @@ export default class Post extends React.Component<IProps> {
             <div className='container justify-content-center'>
                 <div className='row mt-5 profile-post'>
                     {
-                        this.props.posts.posts.map((post: IPost, i: number) => (
+                        this.props.userPosts.posts.map((post: IPost, i: number) => (
                                 <div key={i} className='col-sm-4 text-center pt-2 post-photo'>
                                     <img
                                         src={post.imgPath}
@@ -72,7 +72,7 @@ export default class Post extends React.Component<IProps> {
                     />
                 </div>
                 <div className='w-100 d-flex align-items-center justify-content-center'>
-                    {this.props.posts.loading && <Spinner className='mt-3' color='dark'/>}
+                    {this.props.userPosts.loading && <Spinner className='mt-3' color='dark'/>}
                 </div>
                 <Modal className='profile-post modal-dial modal-lg modal-dialog-centered'
                        isOpen={this.state.modal}
