@@ -1,5 +1,4 @@
 import React from 'react';
-// import { IState } from '../../store/cropper/reducers';
 import { createFile, setAvatarToCropper, uploadPostAvatar, informFileIsTooBig } from '../../store/cropper/actions';
 import { connect } from 'react-redux';
 import Cropper from '../../components/Cropper';

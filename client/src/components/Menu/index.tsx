@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import logo from '../../assets/logo.png';
 import { Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import './Menu.scss';
+import './style.scss';
 import { connect } from 'react-redux';
 import { IStateProfileEdit } from '../../store/profileEdit/reducers';
 
