@@ -7,7 +7,7 @@ import PopUpModal from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
-import ProfilePost from '../ProfilePost';
+import PostContainer from '../../containers/PostContainer';
 
 export interface IUserData {
     posts: number;
@@ -30,7 +30,7 @@ interface IFormProps {
     username: string;
 }
 
-export default class Profile extends React.Component<IFormProps> {
+export default class Profile extends React.Component<any> {
 
     public state: { loaded: boolean } = {
         loaded: false,
@@ -48,7 +48,7 @@ export default class Profile extends React.Component<IFormProps> {
                 this.setState({loaded: true});
                 this.timerHandle = 0;
             },
-                3000,
+                1500,
             );
         }
     }
@@ -112,7 +112,9 @@ export default class Profile extends React.Component<IFormProps> {
                     </Link>
                     <PopUpModal deletePhoto={this.props.deletePhoto}/>
                 </div>
-                <ProfilePost deletePhoto={this.props.deletePhoto} addLike={this.props.addLike} />
+                <div className='container'>
+                    <PostContainer />
+                </div>
             </div>
         );
     }

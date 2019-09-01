@@ -5,6 +5,7 @@ import {profileReducer} from './profile/reducers';
 import {cropperReducer } from './cropper/reducers';
 import { addPostReducer } from './addPost/reducers';
 import {changeEmailReducer} from './emailChange/reducers';
+import {postReducer} from './post/reducers';
 import { feedReducer } from './feed/reducers';
 import { profileEditReducer } from './profileEdit/reducers';
 
@@ -16,5 +17,6 @@ export default combineReducers({
     cropper: cropperReducer,
     addPost: addPostReducer,
     changeEmail: changeEmailReducer,
+    userPosts: postReducer,
     feed: feedReducer,
 });
