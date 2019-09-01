@@ -5,13 +5,22 @@ import '../PostPost/style.scss';
 
 interface IProps {
     uploadImageToCropper: (imageFile: File) => void;
+    informFileError: (message: string) => void;
+    resetImageSrc: () => void;
 }
 
 const AddPostDropZone = (props: IProps): JSX.Element => {
-    const {uploadImageToCropper}: IProps = props;
+    const {uploadImageToCropper, informFileError, resetImageSrc}: IProps = props;
     const {getRootProps, getInputProps}: DropzoneState = useDropzone({
         accept: 'image/jpeg, image/png',
-        onDrop: (files: any): void => uploadImageToCropper(files[0]),
+        onDrop: (files: any): void => {
+            const maxFileSize = 1024 * 1024 * 4;
+            if (files[0].size > maxFileSize) {
+                resetImageSrc();
+                return informFileError('Image is too big');
+            }
+            return uploadImageToCropper(files[0]);
+        },
     });
 
     return (

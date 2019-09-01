@@ -11,7 +11,8 @@ export interface ILocalState {
 class AddPostContainer extends React.Component<IProps> {
     public render(): JSX.Element {
         const { croppedImage, description, loading,
-            uploadPost, setCroppedImageForPost, setDescriptionForPost, resetAddPost }: IProps = this.props;
+            uploadPost, setCroppedImageForPost, setDescriptionForPost, resetAddPost, informFileError }:
+            IProps = this.props;
         return(
             <AddPostCropper
                 croppedImage={croppedImage}
@@ -21,6 +22,7 @@ class AddPostContainer extends React.Component<IProps> {
                 setCroppedImageForPost={setCroppedImageForPost}
                 setDescriptionForPost={setDescriptionForPost}
                 resetAddPost={resetAddPost}
+                informFileError={informFileError}
             />
         );
     }
@@ -37,6 +39,7 @@ const mapDispatchToProps = {
     setCroppedImageForPost: action.setCroppedImageForPost,
     setDescriptionForPost: action.setDescriptionForPost,
     resetAddPost: action.resetAddPost,
+    informFileError: action.informFileError,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPostContainer);
