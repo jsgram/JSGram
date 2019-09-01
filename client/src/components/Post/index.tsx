@@ -90,14 +90,14 @@ export default class Post extends React.Component<IProps> {
                                                 alt='avatar'
                                                 width={32}
                                                 height={32}
-                                                className='img-fluid rounded-circle mt-2 mr-2'
+                                                className='img-fluid rounded-circle mt-2 mr-2 mb-2'
                                             />
                                             <span>{this.props.user.username}</span>
                                         </div>
                                     </ModalHeader>
                                     <img
                                         src={this.state.post.imgPath}
-                                        className='w-100 img-fluid'
+                                        className='w-100 img-fluid next-post'
                                         alt='post'/>
                                 </div>
                                 <div className='col-lg-4'>
@@ -114,7 +114,7 @@ export default class Post extends React.Component<IProps> {
                                                     width={32}
                                                     height={32}
                                                     className='img-fluid rounded-circle
-                                                                            mt-2 mr-2'
+                                                                            mt-2 mr-2 mb-2'
                                                 />
                                                 <span>{this.props.user.username}</span>
                                                 <p>{this.state.post.description}</p>
