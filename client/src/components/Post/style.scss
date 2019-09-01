@@ -3,14 +3,11 @@
 .profile-post {
   .post-photo {
     cursor: pointer;
+    width: 100%;
   }
 
   .like {
     color: $color-like;
-  }
-
-  .post-photo {
-    width: 100%;
   }
 
   .comments {
@@ -35,7 +32,7 @@
   }
 }
 
-@media screen and (max-width: 990px) {
+@media screen and (max-width: $break-large) {
   .profile-post {
     .comments {
       height: 130px;
