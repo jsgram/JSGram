@@ -97,7 +97,7 @@ export default class Post extends React.Component<IProps> {
                                     </ModalHeader>
                                     <img
                                         src={this.state.post.imgPath}
-                                        className='w-100 img-fluid next-post'
+                                        className='w-100 img-fluid'
                                         alt='post'/>
                                 </div>
                                 <div className='col-lg-4'>

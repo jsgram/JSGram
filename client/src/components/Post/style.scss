@@ -6,14 +6,6 @@
     width: 100%;
   }
 
-  .next-post {
-    opacity: 1;
-    transition-duration: 0.5s;
-    &:hover {
-      opacity: 0.6;
-    }
-  }
-
   .like {
     color: $color-like;
   }
