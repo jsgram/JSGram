@@ -2,18 +2,26 @@ import React from 'react';
 import {menuData} from './menu-data';
 import {Container, Row} from 'reactstrap';
 import './style.scss';
-export class MenuPost extends React.Component<{}, { isMenuOpen: boolean }> {
-    constructor( props: any ) {
-        super(props);
-        this.state = {
-            isMenuOpen: false,
-        };
-    }
+import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
+
+interface IProps {
+    modal?: boolean;
+    isMenuOpen?: boolean;
+}
+
+export class MenuPost extends React.Component<IProps> {
+    public state: IProps = {
+        modal: false,
+        isMenuOpen: false,
+    };
     public handleMenuButtonClick = (): void => {
         this.setState({ isMenuOpen: ! this.state.isMenuOpen });
     }
+    public toggle = (): void =>
+    this.setState({
+        modal: ! this.state.modal,
+    })
     public render(): JSX.Element {
-        const { isMenuOpen }: { isMenuOpen: boolean }  = this.state;
         return(
         <div className='burger-menu'>
                 <Container className='dots' onClick={this.handleMenuButtonClick}>
@@ -21,19 +29,32 @@ export class MenuPost extends React.Component<{}, { isMenuOpen: boolean }> {
                     <Row><div className='mt-1'>.</div></Row>
                     <Row><div className='mt-1'>.</div></Row>
                 </Container>
-            {menuData.length && (
-                <nav className={ `navig ${ isMenuOpen ? 'show-menu' : ''}` }>
-                <ul className='list-unstyled menu-items'>
-                    { menuData.map((item: any) => (
-                        <li className='menu-list' key={item.label}>
-                            <a className ='menu-link d-flex justify-content-center my-2'
-                            href={item.url}>{item.label}</a>
-                        </li>
-                    ))}
-                </ul>
-                </nav>
-            )}
-        </div>
+            <div>
+                {menuData.length && (
+                    <nav className={ `navig ${ this.state.isMenuOpen ? 'show-menu' : ''}` }>
+                    <ul className='list-unstyled menu-items'>
+                        { menuData.map((item: any) => (
+                            <li className='menu-list' key={item.label}>
+                                <a className = 'menu-link d-flex justify-content-center my-2'
+                                onClick = {item.label === 'Delete' ? this.toggle : undefined}
+                                >{item.label}</a>
+                            </li>
+                        ))}
+                    </ul>
+                    </nav>
+                )}
+                <Modal isOpen={this.state.modal} toggle={this.toggle}
+                className='modal-xs modal-dialog-centered'>
+                    <ModalBody className='text-center'>
+                        <h2>Delete post?</h2>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color='danger' onClick={this.toggle}>Delete</Button>{' '}
+                        <Button color='secondary' onClick={this.toggle}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
+       </div>
         );
     }
 }
