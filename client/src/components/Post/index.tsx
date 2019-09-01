@@ -61,7 +61,8 @@ export default class Post extends React.Component<IProps> {
                                         onClick={(): void => this.toggle(post)}
                                         className='img-fluid'
                                     />
-                                </div>
+                                    <span className='post-icon'><i className='fa fa-heart fa-lg'/> 3</span>
+                                    </div>
                             ),
                         )
                     }
