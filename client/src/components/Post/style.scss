@@ -5,8 +5,14 @@
     width: 100%;
     position: relative;
 
-    &:hover {
-      opacity: 0.9;
+    .show-photo-like {
+      cursor: pointer;
+      opacity: 1;
+      transition-duration: 0.5s;
+
+      &:hover {
+        opacity: 0.9;
+      }
     }
 
     &:hover .post-icon {
