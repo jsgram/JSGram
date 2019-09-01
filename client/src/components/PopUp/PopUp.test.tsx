@@ -17,11 +17,6 @@ describe('PopUpModal component:', () => {
         renderer = shallow(<PopUpModal />);
     });
 
-    // test('toggle - success', () => {
-    //     renderer.instance().toggle();
-    //     expect(renderer.props('modal')).toBe(true);
-    // });
-
     test('render - success', () => {
         expect(renderer.html()).toHaveLength(22);
     });
