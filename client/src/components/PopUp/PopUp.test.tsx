@@ -18,7 +18,7 @@ describe('PopUpModal component:', () => {
     });
 
     // test('toggle - success', () => {
-    //     renderer.instance().toggleModal();
+    //     renderer.instance().toggle();
     //     expect(renderer.props('modal')).toBe(true);
     // });
 

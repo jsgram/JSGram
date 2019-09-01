@@ -12,6 +12,10 @@
 .post {
   width: 30em;
 
+  textarea {
+    resize: none;
+  }
+
   @media screen and (max-width:$break-medium) {
     width: 20em;
   }
