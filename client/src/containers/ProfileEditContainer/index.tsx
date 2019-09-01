@@ -7,6 +7,7 @@ import { FormProps } from 'reactstrap';
 import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import { editProfile } from '../../store/profileEdit/actions';
 import { IUserData } from '../../components/Profile';
+import { IStateProfileEdit } from '../../store/profileEdit/reducers';
 
 interface IStateToProps {
     user: IUserData;
@@ -14,6 +15,7 @@ interface IStateToProps {
 
 interface IState {
     profile: IStateToProps;
+    profileEdit: IStateProfileEdit;
 }
 
 class ProfileEditContainer extends React.Component <any> {

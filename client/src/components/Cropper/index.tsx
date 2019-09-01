@@ -28,7 +28,7 @@ export default class Cropper extends React.Component<any> {
     };
 
     public state: ILocalState = {
-        preview: null,
+        preview: this.props.user.photo,
         src: null,
     };
 

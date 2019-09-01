@@ -18,7 +18,7 @@ export const defaultState = {
     loading: false,
 };
 
-export const addPostReducers = (state: IState = defaultState, action: any): any => {
+export const addPostReducer = (state: IState = defaultState, action: any): any => {
     switch (action.type) {
         case GET_POST_PENDING:
             return {

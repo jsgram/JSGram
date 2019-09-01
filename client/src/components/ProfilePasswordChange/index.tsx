@@ -15,8 +15,7 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME any type
     }
 
     public onSubmit(data: any): any { // FIXME any type
-        this.props.onChangeProfile();
-        this.props.changeProfilePassword(this.props.username, data.oldPassword, data.newPassword);
+        return this.props.changeProfilePassword(this.props.username, data.oldPassword, data.newPassword);
     }
 
     public render(): JSX.Element {
