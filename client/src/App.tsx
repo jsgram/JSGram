@@ -11,6 +11,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/style.scss';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ModalExample } from './components/DeleteModal/DeleteModal';
+
 
 export const store = createStore(
     rootReducer,
@@ -19,11 +21,12 @@ export const store = createStore(
 
 const App: React.FC = (): ReactElement => {
     return (
-        <Provider store={store}>
-            <AlertContainer/>
-            {routes}
-            <Footer/>
-        </Provider>
+        <ModalExample/>
+        // <Provider store={store}>
+        //     <AlertContainer/>
+        //     {routes}
+        //     <Footer/>
+        // </Provider>
     );
 };
 
