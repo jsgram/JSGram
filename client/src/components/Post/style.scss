@@ -9,6 +9,14 @@
     color: $color-like;
   }
 
+  .post-photo {
+    width: 100%;
+  }
+
+  .comments {
+    height: 350px;
+  }
+
   .add-comment {
     height: 30px;
     max-height: 80px;
@@ -23,6 +31,14 @@
     &:disabled {
       opacity: 0.3;
       pointer-events: none;
+    }
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .profile-post {
+    .comments {
+      height: 130px;
     }
   }
 }

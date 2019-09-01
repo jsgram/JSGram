@@ -56,6 +56,7 @@ export default class Post extends React.Component<IProps> {
                                     <img
                                         src={post.imgPath}
                                         height={293}
+                                        width={293}
                                         alt=''
                                         onClick={(): void => this.toggle(post)}
                                         className='img-fluid'
@@ -74,14 +75,15 @@ export default class Post extends React.Component<IProps> {
                 <div className='w-100 d-flex align-items-center justify-content-center'>
                     {this.props.userPosts.loading && <Spinner className='mt-3' color='dark'/>}
                 </div>
-                <Modal className='profile-post modal-dial modal-lg modal-dialog-centered'
+                <Modal className='profile-post modal-dial modal-lg modal-dialog-centered px-3 py-3'
                        isOpen={this.state.modal}
                        toggle={(): void => this.toggle(this.state.post)}>
                     <div className='modal-body p-0'>
                         <div className='container p-0'>
                             <div className='row'>
                                 <div className='col-lg-8'>
-                                    <ModalHeader className='d-lg-none display-1'>
+                                    <ModalHeader className='d-lg-none display-1'
+                                                 toggle={(): void => this.toggle(this.state.post)}>
                                         <div>
                                             <img
                                                 src={this.props.user.photo}
@@ -99,12 +101,12 @@ export default class Post extends React.Component<IProps> {
                                         alt='post'/>
                                 </div>
                                 <div className='col-lg-4'>
-                                    <div className='d-lg-none d-block mt-1 mb-2'>
+                                    <div className='d-lg-none d-block mt-2 mb-2 ml-lg-0 ml-3'>
                                         <i className='fa fa-heart-o fa-lg pr-1'/>
                                         <span>72 likes</span>
                                     </div>
                                     <div className='description-post'>
-                                        <div className='comments'>
+                                        <div className='comments ml-lg-0 ml-3'>
                                             <div>
                                                 <img
                                                     src={this.props.user.photo}
@@ -131,13 +133,13 @@ export default class Post extends React.Component<IProps> {
                                     </div>
                                     <div className='mt-3'>
                                         <textarea
-                                            className='add-comment p-0 border-0'
+                                            className='add-comment p-0 border-0 ml-lg-0 ml-3'
                                             placeholder='Add your comment...'
                                             autoComplete='off'>
                                         </textarea>
                                         <button
                                             className='button-comment p-0 border-0
-                                                        float-lg-none float-right'
+                                                        float-lg-none float-right mr-3'
                                             type='submit'
                                             disabled>
                                             Add comment
