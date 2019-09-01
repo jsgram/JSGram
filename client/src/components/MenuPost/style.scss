@@ -9,12 +9,12 @@
     font-size: 30px;
     margin-top: 0.05em;
     margin-left: 0.25em;
+    line-height: 3px;
+    cursor: default;
     @media screen and (min-width: $break-md) {
       margin-top: 0;
       margin-left: 3em;
     }
-    line-height: 3px;
-    cursor: default;
   }
 
   .navig {
