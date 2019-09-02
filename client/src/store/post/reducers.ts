@@ -3,7 +3,8 @@ import {
     GET_POSTS_SUCCESS,
     GET_MORE_POSTS_SUCCESS,
     ALL_POSTS_LOADED,
-    CLEAR_LOADED, SHOW_POST,
+    CLEAR_LOADED,
+    SHOW_POST,
 } from './actionTypes';
 
 export interface IPost {
