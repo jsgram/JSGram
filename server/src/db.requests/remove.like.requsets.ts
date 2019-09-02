@@ -16,10 +16,11 @@ export const deleteLike = async (postId: string, userId: string, next: NextFunct
     }
 };
 
-export const removeLikeIdFromPost = async (postId: string, next: NextFunction):
+export const removeLikeIdFromPost = async (postId: string, userId: string, next: NextFunction):
     Promise<IPostModel | null | void> => {
     try {
-        const postWithRemovedLikeId = await Post.findOneAndUpdate({}, {$pull: {likes: postId}}, {new: true});
+        const postWithRemovedLikeId = await Post.findOneAndUpdate({_id: postId},
+            {$pull: {authorsOfLike: userId}}, {new: true});
         if (!postWithRemovedLikeId) {
             throw new Error('Can not remove like from post');
         }

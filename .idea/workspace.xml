@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e101e3d5-e5b6-4bda-8145-f02232fd0eae" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/client/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Post/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/containers/PostContainer/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/PostContainer/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/like/actionTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/like/actionTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/like/actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/like/actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/like/reducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/like/reducers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/like.controllers/add.like.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/like.controllers/add.like.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/like.controllers/remove.like.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/like.controllers/remove.like.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/db.requests/add.like.requests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/db.requests/add.like.requests.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/db.requests/remove.like.requsets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/db.requests/remove.like.requsets.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/post.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/post.model.ts" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1QIXlDu7gW7E5U5Apdye39UAEE3" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/client/node_modules/typescript/lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client" />
+      <recent name="$PROJECT_DIR$/server" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e101e3d5-e5b6-4bda-8145-f02232fd0eae" name="Default Changelist" comment="" />
+      <created>1567459232983</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1567459232983</updated>
+      <workItem from="1567459234203" duration="2001000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

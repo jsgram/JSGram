@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Post from '../../components/Post';
 import { getPostsAsync, getMorePostsAsync } from '../../store/post/actions';
 import { deletePhoto } from '../../store/profile/actions';
-import { addLike, deleteLike, addLikeAsync, deleteLikeAsync } from '../../store/like/actions';
+import { addLike, deleteLike } from '../../store/like/actions';
 
 export class PostContainer extends React.Component <any> {
     public render(): JSX.Element {
@@ -14,12 +14,9 @@ export class PostContainer extends React.Component <any> {
                 getPostsAsync={this.props.getPostsAsync}
                 getMorePostsAsync={this.props.getMorePostsAsync}
                 deletePhoto={this.props.deletePhoto}
-                count={this.props.count}
-                like={this.props.like}
                 addLike={this.props.addLike}
                 deleteLike={this.props.deleteLike}
-                addLikeAsync={this.props.addLikeAsync}
-                deleteLikeAsync={this.props.deleteLikeAsync}
+                countOfLikes={this.props.countOfLikes}
             />
         );
     }
@@ -28,8 +25,7 @@ export class PostContainer extends React.Component <any> {
 const mapStateToProps = (state: any): any => ({
     userPosts: state.userPosts,
     user: state.profile.user,
-    count: state.like.count,
-    like: state.like.like,
+    countOfLikes: state.profile.countOfLikes,
 });
 
 const mapDispatchToProps = {
@@ -38,8 +34,6 @@ const mapDispatchToProps = {
     deletePhoto,
     addLike,
     deleteLike,
-    addLikeAsync,
-    deleteLikeAsync,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);

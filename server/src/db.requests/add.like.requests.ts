@@ -24,15 +24,16 @@ export const createLike = async (postId: string, userId: string, next: NextFunct
     }
 };
 
-export const addLikeIdToPost = async (postId: string, createdLikeId: string, next: NextFunction):
+export const addUserIdToPost = async (postId: string, userId: string, next: NextFunction):
     Promise<IPostModel | null | void> => {
     try {
-        const updatedPostLikes = await Post.findOneAndUpdate({_id: postId}, {likes: createdLikeId}, {new: true});
-        if (!updatedPostLikes) {
+        const updatedPostUsersLiked = await Post.findOneAndUpdate({_id: postId},
+            {authorsOfLike: userId}, {new: true});
+        if (!updatedPostUsersLiked) {
             throw new Error('Can not add like to post');
         }
 
-        return updatedPostLikes;
+        return updatedPostUsersLiked;
     } catch (e) {
         next({status: 409, message: e.message});
     }
