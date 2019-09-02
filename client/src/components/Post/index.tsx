@@ -5,6 +5,7 @@ import { IUserData } from '../Profile';
 import { IPost } from '../../store/post/reducers';
 import { Modal, ModalHeader, Spinner } from 'reactstrap';
 import './style.scss';
+import { MenuPost } from '../MenuPost';
 import noAvatar from '../../assets/noAvatar.svg';
 
 interface IProps {
@@ -82,15 +83,16 @@ export default class Post extends React.Component<IProps> {
                             <div className='row'>
                                 <div className='col-lg-8'>
                                     <ModalHeader className='d-lg-none display-1'>
-                                        <div>
+                                        <div className='row'>
+                                            <MenuPost/>
                                             <img
                                                 src={this.props.user.photo || noAvatar}
                                                 alt='avatar'
                                                 width={32}
                                                 height={32}
-                                                className='img-fluid rounded-circle mt-2 mr-2'
+                                                className='img-fluid rounded-circle mt-2 ml-4'
                                             />
-                                            <span>{this.props.user.username}</span>
+                                            <span className='mt-2 ml-2'>{this.props.user.username}</span>
                                         </div>
                                     </ModalHeader>
                                     <img
@@ -104,8 +106,20 @@ export default class Post extends React.Component<IProps> {
                                         <span>72 likes</span>
                                     </div>
                                     <div className='description-post'>
-                                        <div className='comments'>
-                                            <div>
+                                        <div className='d-lg-none d-block comments'>
+                                            <img
+                                                src={this.props.user.photo}
+                                                alt='avatar'
+                                                width={32}
+                                                height={32}
+                                                className='img-fluid rounded-circle
+                                                                        mt-2 mr-2'
+                                            />
+                                            <span>{this.props.user.username}</span>
+                                            <p>{this.state.post.description}</p>
+                                        </div>
+                                        <div className='d-none d-lg-block comments'>
+                                            <div className='row'>
                                                 <img
                                                     src={this.props.user.photo || noAvatar}
                                                     alt='avatar'
@@ -113,9 +127,10 @@ export default class Post extends React.Component<IProps> {
                                                     height={32}
                                                     className='img-fluid mt-2 mr-2'
                                                 />
-                                                <span>{this.props.user.username}</span>
-                                                <p>{this.props.userPosts.selectedPost.description}</p>
+                                                <span className='mt-2'>{this.props.user.username}</span>
+                                                <MenuPost/>
                                             </div>
+                                            <p>{this.props.userPosts.selectedPost.description}</p>
                                         </div>
                                     </div>
                                     <div className='d-lg-block d-none'>
