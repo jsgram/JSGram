@@ -16,28 +16,28 @@ export const changePasswordReducer = (
         state: {password: string} = defaultState,
         action: IAction): any => {
     switch (action.type) {
-    case CHANGE_PASSWORD_PENDING:
-        return {
-            ...state,
-            loaded: false,
-            loading: true,
-            error: '',
-        };
-    case CHANGE_PASSWORD_SUCCESS:
-        return {
-            ...state,
-            password: action.payload,
-            loaded: true,
-            loading: false,
-        };
-    case CHANGE_PASSWORD_ERROR:
-        return {
-            ...state,
-            error: action.payload,
-            loaded: false,
-            loading: false,
-        };
-    default:
-        return state;
+        case CHANGE_PASSWORD_PENDING:
+            return {
+                ...state,
+                loaded: false,
+                loading: true,
+                error: '',
+            };
+        case CHANGE_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                password: action.payload,
+                loaded: true,
+                loading: false,
+            };
+        case CHANGE_PASSWORD_ERROR:
+            return {
+                ...state,
+                error: action.payload,
+                loaded: false,
+                loading: false,
+            };
+        default:
+            return state;
     }
 };
