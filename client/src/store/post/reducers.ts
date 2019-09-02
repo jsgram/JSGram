@@ -41,48 +41,48 @@ export const postReducer = (
     state: any = defaultState,
     action: { type: string, payload: any, loading: boolean }): any => {
     switch (action.type) {
-    case GET_POSTS_PENDING:
-        return {
-            ...state,
-            loading: true,
-        };
-    case GET_POSTS_SUCCESS:
-        return {
-            ...state,
-            posts: action.payload,
-            loading: false,
-        };
-    case GET_MORE_POSTS_SUCCESS:
-        return {
-            ...state,
-            posts: [...state.posts, ...action.payload],
-            loading: false,
-        };
-    case ALL_POSTS_LOADED:
-        return {
-            ...state,
-            loaded: true,
-            loading: false,
-        };
-    case CLEAR_LOADED:
-        return {
-            ...state,
-            loaded: false,
-        };
-    case SHOW_POST:
-        return {
-            ...state,
-            selectedPost: action.payload,
-        };
-    case EDIT_DESCRIPTION_FOR_POST:
-        return {
-            ...state,
-            selectedPost: {
-                ...state.selectedPost,
-                description: action.payload,
-            },
-        };
-    default:
-        return state;
+        case GET_POSTS_PENDING:
+            return {
+                ...state,
+                loading: true,
+            };
+        case GET_POSTS_SUCCESS:
+            return {
+                ...state,
+                posts: action.payload,
+                loading: false,
+            };
+        case GET_MORE_POSTS_SUCCESS:
+            return {
+                ...state,
+                posts: [...state.posts, ...action.payload],
+                loading: false,
+            };
+        case ALL_POSTS_LOADED:
+            return {
+                ...state,
+                loaded: true,
+                loading: false,
+            };
+        case CLEAR_LOADED:
+            return {
+                ...state,
+                loaded: false,
+            };
+        case SHOW_POST:
+            return {
+                ...state,
+                selectedPost: action.payload,
+            };
+        case EDIT_DESCRIPTION_FOR_POST:
+            return {
+                ...state,
+                selectedPost: {
+                    ...state.selectedPost,
+                    description: action.payload,
+                },
+            };
+        default:
+            return state;
     }
 };
