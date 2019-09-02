@@ -16,6 +16,6 @@ describe('Email message template helper:', () => {
     });
 
     test('create forgot password message - success', () => {
-        expect(forgotPasswordMessage('username', 'token')).toHaveLength(2609);
+        expect(forgotPasswordMessage('username', 'token')).toHaveLength(2617);
     });
 });

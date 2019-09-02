@@ -15,7 +15,7 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME any type
     }
 
     public onSubmit(data: any): any { // FIXME any type
-        this.props.changeProfilePassword(data.oldPassword, data.newPassword);
+        return this.props.changeProfilePassword(this.props.username, data.oldPassword, data.newPassword);
     }
 
     public render(): JSX.Element {
@@ -84,6 +84,10 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME any type
     }
 }
 
+const mapStateToProps = (state: FormProps): any => ({ // FIXME any type
+    username: state.profile.user.username,
+});
+
 const mapDispatchToProps = {
     changeProfilePassword,
 };
@@ -93,4 +97,4 @@ const elementWrapper = reduxForm({
     validate,
 })(ProfilePasswordChange);
 
-export default connect(null, mapDispatchToProps)(elementWrapper);
+export default connect(mapStateToProps, mapDispatchToProps)(elementWrapper);
