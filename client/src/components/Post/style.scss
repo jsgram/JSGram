@@ -24,7 +24,7 @@
     transition-duration: 0.5s;
     position: absolute;
     top: 40%;
-    left: 45%;
+    left: 47%;
     display: none;
     font-size: 1.2rem;
     color: $color-alabaster;
@@ -37,6 +37,9 @@
 
   .comments {
     height: 350px;
+    @media screen and (max-width: $break-md) {
+          height: 130px;
+      }
   }
 
   .add-comment {
@@ -57,11 +60,5 @@
   }
 }
 
-@media screen and (max-width: $break-md) {
-  .profile-post {
-    .comments {
-      height: 130px;
-    }
-  }
-}
+
 
