@@ -113,12 +113,11 @@ export default class Post extends React.Component<IProps> {
                                         <div className='comments ml-lg-0 ml-4'>
                                             <div className='row'>
                                                 <img
-                                                    src={this.props.user.photo}
+                                                    src={this.props.user.photo || noAvatar}
                                                     alt='avatar'
                                                     width={32}
                                                     height={32}
-                                                    className='img-fluid rounded-circle
-                                                                        mt-2 mr-2'
+                                                    className='img-fluid mt-2 mr-2'
                                                 />
                                                 <span className='mt-2'>{this.props.user.username}</span>
                                                 <span className='d-lg-block d-none'><MenuPost/></span>
