@@ -107,7 +107,7 @@ export default class Post extends React.Component<IProps> {
                                         <div className='row'>
                                             <MenuPost
                                                 post={this.props.userPosts.selectedPost}
-                                                toggleEdit={this.toggleEdit} 
+                                                toggleEdit={this.toggleEdit}
                                             />
                                             <img
                                                 src={this.props.user.photo || noAvatar}
@@ -170,14 +170,6 @@ export default class Post extends React.Component<IProps> {
                                     <div className='d-lg-block d-none'>
                                         <hr/>
                                     </div>
-                                    <button
-                                        onClick={(): void => this.toggleEdit(this.props.userPosts.selectedPost)}
-                                        className='button-comment p-0 border-0
-                                                    float-lg-none float-right'
-                                        type='submit'
-                                        >
-                                        Edit Post
-                                    </button>
                                     <div className='mt-3'>
                                         <textarea
                                             className='add-comment p-0 border-0'
@@ -197,10 +189,13 @@ export default class Post extends React.Component<IProps> {
                         </div>
                     </div>
                 </Modal>
-                <Modal isOpen={this.state.editModal}
-                    toggle={(): void => this.toggleEdit(this.props.userPosts.selectedPost)}
-                >
-                    <ModalHeader toggle={(): void => this.toggleEdit(this.props.userPosts.selectedPost)}>Edit Post</ModalHeader>
+                <Modal
+                    isOpen={this.state.editModal}
+                    toggle={(): void => this.toggleEdit(this.props.userPosts.selectedPost)}>
+                    <ModalHeader
+                        toggle={(): void => this.toggleEdit(this.props.userPosts.selectedPost)}>
+                        Edit Post
+                    </ModalHeader>
                     <FormGroup className='text-center m-3 post-photo'>
                         <img
                             src={this.props.userPosts.selectedPost.imgPath}
@@ -231,5 +226,4 @@ export default class Post extends React.Component<IProps> {
             </div>
         );
     }
-
 }
