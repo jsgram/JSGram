@@ -85,7 +85,7 @@ export default class Post extends React.Component<IProps> {
                             <div className='row'>
                                 <div className='col-lg-8'>
                                     <ModalHeader className='d-lg-none display-1'
-                                                 toggle={(): void => this.toggle(this.state.post)}>
+                                                 toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
                                         <div className='row'>
                                             <MenuPost/>
                                             <img
