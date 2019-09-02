@@ -65,8 +65,15 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME any type
                         color='danger'
                         disabled={submitting}
                     >
-                        <i className='fa fa-lock pr-3' />
-                        {submitting ? <Spinner color='light' /> : 'Change Password'}
+                        {submitting ?
+                        <div>
+                            <Spinner size='sm' />
+                            <span className='ml-2'>Loading...</span>
+                        </div> :
+                        <div>
+                            <i className='fa fa-lock' />
+                            <span className='ml-2'>Change Password</span>
+                        </div>}
                     </Button>
                     <Link className='align-self-center d-block text-danger pl-1 mt-3' to='/password-reset'>
                         Forgot Password?

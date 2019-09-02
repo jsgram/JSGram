@@ -105,7 +105,10 @@ export default class Post extends React.Component<IProps> {
                                 <div className='col-lg-8'>
                                     <ModalHeader className='d-lg-none display-1'>
                                         <div className='row'>
-                                            <MenuPost />
+                                            <MenuPost
+                                                post={this.props.userPosts.selectedPost}
+                                                toggleEdit={this.toggleEdit} 
+                                            />
                                             <img
                                                 src={this.props.user.photo || noAvatar}
                                                 alt='avatar'
@@ -149,7 +152,10 @@ export default class Post extends React.Component<IProps> {
                                                     className='img-fluid mt-2 mr-2'
                                                 />
                                                 <span className='mt-2'>{this.props.user.username}</span>
-                                                <MenuPost/>
+                                                <MenuPost
+                                                    post={this.props.userPosts.selectedPost}
+                                                    toggleEdit={this.toggleEdit}
+                                                />
                                             </div>
                                             <p>{this.props.userPosts.selectedPost.description}</p>
                                         </div>
@@ -214,11 +220,12 @@ export default class Post extends React.Component<IProps> {
                             onChange={this.onDescriptionChange}
                         />
                         <Button
-                            color='success'
+                            color='danger'
                             className='mt-2'
                             block
-                            onClick={this.onEditPost}>Update Post
-                            </Button>
+                            onClick={this.onEditPost}>
+                                Update Post
+                        </Button>
                     </FormGroup>
                 </Modal>
             </div>
