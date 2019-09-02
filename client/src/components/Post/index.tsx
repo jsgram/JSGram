@@ -120,6 +120,9 @@ export default class Post extends React.Component<IProps> {
                                                 <span>{this.props.user.username}</span>
                                                 <p>{this.state.post.description}</p>
                                             </div>
+                                            <div className='d-lg-block d-none'>
+                                                <hr className='mt-0'/>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className='d-lg-block d-none'>
