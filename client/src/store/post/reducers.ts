@@ -4,6 +4,8 @@ import {
     GET_MORE_POSTS_SUCCESS,
     ALL_POSTS_LOADED,
     CLEAR_LOADED,
+    DELETE_POST_PENDING,
+    DELETE_POST_SUCCESS,
 } from './actionTypes';
 
 export interface IPost {
@@ -65,6 +67,19 @@ export const postReducer = (
         return {
             ...state,
             loaded: false,
+        };
+    case DELETE_POST_PENDING:
+        return {
+            ...state,
+            loaded: false,
+            loading: true,
+        };
+    case DELETE_POST_SUCCESS:
+        return {
+            ...state,
+            posts: state.posts.filter((x: IPost): boolean => x._id !== action.payload),
+            loaded: true,
+            loading: false,
         };
     default:
         return state;

@@ -6,6 +6,8 @@ import {
     GET_MORE_POSTS_SUCCESS,
     GET_POSTS_PENDING,
     GET_POSTS_SUCCESS,
+    DELETE_POST_PENDING,
+    DELETE_POST_SUCCESS,
 } from './actionTypes';
 import { IPost } from './reducers';
 
@@ -29,6 +31,15 @@ export const allPostsLoaded = (): { type: string} => ({
 
 export const clearLoaded = (): { type: string } => ({
     type: CLEAR_LOADED,
+});
+
+export const deletePostPending = (): { type: string } => ({
+    type: DELETE_POST_PENDING,
+});
+
+export const deletePostSuccess = (postId: string): { type: string, payload: string } => ({
+    type: DELETE_POST_SUCCESS,
+    payload: postId,
 });
 
 export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise<void> =>
@@ -57,6 +68,17 @@ export const getMorePostsAsync = (username: string, page: number): (dispatch: Di
             }
 
             dispatch(getMorePostsSuccess(res.data.postsAll));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const deletePost = (postId: string): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            dispatch(deletePostPending());
+            await AuthAPI.delete(`/post/${postId}`);
+            dispatch(deletePostSuccess(postId));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }

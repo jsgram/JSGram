@@ -85,7 +85,7 @@ export default class Post extends React.Component<IProps> {
                                 <div className='col-lg-8'>
                                     <ModalHeader className='d-lg-none display-1'>
                                         <div className='row'>
-                                            <MenuPost/>
+                                            <MenuPost togglePost={this.toggle} />
                                             <img
                                                 src={this.props.user.photo || noAvatar}
                                                 alt='avatar'
@@ -129,7 +129,7 @@ export default class Post extends React.Component<IProps> {
                                                     className='img-fluid mt-2 mr-2'
                                                 />
                                                 <span className='mt-2'>{this.props.user.username}</span>
-                                                <MenuPost/>
+                                                <MenuPost togglePost={this.toggle} />
                                             </div>
                                             <p>{this.state.post.description}</p>
                                         </div>
