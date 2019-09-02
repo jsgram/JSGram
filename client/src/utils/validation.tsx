@@ -16,18 +16,18 @@ const validate = (user: IUser): IUser => {
     const errors: IUser = {};
     const validEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     if (!user.username || user.username.length < 3) {
-        errors.username = 'Please, enter your username!';
+        errors.username = 'Please, enter your username.';
     }
     if (!user.email) {
-        errors.email = 'Please, enter your email!';
+        errors.email = 'Please, enter your email.';
     } else if (!validEmail.test(user.email)) {
-        errors.email = 'Invalid email address';
+        errors.email = 'Invalid email address.';
     }
     if (!user.fullName || user.fullName.length < 3) {
-        errors.fullName = 'Please, enter your fullname!';
+        errors.fullName = 'Please, enter your fullname.';
     }
     if (!user.password || user.password.length < 8) {
-        errors.password = 'Please, enter your password!';
+        errors.password = 'Please, enter your password.';
     }
     return errors;
 };
