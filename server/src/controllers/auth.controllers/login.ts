@@ -31,6 +31,6 @@ export const login = async (req: Request, res: Response, next: NextFunction,
             });
         })(req, res, next);
     } catch (e) {
-        next({message: 'You entered invalid email or password', status: 406});
+        next({message: e.message, status: 406});
     }
 };

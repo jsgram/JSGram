@@ -116,7 +116,7 @@ export default class Post extends React.Component<IProps> {
                                                                         mt-2 mr-2'
                                             />
                                             <span>{this.props.user.username}</span>
-                                            <p>{this.state.post.description}</p>
+                                            <p>{this.props.userPosts.selectedPost.description}</p>
                                         </div>
                                         <div className='d-none d-lg-block comments'>
                                             <div className='row'>
