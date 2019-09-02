@@ -30,6 +30,7 @@ export class MenuPost extends React.Component<IProps> {
                     <Row><div className='mt-1'>.</div></Row>
                 </Container>
             <div>
+            {/* TODO Replace undefined in ternary operator with a function for Edit component*/}
                 {menuData.length && (
                     <nav className={ `navig ${ this.state.isMenuOpen && 'show-menu' }` }>
                     <ul className='list-unstyled menu-items'>
