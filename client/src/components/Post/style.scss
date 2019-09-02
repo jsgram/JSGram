@@ -57,10 +57,11 @@
   }
 }
 
-@media screen and (max-width: $break-large) {
+@media screen and (max-width: $break-md) {
   .profile-post {
     .comments {
       height: 130px;
     }
   }
 }
+

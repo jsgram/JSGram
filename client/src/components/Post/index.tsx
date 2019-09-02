@@ -5,6 +5,8 @@ import { IUserData } from '../Profile';
 import { IPost } from '../../store/post/reducers';
 import { Modal, ModalHeader, Spinner } from 'reactstrap';
 import './style.scss';
+import { MenuPost } from '../MenuPost';
+import noAvatar from '../../assets/noAvatar.svg';
 
 interface IProps {
     userPosts: any;
@@ -62,7 +64,7 @@ export default class Post extends React.Component<IProps> {
                                         className='img-fluid show-photo-like'
                                     />
                                     <span className='post-icon'><i className='fa fa-heart fa-lg'/> 3</span>
-                                    </div>
+                                </div>
                             ),
                         )
                     }
@@ -85,15 +87,16 @@ export default class Post extends React.Component<IProps> {
                                 <div className='col-lg-8'>
                                     <ModalHeader className='d-lg-none display-1'
                                                  toggle={(): void => this.toggle(this.state.post)}>
-                                        <div>
+                                        <div className='row'>
+                                            <MenuPost/>
                                             <img
-                                                src={this.props.user.photo}
+                                                src={this.props.user.photo || noAvatar}
                                                 alt='avatar'
                                                 width={32}
                                                 height={32}
-                                                className='img-fluid rounded-circle mt-2 mr-2 mb-2'
+                                                className='img-fluid rounded-circle mt-2 ml-4'
                                             />
-                                            <span>{this.props.user.username}</span>
+                                            <span className='mt-2 ml-2'>{this.props.user.username}</span>
                                         </div>
                                     </ModalHeader>
                                     <img
@@ -107,22 +110,23 @@ export default class Post extends React.Component<IProps> {
                                         <span>72 likes</span>
                                     </div>
                                     <div className='description-post'>
-                                        <div className='comments ml-lg-0 ml-3'>
-                                            <div>
+                                        <div className='comments ml-lg-0 ml-4'>
+                                            <div className='row'>
                                                 <img
                                                     src={this.props.user.photo}
                                                     alt='avatar'
                                                     width={32}
                                                     height={32}
                                                     className='img-fluid rounded-circle
-                                                                            mt-2 mr-2 mb-2'
+                                                                        mt-2 mr-2'
                                                 />
-                                                <span>{this.props.user.username}</span>
+                                                <span className='mt-2'>{this.props.user.username}</span>
+                                                <span className='d-lg-block d-none'><MenuPost/></span>
+                                            </div>
                                                 <p>{this.state.post.description}</p>
-                                            </div>
-                                            <div className='d-lg-block d-none'>
-                                                <hr className='mt-0'/>
-                                            </div>
+                                                <div className='d-lg-block d-none'>
+                                                    <hr className='mt-0'/>
+                                                </div>
                                         </div>
                                     </div>
                                     <div className='d-lg-block d-none'>
