@@ -116,7 +116,6 @@ export default class Post extends React.Component<IProps> {
                                         alt='post'/>
                                 </div>
                                 <div className='col-lg-4'>
-<<<<<<< HEAD
                                     <div className='d-lg-none d-block mt-1 mb-2'>
                                         {this.props.countOfLikes ?
                                             <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>
@@ -138,14 +137,12 @@ export default class Post extends React.Component<IProps> {
                                             <p>{this.props.userPosts.selectedPost}</p>
                                         </div>
                                         <div className='d-none d-lg-block comments'>
-=======
                                     <div className='d-lg-none d-block mt-2 mb-2 ml-lg-0 ml-3'>
                                         <i className='fa fa-heart-o fa-lg pr-1'/>
                                         <span>72 likes</span>
                                     </div>
                                     <div className='description-post'>
                                         <div className='comments ml-lg-0 pl-lg-0 pl-4'>
->>>>>>> b5c85b68d9641ff8429f9ed175fc1214ed2821be
                                             <div className='row'>
                                                 <img
                                                     src={this.props.user.photo || noAvatar}
@@ -157,14 +154,11 @@ export default class Post extends React.Component<IProps> {
                                                 <span className='mt-2'>{this.props.user.username}</span>
                                                 <span className='d-lg-block d-none'><MenuPost/></span>
                                             </div>
-<<<<<<< HEAD
                                             <p>{this.props.userPosts.selectedPost.description}</p>
-=======
                                                 <p className='text-description'>{this.state.post.description}</p>
                                                 <div className='d-lg-block d-none'>
                                                     <hr className='mt-0'/>
                                                 </div>
->>>>>>> b5c85b68d9641ff8429f9ed175fc1214ed2821be
                                         </div>
                                     </div>
                                     <div className='d-lg-block d-none'>
