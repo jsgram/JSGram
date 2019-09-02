@@ -5,12 +5,13 @@
     width: 100%;
     position: relative;
 
+    /* stylelint-disable */
     &:hover {
-      // tslint:disable-next-line
       .post-icon {
         display: block;
       }
     }
+    /* stylelint-enable */
   }
 
   .show-photo-like {
