@@ -3,6 +3,7 @@ interface IUser {
     email?: string;
     fullName?: string;
     password?: string;
+    description?: string;
 }
 
 interface IPasswordChange {
@@ -28,6 +29,9 @@ const validate = (user: IUser): IUser => {
     }
     if (!user.password || user.password.length < 8) {
         errors.password = 'Please, enter your password.';
+    }
+    if (!user.description || user.description.length < 3 || user.description.length > 200) {
+        errors.description = 'Description should be more than 3 and less than 200.';
     }
     return errors;
 };

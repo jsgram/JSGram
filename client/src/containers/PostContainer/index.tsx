@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Post from '../../components/Post';
-import { getPostsAsync, getMorePostsAsync } from '../../store/post/actions';
+import { getPostsAsync, getMorePostsAsync, showPost, editPost, editDescriptionForPost } from '../../store/post/actions';
 import { deletePhoto } from '../../store/profile/actions';
 
 export class PostContainer extends React.Component <any> {
@@ -13,6 +13,9 @@ export class PostContainer extends React.Component <any> {
                 getPostsAsync={this.props.getPostsAsync}
                 getMorePostsAsync={this.props.getMorePostsAsync}
                 deletePhoto={this.props.deletePhoto}
+                showPost={this.props.showPost}
+                editPost={this.props.editPost}
+                editDescriptionForPost={this.props.editDescriptionForPost}
             />
         );
     }
@@ -27,6 +30,9 @@ const mapDispatchToProps = {
     getPostsAsync,
     getMorePostsAsync,
     deletePhoto,
+    showPost,
+    editPost,
+    editDescriptionForPost,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);
