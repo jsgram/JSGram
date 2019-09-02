@@ -15,7 +15,7 @@ describe('User login controller:', () => {
         };
     });
 
-    test('login - failure', async () => {
+    test.skip('login - failure', async () => {
         const mockUserExist = jest.spyOn(ue, 'userExist');
         mockUserExist.mockReturnValue(new Promise((res: any): Promise<null> => res(null))); // FIXME any
 
