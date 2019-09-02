@@ -42,7 +42,7 @@ export default class Post extends React.Component<IProps> {
             this.props.getMorePostsAsync(this.props.user.username, this.state.page);
         }
     }
-d
+
     public componentDidMount(): void {
         this.props.getPostsAsync(this.props.user.username);
     }
