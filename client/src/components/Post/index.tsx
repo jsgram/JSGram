@@ -94,7 +94,7 @@ export default class Post extends React.Component<IProps> {
                                                 alt='avatar'
                                                 width={32}
                                                 height={32}
-                                                className='img-fluid rounded-circle mt-2 ml-4'
+                                                className='img-fluid rounded-circle mt-2 pl-4'
                                             />
                                             <span className='mt-2 ml-2'>{this.props.user.username}</span>
                                         </div>
@@ -110,7 +110,7 @@ export default class Post extends React.Component<IProps> {
                                         <span>72 likes</span>
                                     </div>
                                     <div className='description-post'>
-                                        <div className='comments ml-lg-0 ml-4'>
+                                        <div className='comments ml-lg-0 pl-4'>
                                             <div className='row'>
                                                 <img
                                                     src={this.props.user.photo || noAvatar}
@@ -122,7 +122,7 @@ export default class Post extends React.Component<IProps> {
                                                 <span className='mt-2'>{this.props.user.username}</span>
                                                 <span className='d-lg-block d-none'><MenuPost/></span>
                                             </div>
-                                                <p>{this.state.post.description}</p>
+                                                <p className='text-description'>{this.state.post.description}</p>
                                                 <div className='d-lg-block d-none'>
                                                     <hr className='mt-0'/>
                                                 </div>
