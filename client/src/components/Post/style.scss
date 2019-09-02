@@ -25,8 +25,9 @@
   .post-icon {
     transition-duration: 0.5s;
     position: absolute;
-    top: 40%;
-    left: 45%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: none;
     font-size: 1.2rem;
     color: $color-alabaster;
