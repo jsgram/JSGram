@@ -40,7 +40,7 @@ export default function validateInput(data: IUserModel): {errors: IValidationErr
 }
 
 export const isValidPassword = function(password: string): boolean {
-    return typeof password === 'string' && password.length >= 8 ? true : false;
+    return typeof password === 'string' && password.length >= 8;
 };
 
 export const isValidSettings = (data: IUserSubscriptions | IUserPrivacy): boolean => (

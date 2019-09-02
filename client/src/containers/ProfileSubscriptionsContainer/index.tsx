@@ -5,7 +5,7 @@ import { IUserPrivacy } from '../ProfilePrivacyContainer';
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Form, Label, FormProps } from 'reactstrap';
+import { Form, Label, Button, Spinner, FormProps } from 'reactstrap';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 
 export interface IUserSubscriptions {
@@ -17,19 +17,23 @@ export interface IUserSubscriptions {
 }
 
 class ProfileSubscriptionsContainer extends React.Component<any> { // FIXME any type
-    public componentWillUnmount(): void {
-        const { username, privacy, initialValues, finalValues }: FormProps = this.props;
+    constructor(props: any) {
+        super(props);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
 
-        if (JSON.stringify(initialValues) !== JSON.stringify(finalValues)) {
-            this.props.changeSettings(username, finalValues, privacy);
-        }
+    public onSubmit(data: any): any { // FIXME any type
+        const { username, privacy }: FormProps = this.props;
+
+        return this.props.changeSettings(username, data, privacy);
     }
 
     public render(): JSX.Element {
+        const { handleSubmit, initialValues, submitting }: FormProps = this.props;
         return (
-            <div className='container'>
+            <div>
                 <h3 className='text-center font-weight-light text-secondary text-uppercase'>Subscribe to</h3>
-                <Form className='d-flex flex-column mt-3 bg-white p-4'>
+                <Form className='d-flex flex-column mt-3 bg-white p-4' onSubmit={handleSubmit(this.onSubmit)}>
                     <Label className='d-flex align-items-center'>
                         <Field
                             name='isNewsEmail'
@@ -94,6 +98,15 @@ class ProfileSubscriptionsContainer extends React.Component<any> { // FIXME any 
                     <div className='font-italic text-secondary mb-4'>
                         Get reminder notifications delivered by text message.
                     </div>
+
+                    <Button
+                        className='align-self-center btn mt-3'
+                        color='danger'
+                        disabled={submitting}
+                    >
+                        <i className='fa fa-lock pr-3' />
+                        {submitting ? <Spinner color='light' /> : 'Change Subscriptions'}
+                    </Button>
                 </Form>
             </div>
         );
@@ -104,18 +117,10 @@ const mapStateToProps = (state: FormProps): {
     username: string,
     privacy: IUserPrivacy,
     initialValues: IUserSubscriptions,
-    finalValues: IUserSubscriptions,
 } => ({
     username: state.profile.user.username,
     privacy: state.profile.user.privacy,
     initialValues: state.profile.user.subscriptions,
-    finalValues: formValueSelector('changeSubscription')(state,
-        'isNewsEmail',
-        'isReminderEmail',
-        'isProductEmail',
-        'isResearchEmail',
-        'isTextMessage',
-    ),
 });
 
 const mapDispatchToProps = {

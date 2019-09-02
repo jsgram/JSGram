@@ -5,7 +5,7 @@ import { IUserSubscriptions } from '../ProfileSubscriptionsContainer';
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Form, Label, FormProps } from 'reactstrap';
+import { Form, Label, Button, Spinner, FormProps } from 'reactstrap';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 
 import { Link } from 'react-router-dom';
@@ -17,19 +17,23 @@ export interface IUserPrivacy {
 }
 
 class ProfilePrivacyContainer extends React.Component<any> { // FIXME any type
-    public componentWillUnmount(): void {
-        const { username, subscriptions, initialValues, finalValues }: FormProps = this.props;
+    constructor(props: any) {
+        super(props);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
 
-        if (JSON.stringify(initialValues) !== JSON.stringify(finalValues)) {
-            this.props.changeSettings(username, subscriptions, finalValues);
-        }
+    public onSubmit(data: any): any { // FIXME any type
+        const { username, subscriptions }: FormProps = this.props;
+
+        return this.props.changeSettings(username, subscriptions, data);
     }
 
     public render(): JSX.Element {
+        const { handleSubmit, initialValues, submitting }: FormProps = this.props;
         return (
-            <div className='container'>
+            <div>
                 <h3 className='text-center font-weight-light text-secondary text-uppercase'>Privacy and Security</h3>
-                <Form className='container mt-4 bg-white text-left p-4'>
+                <Form className='d-flex flex-column mt-3 bg-white p-4' onSubmit={handleSubmit(this.onSubmit)}>
                     <Label className='d-flex align-items-center'>
                         <Field
                             name='isPrivateAccount'
@@ -74,17 +78,26 @@ class ProfilePrivacyContainer extends React.Component<any> { // FIXME any type
                         Choose how you want photos of you added to your profile.
                     </p>
 
-                    <Link className='align-self-center d-block text-danger pl-1 mt-3' to='#'>
+                    <Link className='d-block text-danger pl-1 mt-3' to='#'>
                         Edit Comment Settings
                     </Link>
 
-                    <Link className='align-self-center d-block text-danger pl-1 mt-3' to='#'>
+                    <Link className='d-block text-danger pl-1 mt-3' to='#'>
                         View Account Data
                     </Link>
 
-                    <Link className='align-self-center d-block text-danger pl-1 mt-3' to='#'>
+                    <Link className='d-block text-danger pl-1 mt-3' to='#'>
                         Request Download
                     </Link>
+
+                    <Button
+                        className='align-self-center btn mt-3'
+                        color='danger'
+                        disabled={submitting}
+                    >
+                        <i className='fa fa-lock pr-3' />
+                        {submitting ? <Spinner color='light' /> : 'Change Privacy'}
+                    </Button>
                 </Form>
             </div>
         );
