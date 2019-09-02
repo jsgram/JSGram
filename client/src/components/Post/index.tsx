@@ -13,12 +13,12 @@ interface IProps {
     getPostsAsync: (username: string) => void;
     getMorePostsAsync: (username: string, page: number) => void;
     deletePhoto: () => void;
+    showPost: (post: any) => void;
 }
 
 interface IModalState {
     page: number;
     modal: boolean;
-    post: any;
 }
 
 export default class Post extends React.Component<IProps> {
@@ -26,14 +26,13 @@ export default class Post extends React.Component<IProps> {
     public state: IModalState = {
         page: 1,
         modal: false,
-        post: {},
     };
 
     public toggle = (post: any): any => {
         this.setState({
             modal: !this.state.modal,
-            post,
         });
+        this.props.showPost(post);
     }
 
     public getMorePosts = (): void => {
@@ -77,7 +76,7 @@ export default class Post extends React.Component<IProps> {
                 </div>
                 <Modal className='profile-post modal-dial modal-lg modal-dialog-centered'
                        isOpen={this.state.modal}
-                       toggle={(): void => this.toggle(this.state.post)}>
+                       toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
                     <div className='modal-body p-0'>
                         <div className='container p-0'>
                             <div className='row'>
@@ -95,7 +94,7 @@ export default class Post extends React.Component<IProps> {
                                         </div>
                                     </ModalHeader>
                                     <img
-                                        src={this.state.post.imgPath}
+                                        src={this.props.userPosts.selectedPost.imgPath}
                                         className='w-100 img-fluid'
                                         alt='post'/>
                                 </div>
@@ -115,7 +114,7 @@ export default class Post extends React.Component<IProps> {
                                                     className='img-fluid mt-2 mr-2'
                                                 />
                                                 <span>{this.props.user.username}</span>
-                                                <p>{this.state.post.description}</p>
+                                                <p>{this.props.userPosts.selectedPost.description}</p>
                                             </div>
                                         </div>
                                     </div>
