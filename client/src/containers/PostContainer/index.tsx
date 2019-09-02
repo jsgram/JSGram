@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Post from '../../components/Post';
-import { getPostsAsync, getMorePostsAsync } from '../../store/post/actions';
+import { getPostsAsync, getMorePostsAsync, showPost } from '../../store/post/actions';
 import { deletePhoto } from '../../store/profile/actions';
 import { addLike, deleteLike } from '../../store/like/actions';
 
@@ -17,6 +17,7 @@ export class PostContainer extends React.Component <any> {
                 addLike={this.props.addLike}
                 deleteLike={this.props.deleteLike}
                 countOfLikes={this.props.countOfLikes}
+                showPost={this.props.showPost}
             />
         );
     }
@@ -34,6 +35,7 @@ const mapDispatchToProps = {
     deletePhoto,
     addLike,
     deleteLike,
+    showPost,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);

@@ -2,16 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e101e3d5-e5b6-4bda-8145-f02232fd0eae" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Menu/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Menu/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Post/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Profile/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Profile/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/containers/PostContainer/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/PostContainer/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/store/like/actionTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/like/actionTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/store/like/actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/like/actions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/store/like/reducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/like/reducers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/like.controllers/add.like.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/like.controllers/add.like.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/like.controllers/remove.like.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/like.controllers/remove.like.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/db.requests/add.like.requests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/db.requests/add.like.requests.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/db.requests/remove.like.requsets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/db.requests/remove.like.requsets.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/post.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/post.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/post/actionTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/post/actionTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/post/actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/post/actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/post/reducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/post/reducers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/utils/validation.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/utils/validation.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/utils/validation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/utils/validation.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/auth.controllers/login.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/auth.controllers/login.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/auth.controllers/test/login.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/auth.controllers/test/login.test.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +66,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1567459232983</updated>
-      <workItem from="1567459234203" duration="2001000" />
+      <workItem from="1567459234203" duration="2641000" />
     </task>
     <servers />
   </component>

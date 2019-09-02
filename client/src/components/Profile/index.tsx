@@ -78,7 +78,7 @@ export default class Profile extends React.Component<any> {
                 </div>
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
                     <p className='profile-name align-self-center'>
-                        {fullName}
+                        {username}
                         <Link to={`/profile/${this.props.username}/edit`}>
                             <button className='bg-dark ml-sm-5 ml-3 btn text-white'>
                                 Edit profile
@@ -97,7 +97,7 @@ export default class Profile extends React.Component<any> {
                         </div>
                     </div>
                     <div className='description mt-4'>
-                        <strong>{username}</strong>
+                        <strong>{fullName}</strong>
                         <p>{description}</p>
                     </div>
                     <Link to='/add-post'>
