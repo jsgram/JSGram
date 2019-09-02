@@ -141,17 +141,17 @@ export default class Post extends React.Component<IProps> {
                                     <div className='mt-3 d-flex justify-content-between'>
                                         <textarea
                                             className='add-comment p-0 border-0 ml-lg-0 ml-3'
-                                            placeholder='Comment...'
+                                            placeholder='Write your comment...'
                                             autoComplete='off'
                                             rows={3}
                                         >
                                         </textarea>
                                         <button
-                                            className='button-comment p-0 border-0 mr-lg-1
+                                            className='button-comment p-0 border-0 mr-lg-2
                                              mr-3 d-float align-self-start'
                                             type='submit'
                                             disabled>
-                                            Add comment
+                                            Add
                                         </button>
                                     </div>
                                 </div>
