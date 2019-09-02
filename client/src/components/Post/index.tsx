@@ -110,7 +110,7 @@ export default class Post extends React.Component<IProps> {
                                         <span>72 likes</span>
                                     </div>
                                     <div className='description-post'>
-                                        <div className='comments ml-lg-0 pl-4'>
+                                        <div className='comments ml-lg-0 pl-lg-0 pl-4'>
                                             <div className='row'>
                                                 <img
                                                     src={this.props.user.photo || noAvatar}
@@ -142,7 +142,9 @@ export default class Post extends React.Component<IProps> {
                                         <textarea
                                             className='add-comment p-0 border-0 ml-lg-0 ml-3'
                                             placeholder='Add your comment...'
-                                            autoComplete='off'>
+                                            autoComplete='off'
+                                            rows={3}
+                                        >
                                         </textarea>
                                         <button
                                             className='button-comment p-0 border-0

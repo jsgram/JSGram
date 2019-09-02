@@ -1,5 +1,59 @@
 @import '../../styles/variables';
 
+.profile-post {
+  .show-photo-like {
+    cursor: pointer;
+    opacity: 1;
+    transition-duration: 0.5s;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  .post-icon {
+    transition-duration: 0.5s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    font-size: 1.2rem;
+    color: $color-alabaster;
+    font-weight: 600;
+  }
+
+  .like {
+    color: $color-like;
+  }
+
+  .text-description {
+    word-wrap: break-word;
+  }
+
+  .comments {
+    height: 300px;
+    @media screen and (max-width: $break-md) {
+      height: 130px;
+    }
+  }
+
+  .add-comment {
+    outline: 0;
+    resize: none;
+  }
+
+  .button-comment {
+    background-color: $color-alabaster;
+    color: $color-danube;
+
+    &:disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+  }
+}
+
 .post-photo {
   width: 100%;
   position: relative;
@@ -10,60 +64,6 @@
     }
   }
 }
-
-.show-photo-like {
-  cursor: pointer;
-  transition-duration: 0.5s;
-
-  &:hover {
-    opacity: 0.9;
-  }
-}
-
-.post-icon {
-  transition-duration: 0.5s;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: none;
-  font-size: 1.2rem;
-  color: $color-alabaster;
-  font-weight: 600;
-}
-
-.like {
-  color: $color-like;
-}
-
-.text-description {
-  word-wrap: break-word;
-}
-
-.comments {
-  height: 350px;
-  @media screen and (max-width: $break-md) {
-    height: 130px;
-  }
-}
-
-.add-comment {
-  height: 30px;
-  max-height: 80px;
-  outline: 0;
-  resize: none;
-}
-
-.button-comment {
-  background-color: $color-alabaster;
-  color: $color-danube;
-
-  &:disabled {
-    opacity: 0.3;
-    pointer-events: none;
-  }
-}
-
 
 
 
