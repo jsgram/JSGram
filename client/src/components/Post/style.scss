@@ -1,12 +1,13 @@
 @import '../../styles/variables';
 
-.profile-post {
   .post-photo {
     width: 100%;
     position: relative;
 
-    &:hover .post-icon {
-      display: block;
+    &:hover {
+      .post-icon {
+        display: block;
+      }
     }
   }
 
@@ -63,7 +64,7 @@
       pointer-events: none;
     }
   }
-}
+
 
 
 
