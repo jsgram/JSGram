@@ -3,6 +3,7 @@ import validate from './validation';
 describe('Validation function:', () => {
     test('validate - success', () => {
         const input = {
+            description: 'correctDescription',
             username: 'correctusername',
             email: 'correct@ema.il',
             fullName: 'correctfullName',
@@ -21,6 +22,7 @@ describe('Validation function:', () => {
             password: '',
         };
         const output = {
+            description: 'Description should be more than 3 and less than 200.',
             email: 'Please, enter your email.',
             fullName: 'Please, enter your fullname.',
             password: 'Please, enter your password.',
