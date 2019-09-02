@@ -69,10 +69,12 @@ export default class Post extends React.Component<IProps> {
                                     <img
                                         src={post.imgPath}
                                         height={293}
+                                        width={293}
                                         alt=''
                                         onClick={(): void => this.toggle(post)}
-                                        className='img-fluid'
+                                        className='img-fluid show-photo-like'
                                     />
+                                    <span className='post-icon'><i className='fa fa-heart fa-lg'/> 3</span>
                                 </div>
                             ),
                         )
@@ -87,14 +89,15 @@ export default class Post extends React.Component<IProps> {
                 <div className='w-100 d-flex align-items-center justify-content-center'>
                     {this.props.userPosts.loading && <Spinner className='mt-3' color='dark'/>}
                 </div>
-                <Modal className='profile-post modal-dial modal-lg modal-dialog-centered'
+                <Modal className='profile-post modal-dial modal-lg modal-dialog-centered px-3 py-3'
                        isOpen={this.state.modal}
                        toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
                     <div className='modal-body p-0'>
                         <div className='container p-0'>
                             <div className='row'>
                                 <div className='col-lg-8'>
-                                    <ModalHeader className='d-lg-none display-1'>
+                                    <ModalHeader className='d-lg-none display-1'
+                                                 toggle={(): void => this.toggle(this.state.post)}>
                                         <div className='row'>
                                             <MenuPost/>
                                             <img
@@ -113,6 +116,7 @@ export default class Post extends React.Component<IProps> {
                                         alt='post'/>
                                 </div>
                                 <div className='col-lg-4'>
+<<<<<<< HEAD
                                     <div className='d-lg-none d-block mt-1 mb-2'>
                                         {this.props.countOfLikes ?
                                             <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>
@@ -134,6 +138,14 @@ export default class Post extends React.Component<IProps> {
                                             <p>{this.props.userPosts.selectedPost}</p>
                                         </div>
                                         <div className='d-none d-lg-block comments'>
+=======
+                                    <div className='d-lg-none d-block mt-2 mb-2 ml-lg-0 ml-3'>
+                                        <i className='fa fa-heart-o fa-lg pr-1'/>
+                                        <span>72 likes</span>
+                                    </div>
+                                    <div className='description-post'>
+                                        <div className='comments ml-lg-0 pl-lg-0 pl-4'>
+>>>>>>> b5c85b68d9641ff8429f9ed175fc1214ed2821be
                                             <div className='row'>
                                                 <img
                                                     src={this.props.user.photo || noAvatar}
@@ -143,9 +155,16 @@ export default class Post extends React.Component<IProps> {
                                                     className='img-fluid mt-2 mr-2'
                                                 />
                                                 <span className='mt-2'>{this.props.user.username}</span>
-                                                <MenuPost/>
+                                                <span className='d-lg-block d-none'><MenuPost/></span>
                                             </div>
+<<<<<<< HEAD
                                             <p>{this.props.userPosts.selectedPost.description}</p>
+=======
+                                                <p className='text-description'>{this.state.post.description}</p>
+                                                <div className='d-lg-block d-none'>
+                                                    <hr className='mt-0'/>
+                                                </div>
+>>>>>>> b5c85b68d9641ff8429f9ed175fc1214ed2821be
                                         </div>
                                     </div>
                                     <div className='d-lg-block d-none'>
@@ -161,18 +180,20 @@ export default class Post extends React.Component<IProps> {
                                     <div className='d-lg-block d-none'>
                                         <hr/>
                                     </div>
-                                    <div className='mt-3'>
+                                    <div className='mt-3 d-flex justify-content-between'>
                                         <textarea
-                                            className='add-comment p-0 border-0'
-                                            placeholder='Add your comment...'
-                                            autoComplete='off'>
+                                            className='add-comment p-0 border-0 ml-lg-0 ml-3'
+                                            placeholder='Write your comment...'
+                                            autoComplete='off'
+                                            rows={3}
+                                        >
                                         </textarea>
                                         <button
-                                            className='button-comment p-0 border-0
-                                                        float-lg-none float-right'
+                                            className='button-comment p-0 border-0 mr-lg-2
+                                             mr-3 d-float align-self-start'
                                             type='submit'
                                             disabled>
-                                            Add comment
+                                            Add
                                         </button>
                                     </div>
                                 </div>

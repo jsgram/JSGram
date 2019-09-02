@@ -21,20 +21,11 @@ export interface IUserData {
     _id: string;
 }
 
-interface IFormProps {
-    getUser: (username: string) => void;
-    deletePhoto: () => void;
-    addLike: any;
-    user: IUserData;
-    loaded: boolean;
-    loading: boolean;
-    username: string;
-}
-
 export default class Profile extends React.Component<any> {
 
-    public state: { loaded: boolean } = {
+    public state: { loaded: boolean, modal: boolean } = {
         loaded: false,
+        modal: false,
     };
     public timerHandle: any = 0;
 
@@ -59,6 +50,10 @@ export default class Profile extends React.Component<any> {
         this.timerHandle = 0;
     }
 
+    public togleModal = (): void => {
+        this.setState({modal: !this.state.modal});
+    }
+
     public render(): JSX.Element {
         const {user: {posts, followers, following, fullName, username, description, photo}}: any = this.props;
         const {loaded}: { loaded: boolean } = this.state;
@@ -72,13 +67,14 @@ export default class Profile extends React.Component<any> {
                 justify-content-sm-around justify-content-center'>
                 <Menu username={this.props.username}/>
                 <div className='mr-lg-5 mr-3'>
-                    <img
+                    {this.props.loading ? <Spinner style={{height: 150, width: 150}} type='grow' color='dark'/> : <img
                         src={photo || noAvatar}
-                        className='img-fluid float-right mb-2'
+                        className='img-fluid float-right mb-2 avatar-img'
                         alt='avatar'
                         height={150}
                         width={150}
-                    />
+                        onClick={this.togleModal}
+                    />}
                 </div>
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
                     <p className='profile-name align-self-center'>
@@ -88,7 +84,6 @@ export default class Profile extends React.Component<any> {
                                 Edit profile
                             </button>
                         </Link>
-                        {this.props.loading && <Spinner className='mt-3' color='dark'/>}
                     </p>
                     <div className='d-flex followers justify-content-between'>
                         <div>
@@ -111,7 +106,13 @@ export default class Profile extends React.Component<any> {
                             Add Post
                         </Button>
                     </Link>
-                    <PopUpModal deletePhoto={this.props.deletePhoto}/>
+                    {this.state.modal && <PopUpModal
+                    modal={this.state.modal}
+                    toggleModal={this.togleModal}
+                    loading={this.props.loading}
+                    deletePhoto={this.props.deletePhoto}
+                    photo={photo}
+                    />}
                 </div>
                 <div className='container'>
                     <PostContainer />

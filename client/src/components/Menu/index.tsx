@@ -39,9 +39,9 @@ const Menu = ({username, newUsername}: any): ReactElement => {
     );
 };
 
-const mapStateToProps = (state: IState, ownProps: IOwnProps): {newUsername: string, username: IOwnProps} => ({
+const mapStateToProps = (state: IState, ownProps: IOwnProps): {newUsername: string, username: string} => ({
     newUsername: state.profileEdit.newUsername,
-    username: ownProps,
+    username: ownProps.username,
 });
 
 export default connect(mapStateToProps, null)(Menu);
