@@ -39,25 +39,25 @@ const validate = (user: IUser): IUser => {
 export const validatePasswordChange = (data: IPasswordChange): IPasswordChange => {
     const errors: IPasswordChange = {};
 
+    if (data.oldPassword === data.newPassword) {
+        errors.oldPassword = errors.newPassword = 'New password equals to the old one.';
+    }
+
+    if (data.newPassword !== data.confirmPassword) {
+        errors.newPassword = errors.confirmPassword = 'New password and its confirmation do not match.';
+    }
+
     for (const field in data) {
         if (data[field].length < 8) {
             errors[field] = 'Password must be at least 8 characters long.';
         }
     }
 
-    if (data.newPassword !== data.newPasswordConfirm) {
-        errors.newPassword = errors.newPasswordConfirm = 'Entered passwords do not match.';
-    }
-
-    if (data.oldPassword === data.newPassword) {
-        errors.oldPassword = errors.newPassword = 'New password equals to the old one.';
-    }
-
     return errors;
 };
 
-export const isValidSettings = (data: any): boolean => (
-    Object.values(data).every((value: any): boolean => typeof value === 'boolean')
+export const isValidSettings = (data: any): any => (
+    Object.values(data).every((value: any): any => typeof value === 'boolean')
 );
 
 export default validate;

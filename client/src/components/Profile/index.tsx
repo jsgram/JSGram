@@ -20,16 +20,6 @@ export interface IUserData {
     email: string;
 }
 
-interface IFormProps {
-    getUser: (username: string) => void;
-    deletePhoto: () => void;
-    addLike: any;
-    user: IUserData;
-    loaded: boolean;
-    loading: boolean;
-    username: string;
-}
-
 export default class Profile extends React.Component<any> {
 
     public state: { loaded: boolean, modal: boolean } = {
