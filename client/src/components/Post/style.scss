@@ -44,13 +44,14 @@
   }
 
   .comments {
-    height: 300px;
+    height: 350px;
     @media screen and (max-width: $break-md) {
       height: 130px;
     }
   }
 
   .add-comment {
+    width: 55%;
     outline: 0;
     resize: none;
   }
