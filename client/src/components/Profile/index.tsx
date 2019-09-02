@@ -18,6 +18,7 @@ export interface IUserData {
     username: string;
     photo: string;
     email: string;
+    id: string;
 }
 
 interface IFormProps {
