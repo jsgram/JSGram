@@ -41,8 +41,8 @@ export class MenuPost extends React.Component<IProps, IState> {
                         { menuData.map((item: any) => (
                             <li className='menu-list' key={item.label}>
                                 <a className = 'menu-link d-flex justify-content-center my-2'
-                                    onClick={(item.label === 'Delete') ? this.toggle : 
-                                    () => { this.props.toggleEdit(this.props.post) }}
+                                    onClick={(item.label === 'Delete') ? this.toggle :
+                                    (): any => { this.props.toggleEdit(this.props.post); }}
                                 >{item.label}</a>
                             </li>
                         ))}

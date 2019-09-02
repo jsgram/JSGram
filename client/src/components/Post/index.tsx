@@ -15,7 +15,7 @@ interface IProps {
     getPostsAsync: (username: string) => void;
     getMorePostsAsync: (username: string, page: number) => void;
     deletePhoto: () => void;
-    editPost: (description: string, id: any) => void;
+    editPost: (description: string, id: string) => void;
     showPost: (post: any) => void;
 }
 
