@@ -7,8 +7,6 @@ import { addLike, deleteLike, addLikeAsync, deleteLikeAsync } from '../../store/
 
 export class PostContainer extends React.Component <any> {
     public render(): JSX.Element {
-        // console.log(this.props.userPosts.posts[0].likes.length);
-        // console.log('props>', this.props);
         return (
             <Post
                 userPosts={this.props.userPosts}

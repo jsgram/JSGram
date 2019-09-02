@@ -4,7 +4,7 @@ import { IPostModel, Post } from '../models/post.model';
 
 export const countLike = async (postId: string, userId: string, next: NextFunction): Promise<number | undefined> => {
     try {
-        return await Like.countDocuments({$or: [{postId}, {userId}]});
+        return await Like.countDocuments({postId, userId});
     } catch (e) {
         next({status: 409, message: e.message});
     }

@@ -22,7 +22,7 @@ const defaultState = {
         username: '',
         photo: '',
         email: '',
-        id: '',
+        _id: '',
     },
     error: '',
     loaded: false,

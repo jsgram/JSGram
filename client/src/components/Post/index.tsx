@@ -54,20 +54,19 @@ export default class Post extends React.Component<IProps> {
         this.props.getPostsAsync(this.props.user.username);
     }
 
-    public onDeleteLike1=(): void =>{
-        console.log('onDeletelike');
-        console.log(this.props);
-        const body = {userId: this.props.user.id , postId: this.state.post._id};
+    public onDeleteLike1 = (): void => {
+        const body = {userId: this.props.user._id, postId: this.state.post._id};
         this.props.deleteLikeAsync(body);
     }
-    public onAddLike1=(): void =>{
-        console.log('onAddlike');
-        const body = {userId: this.props.user.id , postId: this.state.post._id};
+
+    public onAddLike1 = (): void => {
+        const body = {userId: this.props.user._id, postId: this.state.post._id};
         this.props.addLikeAsync(body);
     }
 
     public render(): JSX.Element {
-        // console.log(this.props.user);
+        console.log('USER>', this.props.user);
+        console.log('POST>', this.state.post);
         return (
             <div className='container justify-content-center'>
                 <div className='row mt-5 profile-post'>
@@ -123,7 +122,7 @@ export default class Post extends React.Component<IProps> {
                                 <div className='col-lg-4'>
                                     <div className='d-lg-none d-block mt-1 mb-2'>
                                         {this.props.like ?
-                                            <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onAddLike1}/>
+                                            <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike1}/>
                                             : <i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike1}/>
                                         }
                                         <span>{this.props.count} likes</span>
@@ -162,7 +161,7 @@ export default class Post extends React.Component<IProps> {
                                     <div className='d-lg-block d-none mt-1'>
                                         {this.props.like ?
                                             <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike1}/>
-                                            : <i className='fa fa-heart-o fa-lg pr-1' onClick={() => {this.onAddLike1()}}/>
+                                            : <i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike1}/>
                                         }
                                         <span>{this.props.count} likes</span>
                                     </div>

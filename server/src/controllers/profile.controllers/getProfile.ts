@@ -13,6 +13,7 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
         const user = await getUserByUsername(userName, next);
 
         const {
+            _id,
             posts,
             followers,
             following,
@@ -24,6 +25,7 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
         }: any = user;
 
         const userProfile = {
+            _id,
             posts: posts.length,
             followers: followers.length,
             following: following.length,
