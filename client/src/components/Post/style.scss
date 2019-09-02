@@ -5,11 +5,9 @@
     width: 100%;
     position: relative;
 
-    &:hover {
-      .post-icon {
+    &:hover .post-icon {
         display: block;
       }
-    }
   }
 
   .show-photo-like {
