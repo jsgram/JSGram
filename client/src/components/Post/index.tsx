@@ -80,15 +80,19 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onDeleteLike = (): void => {
-        const body = {userId: this.props.user._id, postId: this.props.userPosts.selectedPost._id};
+        const {_id : userId}: any = this.props.user;
+        const {_id : postId}: any = this.props.userPosts.selectedPost;
+        const body = {userId, postId};
         const index = this.props.userPosts.selectedPost.authorsOfLike.indexOf(body.userId);
         this.props.userPosts.selectedPost.authorsOfLike.splice(index, 1);
         this.props.deleteLike(body);
     }
 
     public onAddLike = (): void => {
-        const body = {userId: this.props.user._id, postId: this.props.userPosts.selectedPost._id};
-        this.props.userPosts.selectedPost.authorsOfLike.push(body.userId);
+        const {_id : userId}: any = this.props.user;
+        const {_id : postId}: any = this.props.userPosts.selectedPost;
+        const body = {userId, postId};
+        this.props.userPosts.selectedPost.authorsOfLike.push(this.props.user._id);
         this.props.addLike(body);
     }
 
