@@ -55,7 +55,7 @@ class SideBar extends React.Component<any> {
                                         {fullName}
                                     </div>
                                     <div className='profile-title'>
-                                        Edit Profile
+                                        View Profile
                                     </div>
                                 </div>
                                 <Nav className='navbar'>
@@ -90,7 +90,7 @@ class SideBar extends React.Component<any> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${username}/edit/subscribe-to`}
+                                                to={`/profile/${username}/edit/subscriptions`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-check-circle'></i>

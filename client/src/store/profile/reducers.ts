@@ -6,6 +6,10 @@ import {
     DELETE_PHOTO_SUCCESS,
     DELETE_PHOTO_ERROR,
     SET_PHOTO_TO_STATE,
+    CHANGE_SETTINGS_PENDING,
+    CHANGE_SETTINGS_SUCCESS,
+    CHANGE_SETTINGS_ERROR,
+    DECREMENT_POST_COUNT,
 } from './actionTypes';
 import { IUserData } from '../../components/Profile';
 
@@ -25,6 +29,8 @@ export const defaultState = {
         fullName: '',
         username: '',
         photo: '',
+        subscriptions: {},
+        privacy: {},
         email: '',
     },
     error: '',
@@ -34,55 +40,88 @@ export const defaultState = {
 
 export const profileReducer = (
         state: IState = defaultState,
-        action: { type: string, payload: any }): IState => {
+        action: { type: string, payload: any },
+): IState => {
     switch (action.type) {
-    case GET_USER_PENDING:
-        return {
-            ...state,
-            loaded: false,
-            error: '',
-        };
-    case GET_USER_SUCCESS:
-        return {
-            ...state,
-            user: action.payload,
-            loaded: true,
-        };
-    case GET_USER_ERROR:
-        return {
-            ...state,
-            error: action.payload,
-            loaded: false,
-        };
-    case DELETE_PHOTO_PENDING:
-        return {
-            ...state,
-            loading: true,
-        };
-    case DELETE_PHOTO_SUCCESS:
-        return {
-            ...state,
-            user: {
-                ...state.user,
-                photo: action.payload,
-            },
-            loading: false,
-        };
-    case DELETE_PHOTO_ERROR:
-        return {
-            ...state,
-            error: action.payload,
-            loading: false,
-        };
-    case SET_PHOTO_TO_STATE:
-        return {
-            ...state,
-            user: {
-                ...state.user,
-                photo: action.payload,
-            },
-        };
-    default:
-        return state;
+        case GET_USER_PENDING:
+            return {
+                ...state,
+                loaded: false,
+                error: '',
+            };
+        case GET_USER_SUCCESS:
+            return {
+                ...state,
+                user: action.payload,
+                loaded: true,
+            };
+        case GET_USER_ERROR:
+            return {
+                ...state,
+                error: action.payload,
+                loaded: false,
+            };
+        case DELETE_PHOTO_PENDING:
+            return {
+                ...state,
+                loading: true,
+            };
+        case DELETE_PHOTO_SUCCESS:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    photo: action.payload,
+                },
+                loading: false,
+            };
+        case DELETE_PHOTO_ERROR:
+            return {
+                ...state,
+                error: action.payload,
+                loading: false,
+            };
+        case SET_PHOTO_TO_STATE:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    photo: action.payload,
+                },
+            };
+        case CHANGE_SETTINGS_PENDING:
+            return {
+                ...state,
+                error: '',
+                loaded: false,
+                loading: true,
+            };
+        case CHANGE_SETTINGS_SUCCESS:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    ...action.payload,
+                },
+                loaded: true,
+                loading: false,
+            };
+        case CHANGE_SETTINGS_ERROR:
+            return {
+                ...state,
+                error: action.payload,
+                loaded: false,
+                loading: false,
+            };
+        case DECREMENT_POST_COUNT:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    posts: state.user.posts - 1,
+                },
+            };
+        default:
+            return state;
     }
 };

@@ -15,7 +15,7 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME any type
     }
 
     public onSubmit(data: any): any { // FIXME any type
-        this.props.changeProfilePassword(data.oldPassword, data.newPassword);
+        return this.props.changeProfilePassword(this.props.username, data.oldPassword, data.newPassword);
     }
 
     public render(): JSX.Element {
@@ -65,8 +65,15 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME any type
                         color='danger'
                         disabled={submitting}
                     >
-                        <i className='fa fa-lock pr-3' />
-                        {submitting ? <Spinner color='light' /> : 'Change Password'}
+                        {submitting ?
+                        <div>
+                            <Spinner size='sm' />
+                            <span className='ml-2'>Loading...</span>
+                        </div> :
+                        <div>
+                            <i className='fa fa-lock' />
+                            <span className='ml-2'>Change Password</span>
+                        </div>}
                     </Button>
                     <Link className='align-self-center d-block text-danger pl-1 mt-3' to='/password-reset'>
                         Forgot Password?
@@ -77,6 +84,10 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME any type
     }
 }
 
+const mapStateToProps = (state: FormProps): any => ({ // FIXME any type
+    username: state.profile.user.username,
+});
+
 const mapDispatchToProps = {
     changeProfilePassword,
 };
@@ -86,4 +97,4 @@ const elementWrapper = reduxForm({
     validate,
 })(ProfilePasswordChange);
 
-export default connect(null, mapDispatchToProps)(elementWrapper);
+export default connect(mapStateToProps, mapDispatchToProps)(elementWrapper);

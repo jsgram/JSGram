@@ -43,7 +43,7 @@ class Index extends React.Component <IStateToProps> {
                         color='danger'
                         onClick={this.changeEmail}
                     >
-                        <i className='fa fa-edit pr-3'/>
+                        <i className='fa fa-edit pr-2'/>
                         Change Email
                     </Button>
                 </Form>

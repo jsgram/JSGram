@@ -84,7 +84,7 @@ export const forgotPasswordMessage = (username: string, token: string): string =
                 <tr>
                     <td style="font-size: 18px;">
                         If you ignore this message, your password will not be changed.
-                        If you didn't request a password reset, <a href="javascript:void(0)">let us know.</a>
+                        If you didn't request a password reset, <a href="mailto:jsgram.lv@gmail.com">let us know.</a>
                     </td>
                 </tr>
             </tbody>

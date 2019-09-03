@@ -6,11 +6,17 @@ import {
     DELETE_PHOTO_SUCCESS,
     DELETE_PHOTO_ERROR,
     SET_PHOTO_TO_STATE,
+    CHANGE_SETTINGS_PENDING,
+    CHANGE_SETTINGS_SUCCESS,
+    CHANGE_SETTINGS_ERROR,
+    DECREMENT_POST_COUNT,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
 import { IUserData } from '../../components/Profile';
 import { showAlert } from '../alert/actions';
+import { IUserSubscriptions } from '../../containers/ProfileSubscriptionsContainer';
+import { IUserPrivacy } from '../../containers/ProfilePrivacyContainer';
 
 export const getUserPending = (): { type: string } => ({
     type: GET_USER_PENDING,
@@ -68,3 +74,38 @@ export const setPhotoToState = (photo: string): {type: string, payload: string} 
     type: SET_PHOTO_TO_STATE,
     payload: photo,
 });
+
+export const changeSettingsPending = (): { type: string } => ({
+    type: CHANGE_SETTINGS_PENDING,
+});
+
+export const changeSettingsSuccess = (newSettings: any): { type: string, payload: any } => ({
+    type: CHANGE_SETTINGS_SUCCESS,
+    payload: newSettings,
+});
+
+export const changeSettingsError = (error: Error): { type: string, payload: Error } => ({
+    type: CHANGE_SETTINGS_ERROR,
+    payload: error,
+});
+
+export const decrementPostCount = (): { type: string } => ({
+    type: DECREMENT_POST_COUNT,
+});
+
+export const changeSettings = (
+    username: string,
+    subscriptions: IUserSubscriptions,
+    privacy: IUserPrivacy,
+): (dispatch: Dispatch) =>
+    Promise<void> => async (dispatch: Dispatch): Promise<void> => {
+        try {
+            dispatch(changeSettingsPending());
+            const res = await AuthAPI.put(`/profile/${username}/edit-settings`, { subscriptions, privacy });
+            dispatch(changeSettingsSuccess(res.data.data));
+            dispatch(showAlert(res.data.message, 'success'));
+        } catch (e) {
+            dispatch(changeSettingsError(e.message));
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };

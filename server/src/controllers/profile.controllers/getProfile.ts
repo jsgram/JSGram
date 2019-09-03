@@ -20,6 +20,8 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
             fullName,
             username,
             photoPath,
+            subscriptions,
+            privacy,
             email,
         }: any = user;
 
@@ -31,6 +33,8 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
             fullName,
             username,
             photo: photoPath,
+            subscriptions,
+            privacy,
             email,
         };
 
