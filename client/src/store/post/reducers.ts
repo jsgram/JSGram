@@ -4,14 +4,14 @@ import {
     GET_MORE_POSTS_SUCCESS,
     ALL_POSTS_LOADED,
     CLEAR_LOADED,
-    SHOW_POST,
+    SHOW_POST, ADD_OR_REMOVE_AUTHOR_OF_LIKE,
 } from './actionTypes';
 
 export interface IPost {
     description: string;
     comments: any;
     tags: any;
-    likes: any;
+    authorsOfLike: any;
     _id: string;
     imgPath: string;
     author: string;
@@ -24,7 +24,7 @@ const defaultState = {
             description: '',
             comments: [],
             tags: [],
-            likes: [],
+            authorsOfLike: [],
             _id: '',
             imgPath: '',
             author: '',
@@ -73,6 +73,15 @@ export const postReducer = (
                 ...state,
                 selectedPost: action.payload,
             };
+
+        case ADD_OR_REMOVE_AUTHOR_OF_LIKE:
+            return {
+                ...state,
+                posts: [
+                    {authorsOfLike: action.payload},
+                ],
+            };
+
         default:
             return state;
     }

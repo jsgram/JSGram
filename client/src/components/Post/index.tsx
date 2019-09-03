@@ -15,9 +15,13 @@ interface IProps {
     getMorePostsAsync: (username: string, page: number) => void;
     deletePhoto: () => void;
     addLike: (body: {}) => void;
+    setCountOfLikes: (countOfLikes: number) => void;
     deleteLike: (body: {}) => void;
     countOfLikes: number;
     showPost: (post: any) => void;
+    likeExist: boolean;
+    checkUserLikeExist: (doesExist: boolean) => void;
+    addOrRemoveAuthorOfLike: (arrayOfAuthorsOfLikes: []) => void;
 }
 
 interface IModalState {
@@ -52,12 +56,33 @@ export default class Post extends React.Component<IProps> {
 
     public onDeleteLike = (): void => {
         const body = {userId: this.props.user._id, postId: this.props.userPosts.selectedPost._id};
+        const index = this.props.userPosts.selectedPost.authorsOfLike.indexOf(body.userId);
+        this.props.userPosts.selectedPost.authorsOfLike.splice(index, 1);
         this.props.deleteLike(body);
     }
 
     public onAddLike = (): void => {
         const body = {userId: this.props.user._id, postId: this.props.userPosts.selectedPost._id};
+        this.props.userPosts.selectedPost.authorsOfLike.push(body.userId);
         this.props.addLike(body);
+    }
+
+    public setLikesCount = (): boolean | void => {
+        if (this.props.userPosts.selectedPost.authorsOfLike !== undefined) {
+            this.props.setCountOfLikes(this.props.userPosts.selectedPost.authorsOfLike.length);
+
+            const arr = this.props.userPosts.selectedPost.authorsOfLike.filter((userId: string) => {
+                return this.props.user._id === userId;
+            });
+
+            if (arr.length) {
+                this.props.checkUserLikeExist(true);
+                return true;
+            }
+
+            this.props.checkUserLikeExist(false);
+            return false;
+        }
     }
 
     public render(): JSX.Element {
@@ -75,7 +100,7 @@ export default class Post extends React.Component<IProps> {
                                         onClick={(): void => this.toggle(post)}
                                         className='img-fluid show-photo-like'
                                     />
-                                    <span className='post-icon'><i className='fa fa-heart fa-lg'/> 3</span>
+                                    <span className='post-icon'><i className='fa fa-heart fa-lg'/>3</span>
                                 </div>
                             ),
                         )
@@ -117,9 +142,12 @@ export default class Post extends React.Component<IProps> {
                                         alt='post'/>
                                 </div>
                                 <div className='col-lg-4'>
-                                    <div className='d-lg-none d-block mt-2 mb-2 ml-lg-0 ml-3'>
-                                        <i className='fa fa-heart-o fa-lg pr-1'/>
-                                        <span>72 likes</span>
+                                    <div className='d-lg-none d-block mt-1 mb-2'>
+                                        {this.props.countOfLikes ?
+                                            <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>
+                                            : <i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>
+                                        }
+                                        <span>{this.props.countOfLikes} likes</span>
                                     </div>
                                     <div className='description-post'>
                                         <div className='d-lg-none d-block comments'>
@@ -155,26 +183,14 @@ export default class Post extends React.Component<IProps> {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className='d-lg-block d-none'>
-                                            <hr className='mt-0'/>
-                                        </div>
-                                        <div className='d-lg-block d-none mt-1'>
-                                            <i className='fa fa-heart-o fa-lg pr-1'/>
-                                            <span>72 likes</span>
-                                        </div>
-                                        <div className='d-lg-block d-none'>
-                                            <hr/>
-                                        </div>
-                                        <div className='mt-3 d-flex justify-content-between'>
-                                        </div>
-                                    </div>
-                                    <div className='d-lg-block d-none'>
-                                        <hr className='mt-0'/>
                                     </div>
                                     <div className='d-lg-block d-none mt-1'>
-                                        {this.props.countOfLikes ?
+                                        {this.setLikesCount()}
+                                        {this.props.userPosts.selectedPost.authorsOfLike !== undefined &&
+                                        this.props.likeExist ?
                                             <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>
-                                            : <i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>
+                                            :
+                                            <i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>
                                         }
                                         <span>{this.props.countOfLikes} likes</span>
                                     </div>

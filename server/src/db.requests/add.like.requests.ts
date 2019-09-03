@@ -28,7 +28,7 @@ export const addUserIdToPost = async (postId: string, userId: string, next: Next
     Promise<IPostModel | null | void> => {
     try {
         const updatedPostUsersLiked = await Post.findOneAndUpdate({_id: postId},
-            {authorsOfLike: userId}, {new: true});
+            {$push: {authorsOfLike: userId}}, {new: true});
         if (!updatedPostUsersLiked) {
             throw new Error('Can not add like to post');
         }
