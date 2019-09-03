@@ -4,6 +4,7 @@ import {
     GET_MORE_POSTS_SUCCESS,
     ALL_POSTS_LOADED,
     CLEAR_LOADED,
+    SHOW_SELECTED_POST,
 } from './actionTypes';
 
 export interface IPost {
@@ -30,6 +31,7 @@ const defaultState = {
             createdAt: '',
         },
     ],
+    selectedPost: {},
     loaded: false,
     loading: false,
 };
@@ -65,6 +67,11 @@ export const postReducer = (
             return {
                 ...state,
                 loaded: false,
+            };
+        case SHOW_SELECTED_POST:
+            return {
+                ...state,
+                selectedPost: action.payload,
             };
         default:
             return state;

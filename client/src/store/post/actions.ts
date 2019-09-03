@@ -6,6 +6,7 @@ import {
     GET_MORE_POSTS_SUCCESS,
     GET_POSTS_PENDING,
     GET_POSTS_SUCCESS,
+    SHOW_SELECTED_POST,
 } from './actionTypes';
 import { IPost } from './reducers';
 
@@ -29,6 +30,11 @@ export const allPostsLoaded = (): { type: string} => ({
 
 export const clearLoaded = (): { type: string } => ({
     type: CLEAR_LOADED,
+});
+
+export const showPost = (post: any): { type: string, payload: any } => ({
+    type: SHOW_SELECTED_POST,
+    payload: post,
 });
 
 export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise<void> =>
