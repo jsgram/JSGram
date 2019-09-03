@@ -54,8 +54,15 @@ const ProfileEdit = (props: IProps): ReactElement => {
                     color='danger'
                     disabled={submitting}
                 >
-                    <i className='fa fa-save pr-3' />
-                    {submitting ? <Spinner color='light' /> : 'Save profile'}
+                    {submitting ?
+                    <div>
+                        <Spinner size='sm' />
+                        <span className='ml-2'>Loading...</span>
+                    </div> :
+                    <div>
+                        <i className='fa fa-save' />
+                        <span className='ml-2'>Save profile</span>
+                    </div>}
                 </Button>
             </Form>
         </div>

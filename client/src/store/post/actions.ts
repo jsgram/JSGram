@@ -6,6 +6,7 @@ import {
     GET_MORE_POSTS_SUCCESS,
     GET_POSTS_PENDING,
     GET_POSTS_SUCCESS,
+    EDIT_DESCRIPTION_FOR_POST,
     SHOW_SELECTED_POST,
 } from './actionTypes';
 import { IPost } from './reducers';
@@ -37,6 +38,11 @@ export const showPost = (post: any): { type: string, payload: any } => ({
     payload: post,
 });
 
+export const editDescriptionForPost = (description: any): { type: string, payload: any } => ({
+    type: EDIT_DESCRIPTION_FOR_POST,
+    payload: description,
+});
+
 export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
@@ -63,6 +69,17 @@ export const getMorePostsAsync = (username: string, page: number): (dispatch: Di
             }
 
             dispatch(getMorePostsSuccess(res.data.postsAll));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const editPost = (description: any, id: any): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const res = await AuthAPI.patch(`/post/${id}`, JSON.stringify({ description }));
+            dispatch(showAlert(res.data.message, 'success'));
+
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
