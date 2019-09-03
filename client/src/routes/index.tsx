@@ -2,7 +2,6 @@ import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { Main } from '../components/Main/Landing';
 import LoginContainer from '../containers/LoginContainer';
-import RegisterContainer from '../containers/RegisterContainer';
 import ChangePassword from '../components/ForgotPassword/ChangePassword';
 import CheckEmail from '../components/ForgotPassword/CheckEmail';
 import ProfileContainer from '../containers/ProfileContainer';
@@ -13,6 +12,7 @@ import { history } from '../history';
 import SideBar from '../components/SideBar';
 import AddPostContainer from '../containers/AddPostContainer';
 import Error404 from '../components/Error404';
+import { RegisterRout } from '../components/RegisterRout';
 
 export const routes = (
     <Router history={history}>
@@ -26,14 +26,8 @@ export const routes = (
             <PublicRoute path='/login/:token?' component={LoginContainer} />
             <PublicRoute exact path='/password-reset' component={CheckEmail} />
             <PublicRoute exact path='/password-reset/:token' component={ChangePassword} />
+            <PublicRoute exact path='/register' component={RegisterRout} />
             <Route component={Error404} />
-            <div className='container-fluid header'>
-                <div className='row justify-content-center align-items-center'>
-                    <div className='col-sm-8 col-md-6 col-xl-5'>
-                        <PublicRoute exact path='/register' component={RegisterContainer} />
-                    </div>
-                </div>
-            </div>
         </Switch>
     </Router>
 );
