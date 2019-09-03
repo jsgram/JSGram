@@ -22,6 +22,7 @@ const defaultState = {
         username: '',
         photo: '',
         email: '',
+        _id: '',
     },
     error: '',
     loaded: false,

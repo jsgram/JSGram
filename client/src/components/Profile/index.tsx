@@ -18,6 +18,7 @@ export interface IUserData {
     username: string;
     photo: string;
     email: string;
+    _id: string;
 }
 
 export default class Profile extends React.Component<any> {

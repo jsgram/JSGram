@@ -31,6 +31,7 @@ export const defaultState = {
         subscriptions: {},
         privacy: {},
         email: '',
+        _id: '',
     },
     error: '',
     loaded: false,

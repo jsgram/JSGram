@@ -11,7 +11,7 @@ export interface IPost {
     description: string;
     comments: any;
     tags: any;
-    likes: any;
+    authorsOfLike: any;
     _id: string;
     imgPath: string;
     author: string;
@@ -24,7 +24,7 @@ const defaultState = {
             description: '',
             comments: [],
             tags: [],
-            likes: [],
+            authorsOfLike: [],
             _id: '',
             imgPath: '',
             author: '',
