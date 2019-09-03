@@ -12,6 +12,7 @@ import {
     SHOW_SELECTED_POST,
 } from './actionTypes';
 import { IPost } from './reducers';
+import { decrementPostCount } from '../profile/actions';
 
 export const getPostsPending = (): { type: string } => ({
     type: GET_POSTS_PENDING,
@@ -89,8 +90,9 @@ export const deletePost = (postId: string): (dispatch: Dispatch) => Promise<void
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(deletePostPending());
-            await AuthAPI.delete(`/post/${postId}`);
+            const res = await AuthAPI.delete(`/post/${postId}`);
             dispatch(deletePostSuccess(postId));
+            dispatch(decrementPostCount());
             dispatch(showAlert(res.data.message, 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));

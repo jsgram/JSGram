@@ -9,6 +9,7 @@ import {
     CHANGE_SETTINGS_PENDING,
     CHANGE_SETTINGS_SUCCESS,
     CHANGE_SETTINGS_ERROR,
+    DECREMENT_POST_COUNT,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
@@ -86,6 +87,10 @@ export const changeSettingsSuccess = (newSettings: any): { type: string, payload
 export const changeSettingsError = (error: Error): { type: string, payload: Error } => ({
     type: CHANGE_SETTINGS_ERROR,
     payload: error,
+});
+
+export const decrementPostCount = (): { type: string } => ({
+    type: DECREMENT_POST_COUNT,
 });
 
 export const changeSettings = (
