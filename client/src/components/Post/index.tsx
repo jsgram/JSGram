@@ -104,7 +104,6 @@ export default class Post extends React.Component<IProps> {
                 this.props.checkUserLikeExist(true);
                 return true;
             }
-
             this.props.checkUserLikeExist(false);
             return false;
         }
