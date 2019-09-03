@@ -174,7 +174,7 @@ export default class Post extends React.Component<IProps> {
                                         alt='post'/>
                                 </div>
                                 <div className='col-lg-4'>
-                                    <div className='d-lg-none d-block mt-1 mb-2'>
+                                    <div className='d-lg-none d-block mt-1 mb-2 pl-3'>
                                         {this.setLikesCount() && this.props.likeExist ?
                                             <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>
                                             :
@@ -183,7 +183,7 @@ export default class Post extends React.Component<IProps> {
                                         <span>{this.props.countOfLikes} likes</span>
                                     </div>
                                     <div className='description-post'>
-                                        <div className='d-lg-none d-block comments'>
+                                        <div className='d-lg-none d-block comments pl-3 text-description'>
                                             <img
                                                 src={this.props.user.photo}
                                                 alt='avatar'
@@ -193,7 +193,7 @@ export default class Post extends React.Component<IProps> {
                                                                         mt-2 mr-2'
                                             />
                                             <span>{this.props.user.username}</span>
-                                            <p>{this.props.userPosts.selectedPost.description}</p>
+                                            <p className='pl-2'>{this.props.userPosts.selectedPost.description}</p>
                                         </div>
                                         <div className='d-none d-lg-block comments'>
                                             <div className='comments ml-lg-0 pl-lg-0 pl-4'>
@@ -224,6 +224,9 @@ export default class Post extends React.Component<IProps> {
                                         </div>
                                     </div>
                                     <div className='d-lg-block d-none mt-1'>
+                                        <div className='d-lg-block d-none'>
+                                            <hr/>
+                                        </div>
                                         {this.setLikesCount() && this.props.likeExist ?
                                             <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>
                                             :
