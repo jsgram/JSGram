@@ -59,7 +59,7 @@ class MenuPost extends React.Component<IProps, IState> {
                     <ul className='list-unstyled menu-items'>
                         { menuData.map((item: any) => (
                             <li className='menu-list' key={item.label}>
-                                <button className = 'menu-link d-flex justify-content-center my-2'
+                                <button className = 'menu-link d-flex my-2'
                                     onClick={(item.label === 'Delete') ? this.toggle :
                                     (): any => { this.props.toggleEdit(this.props.post); }}
                                 >{item.label}</button>
