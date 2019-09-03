@@ -4,13 +4,17 @@ import { Container, Row } from 'reactstrap';
 import './style.scss';
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
 
-interface IProps {
+interface IState {
     modal?: boolean;
     isMenuOpen?: boolean;
 }
+interface IProps {
+    post: any;
+    toggleEdit: (post: any) => void;
+}
 
-export class MenuPost extends React.Component<IProps> {
-    public state: IProps = {
+export class MenuPost extends React.Component<IProps, IState> {
+    public state: IState = {
         modal: false,
         isMenuOpen: false,
     };
@@ -37,7 +41,8 @@ export class MenuPost extends React.Component<IProps> {
                         { menuData.map((item: any) => (
                             <li className='menu-list' key={item.label}>
                                 <a className = 'menu-link d-flex justify-content-center my-2'
-                                onClick = { (item.label === 'Delete') ? this.toggle : undefined }
+                                    onClick={(item.label === 'Delete') ? this.toggle :
+                                    (): any => { this.props.toggleEdit(this.props.post); }}
                                 >{item.label}</a>
                             </li>
                         ))}

@@ -4,6 +4,7 @@ import {
     GET_MORE_POSTS_SUCCESS,
     ALL_POSTS_LOADED,
     CLEAR_LOADED,
+    EDIT_DESCRIPTION_FOR_POST,
     SHOW_SELECTED_POST,
 } from './actionTypes';
 
@@ -72,6 +73,14 @@ export const postReducer = (
             return {
                 ...state,
                 selectedPost: action.payload,
+            };
+        case EDIT_DESCRIPTION_FOR_POST:
+            return {
+                ...state,
+                selectedPost: {
+                    ...state.selectedPost,
+                    description: action.payload,
+                },
             };
         default:
             return state;
