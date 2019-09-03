@@ -12,7 +12,7 @@ import { history } from '../history';
 import SideBar from '../components/SideBar';
 import AddPostContainer from '../containers/AddPostContainer';
 import Error404 from '../components/Error404';
-import { RegisterRoute } from '../components/RegisterRout';
+import { RegisterRoute } from '../components/RegisterRoute';
 
 export const routes = (
     <Router history={history}>
