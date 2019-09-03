@@ -96,6 +96,7 @@ export default class Post extends React.Component<IProps> {
         this.props.addLike(body);
     }
 
+    // TODO refactoring in next sprint
     public setLikesCount = (): boolean | void => {
         if (!!this.props.userPosts.selectedPost.authorsOfLike) {
             this.props.setCountOfLikes(this.props.userPosts.selectedPost.authorsOfLike.length);
