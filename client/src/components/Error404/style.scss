@@ -1,0 +1,18 @@
+@import '../../styles/variables';
+
+.error-404 {
+  font-size: 4.5rem;
+  color: $color-button;
+  font-weight: 700;
+
+  .text-error {
+    font-size: 1.5rem;
+  }
+
+  .return-home {
+    font-weight: 400;
+    font-size: 1.2rem;
+    text-decoration: none;
+  }
+}
+
