@@ -11,13 +11,12 @@
     color: $color-like;
   }
 
-
   .text-description {
     word-wrap: break-word;
   }
 
   .comments {
-    height: 350px;
+    height: 335px;
     @media screen and (max-width: $break-md) {
       height: 130px;
     }
