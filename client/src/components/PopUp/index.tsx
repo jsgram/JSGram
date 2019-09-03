@@ -1,4 +1,4 @@
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Spinner } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import React from 'react';
 import CropperContainer from '../../containers/CropperContainer';
 

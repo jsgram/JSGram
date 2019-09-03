@@ -6,10 +6,13 @@ import {
     GET_MORE_POSTS_SUCCESS,
     GET_POSTS_PENDING,
     GET_POSTS_SUCCESS,
+    DELETE_POST_PENDING,
+    DELETE_POST_SUCCESS,
     EDIT_DESCRIPTION_FOR_POST,
     SHOW_SELECTED_POST,
 } from './actionTypes';
 import { IPost } from './reducers';
+import { decrementPostCount } from '../profile/actions';
 
 export const getPostsPending = (): { type: string } => ({
     type: GET_POSTS_PENDING,
@@ -31,6 +34,15 @@ export const allPostsLoaded = (): { type: string} => ({
 
 export const clearLoaded = (): { type: string } => ({
     type: CLEAR_LOADED,
+});
+
+export const deletePostPending = (): { type: string } => ({
+    type: DELETE_POST_PENDING,
+});
+
+export const deletePostSuccess = (postId: string): { type: string, payload: string } => ({
+    type: DELETE_POST_SUCCESS,
+    payload: postId,
 });
 
 export const showPost = (post: any): { type: string, payload: any } => ({
@@ -74,12 +86,24 @@ export const getMorePostsAsync = (username: string, page: number): (dispatch: Di
         }
     };
 
+export const deletePost = (postId: string): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            dispatch(deletePostPending());
+            const res = await AuthAPI.delete(`/post/${postId}`);
+            dispatch(deletePostSuccess(postId));
+            dispatch(decrementPostCount());
+            dispatch(showAlert(res.data.message, 'success'));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
 export const editPost = (description: any, id: any): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const res = await AuthAPI.patch(`/post/${id}`, JSON.stringify({ description }));
             dispatch(showAlert(res.data.message, 'success'));
-
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
