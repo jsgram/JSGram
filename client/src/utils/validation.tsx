@@ -16,8 +16,11 @@ interface IPasswordChange {
 const validate = (user: IUser): IUser => {
     const errors: IUser = {};
     const validEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    const validUsername = /^[a-zA-Z0-9]+$/;
     if (!user.username || user.username.length < 3) {
         errors.username = 'Please, enter your username.';
+    } else if (!validUsername.test(user.username)) {
+        errors.username = 'Invalid username.';
     }
     if (!user.email) {
         errors.email = 'Please, enter your email.';
@@ -30,8 +33,11 @@ const validate = (user: IUser): IUser => {
     if (!user.password || user.password.length < 8) {
         errors.password = 'Please, enter your password.';
     }
-    if (!user.description || user.description.length < 3 || user.description.length > 200) {
-        errors.description = 'Description should be more than 3 and less than 200.';
+    if (!user.description) {
+        user.description = '';
+    }
+    if (user.description.length > 200) {
+        errors.description = 'Description should be less than 200.';
     }
     return errors;
 };

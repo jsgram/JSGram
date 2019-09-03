@@ -8,6 +8,11 @@ import './style.scss';
 import MenuPost from '../MenuPost';
 import noAvatar from '../../assets/noAvatar.svg';
 
+interface IBody {
+    userId: string;
+    postId: string;
+}
+
 interface IProps {
     userPosts: any;
     user: IUserData;
@@ -15,8 +20,14 @@ interface IProps {
     getPostsAsync: (username: string) => void;
     getMorePostsAsync: (username: string, page: number) => void;
     deletePhoto: () => void;
+    addLike: (body: IBody) => void;
+    setCountOfLikes: (countOfLikes: number) => void;
+    deleteLike: (body: IBody) => void;
+    countOfLikes: number;
     editPost: (description: string, id: string) => void;
     showPost: (post: any) => void;
+    likeExist: boolean;
+    checkUserLikeExist: (doesExist: boolean) => void;
 }
 
 interface IModalState {
@@ -66,6 +77,41 @@ export default class Post extends React.Component<IProps> {
 
     public componentDidMount(): void {
         this.props.getPostsAsync(this.props.user.username);
+    }
+
+    public onDeleteLike = (): void => {
+        const {_id : userId}: any = this.props.user;
+        const {_id : postId}: any = this.props.userPosts.selectedPost;
+        const body = {userId, postId};
+        const index = this.props.userPosts.selectedPost.authorsOfLike.indexOf(body.userId);
+        this.props.userPosts.selectedPost.authorsOfLike.splice(index, 1);
+        this.props.deleteLike(body);
+    }
+
+    public onAddLike = (): void => {
+        const {_id : userId}: any = this.props.user;
+        const {_id : postId}: any = this.props.userPosts.selectedPost;
+        const body = {userId, postId};
+        this.props.userPosts.selectedPost.authorsOfLike.push(this.props.user._id);
+        this.props.addLike(body);
+    }
+
+    // TODO refactoring in next sprint
+    public setLikesCount = (): boolean | void => {
+        if (!!this.props.userPosts.selectedPost.authorsOfLike) {
+            this.props.setCountOfLikes(this.props.userPosts.selectedPost.authorsOfLike.length);
+
+            const arr = this.props.userPosts.selectedPost.authorsOfLike.filter((userId: string) =>
+                this.props.user._id === userId,
+                );
+
+            if (arr.length) {
+                this.props.checkUserLikeExist(true);
+                return true;
+            }
+            this.props.checkUserLikeExist(false);
+            return false;
+        }
     }
 
     public render(): JSX.Element {
@@ -128,9 +174,13 @@ export default class Post extends React.Component<IProps> {
                                         alt='post'/>
                                 </div>
                                 <div className='col-lg-4'>
-                                    <div className='d-lg-none d-block mt-2 mb-2 ml-lg-0 ml-3'>
-                                        <i className='fa fa-heart-o fa-lg pr-1'/>
-                                        <span>72 likes</span>
+                                    <div className='d-lg-none d-block mt-1 mb-2'>
+                                        {this.setLikesCount() && this.props.likeExist ?
+                                            <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>
+                                            :
+                                            <i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>
+                                        }
+                                        <span>{this.props.countOfLikes} likes</span>
                                     </div>
                                     <div className='description-post'>
                                         <div className='d-lg-none d-block comments'>
@@ -158,9 +208,9 @@ export default class Post extends React.Component<IProps> {
                                                     <span className='mt-2'>{this.props.user.username}</span>
                                                     <span className='d-lg-block d-none'>
                                                       <MenuPost
-                                                        post={this.props.userPosts.selectedPost}
-                                                        toggleEdit={this.toggleEdit}
-                                                        toggleModal={this.toggle}
+                                                          post={this.props.userPosts.selectedPost}
+                                                          toggleEdit={this.toggleEdit}
+                                                          toggleModal={this.toggle}
                                                       />
                                                     </span>
                                                 </div>
@@ -172,17 +222,19 @@ export default class Post extends React.Component<IProps> {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className='d-lg-block d-none'>
-                                            <hr className='mt-0'/>
-                                        </div>
-                                        <div className='d-lg-block d-none mt-1'>
-                                            <i className='fa fa-heart-o fa-lg pr-1'/>
-                                            <span>72 likes</span>
-                                        </div>
-                                        <div className='d-lg-block d-none'>
-                                            <hr/>
-                                        </div>
-                                        <div className='mt-3 d-flex justify-content-between'>
+                                    </div>
+                                    <div className='d-lg-block d-none mt-1'>
+                                        {this.setLikesCount() && this.props.likeExist ?
+                                            <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>
+                                            :
+                                            <i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>
+                                        }
+                                        <span>{this.props.countOfLikes} likes</span>
+                                    </div>
+                                    <div className='d-lg-block d-none'>
+                                        <hr/>
+                                    </div>
+                                    <div className='mt-3 d-flex justify-content-between'>
                                         <textarea
                                             className='add-comment p-0 border-0 ml-lg-0 ml-3'
                                             placeholder='Write your comment...'
@@ -190,14 +242,13 @@ export default class Post extends React.Component<IProps> {
                                             rows={3}
                                         >
                                         </textarea>
-                                            <button
-                                                className='button-comment p-0 border-0 mr-lg-2
+                                        <button
+                                            className='button-comment p-0 border-0 mr-lg-2
                                              mr-3 d-float align-self-start'
-                                                type='submit'
-                                                disabled>
-                                                Add
-                                            </button>
-                                        </div>
+                                            type='submit'
+                                            disabled>
+                                            Add
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -235,7 +286,7 @@ export default class Post extends React.Component<IProps> {
                             className='mt-2'
                             block
                             onClick={this.onEditPost}>
-                                Update Post
+                            Update Post
                         </Button>
                     </FormGroup>
                 </Modal>

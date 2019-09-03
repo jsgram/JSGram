@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ILikeModel } from '../../models/like.model';
-import { countLike, createLike, addLikeIdToPost } from '../../db.requests/add.like.requests';
+import { countLike, createLike, addUserIdToPost } from '../../db.requests/add.like.requests';
 
 export const addLike = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -20,7 +20,7 @@ export const addLike = async (req: Request, res: Response, next: NextFunction): 
             throw new Error('Can not create like');
         }
 
-        const postWithNewLike = await addLikeIdToPost(postId, createdLike.id, next);
+        const postWithNewLike = await addUserIdToPost(postId, userId, next);
         if (!postWithNewLike) {
             throw new Error('Can not add like to post');
         }

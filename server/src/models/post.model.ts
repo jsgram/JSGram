@@ -17,7 +17,7 @@ const PostSchema: Schema = new Schema({
     description: {type: String, default: '', maxlength: 1000},
     comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
     tags: [{type: String}],
-    likes: [{type: Schema.Types.ObjectId, default: [], ref: 'Like', required: true}],
+    authorsOfLike: [{type: Schema.Types.ObjectId, default: [], ref: 'User', required: true}],
     createdAt: {type: Date, default: Date.now, required: true},
 });
 
