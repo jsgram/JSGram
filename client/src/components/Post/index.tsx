@@ -8,6 +8,11 @@ import './style.scss';
 import MenuPost from '../MenuPost';
 import noAvatar from '../../assets/noAvatar.svg';
 
+interface IBody {
+    userId: string;
+    postId: string;
+}
+
 interface IProps {
     userPosts: any;
     user: IUserData;
@@ -15,9 +20,9 @@ interface IProps {
     getPostsAsync: (username: string) => void;
     getMorePostsAsync: (username: string, page: number) => void;
     deletePhoto: () => void;
-    addLike: (body: {}) => void;
+    addLike: (body: IBody) => void;
     setCountOfLikes: (countOfLikes: number) => void;
-    deleteLike: (body: {}) => void;
+    deleteLike: (body: IBody) => void;
     countOfLikes: number;
     editPost: (description: string, id: string) => void;
     showPost: (post: any) => void;
@@ -88,12 +93,12 @@ export default class Post extends React.Component<IProps> {
     }
 
     public setLikesCount = (): boolean | void => {
-        if (this.props.userPosts.selectedPost.authorsOfLike !== undefined) {
+        if (!!this.props.userPosts.selectedPost.authorsOfLike) {
             this.props.setCountOfLikes(this.props.userPosts.selectedPost.authorsOfLike.length);
 
-            const arr = this.props.userPosts.selectedPost.authorsOfLike.filter((userId: string) => {
-                return this.props.user._id === userId;
-            });
+            const arr = this.props.userPosts.selectedPost.authorsOfLike.filter((userId: string) =>
+                this.props.user._id === userId,
+                );
 
             if (arr.length) {
                 this.props.checkUserLikeExist(true);
@@ -165,9 +170,10 @@ export default class Post extends React.Component<IProps> {
                                 </div>
                                 <div className='col-lg-4'>
                                     <div className='d-lg-none d-block mt-1 mb-2'>
-                                        {this.props.countOfLikes ?
+                                        {this.setLikesCount() && this.props.likeExist ?
                                             <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>
-                                            : <i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>
+                                            :
+                                            <i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>
                                         }
                                         <span>{this.props.countOfLikes} likes</span>
                                     </div>
@@ -197,9 +203,9 @@ export default class Post extends React.Component<IProps> {
                                                     <span className='mt-2'>{this.props.user.username}</span>
                                                     <span className='d-lg-block d-none'>
                                                       <MenuPost
-                                                        post={this.props.userPosts.selectedPost}
-                                                        toggleEdit={this.toggleEdit}
-                                                        toggleModal={this.toggle}
+                                                          post={this.props.userPosts.selectedPost}
+                                                          toggleEdit={this.toggleEdit}
+                                                          toggleModal={this.toggle}
                                                       />
                                                     </span>
                                                 </div>
@@ -213,9 +219,7 @@ export default class Post extends React.Component<IProps> {
                                         </div>
                                     </div>
                                     <div className='d-lg-block d-none mt-1'>
-                                        {this.setLikesCount()}
-                                        {this.props.userPosts.selectedPost.authorsOfLike !== undefined &&
-                                        this.props.likeExist ?
+                                        {this.setLikesCount() && this.props.likeExist ?
                                             <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>
                                             :
                                             <i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>
@@ -276,7 +280,7 @@ export default class Post extends React.Component<IProps> {
                             className='mt-2'
                             block
                             onClick={this.onEditPost}>
-                                Update Post
+                            Update Post
                         </Button>
                     </FormGroup>
                 </Modal>
