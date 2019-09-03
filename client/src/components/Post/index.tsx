@@ -98,12 +98,13 @@ export default class Post extends React.Component<IProps> {
                 </div>
                 <Modal className='profile-post modal-dial modal-lg modal-dialog-centered'
                        isOpen={this.state.modal}
-                    toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
+                       toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
                     <div className='modal-body p-0'>
                         <div className='container p-0'>
                             <div className='row'>
                                 <div className='col-lg-8'>
-                                    <ModalHeader className='d-lg-none display-1'>
+                                    <ModalHeader className='d-lg-none display-1'
+                                                 toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
                                         <div className='row'>
                                             <MenuPost
                                                 post={this.props.userPosts.selectedPost}
@@ -143,46 +144,56 @@ export default class Post extends React.Component<IProps> {
                                             <p>{this.props.userPosts.selectedPost.description}</p>
                                         </div>
                                         <div className='d-none d-lg-block comments'>
-                                            <div className='row'>
-                                                <img
-                                                    src={this.props.user.photo || noAvatar}
-                                                    alt='avatar'
-                                                    width={32}
-                                                    height={32}
-                                                    className='img-fluid mt-2 mr-2'
-                                                />
-                                                <span className='mt-2'>{this.props.user.username}</span>
-                                                <MenuPost
-                                                    post={this.props.userPosts.selectedPost}
-                                                    toggleEdit={this.toggleEdit}
-                                                />
+                                            <div className='comments ml-lg-0 pl-lg-0 pl-4'>
+                                                <div className='row'>
+                                                    <img
+                                                        src={this.props.user.photo || noAvatar}
+                                                        alt='avatar'
+                                                        width={32}
+                                                        height={32}
+                                                        className='img-fluid mt-2 mr-2'
+                                                    />
+                                                    <span className='mt-2'>{this.props.user.username}</span>
+                                                    <span className='d-lg-block d-none'>
+                                                      <MenuPost
+                                                        post={this.props.userPosts.selectedPost}
+                                                        toggleEdit={this.toggleEdit}
+                                                      />
+                                                    </span>
+                                                </div>
+                                                <p className='text-description'>
+                                                    {this.props.userPosts.selectedPost.description}
+                                                </p>
+                                                <div className='d-lg-block d-none'>
+                                                    <hr className='mt-0'/>
+                                                </div>
                                             </div>
-                                            <p>{this.props.userPosts.selectedPost.description}</p>
                                         </div>
-                                    </div>
-                                    <div className='d-lg-block d-none'>
-                                        <hr className='mt-0'/>
-                                    </div>
-                                    <div className='d-lg-block d-none mt-1'>
-                                        <i className='fa fa-heart-o fa-lg pr-1'/>
-                                        <span>72 likes</span>
-                                    </div>
-                                    <div className='d-lg-block d-none'>
-                                        <hr/>
-                                    </div>
-                                    <div className='mt-3'>
+                                        <div className='d-lg-block d-none'>
+                                            <hr className='mt-0'/>
+                                        </div>
+                                        <div className='d-lg-block d-none mt-1'>
+                                            <i className='fa fa-heart-o fa-lg pr-1'/>
+                                            <span>72 likes</span>
+                                        </div>
+                                        <div className='d-lg-block d-none'>
+                                            <hr/>
+                                        </div>
+                                        <div className='mt-3 d-flex justify-content-between'>
+>>>>>>> dev
                                         <textarea
                                             className='add-comment p-0 border-0'
                                             placeholder='Add your comment...'
                                             autoComplete='off'>
                                         </textarea>
-                                        <button
-                                            className='button-comment p-0 border-0
-                                                        float-lg-none float-right'
-                                            type='submit'
-                                            disabled>
-                                            Add comment
-                                        </button>
+                                            <button
+                                                className='button-comment p-0 border-0 mr-lg-2
+                                             mr-3 d-float align-self-start'
+                                                type='submit'
+                                                disabled>
+                                                Add
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

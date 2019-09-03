@@ -6,8 +6,8 @@ import {
     GET_MORE_POSTS_SUCCESS,
     GET_POSTS_PENDING,
     GET_POSTS_SUCCESS,
-    SHOW_POST,
     EDIT_DESCRIPTION_FOR_POST,
+    SHOW_SELECTED_POST,
 } from './actionTypes';
 import { IPost } from './reducers';
 
@@ -34,7 +34,7 @@ export const clearLoaded = (): { type: string } => ({
 });
 
 export const showPost = (post: any): { type: string, payload: any } => ({
-    type: SHOW_POST,
+    type: SHOW_SELECTED_POST,
     payload: post,
 });
 

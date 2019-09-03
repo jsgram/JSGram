@@ -4,8 +4,8 @@ import {
     GET_MORE_POSTS_SUCCESS,
     ALL_POSTS_LOADED,
     CLEAR_LOADED,
-    SHOW_POST,
     EDIT_DESCRIPTION_FOR_POST,
+    SHOW_SELECTED_POST,
 } from './actionTypes';
 
 export interface IPost {
@@ -69,7 +69,7 @@ export const postReducer = (
                 ...state,
                 loaded: false,
             };
-        case SHOW_POST:
+        case SHOW_SELECTED_POST:
             return {
                 ...state,
                 selectedPost: action.payload,
