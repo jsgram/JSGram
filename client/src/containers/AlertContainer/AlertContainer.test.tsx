@@ -19,6 +19,6 @@ describe('AlertContainer component:', () => {
     });
 
     test('render - success', () => {
-        expect(renderer.html()).toHaveLength(195);
+        expect(renderer.html()).toHaveLength(200);
     });
 });

@@ -11,12 +11,13 @@ interface IState {
     modal?: boolean;
     isMenuOpen?: boolean;
 }
-
 interface IProps {
+    post: any;
+    toggleEdit: (post: any) => void;
     togglePost: (post: any) => any;
 }
 
-export class MenuPost extends React.Component<IProps, IState> { // FIXME any type
+export class MenuPost extends React.Component<IProps, IState> {
     public state: IState = {
         modal: false,
         isMenuOpen: false,
@@ -49,31 +50,32 @@ export class MenuPost extends React.Component<IProps, IState> { // FIXME any typ
                     <Row><div className='mt-1'>.</div></Row>
                     <Row><div className='mt-1'>.</div></Row>
                 </Container>
-                <div>
-                {/* TODO Replace undefined in ternary operator with a function for Edit component*/}
-                    {menuData.length && (
-                        <nav className={ `navig ${ this.state.isMenuOpen ? 'show-menu' : ''}` }>
-                            <ul className='list-unstyled menu-items'>
-                                { menuData.map((item: any) => (
-                                    <li className='menu-list' key={item.label}>
-                                        <a className = 'menu-link d-flex justify-content-center my-2'
-                                        onClick = {item.label === 'Delete' ? this.toggle : undefined}
-                                        >{item.label}</a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </nav>
-                    )}
-                    <Modal isOpen={this.state.modal} toggle={this.toggle} className='modal-xs modal-dialog-centered'>
-                        <ModalBody className='text-center'>
-                            <h2>Delete post?</h2>
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button color='danger' onClick={this.deletePostHandler}>Delete</Button>
-                            <Button color='secondary' onClick={this.cancelDelete}>Cancel</Button>
-                        </ModalFooter>
-                    </Modal>
-                </div>
+            <div>
+            {/* TODO Replace undefined in ternary operator with a function for Edit component*/}
+                {menuData.length && (
+                    <nav className={ `navig ${ this.state.isMenuOpen && 'show-menu' }` }>
+                    <ul className='list-unstyled menu-items'>
+                        { menuData.map((item: any) => (
+                            <li className='menu-list' key={item.label}>
+                                <a className = 'menu-link d-flex justify-content-center my-2'
+                                    onClick={(item.label === 'Delete') ? this.toggle :
+                                    (): any => { this.props.toggleEdit(this.props.post); }}
+                                >{item.label}</a>
+                            </li>
+                        ))}
+                    </ul>
+                    </nav>
+                )}
+                <Modal isOpen={this.state.modal} toggle={this.toggle}
+                className='modal-sm modal-dialog-centered'>
+                    <ModalBody className='text-center'>
+                        <h2>Delete post?</h2>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color='danger' onClick={this.deletePostHandler}>Delete</Button>
+                        <Button color='secondary' onClick={this.cancelDelete}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
             </div>
         );
     }

@@ -55,7 +55,7 @@ class SideBar extends React.Component<any> {
                                         {fullName}
                                     </div>
                                     <div className='profile-title'>
-                                        Edit Profile
+                                        View Profile
                                     </div>
                                 </div>
                                 <Nav className='navbar'>
