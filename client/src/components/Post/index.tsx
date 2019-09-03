@@ -54,7 +54,7 @@ export default class Post extends React.Component<IProps> {
                 <div className='row mt-5 profile-post'>
                     {
                         this.props.userPosts.posts.map((post: IPost, i: number) => (
-                                <div key={i} className='col-sm-4 text-center pt-2 post-photo'>
+                                <div key={i} className='col-sm-4 text-center pt-4 post-photo'>
                                     <img
                                         src={post.imgPath}
                                         height={293}

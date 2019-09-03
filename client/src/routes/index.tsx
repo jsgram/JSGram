@@ -12,6 +12,7 @@ import Logout from '../containers/LogoutContainer';
 import { history } from '../history';
 import SideBar from '../components/SideBar';
 import AddPostContainer from '../containers/AddPostContainer';
+import Error404 from '../components/Error404';
 
 export const routes = (
     <Router history={history}>
@@ -25,6 +26,7 @@ export const routes = (
             <PublicRoute path='/login/:token?' component={LoginContainer} />
             <PublicRoute exact path='/password-reset' component={CheckEmail} />
             <PublicRoute exact path='/password-reset/:token' component={ChangePassword} />
+            <Route component={Error404} />
             <div className='container-fluid header'>
                 <div className='row justify-content-center align-items-center'>
                     <div className='col-sm-8 col-md-6 col-xl-5'>
