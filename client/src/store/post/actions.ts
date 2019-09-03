@@ -8,6 +8,7 @@ import {
     GET_POSTS_SUCCESS,
     DELETE_POST_PENDING,
     DELETE_POST_SUCCESS,
+    SHOW_SELECTED_POST,
 } from './actionTypes';
 import { IPost } from './reducers';
 
@@ -40,6 +41,11 @@ export const deletePostPending = (): { type: string } => ({
 export const deletePostSuccess = (postId: string): { type: string, payload: string } => ({
     type: DELETE_POST_SUCCESS,
     payload: postId,
+});
+
+export const showPost = (post: any): { type: string, payload: any } => ({
+    type: SHOW_SELECTED_POST,
+    payload: post,
 });
 
 export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise<void> =>

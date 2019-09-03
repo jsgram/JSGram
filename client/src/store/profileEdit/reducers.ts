@@ -15,11 +15,11 @@ const defaultState = {
 
 export const profileEditReducer = (state: IStateProfileEdit = defaultState, action: IAction): IStateProfileEdit => {
     switch (action.type) {
-    case SET_NEW_USERNAME:
-        return {
-            newUsername: action.payload,
-        };
-    default:
-        return state;
+        case SET_NEW_USERNAME:
+            return {
+                newUsername: action.payload,
+            };
+        default:
+            return state;
     }
 };

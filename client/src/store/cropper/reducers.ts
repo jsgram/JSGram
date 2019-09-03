@@ -23,34 +23,34 @@ export const defaultState = {
 
 export const cropperReducer = (state: IState = defaultState, action: { type: string, payload: any }): IState => {
     switch (action.type) {
-    case SET_AVATAR_TO_CROPPER:
-        return {
-            ...state,
-            avatar: action.payload,
-        };
+        case SET_AVATAR_TO_CROPPER:
+            return {
+                ...state,
+                avatar: action.payload,
+            };
 
-    case UPLOAD_AVATAR_PENDING:
-        return {
-            ...state,
-            loaded: false,
-            error: null,
-            loading: true,
-        };
-    case UPLOAD_AVATAR_SUCCESS:
-        return {
-            ...state,
-            avatar: action.payload,
-            loaded: true,
-            loading: false,
-        };
-    case UPLOAD_AVATAR_ERROR:
-        return {
-            ...state,
-            error: action.payload,
-            loaded: false,
-            loading: false,
-        };
-    default:
-        return state;
+        case UPLOAD_AVATAR_PENDING:
+            return {
+                ...state,
+                loaded: false,
+                error: null,
+                loading: true,
+            };
+        case UPLOAD_AVATAR_SUCCESS:
+            return {
+                ...state,
+                avatar: action.payload,
+                loaded: true,
+                loading: false,
+            };
+        case UPLOAD_AVATAR_ERROR:
+            return {
+                ...state,
+                error: action.payload,
+                loaded: false,
+                loading: false,
+            };
+        default:
+            return state;
     }
 };

@@ -2,7 +2,6 @@ import { showAlert } from '../../store/alert/actions';
 import { API } from '../api';
 import { AuthAPI } from '../api';
 import { Dispatch } from 'redux';
-import { IUser } from '../commonInterfaces/commonInterfaces';
 import { CHANGE_PASSWORD_PENDING, CHANGE_PASSWORD_SUCCESS, CHANGE_PASSWORD_ERROR } from './actionTypes';
 import { history } from '../../history';
 
@@ -32,13 +31,15 @@ export const changePassword = (password: string, token: string): (dispatch: Disp
     };
 
 export const changeProfilePassword = (
-    profileUser: IUser, newPassword: string): (dispatch: Dispatch) =>
+    username: string, oldPassword: string, newPassword: string): (dispatch: Dispatch) =>
     Promise<void> => async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(changePasswordPending());
-            const res = await AuthAPI.post('/profile/changePassword/', {profileUser, newPassword});
+            const res = await AuthAPI.put(`/profile/${username}/edit-password`, { oldPassword, newPassword });
             dispatch(changePasswordSuccess(res.data));
+            dispatch(showAlert(res.data.message, 'success'));
         } catch (e) {
             dispatch(changePasswordError(e.message));
+            dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };
