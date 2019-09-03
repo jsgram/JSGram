@@ -12,7 +12,7 @@ import { history } from '../history';
 import SideBar from '../components/SideBar';
 import AddPostContainer from '../containers/AddPostContainer';
 import Error404 from '../components/Error404';
-import { RegisterRout } from '../components/RegisterRout';
+import { RegisterRoute } from '../components/RegisterRout';
 
 export const routes = (
     <Router history={history}>
@@ -26,7 +26,7 @@ export const routes = (
             <PublicRoute path='/login/:token?' component={LoginContainer} />
             <PublicRoute exact path='/password-reset' component={CheckEmail} />
             <PublicRoute exact path='/password-reset/:token' component={ChangePassword} />
-            <PublicRoute exact path='/register' component={RegisterRout} />
+            <PublicRoute exact path='/register' component={RegisterRoute} />
             <Route component={Error404} />
         </Switch>
     </Router>
