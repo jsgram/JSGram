@@ -9,6 +9,7 @@ import {
     CHANGE_SETTINGS_PENDING,
     CHANGE_SETTINGS_SUCCESS,
     CHANGE_SETTINGS_ERROR,
+    DECREMENT_POST_COUNT,
 } from './actionTypes';
 import { IUserData } from '../../components/Profile';
 
@@ -112,6 +113,14 @@ export const profileReducer = (
                 error: action.payload,
                 loaded: false,
                 loading: false,
+            };
+        case DECREMENT_POST_COUNT:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    posts: state.user.posts - 1,
+                },
             };
         default:
             return state;

@@ -5,7 +5,7 @@ import { IUserData } from '../Profile';
 import { IPost } from '../../store/post/reducers';
 import { Modal, ModalHeader, Spinner, Input, FormGroup, Button } from 'reactstrap';
 import './style.scss';
-import { MenuPost } from '../MenuPost';
+import MenuPost from '../MenuPost';
 import noAvatar from '../../assets/noAvatar.svg';
 
 interface IProps {
@@ -146,6 +146,7 @@ export default class Post extends React.Component<IProps> {
                                             <MenuPost
                                                 post={this.props.userPosts.selectedPost}
                                                 toggleEdit={this.toggleEdit}
+                                                toggleModal={this.toggle}
                                             />
                                             <img
                                                 src={this.props.user.photo || noAvatar}
@@ -195,10 +196,11 @@ export default class Post extends React.Component<IProps> {
                                                     />
                                                     <span className='mt-2'>{this.props.user.username}</span>
                                                     <span className='d-lg-block d-none'>
-                                                        <MenuPost
-                                                            post={this.props.userPosts.selectedPost}
-                                                            toggleEdit={this.toggleEdit}
-                                                        />
+                                                      <MenuPost
+                                                        post={this.props.userPosts.selectedPost}
+                                                        toggleEdit={this.toggleEdit}
+                                                        toggleModal={this.toggle}
+                                                      />
                                                     </span>
                                                 </div>
                                                 <p className='text-description'>
