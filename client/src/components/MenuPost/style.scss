@@ -2,13 +2,13 @@
 
 .burger-menu {
   position: relative;
-  
+
   .dots {
     position: absolute;
-    font-weight: bold;
-    font-size: 30px;
     margin-top: 0.05em;
     margin-left: 0.25em;
+    font-weight: bold;
+    font-size: 30px;
     line-height: 3px;
     cursor: default;
     @media screen and (min-width: $break-md) {
