@@ -96,7 +96,7 @@ export default class Post extends React.Component<IProps> {
                 <div className='w-100 d-flex align-items-center justify-content-center'>
                     {this.props.userPosts.loading && <Spinner className='mt-3' color='dark'/>}
                 </div>
-                <Modal className='profile-post modal-dial modal-lg modal-dialog-centered'
+                <Modal className='profile-post modal-dial modal-lg modal-dialog-centered px-3 py-3'
                        isOpen={this.state.modal}
                        toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
                     <div className='modal-body p-0'>
@@ -127,7 +127,7 @@ export default class Post extends React.Component<IProps> {
                                         alt='post'/>
                                 </div>
                                 <div className='col-lg-4'>
-                                    <div className='d-lg-none d-block mt-1 mb-2'>
+                                    <div className='d-lg-none d-block mt-2 mb-2 ml-lg-0 ml-3'>
                                         <i className='fa fa-heart-o fa-lg pr-1'/>
                                         <span>72 likes</span>
                                     </div>
@@ -183,9 +183,11 @@ export default class Post extends React.Component<IProps> {
                                         </div>
                                         <div className='mt-3 d-flex justify-content-between'>
                                         <textarea
-                                            className='add-comment p-0 border-0'
-                                            placeholder='Add your comment...'
-                                            autoComplete='off'>
+                                            className='add-comment p-0 border-0 ml-lg-0 ml-3'
+                                            placeholder='Write your comment...'
+                                            autoComplete='off'
+                                            rows={3}
+                                        >
                                         </textarea>
                                             <button
                                                 className='button-comment p-0 border-0 mr-lg-2
