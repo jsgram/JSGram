@@ -42,7 +42,6 @@ export const postReducer = (
     state: any = defaultState,
     action: { type: string, payload: any, loading: boolean }): any => {
     switch (action.type) {
-<<<<<<< HEAD
         case GET_POSTS_PENDING:
             return {
                 ...state,

@@ -29,7 +29,7 @@ class ProfilePrivacyContainer extends React.Component<any> { // FIXME any type
     }
 
     public render(): JSX.Element {
-        const { handleSubmit, initialValues, submitting }: FormProps = this.props;
+        const { handleSubmit, submitting }: FormProps = this.props;
         return (
             <div>
                 <h3 className='text-center font-weight-light text-secondary text-uppercase'>Privacy and Security</h3>

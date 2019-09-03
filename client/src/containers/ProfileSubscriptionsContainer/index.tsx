@@ -6,7 +6,7 @@ import { IUserPrivacy } from '../ProfilePrivacyContainer';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Form, Label, Button, Spinner, FormProps } from 'reactstrap';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 
 export interface IUserSubscriptions {
     isNewsEmail: boolean;
@@ -29,7 +29,7 @@ class ProfileSubscriptionsContainer extends React.Component<any> { // FIXME any 
     }
 
     public render(): JSX.Element {
-        const { handleSubmit, initialValues, submitting }: FormProps = this.props;
+        const { handleSubmit, submitting }: FormProps = this.props;
         return (
             <div>
                 <h3 className='text-center font-weight-light text-secondary text-uppercase'>Subscribe to</h3>
