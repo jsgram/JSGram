@@ -4,8 +4,7 @@
   .post-photo {
     position: relative;
     width: 100%;
-
-
+    cursor: pointer;
   }
 
   .like {
@@ -37,5 +36,11 @@
       opacity: 0.3;
       pointer-events: none;
     }
+  }
+}
+
+.change-description {
+  textarea {
+    resize: none;
   }
 }

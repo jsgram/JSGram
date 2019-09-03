@@ -77,6 +77,7 @@ export default class Post extends React.Component<IProps> {
                                 <div key={post._id} className='col-sm-4 text-center pt-4 post-photo'>
                                     <img
                                         src={post.imgPath}
+                                        width={293}
                                         height={293}
                                         alt=''
                                         onClick={(): void => this.toggle(post)}
@@ -213,13 +214,14 @@ export default class Post extends React.Component<IProps> {
                     <FormGroup className='text-center m-3 post-photo'>
                         <img
                             src={this.props.userPosts.selectedPost.imgPath}
+                            width={293}
                             height={293}
                             id={this.props.userPosts.selectedPost._id}
                             alt='post'
-                            className='img-fluid'
+                            className='img-fluid w-100'
                         />
                     </FormGroup>
-                    <FormGroup className='m-3'>
+                    <FormGroup className='m-3 change-description'>
                         <Input
                             type='textarea'
                             name='description'
