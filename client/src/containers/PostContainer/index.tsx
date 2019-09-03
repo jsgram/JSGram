@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Post from '../../components/Post';
-import { getPostsAsync, getMorePostsAsync, showPost, addOrRemoveAuthorOfLike } from '../../store/post/actions';
+import { getPostsAsync, getMorePostsAsync, showPost } from '../../store/post/actions';
 import { deletePhoto } from '../../store/profile/actions';
 import { addLike, checkUserLikeExist, deleteLike, setCountOfLikes } from '../../store/like/actions';
 
@@ -21,7 +21,6 @@ export class PostContainer extends React.Component <any> {
                 showPost={this.props.showPost}
                 likeExist={this.props.likeExist}
                 checkUserLikeExist={this.props.checkUserLikeExist}
-                addOrRemoveAuthorOfLike={this.props.addOrRemoveAuthorOfLike}
             />
         );
     }
@@ -43,7 +42,6 @@ const mapDispatchToProps = {
     checkUserLikeExist,
     deleteLike,
     showPost,
-    addOrRemoveAuthorOfLike,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);

@@ -2,7 +2,6 @@ import { AuthAPI } from '../api';
 import { showAlert } from '../alert/actions';
 import { Dispatch } from 'redux';
 import {
-    ADD_OR_REMOVE_AUTHOR_OF_LIKE,
     ALL_POSTS_LOADED, CLEAR_LOADED,
     GET_MORE_POSTS_SUCCESS,
     GET_POSTS_PENDING,
@@ -35,11 +34,6 @@ export const clearLoaded = (): { type: string } => ({
 export const showPost = (post: any): { type: string, payload: any } => ({
     type: SHOW_POST,
     payload: post,
-});
-
-export const addOrRemoveAuthorOfLike = (arrayOfAuthorsOfLikes: []): {type: string, payload: any} => ({
-    type: ADD_OR_REMOVE_AUTHOR_OF_LIKE,
-    payload: arrayOfAuthorsOfLikes,
 });
 
 export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise<void> =>

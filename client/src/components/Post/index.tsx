@@ -21,7 +21,6 @@ interface IProps {
     showPost: (post: any) => void;
     likeExist: boolean;
     checkUserLikeExist: (doesExist: boolean) => void;
-    addOrRemoveAuthorOfLike: (arrayOfAuthorsOfLikes: []) => void;
 }
 
 interface IModalState {

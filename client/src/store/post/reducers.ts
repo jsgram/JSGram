@@ -4,7 +4,7 @@ import {
     GET_MORE_POSTS_SUCCESS,
     ALL_POSTS_LOADED,
     CLEAR_LOADED,
-    SHOW_POST, ADD_OR_REMOVE_AUTHOR_OF_LIKE,
+    SHOW_POST,
 } from './actionTypes';
 
 export interface IPost {
@@ -72,14 +72,6 @@ export const postReducer = (
             return {
                 ...state,
                 selectedPost: action.payload,
-            };
-
-        case ADD_OR_REMOVE_AUTHOR_OF_LIKE:
-            return {
-                ...state,
-                posts: [
-                    {authorsOfLike: action.payload},
-                ],
             };
 
         default:
