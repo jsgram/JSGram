@@ -7,6 +7,7 @@ import { Modal, ModalHeader, Spinner, Input, FormGroup, Button } from 'reactstra
 import './style.scss';
 import MenuPost from '../MenuPost';
 import noAvatar from '../../assets/noAvatar.svg';
+import { getUserInfoFromToken } from '../../store/feed/actions';
 
 interface IBody {
     userId: string;
@@ -32,6 +33,8 @@ interface IProps {
     getUser: (username: string) => void;
     resetPosts: () => void;
     addPage: (pageNumber: number) => void;
+    getUserInfoFromToken: () => void;
+    loggedUsername: string;
 }
 
 interface IModalState {
@@ -158,11 +161,15 @@ export default class Post extends React.Component<IProps> {
                                     <ModalHeader className='d-lg-none display-1'
                                                  toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
                                         <div className='row'>
-                                            <MenuPost
-                                                post={this.props.userPosts.selectedPost}
-                                                toggleEdit={this.toggleEdit}
-                                                toggleModal={this.toggle}
-                                            />
+                                            {this.props.username !== this.props.loggedUsername ?
+                                                <></>
+                                                :
+                                                <MenuPost
+                                                    post={this.props.userPosts.selectedPost}
+                                                    toggleEdit={this.toggleEdit}
+                                                    toggleModal={this.toggle}
+                                                />
+                                            }
                                             <img
                                                 src={this.props.user.photo || noAvatar}
                                                 alt='avatar'
@@ -212,11 +219,15 @@ export default class Post extends React.Component<IProps> {
                                                     />
                                                     <span className='mt-2'>{this.props.user.username}</span>
                                                     <span className='d-lg-block d-none'>
-                                                      <MenuPost
-                                                          post={this.props.userPosts.selectedPost}
-                                                          toggleEdit={this.toggleEdit}
-                                                          toggleModal={this.toggle}
-                                                      />
+                                                        {this.props.username !== this.props.loggedUsername ?
+                                                            <></>
+                                                            :
+                                                            <MenuPost
+                                                                post={this.props.userPosts.selectedPost}
+                                                                toggleEdit={this.toggleEdit}
+                                                                toggleModal={this.toggle}
+                                                            />
+                                                        }
                                                     </span>
                                                 </div>
                                                 <p className='text-description'>
