@@ -19,8 +19,8 @@ export interface IUserData {
     photo: string;
     email: string;
     _id: string;
-    resetPosts: any;
-    getPostsAsync: any;
+    resetPosts: () => void;
+    getPostsAsync: () => void;
 }
 
 export default class Profile extends React.Component<any> {
