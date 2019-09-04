@@ -39,7 +39,7 @@ class PostContainer extends React.Component <any> {
     }
 }
 
-const mapStateToProps = (state: any, ownProps: any): any => ({
+const mapStateToProps = (state: any, ownProps: {username: string}): any => ({
     userPosts: state.userPosts,
     user: state.profile.user,
     countOfLikes: state.like.countOfLikes,

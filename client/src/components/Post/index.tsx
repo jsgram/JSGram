@@ -29,9 +29,9 @@ interface IProps {
     likeExist: boolean;
     checkUserLikeExist: (doesExist: boolean) => void;
     username: string;
-    getUser: any;
-    resetPosts: any;
-    addPage: any;
+    getUser: (username: string) => void;
+    resetPosts: () => void;
+    addPage: (pageNumber: number) => void;
 }
 
 interface IModalState {
