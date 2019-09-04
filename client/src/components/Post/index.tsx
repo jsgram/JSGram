@@ -1,12 +1,20 @@
 import React from 'react';
 import '../../styles/style.scss';
 import { Waypoint } from 'react-waypoint';
+import Linkify from 'linkifyjs/react';
+import * as linkify from 'linkifyjs';
+import hashtag from 'linkifyjs/plugins/hashtag';
+import mention from 'linkifyjs/plugins/mention';
+import TextareaAutosize from 'react-textarea-autosize';
 import { IUserData } from '../Profile';
 import { IPost } from '../../store/post/reducers';
-import { Modal, ModalHeader, Spinner, Input, FormGroup, Button } from 'reactstrap';
+import { Modal, ModalHeader, Spinner, Input, FormGroup, Button, InputGroup, InputGroupAddon } from 'reactstrap';
 import './style.scss';
 import MenuPost from '../MenuPost';
 import noAvatar from '../../assets/noAvatar.svg';
+
+hashtag(linkify);
+mention(linkify);
 
 interface IBody {
     userId: string;
@@ -115,21 +123,38 @@ export default class Post extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
+        const linkifyOptions = {
+            formatHref(href: any, type: any): any {
+                switch (type) {
+                    case 'hashtag':
+                        return `/hashtags/${href.substr(1)}`;
+                    case 'mention':
+                        return `/profile/${href.substr(1)}`;
+                    default:
+                        return href;
+                }
+            },
+        };
+
+        const likeButton = this.setLikesCount() && this.props.likeExist ?
+            (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>):
+            (<i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>);
+
         return (
             <div className='container justify-content-center'>
                 <div className='row mt-5 profile-post'>
                     {
                         this.props.userPosts.posts.map((post: IPost) => (
-                                <div key={post._id} className='col-sm-4 text-center pt-4 post-photo'>
-                                    <img
-                                        src={post.imgPath}
-                                        width={293}
-                                        height={293}
-                                        alt=''
-                                        onClick={(): void => this.toggle(post)}
-                                        className='img-fluid'
-                                    />
-                                </div>
+                            <div key={post._id} className='col-sm-4 text-center pt-4 post-photo'>
+                                <img
+                                    src={post.imgPath}
+                                    width={293}
+                                    height={293}
+                                    alt=''
+                                    onClick={(): void => this.toggle(post)}
+                                    className='img-fluid'
+                                />
+                            </div>
                             ),
                         )
                     }
@@ -147,117 +172,97 @@ export default class Post extends React.Component<IProps> {
                        isOpen={this.state.modal}
                        toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
                     <div className='modal-body p-0'>
-                        <div className='container p-0'>
-                            <div className='row'>
-                                <div className='col-lg-8'>
-                                    <ModalHeader className='d-lg-none display-1'
-                                                 toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
-                                        <div className='row'>
-                                            <MenuPost
-                                                post={this.props.userPosts.selectedPost}
-                                                toggleEdit={this.toggleEdit}
-                                                toggleModal={this.toggle}
-                                            />
-                                            <img
-                                                src={this.props.user.photo || noAvatar}
-                                                alt='avatar'
-                                                width={32}
-                                                height={32}
-                                                className='img-fluid rounded-circle mt-2 ml-4'
-                                            />
-                                            <span className='mt-2 ml-2'>{this.props.user.username}</span>
-                                        </div>
-                                    </ModalHeader>
+                        <div className='row m-0'>
+                            <ModalHeader
+                                className='d-lg-none display-1'
+                                toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}
+                            >
+                                <div className='row'>
+                                    <MenuPost
+                                        post={this.props.userPosts.selectedPost}
+                                        toggleEdit={this.toggleEdit}
+                                        toggleModal={this.toggle}
+                                    />
                                     <img
-                                        src={this.props.userPosts.selectedPost.imgPath}
-                                        className='w-100 img-fluid'
-                                        alt='post'/>
+                                        src={this.props.user.photo || noAvatar}
+                                        alt='avatar'
+                                        width={32}
+                                        height={32}
+                                        className='img-fluid rounded-circle mt-2 ml-4'
+                                    />
+                                    <span className='mt-2 ml-2'>{this.props.user.username}</span>
+                                    <span className='d-lg-block d-none'>
+                                      <MenuPost
+                                          post={this.props.userPosts.selectedPost}
+                                          toggleEdit={this.toggleEdit}
+                                          toggleModal={this.toggle}
+                                      />
+                                    </span>
                                 </div>
-                                <div className='col-lg-4'>
-                                    <div className='d-lg-none d-block mt-1 mb-2 pl-3'>
-                                        {this.setLikesCount() && this.props.likeExist ?
-                                            <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>
-                                            :
-                                            <i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>
-                                        }
+                            </ModalHeader>
+
+                            <div className='col-12 col-lg-8 px-0'>
+                                <img
+                                    src={this.props.userPosts.selectedPost.imgPath}
+                                    className='w-100 img-fluid'
+                                    alt='post'
+                                />
+                            </div>
+
+                            <div className='col-12 col-lg-4 px-0 d-flex flex-column position-relative'>
+                                <div className='flex-grow-0 p-3 this-is-a-header-of-a-block'>
+                                    <p>
+                                        <img
+                                            src={this.props.user.photo}
+                                            alt='avatar'
+                                            width={32}
+                                            height={32}
+                                            className='img-fluid rounded-circle mt-2 mr-2'
+                                        />
+                                        {this.props.user.username}
+                                    </p>
+                                    <p className='d-lg-none'>
+                                        {likeButton}
+                                        <span>{this.props.countOfLikes} likes</span>
+                                    </p>
+                                    <Linkify tagName='p' options={linkifyOptions}>
+                                        {this.props.userPosts.selectedPost.description}
+                                    </Linkify>
+                                </div>
+
+                                <div className='flex-grow-1 comments px-3 text-description'>
+                                    {/* HERE WILL BE COMMENTS */}
+                                </div>
+
+                                <div className='flex-grow-0 this-is-a-footer-of-a-block'>
+                                    <div className='p-3 mb-3 border-top border-bottom'>
+                                        {likeButton}
                                         <span>{this.props.countOfLikes} likes</span>
                                     </div>
-                                    <div className='description-post'>
-                                        <div className='d-lg-none d-block comments pl-3 text-description'>
-                                            <img
-                                                src={this.props.user.photo}
-                                                alt='avatar'
-                                                width={32}
-                                                height={32}
-                                                className='img-fluid rounded-circle
-                                                                        mt-2 mr-2'
-                                            />
-                                            <span>{this.props.user.username}</span>
-                                            <p className='pl-2'>{this.props.userPosts.selectedPost.description}</p>
-                                        </div>
-                                        <div className='d-none d-lg-block comments'>
-                                            <div className='comments ml-lg-0 pl-lg-0 pl-4'>
-                                                <div className='row'>
-                                                    <img
-                                                        src={this.props.user.photo || noAvatar}
-                                                        alt='avatar'
-                                                        width={32}
-                                                        height={32}
-                                                        className='img-fluid mt-2 mr-2'
-                                                    />
-                                                    <span className='mt-2'>{this.props.user.username}</span>
-                                                    <span className='d-lg-block d-none'>
-                                                      <MenuPost
-                                                          post={this.props.userPosts.selectedPost}
-                                                          toggleEdit={this.toggleEdit}
-                                                          toggleModal={this.toggle}
-                                                      />
-                                                    </span>
-                                                </div>
-                                                <p className='text-description'>
-                                                    {this.props.userPosts.selectedPost.description}
-                                                </p>
-                                                <div className='d-lg-block d-none'>
-                                                    <hr className='mt-0'/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='d-lg-block d-none mt-1'>
-                                        <div className='d-lg-block d-none'>
-                                            <hr/>
-                                        </div>
-                                        {this.setLikesCount() && this.props.likeExist ?
-                                            <i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>
-                                            :
-                                            <i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>
-                                        }
-                                        <span>{this.props.countOfLikes} likes</span>
-                                    </div>
-                                    <div className='d-lg-block d-none'>
-                                        <hr/>
-                                    </div>
-                                    <div className='mt-3 d-flex justify-content-between'>
-                                        <textarea
-                                            className='add-comment p-0 border-0 ml-lg-0 ml-3'
+                                    <InputGroup>
+                                        <TextareaAutosize
+                                            className='add-comment flex-grow-1 border-0 p-2'
                                             placeholder='Write your comment...'
                                             autoComplete='off'
-                                            rows={3}
-                                        >
-                                        </textarea>
-                                        <button
-                                            className='button-comment p-0 border-0 mr-lg-2
-                                             mr-3 d-float align-self-start'
-                                            type='submit'
-                                            disabled>
-                                            Add
-                                        </button>
-                                    </div>
+                                            minRows={2}
+                                            maxRows={6}
+                                        />
+                                        <InputGroupAddon addonType='append' className='flex-grow-1'>
+                                            <Button
+                                                className='btn-block button-comment border-0'
+                                                type='submit'
+                                                disabled
+                                            >
+                                                Add
+                                            </Button>
+                                        </InputGroupAddon>
+                                    </InputGroup>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </Modal>
+
                 <Modal
                     isOpen={this.state.editModal}
                     toggle={(): void => this.toggleEdit(this.props.userPosts.selectedPost)}>

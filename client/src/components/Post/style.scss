@@ -15,15 +15,7 @@
     word-wrap: break-word;
   }
 
-  .comments {
-    height: 335px;
-    @media screen and (max-width: $break-md) {
-      height: 130px;
-    }
-  }
-
   .add-comment {
-    width: 80%;
     outline: 0;
     resize: none;
   }
