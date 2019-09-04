@@ -28,6 +28,10 @@ interface IProps {
     showPost: (post: any) => void;
     likeExist: boolean;
     checkUserLikeExist: (doesExist: boolean) => void;
+    username: string;
+    getUser: any;
+    resetPosts: any;
+    addPage: any;
 }
 
 interface IModalState {
@@ -70,8 +74,9 @@ export default class Post extends React.Component<IProps> {
 
     public getMorePosts = (): void => {
         this.setState({page: this.state.page + 1});
+        this.props.addPage(this.props.userPosts.page + 1);
         if (!this.props.userPosts.loaded) {
-            this.props.getMorePostsAsync(this.props.user.username, this.state.page);
+            this.props.getMorePostsAsync(this.props.user.username, this.props.userPosts.page);
         }
     }
 
@@ -80,8 +85,8 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onDeleteLike = (): void => {
-        const {_id : userId}: any = this.props.user;
-        const {_id : postId}: any = this.props.userPosts.selectedPost;
+        const {_id: userId}: any = this.props.user;
+        const {_id: postId}: any = this.props.userPosts.selectedPost;
         const body = {userId, postId};
         const index = this.props.userPosts.selectedPost.authorsOfLike.indexOf(body.userId);
         this.props.userPosts.selectedPost.authorsOfLike.splice(index, 1);
@@ -89,8 +94,8 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onAddLike = (): void => {
-        const {_id : userId}: any = this.props.user;
-        const {_id : postId}: any = this.props.userPosts.selectedPost;
+        const {_id: userId}: any = this.props.user;
+        const {_id: postId}: any = this.props.userPosts.selectedPost;
         const body = {userId, postId};
         this.props.userPosts.selectedPost.authorsOfLike.push(this.props.user._id);
         this.props.addLike(body);
@@ -103,7 +108,7 @@ export default class Post extends React.Component<IProps> {
 
             const arr = this.props.userPosts.selectedPost.authorsOfLike.filter((userId: string) =>
                 this.props.user._id === userId,
-                );
+            );
 
             if (arr.length) {
                 this.props.checkUserLikeExist(true);

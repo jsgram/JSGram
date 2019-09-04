@@ -8,14 +8,22 @@ import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import { editProfile } from '../../store/profileEdit/actions';
 import { IUserData } from '../../components/Profile';
 import { IStateProfileEdit } from '../../store/profileEdit/reducers';
+import { getUserInfoFromToken } from '../../store/feed/actions';
+import { history } from '../../history';
 
 interface IStateToProps {
     user: IUserData;
 }
 
+interface IFeedState {
+    username: string;
+    loading: boolean;
+}
+
 interface IState {
     profile: IStateToProps;
     profileEdit: IStateProfileEdit;
+    feed: IFeedState;
 }
 
 class ProfileEditContainer extends React.Component <any> {
@@ -24,6 +32,16 @@ class ProfileEditContainer extends React.Component <any> {
         super(props);
         this.onChangeProfile = this.onChangeProfile.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
+    }
+
+    public componentDidMount(): void {
+        this.props.getUserInfoFromToken();
+    }
+
+    public componentDidUpdate(): void {
+        if (this.props.username && this.props.username !== this.props.match.params.username) {
+            history.push(`/profile/${this.props.username}`);
+        }
     }
 
     public onChangeProfile(user: IUser): IUser {
@@ -39,19 +57,22 @@ class ProfileEditContainer extends React.Component <any> {
         return (
             <ProfileEdit
                 handleSubmit={handleSubmit}
-                onChangeProfile={this.onChangeProfile}
                 submitting={submitting}
+                onChangeProfile={this.onChangeProfile}
             />
         );
     }
 }
 
-const mapStateToProps = (state: IState): { initialValues: any } => ({
+const mapStateToProps = (state: IState): { initialValues: any, username: string, loading: boolean } => ({
     initialValues: state.profile.user,
+    username: state.feed.username,
+    loading: state.feed.loading,
 });
 
 const mapDispatchToProps = {
     editProfile,
+    getUserInfoFromToken,
 };
 
 export default connect(

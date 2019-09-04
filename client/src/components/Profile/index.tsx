@@ -19,6 +19,8 @@ export interface IUserData {
     photo: string;
     email: string;
     _id: string;
+    resetPosts: any;
+    getPostsAsync: any;
 }
 
 export default class Profile extends React.Component<any> {
@@ -31,7 +33,7 @@ export default class Profile extends React.Component<any> {
 
     public componentDidMount(): void {
         this.props.getUser(this.props.username);
-
+        this.props.getUserInfoFromToken();
     }
 
     public componentDidUpdate(prevProps: any): void {
@@ -43,6 +45,13 @@ export default class Profile extends React.Component<any> {
                 1500,
             );
         }
+
+        if (this.props.username !== this.props.user.username && this.props.loaded) {
+            this.setState({loaded: false});
+            this.props.resetPosts();
+            this.props.getUser(this.props.username);
+            this.props.getPostsAsync(this.props.username);
+        }
     }
 
     public componentWillUnmount(): void {
@@ -50,7 +59,7 @@ export default class Profile extends React.Component<any> {
         this.timerHandle = 0;
     }
 
-    public togleModal = (): void => {
+    public toggleModal = (): void => {
         this.setState({modal: !this.state.modal});
     }
 
@@ -73,17 +82,21 @@ export default class Profile extends React.Component<any> {
                         alt='avatar'
                         height={150}
                         width={150}
-                        onClick={this.togleModal}
+                        onClick={this.toggleModal}
                     />}
                 </div>
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
                     <p className='profile-name align-self-center'>
                         {username}
-                        <Link to={`/profile/${this.props.username}/edit`}>
-                            <button className='bg-dark ml-sm-5 ml-3 btn text-white'>
-                                Edit profile
-                            </button>
-                        </Link>
+                        {this.props.username === this.props.loggedUsername ?
+                            <Link to={`/profile/${this.props.username}/edit`}>
+                                <button className='bg-dark ml-sm-5 ml-3 btn text-white'>
+                                    Edit profile
+                                </button>
+                            </Link>
+                            :
+                            <></>
+                        }
                     </p>
                     <div className='d-flex followers justify-content-between'>
                         <div>
@@ -101,21 +114,25 @@ export default class Profile extends React.Component<any> {
                         <p>{description}</p>
                     </div>
                     <Link to='/add-post'>
-                        <Button className='btn' color='danger'><i
-                            className='fa fa-plus pr-3'/>
-                            Add Post
-                        </Button>
+                        {this.props.username === this.props.loggedUsername ?
+                            <Button className='btn' color='danger'><i
+                                className='fa fa-plus pr-3'/>
+                                Add Post
+                            </Button>
+                            :
+                            <></>
+                        }
                     </Link>
                     {this.state.modal && <PopUpModal
-                    modal={this.state.modal}
-                    toggleModal={this.togleModal}
-                    loading={this.props.loading}
-                    deletePhoto={this.props.deletePhoto}
-                    photo={photo}
+                        modal={this.state.modal}
+                        toggleModal={this.toggleModal}
+                        loading={this.props.loading}
+                        deletePhoto={this.props.deletePhoto}
+                        photo={photo}
                     />}
                 </div>
                 <div className='container'>
-                    <PostContainer />
+                    <PostContainer username={this.props.username}/>
                 </div>
             </div>
         );

@@ -1,11 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Post from '../../components/Post';
-import { getPostsAsync, getMorePostsAsync, showPost, editPost, editDescriptionForPost } from '../../store/post/actions';
-import { deletePhoto } from '../../store/profile/actions';
+import {
+    getPostsAsync,
+    getMorePostsAsync,
+    showPost,
+    editPost,
+    editDescriptionForPost,
+    resetPosts, addPage,
+} from '../../store/post/actions';
+import { deletePhoto, getUser } from '../../store/profile/actions';
 import { addLike, checkUserLikeExist, deleteLike, setCountOfLikes } from '../../store/like/actions';
 
-export class PostContainer extends React.Component <any> {
+class PostContainer extends React.Component <any> {
     public render(): JSX.Element {
         return (
             <Post
@@ -23,16 +30,21 @@ export class PostContainer extends React.Component <any> {
                 checkUserLikeExist={this.props.checkUserLikeExist}
                 editPost={this.props.editPost}
                 editDescriptionForPost={this.props.editDescriptionForPost}
+                username={this.props.username}
+                getUser={this.props.getUser}
+                resetPosts={this.props.resetPosts}
+                addPage={this.props.addPage}
             />
         );
     }
 }
 
-const mapStateToProps = (state: any): any => ({
+const mapStateToProps = (state: any, ownProps: any): any => ({
     userPosts: state.userPosts,
     user: state.profile.user,
     countOfLikes: state.like.countOfLikes,
     likeExist: state.like.likeExist,
+    ownProps: ownProps.username,
 });
 
 const mapDispatchToProps = {
@@ -46,6 +58,9 @@ const mapDispatchToProps = {
     showPost,
     editPost,
     editDescriptionForPost,
+    getUser,
+    resetPosts,
+    addPage,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);

@@ -8,34 +8,34 @@ import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import './style.scss';
+import { getUserInfoFromToken } from '../../store/feed/actions';
 
 interface IStateToProps {
     user: IUser;
 }
 
-interface IState {
-    profile: IStateToProps;
+interface IFeed {
+    username: string;
 }
 
-interface IParams {
-    username: string;
+interface IState {
+    profile: IStateToProps;
+    feed: IFeed;
 }
 
 class SideBar extends React.Component<any> {
     public componentDidMount(): void {
-        const {username}: IParams = this.props.match.params;
-        this.props.getUser(username);
+        this.props.getUserInfoFromToken();
     }
 
     public render(): JSX.Element {
-        const { user: { fullName, photo } }: any = this.props;
-        const {username}: IParams = this.props.match.params;
+        const { user: { fullName, photo }, loggedUsername }: any = this.props;
         return (
             <Container>
                 <div
                     className='row profile d-flex pt-2 justify-content-lg-center
                     justify-content-sm-around justify-content-center'>
-                    <Menu username={username}/>
+                    <Menu/>
                 </div>
                 <Container>
                     <Row className='profile'>
@@ -63,7 +63,7 @@ class SideBar extends React.Component<any> {
                                         <li className='nav-item'>
                                             <NavLink
                                                 exact
-                                                to={`/profile/${username}/edit`}
+                                                to={`/profile/${loggedUsername}/edit`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-edit'></i>
@@ -72,7 +72,7 @@ class SideBar extends React.Component<any> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${username}/edit/change-email`}
+                                                to={`/profile/${loggedUsername}/edit/change-email`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-envelope'></i>
@@ -81,7 +81,7 @@ class SideBar extends React.Component<any> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${username}/edit/change-password`}
+                                                to={`/profile/${loggedUsername}/edit/change-password`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-key'></i>
@@ -90,7 +90,7 @@ class SideBar extends React.Component<any> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${username}/edit/subscriptions`}
+                                                to={`/profile/${loggedUsername}/edit/subscriptions`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-check-circle'></i>
@@ -99,7 +99,7 @@ class SideBar extends React.Component<any> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${username}/edit/privacy`}
+                                                to={`/profile/${loggedUsername}/edit/privacy`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                     <i className='fa fa-user-secret'></i>
@@ -123,12 +123,14 @@ class SideBar extends React.Component<any> {
 
 }
 
-const mapStateToProps = (state: IState): { user: IUser } => ({
+const mapStateToProps = (state: IState): { user: IUser, loggedUsername: string } => ({
     user: state.profile.user,
+    loggedUsername: state.feed.username,
 });
 
 const mapDispatchToProps = {
     getUser,
+    getUserInfoFromToken,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

@@ -37,9 +37,10 @@ export const setDescriptionForPost = (description: string): { type: string, payl
     payload: description,
 });
 
-export const resetAddPost = (): { type: string, payload: any } => ({
+export const resetAddPost = (username: string): { type: string, payload: any, previousPage: void } => ({
     type: RESET_ADD_POST,
     payload: '',
+    previousPage: history.push(`profile/${username}`),
 });
 
 export const informFileError = (message: string): (dispatch: Dispatch) => void =>
@@ -47,7 +48,7 @@ export const informFileError = (message: string): (dispatch: Dispatch) => void =
         dispatch(showAlert(message, 'danger'));
     };
 
-export const uploadPost = (croppedImage: string, description: string, resetState: () => void):
+export const uploadPost = (croppedImage: string, description: string, username: string):
     (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
@@ -55,8 +56,7 @@ export const uploadPost = (croppedImage: string, description: string, resetState
             const newFile = await base64ToFile(croppedImage, 'post', 'image/png');
             const res = await AuthAPI.post('/post', createDataForAWS('postImage', newFile, description));
             dispatch(getPostSuccess(res.data));
-            history.go(-1);
-            resetState();
+            history.push(`profile/${username}`);
             dispatch(showAlert('Successfully uploaded', 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));

@@ -7,7 +7,7 @@ import {
     DELETE_POST_PENDING,
     DELETE_POST_SUCCESS,
     EDIT_DESCRIPTION_FOR_POST,
-    SHOW_SELECTED_POST,
+    SHOW_SELECTED_POST, RESET_POSTS, ADD_PAGE,
 } from './actionTypes';
 
 export interface IPost {
@@ -34,6 +34,7 @@ const defaultState = {
             createdAt: '',
         },
     ],
+    page: 1,
     selectedPost: {},
     loaded: false,
     loading: false,
@@ -96,6 +97,28 @@ export const postReducer = (
                     ...state.selectedPost,
                     description: action.payload,
                 },
+            };
+        case ADD_PAGE:
+            return {
+                ...state,
+                page: action.payload,
+            };
+        case RESET_POSTS:
+            return {
+                ...state,
+                posts: [
+                    {
+                        description: '',
+                        comments: [],
+                        tags: [],
+                        authorsOfLike: [],
+                        _id: '',
+                        imgPath: '',
+                        author: '',
+                        createdAt: '',
+                    },
+                ],
+                page: 1,
             };
         default:
             return state;

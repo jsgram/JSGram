@@ -1,7 +1,6 @@
 import React from 'react';
 import Cropper from 'react-easy-crop';
 import PostPhoto from '../PostPost';
-import { history } from '../../../history';
 import { Container, Row, Spinner } from 'reactstrap';
 import AddPostDropZone from '../AddPostDropZone';
 import { getCroppedImg, createBlobUrl } from '../../../helpers/upload.photo';
@@ -27,12 +26,13 @@ export interface IProps {
     croppedImage: string;
     description: string;
     loading: boolean;
-    uploadPost: (croppedImage: string, description: string, resetState: () => void) => void;
+    uploadPost: (croppedImage: string, description: string, username: string) => void;
     setCroppedImageForPost: any;
     setDescriptionForPost: any;
     resetAddPost: any;
     informFileError: (message: string) => void;
-
+    getUserInfoFromToken: () => void;
+    username: string;
 }
 
 export default class AddPostCropper extends React.Component<IProps> {
@@ -46,10 +46,13 @@ export default class AddPostCropper extends React.Component<IProps> {
         croppedAreaPixels: null,
     };
 
+    public componentDidMount(): void {
+        this.props.getUserInfoFromToken();
+    }
+
     // Helper
     public previousPage = (): void => {
-        history.go(-1);
-        this.props.resetAddPost();
+        this.props.resetAddPost(this.props.username);
     }
 
     // 1 Select image
@@ -94,9 +97,10 @@ export default class AddPostCropper extends React.Component<IProps> {
 
     // 9 Upload img file to server
     public onUploadPost = (): void => {
-        this.props.uploadPost(this.props.croppedImage,
+        this.props.uploadPost(
+            this.props.croppedImage,
             this.props.description,
-            this.props.resetAddPost);
+            this.props.username);
     }
 
     public render(): JSX.Element {

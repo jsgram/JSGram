@@ -3,7 +3,10 @@ import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUserInfoFromToken } from '../../store/feed/actions';
-import { IState } from '../../store/feed/reducers';
+
+interface IState {
+    username: string;
+}
 
 interface ILocalState {
     feed: IState;

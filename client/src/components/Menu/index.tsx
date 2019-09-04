@@ -1,20 +1,23 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import logo from '../../assets/logo.png';
 import { Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './style.scss';
 import { connect } from 'react-redux';
 import { IStateProfileEdit } from '../../store/profileEdit/reducers';
+import * as action from '../../store/feed/actions';
 
-interface IState {
-    profileEdit: IStateProfileEdit;
-}
-
-interface IOwnProps {
+interface IStateFeed {
     username: string;
 }
 
-const Menu = ({username, newUsername}: any): ReactElement => {
+interface IState {
+    profileEdit: IStateProfileEdit;
+    feed: IStateFeed;
+}
+
+const Menu = ({newUsername, username, getUserInfoFromToken}: any): any => {
+    getUserInfoFromToken();
     return (
         <div className='container-fluid header-menu'>
             <div className='row justify-content-between bg-white'>
@@ -32,16 +35,21 @@ const Menu = ({username, newUsername}: any): ReactElement => {
                     <i className='fa fa-compass fa-lg pt-2 pb-2 pr-4 sm-pt-0 icon text-muted'/>
                     <i className='fa fa-heart-o fa-lg pr-4 icon text-muted'/>
                     <Link to={`/profile/${newUsername ? newUsername : username}`}>
-                        <i className='fa fa-user-o fa-lg pr-3 icon'/></Link>
+                        <i className='fa fa-user-o fa-lg pr-3 icon'/>
+                    </Link>
                 </div>
             </div>
         </div>
     );
 };
 
-const mapStateToProps = (state: IState, ownProps: IOwnProps): {newUsername: string, username: string} => ({
+const mapStateToProps = (state: IState): { newUsername: string, username: string } => ({
     newUsername: state.profileEdit.newUsername,
-    username: ownProps.username,
+    username: state.feed.username,
 });
 
-export default connect(mapStateToProps, null)(Menu);
+const mapDispatchToProps = ({
+    getUserInfoFromToken: action.getUserInfoFromToken,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

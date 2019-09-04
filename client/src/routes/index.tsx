@@ -17,17 +17,17 @@ import { RegisterRoute } from '../components/RegisterRoute';
 export const routes = (
     <Router history={history}>
         <Switch>
-            <Route exact path='/profile/:username?' component={ProfileContainer} />
-            <Route path='/add-post' component={AddPostContainer} />
-            <Route exact path='/feed' component={Feed} />
-            <Route path='/profile/:username/edit' component={SideBar} />
-            <Route exact path='/logout' component={Logout} />
-            <PublicRoute exact path='/' component={Main} />
-            <PublicRoute path='/login/:token?' component={LoginContainer} />
-            <PublicRoute exact path='/password-reset' component={CheckEmail} />
-            <PublicRoute exact path='/password-reset/:token' component={ChangePassword} />
-            <PublicRoute exact path='/register' component={RegisterRoute} />
-            <Route component={Error404} />
+            <Route exact path='/profile/:username' component={ProfileContainer}/>
+            <Route exact path='/add-post' component={AddPostContainer}/>
+            <Route exact path='/feed' component={Feed}/>
+            <Route path='/profile/:username/edit' component={SideBar}/>
+            <Route exact path='/logout' component={Logout}/>
+            <PublicRoute exact path='/' component={Main}/>
+            <PublicRoute path='/login/:token?' component={LoginContainer}/>
+            <PublicRoute exact path='/password-reset' component={CheckEmail}/>
+            <PublicRoute exact path='/password-reset/:token' component={ChangePassword}/>
+            <PublicRoute exact path='/register' component={RegisterRoute}/>
+            <Route component={Error404}/>
         </Switch>
     </Router>
 );
