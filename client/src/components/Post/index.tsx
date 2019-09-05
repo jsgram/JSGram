@@ -170,13 +170,13 @@ export default class Post extends React.Component<IProps> {
                 <div className='w-100 d-flex align-items-center justify-content-center'>
                     {this.props.userPosts.loading && <Spinner className='mt-3' color='dark'/>}
                 </div>
-                <Modal className='profile-post modal-dial modal-lg modal-dialog-centered px-3 py-3'
+                <Modal className='profile-post modal-lg modal-dialog-centered px-3 py-3'
                        isOpen={this.state.modal}
                        toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
                     <div className='modal-body p-0'>
                         <div className='row m-0'>
                             <ModalHeader
-                                className='d-lg-none display-1'
+                                className='d-lg-none w-100 display-1'
                                 toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}
                             >
                                 <div className='row'>
@@ -212,7 +212,7 @@ export default class Post extends React.Component<IProps> {
                             </div>
 
                             <div className='col-12 col-lg-4 px-0 d-flex flex-column position-relative'>
-                                <div className='flex-grow-0 p-3'>
+                                <div className='flex-grow-0 p-3 text-description'>
                                     <p>
                                         <img
                                             src={this.props.user.photo}
