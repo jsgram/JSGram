@@ -152,18 +152,20 @@ export default class Post extends React.Component<IProps> {
                                 <div className='col-lg-8'>
                                     <ModalHeader className='d-lg-none display-1'
                                                  toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
-                                        <div className='row'>
+                                        <div className='d-flex flex-row'>
+                                            <div className='justify-self-start align-self-start'>
                                             <MenuPost
                                                 post={this.props.userPosts.selectedPost}
                                                 toggleEdit={this.toggleEdit}
                                                 toggleModal={this.toggle}
                                             />
+                                            </div>
                                             <img
                                                 src={this.props.user.photo || noAvatar}
                                                 alt='avatar'
                                                 width={32}
                                                 height={32}
-                                                className='img-fluid rounded-circle mt-2 ml-4'
+                                                className='img-fluid rounded-circle mt-2 ml-1'
                                             />
                                             <span className='mt-2 ml-2'>{this.props.user.username}</span>
                                         </div>
@@ -193,26 +195,29 @@ export default class Post extends React.Component<IProps> {
                                                                         mt-2 mr-2'
                                             />
                                             <span>{this.props.user.username}</span>
-                                            <p className='pl-2'>{this.props.userPosts.selectedPost.description}</p>
+                                            <p className='pl-2 justify-self-start align-self-start'>
+                                            {this.props.userPosts.selectedPost.description}</p>
                                         </div>
                                         <div className='d-none d-lg-block comments'>
                                             <div className='comments ml-lg-0 pl-lg-0 pl-4'>
-                                                <div className='row'>
+                                                <div className='d-flex flex-row justify-content-between'>
                                                     <img
                                                         src={this.props.user.photo || noAvatar}
                                                         alt='avatar'
                                                         width={32}
                                                         height={32}
-                                                        className='img-fluid mt-2 mr-2'
+                                                        // className='img-fluid mt-2 mr-2 justify-self-start'
+                                                        className='img-fluid justify-self-start mt-2 mr-2'
                                                     />
-                                                    <span className='mt-2'>{this.props.user.username}</span>
-                                                    <span className='d-lg-block d-none'>
+                                                    <span className='mt-2 justify-self-center'>
+                                                    {this.props.user.username}</span>
+                                                    <div className='d-lg-block d-none justify-self-end'>
                                                       <MenuPost
                                                           post={this.props.userPosts.selectedPost}
                                                           toggleEdit={this.toggleEdit}
                                                           toggleModal={this.toggle}
                                                       />
-                                                    </span>
+                                                    </div>
                                                 </div>
                                                 <p className='text-description'>
                                                     {this.props.userPosts.selectedPost.description}
