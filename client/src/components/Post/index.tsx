@@ -154,7 +154,7 @@ export default class Post extends React.Component<IProps> {
                                         height={293}
                                         alt=''
                                         onClick={(): void => this.toggle(post)}
-                                        className='img-fluid'
+                                        className='img-fluid one-profile-photo'
                                     />
                                 </div>
                             ),
