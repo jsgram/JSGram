@@ -3,7 +3,9 @@ import '../../styles/style.scss';
 import { Waypoint } from 'react-waypoint';
 import Linkify from 'linkifyjs/react';
 import * as linkify from 'linkifyjs';
+// @ts-ignore
 import hashtag from 'linkifyjs/plugins/hashtag';
+// @ts-ignore
 import mention from 'linkifyjs/plugins/mention';
 import TextareaAutosize from 'react-textarea-autosize';
 import { IUserData } from '../Profile';
@@ -88,8 +90,8 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onDeleteLike = (): void => {
-        const {_id : userId}: any = this.props.user;
-        const {_id : postId}: any = this.props.userPosts.selectedPost;
+        const {_id: userId}: any = this.props.user;
+        const {_id: postId}: any = this.props.userPosts.selectedPost;
         const body = {userId, postId};
         const index = this.props.userPosts.selectedPost.authorsOfLike.indexOf(body.userId);
         this.props.userPosts.selectedPost.authorsOfLike.splice(index, 1);
@@ -97,8 +99,8 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onAddLike = (): void => {
-        const {_id : userId}: any = this.props.user;
-        const {_id : postId}: any = this.props.userPosts.selectedPost;
+        const {_id: userId}: any = this.props.user;
+        const {_id: postId}: any = this.props.userPosts.selectedPost;
         const body = {userId, postId};
         this.props.userPosts.selectedPost.authorsOfLike.push(this.props.user._id);
         this.props.addLike(body);
@@ -111,7 +113,7 @@ export default class Post extends React.Component<IProps> {
 
             const arr = this.props.userPosts.selectedPost.authorsOfLike.filter((userId: string) =>
                 this.props.user._id === userId,
-                );
+            );
 
             if (arr.length) {
                 this.props.checkUserLikeExist(true);
@@ -137,7 +139,7 @@ export default class Post extends React.Component<IProps> {
         };
 
         const likeButton = this.setLikesCount() && this.props.likeExist ?
-            (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>):
+            (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>) :
             (<i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>);
 
         return (
@@ -145,16 +147,16 @@ export default class Post extends React.Component<IProps> {
                 <div className='row mt-5 profile-post'>
                     {
                         this.props.userPosts.posts.map((post: IPost) => (
-                            <div key={post._id} className='col-sm-4 text-center pt-4 post-photo'>
-                                <img
-                                    src={post.imgPath}
-                                    width={293}
-                                    height={293}
-                                    alt=''
-                                    onClick={(): void => this.toggle(post)}
-                                    className='img-fluid'
-                                />
-                            </div>
+                                <div key={post._id} className='col-sm-4 text-center pt-4 post-photo'>
+                                    <img
+                                        src={post.imgPath}
+                                        width={293}
+                                        height={293}
+                                        alt=''
+                                        onClick={(): void => this.toggle(post)}
+                                        className='img-fluid'
+                                    />
+                                </div>
                             ),
                         )
                     }
@@ -235,7 +237,7 @@ export default class Post extends React.Component<IProps> {
                                 </div>
 
                                 <div className='flex-grow-0 this-is-a-footer-of-a-block'>
-                                    <div className='p-3 mb-3 border-top border-bottom'>
+                                    <div className='d-none d-lg-block p-3 mb-3 border-top border-bottom'>
                                         {likeButton}
                                         <span>{this.props.countOfLikes} likes</span>
                                     </div>
@@ -247,7 +249,7 @@ export default class Post extends React.Component<IProps> {
                                             minRows={2}
                                             maxRows={6}
                                         />
-                                        <InputGroupAddon addonType='append' className='flex-grow-1'>
+                                        <InputGroupAddon addonType='append' className='flex-grow-0'>
                                             <Button
                                                 className='btn-block button-comment border-0'
                                                 type='submit'
