@@ -138,7 +138,9 @@ export default class Post extends React.Component<IProps> {
             },
         };
 
-        const likeButton = this.setLikesCount() && this.props.likeExist ?
+        const { userPosts, user, likeExist, countOfLikes }: any = this.props;
+
+        const likeButton = this.setLikesCount() && likeExist ?
             (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>) :
             (<i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>);
 
@@ -146,7 +148,7 @@ export default class Post extends React.Component<IProps> {
             <div className='container justify-content-center'>
                 <div className='row mt-5 profile-post'>
                     {
-                        this.props.userPosts.posts.map((post: IPost) => (
+                        userPosts.posts.map((post: IPost) => (
                                 <div key={post._id} className='col-sm-4 text-center pt-4 post-photo'>
                                     <img
                                         src={post.imgPath}
@@ -168,44 +170,37 @@ export default class Post extends React.Component<IProps> {
                     />
                 </div>
                 <div className='w-100 d-flex align-items-center justify-content-center'>
-                    {this.props.userPosts.loading && <Spinner className='mt-3' color='dark'/>}
+                    { userPosts.loading && <Spinner className='mt-3' color='dark'/>}
                 </div>
                 <Modal className='profile-post modal-lg modal-dialog-centered px-3 py-3'
                        isOpen={this.state.modal}
-                       toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
+                       toggle={(): void => this.toggle(userPosts.selectedPost)}>
                     <div className='modal-body p-0'>
                         <div className='row m-0'>
                             <ModalHeader
                                 className='d-lg-none w-100 display-1'
-                                toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}
+                                toggle={(): void => this.toggle(userPosts.selectedPost)}
                             >
-                                <div className='row'>
+                                <div className='d-flex'>
                                     <MenuPost
-                                        post={this.props.userPosts.selectedPost}
+                                        post={userPosts.selectedPost}
                                         toggleEdit={this.toggleEdit}
                                         toggleModal={this.toggle}
                                     />
                                     <img
-                                        src={this.props.user.photo || noAvatar}
+                                        src={user.photo || noAvatar}
                                         alt='avatar'
                                         width={32}
                                         height={32}
                                         className='img-fluid rounded-circle mt-2 ml-4'
                                     />
-                                    <span className='mt-2 ml-2'>{this.props.user.username}</span>
-                                    <span className='d-lg-block d-none'>
-                                      <MenuPost
-                                          post={this.props.userPosts.selectedPost}
-                                          toggleEdit={this.toggleEdit}
-                                          toggleModal={this.toggle}
-                                      />
-                                    </span>
+                                    <span className='mt-2 ml-2'>{user.username}</span>
                                 </div>
                             </ModalHeader>
 
                             <div className='col-12 col-lg-8 px-0'>
                                 <img
-                                    src={this.props.userPosts.selectedPost.imgPath}
+                                    src={userPosts.selectedPost.imgPath}
                                     className='w-100 img-fluid'
                                     alt='post'
                                 />
@@ -213,22 +208,29 @@ export default class Post extends React.Component<IProps> {
 
                             <div className='col-12 col-lg-4 px-0 d-flex flex-column position-relative'>
                                 <div className='flex-grow-0 p-3 text-description'>
-                                    <p className='d-lg-block d-none'>
+                                    <p className='d-lg-block d-none flex-row'>
                                         <img
-                                            src={this.props.user.photo}
+                                            src={user.photo || noAvatar}
                                             alt='avatar'
                                             width={32}
                                             height={32}
                                             className='img-fluid rounded-circle mt-2 mr-2'
                                         />
-                                        {this.props.user.username}
+                                        <span className='mt-2'>{user.username}</span>
+                                        <div className='d-lg-block d-none float-right'>
+                                            <MenuPost
+                                                post={userPosts.selectedPost}
+                                                toggleEdit={this.toggleEdit}
+                                                toggleModal={this.toggle}
+                                            />
+                                        </div>
                                     </p>
                                     <p className='d-lg-none'>
                                         {likeButton}
-                                        <span>{this.props.countOfLikes} likes</span>
+                                        <span>{countOfLikes} likes</span>
                                     </p>
                                     <Linkify tagName='p' options={linkifyOptions}>
-                                        {this.props.userPosts.selectedPost.description}
+                                        {userPosts.selectedPost.description}
                                     </Linkify>
                                 </div>
 
@@ -239,11 +241,11 @@ export default class Post extends React.Component<IProps> {
                                 <div className='flex-grow-0'>
                                     <div className='d-none d-lg-block p-3 mb-3 border-top border-bottom'>
                                         {likeButton}
-                                        <span>{this.props.countOfLikes} likes</span>
+                                        <span>{countOfLikes} likes</span>
                                     </div>
                                     <InputGroup>
                                         <TextareaAutosize
-                                            className='add-comment flex-grow-1 border-0 p-2 pb-2'
+                                            className='add-comment flex-grow-1 border-0 p-2'
                                             placeholder='Write your comment...'
                                             autoComplete='off'
                                             minRows={1}
@@ -267,17 +269,17 @@ export default class Post extends React.Component<IProps> {
 
                 <Modal
                     isOpen={this.state.editModal}
-                    toggle={(): void => this.toggleEdit(this.props.userPosts.selectedPost)}>
+                    toggle={(): void => this.toggleEdit(userPosts.selectedPost)}>
                     <ModalHeader
-                        toggle={(): void => this.toggleEdit(this.props.userPosts.selectedPost)}>
+                        toggle={(): void => this.toggleEdit(userPosts.selectedPost)}>
                         Edit Post
                     </ModalHeader>
                     <FormGroup className='text-center m-3 post-photo'>
                         <img
-                            src={this.props.userPosts.selectedPost.imgPath}
+                            src={userPosts.selectedPost.imgPath}
                             width={293}
                             height={293}
-                            id={this.props.userPosts.selectedPost._id}
+                            id={userPosts.selectedPost._id}
                             alt='post'
                             className='img-fluid w-100'
                         />
@@ -288,7 +290,7 @@ export default class Post extends React.Component<IProps> {
                             name='description'
                             placeholder='Write a caption...'
                             spellCheck={false}
-                            value={this.props.userPosts.selectedPost.description}
+                            value={userPosts.selectedPost.description}
                             onChange={this.onDescriptionChange}
                         />
                         <Button
