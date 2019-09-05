@@ -47,7 +47,7 @@ class MenuPost extends React.Component<IProps, IState> {
     public render(): JSX.Element {
         return (
             <div className='burger-menu pt-1'>
-                <div className='dots flex-column' onClick={this.handleMenuButtonClick}>
+                <div className='dots flex-column m-0' onClick={this.handleMenuButtonClick}>
                     <div>.</div>
                     <div className='mt-1'>.</div>
                     <div className='mt-1'>.</div>

@@ -214,9 +214,9 @@ export default class Post extends React.Component<IProps> {
                                             alt='avatar'
                                             width={32}
                                             height={32}
-                                            className='img-fluid rounded-circle mt-2 mr-2'
+                                            className='img-fluid rounded-circle mt-2 mr-2 mb-2'
                                         />
-                                        <span className='mt-2'>{user.username}</span>
+                                        <span className='mt-2 font-weight-bolder'>{user.username}</span>
                                         <div className='d-lg-block d-none float-right'>
                                             <MenuPost
                                                 post={userPosts.selectedPost}
