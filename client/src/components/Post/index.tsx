@@ -126,7 +126,7 @@ export default class Post extends React.Component<IProps> {
 
     public render(): JSX.Element {
         const linkifyOptions = {
-            formatHref(href: any, type: any): any {
+            formatHref(href: string, type: string): string {
                 switch (type) {
                     case 'hashtag':
                         return `/hashtags/${href.substr(1)}`;
