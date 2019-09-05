@@ -212,7 +212,7 @@ export default class Post extends React.Component<IProps> {
                             </div>
 
                             <div className='col-12 col-lg-4 px-0 d-flex flex-column position-relative'>
-                                <div className='flex-grow-0 p-3 this-is-a-header-of-a-block'>
+                                <div className='flex-grow-0 p-3'>
                                     <p>
                                         <img
                                             src={this.props.user.photo}
@@ -236,7 +236,7 @@ export default class Post extends React.Component<IProps> {
                                     {/* HERE WILL BE COMMENTS */}
                                 </div>
 
-                                <div className='flex-grow-0 this-is-a-footer-of-a-block'>
+                                <div className='flex-grow-0'>
                                     <div className='d-none d-lg-block p-3 mb-3 border-top border-bottom'>
                                         {likeButton}
                                         <span>{this.props.countOfLikes} likes</span>
