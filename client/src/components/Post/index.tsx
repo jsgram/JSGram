@@ -7,7 +7,6 @@ import { Modal, ModalHeader, Spinner, Input, FormGroup, Button } from 'reactstra
 import './style.scss';
 import MenuPost from '../MenuPost';
 import noAvatar from '../../assets/noAvatar.svg';
-import { getUserInfoFromToken } from '../../store/feed/actions';
 
 interface IBody {
     userId: string;
@@ -32,7 +31,7 @@ interface IProps {
     username: string;
     getUser: (username: string) => void;
     resetPosts: () => void;
-    addPage: (pageNumber: number) => void;
+    addNextPosts: (pageNumber: number) => void;
     getUserInfoFromToken: () => void;
     loggedUsername: string;
 }
@@ -77,7 +76,7 @@ export default class Post extends React.Component<IProps> {
 
     public getMorePosts = (): void => {
         this.setState({page: this.state.page + 1});
-        this.props.addPage(this.props.userPosts.page + 1);
+        this.props.addNextPosts(this.props.userPosts.page + 1);
         if (!this.props.userPosts.loaded) {
             this.props.getMorePostsAsync(this.props.user.username, this.props.userPosts.page);
         }
@@ -88,8 +87,8 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onDeleteLike = (): void => {
-        const {_id: userId}: any = this.props.user;
-        const {_id: postId}: any = this.props.userPosts.selectedPost;
+        const {user: {_id: userId}}: IProps = this.props;
+        const {_id: postId}: {_id: string} = this.props.userPosts.selectedPost;
         const body = {userId, postId};
         const index = this.props.userPosts.selectedPost.authorsOfLike.indexOf(body.userId);
         this.props.userPosts.selectedPost.authorsOfLike.splice(index, 1);
@@ -97,8 +96,8 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onAddLike = (): void => {
-        const {_id: userId}: any = this.props.user;
-        const {_id: postId}: any = this.props.userPosts.selectedPost;
+        const {user: {_id: userId}}: IProps = this.props;
+        const {_id: postId}: {_id: string} = this.props.userPosts.selectedPost;
         const body = {userId, postId};
         this.props.userPosts.selectedPost.authorsOfLike.push(this.props.user._id);
         this.props.addLike(body);
@@ -161,9 +160,7 @@ export default class Post extends React.Component<IProps> {
                                     <ModalHeader className='d-lg-none display-1'
                                                  toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
                                         <div className='row'>
-                                            {this.props.username !== this.props.loggedUsername ?
-                                                <></>
-                                                :
+                                            {this.props.username === this.props.loggedUsername &&
                                                 <MenuPost
                                                     post={this.props.userPosts.selectedPost}
                                                     toggleEdit={this.toggleEdit}
@@ -219,9 +216,7 @@ export default class Post extends React.Component<IProps> {
                                                     />
                                                     <span className='mt-2'>{this.props.user.username}</span>
                                                     <span className='d-lg-block d-none'>
-                                                        {this.props.username !== this.props.loggedUsername ?
-                                                            <></>
-                                                            :
+                                                        {this.props.username === this.props.loggedUsername &&
                                                             <MenuPost
                                                                 post={this.props.userPosts.selectedPost}
                                                                 toggleEdit={this.toggleEdit}

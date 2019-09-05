@@ -7,7 +7,8 @@ import {
     DELETE_POST_PENDING,
     DELETE_POST_SUCCESS,
     EDIT_DESCRIPTION_FOR_POST,
-    SHOW_SELECTED_POST, RESET_POSTS, ADD_PAGE,
+    SHOW_SELECTED_POST, RESET_POSTS,
+    UPLOAD_NEXT_POSTS,
 } from './actionTypes';
 
 export interface IPost {
@@ -98,7 +99,7 @@ export const postReducer = (
                     description: action.payload,
                 },
             };
-        case ADD_PAGE:
+        case UPLOAD_NEXT_POSTS:
             return {
                 ...state,
                 page: action.payload,

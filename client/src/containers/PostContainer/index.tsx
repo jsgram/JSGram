@@ -7,7 +7,8 @@ import {
     showPost,
     editPost,
     editDescriptionForPost,
-    resetPosts, addPage,
+    resetPosts,
+    addNextPosts,
 } from '../../store/post/actions';
 import { deletePhoto, getUser } from '../../store/profile/actions';
 import { addLike, checkUserLikeExist, deleteLike, setCountOfLikes } from '../../store/like/actions';
@@ -34,7 +35,7 @@ class PostContainer extends React.Component <any> {
                 username={this.props.username}
                 getUser={this.props.getUser}
                 resetPosts={this.props.resetPosts}
-                addPage={this.props.addPage}
+                addNextPosts={this.props.addNextPosts}
                 getUserInfoFromToken={this.props.getUserInfoFromToken}
                 loggedUsername={this.props.loggedUsername}
             />
@@ -64,7 +65,7 @@ const mapDispatchToProps = {
     editDescriptionForPost,
     getUser,
     resetPosts,
-    addPage,
+    addNextPosts,
     getUserInfoFromToken,
 };
 

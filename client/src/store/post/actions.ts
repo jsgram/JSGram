@@ -9,7 +9,8 @@ import {
     DELETE_POST_PENDING,
     DELETE_POST_SUCCESS,
     EDIT_DESCRIPTION_FOR_POST,
-    SHOW_SELECTED_POST, RESET_POSTS, ADD_PAGE,
+    SHOW_SELECTED_POST, RESET_POSTS,
+    UPLOAD_NEXT_POSTS,
 } from './actionTypes';
 import { IPost } from './reducers';
 import { decrementPostCount } from '../profile/actions';
@@ -55,8 +56,8 @@ export const editDescriptionForPost = (description: any): { type: string, payloa
     payload: description,
 });
 
-export const addPage = (page: number): {type: string, payload: number} => ({
-    type: ADD_PAGE,
+export const addNextPosts = (page: number): {type: string, payload: number} => ({
+    type: UPLOAD_NEXT_POSTS,
     payload: page,
 });
 
