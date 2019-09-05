@@ -52,7 +52,7 @@ class MenuPost extends React.Component<IProps, IState> {
                     <Row><div className='mt-1'>.</div></Row>
                     <Row><div className='mt-1'>.</div></Row>
                 </Container>
-                    <nav className={ `navig float-right ${ this.state.isMenuOpen && 'show-menu' }` }>
+                    <nav className={ `menu-navigation float-right ${ this.state.isMenuOpen && 'show-menu' }` }>
                     <ul className='list-unstyled menu-items'>
                         <li className='menu-list'>
                             <button className = 'menu-link d-flex my-2'

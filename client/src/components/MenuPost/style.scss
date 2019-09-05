@@ -14,11 +14,11 @@
     }
   }
 
-  .navig {
+  .menu-navigation {
     position: absolute;
     left: -300vw;
     width: 120px;
-    height: 79px;
+    height: 85px;
     background-color: $color-white;
     border: 0.5px solid $color-grey;
     border-radius: 0.3em;
@@ -33,9 +33,9 @@
 
   .menu-link {
     margin: auto;
-    color: $color-black;
+    color: $color-grey-dark;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 1rem;
     text-decoration: none;
     background-color: $color-white;
     border: 0;
