@@ -114,7 +114,7 @@ export default class Post extends React.Component<IProps> {
         }
     }
 
-    public render(): JSX.Element {
+    public render(): JSX.Element { 
         return (
             <div className='container justify-content-center'>
                 <div className='row mt-5 profile-post'>
@@ -206,7 +206,6 @@ export default class Post extends React.Component<IProps> {
                                                         alt='avatar'
                                                         width={32}
                                                         height={32}
-                                                        // className='img-fluid mt-2 mr-2 justify-self-start'
                                                         className='img-fluid justify-self-start mt-2 mr-2'
                                                     />
                                                     <span className='mt-2 justify-self-center'>
