@@ -1,5 +1,4 @@
 import React from 'react';
-import { menuData } from './menu-data';
 import { Container, Row } from 'reactstrap';
 import './style.scss';
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
@@ -53,21 +52,17 @@ class MenuPost extends React.Component<IProps, IState> {
                     <Row><div className='mt-1'>.</div></Row>
                     <Row><div className='mt-1'>.</div></Row>
                 </Container>
-            {/* TODO Replace undefined in ternary operator with a function for Edit component*/}
-                {menuData.length && (
-                    <nav className={ `navig ${ this.state.isMenuOpen && 'show-menu' }` }>
+                    <nav className={ `menu-navigation float-right ${ this.state.isMenuOpen && 'show-menu' }` }>
                     <ul className='list-unstyled menu-items'>
-                        { menuData.map((item: any) => (
-                            <li className='menu-list' key={item.label}>
-                                <button className = 'menu-link d-flex my-2'
-                                    onClick={(item.label === 'Delete') ? this.toggle :
-                                    (): any => { this.props.toggleEdit(this.props.post); }}
-                                >{item.label}</button>
-                            </li>
-                        ))}
+                        <li className='menu-list'>
+                            <button className = 'menu-link d-flex my-2'
+                             onClick=  {(): any =>  this.props.toggleEdit(this.props.post)}>Edit</button>
+                        </li>
+                        <li>
+                            <button className = 'menu-link d-flex my-2' onClick={this.toggle}>Delete</button>
+                        </li>
                     </ul>
                     </nav>
-                )}
                 <Modal isOpen={this.state.modal} toggle={this.toggle}
                 className='modal-sm modal-dialog-centered'>
                     <ModalBody className='text-center'>

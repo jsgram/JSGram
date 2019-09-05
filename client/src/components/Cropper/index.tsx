@@ -33,7 +33,7 @@ export default class Cropper extends React.Component<any> {
     };
 
     public onClose = (): void => {
-        this.setState({preview: null});
+        this.setState({preview: this.props.user.photo});
     }
 
     public onCrop = async (preview: any): Promise<void> => {
@@ -79,7 +79,7 @@ export default class Cropper extends React.Component<any> {
                 />
                 {this.props.loading ? (
                     <Spinner className='mt-3' color='dark'/>
-                ) : (
+                ) :  this.state.preview && this.state.preview !== this.props.user.photo && (
                     <Button
                         className='mt-3'
                         outline
