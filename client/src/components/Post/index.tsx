@@ -91,6 +91,7 @@ export default class Post extends React.Component<IProps> {
             userPosts: {selectedPost: {_id: postId}},
         }: any = this.props;
         const body = {userId, postId};
+        // TODO CAN NOT CHANGE PROPS DIRECTLY
         const index = this.props.userPosts.selectedPost.authorsOfLike.indexOf(body.userId);
         this.props.userPosts.selectedPost.authorsOfLike.splice(index, 1);
         this.props.deleteLike(body);
@@ -102,6 +103,7 @@ export default class Post extends React.Component<IProps> {
             userPosts: {selectedPost: {_id: postId}},
         }: any = this.props;
         const body = {userId, postId};
+        // TODO CAN NOT CHANGE PROPS DIRECTLY
         this.props.userPosts.selectedPost.authorsOfLike.push(this.props.user._id);
         this.props.addLike(body);
     }
@@ -231,7 +233,7 @@ export default class Post extends React.Component<IProps> {
                                                             toggleModal={this.toggle}
                                                         />
                                                         }
-                                                    </span>
+                                                    </div>
                                                 </div>
                                                 <p className='text-description'>
                                                     {userPosts.selectedPost.description}
