@@ -31,7 +31,6 @@ export class ProfileContainer extends React.Component <any> {
                     deletePhoto={this.props.deletePhoto}
                     username={username}
                     resetPosts={this.props.resetPosts}
-                    getUserInfoFromToken={this.props.getUserInfoFromToken}
                     loggedUsername={this.props.loggedUsername}
                     getPostsAsync={this.props.getPostsAsync}
                 />

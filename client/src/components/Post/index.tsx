@@ -32,7 +32,6 @@ interface IProps {
     getUser: (username: string) => void;
     resetPosts: () => void;
     addNextPosts: (pageNumber: number) => void;
-    getUserInfoFromToken: () => void;
     loggedUsername: string;
 }
 

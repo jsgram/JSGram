@@ -8,7 +8,6 @@ import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import { editProfile } from '../../store/profileEdit/actions';
 import { IUserData } from '../../components/Profile';
 import { IStateProfileEdit } from '../../store/profileEdit/reducers';
-import { getUserInfoFromToken } from '../../store/feed/actions';
 import { history } from '../../history';
 
 interface IStateToProps {
@@ -32,10 +31,6 @@ class ProfileEditContainer extends React.Component <any> {
         super(props);
         this.onChangeProfile = this.onChangeProfile.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
-    }
-
-    public componentDidMount(): void {
-        this.props.getUserInfoFromToken();
     }
 
     public componentDidUpdate(): void {
@@ -64,15 +59,13 @@ class ProfileEditContainer extends React.Component <any> {
     }
 }
 
-const mapStateToProps = (state: IState): { initialValues: any, username: string, loading: boolean } => ({
+const mapStateToProps = (state: IState): { initialValues: any, loading: boolean } => ({
     initialValues: state.profile.user,
-    username: state.feed.username,
     loading: state.feed.loading,
 });
 
 const mapDispatchToProps = {
     editProfile,
-    getUserInfoFromToken,
 };
 
 export default connect(

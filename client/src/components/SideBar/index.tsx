@@ -18,9 +18,6 @@ interface IState {
 }
 
 class SideBar extends React.Component<any> {
-    public componentDidMount(): void {
-        this.props.getUserInfoFromToken();
-    }
 
     public render(): JSX.Element {
         const { user: { fullName, photo }, loggedUsername }: any = this.props;

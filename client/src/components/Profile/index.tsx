@@ -33,7 +33,6 @@ export default class Profile extends React.Component<any> {
 
     public componentDidMount(): void {
         this.props.getUser(this.props.username);
-        this.props.getUserInfoFromToken();
     }
 
     public componentDidUpdate(prevProps: any): void {

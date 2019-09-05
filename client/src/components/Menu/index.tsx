@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import './style.scss';
 import { connect } from 'react-redux';
 import { IStateProfileEdit } from '../../store/profileEdit/reducers';
-import * as action from '../../store/feed/actions';
 
 interface IStateFeed {
     username: string;
@@ -19,13 +18,9 @@ interface IState {
 interface IMenuProps {
     username: string;
     newUsername: string;
-    getUserInfoFromToken: () => void;
 }
 
 class Menu extends React.Component<IMenuProps> {
-    public componentDidMount(): void {
-        this.props.getUserInfoFromToken();
-    }
 
     public render(): JSX.Element {
         const {username, newUsername}: IMenuProps = this.props;
@@ -60,8 +55,4 @@ const mapStateToProps = (state: IState): { newUsername: string, username: string
     username: state.feed.username,
 });
 
-const mapDispatchToProps = ({
-    getUserInfoFromToken: action.getUserInfoFromToken,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Menu);
+export default connect(mapStateToProps, null)(Menu);

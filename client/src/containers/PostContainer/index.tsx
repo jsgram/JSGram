@@ -12,7 +12,6 @@ import {
 } from '../../store/post/actions';
 import { deletePhoto, getUser } from '../../store/profile/actions';
 import { addLike, checkUserLikeExist, deleteLike, setCountOfLikes } from '../../store/like/actions';
-import { getUserInfoFromToken } from '../../store/feed/actions';
 
 class PostContainer extends React.Component <any> {
     public render(): JSX.Element {
@@ -36,7 +35,6 @@ class PostContainer extends React.Component <any> {
                 getUser={this.props.getUser}
                 resetPosts={this.props.resetPosts}
                 addNextPosts={this.props.addNextPosts}
-                getUserInfoFromToken={this.props.getUserInfoFromToken}
                 loggedUsername={this.props.loggedUsername}
             />
         );
@@ -66,7 +64,6 @@ const mapDispatchToProps = {
     getUser,
     resetPosts,
     addNextPosts,
-    getUserInfoFromToken,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);
