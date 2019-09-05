@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Profile, { IUserData } from '../../components/Profile';
 import { getUser, deletePhoto } from '../../store/profile/actions';
-import { getUserInfoFromToken } from '../../store/feed/actions';
 import { getPostsAsync, resetPosts } from '../../store/post/actions';
 
 interface IStateToPropsProfile {
@@ -11,13 +10,8 @@ interface IStateToPropsProfile {
     loading: boolean;
 }
 
-interface IStateToPropsFeed {
-    username: string;
-}
-
 interface IState {
     profile: IStateToPropsProfile;
-    feed: IStateToPropsFeed;
 }
 
 interface IParams {
@@ -46,17 +40,15 @@ export class ProfileContainer extends React.Component <any> {
     }
 }
 
-const mapStateToProps = (state: IState): { user: any, loaded: boolean, loading: boolean, loggedUsername: string } => ({
+const mapStateToProps = (state: IState): { user: any, loaded: boolean, loading: boolean } => ({
     user: state.profile.user,
     loaded: state.profile.loaded,
     loading: state.profile.loading,
-    loggedUsername: state.feed.username,
 });
 
 const mapDispatchToProps = {
     getUser,
     deletePhoto,
-    getUserInfoFromToken,
     resetPosts,
     getPostsAsync,
 };

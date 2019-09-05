@@ -8,19 +8,13 @@ import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import './style.scss';
-import { getUserInfoFromToken } from '../../store/feed/actions';
 
 interface IStateToProps {
     user: IUser;
 }
 
-interface IFeed {
-    username: string;
-}
-
 interface IState {
     profile: IStateToProps;
-    feed: IFeed;
 }
 
 class SideBar extends React.Component<any> {
@@ -123,14 +117,12 @@ class SideBar extends React.Component<any> {
 
 }
 
-const mapStateToProps = (state: IState): { user: IUser, loggedUsername: string } => ({
+const mapStateToProps = (state: IState): { user: IUser } => ({
     user: state.profile.user,
-    loggedUsername: state.feed.username,
 });
 
 const mapDispatchToProps = {
     getUser,
-    getUserInfoFromToken,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

@@ -13,14 +13,15 @@ import SideBar from '../components/SideBar';
 import AddPostContainer from '../containers/AddPostContainer';
 import Error404 from '../components/Error404';
 import { RegisterRoute } from '../components/RegisterRoute';
+import { PrivateRoute } from './PrivateRoute';
 
 export const routes = (
     <Router history={history}>
         <Switch>
-            <Route exact path='/profile/:username' component={ProfileContainer}/>
-            <Route exact path='/add-post' component={AddPostContainer}/>
-            <Route exact path='/feed' component={Feed}/>
-            <Route path='/profile/:username/edit' component={SideBar}/>
+            <PrivateRoute exact path='/profile/:username' component={ProfileContainer}/>
+            <PrivateRoute exact path='/add-post' component={AddPostContainer}/>
+            <PrivateRoute exact path='/feed' component={Feed}/>
+            <PrivateRoute path='/profile/:username/edit' component={SideBar}/>
             <Route exact path='/logout' component={Logout}/>
             <PublicRoute exact path='/' component={Main}/>
             <PublicRoute path='/login/:token?' component={LoginContainer}/>

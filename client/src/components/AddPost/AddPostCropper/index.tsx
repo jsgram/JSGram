@@ -31,8 +31,7 @@ export interface IProps {
     setDescriptionForPost: any;
     resetAddPost: any;
     informFileError: (message: string) => void;
-    getUserInfoFromToken: () => void;
-    username: string;
+    loggedUsername: string;
 }
 
 export default class AddPostCropper extends React.Component<IProps> {
@@ -46,13 +45,9 @@ export default class AddPostCropper extends React.Component<IProps> {
         croppedAreaPixels: null,
     };
 
-    public componentDidMount(): void {
-        this.props.getUserInfoFromToken();
-    }
-
     // Helper
     public previousPage = (): void => {
-        this.props.resetAddPost(this.props.username);
+        this.props.resetAddPost(this.props.loggedUsername);
     }
 
     // 1 Select image
@@ -100,7 +95,7 @@ export default class AddPostCropper extends React.Component<IProps> {
         this.props.uploadPost(
             this.props.croppedImage,
             this.props.description,
-            this.props.username);
+            this.props.loggedUsername);
     }
 
     public render(): JSX.Element {
