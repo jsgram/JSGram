@@ -213,7 +213,7 @@ export default class Post extends React.Component<IProps> {
 
                             <div className='col-12 col-lg-4 px-0 d-flex flex-column position-relative'>
                                 <div className='flex-grow-0 p-3 text-description'>
-                                    <p>
+                                    <p className='d-lg-block d-none'>
                                         <img
                                             src={this.props.user.photo}
                                             alt='avatar'
@@ -243,11 +243,11 @@ export default class Post extends React.Component<IProps> {
                                     </div>
                                     <InputGroup>
                                         <TextareaAutosize
-                                            className='add-comment flex-grow-1 border-0 p-2'
+                                            className='add-comment flex-grow-1 border-0 p-2 pb-2'
                                             placeholder='Write your comment...'
                                             autoComplete='off'
-                                            minRows={2}
-                                            maxRows={6}
+                                            minRows={1}
+                                            maxRows={4}
                                         />
                                         <InputGroupAddon addonType='append' className='flex-grow-0'>
                                             <Button
