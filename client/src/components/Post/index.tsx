@@ -87,8 +87,10 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onDeleteLike = (): void => {
-        const {user: {_id: userId}}: IProps = this.props;
-        const {_id: postId}: {_id: string} = this.props.userPosts.selectedPost;
+        const {
+            user: {_id: userId},
+            userPosts: {selectedPost: {_id: postId}},
+        }: any = this.props;
         const body = {userId, postId};
         const index = this.props.userPosts.selectedPost.authorsOfLike.indexOf(body.userId);
         this.props.userPosts.selectedPost.authorsOfLike.splice(index, 1);
@@ -96,8 +98,10 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onAddLike = (): void => {
-        const {user: {_id: userId}}: IProps = this.props;
-        const {_id: postId}: {_id: string} = this.props.userPosts.selectedPost;
+        const {
+            user: {_id: userId},
+            userPosts: {selectedPost: {_id: postId}},
+        }: any = this.props;
         const body = {userId, postId};
         this.props.userPosts.selectedPost.authorsOfLike.push(this.props.user._id);
         this.props.addLike(body);
@@ -161,11 +165,11 @@ export default class Post extends React.Component<IProps> {
                                                  toggle={(): void => this.toggle(this.props.userPosts.selectedPost)}>
                                         <div className='row'>
                                             {this.props.username === this.props.loggedUsername &&
-                                                <MenuPost
-                                                    post={this.props.userPosts.selectedPost}
-                                                    toggleEdit={this.toggleEdit}
-                                                    toggleModal={this.toggle}
-                                                />
+                                            <MenuPost
+                                                post={this.props.userPosts.selectedPost}
+                                                toggleEdit={this.toggleEdit}
+                                                toggleModal={this.toggle}
+                                            />
                                             }
                                             <img
                                                 src={this.props.user.photo || noAvatar}
@@ -217,11 +221,11 @@ export default class Post extends React.Component<IProps> {
                                                     <span className='mt-2'>{this.props.user.username}</span>
                                                     <span className='d-lg-block d-none'>
                                                         {this.props.username === this.props.loggedUsername &&
-                                                            <MenuPost
-                                                                post={this.props.userPosts.selectedPost}
-                                                                toggleEdit={this.toggleEdit}
-                                                                toggleModal={this.toggle}
-                                                            />
+                                                        <MenuPost
+                                                            post={this.props.userPosts.selectedPost}
+                                                            toggleEdit={this.toggleEdit}
+                                                            toggleModal={this.toggle}
+                                                        />
                                                         }
                                                     </span>
                                                 </div>

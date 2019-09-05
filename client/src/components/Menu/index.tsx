@@ -16,20 +16,19 @@ interface IState {
     feed: IStateFeed;
 }
 
-interface ILocalProps {
+interface IMenuProps {
     username: string;
     newUsername: string;
     getUserInfoFromToken: () => void;
 }
 
-// const Menu = ({newUsername, username, getUserInfoFromToken}: any): any => {
-class Menu extends React.Component<ILocalProps> {
+class Menu extends React.Component<IMenuProps> {
     public componentDidMount(): void {
         this.props.getUserInfoFromToken();
     }
 
     public render(): JSX.Element {
-        const {username, newUsername}: ILocalProps = this.props;
+        const {username, newUsername}: IMenuProps = this.props;
         return (
             <div className='container-fluid header-menu'>
                 <div className='row justify-content-between bg-white'>
