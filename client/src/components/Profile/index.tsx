@@ -50,7 +50,7 @@ export default class Profile extends React.Component<any> {
         this.timerHandle = 0;
     }
 
-    public togleModal = (): void => {
+    public toggleModal = (): void => {
         this.setState({modal: !this.state.modal});
     }
 
@@ -73,7 +73,7 @@ export default class Profile extends React.Component<any> {
                         alt='avatar'
                         height={150}
                         width={150}
-                        onClick={this.togleModal}
+                        onClick={this.toggleModal}
                     />}
                 </div>
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
@@ -108,7 +108,7 @@ export default class Profile extends React.Component<any> {
                     </Link>
                     {this.state.modal && <PopUpModal
                     modal={this.state.modal}
-                    toggleModal={this.togleModal}
+                    toggleModal={this.toggleModal}
                     loading={this.props.loading}
                     deletePhoto={this.props.deletePhoto}
                     photo={photo}
