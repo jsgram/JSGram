@@ -36,7 +36,6 @@ interface IProps {
 }
 
 interface IModalState {
-    // page: number;
     modal: boolean;
     editModal: boolean;
 }
@@ -44,7 +43,6 @@ interface IModalState {
 export default class Post extends React.Component<IProps> {
 
     public state: IModalState = {
-        // page: 1,
         modal: false,
         editModal: false,
     };

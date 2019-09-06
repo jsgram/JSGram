@@ -13,21 +13,19 @@ export const PrivateRoute = ({component: Component, ...rest}: any): any => {
 
         public render(): JSX.Element {
             return (
-                <Component {...this.props} loggedUsername={this.props.username}/>
+                <Component {...this.props} urlUsername={this.props.match.params.username}/>
             );
         }
     }
 
     const mapStateToProps = (state: any): any => ({
-        username: state.feed.username,
+        loggedUsername: state.feed.loggedUsername,
     });
 
     const mapDispatchToProps = {
         getUserInfoFromToken,
     };
-
-    const PrivateRouteComponent = connect(mapStateToProps, mapDispatchToProps)
-    (PrivateRouteWithComponent);
+    const PrivateRouteComponent = connect(mapStateToProps, mapDispatchToProps)(PrivateRouteWithComponent);
 
     return <Route {...rest} component={PrivateRouteComponent}/>;
 };

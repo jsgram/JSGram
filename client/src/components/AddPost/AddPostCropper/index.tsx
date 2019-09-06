@@ -1,16 +1,21 @@
 import React from 'react';
 import Cropper from 'react-easy-crop';
-import PostPhoto from '../PostPost';
+import { PostPhoto } from '../PostPost';
 import { Container, Row, Spinner } from 'reactstrap';
 import AddPostDropZone from '../AddPostDropZone';
 import { getCroppedImg, createBlobUrl } from '../../../helpers/upload.photo';
 import '../PostPost/style.scss';
 
-interface IArea {
-    width: number;
-    height: number;
-    x: number;
-    y: number;
+export interface IAddPostCropperProps {
+    loggedUsername: string;
+    croppedImage: string;
+    description: string;
+    loading: boolean;
+    uploadPost: (croppedImage: string, description: string, username: string) => void;
+    setCroppedImageForPost: (croppedImage: string) => void;
+    setDescriptionForPost: (description: string) => void;
+    resetAddPost: (username: string) => void;
+    informFileError: (message: string) => void;
 }
 
 interface IState {
@@ -22,19 +27,19 @@ interface IState {
     croppedAreaPixels: null;
 }
 
-export interface IProps {
-    croppedImage: string;
-    description: string;
-    loading: boolean;
-    uploadPost: (croppedImage: string, description: string, username: string) => void;
-    setCroppedImageForPost: any;
-    setDescriptionForPost: any;
-    resetAddPost: any;
-    informFileError: (message: string) => void;
-    loggedUsername: string;
+interface IArea {
+    width: number;
+    height: number;
+    x: number;
+    y: number;
 }
 
-export default class AddPostCropper extends React.Component<IProps> {
+export interface ILocation {
+    x: number;
+    y: number;
+}
+
+export default class AddPostCropper extends React.Component<IAddPostCropperProps> {
 
     public state: IState = {
         imageSrc: '',
@@ -58,7 +63,7 @@ export default class AddPostCropper extends React.Component<IProps> {
     }
 
     // 2 Set crop position to Cropper
-    public onCropChange = (crop: any): void => {
+    public onCropChange = (crop: ILocation): void => {
         this.setState({crop});
     }
 
@@ -100,7 +105,7 @@ export default class AddPostCropper extends React.Component<IProps> {
 
     public render(): JSX.Element {
         const {imageSrc, crop, zoom, maxZoom, aspect}: IState = this.state;
-        const {croppedImage, description, setDescriptionForPost, informFileError}: IProps = this.props;
+        const {croppedImage, description, setDescriptionForPost, informFileError}: IAddPostCropperProps = this.props;
         return (
             <div className='text-center'>
                 {croppedImage ?

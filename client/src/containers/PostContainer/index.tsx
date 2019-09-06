@@ -47,7 +47,7 @@ const mapStateToProps = (state: any, ownProps: {username: string}): any => ({
     countOfLikes: state.like.countOfLikes,
     likeExist: state.like.likeExist,
     ownProps: ownProps.username,
-    loggedUsername: state.feed.username,
+    loggedUsername: state.feed.loggedUsername,
 });
 
 const mapDispatchToProps = {

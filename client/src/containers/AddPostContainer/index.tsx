@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as addPostAction from '../../store/addPost/action';
-import AddPostCropper, { IProps } from '../../components/AddPost/AddPostCropper';
+import AddPostCropper, { IAddPostCropperProps } from '../../components/AddPost/AddPostCropper';
 
 export interface IState {
     croppedImage: string;
@@ -13,26 +13,22 @@ export interface ILocalState {
     addPost: IState;
 }
 
-class AddPostContainer extends React.Component<IProps> {
-    public render(): JSX.Element {
-        const { croppedImage, description, loading, uploadPost, setCroppedImageForPost, setDescriptionForPost,
-            resetAddPost, informFileError, loggedUsername }:
-            IProps = this.props;
-        return(
-            <AddPostCropper
-                croppedImage={croppedImage}
-                description={description}
-                uploadPost={uploadPost}
-                loading={loading}
-                setCroppedImageForPost={setCroppedImageForPost}
-                setDescriptionForPost={setDescriptionForPost}
-                resetAddPost={resetAddPost}
-                informFileError={informFileError}
-                loggedUsername={loggedUsername}
-            />
-        );
-    }
-}
+const AddPostContainer = ({
+                              croppedImage, description, loading, uploadPost, setCroppedImageForPost,
+                              setDescriptionForPost, resetAddPost, informFileError, loggedUsername,
+                          }: IAddPostCropperProps): JSX.Element => (
+    <AddPostCropper
+        loggedUsername={loggedUsername}
+        croppedImage={croppedImage}
+        description={description}
+        loading={loading}
+        uploadPost={uploadPost}
+        setCroppedImageForPost={setCroppedImageForPost}
+        setDescriptionForPost={setDescriptionForPost}
+        resetAddPost={resetAddPost}
+        informFileError={informFileError}
+    />
+);
 
 const mapStateToProps = (state: ILocalState): IState => ({
     croppedImage: state.addPost.croppedImage,

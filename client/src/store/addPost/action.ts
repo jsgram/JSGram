@@ -17,7 +17,7 @@ export const getPostPending = (): { type: string } => ({
     type: GET_POST_PENDING,
 });
 
-export const getPostSuccess = (post: IUserData): { type: string, payload: any } => ({
+export const getPostSuccess = (post: IUserData): { type: string, payload: IUserData } => ({
     type: GET_POST_SUCCESS,
     payload: post,
 });
@@ -27,17 +27,17 @@ export const getPostError = (error: Error): { type: string, payload: Error } => 
     payload: error,
 });
 
-export const setCroppedImageForPost = (croppedImage: string): { type: string, payload: any } => ({
+export const setCroppedImageForPost = (croppedImage: string): { type: string, payload: string } => ({
     type: SET_CROPPED_IMAGE_FOR_POST,
     payload: croppedImage,
 });
 
-export const setDescriptionForPost = (description: string): { type: string, payload: any } => ({
+export const setDescriptionForPost = (description: string): { type: string, payload: string } => ({
     type: SET_DESCRIPTION_FOR_POST,
     payload: description,
 });
 
-export const resetAddPost = (username: string): { type: string, payload: any } => {
+export const resetAddPost = (username: string): { type: string, payload: string } => {
     history.push(`profile/${username}`);
     return {
         type: RESET_ADD_POST,

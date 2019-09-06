@@ -1,10 +1,10 @@
 import { AuthAPI } from '../api';
-import { SET_USERNAME } from './actionTypes';
+import { SET_LOGGED_USERNAME } from './actionTypes';
 import { Dispatch } from 'redux';
 import { showAlert } from '../alert/actions';
 
 export const setUsername = (username: string): { type: string, payload: string } => ({
-    type: SET_USERNAME,
+    type: SET_LOGGED_USERNAME,
     payload: username,
 });
 

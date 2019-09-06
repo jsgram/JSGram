@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Profile, { IUserData } from '../../components/Profile';
+import Profile, { IProfileProps, IUserData } from '../../components/Profile';
 import { getUser, deletePhoto } from '../../store/profile/actions';
 import { getPostsAsync, resetPosts } from '../../store/post/actions';
 
@@ -14,32 +14,25 @@ interface IState {
     profile: IStateToPropsProfile;
 }
 
-interface IParams {
-    username: string;
-}
+export const ProfileContainer = (props: IProfileProps): JSX.Element => {
+    return (
+        <div className='container'>
+            <Profile
+                urlUsername={props.urlUsername}
+                loggedUsername={props.loggedUsername}
+                user={props.user}
+                loaded={props.loaded}
+                loading={props.loading}
+                getUser={props.getUser}
+                deletePhoto={props.deletePhoto}
+                resetPosts={props.resetPosts}
+                getPostsAsync={props.getPostsAsync}
+            />
+        </div>
+    );
+};
 
-export class ProfileContainer extends React.Component <any> {
-    public render(): JSX.Element {
-        const {username}: IParams = this.props.match.params;
-        return (
-            <div className='container'>
-                <Profile
-                    user={this.props.user}
-                    loaded={this.props.loaded}
-                    loading={this.props.loading}
-                    getUser={this.props.getUser}
-                    deletePhoto={this.props.deletePhoto}
-                    username={username}
-                    resetPosts={this.props.resetPosts}
-                    loggedUsername={this.props.loggedUsername}
-                    getPostsAsync={this.props.getPostsAsync}
-                />
-            </div>
-        );
-    }
-}
-
-const mapStateToProps = (state: IState): { user: any, loaded: boolean, loading: boolean } => ({
+const mapStateToProps = (state: IState): { user: IUserData, loaded: boolean, loading: boolean } => ({
     user: state.profile.user,
     loaded: state.profile.loaded,
     loading: state.profile.loading,

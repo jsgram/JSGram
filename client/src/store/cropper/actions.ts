@@ -10,7 +10,7 @@ import { showAlert } from '../alert/actions';
 import { setPhotoToState } from '../profile/actions';
 import { base64ToFile, createDataForAWS } from '../../helpers/upload.photo';
 
-export const setAvatarToCropper = (avatar: any): { type: string, payload: File } => ({
+export const setAvatarToCropper = (avatar: File): { type: string, payload: File } => ({
     type: SET_AVATAR_TO_CROPPER,
     payload: avatar,
 });
@@ -19,7 +19,7 @@ export const uploadAvatarPending = (): { type: string } => ({
     type: UPLOAD_AVATAR_PENDING,
 });
 
-export const uploadAvatarSuccess = (avatar: any): { type: string, payload: File } => ({
+export const uploadAvatarSuccess = (avatar: File): { type: string, payload: File } => ({
     type: UPLOAD_AVATAR_SUCCESS,
     payload: avatar,
 });

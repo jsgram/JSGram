@@ -19,11 +19,22 @@ export interface IUserData {
     photo: string;
     email: string;
     _id: string;
-    resetPosts: () => void;
     getPostsAsync: () => void;
 }
 
-export default class Profile extends React.Component<any> {
+export interface IProfileProps {
+    urlUsername: string;
+    loggedUsername: string;
+    user: IUserData;
+    loaded: boolean;
+    loading: boolean;
+    getUser: (username: string) => void;
+    deletePhoto: () => void;
+    resetPosts: () => void;
+    getPostsAsync: (username: string) => void;
+}
+
+export default class Profile extends React.Component<IProfileProps> {
 
     public state: { loaded: boolean, modal: boolean } = {
         loaded: false,
@@ -32,10 +43,10 @@ export default class Profile extends React.Component<any> {
     public timerHandle: any = 0;
 
     public componentDidMount(): void {
-        this.props.getUser(this.props.username);
+        this.props.getUser(this.props.urlUsername);
     }
 
-    public componentDidUpdate(prevProps: any): void {
+    public componentDidUpdate(prevProps: IProfileProps): void {
         if (prevProps.loaded !== this.props.loaded && this.props.loaded) {
             this.timerHandle = setTimeout(() => {
                 this.setState({loaded: true});
@@ -45,10 +56,10 @@ export default class Profile extends React.Component<any> {
             );
         }
 
-        if (this.props.username !== this.props.user.username && this.props.loaded) {
+        if (this.props.urlUsername !== this.props.user.username && this.props.loaded) {
             this.setState({loaded: false});
-            this.props.getUser(this.props.username);
-            this.props.getPostsAsync(this.props.username);
+            this.props.getUser(this.props.urlUsername);
+            this.props.getPostsAsync(this.props.urlUsername);
         }
     }
 
@@ -62,7 +73,7 @@ export default class Profile extends React.Component<any> {
     }
 
     public render(): JSX.Element {
-        const {user: {posts, followers, following, fullName, username, description, photo}}: any = this.props;
+        const {user: {posts, followers, following, fullName, username, description, photo}}: IProfileProps = this.props;
         const {loaded}: { loaded: boolean } = this.state;
 
         if (!loaded) {
@@ -86,8 +97,8 @@ export default class Profile extends React.Component<any> {
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
                     <p className='profile-name align-self-center'>
                         {username}
-                        {this.props.username === this.props.loggedUsername &&
-                            <Link to={`/profile/${this.props.username}/edit`}>
+                        {this.props.urlUsername === this.props.loggedUsername &&
+                            <Link to={`/profile/${this.props.urlUsername}/edit`}>
                                 <button className='bg-dark ml-sm-5 ml-3 btn text-white'>
                                     Edit profile
                                 </button>
@@ -110,7 +121,7 @@ export default class Profile extends React.Component<any> {
                         <p>{description}</p>
                     </div>
                     <Link to='/add-post'>
-                        {this.props.username === this.props.loggedUsername &&
+                        {this.props.urlUsername === this.props.loggedUsername &&
                             <Button className='btn' color='danger'><i
                                 className='fa fa-plus pr-3'/>
                                 Add Post
@@ -126,7 +137,7 @@ export default class Profile extends React.Component<any> {
                     />}
                 </div>
                 <div className='container'>
-                    <PostContainer username={this.props.username}/>
+                    <PostContainer username={this.props.urlUsername}/>
                 </div>
             </div>
         );

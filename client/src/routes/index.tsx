@@ -11,7 +11,7 @@ import Logout from '../containers/LogoutContainer';
 import { history } from '../history';
 import SideBar from '../components/SideBar';
 import AddPostContainer from '../containers/AddPostContainer';
-import Error404 from '../components/Error404';
+import { Error404 } from '../components/Error404';
 import { RegisterRoute } from '../components/RegisterRoute';
 import { PrivateRoute } from './PrivateRoute';
 
