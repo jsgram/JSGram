@@ -1,6 +1,7 @@
 import { AuthAPI } from '../api';
 import { showAlert } from '../alert/actions';
 import { Dispatch } from 'redux';
+import { store } from '../../App';
 import {
     ALL_POSTS_LOADED, CLEAR_LOADED,
     GET_MORE_POSTS_SUCCESS,
@@ -13,6 +14,7 @@ import {
 } from './actionTypes';
 import { IPost } from './reducers';
 import { decrementPostCount } from '../profile/actions';
+import { statement } from '@babel/template';
 
 export const getPostsPending = (): { type: string } => ({
     type: GET_POSTS_PENDING,
@@ -50,9 +52,10 @@ export const showPost = (post: any): { type: string, payload: any } => ({
     payload: post,
 });
 
-export const editDescriptionForPost = (description: any): { type: string, payload: any } => ({
+export const editDescriptionForPost = (description: any): { type: string, payload: any, postId: string } => ({
     type: EDIT_DESCRIPTION_FOR_POST,
     payload: description,
+    postId: store.getState().userPosts.selectedPost._id,
 });
 
 export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise<void> =>
