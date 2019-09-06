@@ -6,7 +6,7 @@
   .dots {
     font-weight: bold;
     font-size: 30px;
-    line-height: 3px;
+    line-height: 4px;
     cursor: default;
     @media screen and (min-width: $break-md) {
       margin-top: 0;
@@ -42,13 +42,15 @@
     cursor: default;
 
     &:hover {
-      font-weight: bold;
+      color: $color-black;
+      font-weight: 700;
     }
   }
 
   .show-menu {
-    top: 2.8em;
-    left: -1.4em;
+    top: 2.3em;
+    left: -7em;
+    z-index: 5;
     @media screen and (max-width: $break-md) {
       top: 2.8em;
       left: -0.8em;
