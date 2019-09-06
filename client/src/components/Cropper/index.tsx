@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from 'react-avatar-edit';
 import noAvatar from '../../assets/noAvatar.svg';
-import { Button, Spinner } from 'reactstrap';
+import { Button } from 'reactstrap';
 
 interface ILocalState {
     preview: null | string;
@@ -77,9 +77,7 @@ export default class Cropper extends React.Component<any> {
                     onBeforeFileLoad={this.onBeforeFileLoad}
                     src={this.state.src || ''}
                 />
-                {this.props.loading ? (
-                    <Spinner className='mt-3' color='dark'/>
-                ) :  this.state.preview && this.state.preview !== this.props.user.photo && (
+                {this.state.preview && this.state.preview !== this.props.user.photo && (
                     <Button
                         className='mt-3'
                         outline

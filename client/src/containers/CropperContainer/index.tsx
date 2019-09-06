@@ -1,5 +1,6 @@
 import React from 'react';
-import { createFile, setAvatarToCropper, uploadPostAvatar, informFileIsTooBig } from '../../store/cropper/actions';
+import { createFile, setAvatarToCropper, informFileIsTooBig } from '../../store/cropper/actions';
+import { uploadPostAvatar } from '../../store/profile/actions';
 import { connect } from 'react-redux';
 import Cropper from '../../components/Cropper';
 import { IUserData } from '../../components/Profile';
