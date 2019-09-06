@@ -121,34 +121,22 @@ export default class Post extends React.Component<IProps> {
 
     public render(): JSX.Element {
         const { userPosts, user, likeExist, countOfLikes }: any = this.props;
-        const desc = userPosts.selectedPost.description;
-        let linkifiedDesc;
-        if (desc) {
-            const hashtagRegex = /([@][a-z]+|[#][a-z]+|(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*)/ig;
-            linkifiedDesc = desc.split(hashtagRegex)
-                .map((token: string) => {
-                    // Hashtag
-                    if (token.match(/[#][a-z]/ig)) {
-                        return (
-                            <a href={`/hastags/${token.slice(1)}`}>{token}</a>
-                        );
-                    }
-                    // Mention
-                    if (token.match(/[@][a-z]/ig)) {
-                        return (
-                            <a href={`/profile/${token.slice(1)}`}>{token}</a>
-                        );
-                    }
-                    // Link
-                    if (token.match(/(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*/ig)) {
-                        return (
-                            <a href={token}>{token}</a>
-                        );
-                    }
-                    // Simple text
+        const { selectedPost: { description: desc } }: any = userPosts;
+
+        const hashtagRegex = /([@][a-z]+|[#][a-z]+|(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*)/ig;
+        const formatDescription = desc && desc.split(hashtagRegex).map((token: string) => {
+            switch (true) {
+                case !!token.match(/[@][a-z]/i):
+                    return (<a href={`/profile/${token.slice(1)}`}>{token}</a>);
+                case !!token.match(/[#][a-z]/i):
+                    return (<a href={`/profile/${token.slice(1)}`}>{token}</a>);
+                case !!token.match(/(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*/ig):
+                    return (<a href={token}>{token}</a>);
+                default:
                     return token;
-                });
-        }
+            }
+        });
+
         const likeButton = this.setLikesCount() && likeExist ?
             (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>) :
             (<i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>);
@@ -238,7 +226,7 @@ export default class Post extends React.Component<IProps> {
                                         {likeButton}
                                         <span>{countOfLikes} likes</span>
                                     </p>
-                                    <p>{linkifiedDesc}</p>
+                                    <p>{formatDescription}</p>
                                 </div>
 
                                 <div className='flex-grow-1 comments px-3 text-description'>
