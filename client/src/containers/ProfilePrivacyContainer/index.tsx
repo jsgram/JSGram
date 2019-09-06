@@ -4,6 +4,7 @@ import { renderField } from '../../components/CommonComponents/ReduxFormFields';
 import { IUserSubscriptions } from '../ProfileSubscriptionsContainer';
 
 import React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Form, Label, Button, Spinner, FormProps } from 'reactstrap';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
@@ -22,7 +23,7 @@ class ProfilePrivacyContainer extends React.Component<any> { // FIXME any type
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    public onSubmit(data: any): any { // FIXME any type
+    public onSubmit(data: FormProps): Dispatch {
         const { username, subscriptions }: FormProps = this.props;
 
         return this.props.changeSettings(username, subscriptions, data);

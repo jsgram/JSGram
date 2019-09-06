@@ -1,23 +1,25 @@
 import {resend} from '../resend.token.controller';
 
-import * as ur from '../../../db.requests/user.requests';
-import * as se from '../../../helpers/send.email';
+import * as userRequests from '../../../db.requests/user.requests';
+import * as sendEmail from '../../../helpers/send.email';
 import {request, response} from 'express';
 import mockingoose from 'mockingoose';
 import {User, IUserModel} from '../../../models/user.model';
+
+type IResolve<T> = (value: T) => void;
 
 const fakeNext = jest.fn(() => { /* */ });
 
 describe('Resend token controller:', () => {
     test('token resend - success', async () => {
         mockingoose(User).toReturn({}, 'findOne');
-        const fakeUser = await User.findOne({});
+        const fakeUser: IUserModel = await User.findOne({}) as IUserModel;
 
-        const mockUserExist = jest.spyOn(ur, 'userExist');
-        mockUserExist.mockReturnValue(new Promise((res: any): Promise<IUserModel> => res(fakeUser))); // FIXME any
+        const mockUserExist = jest.spyOn(userRequests, 'userExist');
+        mockUserExist.mockReturnValue(new Promise((res: IResolve<IUserModel>): void => res(fakeUser)));
 
-        const mockSendEmail = jest.spyOn(se, 'sendEmail');
-        mockSendEmail.mockReturnValue(new Promise((res: any): Promise<undefined> => res(undefined))); // FIXME any
+        const mockSendEmail = jest.spyOn(sendEmail, 'sendEmail');
+        mockSendEmail.mockReturnValue(new Promise((res: IResolve<undefined>): void => res(undefined)));
 
         request.body = {
             email: 'some@ema.il',
@@ -33,12 +35,12 @@ describe('Resend token controller:', () => {
             email: '',
         };
 
-        const ans = {
+        const answer = {
             message: 'Verification E-mail does not send to user',
             status: 409,
         };
 
         await resend(request, response, fakeNext);
-        expect(fakeNext).toHaveBeenLastCalledWith(ans);
+        expect(fakeNext).toHaveBeenLastCalledWith(answer);
     });
 });

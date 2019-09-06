@@ -3,10 +3,15 @@ import { validatePasswordChange as validate } from '../../utils/validation';
 import { renderField } from '../CommonComponents/ReduxFormFields';
 
 import React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { FormProps, Form, FormGroup, Col, Label, Button, Spinner } from 'reactstrap';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+
+interface IState {
+    username: string;
+}
 
 class ProfilePasswordChange extends React.Component<any> { // FIXME any type
     constructor(props: any) {
@@ -14,7 +19,7 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME any type
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    public onSubmit(data: any): any { // FIXME any type
+    public onSubmit(data: FormProps): Dispatch {
         return this.props.changeProfilePassword(this.props.username, data.oldPassword, data.newPassword);
     }
 
@@ -84,7 +89,7 @@ class ProfilePasswordChange extends React.Component<any> { // FIXME any type
     }
 }
 
-const mapStateToProps = (state: FormProps): any => ({ // FIXME any type
+const mapStateToProps = (state: FormProps): IState => ({
     username: state.profile.user.username,
 });
 

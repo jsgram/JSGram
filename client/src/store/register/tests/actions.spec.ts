@@ -41,7 +41,8 @@ describe('registerUser', () => {
             .then(() => {
                 const actual = store.getActions();
                 expect(actual).toEqual(expected);
-            });
+            })
+            .catch((err: Error): Error => err);
     });
 
     it('dispatches registerUser with server data on error', () => {
@@ -59,6 +60,7 @@ describe('registerUser', () => {
             .then(() => {
                 const actual = store.getActions();
                 expect(actual).toEqual(expected);
-            });
+            })
+            .catch((err: Error): Error => err);
     });
 });
