@@ -39,10 +39,9 @@ const defaultState = {
     loading: false,
 };
 
-
 export const postReducer = (
     state: any = defaultState,
-    action: { type: string, payload: any, loading: boolean, postId: any }): any => {
+    action: { type: string, payload: any }): any => {
     switch (action.type) {
         case GET_POSTS_PENDING:
             return {
@@ -94,15 +93,11 @@ export const postReducer = (
 
             return {
                 ...state,
-                selectedPost: {
-                    ...state.selectedPost,
-                    description: action.payload,
-                },
                 posts: state.posts.map((post: any) => {
-                    if (post._id === action.postId) {
-                        post.description = action.payload
+                    if (post._id === action.payload.postId) {
+                        post.description = action.payload.description;
                     }
-                        return post;
+                    return post;
                 }),
             };
         default:
