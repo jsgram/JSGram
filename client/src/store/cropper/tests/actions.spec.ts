@@ -45,7 +45,8 @@ describe('Avatar cropper', () => {
             .then(() => {
                 const actual = store.getActions();
                 expect(actual).toEqual(expected);
-            });
+            })
+            .catch((err: Error): Error => err);
     });
 
     it.skip('dispatches uploadPutAvatar with server data on success', () => {

@@ -6,18 +6,20 @@ import {request, response} from 'express';
 import mockingoose from 'mockingoose';
 import {User, IUserModel} from '../../../models/user.model';
 
+type IResolve<T> = (value: T) => void;
+
 const fakeNext = jest.fn(() => { /* */ });
 
 describe('Check email controller:', () => {
     test('check email - success', async () => {
         mockingoose(User).toReturn({}, 'findOne');
-        const fakeUser = await User.findOne({});
+        const fakeUser: IUserModel = await User.findOne({}) as IUserModel;
 
         const mockUserExist = jest.spyOn(ur, 'userExist');
-        mockUserExist.mockReturnValue(new Promise((res: any): Promise<IUserModel> => res(fakeUser)));
+        mockUserExist.mockReturnValue(new Promise((res: IResolve<IUserModel>): void => res(fakeUser)));
 
         const mockSendEmail = jest.spyOn(se, 'sendEmail');
-        mockSendEmail.mockReturnValue(new Promise((res: any): Promise<undefined> => res(undefined)));
+        mockSendEmail.mockReturnValue(new Promise((res: IResolve<undefined>): void => res(undefined)));
 
         request.body = {
             email: 'some@ema.il',
