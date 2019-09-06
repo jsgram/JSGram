@@ -2,7 +2,8 @@ import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import configureMockStore from 'redux-mock-store';
 import { showAlert } from '../../alert/actions';
-import { uploadAvatarPending, uploadAvatarSuccess, uploadPostAvatar, uploadPutAvatar } from '../actions';
+import { uploadAvatarPending, uploadAvatarSuccess, uploadPostAvatar } from '../../profile/actions';
+import { uploadPutAvatar } from '../actions';
 import image from '../../../assets/logo.png';
 
 export const startState = {};
