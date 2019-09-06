@@ -123,14 +123,18 @@ export default class Post extends React.Component<IProps> {
         const { userPosts, user, likeExist, countOfLikes }: any = this.props;
         const { selectedPost: { description: desc } }: any = userPosts;
 
-        const hashtagRegex = /([@][a-z]+|[#][a-z]+|(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*)/ig;
+        const HASH_REGEXP = /[#][a-z]+/;
+        const MENTION_REGEXP = /[@][a-z]+/;
+        const LINK_REGEXP = /(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*/;
+
+        const hashtagRegex = new RegExp(`(${HASH_REGEXP.source}|${MENTION_REGEXP.source}|${LINK_REGEXP.source})`, 'ig');
         const formatDescription = desc && desc.split(hashtagRegex).map((token: string) => {
             switch (true) {
-                case !!token.match(/[@][a-z]/i):
+                case !!token.match(HASH_REGEXP):
                     return (<a href={`/profile/${token.slice(1)}`}>{token}</a>);
-                case !!token.match(/[#][a-z]/i):
+                case !!token.match(MENTION_REGEXP):
                     return (<a href={`/profile/${token.slice(1)}`}>{token}</a>);
-                case !!token.match(/(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*/ig):
+                case !!token.match(LINK_REGEXP):
                     return (<a href={token}>{token}</a>);
                 default:
                     return token;
