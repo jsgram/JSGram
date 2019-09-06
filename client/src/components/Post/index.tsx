@@ -1,12 +1,6 @@
 import React from 'react';
 import '../../styles/style.scss';
 import { Waypoint } from 'react-waypoint';
-import Linkify from 'linkifyjs/react';
-import * as linkify from 'linkifyjs';
-// @ts-ignore
-import hashtag from 'linkifyjs/plugins/hashtag';
-// @ts-ignore
-import mention from 'linkifyjs/plugins/mention';
 import TextareaAutosize from 'react-textarea-autosize';
 import { IUserData } from '../Profile';
 import { IPost } from '../../store/post/reducers';
@@ -14,9 +8,6 @@ import { Modal, ModalHeader, Spinner, Input, FormGroup, Button, InputGroup, Inpu
 import './style.scss';
 import MenuPost from '../MenuPost';
 import noAvatar from '../../assets/noAvatar.svg';
-
-hashtag(linkify);
-mention(linkify);
 
 interface IBody {
     userId: string;
@@ -90,8 +81,10 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onDeleteLike = (): void => {
-        const {_id: userId}: any = this.props.user;
-        const {_id: postId}: any = this.props.userPosts.selectedPost;
+        const {
+            userPosts: { selectedPost: {_id: postId} },
+            user: {_id: userId},
+        }: any = this.props;
         const body = {userId, postId};
         const index = this.props.userPosts.selectedPost.authorsOfLike.indexOf(body.userId);
         this.props.userPosts.selectedPost.authorsOfLike.splice(index, 1);
@@ -99,8 +92,10 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onAddLike = (): void => {
-        const {_id: userId}: any = this.props.user;
-        const {_id: postId}: any = this.props.userPosts.selectedPost;
+        const {
+            userPosts: { selectedPost: {_id: postId} },
+            user: {_id: userId},
+        }: any = this.props;
         const body = {userId, postId};
         this.props.userPosts.selectedPost.authorsOfLike.push(this.props.user._id);
         this.props.addLike(body);
@@ -125,20 +120,33 @@ export default class Post extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        const linkifyOptions = {
-            formatHref(href: string, type: string): string {
-                switch (type) {
-                    case 'hashtag':
-                        return `/hashtags/${href.substr(1)}`;
-                    case 'mention':
-                        return `/profile/${href.substr(1)}`;
-                    default:
-                        return href;
-                }
-            },
-        };
-
         const { userPosts, user, likeExist, countOfLikes }: any = this.props;
+
+        const hashtagRegex = /([@][a-z]+|[#][a-z]+|(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*)/ig;
+        const linkifiedDescription = String(userPosts.selectedPost.description)
+            .split(hashtagRegex)
+            .map((token: any) => {
+                // Hashtag
+                if (token[0] === '#') {
+                    return (
+                      <a href={`/hastags/${token.slice(1)}`}>{token}</a>
+                    );
+                }
+                // Mention
+                if (token[0] === '@') {
+                    return (
+                      <a href={`/profile/${token.slice(1)}`}>{token}</a>
+                    );
+                }
+                // Link
+                if (token.match(/(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*/ig)) {
+                    return (
+                      <a href={token}>{token}</a>
+                    );
+                }
+                // Simple text
+                return token;
+            });
 
         const likeButton = this.setLikesCount() && likeExist ?
             (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>) :
@@ -229,9 +237,7 @@ export default class Post extends React.Component<IProps> {
                                         {likeButton}
                                         <span>{countOfLikes} likes</span>
                                     </p>
-                                    <Linkify tagName='p' options={linkifyOptions}>
-                                        {userPosts.selectedPost.description}
-                                    </Linkify>
+                                    <p>{linkifiedDescription}</p>
                                 </div>
 
                                 <div className='flex-grow-1 comments px-3 text-description'>
