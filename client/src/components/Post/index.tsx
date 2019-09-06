@@ -79,7 +79,6 @@ export default class Post extends React.Component<IProps> {
         this.props.getPostsAsync(this.props.user.username);
     }
 
-
     public onDeleteLike = (): void => {
         const {_id : userId}: any = this.props.user;
         const {_id : postId}: any = this.props.userPosts.selectedPost;

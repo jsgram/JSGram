@@ -51,7 +51,7 @@ export const postReducer = (
         case GET_POSTS_SUCCESS:
             return {
                 ...state,
-                posts: [...action.payload],
+                posts: action.payload,
                 loading: false,
             };
         case GET_MORE_POSTS_SUCCESS:
@@ -90,7 +90,6 @@ export const postReducer = (
                 selectedPost: action.payload,
             };
         case EDIT_DESCRIPTION_FOR_POST:
-
             return {
                 ...state,
                 posts: state.posts.map((post: any) => {
