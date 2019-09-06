@@ -1,8 +1,8 @@
 import React from 'react';
-import * as profileAction from '../../store/profile/actions';
-import * as cropperAction from '../../store/cropper/actions';
+import { createFile, setAvatarToCropper, informFileIsTooBig } from '../../store/cropper/actions';
+import { uploadPostAvatar } from '../../store/profile/actions';
 import { connect } from 'react-redux';
-import Cropper, { ICropperProps } from '../../components/Cropper';
+import Cropper from '../../components/Cropper';
 import { IUserData } from '../../components/Profile';
 
 interface IState {
@@ -21,24 +21,25 @@ interface ICropperState {
     };
 }
 
-const CropperContainer = ({avatar, file, loaded, error, loading, user, uploadPostAvatar, setAvatarToCropper, createFile,
-                              informFileIsTooBig, modalToggle}: ICropperProps): JSX.Element => {
-    return (
-        <Cropper
-            avatar={avatar}
-            file={file}
-            loaded={loaded}
-            error={error}
-            loading={loading}
-            user={user}
-            uploadPostAvatar={uploadPostAvatar}
-            setAvatarToCropper={setAvatarToCropper}
-            createFile={createFile}
-            informFileIsTooBig={informFileIsTooBig}
-            modalToggle={modalToggle}
-        />
-    );
-};
+class CropperContainer extends React.Component<any> {
+    public render(): JSX.Element {
+        return(
+            <Cropper
+                avatar={this.props.avatar}
+                file={this.props.file}
+                loaded={this.props.loaded}
+                error={this.props.error}
+                loading={this.props.loading}
+                user={this.props.user}
+                uploadPostAvatar={this.props.uploadPostAvatar}
+                setAvatarToCropper={this.props.setAvatarToCropper}
+                createFile={this.props.createFile}
+                informFileIsTooBig={this.props.informFileIsTooBig}
+                modalToggle={this.props.modalToggle}
+            />
+        );
+    }
+}
 
 const mapStateToProps = (state: ICropperState): IState => ({
     avatar: state.cropper.avatar,
@@ -50,10 +51,10 @@ const mapStateToProps = (state: ICropperState): IState => ({
 });
 
 const mapDispatchToProps = {
-    uploadPostAvatar: profileAction.uploadPostAvatar,
-    setAvatarToCropper: cropperAction.setAvatarToCropper,
-    createFile: cropperAction.createFile,
-    informFileIsTooBig: cropperAction.informFileIsTooBig,
+    uploadPostAvatar,
+    setAvatarToCropper,
+    createFile,
+    informFileIsTooBig,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CropperContainer);

@@ -1,48 +1,16 @@
 import React from 'react';
 import Avatar from 'react-avatar-edit';
 import noAvatar from '../../assets/noAvatar.svg';
-import { Button, Spinner } from 'reactstrap';
-import { IUserData } from '../Profile';
-
-export interface ICropperProps {
-    avatar: any;
-    file: any;
-    loaded: boolean;
-    error: Error | null;
-    loading: boolean;
-    user: IUserData;
-    uploadPostAvatar: (avatar: File) => void;
-    setAvatarToCropper: (avatar: File) => void;
-    createFile: (preview: string) => void;
-    informFileIsTooBig: () => void;
-    modalToggle: () => void;
-}
+import { Button } from 'reactstrap';
 
 interface ILocalState {
     preview: null | string;
     src: null | string;
 }
 
-interface IDropZoneStyle {
-    width: any;
-    margin: string;
-    display: string;
-    flexDirection: string;
-    alignItems: string;
-    padding: number;
-    borderWidth: number;
-    borderRadius: number;
-    borderColor: string;
-    borderStyle: any;
-    backgroundColor: string;
-    color: string;
-    outline: string;
-    transition: string;
-}
+export default class Cropper extends React.Component<any> {
 
-export default class Cropper extends React.Component<ICropperProps> {
-
-    public dropZoneStyle: IDropZoneStyle = {
+    public dropZoneStyle: any = {
         width: '100%',
         margin: '0 auto',
         display: 'flex',
@@ -102,7 +70,7 @@ export default class Cropper extends React.Component<ICropperProps> {
                     width={this.dropZoneStyle.width}
                     height={300}
                     imageWidth={300}
-                    borderStyle={this.dropZoneStyle.borderStyle}
+                    borderStyle={this.dropZoneStyle}
                     shadingColor='white'
                     onCrop={this.onCrop}
                     onClose={this.onClose}
