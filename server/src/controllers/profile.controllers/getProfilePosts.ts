@@ -9,15 +9,20 @@ interface IParams {
 
 export const getProfilePosts = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { userName, page }: IParams = req.params;
+        const {userName, page}: IParams = req.params;
         const user = await getUserByUsername(userName, next);
+        if (!user) {
+            throw new Error('No user');
+        }
 
         const {posts}: any = user;
         const POSTS_ON_PAGE = 9;
 
         const skip = (page - 1) * POSTS_ON_PAGE;
         const postsAll = await getPostsWithPagination(posts, skip, next);
-
+        if (!postsAll) {
+            throw new Error('No posts');
+        }
         res.json({postsAll});
     } catch (e) {
         next(e);

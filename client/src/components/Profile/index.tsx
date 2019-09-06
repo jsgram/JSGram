@@ -47,7 +47,6 @@ export default class Profile extends React.Component<any> {
 
         if (this.props.username !== this.props.user.username && this.props.loaded) {
             this.setState({loaded: false});
-            this.props.resetPosts();
             this.props.getUser(this.props.username);
             this.props.getPostsAsync(this.props.username);
         }

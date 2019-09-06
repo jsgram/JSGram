@@ -4,7 +4,7 @@ import { getUserInfoFromToken } from '../store/feed/actions';
 import { connect } from 'react-redux';
 
 export const PrivateRoute = ({component: Component, ...rest}: any): any => {
-    class HocComponent extends React.Component<any> {
+    class PrivateRouteWithComponent extends React.Component<any> {
         public componentDidMount(): void {
             if (!this.props.username) {
                 this.props.getUserInfoFromToken();
@@ -25,7 +25,9 @@ export const PrivateRoute = ({component: Component, ...rest}: any): any => {
     const mapDispatchToProps = {
         getUserInfoFromToken,
     };
-    const RouteComponent = connect(mapStateToProps, mapDispatchToProps)(HocComponent);
 
-    return <Route {...rest} component={RouteComponent}/>;
+    const PrivateRouteComponent = connect(mapStateToProps, mapDispatchToProps)
+    (PrivateRouteWithComponent);
+
+    return <Route {...rest} component={PrivateRouteComponent}/>;
 };

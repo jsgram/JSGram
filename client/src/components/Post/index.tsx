@@ -36,7 +36,7 @@ interface IProps {
 }
 
 interface IModalState {
-    page: number;
+    // page: number;
     modal: boolean;
     editModal: boolean;
 }
@@ -44,7 +44,7 @@ interface IModalState {
 export default class Post extends React.Component<IProps> {
 
     public state: IModalState = {
-        page: 1,
+        // page: 1,
         modal: false,
         editModal: false,
     };
@@ -74,9 +74,8 @@ export default class Post extends React.Component<IProps> {
     }
 
     public getMorePosts = (): void => {
-        this.setState({page: this.state.page + 1});
-        this.props.addNextPosts(this.props.userPosts.page + 1);
         if (!this.props.userPosts.loaded) {
+            this.props.addNextPosts(this.props.userPosts.page + 1);
             this.props.getMorePostsAsync(this.props.user.username, this.props.userPosts.page);
         }
     }

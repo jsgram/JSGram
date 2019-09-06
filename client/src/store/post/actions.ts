@@ -68,6 +68,7 @@ export const resetPosts = (): { type: string } => ({
 export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
+            dispatch(resetPosts());
             dispatch(getPostsPending());
             const res = await AuthAPI.get(`/profile/${username}/posts/1`);
 
@@ -83,7 +84,6 @@ export const getMorePostsAsync = (username: string, page: number): (dispatch: Di
         try {
             dispatch(getPostsPending());
             const res = await AuthAPI.get(`/profile/${username}/posts/${page}`);
-
             if (!res.data.postsAll.length) {
                 dispatch(allPostsLoaded());
                 return;
