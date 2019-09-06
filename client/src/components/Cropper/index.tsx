@@ -109,9 +109,7 @@ export default class Cropper extends React.Component<ICropperProps> {
                     onBeforeFileLoad={this.onBeforeFileLoad}
                     src={this.state.src || ''}
                 />
-                {this.props.loading ? (
-                    <Spinner className='mt-3' color='dark'/>
-                ) :  this.state.preview && this.state.preview !== this.props.user.photo && (
+                {this.state.preview && this.state.preview !== this.props.user.photo && (
                     <Button
                         className='mt-3'
                         outline

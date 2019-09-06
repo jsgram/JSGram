@@ -1,5 +1,6 @@
 import React from 'react';
-import * as action from '../../store/cropper/actions';
+import * as profileAction from '../../store/profile/actions';
+import * as cropperAction from '../../store/cropper/actions';
 import { connect } from 'react-redux';
 import Cropper, { ICropperProps } from '../../components/Cropper';
 import { IUserData } from '../../components/Profile';
@@ -49,10 +50,10 @@ const mapStateToProps = (state: ICropperState): IState => ({
 });
 
 const mapDispatchToProps = {
-    uploadPostAvatar: action.uploadPostAvatar,
-    setAvatarToCropper: action.setAvatarToCropper,
-    createFile: action.createFile,
-    informFileIsTooBig: action.informFileIsTooBig,
+    uploadPostAvatar: profileAction.uploadPostAvatar,
+    setAvatarToCropper: cropperAction.setAvatarToCropper,
+    createFile: cropperAction.createFile,
+    informFileIsTooBig: cropperAction.informFileIsTooBig,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CropperContainer);

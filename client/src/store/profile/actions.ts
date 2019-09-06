@@ -10,6 +10,9 @@ import {
     CHANGE_SETTINGS_SUCCESS,
     CHANGE_SETTINGS_ERROR,
     DECREMENT_POST_COUNT,
+    UPLOAD_AVATAR_PENDING,
+    UPLOAD_AVATAR_ERROR,
+    UPLOAD_AVATAR_SUCCESS,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
@@ -17,6 +20,7 @@ import { IUserData } from '../../components/Profile';
 import { showAlert } from '../alert/actions';
 import { IUserSubscriptions } from '../../containers/ProfileSubscriptionsContainer';
 import { IUserPrivacy } from '../../containers/ProfilePrivacyContainer';
+import { createDataForAWS } from '../../helpers/upload.photo';
 
 export const getUserPending = (): { type: string } => ({
     type: GET_USER_PENDING,
@@ -70,6 +74,20 @@ export const deletePhoto = (): (dispatch: Dispatch) => Promise<void> =>
         }
     };
 
+export const uploadAvatarPending = (): { type: string } => ({
+    type: UPLOAD_AVATAR_PENDING,
+});
+
+export const uploadAvatarSuccess = (avatar: any): { type: string, payload: File } => ({
+    type: UPLOAD_AVATAR_SUCCESS,
+    payload: avatar,
+});
+
+export const uploadAvatarError = (error: Error): { type: string, payload: Error } => ({
+    type: UPLOAD_AVATAR_ERROR,
+    payload: error,
+});
+
 export const setPhotoToState = (photo: string): {type: string, payload: string} => ({
     type: SET_PHOTO_TO_STATE,
     payload: photo,
@@ -107,5 +125,19 @@ export const changeSettings = (
         } catch (e) {
             dispatch(changeSettingsError(e.message));
             dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const uploadPostAvatar = (avatar: File): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            dispatch(uploadAvatarPending());
+            const res = await AuthAPI.post('/profile/photo', createDataForAWS('userPhoto', avatar));
+            dispatch(showAlert('Successfully uploaded', 'success'));
+            dispatch(uploadAvatarSuccess(res.data.userProfile));
+            dispatch(setPhotoToState(res.data.photoPath));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+            dispatch(uploadAvatarError(e.response.data));
         }
     };
