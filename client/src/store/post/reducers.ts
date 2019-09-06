@@ -39,9 +39,10 @@ const defaultState = {
     loading: false,
 };
 
+
 export const postReducer = (
     state: any = defaultState,
-    action: { type: string, payload: any, loading: boolean }): any => {
+    action: { type: string, payload: any, loading: boolean, postId: any }): any => {
     switch (action.type) {
         case GET_POSTS_PENDING:
             return {
@@ -51,7 +52,7 @@ export const postReducer = (
         case GET_POSTS_SUCCESS:
             return {
                 ...state,
-                posts: action.payload,
+                posts: [...action.payload],
                 loading: false,
             };
         case GET_MORE_POSTS_SUCCESS:
@@ -90,12 +91,19 @@ export const postReducer = (
                 selectedPost: action.payload,
             };
         case EDIT_DESCRIPTION_FOR_POST:
+
             return {
                 ...state,
                 selectedPost: {
                     ...state.selectedPost,
                     description: action.payload,
                 },
+                posts: state.posts.map((post: any) => {
+                    if (post._id === action.postId) {
+                        post.description = action.payload
+                    }
+                        return post;
+                }),
             };
         default:
             return state;

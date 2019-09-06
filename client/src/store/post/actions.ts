@@ -13,6 +13,8 @@ import {
 } from './actionTypes';
 import { IPost } from './reducers';
 import { decrementPostCount } from '../profile/actions';
+import { identifier } from '@babel/types';
+import { store } from '../../App';
 
 export const getPostsPending = (): { type: string } => ({
     type: GET_POSTS_PENDING,
@@ -50,9 +52,10 @@ export const showPost = (post: any): { type: string, payload: any } => ({
     payload: post,
 });
 
-export const editDescriptionForPost = (description: any): { type: string, payload: any } => ({
+export const editDescriptionForPost = (description: any): { type: string, payload: any, postId: any } => ({
     type: EDIT_DESCRIPTION_FOR_POST,
     payload: description,
+    postId: store.getState().userPosts.selectedPost._id,
 });
 
 export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise<void> =>
