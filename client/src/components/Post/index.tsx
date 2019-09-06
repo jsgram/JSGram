@@ -121,33 +121,34 @@ export default class Post extends React.Component<IProps> {
 
     public render(): JSX.Element {
         const { userPosts, user, likeExist, countOfLikes }: any = this.props;
-
-        const hashtagRegex = /([@][a-z]+|[#][a-z]+|(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*)/ig;
-        const linkifiedDescription = String(userPosts.selectedPost.description)
-            .split(hashtagRegex)
-            .map((token: any) => {
-                // Hashtag
-                if (token[0] === '#') {
-                    return (
-                      <a href={`/hastags/${token.slice(1)}`}>{token}</a>
-                    );
-                }
-                // Mention
-                if (token[0] === '@') {
-                    return (
-                      <a href={`/profile/${token.slice(1)}`}>{token}</a>
-                    );
-                }
-                // Link
-                if (token.match(/(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*/ig)) {
-                    return (
-                      <a href={token}>{token}</a>
-                    );
-                }
-                // Simple text
-                return token;
-            });
-
+        const desc = userPosts.selectedPost.description;
+        let linkifiedDesc;
+        if (desc) {
+            const hashtagRegex = /([@][a-z]+|[#][a-z]+|(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*)/ig;
+            linkifiedDesc = desc.split(hashtagRegex)
+                .map((token: string) => {
+                    // Hashtag
+                    if (token.match(/[#][a-z]/ig)) {
+                        return (
+                            <a href={`/hastags/${token.slice(1)}`}>{token}</a>
+                        );
+                    }
+                    // Mention
+                    if (token.match(/[@][a-z]/ig)) {
+                        return (
+                            <a href={`/profile/${token.slice(1)}`}>{token}</a>
+                        );
+                    }
+                    // Link
+                    if (token.match(/(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*/ig)) {
+                        return (
+                            <a href={token}>{token}</a>
+                        );
+                    }
+                    // Simple text
+                    return token;
+                });
+        }
         const likeButton = this.setLikesCount() && likeExist ?
             (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>) :
             (<i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>);
@@ -237,7 +238,7 @@ export default class Post extends React.Component<IProps> {
                                         {likeButton}
                                         <span>{countOfLikes} likes</span>
                                     </p>
-                                    <p>{linkifiedDescription}</p>
+                                    <p>{linkifiedDesc}</p>
                                 </div>
 
                                 <div className='flex-grow-1 comments px-3 text-description'>
