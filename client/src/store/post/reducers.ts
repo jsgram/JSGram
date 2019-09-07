@@ -94,13 +94,13 @@ export const postReducer = (
                 ...state,
                 selectedPost: {
                     ...state.selectedPost,
-                    description: action.payload.description
+                    description: action.payload.description,
                 },
                 posts: state.posts.map((post: any) => {
                     if (post._id === action.payload.postId) {
                         return {
                             ...post,
-                            description: action.payload.description 
+                            description: action.payload.description,
                         };
                     }
                     return post;
