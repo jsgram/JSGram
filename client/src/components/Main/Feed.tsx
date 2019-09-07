@@ -1,22 +1,16 @@
 import React from 'react';
 import {Col, Container, Row} from 'reactstrap';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {getUserInfoFromToken} from '../../store/feed/actions';
 import {IState} from '../../store/feed/reducers';
 import Menu from '../Menu';
 import FeedPost from '../FeedPost';
 import noAvatar from '../../assets/noAvatar.svg';
 
-interface ILocalState {
-    feed: IState;
-}
-
 interface IProps {
     loggedUsername: string;
 }
 
-export default class Feed extends React.Component<IProps> {
+export class Feed extends React.Component<IProps> {
 
     public posts: any = [
         {id: 2, author: 'archi2', image: 'https://picsum.photos/500', description: 'test test2'},
@@ -29,7 +23,7 @@ export default class Feed extends React.Component<IProps> {
         const {loggedUsername}: IProps = this.props;
         return (
             <Container>
-                <Menu username={loggedUsername}/>
+                <Menu/>
                 <Row>
                     <Col sm={8} className='order-2 order-sm-1'>
                         {this.posts.map((post: any) => (
