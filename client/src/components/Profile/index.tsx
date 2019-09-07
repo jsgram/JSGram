@@ -1,8 +1,10 @@
 import React from 'react';
 import '../../styles/style.scss';
 import { Instagram } from 'react-content-loader';
-import { Button, Spinner } from 'reactstrap';
+import { Button, Spinner, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import './style.scss';
+import userphoto from '../../assets/user1.png';
+import { FollowersData} from './FollowersData';
 import { PopUpModal } from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
@@ -36,9 +38,10 @@ export interface IProfileProps {
 
 export default class Profile extends React.Component<IProfileProps> {
 
-    public state: { loaded: boolean, modal: boolean } = {
+    public state: { loaded: boolean, modal: boolean, modalOpen: boolean } = {
         loaded: false,
         modal: false,
+        modalOpen: false,
     };
     public timerHandle: any = 0;
 
@@ -70,6 +73,10 @@ export default class Profile extends React.Component<IProfileProps> {
 
     public toggleModal = (): void => {
         this.setState({modal: !this.state.modal});
+    }
+
+    public toggle = (): void => {
+        this.setState({ modalOpen: !this.state.modalOpen });
     }
 
     public render(): JSX.Element {
@@ -107,13 +114,13 @@ export default class Profile extends React.Component<IProfileProps> {
                     </p>
                     <div className='d-flex followers justify-content-between'>
                         <div>
-                            <a href='#/' className='mr-2'><b>{posts}</b> posts</a>
+                            <button className='mr-2 but'><b>{posts}</b> posts</button>
                         </div>
                         <div>
-                            <a href='#/' className='mr-2'><b>{followers}</b> followers</a>
+                            <button onClick={this.toggle} className='mr-2 but'><b>{followers}</b> followers</button>
                         </div>
                         <div>
-                            <a href='#/'><b>{following}</b> following</a>
+                            <button className='but'><b>{following}</b> following</button>
                         </div>
                     </div>
                     <div className='description mt-4'>
@@ -139,6 +146,29 @@ export default class Profile extends React.Component<IProfileProps> {
                 <div className='container'>
                     <PostContainer username={this.props.urlUsername}/>
                 </div>
+                <Modal className='modal-dialog-centered modalka' isOpen={this.state.modalOpen}>
+                    <ModalHeader className='modal-header' toggle={this.toggle}
+                     cssModule={{'modal-title': 'w-100 text-center'}}>
+                        <p>Followers</p>
+                    </ModalHeader>
+                    <ModalBody className='modal-body'>
+                    {FollowersData.map((item: any) => (
+                        <div className='d-flex mr-2 justify-content-between mt-3 mb-2' key={item.username}>
+                        <div className='row'>
+                        <img
+                            src={userphoto}
+                            alt='avatar'
+                            width={32}
+                            height={32}
+                            className='img-fluid rounded-circle ml-4 mr-2 mt-1'
+                        />
+                        <h6 className='align-self-end'>{item.username}</h6>
+                        </div>
+                        <Button color='danger'>Follow</Button>
+                    </div>
+                    ))}
+                    </ModalBody>
+                </Modal>
             </div>
         );
     }

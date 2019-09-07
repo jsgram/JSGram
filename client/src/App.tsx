@@ -11,7 +11,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/style.scss';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 export const store = createStore(
     rootReducer,
     composeWithDevTools(applyMiddleware(thunkMiddleware)),

@@ -9,21 +9,42 @@
   &-info {
     flex-direction: column;
   }
-}
 
-.followers {
-  a {
-    color: $color-black;
-    font-size: 1rem;
-    text-decoration: none;
+  .description {
+    max-width: 320px;
+  }   
 
-    &:hover {
-      color: $color-black;
-      text-decoration: none;
-    }
+  .but {
+    background-color: $color-white;
+    border-style: none;
+  }
+
+  .but:focus {
+    outline: 0;
   }
 }
 
-.description {
-  max-width: 320px;
+.modalka {
+  .modal-header {
+    padding: 0.9em;
+  } 
+
+  h5,p {
+    margin-bottom: 0;
+  } 
+
+  .modal-body {
+    height: 24em;
+    max-height: 100%;
+    /* stylelint-disable */
+    padding: 0 !important;
+    overflow-y: auto;
+  }
+
+  .modal-content {
+    border-radius: 1em !important;
+  }
 }
+
+
+ 
