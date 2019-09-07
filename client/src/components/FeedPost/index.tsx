@@ -23,7 +23,11 @@ export default class FeedPost extends React.Component<any> {
                             height={32}
                             className='img-fluid rounded-circle'
                         />
-                        <Link to='/profile/zennarchi' className='text-dark mt-1 ml-3'>{this.props.author}</Link>
+                        <Link
+                            to={`/profile/${this.props.author}`}
+                            className='text-dark mt-1 ml-3'>
+                            {this.props.author}
+                        </Link>
                     </div>
                 </div>
                 <img
@@ -44,7 +48,10 @@ export default class FeedPost extends React.Component<any> {
                             height={32}
                             className='img-fluid rounded-circle'
                         />
-                        <Link to='/profile/zennarchi' className='d-inline-block text-dark ml-2'>
+                        <Link
+                            to={`/profile/${this.props.author}`}
+                            className='d-inline-block text-dark ml-2'
+                        >
                             {this.props.author}
                         </Link>
                         <p className='pl-2 mt-2 justify-self-start align-self-start'>

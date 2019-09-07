@@ -80,7 +80,6 @@ export default class Post extends React.Component<IProps> {
     }
 
     public componentDidMount(): void {
-        this.setState({page: 1});
         this.props.getPostsAsync(this.props.user.username);
     }
 
