@@ -154,7 +154,7 @@ export default class Post extends React.Component<IProps> {
                                     <ModalHeader className='d-lg-none display-1'
                                                  toggle={(): void => this.toggle(userPosts.selectedPost)}>
                                         <div className='d-flex flex-row'>
-                                            <div className='justify-self-start align-self-start'>
+                                            <div className='align-self-start'>
                                             <MenuPost
                                                 post={userPosts.selectedPost}
                                                 toggleEdit={this.toggleEdit}
@@ -202,15 +202,17 @@ export default class Post extends React.Component<IProps> {
                                         <div className='d-none d-lg-block comments'>
                                             <div className='comments ml-lg-0 pl-lg-0 pl-4'>
                                                 <div className='d-flex flex-row justify-content-between'>
+                                                    <div className="justify-self-start">
                                                     <img
                                                         src={user.photo || noAvatar}
                                                         alt='avatar'
                                                         width={32}
                                                         height={32}
-                                                        className='img-fluid justify-self-start mt-2 mr-2'
+                                                        className='img-fluid mt-2 mr-2'
                                                     />
-                                                    <span className='mt-2 justify-self-center'>
+                                                    <span className='mt-2'>
                                                     {user.username}</span>
+                                                    </div>
                                                     <div className='d-lg-block d-none justify-self-end'>
                                                       <MenuPost
                                                           post={userPosts.selectedPost}
