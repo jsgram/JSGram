@@ -1,7 +1,6 @@
 import React from 'react';
 import {Col, Container, Row} from 'reactstrap';
 import {Link} from 'react-router-dom';
-import {IState} from '../../store/feed/reducers';
 import Menu from '../Menu';
 import FeedPost from '../FeedPost';
 import noAvatar from '../../assets/noAvatar.svg';
@@ -43,7 +42,7 @@ export class Feed extends React.Component<IProps> {
                             height={64}
                             className='img-fluid rounded-circle'
                         />
-                        <Link to='/profile/zennarchi' className='mt-1 ml-3 text-dark'>zennarchi</Link>
+                        <Link to={`/profile/${loggedUsername}`} className='mt-1 ml-3 text-dark'>{loggedUsername}</Link>
                     </Col>
                 </Row>
                 <Link to='/logout' className='text-danger pl-1'>Logout</Link>
