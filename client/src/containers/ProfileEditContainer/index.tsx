@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ProfileEdit from '../../components/ProfileEdit';
+import { ProfileEdit } from '../../components/ProfileEdit';
 import { reduxForm } from 'redux-form';
 import validate from '../../utils/validation';
 import { FormProps } from 'reactstrap';
@@ -26,25 +26,14 @@ interface IState {
 }
 
 class ProfileEditContainer extends React.Component <any> {
-
-    constructor(props: any) {
-        super(props);
-        this.onChangeProfile = this.onChangeProfile.bind(this);
-        this.onChangeEmail = this.onChangeEmail.bind(this);
-    }
-
     public componentDidUpdate(): void {
         if (this.props.username && this.props.username !== this.props.match.params.username) {
             history.push(`/profile/${this.props.username}`);
         }
     }
 
-    public onChangeProfile(user: IUser): IUser {
+    public onChangeProfile = (user: IUser): IUser => {
         return this.props.editProfile(user);
-    }
-
-    public onChangeEmail(email: string): any {
-        return this.props.changeEmail(email);
     }
 
     public render(): JSX.Element {
@@ -59,7 +48,7 @@ class ProfileEditContainer extends React.Component <any> {
     }
 }
 
-const mapStateToProps = (state: IState): { initialValues: any, loading: boolean } => ({
+const mapStateToProps = (state: IState): { initialValues: IUserData, loading: boolean } => ({
     initialValues: state.profile.user,
     loading: state.feed.loading,
 });

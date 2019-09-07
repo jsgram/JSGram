@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { IStateProfileEdit } from '../../store/profileEdit/reducers';
 
 interface IStateFeed {
-    username: string;
+    loggedUsername: string;
 }
 
 interface IState {
@@ -16,43 +16,37 @@ interface IState {
 }
 
 interface IMenuProps {
-    username: string;
+    loggedUsername: string;
     newUsername: string;
 }
 
-class Menu extends React.Component<IMenuProps> {
-
-    public render(): JSX.Element {
-        const {username, newUsername}: IMenuProps = this.props;
-        return (
-            <div className='container-fluid header-menu'>
-                <div className='row justify-content-between bg-white'>
-                    <Link to='/'>
-                        <img src={logo}
-                             alt='logo'
-                             width={110}
-                             className='mb-3 sm-mb-2 sm-mr-5 pt-1 logo'/>
-                    </Link>
-                    <div className='w-30 mt-4 mb-4 form-group search d-md-block d-none'>
-                        <span className='fa fa-search form-control-feedback'/>
-                        <Input placeholder='Search' type='search' className='form-control px-4' disabled={true}/>
-                    </div>
-                    <div className='mt-4'>
-                        <i className='fa fa-compass fa-lg pt-2 pb-2 pr-4 sm-pt-0 icon text-muted'/>
-                        <i className='fa fa-heart-o fa-lg pr-4 icon text-muted'/>
-                        <Link to={`/profile/${newUsername ? newUsername : username}`}>
-                            <i className='fa fa-user-o fa-lg pr-3 icon'/>
-                        </Link>
-                    </div>
-                </div>
+const Menu = ({loggedUsername, newUsername}: IMenuProps): JSX.Element => (
+    <div className='container-fluid header-menu'>
+        <div className='row justify-content-between bg-white'>
+            <Link to='/'>
+                <img src={logo}
+                     alt='logo'
+                     width={110}
+                     className='mb-3 sm-mb-2 sm-mr-5 pt-1 logo'/>
+            </Link>
+            <div className='w-30 mt-4 mb-4 form-group search d-md-block d-none'>
+                <span className='fa fa-search form-control-feedback'/>
+                <Input placeholder='Search' type='search' className='form-control px-4' disabled={true}/>
             </div>
-        );
-    }
-}
+            <div className='mt-4'>
+                <i className='fa fa-compass fa-lg pt-2 pb-2 pr-4 sm-pt-0 icon text-muted'/>
+                <i className='fa fa-heart-o fa-lg pr-4 icon text-muted'/>
+                <Link to={`/profile/${newUsername ? newUsername : loggedUsername}`}>
+                    <i className='fa fa-user-o fa-lg pr-3 icon'/>
+                </Link>
+            </div>
+        </div>
+    </div>
+);
 
-const mapStateToProps = (state: IState): { newUsername: string, username: string } => ({
+const mapStateToProps = (state: IState): { newUsername: string, loggedUsername: string } => ({
     newUsername: state.profileEdit.newUsername,
-    username: state.feed.username,
+    loggedUsername: state.feed.loggedUsername,
 });
 
 export default connect(mapStateToProps, null)(Menu);

@@ -3,7 +3,7 @@ import '../../styles/style.scss';
 import { Instagram } from 'react-content-loader';
 import { Button, Spinner } from 'reactstrap';
 import './style.scss';
-import PopUpModal from '../PopUp';
+import { PopUpModal } from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
@@ -98,11 +98,11 @@ export default class Profile extends React.Component<IProfileProps> {
                     <p className='profile-name align-self-center'>
                         {username}
                         {this.props.urlUsername === this.props.loggedUsername &&
-                            <Link to={`/profile/${this.props.urlUsername}/edit`}>
-                                <button className='bg-dark ml-sm-5 ml-3 btn text-white'>
-                                    Edit profile
-                                </button>
-                            </Link>
+                        <Link to={`/profile/${this.props.urlUsername}/edit`}>
+                            <button className='bg-dark ml-sm-5 ml-3 btn text-white'>
+                                Edit profile
+                            </button>
+                        </Link>
                         }
                     </p>
                     <div className='d-flex followers justify-content-between'>
@@ -122,10 +122,10 @@ export default class Profile extends React.Component<IProfileProps> {
                     </div>
                     <Link to='/add-post'>
                         {this.props.urlUsername === this.props.loggedUsername &&
-                            <Button className='btn' color='danger'><i
-                                className='fa fa-plus pr-3'/>
-                                Add Post
-                            </Button>
+                        <Button className='btn' color='danger'><i
+                            className='fa fa-plus pr-3'/>
+                            Add Post
+                        </Button>
                         }
                     </Link>
                     {this.state.modal && <PopUpModal

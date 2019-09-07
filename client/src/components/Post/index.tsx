@@ -214,7 +214,7 @@ export default class Post extends React.Component<IProps> {
 
                             <div className='col-12 col-lg-4 px-0 d-flex flex-column position-relative'>
                                 <div className='flex-grow-0 p-3 text-description'>
-                                    <p className='d-lg-block d-none flex-row'>
+                                    <div className='d-lg-block d-none flex-row'>
                                         <img
                                             src={user.photo || noAvatar}
                                             alt='avatar'
@@ -230,7 +230,7 @@ export default class Post extends React.Component<IProps> {
                                                 toggleModal={this.toggle}
                                             />
                                         </div>
-                                    </p>
+                                    </div>
                                     <p className='d-lg-none'>
                                         {likeButton}
                                         <span>{countOfLikes} likes</span>

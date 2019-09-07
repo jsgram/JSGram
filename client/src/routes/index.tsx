@@ -6,7 +6,7 @@ import ChangePassword from '../components/ForgotPassword/ChangePassword';
 import CheckEmail from '../components/ForgotPassword/CheckEmail';
 import ProfileContainer from '../containers/ProfileContainer';
 import { PublicRoute } from './PublicRoute';
-import Feed from '../components/Main/Feed';
+import { Feed } from '../components/Main/Feed';
 import Logout from '../containers/LogoutContainer';
 import { history } from '../history';
 import SideBar from '../components/SideBar';

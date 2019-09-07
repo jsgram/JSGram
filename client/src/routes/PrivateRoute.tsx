@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import { getUserInfoFromToken } from '../store/feed/actions';
 import { connect } from 'react-redux';
 
-export const PrivateRoute = ({component: Component, ...rest}: any): any => {
+export const PrivateRoute = ({component: Component, ...rest}: any): JSX.Element => {
     class PrivateRouteWithComponent extends React.Component<any> {
         public componentDidMount(): void {
             if (!this.props.username) {

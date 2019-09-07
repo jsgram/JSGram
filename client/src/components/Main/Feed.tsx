@@ -6,19 +6,16 @@ interface IProps {
     loggedUsername: string;
 }
 
-export default class Feed extends React.Component<IProps> {
-    public render(): JSX.Element {
-        const {loggedUsername}: IProps = this.props;
-        return (
-            <Container>
-                <Row>
-                    <Col>
-                        <h2>Welcome</h2>
-                        <Link to={`/profile/${loggedUsername}`} className='text-danger pl-1'>Profile</Link>
-                        <Link to='/logout' className='text-danger pl-1'>Logout</Link>
-                    </Col>
-                </Row>
-            </Container>
-        );
-    }
-}
+export const Feed = ({loggedUsername}: IProps): JSX.Element => {
+    return (
+        <Container>
+            <Row>
+                <Col>
+                    <h2>Welcome</h2>
+                    <Link to={`/profile/${loggedUsername}`} className='text-danger pl-1'>Profile</Link>
+                    <Link to='/logout' className='text-danger pl-1'>Logout</Link>
+                </Col>
+            </Row>
+        </Container>
+    );
+};

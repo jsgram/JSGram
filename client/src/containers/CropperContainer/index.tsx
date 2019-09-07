@@ -2,7 +2,7 @@ import React from 'react';
 import { createFile, setAvatarToCropper, informFileIsTooBig } from '../../store/cropper/actions';
 import { uploadPostAvatar } from '../../store/profile/actions';
 import { connect } from 'react-redux';
-import Cropper from '../../components/Cropper';
+import Cropper, { ICropperProps } from '../../components/Cropper';
 import { IUserData } from '../../components/Profile';
 
 interface IState {
@@ -21,25 +21,21 @@ interface ICropperState {
     };
 }
 
-class CropperContainer extends React.Component<any> {
-    public render(): JSX.Element {
-        return(
-            <Cropper
-                avatar={this.props.avatar}
-                file={this.props.file}
-                loaded={this.props.loaded}
-                error={this.props.error}
-                loading={this.props.loading}
-                user={this.props.user}
-                uploadPostAvatar={this.props.uploadPostAvatar}
-                setAvatarToCropper={this.props.setAvatarToCropper}
-                createFile={this.props.createFile}
-                informFileIsTooBig={this.props.informFileIsTooBig}
-                modalToggle={this.props.modalToggle}
-            />
-        );
-    }
-}
+const CropperContainer = (props: ICropperProps): JSX.Element => (
+    <Cropper
+        avatar={props.avatar}
+        file={props.file}
+        loaded={props.loaded}
+        error={props.error}
+        loading={props.loading}
+        user={props.user}
+        uploadPostAvatar={props.uploadPostAvatar}
+        setAvatarToCropper={props.setAvatarToCropper}
+        createFile={props.createFile}
+        informFileIsTooBig={props.informFileIsTooBig}
+        modalToggle={props.modalToggle}
+    />
+);
 
 const mapStateToProps = (state: ICropperState): IState => ({
     avatar: state.cropper.avatar,
