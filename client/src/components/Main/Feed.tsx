@@ -13,12 +13,10 @@ interface ILocalState {
 }
 
 interface IProps {
-    username: string;
-    getUserInfoFromToken: () => void;
+    loggedUsername: string;
 }
 
-
-class Feed extends React.Component<IProps> {
+export default class Feed extends React.Component<IProps> {
 
     public posts: any = [
         {id: 2, author: 'archi2', image: 'https://picsum.photos/500', description: 'test test2'},
@@ -27,15 +25,11 @@ class Feed extends React.Component<IProps> {
         {id: 4, author: 'archi4', image: 'https://picsum.photos/500', description: 'test test4'},
     ];
 
-    public async componentDidMount(): Promise<void> {
-        this.props.getUserInfoFromToken();
-    }
-
     public render(): JSX.Element {
-        const {username}: IProps = this.props;
+        const {loggedUsername}: IProps = this.props;
         return (
             <Container>
-                <Menu username={username}/>
+                <Menu username={loggedUsername}/>
                 <Row>
                     <Col sm={8} className='order-2 order-sm-1'>
                         {this.posts.map((post: any) => (
@@ -63,13 +57,3 @@ class Feed extends React.Component<IProps> {
         );
     }
 }
-
-const mapStateToProps = (state: ILocalState): IState => ({
-    username: state.feed.username,
-});
-
-const mapDispatchToProps = {
-    getUserInfoFromToken,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Feed);

@@ -1,14 +1,29 @@
 import React from 'react';
 import Avatar from 'react-avatar-edit';
 import noAvatar from '../../assets/noAvatar.svg';
-import { Button, Spinner } from 'reactstrap';
+import { Button } from 'reactstrap';
+import { IUserData } from '../Profile';
 
 interface ILocalState {
     preview: null | string;
     src: null | string;
 }
 
-export default class Cropper extends React.Component<any> {
+export interface ICropperProps {
+    avatar: any;
+    file: any;
+    loaded: boolean;
+    error: Error | null;
+    loading: boolean;
+    user: IUserData;
+    uploadPostAvatar: (avatar: File) => void;
+    setAvatarToCropper: (avatar: File) => void;
+    createFile: (preview: string) => void;
+    informFileIsTooBig: () => void;
+    modalToggle: () => void;
+}
+
+export default class Cropper extends React.Component<ICropperProps> {
 
     public dropZoneStyle: any = {
         width: '100%',
@@ -77,9 +92,7 @@ export default class Cropper extends React.Component<any> {
                     onBeforeFileLoad={this.onBeforeFileLoad}
                     src={this.state.src || ''}
                 />
-                {this.props.loading ? (
-                    <Spinner className='mt-3' color='dark'/>
-                ) :  this.state.preview && this.state.preview !== this.props.user.photo && (
+                {this.state.preview && this.state.preview !== this.props.user.photo && (
                     <Button
                         className='mt-3'
                         outline

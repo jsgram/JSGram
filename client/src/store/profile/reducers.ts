@@ -10,14 +10,27 @@ import {
     CHANGE_SETTINGS_SUCCESS,
     CHANGE_SETTINGS_ERROR,
     DECREMENT_POST_COUNT,
+    UPLOAD_AVATAR_PENDING,
+    UPLOAD_AVATAR_SUCCESS,
+    UPLOAD_AVATAR_ERROR,
 } from './actionTypes';
-import { IUserData } from '../../components/Profile';
 
 interface IState {
-    user: IUserData;
+    user: {
+        posts: number;
+        followers: number;
+        following: number;
+        description: string;
+        fullName: string;
+        username: string;
+        photo: string;
+        email: string;
+        _id: string;
+    };
     error: any;
     loaded: boolean;
     loading: boolean;
+    avatar: File | null;
 }
 
 export const defaultState = {
@@ -37,6 +50,7 @@ export const defaultState = {
     error: '',
     loaded: false,
     loading: false,
+    avatar: null,
 };
 
 export const profileReducer = (
@@ -121,6 +135,27 @@ export const profileReducer = (
                     ...state.user,
                     posts: state.user.posts - 1,
                 },
+            };
+        case UPLOAD_AVATAR_PENDING:
+            return {
+                ...state,
+                loaded: false,
+                error: null,
+                loading: true,
+            };
+        case UPLOAD_AVATAR_SUCCESS:
+            return {
+                ...state,
+                avatar: action.payload,
+                loaded: true,
+                loading: false,
+            };
+        case UPLOAD_AVATAR_ERROR:
+            return {
+                ...state,
+                error: action.payload,
+                loaded: false,
+                loading: false,
             };
         default:
             return state;
