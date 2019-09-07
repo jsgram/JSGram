@@ -7,6 +7,7 @@ import path from 'path';
 
 import './helpers/passport.config';
 
+import { mainRouter } from './routes/main.routes/main.router';
 import { feedRouter } from './routes/feed.routes/feed.router';
 import { postRouter } from './routes/post.routes/post.router';
 import { userRouter } from './routes/user.routes/user.router';
@@ -32,7 +33,8 @@ app.use(passport.session());
 app.use(requestLoggerMiddleware);
 
 app.get('/favicon.ico', (req: Request, res: Response) => res.status(204));
-app.use('/', feedRouter);
+app.use('/', mainRouter);
+app.use('/feed', feedRouter);
 app.use('/post', postRouter);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);

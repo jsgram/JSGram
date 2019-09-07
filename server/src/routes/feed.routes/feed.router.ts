@@ -4,4 +4,4 @@ import { isAuthorized } from '../../controllers/auth.controllers/auth.isAuthoriz
 
 export const feedRouter = Router();
 
-feedRouter.get('/', isAuthorized, getFeed);
+feedRouter.get('/:page', isAuthorized, getFeed);
