@@ -14,17 +14,19 @@
     max-width: 320px;
   }   
 
-  .but {
+  .following-button {
     background-color: $color-white;
     border-style: none;
   }
+}
 
-  .but:focus {
+.following-button {
+  &:focus {
     outline: 0;
   }
 }
 
-.modalka {
+.followers-modal {
   .modal-header {
     padding: 0.9em;
   } 
@@ -45,6 +47,5 @@
     border-radius: 1em !important;
   }
 }
-
 
  
