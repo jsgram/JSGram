@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from '../../components/Login';
+import { Login } from '../../components/Login';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { loginUser } from '../../store/login/actions';
@@ -9,17 +9,7 @@ import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import { setToken } from '../../store/login/setToken.helper';
 import { history } from '../../history';
 
-export class LoginContainer extends React.Component<any> {
-    constructor(props: any) {
-        super(props);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
-
-    public onSubmit(user: IUser): void {
-        return this.props.loginUser(user);
-    }
-
-    // TODO Refactor after authorization
+class LoginContainer extends React.Component<any> {
     public componentWillMount(): void {
         const {token}: { token: string } = this.props.match.params;
         if (token) {
@@ -27,6 +17,8 @@ export class LoginContainer extends React.Component<any> {
             history.push('/feed');
         }
     }
+
+    public onSubmit = (user: IUser): void => this.props.loginUser(user);
 
     public render(): JSX.Element {
         const {handleSubmit, submitting}: FormProps = this.props;

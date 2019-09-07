@@ -9,9 +9,9 @@ import ProfilePrivacyContainer from '../containers/ProfilePrivacyContainer';
 export const SidebarRoute = (
 <Switch>
     <Route exact path='/profile/:username/edit' component={ProfileEditContainer} />
-    <Route path='/profile/:username/edit/change-email' component={EmailChange} />
-    <Route path='/profile/:username/edit/change-password' component={ProfilePasswordChange} />
-    <Route path='/profile/:username/edit/subscriptions' component={ProfileSubscriptionsContainer} />
-    <Route path='/profile/:username/edit/privacy' component={ProfilePrivacyContainer} />
+    <Route exact path='/profile/:username/edit/change-email' component={EmailChange} />
+    <Route exact path='/profile/:username/edit/change-password' component={ProfilePasswordChange} />
+    <Route exact path='/profile/:username/edit/subscriptions' component={ProfileSubscriptionsContainer} />
+    <Route exact path='/profile/:username/edit/privacy' component={ProfilePrivacyContainer} />
 </Switch>
 );

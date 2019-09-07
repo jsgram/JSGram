@@ -1,17 +1,9 @@
 import React, { ReactElement } from 'react';
 import { Field } from 'redux-form';
 import { Button, Form, FormProps, FormGroup, Label, Col, Spinner } from 'reactstrap';
-import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import { renderField } from '../CommonComponents/ReduxFormFields';
 
-interface IProps {
-    handleSubmit: () => void;
-    onChangeProfile: (user: IUser) => IUser;
-    submitting: boolean;
-}
-
-const ProfileEdit = (props: IProps): ReactElement => {
-    const { handleSubmit, onChangeProfile, submitting }: FormProps = props;
+export const ProfileEdit = ({ handleSubmit, onChangeProfile, submitting }: FormProps): ReactElement => {
     return (
         <div>
             <h3 className='text-center font-weight-light text-secondary text-uppercase'>Edit Information</h3>
@@ -68,5 +60,3 @@ const ProfileEdit = (props: IProps): ReactElement => {
         </div>
     );
 };
-
-export default ProfileEdit;

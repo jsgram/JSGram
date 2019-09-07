@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 import { showAlert } from '../alert/actions';
 import { base64ToFile } from '../../helpers/upload.photo';
 
-export const setAvatarToCropper = (avatar: any): { type: string, payload: File } => ({
+export const setAvatarToCropper = (avatar: File): { type: string, payload: File } => ({
     type: SET_AVATAR_TO_CROPPER,
     payload: avatar,
 });

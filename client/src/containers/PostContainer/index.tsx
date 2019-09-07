@@ -1,38 +1,49 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Post from '../../components/Post';
-import { getPostsAsync, getMorePostsAsync, showPost, editPost, editDescriptionForPost } from '../../store/post/actions';
-import { deletePhoto } from '../../store/profile/actions';
+import {
+    getPostsAsync,
+    getMorePostsAsync,
+    showPost,
+    editPost,
+    editDescriptionForPost,
+    resetPosts,
+    addNextPosts,
+} from '../../store/post/actions';
+import { deletePhoto, getUser } from '../../store/profile/actions';
 import { addLike, checkUserLikeExist, deleteLike, setCountOfLikes } from '../../store/like/actions';
 
-export class PostContainer extends React.Component <any> {
-    public render(): JSX.Element {
-        return (
-            <Post
-                userPosts={this.props.userPosts}
-                user={this.props.user}
-                getPostsAsync={this.props.getPostsAsync}
-                getMorePostsAsync={this.props.getMorePostsAsync}
-                deletePhoto={this.props.deletePhoto}
-                addLike={this.props.addLike}
-                setCountOfLikes={this.props.setCountOfLikes}
-                deleteLike={this.props.deleteLike}
-                countOfLikes={this.props.countOfLikes}
-                showPost={this.props.showPost}
-                likeExist={this.props.likeExist}
-                checkUserLikeExist={this.props.checkUserLikeExist}
-                editPost={this.props.editPost}
-                editDescriptionForPost={this.props.editDescriptionForPost}
-            />
-        );
-    }
-}
+const PostContainer = (props: any): JSX.Element => (
+    <Post
+        userPosts={props.userPosts}
+        user={props.user}
+        getPostsAsync={props.getPostsAsync}
+        getMorePostsAsync={props.getMorePostsAsync}
+        deletePhoto={props.deletePhoto}
+        addLike={props.addLike}
+        setCountOfLikes={props.setCountOfLikes}
+        deleteLike={props.deleteLike}
+        countOfLikes={props.countOfLikes}
+        showPost={props.showPost}
+        likeExist={props.likeExist}
+        checkUserLikeExist={props.checkUserLikeExist}
+        editPost={props.editPost}
+        editDescriptionForPost={props.editDescriptionForPost}
+        username={props.username}
+        getUser={props.getUser}
+        resetPosts={props.resetPosts}
+        addNextPosts={props.addNextPosts}
+        loggedUsername={props.loggedUsername}
+    />
+);
 
-const mapStateToProps = (state: any): any => ({
+const mapStateToProps = (state: any, ownProps: { username: string }): any => ({
     userPosts: state.userPosts,
     user: state.profile.user,
     countOfLikes: state.like.countOfLikes,
     likeExist: state.like.likeExist,
+    ownProps: ownProps.username,
+    loggedUsername: state.feed.loggedUsername,
 });
 
 const mapDispatchToProps = {
@@ -46,6 +57,9 @@ const mapDispatchToProps = {
     showPost,
     editPost,
     editDescriptionForPost,
+    getUser,
+    resetPosts,
+    addNextPosts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);
