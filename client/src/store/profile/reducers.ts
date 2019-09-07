@@ -14,10 +14,19 @@ import {
     UPLOAD_AVATAR_SUCCESS,
     UPLOAD_AVATAR_ERROR,
 } from './actionTypes';
-import { IUserData } from '../../components/Profile';
 
 interface IState {
-    user: IUserData;
+    user: {
+        posts: number;
+        followers: number;
+        following: number;
+        description: string;
+        fullName: string;
+        username: string;
+        photo: string;
+        email: string;
+        _id: string;
+    };
     error: any;
     loaded: boolean;
     loading: boolean;

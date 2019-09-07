@@ -2,7 +2,6 @@ import React from 'react';
 import './style.scss';
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
 import { deletePost } from '../../store/post/actions';
-
 import { connect } from 'react-redux';
 
 interface IState {

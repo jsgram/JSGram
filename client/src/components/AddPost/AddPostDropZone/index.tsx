@@ -28,7 +28,9 @@ const AddPostDropZone = (props: IProps): JSX.Element => {
             <Row>
                 <div {...getRootProps({className: 'dropzone border-style cropper-photo'})}>
                     <input {...getInputProps({})}/>
-                    <p className='upload-text'>Drag your photo here or click to select it.</p>
+                    <p className='upload-text'>
+                        Drag your photo here or click to select it.
+                        You can upload only jpeg/png format images</p>
                 </div>
             </Row>
         </Container>

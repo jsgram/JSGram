@@ -1,19 +1,24 @@
 import React from 'react';
-import { Container, Row, Input} from 'reactstrap';
+import { Container, Row, Input } from 'reactstrap';
 import './style.scss';
 
-export default class PostPhoto extends React.Component<any> {
-    public onDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        this.props.setDescriptionForPost(event.target.value);
-    }
-    public render(): JSX.Element {
-        const {croppedImage, description}: any = this.props;
-        return (
+export interface IPostPostProps {
+    croppedImage: string;
+    description: string;
+    setDescriptionForPost: (description: string) => void;
+}
+
+export const PostPhoto = ({croppedImage, description, setDescriptionForPost}: IPostPostProps): JSX.Element => {
+    const onDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        setDescriptionForPost(event.target.value);
+    };
+
+    return (
         <Container>
             <Row>
                 <div className=' mx-auto mt-3 post-label'>New post</div>
             </Row>
-            <Row  className= 'mt-2 mx-auto post'>
+            <Row className='mt-2 mx-auto post'>
                 <img
                     src={croppedImage}
                     height={293}
@@ -27,10 +32,9 @@ export default class PostPhoto extends React.Component<any> {
                     placeholder='Write a caption...'
                     spellCheck={false}
                     value={description}
-                    onChange={this.onDescriptionChange}
+                    onChange={onDescriptionChange}
                 />
             </Row>
         </Container>
-        );
-    }
-}
+    );
+};
