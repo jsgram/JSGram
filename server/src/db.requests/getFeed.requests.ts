@@ -8,7 +8,7 @@ export const getPostsForFeed = async (following: string[], skip: number, postPer
             author: { $in: following },
             createdAt: { $gt: new Date(Date.now() - twoDays)},
             })
-        .populate('author')
+        .populate('author', 'username photoPath')
         .sort('-createdAt')
         .limit(postPerPage)
         .skip(skip);
