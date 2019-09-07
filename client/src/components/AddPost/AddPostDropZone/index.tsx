@@ -14,12 +14,16 @@ const AddPostDropZone = (props: IProps): JSX.Element => {
     const {getRootProps, getInputProps}: DropzoneState = useDropzone({
         accept: 'image/jpeg, image/png',
         onDrop: (files: any): void => {
-            const maxFileSize = 1024 * 1024 * 4;
-            if (files[0].size > maxFileSize) {
-                resetImageSrc();
-                return informFileError('Image is too big');
+            try {
+                const maxFileSize = 1024 * 1024 * 4;
+                if (files[0].size > maxFileSize) {
+                    resetImageSrc();
+                    return informFileError('Image is too big');
+                }
+                return uploadImageToCropper(files[0]);
+            } catch (e) {
+                return informFileError('Uploaded file is not a valid image');
             }
-            return uploadImageToCropper(files[0]);
         },
     });
 
