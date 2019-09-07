@@ -92,9 +92,16 @@ export const postReducer = (
         case EDIT_DESCRIPTION_FOR_POST:
             return {
                 ...state,
+                selectedPost: {
+                    ...state.selectedPost,
+                    description: action.payload.description
+                },
                 posts: state.posts.map((post: any) => {
                     if (post._id === action.payload.postId) {
-                        post.description = action.payload.description;
+                        return {
+                            ...post,
+                            description: action.payload.description 
+                        };
                     }
                     return post;
                 }),
