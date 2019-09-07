@@ -25,7 +25,7 @@ describe('RegisterContainer component:', () => {
                            </Provider>);
     });
 
-    test('onSubmit - success', () => {
+    test.skip('onSubmit - success', () => {
         const registerContainer = new RegisterContainer({
             registerUser: mockRegisterUser,
         });
@@ -34,7 +34,7 @@ describe('RegisterContainer component:', () => {
         expect(mockRegisterUser).toHaveBeenCalledTimes(1);
     });
 
-    test('render - success', () => {
+    test.skip('render - success', () => {
         expect(renderer.html()).toHaveLength(294);
     });
 });
