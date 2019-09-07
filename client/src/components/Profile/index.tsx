@@ -5,6 +5,7 @@ import { Button, Spinner, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import './style.scss';
 import userphoto from '../../assets/user1.png';
 import { FollowersData} from './FollowersData';
+import { Followers } from './Followers';
 import { PopUpModal } from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
@@ -38,9 +39,9 @@ export interface IProfileProps {
 
 export default class Profile extends React.Component<IProfileProps> {
 
-    public state: { loaded: boolean, modal: boolean, followersModal: boolean, followingModal: boolean } = {
+    public state: { loaded: boolean, followersModal: boolean, followingModal: boolean, avatarModal: boolean } = {
         loaded: false,
-        modal: false,
+        avatarModal: false,
         followersModal: false,
         followingModal: false,
     };
@@ -72,14 +73,14 @@ export default class Profile extends React.Component<IProfileProps> {
         this.timerHandle = 0;
     }
 
-    public avatartoggle = (): void => {
-        this.setState({modal: !this.state.modal});
+    public avatarToggle = (): void => {
+        this.setState({avatarModal: !this.state.avatarModal});
     }
 
-    public followerstoggle = (): void => {
+    public followersToggle = (): void => {
         this.setState({ followersModal: !this.state.followersModal });
     }
-    public followingtoggle = (): void => {
+    public followingToggle = (): void => {
         this.setState({ followingModal: !this.state.followingModal });
     }
 
@@ -102,7 +103,7 @@ export default class Profile extends React.Component<IProfileProps> {
                         alt='avatar'
                         height={150}
                         width={150}
-                        onClick={this.avatartoggle}
+                        onClick={this.avatarToggle}
                     />}
                 </div>
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
@@ -121,11 +122,11 @@ export default class Profile extends React.Component<IProfileProps> {
                             <button className='mr-2 following-button'><b>{posts}</b> posts</button>
                         </div>
                         <div>
-                            <button onClick={this.followerstoggle} className='mr-2 following-button'>
+                            <button onClick={this.followersToggle} className='mr-2 following-button'>
                                 <b>{followers}</b> followers</button>
                         </div>
                         <div>
-                            <button onClick={this.followingtoggle} className='following-button'>
+                            <button onClick={this.followingToggle} className='following-button'>
                                 <b>{following}</b> following</button>
                         </div>
                     </div>
@@ -141,9 +142,9 @@ export default class Profile extends React.Component<IProfileProps> {
                         </Button>
                         }
                     </Link>
-                    {this.state.modal && <PopUpModal
-                        modal={this.state.modal}
-                        toggleModal={this.avatartoggle}
+                    {this.state.avatarModal && <PopUpModal
+                        modal={this.state.avatarModal}
+                        toggleModal={this.avatarToggle}
                         loading={this.props.loading}
                         deletePhoto={this.props.deletePhoto}
                         photo={photo}
@@ -152,32 +153,12 @@ export default class Profile extends React.Component<IProfileProps> {
                 <div className='container'>
                     <PostContainer username={this.props.urlUsername}/>
                 </div>
-                <Modal className='modal-dialog-centered followers-modal' isOpen={this.state.followingModal}>
-                    <ModalHeader className='modal-header' toggle={this.followingtoggle}
-                     cssModule={{'modal-title': 'w-100 text-center'}}>
-                        <p>Following</p>
-                    </ModalHeader>
-                    <ModalBody className='modal-body'>
-                    {FollowersData.map((item: any) => (
-                        <div className='d-flex mr-2 justify-content-between mt-3 mb-2' key={item.username}>
-                        <div className='row'>
-                        <img
-                            src={userphoto}
-                            alt='avatar'
-                            width={32}
-                            height={32}
-                            className='img-fluid rounded-circle ml-4 mr-2 mt-1'
-                        />
-                        <h6 className='align-self-end'>{item.username}</h6>
-                        </div>
-                        <Button color='danger'>Follow</Button>
-                    </div>
-                    ))}
-                    </ModalBody>
-                </Modal>
-                <Modal className='modal-dialog-centered followers-modal' isOpen={this.state.followersModal}>
-                    <ModalHeader className='modal-header' toggle={this.followerstoggle}
-                     cssModule={{'modal-title': 'w-100 text-center'}}>
+                <Followers toggle={this.followersToggle} modal={this.state.followersModal} title='Followers'/>
+                <Followers toggle={this.followingToggle} modal={this.state.followingModal} title='Following'/>
+
+                {/* <Modal className='modal-dialog-centered followers-modal' isOpen={this.state.followersModal}>
+                    <ModalHeader className='modal-header' toggle={this.followersToggle}
+                    cssModule={{'modal-title': 'w-100 text-center'}}>
                         <p>Followers</p>
                     </ModalHeader>
                     <ModalBody className='modal-body'>
@@ -197,7 +178,7 @@ export default class Profile extends React.Component<IProfileProps> {
                     </div>
                     ))}
                     </ModalBody>
-                </Modal>
+                </Modal> */}
             </div>
         );
     }

@@ -271,7 +271,7 @@ export default class Post extends React.Component<IProps> {
                     </div>
                 </Modal>
 
-                <Modal
+                {/* <Modal
                     isOpen={this.state.editModal}
                     toggle={(): void => this.toggleEdit(userPosts.selectedPost)}>
                     <ModalHeader
@@ -305,7 +305,7 @@ export default class Post extends React.Component<IProps> {
                             Update Post
                         </Button>
                     </FormGroup>
-                </Modal>
+                </Modal> */}
             </div>
         );
     }
