@@ -32,9 +32,7 @@ class ProfileEditContainer extends React.Component <any> {
         }
     }
 
-    public onChangeProfile = (user: IUser): IUser => {
-        return this.props.editProfile(user);
-    }
+    public onChangeProfile = (user: IUser): void => this.props.editProfile(user);
 
     public render(): JSX.Element {
         const {handleSubmit, submitting}: FormProps = this.props;

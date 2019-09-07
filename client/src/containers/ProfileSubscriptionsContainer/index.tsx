@@ -18,7 +18,7 @@ export interface IUserSubscriptions {
 const ProfileSubscriptionsContainer = ({
                                            username, privacy, changeSettings, handleSubmit, submitting,
                                        }: FormProps): JSX.Element => {
-    const onSubmit = (data: string): void => { // FIXME any type
+    const onSubmit = (data: string): void => {
         changeSettings(username, data, privacy);
     };
     return (
