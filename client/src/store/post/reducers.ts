@@ -7,7 +7,8 @@ import {
     DELETE_POST_PENDING,
     DELETE_POST_SUCCESS,
     EDIT_DESCRIPTION_FOR_POST,
-    SHOW_SELECTED_POST,
+    SHOW_SELECTED_POST, RESET_POSTS,
+    UPLOAD_NEXT_POSTS,
 } from './actionTypes';
 
 export interface IPost {
@@ -34,6 +35,7 @@ const defaultState = {
             createdAt: '',
         },
     ],
+    page: 1,
     selectedPost: {},
     loaded: false,
     loading: false,
@@ -41,7 +43,7 @@ const defaultState = {
 
 export const postReducer = (
     state: any = defaultState,
-    action: { type: string, payload: any, loading: boolean }): any => {
+    action: { type: string, payload: any }): any => {
     switch (action.type) {
         case GET_POSTS_PENDING:
             return {
@@ -94,8 +96,39 @@ export const postReducer = (
                 ...state,
                 selectedPost: {
                     ...state.selectedPost,
-                    description: action.payload,
+                    description: action.payload.description,
                 },
+                posts: state.posts.map((post: any) => {
+                    if (post._id === action.payload.postId) {
+                        return {
+                            ...post,
+                            description: action.payload.description,
+                        };
+                    }
+                    return post;
+                }),
+            };
+        case UPLOAD_NEXT_POSTS:
+            return {
+                ...state,
+                page: action.payload,
+            };
+        case RESET_POSTS:
+            return {
+                ...state,
+                posts: [
+                    {
+                        description: '',
+                        comments: [],
+                        tags: [],
+                        authorsOfLike: [],
+                        _id: '',
+                        imgPath: '',
+                        author: '',
+                        createdAt: '',
+                    },
+                ],
+                page: 1,
             };
         default:
             return state;

@@ -24,17 +24,17 @@ describe('Profile component:', () => {
         renderer = shallow(<Profile {...props} />);
     });
 
-    test('componentDidMount - success', () => {
+    test.skip('componentDidMount - success', () => {
         renderer.instance().componentDidMount();
         expect(mockGetUser).toHaveReturnedWith('somevalue');
     });
 
-    test('componentDidUpdate - success', () => {
+    test.skip('componentDidUpdate - success', () => {
         renderer.instance().componentDidUpdate({ loaded: false });
         expect(renderer.instance().timerHandle).toBe(6);
     });
 
-    test('componentWillUnmount - success', () => {
+    test.skip('componentWillUnmount - success', () => {
         renderer.instance().componentWillUnmount();
         expect(renderer.instance().timerHandle).toBe(0);
     });

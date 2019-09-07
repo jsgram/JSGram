@@ -9,7 +9,8 @@ import {
     DELETE_POST_PENDING,
     DELETE_POST_SUCCESS,
     EDIT_DESCRIPTION_FOR_POST,
-    SHOW_SELECTED_POST,
+    SHOW_SELECTED_POST, RESET_POSTS,
+    UPLOAD_NEXT_POSTS,
 } from './actionTypes';
 import { IPost } from './reducers';
 import { decrementPostCount } from '../profile/actions';
@@ -28,7 +29,7 @@ export const getMorePostsSuccess = (posts: any): { type: string, payload: any } 
     payload: posts,
 });
 
-export const allPostsLoaded = (): { type: string} => ({
+export const allPostsLoaded = (): { type: string } => ({
     type: ALL_POSTS_LOADED,
 });
 
@@ -50,15 +51,24 @@ export const showPost = (post: any): { type: string, payload: any } => ({
     payload: post,
 });
 
-export const editDescriptionForPost = (description: any): { type: string, payload: any } => ({
+export const editDescriptionForPost = (description: string, postId: string): { type: string, payload: any } => ({
     type: EDIT_DESCRIPTION_FOR_POST,
-    payload: description,
+    payload: { description, postId },
+});
+
+export const addNextPosts = (page: number): {type: string, payload: number} => ({
+    type: UPLOAD_NEXT_POSTS,
+    payload: page,
+});
+
+export const resetPosts = (): { type: string } => ({
+    type: RESET_POSTS,
 });
 
 export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-
+            dispatch(resetPosts());
             dispatch(getPostsPending());
             const res = await AuthAPI.get(`/profile/${username}/posts/1`);
 
@@ -74,7 +84,6 @@ export const getMorePostsAsync = (username: string, page: number): (dispatch: Di
         try {
             dispatch(getPostsPending());
             const res = await AuthAPI.get(`/profile/${username}/posts/${page}`);
-
             if (!res.data.postsAll.length) {
                 dispatch(allPostsLoaded());
                 return;
@@ -102,7 +111,7 @@ export const deletePost = (postId: string): (dispatch: Dispatch) => Promise<void
 export const editPost = (description: any, id: any): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const res = await AuthAPI.patch(`/post/${id}`, JSON.stringify({ description }));
+            const res = await AuthAPI.patch(`/post/${id}`, JSON.stringify({description}));
             dispatch(showAlert(res.data.message, 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));

@@ -1,9 +1,7 @@
 import React from 'react';
-import { Container, Row } from 'reactstrap';
 import './style.scss';
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
 import { deletePost } from '../../store/post/actions';
-
 import { connect } from 'react-redux';
 
 interface IState {
@@ -46,12 +44,12 @@ class MenuPost extends React.Component<IProps, IState> {
 
     public render(): JSX.Element {
         return (
-            <div className='burger-menu'>
-                <Container className='dots' onClick={this.handleMenuButtonClick}>
-                    <Row><div className='mt-1'>.</div></Row>
-                    <Row><div className='mt-1'>.</div></Row>
-                    <Row><div className='mt-1'>.</div></Row>
-                </Container>
+            <div className='burger-menu pt-1'>
+                <div className='dots flex-column m-0' onClick={this.handleMenuButtonClick}>
+                    <div>.</div>
+                    <div className='mt-1'>.</div>
+                    <div className='mt-1'>.</div>
+                </div>
                     <nav className={ `menu-navigation float-right ${ this.state.isMenuOpen && 'show-menu' }` }>
                     <ul className='list-unstyled menu-items'>
                         <li className='menu-list'>

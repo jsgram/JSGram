@@ -1,1 +1,1 @@
-export const SET_USERNAME = 'SET_USERNAME';
+export const SET_LOGGED_USERNAME = 'SET_LOGGED_USERNAME';

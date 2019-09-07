@@ -1,46 +1,21 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { getUserInfoFromToken } from '../../store/feed/actions';
-import { IState } from '../../store/feed/reducers';
-
-interface ILocalState {
-    feed: IState;
-}
 
 interface IProps {
-    username: string;
-    getUserInfoFromToken: () => void;
+    loggedUsername: string;
 }
 
-class Feed extends React.Component<IProps> {
-    public async componentDidMount(): Promise<void> {
-        this.props.getUserInfoFromToken();
-    }
-
-    public render(): JSX.Element {
-        const {username}: IProps = this.props;
-        return (
-            <Container>
-                <Row>
-                    <Col>
-                        <h2>Welcome</h2>
-                        <Link to={`/profile/${username}`} className='text-danger pl-1'>Profile</Link>
-                        <Link to='/logout' className='text-danger pl-1'>Logout</Link>
-                    </Col>
-                </Row>
-            </Container>
-        );
-    }
-}
-
-const mapStateToProps = (state: ILocalState): IState => ({
-    username: state.feed.username,
-});
-
-const mapDispatchToProps = {
-    getUserInfoFromToken,
+export const Feed = ({loggedUsername}: IProps): JSX.Element => {
+    return (
+        <Container>
+            <Row>
+                <Col>
+                    <h2>Welcome</h2>
+                    <Link to={`/profile/${loggedUsername}`} className='text-danger pl-1'>Profile</Link>
+                    <Link to='/logout' className='text-danger pl-1'>Logout</Link>
+                </Col>
+            </Row>
+        </Container>
+    );
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Feed);
