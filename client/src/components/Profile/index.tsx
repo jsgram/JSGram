@@ -3,9 +3,8 @@ import '../../styles/style.scss';
 import { Instagram } from 'react-content-loader';
 import { Button, Spinner, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import './style.scss';
-import userphoto from '../../assets/user1.png';
-import { FollowersData} from './FollowersData';
-import { Followers } from './Followers';
+import { FollowersData} from '../Followers/FollowersData';
+import { Followers } from '../Followers';
 import { PopUpModal } from '../PopUp';
 import noAvatar from '../../assets/noAvatar.svg';
 import Menu from '../Menu';
@@ -155,30 +154,6 @@ export default class Profile extends React.Component<IProfileProps> {
                 </div>
                 <Followers toggle={this.followersToggle} modal={this.state.followersModal} title='Followers'/>
                 <Followers toggle={this.followingToggle} modal={this.state.followingModal} title='Following'/>
-
-                {/* <Modal className='modal-dialog-centered followers-modal' isOpen={this.state.followersModal}>
-                    <ModalHeader className='modal-header' toggle={this.followersToggle}
-                    cssModule={{'modal-title': 'w-100 text-center'}}>
-                        <p>Followers</p>
-                    </ModalHeader>
-                    <ModalBody className='modal-body'>
-                    {FollowersData.map((item: any) => (
-                        <div className='d-flex mr-2 justify-content-between mt-3 mb-2' key={item.username}>
-                        <div className='row'>
-                        <img
-                            src={userphoto}
-                            alt='avatar'
-                            width={32}
-                            height={32}
-                            className='img-fluid rounded-circle ml-4 mr-2 mt-1'
-                        />
-                        <h6 className='align-self-end'>{item.username}</h6>
-                        </div>
-                        <Button color='danger'>Follow</Button>
-                    </div>
-                    ))}
-                    </ModalBody>
-                </Modal> */}
             </div>
         );
     }

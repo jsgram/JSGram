@@ -26,27 +26,5 @@
   }
 }
 
-.followers-modal {
-  .modal-header {
-    padding: 0.9em;
-  } 
-
-  h5
-  p {
-    margin-bottom: 0;
-  }
-
-  .modal-body {
-    height: 24em;
-    max-height: 100%;
-    /* stylelint-disable */
-    padding: 0 !important;
-    overflow-y: auto;
-  }
-
-  .modal-content {
-    border-radius: 1em !important;
-  }
-}
 
  
