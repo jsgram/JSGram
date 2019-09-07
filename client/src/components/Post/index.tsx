@@ -69,7 +69,7 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        this.props.editDescriptionForPost(event.target.value);
+        this.props.editDescriptionForPost(event.target.value, this.props.userPosts.selectedPost._id);
     }
 
     public getMorePosts = (): void => {
