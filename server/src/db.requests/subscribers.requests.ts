@@ -6,7 +6,7 @@ export const findSubscribers = async (following: IUserModel[], next: NextFunctio
     try {
         const users = await User.find({_id: {$in: following}});
         if (!users) {
-            throw new Error('User does not have subscribers');
+            throw new Error('Can not show users\' subscribers');
         }
 
         return users;
