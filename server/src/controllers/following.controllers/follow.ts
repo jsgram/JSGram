@@ -6,7 +6,7 @@ import {
 
 export const follow = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {_id: followingUserId}: IUserModel = req.body;
+        const {body: {_id: followingUserId}}: {body: IUserModel} = req;
         const {locals: {user: {_id: loggedUserId}}}: { locals: { user: IUserModel } } = res;
 
         if (!followingUserId) {

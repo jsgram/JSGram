@@ -4,11 +4,11 @@ import { unfollowByUserId } from '../../db.requests/unfollow.requsets';
 
 export const unfollow = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {id: followingUserId}: IUserModel = req.params;
+        const {params: {id: followingUserId}}: {params: IUserModel} = req;
         const {locals: {user: {_id: loggedUserId}}}: { locals: { user: IUserModel } } = res;
 
         const removedFollowingUserIdFromLoggedUserId =
-            await unfollowByUserId(followingUserId, loggedUserId, 'following', next);
+            await unfollowByUserId(loggedUserId, followingUserId, 'following', next);
         if (!removedFollowingUserIdFromLoggedUserId) {
             throw new Error('Can not unfollow this user');
         }

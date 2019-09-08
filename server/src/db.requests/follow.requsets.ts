@@ -10,12 +10,12 @@ export const checkFollowing = async (loggedUserId: string, followingUserId: stri
     }
 };
 
-export const followByUserId = async (userIdToUpdate: string, userIdToRemove: string,
+export const followByUserId = async (userIdToUpdate: string, userIdToAdd: string,
                                      fieldToUpdate: string, next: NextFunction):
     Promise<IUserModel | null | void> => {
     try {
         const followingUserIdWithLoggedUserId = await User.findOneAndUpdate({_id: userIdToUpdate},
-            {$push: {[fieldToUpdate]: userIdToRemove}}, {new: true});
+            {$push: {[fieldToUpdate]: userIdToAdd}}, {new: true});
         if (!followingUserIdWithLoggedUserId) {
             throw new Error('Can not follow this user');
         }
