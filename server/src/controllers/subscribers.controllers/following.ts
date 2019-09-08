@@ -7,7 +7,7 @@ export const getFollowing = async (req: Request, res: Response, next: NextFuncti
         const {following}: IUserModel = res.locals.user;
 
         const users = await findSubscribers(following, next);
-        if (!users.length) {
+        if (!users) {
             throw new Error('Can not show users\' following');
         }
 
