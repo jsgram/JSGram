@@ -1,5 +1,6 @@
 import Profile from './index';
 import * as reactstrap from 'reactstrap';
+import * as reactContentLoader from 'react-content-loader';
 
 import { shallow } from 'enzyme';
 import React from 'react';
@@ -19,6 +20,7 @@ describe('Profile component:', () => {
             loaded: true,
         };
 
+        reactContentLoader.Instagram = jest.fn(() => <div></div>);
         renderer = shallow(<Profile {...props} />);
     });
 
@@ -37,8 +39,7 @@ describe('Profile component:', () => {
         expect(renderer.instance().timerHandle).toBe(0);
     });
 
-    test.skip('render - success', () => {
-        // TODO to toHaveLength
-        expect(renderer.html().length).toBeGreaterThan(1120);
+    test('render - success', () => {
+        expect(renderer.html()).toHaveLength(11);
     });
 });

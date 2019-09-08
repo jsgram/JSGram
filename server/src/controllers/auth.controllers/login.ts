@@ -26,7 +26,7 @@ export const login = async (req: Request, res: Response, next: NextFunction,
                     return next(error);
                 }
 
-                const token = encodeJWT(req.body.email, process.env.SECRET_KEY!);
+                const token = encodeJWT(req.body.email, process.env.SECRET_KEY);
                 return res.json({token});
             });
         })(req, res, next);
