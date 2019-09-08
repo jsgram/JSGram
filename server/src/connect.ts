@@ -4,7 +4,7 @@ mongoose.set('useNewUrlParserє', true);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 
-export default (DB_PATH: string): void => {
+export default async (DB_PATH: string): Promise<void> => {
 
     const connect = async (): Promise<void> => {
         try {
@@ -19,7 +19,7 @@ export default (DB_PATH: string): void => {
             return process.exit(1);
         }
     };
-    connect();
+    await connect();
 
     mongoose.connection.on('disconnected', connect);
 };
