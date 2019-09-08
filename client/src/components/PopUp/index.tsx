@@ -2,7 +2,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import React from 'react';
 import CropperContainer from '../../containers/CropperContainer';
 
-interface IProps {
+export interface IProps {
     // TODO DON'T USE LOADING! DO WE NEED IT?
     loading: boolean;
     modal: boolean;
