@@ -3,6 +3,30 @@ import '../../styles/style.scss';
 import '../Post/style.scss';
 import noAvatar from '../../assets/noAvatar.svg';
 import {Link} from 'react-router-dom';
+import { IUserData } from '../Profile';
+
+interface IBody {
+    userId: string;
+    postId: string;
+}
+
+interface IProps {
+    userPosts: any;
+    user: IUserData;
+    getNewsFeedAsync: (username: string) => void;
+    getMoreNewsFeedAsync: (username: string, page: number) => void;
+    addLike: (body: IBody) => void;
+    setCountOfLikes: (countOfLikes: number) => void;
+    deleteLike: (body: IBody) => void;
+    countOfLikes: number;
+    likeExist: boolean;
+    checkUserLikeExist: (doesExist: boolean) => void;
+    username: string;
+    getUser: (username: string) => void;
+    resetPosts: () => void;
+    addNextPosts: (pageNumber: number) => void;
+    loggedUsername: string;
+}
 
 export default class FeedPost extends React.Component<any> {
 

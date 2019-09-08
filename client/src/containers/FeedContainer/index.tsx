@@ -4,13 +4,13 @@ import {
     getNewsFeedAsync,
     getMoreNewsFeedAsync,
 } from '../../store/newsFeed/actions';
-import Post from '../../components/Post';
+import FeedPost from '../../components/FeedPost';
 import { addLike, checkUserLikeExist, deleteLike, setCountOfLikes } from '../../store/like/actions';
 
 export class FeedContainer extends React.Component <any> {
     public render(): JSX.Element {
         return (
-            <Post
+            <FeedPost
                 userPosts={this.props.userPosts}
                 user={this.props.user}
                 getNewsFeedAsync={this.props.getPostsAsync}
