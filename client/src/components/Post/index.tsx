@@ -29,10 +29,14 @@ interface IProps {
     showPost: (post: any) => void;
     likeExist: boolean;
     checkUserLikeExist: (doesExist: boolean) => void;
+    username: string;
+    getUser: (username: string) => void;
+    resetPosts: () => void;
+    addNextPosts: (pageNumber: number) => void;
+    loggedUsername: string;
 }
 
 interface IModalState {
-    page: number;
     modal: boolean;
     editModal: boolean;
 }
@@ -40,7 +44,6 @@ interface IModalState {
 export default class Post extends React.Component<IProps> {
 
     public state: IModalState = {
-        page: 1,
         modal: false,
         editModal: false,
     };
@@ -66,13 +69,13 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        this.props.editDescriptionForPost(event.target.value);
+        this.props.editDescriptionForPost(event.target.value, this.props.userPosts.selectedPost._id);
     }
 
     public getMorePosts = (): void => {
-        this.setState({page: this.state.page + 1});
         if (!this.props.userPosts.loaded) {
-            this.props.getMorePostsAsync(this.props.user.username, this.state.page);
+            this.props.addNextPosts(this.props.userPosts.page + 1);
+            this.props.getMorePostsAsync(this.props.user.username, this.props.userPosts.page);
         }
     }
 
@@ -82,10 +85,11 @@ export default class Post extends React.Component<IProps> {
 
     public onDeleteLike = (): void => {
         const {
-            userPosts: { selectedPost: {_id: postId} },
             user: {_id: userId},
+            userPosts: {selectedPost: {_id: postId}},
         }: any = this.props;
         const body = {userId, postId};
+        // TODO CAN NOT CHANGE PROPS DIRECTLY
         const index = this.props.userPosts.selectedPost.authorsOfLike.indexOf(body.userId);
         this.props.userPosts.selectedPost.authorsOfLike.splice(index, 1);
         this.props.deleteLike(body);
@@ -93,10 +97,11 @@ export default class Post extends React.Component<IProps> {
 
     public onAddLike = (): void => {
         const {
-            userPosts: { selectedPost: {_id: postId} },
             user: {_id: userId},
+            userPosts: {selectedPost: {_id: postId}},
         }: any = this.props;
         const body = {userId, postId};
+        // TODO CAN NOT CHANGE PROPS DIRECTLY
         this.props.userPosts.selectedPost.authorsOfLike.push(this.props.user._id);
         this.props.addLike(body);
     }
@@ -125,7 +130,7 @@ export default class Post extends React.Component<IProps> {
 
         const HASH_REGEXP = /[#][a-z]+/;
         const MENTION_REGEXP = /[@][a-z]+/;
-        const LINK_REGEXP = /(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*/;
+        const LINK_REGEXP = /(?:(?:https?|ftp):\/\/|www\.)[^\s/$.?#].[^\s]*/;
 
         const hashtagRegex = new RegExp(`(${HASH_REGEXP.source}|${MENTION_REGEXP.source}|${LINK_REGEXP.source})`, 'ig');
         const formatDescription = desc && desc.split(hashtagRegex).map((token: string) => {
@@ -209,7 +214,7 @@ export default class Post extends React.Component<IProps> {
 
                             <div className='col-12 col-lg-4 px-0 d-flex flex-column position-relative'>
                                 <div className='flex-grow-0 p-3 text-description'>
-                                    <p className='d-lg-block d-none flex-row'>
+                                    <div className='d-lg-block d-none flex-row'>
                                         <img
                                             src={user.photo || noAvatar}
                                             alt='avatar'
@@ -225,7 +230,7 @@ export default class Post extends React.Component<IProps> {
                                                 toggleModal={this.toggle}
                                             />
                                         </div>
-                                    </p>
+                                    </div>
                                     <p className='d-lg-none'>
                                         {likeButton}
                                         <span>{countOfLikes} likes</span>

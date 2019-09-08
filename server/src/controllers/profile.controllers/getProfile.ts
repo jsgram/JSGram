@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import { getPostsWithPagination } from '../../db.requests/get.posts.with.pagination';
 import { getUserByUsername } from '../../db.requests/user.requests';
 
 interface IParams {
@@ -42,23 +41,6 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
         };
 
         res.json({userProfile});
-    } catch (e) {
-        next(e);
-    }
-};
-
-export const getProfilePosts = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try {
-        const { userName, page }: IParams = req.params;
-        const user = await getUserByUsername(userName, next);
-
-        const {posts}: any = user;
-        const POSTS_ON_PAGE = 9;
-
-        const skip = (page - 1) * POSTS_ON_PAGE;
-        const postsAll = await getPostsWithPagination(posts, skip, next);
-
-        res.json({postsAll});
     } catch (e) {
         next(e);
     }
