@@ -1,7 +1,7 @@
 import { Post } from '../models/post.model';
+import { twoDays } from '../common.constants/getPosts.constants';
 
 export const getPostsForFeed = async (following: string[], skip: number, postPerPage: number): Promise<object[]> => {
-    const twoDays = 48 * 60 * 60 * 1000;
 
     const feed = await Post
         .find({
