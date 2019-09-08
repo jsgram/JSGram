@@ -16,6 +16,7 @@ import { forgotPassword } from './routes/forgot.password.controllers/forgot.pass
 import { googleRouter } from './routes/auth.routes/google.router';
 import { profileRouter } from './routes/profile.routes/profile.router';
 import { likesRouter } from './routes/likes.router/like.router';
+import { subscribersRouter } from './routes/subscribers.routes/subscribers.router';
 import { followingRouter } from './routes/following.routes/following.router';
 
 import { unknownPageHandler } from './helpers/unknown.page.handler';
@@ -41,6 +42,7 @@ app.use('/confirm', confirmUserRouter);
 app.use('/forgot-password', forgotPassword);
 app.use('/profile', profileRouter);
 app.use('/likes', likesRouter);
+app.use('/subscribers', subscribersRouter);
 app.use('/following', followingRouter);
 app.use(googleRouter);
 

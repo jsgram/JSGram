@@ -69,7 +69,7 @@ export default class Post extends React.Component<IProps> {
     }
 
     public onDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        this.props.editDescriptionForPost(event.target.value);
+        this.props.editDescriptionForPost(event.target.value, this.props.userPosts.selectedPost._id);
     }
 
     public getMorePosts = (): void => {
@@ -130,7 +130,7 @@ export default class Post extends React.Component<IProps> {
 
         const HASH_REGEXP = /[#][a-z]+/;
         const MENTION_REGEXP = /[@][a-z]+/;
-        const LINK_REGEXP = /(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*/;
+        const LINK_REGEXP = /(?:(?:https?|ftp):\/\/|www\.)[^\s/$.?#].[^\s]*/;
 
         const hashtagRegex = new RegExp(`(${HASH_REGEXP.source}|${MENTION_REGEXP.source}|${LINK_REGEXP.source})`, 'ig');
         const formatDescription = desc && desc.split(hashtagRegex).map((token: string) => {

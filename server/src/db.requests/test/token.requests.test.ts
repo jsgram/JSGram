@@ -1,19 +1,36 @@
 import {isTokenExist, deleteToken} from '../token.requests';
 
-const fakeNext = jest.fn(() => { /* */ });
+import mockingoose from 'mockingoose';
+import {Token, ITokenModel, Token as token} from '../../models/token.model';
+
+type IFakeNext = () => void;
 
 describe('Token CRUD:', () => {
-    test.skip('token existence check - failure', async () => {
-        // FIXME unidentified async issue
-        // TODO mock Token.findOne
-        const answer = await isTokenExist('sometoken', fakeNext);
-        expect(answer).toBe({});
+    let fakeNext: IFakeNext;
+
+    beforeEach(() => {
+        fakeNext = jest.fn(() => { /* */ });
     });
 
-    test.skip('token deletion - failure', async () => {
-        // TODO fix DB connection issue
-        // TODO mock Token
-        const answer = await deleteToken('sometoken', fakeNext);
-        expect(answer).toBe(undefined);
+    test('token existence check - failure', async () => {
+        mockingoose(Token).toReturn(null, 'findOne');
+        const fakeToken = Token.findOne({});
+
+        const mockTokenFindOne = jest.spyOn(token, 'findOne');
+        mockTokenFindOne.mockReturnValue(fakeToken);
+
+        const answer = await isTokenExist('sometoken', fakeNext);
+        expect(fakeNext).toHaveBeenCalledTimes(1);
+    });
+
+    test('token deletion - failure', async () => {
+        mockingoose(Token).toReturn(null, 'findOneAndRemove');
+        const fakeToken = Token.findByIdAndRemove({});
+
+        const mockTokenFindByIdAndRemove = jest.spyOn(token, 'findByIdAndRemove');
+        mockTokenFindByIdAndRemove.mockReturnValue(fakeToken);
+
+        await deleteToken('sometoken', fakeNext);
+        expect(fakeNext).toHaveBeenCalledTimes(1);
     });
 });
