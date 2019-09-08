@@ -1,18 +1,20 @@
 import { NextFunction, Request, Response } from 'express';
 import { IUserModel } from '../../models/user.model';
-import { removeFollowingUserId, removeLoggedUserId } from '../../db.requests/unfollow.requsets';
+import { unfollowByUserId } from '../../db.requests/unfollow.requsets';
 
 export const unfollow = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const {id: followingUserId}: IUserModel = req.params;
-        const { locals : { user: { _id: loggedUserId} } }: {locals: {user: IUserModel}} = res;
+        const {locals: {user: {_id: loggedUserId}}}: { locals: { user: IUserModel } } = res;
 
-        const removedFollowingUserIdFromLoggedUserId = await removeFollowingUserId(followingUserId, loggedUserId, next);
+        const removedFollowingUserIdFromLoggedUserId =
+            await unfollowByUserId(followingUserId, loggedUserId, 'following', next);
         if (!removedFollowingUserIdFromLoggedUserId) {
             throw new Error('Can not unfollow this user');
         }
 
-        const removedLoggedUserIdFromFollowingUserId = await removeLoggedUserId(followingUserId, loggedUserId, next);
+        const removedLoggedUserIdFromFollowingUserId =
+            await unfollowByUserId(followingUserId, loggedUserId, 'followers', next);
         if (!removedLoggedUserIdFromFollowingUserId) {
             throw new Error('Can not unfollow this user');
         }

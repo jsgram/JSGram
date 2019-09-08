@@ -1,15 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import { IUserModel } from '../../models/user.model';
 import {
-    checkFollowing,
-    addToLoggedUserIdFollowingUserId,
-    addFollowingUserIdToLoggedUserId,
+    checkFollowing, followByUserId,
 } from '../../db.requests/follow.requsets';
 
 export const follow = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const {_id: followingUserId}: IUserModel = req.body;
-        const { locals : { user: { _id: loggedUserId} } }: {locals: {user: IUserModel}} = res;
+        const {locals: {user: {_id: loggedUserId}}}: { locals: { user: IUserModel } } = res;
 
         if (!followingUserId) {
             throw new Error('No followingUserId');
@@ -21,13 +19,14 @@ export const follow = async (req: Request, res: Response, next: NextFunction): P
         }
 
         const loggedUserIdWithFollowingUserId =
-            await addToLoggedUserIdFollowingUserId(loggedUserId, followingUserId, next);
+            await followByUserId(loggedUserId, followingUserId, 'following', next);
         if (!loggedUserIdWithFollowingUserId) {
             throw new Error('Can not follow this user');
         }
 
         const followingUserIdWithLoggedUserId =
-            await addFollowingUserIdToLoggedUserId(followingUserId, loggedUserId, next);
+            await followByUserId(followingUserId, loggedUserId, 'followers', next);
+
         if (!followingUserIdWithLoggedUserId) {
             throw new Error('Can not follow this user');
         }
