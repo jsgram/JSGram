@@ -51,9 +51,9 @@ export const showPost = (post: any): { type: string, payload: any } => ({
     payload: post,
 });
 
-export const editDescriptionForPost = (description: any): { type: string, payload: any } => ({
+export const editDescriptionForPost = (description: string, postId: string): { type: string, payload: any } => ({
     type: EDIT_DESCRIPTION_FOR_POST,
-    payload: description,
+    payload: { description, postId },
 });
 
 export const addNextPosts = (page: number): {type: string, payload: number} => ({

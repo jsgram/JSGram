@@ -34,7 +34,8 @@ describe('Check email', () => {
             .then(() => {
                 const actual = store.getActions();
                 expect(actual).toEqual(expected);
-            });
+            })
+            .catch((err: Error): Error => err);
     });
 
     it('dispatches checkEmail with server data on error', () => {
@@ -55,7 +56,7 @@ describe('Check email', () => {
             .then(() => {
                 const actual = store.getActions();
                 expect(actual).toEqual(expected);
-            });
-
+            })
+            .catch((err: Error): Error => err);
     });
 });

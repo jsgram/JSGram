@@ -30,8 +30,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "npm-run-all --continue-on-error --parallel lint:*",
-    "lint:tsx": "tslint --formatters-dir node_modules/custom-tslint-formatters/formatters --format grouped src/**/*.{ts,tsx}",
+    "lint": "npm run lint:sass",
+    "lint:tsx": "tslint --formatters-dir node_modules/custom-tslint-formatters/formatters --format grouped 'src/**/*.{ts,tsx}'",
     "lint:sass": "stylelint ."
   },
   "eslintConfig": {
