@@ -5,7 +5,7 @@ import { removeFollowingUserId, removeLoggedUserId } from '../../db.requests/unf
 export const unfollow = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const {id: followingUserId}: IUserModel = req.params;
-        const {_id: loggedUserId}: IUserModel = res.locals.user;
+        const { locals : { user: { _id: loggedUserId} } }: {locals: {user: IUserModel}} = res;
 
         const removedFollowingUserIdFromLoggedUserId = await removeFollowingUserId(followingUserId, loggedUserId, next);
         if (!removedFollowingUserIdFromLoggedUserId) {

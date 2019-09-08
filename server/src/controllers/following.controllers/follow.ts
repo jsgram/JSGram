@@ -9,7 +9,7 @@ import {
 export const follow = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const {_id: followingUserId}: IUserModel = req.body;
-        const {_id: loggedUserId}: IUserModel = res.locals.user;
+        const { locals : { user: { _id: loggedUserId} } }: {locals: {user: IUserModel}} = res;
 
         if (!followingUserId) {
             throw new Error('No followingUserId');
