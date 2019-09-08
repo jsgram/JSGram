@@ -1,10 +1,10 @@
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { IUserModel } from '../../models/user.model';
 import { findSubscribers } from '../../db.requests/subscribers.requests';
 
 export const getFollowing = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {user: {following}}: {user: IUserModel} = res.locals;
+        const {locals: {user: {following}}}: { locals: { user: IUserModel } } = res.locals;
 
         const users = await findSubscribers(following, next);
         if (!users) {
