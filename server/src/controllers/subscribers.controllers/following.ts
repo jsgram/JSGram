@@ -8,7 +8,7 @@ export const getFollowing = async (req: Request, res: Response, next: NextFuncti
 
         const users = await findSubscribers(following, next);
         if (!users.length) {
-            throw new Error('User is not following anybody');
+            throw new Error('Can not show users\' following');
         }
 
         res.json({users});

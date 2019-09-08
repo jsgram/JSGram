@@ -7,8 +7,8 @@ export const getFollowers = async (req: Request, res: Response, next: NextFuncti
         const {followers}: IUserModel = res.locals.user;
 
         const users = await findSubscribers(followers, next);
-        if (!users.length) {
-            throw new Error('User does not have followers');
+        if (!users) {
+            throw new Error('Can not show users\' followers');
         }
 
         res.json({users});
