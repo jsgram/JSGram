@@ -4,11 +4,6 @@ import '../Post/style.scss';
 import noAvatar from '../../assets/noAvatar.svg';
 import {Link} from 'react-router-dom';
 
-interface IBody {
-    userId: string;
-    postId: string;
-}
-
 export default class FeedPost extends React.Component<any> {
 
     public render(): JSX.Element {

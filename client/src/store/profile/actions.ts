@@ -41,7 +41,6 @@ export const getUser = (username: string): (dispatch: Dispatch) => Promise<void>
         try {
             dispatch(getUserPending());
             const res = await AuthAPI.get(`/profile/${username}`);
-            console.log(res);
             dispatch(getUserSuccess(res.data.userProfile));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
