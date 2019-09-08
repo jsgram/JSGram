@@ -4,7 +4,7 @@ import { findSubscribers } from '../../db.requests/subscribers.requests';
 
 export const getFollowing = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {following}: IUserModel = res.locals.user;
+        const {user: {following}}: {user: IUserModel} = res.locals;
 
         const users = await findSubscribers(following, next);
         if (!users) {
