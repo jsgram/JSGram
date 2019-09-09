@@ -11,16 +11,19 @@ import { INewsFeed } from '../../store/newsFeed/reducers';
 
 class FeedContainer extends React.Component<any> {
     public render(): JSX.Element {
-        const {userPosts, user, loggedUsername}: any = this.props;
+        const {newsFeed, user, loggedUsername}: any = this.props;
         return (
             <Container>
                 <Menu/>
                 <Row>
                     <Col sm={8} className='order-2 order-sm-1'>
-                        {userPosts.posts.map((feed: INewsFeed) =>
+                        {newsFeed.feed.map((feed: INewsFeed) =>
                             <FeedPost
-                                userPosts={userPosts}
-                                user={user}
+                                key={feed._id}
+                                newsFeed={newsFeed}
+                                author={feed.author}
+                                image={feed.imgPath}
+                                description={feed.description}
                                 getNewsFeedAsync={this.props.getNewsFeedAsync}
                                 getMoreNewsFeedAsync={this.props.getMoreNewsFeedAsync}
                                 addLike={this.props.addLike}
@@ -36,7 +39,7 @@ class FeedContainer extends React.Component<any> {
                     </Col>
                     <Col sm={4} className='order-1 order-sm-2 text-sm-center'>
                         <img
-                            src={noAvatar}
+                            src={user.photo || noAvatar}
                             alt='avatar'
                             width={64}
                             height={64}
@@ -52,10 +55,13 @@ class FeedContainer extends React.Component<any> {
 }
 
 const mapStateToProps = (state: any): any => ({
-    userPosts: state.userPosts,
+    newsFeed: state.newsFeed,
     user: state.profile.user,
     countOfLikes: state.like.countOfLikes,
     likeExist: state.like.likeExist,
+    author: state.author,
+    image: state.image,
+    description: state.description,
 });
 
 const mapDispatchToProps = {

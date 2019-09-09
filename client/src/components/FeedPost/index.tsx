@@ -11,8 +11,10 @@ interface IBody {
 }
 
 interface IProps {
-    userPosts: any;
-    user: any;
+    newsFeed: any;
+    author: any;
+    image: any;
+    description: string;
     getNewsFeedAsync: () => void;
     getMoreNewsFeedAsync: (page: number) => void;
     addLike: (body: IBody) => void;
@@ -44,45 +46,45 @@ export default class FeedPost extends React.Component<IProps> {
                 <div className='post-header p-2 border'>
                     <div className='d-flex flex-row'>
                         <img
-                            src={this.props.user.photo || noAvatar}
+                            src={this.props.newsFeed.image || noAvatar}
                             alt='avatar'
                             width={32}
                             height={32}
                             className='img-fluid rounded-circle'
                         />
                         <Link
-                            to={`/profile/${this.props.loggedUsername}`}
+                            to={`/profile/${this.props.newsFeed.author}`}
                             className='text-dark mt-1 ml-3'>
-                            {this.props.loggedUsername}
+                            {this.props.newsFeed.author}
                         </Link>
                     </div>
                 </div>
                 <img
-                    src={this.props.user.photo}
+                    src={this.props.newsFeed.image}
                     className='w-100 img-fluid'
                     alt='post'
                 />
                 <div className='d-block mt-3 mb-2 pl-3'>
-                    <i className='fa fa-heart fa-2x fa-lg pr-1 like'/>
+                    <i className='fa fa-heart fa-lg pr-1 like'/>
                     <span className='pl-2'>5 likes</span>
                 </div>
                 <div className='description-post pb-3 border-bottom'>
                     <div className='d-block pl-3 text-description'>
                         <img
-                            src={this.props.user.photo || noAvatar}
+                            src={this.props.newsFeed.image || noAvatar}
                             alt='avatar'
                             width={32}
                             height={32}
                             className='img-fluid rounded-circle'
                         />
                         <Link
-                            to={`/profile/${this.props.loggedUsername}`}
+                            to={`/profile/${this.props.newsFeed.author}`}
                             className='d-inline-block text-dark ml-2'
                         >
-                            {this.props.loggedUsername}
+                            {this.props.newsFeed.author}
                         </Link>
                         <p className='pl-2 mt-2 justify-self-start align-self-start'>
-                            {this.props.loggedUsername}
+                            {this.props.newsFeed.description}
                         </p>
                     </div>
                 </div>
