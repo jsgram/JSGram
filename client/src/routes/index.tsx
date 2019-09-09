@@ -6,6 +6,7 @@ import ChangePassword from '../components/ForgotPassword/ChangePassword';
 import CheckEmail from '../components/ForgotPassword/CheckEmail';
 import ProfileContainer from '../containers/ProfileContainer';
 import { PublicRoute } from './PublicRoute';
+import { Feed } from '../components/Main/Feed';
 import Logout from '../containers/LogoutContainer';
 import { history } from '../history';
 import SideBar from '../components/SideBar';
@@ -13,14 +14,13 @@ import AddPostContainer from '../containers/AddPostContainer';
 import { Error404 } from '../components/Error404';
 import { RegisterRoute } from '../components/RegisterRoute';
 import { PrivateRoute } from './PrivateRoute';
-import FeedContainer from '../containers/FeedContainer';
 
 export const routes = (
     <Router history={history}>
         <Switch>
             <PrivateRoute exact path='/profile/:username' component={ProfileContainer}/>
             <PrivateRoute exact path='/add-post' component={AddPostContainer}/>
-            <PrivateRoute exact path='/feed' component={FeedContainer}/>
+            <PrivateRoute exact path='/feed' component={Feed}/>
             <PrivateRoute path='/profile/:username/edit' component={SideBar}/>
             <Route exact path='/logout' component={Logout}/>
             <PublicRoute exact path='/' component={Main}/>
