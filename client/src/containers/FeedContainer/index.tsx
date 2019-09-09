@@ -24,6 +24,7 @@ class FeedContainer extends React.Component<any> {
                                 author={feed.author}
                                 image={feed.imgPath}
                                 description={feed.description}
+                                user={user}
                                 getNewsFeedAsync={this.props.getNewsFeedAsync}
                                 getMoreNewsFeedAsync={this.props.getMoreNewsFeedAsync}
                                 addLike={this.props.addLike}
@@ -59,9 +60,6 @@ const mapStateToProps = (state: any): any => ({
     user: state.profile.user,
     countOfLikes: state.like.countOfLikes,
     likeExist: state.like.likeExist,
-    author: state.author,
-    image: state.image,
-    description: state.description,
 });
 
 const mapDispatchToProps = {
