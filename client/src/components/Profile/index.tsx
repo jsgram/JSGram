@@ -84,8 +84,8 @@ export default class Profile extends React.Component<IProfileProps> {
     //     this.setState({ followingModal: !this.state.followingModal });
     // }
 
-     public modalToggle = (isOpenModal:any): any => {
-        this.setState({ isOpenModal: !this.state.isOpenModal });
+     public modalToggle = (isOpenModal:string): any => {
+        this.setState({ [isOpenModal]: !this.state.isOpenModal});
     }
 
     public render(): JSX.Element {
@@ -107,7 +107,7 @@ export default class Profile extends React.Component<IProfileProps> {
                         alt='avatar'
                         height={150}
                         width={150}
-                        onClick={this.modalToggle(this.state.avatarModal)}
+                        onClick={this.modalToggle('avatarModal')}
                     />}
                 </div>
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
@@ -126,11 +126,11 @@ export default class Profile extends React.Component<IProfileProps> {
                             <button className='mr-2 following-button'><b>{posts}</b> posts</button>
                         </div>
                         <div>
-                            <button onClick={this.modalToggle(this.state.followersModal)} className='mr-2 following-button'>
+                            <button onClick={this.modalToggle('followersModal')} className='mr-2 following-button'>
                                 <b>{followers}</b> followers</button>
                         </div>
                         <div>
-                            <button onClick={this.modalToggle(this.state.followingModal)} className='following-button'>
+                            <button onClick={this.modalToggle('followingModal')} className='following-button'>
                                 <b>{following}</b> following</button>
                         </div>
                     </div>
@@ -148,7 +148,7 @@ export default class Profile extends React.Component<IProfileProps> {
                     </Link>
                     {this.state.avatarModal && <PopUpModal
                         modal={this.state.avatarModal}
-                        toggleModal={this.modalToggle(this.state.avatarModal)}
+                        toggleModal={this.modalToggle('avatarModal')}
                         loading={this.props.loading}
                         deletePhoto={this.props.deletePhoto}
                         photo={photo}
@@ -157,8 +157,8 @@ export default class Profile extends React.Component<IProfileProps> {
                 <div className='container'>
                     <PostContainer username={this.props.urlUsername}/>
                 </div>
-                <FollowList toggle={this.modalToggle(this.state.followersModal)} modal={this.state.followersModal} title='Followers'data={FollowersData}/>
-                <FollowList toggle={this.modalToggle(this.state.followingModal)} modal={this.state.followingModal} title='Following' data={FollowersData}/>
+                <FollowList toggle={this.modalToggle('followers')} modal={this.state.followersModal} title='Followers'data={FollowersData}/>
+                <FollowList toggle={this.modalToggle('following')} modal={this.state.followingModal} title='Following' data={FollowersData}/>
             </div>
         );
     }
