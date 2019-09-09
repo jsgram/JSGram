@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { getUserByUsername } from '../../db.requests/user.requests';
 import { getPostsWithPagination } from '../../db.requests/get.posts.with.pagination';
+import { postsPerPage } from '../../common.constants/getPosts.constants';
 
 interface IParams {
     page: number;
@@ -16,9 +17,8 @@ export const getProfilePosts = async (req: Request, res: Response, next: NextFun
         }
 
         const {posts}: any = user;
-        const POSTS_ON_PAGE = 9;
 
-        const skip = (page - 1) * POSTS_ON_PAGE;
+        const skip = (page - 1) * postsPerPage;
         const postsAll = await getPostsWithPagination(posts, skip, next);
         if (!postsAll) {
             throw new Error('No posts');
