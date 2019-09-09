@@ -1,9 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-    getNewsFeedAsync,
-    getMoreNewsFeedAsync,
-} from '../../store/newsFeed/actions';
+import { getNewsFeedAsync, getMoreNewsFeedAsync } from '../../store/newsFeed/actions';
 import { addLike, checkUserLikeExist, deleteLike, setCountOfLikes } from '../../store/like/actions';
 import FeedPost from '../../components/FeedPost';
 import Menu from '../../components/Menu';
@@ -11,29 +8,8 @@ import { Col, Container, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import noAvatar from '../../assets/noAvatar.svg';
 import { INewsFeed } from '../../store/newsFeed/reducers';
-import { IPost } from '../../store/post/reducers';
 
-interface IBody {
-    userId: string;
-    postId: string;
-}
-
-interface IProps {
-    userPosts: any;
-    user: any;
-    getNewsFeedAsync: () => void;
-    getMoreNewsFeedAsync: (page: number) => void;
-    addLike: (body: IBody) => void;
-    setCountOfLikes: (countOfLikes: number) => void;
-    deleteLike: (body: IBody) => void;
-    countOfLikes: number;
-    likeExist: boolean;
-    checkUserLikeExist: (doesExist: boolean) => void;
-    addNextPosts: (pageNumber: number) => void;
-    loggedUsername: string;
-}
-
-class FeedContainer extends React.Component<IProps> {
+class FeedContainer extends React.Component<any> {
     public render(): JSX.Element {
         const {userPosts, user, loggedUsername}: any = this.props;
         return (
@@ -41,12 +17,8 @@ class FeedContainer extends React.Component<IProps> {
                 <Menu/>
                 <Row>
                     <Col sm={8} className='order-2 order-sm-1'>
-                        {userPosts.posts.map((feed: IPost) => (
+                        {userPosts.posts.map((feed: INewsFeed) =>
                             <FeedPost
-                                key={feed._id}
-                                author={feed.author}
-                                image={feed.imgPath}
-                                description={feed.description}
                                 userPosts={userPosts}
                                 user={user}
                                 getNewsFeedAsync={this.props.getNewsFeedAsync}
@@ -57,8 +29,10 @@ class FeedContainer extends React.Component<IProps> {
                                 countOfLikes={this.props.countOfLikes}
                                 likeExist={this.props.likeExist}
                                 checkUserLikeExist={this.props.checkUserLikeExist}
-                            />
-                        ))}
+                                addNextPosts={this.props.addNextPosts}
+                                loggedUsername={loggedUsername}
+                            />,
+                            )}
                     </Col>
                     <Col sm={4} className='order-1 order-sm-2 text-sm-center'>
                         <img
