@@ -36,7 +36,7 @@ export const getNewsFeedAsync = (): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(getNewsFeedPending());
-            const res = await AuthAPI.get(`/feed`);
+            const res = await AuthAPI.get(`/feed/1`);
 
             dispatch(getNewsFeedSuccess(res.data.feed));
             dispatch(clearNewsFeedLoaded());

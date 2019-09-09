@@ -9,6 +9,7 @@ import {postReducer} from './post/reducers';
 import { feedReducer } from './feed/reducers';
 import { profileEditReducer } from './profileEdit/reducers';
 import { likeReducers } from './like/reducers';
+import { newsFeedReducer } from './newsFeed/reducers';
 
 export default combineReducers({
     form: formReducer,
@@ -21,4 +22,5 @@ export default combineReducers({
     userPosts: postReducer,
     feed: feedReducer,
     like: likeReducers,
+    newsFeed: newsFeedReducer,
 });

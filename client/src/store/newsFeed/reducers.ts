@@ -53,14 +53,14 @@ export const newsFeedReducer = (
         case GET_NEWS_FEED_SUCCESS:
             return {
                 ...state,
-                userNews: action.payload,
+                feed: action.payload,
                 loading: false,
             };
 
         case GET_MORE_NEWS_FEED_SUCCESS:
             return {
                 ...state,
-                userNews: [...state.userNews, ...action.payload],
+                feed: [...state.feed, ...action.payload],
                 loading: false,
             };
 
@@ -76,5 +76,7 @@ export const newsFeedReducer = (
                 ...state,
                 loaded: false,
             };
+        default:
+            return state;
     }
 };

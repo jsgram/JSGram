@@ -30,6 +30,10 @@ interface IProps {
 
 export default class FeedPost extends React.Component<any> {
 
+    public componentDidMount(): void {
+        this.props.getNewsFeedAsync();
+    }
+
     public render(): JSX.Element {
         return (
             <div className='profile-post border mb-5'>
