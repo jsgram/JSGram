@@ -36,13 +36,14 @@ const defaultState = {
             createdAt: '',
         },
     ],
+    page: 1,
     loaded: false,
     loading: false,
 };
 
 export const newsFeedReducer = (
     state: any = defaultState,
-    action: { type: string, payload: any, loading: boolean }): any => {
+    action: { type: string, payload: any}): any => {
     switch (action.type) {
         case GET_NEWS_FEED_PENDING:
             return {

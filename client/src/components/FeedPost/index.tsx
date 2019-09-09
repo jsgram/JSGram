@@ -3,30 +3,6 @@ import '../../styles/style.scss';
 import '../Post/style.scss';
 import noAvatar from '../../assets/noAvatar.svg';
 import {Link} from 'react-router-dom';
-import { IUserData } from '../Profile';
-
-interface IBody {
-    userId: string;
-    postId: string;
-}
-
-interface IProps {
-    userPosts: any;
-    user: IUserData;
-    getNewsFeedAsync: (username: string) => void;
-    getMoreNewsFeedAsync: (username: string, page: number) => void;
-    addLike: (body: IBody) => void;
-    setCountOfLikes: (countOfLikes: number) => void;
-    deleteLike: (body: IBody) => void;
-    countOfLikes: number;
-    likeExist: boolean;
-    checkUserLikeExist: (doesExist: boolean) => void;
-    username: string;
-    getUser: (username: string) => void;
-    resetPosts: () => void;
-    addNextPosts: (pageNumber: number) => void;
-    loggedUsername: string;
-}
 
 export default class FeedPost extends React.Component<any> {
 
@@ -40,7 +16,7 @@ export default class FeedPost extends React.Component<any> {
                 <div className='post-header p-2 border'>
                     <div className='d-flex flex-row'>
                         <img
-                            src={noAvatar}
+                            src={this.props.imgPath || noAvatar}
                             alt='avatar'
                             width={32}
                             height={32}
@@ -54,7 +30,7 @@ export default class FeedPost extends React.Component<any> {
                     </div>
                 </div>
                 <img
-                    src={this.props.image}
+                    src={this.props.imgPath}
                     className='w-100 img-fluid'
                     alt='post'
                 />
@@ -65,7 +41,7 @@ export default class FeedPost extends React.Component<any> {
                 <div className='description-post pb-3 border-bottom'>
                     <div className='d-block pl-3 text-description'>
                         <img
-                            src={noAvatar}
+                            src={this.props.imgPath || noAvatar}
                             alt='avatar'
                             width={32}
                             height={32}

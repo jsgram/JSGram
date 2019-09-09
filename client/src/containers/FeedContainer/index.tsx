@@ -10,35 +10,55 @@ import Menu from '../../components/Menu';
 import { Col, Container, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import noAvatar from '../../assets/noAvatar.svg';
+import { INewsFeed } from '../../store/newsFeed/reducers';
+import { IPost } from '../../store/post/reducers';
+
+interface IBody {
+    userId: string;
+    postId: string;
+}
 
 interface IProps {
+    userPosts: any;
+    user: any;
+    getNewsFeedAsync: () => void;
+    getMoreNewsFeedAsync: (page: number) => void;
+    addLike: (body: IBody) => void;
+    setCountOfLikes: (countOfLikes: number) => void;
+    deleteLike: (body: IBody) => void;
+    countOfLikes: number;
+    likeExist: boolean;
+    checkUserLikeExist: (doesExist: boolean) => void;
+    addNextPosts: (pageNumber: number) => void;
     loggedUsername: string;
 }
 
-class FeedContainer extends React.Component<any> {
-
-    public posts: any = [
-        {id: 2, author: 'archi2', image: 'https://picsum.photos/500', description: 'test test2'},
-        {id: 1, author: 'archi1', image: 'https://picsum.photos/500', description: 'test test1'},
-        {id: 3, author: 'archi3', image: 'https://picsum.photos/500', description: 'test test3'},
-        {id: 4, author: 'archi4', image: 'https://picsum.photos/500', description: 'test test4'},
-    ];
-
+class FeedContainer extends React.Component<IProps> {
     public render(): JSX.Element {
-        const {loggedUsername}: any = this.props;
+        const {userPosts, user, loggedUsername}: any = this.props;
         return (
             <Container>
                 <Menu/>
                 <Row>
                     <Col sm={8} className='order-2 order-sm-1'>
-                        {/*{this.posts.map((post: any) => (*/}
-                        {/*    <FeedPost*/}
-                        {/*        key={post.id}*/}
-                        {/*        author={post.author}*/}
-                        {/*        image={post.image}*/}
-                        {/*        description={post.description}*/}
-                        {/*    />*/}
-                        {/*))}*/}
+                        {userPosts.posts.map((feed: IPost) => (
+                            <FeedPost
+                                key={feed._id}
+                                author={feed.author}
+                                image={feed.imgPath}
+                                description={feed.description}
+                                userPosts={userPosts}
+                                user={user}
+                                getNewsFeedAsync={this.props.getNewsFeedAsync}
+                                getMoreNewsFeedAsync={this.props.getMoreNewsFeedAsync}
+                                addLike={this.props.addLike}
+                                setCountOfLikes={this.props.setCountOfLikes}
+                                deleteLike={this.props.deleteLike}
+                                countOfLikes={this.props.countOfLikes}
+                                likeExist={this.props.likeExist}
+                                checkUserLikeExist={this.props.checkUserLikeExist}
+                            />
+                        ))}
                     </Col>
                     <Col sm={4} className='order-1 order-sm-2 text-sm-center'>
                         <img
@@ -52,18 +72,6 @@ class FeedContainer extends React.Component<any> {
                     </Col>
                 </Row>
                 <Link to='/logout' className='text-danger pl-1'>Logout</Link>
-                <FeedPost
-                    userPosts={this.props.userPosts}
-                    user={this.props.user}
-                    getNewsFeedAsync={this.props.getNewsFeedAsync}
-                    getMoreNewsFeedAsync={this.props.getMoreNewsFeedAsync}
-                    addLike={this.props.addLike}
-                    setCountOfLikes={this.props.setCountOfLikes}
-                    deleteLike={this.props.deleteLike}
-                    countOfLikes={this.props.countOfLikes}
-                    likeExist={this.props.likeExist}
-                    checkUserLikeExist={this.props.checkUserLikeExist}
-                />
             </Container>
         );
     }
