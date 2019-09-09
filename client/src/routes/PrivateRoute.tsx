@@ -19,6 +19,7 @@ export const PrivateRoute = ({component: Component, ...rest}: any): JSX.Element 
     }
 
     const mapStateToProps = (state: any): any => ({
+        loggedId: state.feed.loggedId,
         loggedUsername: state.feed.loggedUsername,
     });
 

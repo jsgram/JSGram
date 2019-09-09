@@ -7,8 +7,13 @@ import {
     DELETE_POST_PENDING,
     DELETE_POST_SUCCESS,
     EDIT_DESCRIPTION_FOR_POST,
-    SHOW_SELECTED_POST, RESET_POSTS,
+    SHOW_SELECTED_POST,
+    RESET_POSTS,
     UPLOAD_NEXT_POSTS,
+    CHECK_USER_LIKE_EXIST,
+    SET_COUNTS_OF_LIKES,
+    ADD_USER_LIKE,
+    REMOVE_USER_LIKE,
 } from './actionTypes';
 
 export interface IPost {
@@ -37,6 +42,8 @@ const defaultState = {
     ],
     page: 1,
     selectedPost: {},
+    countOfLikes: 0,
+    likeExist: false,
     loaded: false,
     loading: false,
 };
@@ -113,6 +120,17 @@ export const postReducer = (
                 ...state,
                 page: action.payload,
             };
+        case SET_COUNTS_OF_LIKES:
+            return {
+                ...state,
+                countOfLikes: action.payload,
+            };
+
+        case CHECK_USER_LIKE_EXIST:
+            return {
+                ...state,
+                likeExist: action.payload,
+            };
         case RESET_POSTS:
             return {
                 ...state,
@@ -129,6 +147,45 @@ export const postReducer = (
                     },
                 ],
                 page: 1,
+            };
+        case ADD_USER_LIKE:
+            const addNewAuthorToLikeArray = [...action.payload.authorsOfLike];
+            addNewAuthorToLikeArray.push(action.payload.loggedUserId);
+            return {
+                ...state,
+                selectedPost: {
+                    ...state.selectedPost,
+                    authorsOfLike: addNewAuthorToLikeArray,
+                },
+                posts: state.posts.map((post: any) => {
+                    if (post._id === action.payload.postId) {
+                        return {
+                            ...post,
+                            authorsOfLike: addNewAuthorToLikeArray,
+                        };
+                    }
+                    return post;
+                }),
+            };
+        case REMOVE_USER_LIKE:
+            const removeAuthorsFromLikeArray = [...action.payload.authorsOfLike];
+            const index = removeAuthorsFromLikeArray.indexOf(action.payload.loggedUserId);
+            removeAuthorsFromLikeArray.splice(index, 1);
+            return {
+                ...state,
+                selectedPost: {
+                    ...state.selectedPost,
+                    authorsOfLike: removeAuthorsFromLikeArray,
+                },
+                posts: state.posts.map((post: any) => {
+                    if (post._id === action.payload.postId) {
+                        return {
+                            ...post,
+                            authorsOfLike: removeAuthorsFromLikeArray,
+                        };
+                    }
+                    return post;
+                }),
             };
         default:
             return state;
