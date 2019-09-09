@@ -130,7 +130,7 @@ export default class Post extends React.Component<IProps> {
 
         const HASH_REGEXP = /[#][a-z]+/;
         const MENTION_REGEXP = /[@][a-z]+/;
-        const LINK_REGEXP = /(?:(?:https?|ftp):\/\/|www\.)[^\s\/$.?#].[^\s]*/;
+        const LINK_REGEXP = /(?:(?:https?|ftp):\/\/|www\.)[^\s/$.?#].[^\s]*/;
 
         const hashtagRegex = new RegExp(`(${HASH_REGEXP.source}|${MENTION_REGEXP.source}|${LINK_REGEXP.source})`, 'ig');
         const formatDescription = desc && desc.split(hashtagRegex).map((token: string) => {
