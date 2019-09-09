@@ -35,10 +35,17 @@ export interface IProfileProps {
     resetPosts: () => void;
     getPostsAsync: (username: string) => void;
 }
+interface IProps{
+    loaded: boolean;
+    followersModal: boolean;
+    followingModal: boolean; 
+    avatarModal: boolean;
+[isOpenModal: string] : boolean;
+}
 
 export default class Profile extends React.Component<IProfileProps> {
 
-    public state: { loaded: boolean,isOpenModal:boolean, followersModal: boolean, followingModal: boolean, avatarModal: boolean } = {
+    public state: IProps = {
         loaded: false,
         avatarModal: false,
         followersModal: false,
@@ -73,19 +80,9 @@ export default class Profile extends React.Component<IProfileProps> {
         this.timerHandle = 0;
     }
 
-    // public avatarToggle = (): void => {
-    //     this.setState({avatarModal: !this.state.avatarModal});
-    // }
-
-    // public followersToggle = (modal:any): any => {
-    //     this.setState({ modal: !this.state.modal });
-    // }
-    // public followingToggle = (): any => {
-    //     this.setState({ followingModal: !this.state.followingModal });
-    // }
-
      public modalToggle = (isOpenModal:string): any => {
-        this.setState({ [isOpenModal]: !this.state.isOpenModal});
+
+        this.setState({ [isOpenModal]: !this.state[isOpenModal]});
     }
 
     public render(): JSX.Element {
@@ -107,7 +104,7 @@ export default class Profile extends React.Component<IProfileProps> {
                         alt='avatar'
                         height={150}
                         width={150}
-                        onClick={this.modalToggle('avatarModal')}
+                        onClick={(): void => this.modalToggle('avatarModal')}
                     />}
                 </div>
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
@@ -126,11 +123,11 @@ export default class Profile extends React.Component<IProfileProps> {
                             <button className='mr-2 following-button'><b>{posts}</b> posts</button>
                         </div>
                         <div>
-                            <button onClick={this.modalToggle('followersModal')} className='mr-2 following-button'>
+                            <button onClick={(): void => this.modalToggle('followersModal')} className='mr-2 following-button'>
                                 <b>{followers}</b> followers</button>
                         </div>
                         <div>
-                            <button onClick={this.modalToggle('followingModal')} className='following-button'>
+                            <button onClick={(): void => this.modalToggle('followingModal')} className='following-button'>
                                 <b>{following}</b> following</button>
                         </div>
                     </div>
@@ -157,8 +154,8 @@ export default class Profile extends React.Component<IProfileProps> {
                 <div className='container'>
                     <PostContainer username={this.props.urlUsername}/>
                 </div>
-                <FollowList toggle={this.modalToggle('followers')} modal={this.state.followersModal} title='Followers'data={FollowersData}/>
-                <FollowList toggle={this.modalToggle('following')} modal={this.state.followingModal} title='Following' data={FollowersData}/>
+                <FollowList toggle={(): void => this.modalToggle('followersModal')} modal={this.state.followersModal} title='Followers'data={FollowersData}/>
+                <FollowList toggle={(): void => this.modalToggle('followingModal')} modal={this.state.followingModal} title='Following' data={FollowersData}/>
             </div>
         );
     }
