@@ -2,6 +2,7 @@ import {
     GET_NEWS_FEED_PENDING,
     GET_NEWS_FEED_SUCCESS,
     GET_MORE_NEWS_FEED_SUCCESS,
+    UPLOAD_NEXT_FEED_POSTS,
     ALL_NEWS_FEED_LOADED,
     CLEAR_NEWS_FEED_LOADED,
 } from './actionTypes';
@@ -77,6 +78,13 @@ export const newsFeedReducer = (
                 ...state,
                 loaded: false,
             };
+
+        case UPLOAD_NEXT_FEED_POSTS:
+            return {
+                ...state,
+                page: action.payload,
+            };
+
         default:
             return state;
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getNewsFeedAsync, getMoreNewsFeedAsync } from '../../store/newsFeed/actions';
+import { getNewsFeedAsync, getMoreNewsFeedAsync, addNextFeedPosts } from '../../store/newsFeed/actions';
 import { addLike, checkUserLikeExist, deleteLike, setCountOfLikes } from '../../store/like/actions';
 import FeedPost from '../../components/FeedPost';
 import Menu from '../../components/Menu';
@@ -32,7 +32,7 @@ class FeedContainer extends React.Component<any> {
                                 countOfLikes={this.props.countOfLikes}
                                 likeExist={this.props.likeExist}
                                 checkUserLikeExist={this.props.checkUserLikeExist}
-                                addNextPosts={this.props.addNextPosts}
+                                addNextFeedPosts={this.props.addNextFeedPosts}
                                 loggedUsername={loggedUsername}
                             />,
                             )}
@@ -71,6 +71,7 @@ const mapDispatchToProps = {
     addLike,
     checkUserLikeExist,
     deleteLike,
+    addNextFeedPosts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeedContainer);

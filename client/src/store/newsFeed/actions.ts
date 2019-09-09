@@ -5,6 +5,7 @@ import {
     GET_NEWS_FEED_PENDING,
     GET_NEWS_FEED_SUCCESS,
     GET_MORE_NEWS_FEED_SUCCESS,
+    UPLOAD_NEXT_FEED_POSTS,
     ALL_NEWS_FEED_LOADED,
     CLEAR_NEWS_FEED_LOADED,
 } from './actionTypes';
@@ -23,6 +24,11 @@ export const getMoreNewsFeedSuccess = (userNews: any): { type: string, payload: 
     type: GET_MORE_NEWS_FEED_SUCCESS,
     payload: userNews,
 })
+
+export const addNextFeedPosts = (page: number): {type: string, payload: number} => ({
+    type: UPLOAD_NEXT_FEED_POSTS,
+    payload: page,
+});
 
 export const allNewsFeedLoaded = (): { type: string } => ({
     type: ALL_NEWS_FEED_LOADED,
