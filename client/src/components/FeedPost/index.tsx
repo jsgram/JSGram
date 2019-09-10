@@ -3,64 +3,143 @@ import '../../styles/style.scss';
 import '../Post/style.scss';
 import noAvatar from '../../assets/noAvatar.svg';
 import {Link} from 'react-router-dom';
+import TextareaAutosize from 'react-textarea-autosize';
+import { formatDescription } from '../../helpers/regex.description';
+import { IUserData } from '../Profile';
 
-export default class FeedPost extends React.Component<any> {
+interface IBody {
+    userId: string;
+    postId: string;
+}
+
+interface IProps {
+    id: any;
+    newsFeed: any;
+    author: any;
+    image: any;
+    description: string;
+    authorsOfLike: any;
+    user: IUserData;
+    getNewsFeedAsync: () => void;
+    getMoreNewsFeedAsync: (page: number) => void;
+    addLoggedUserLike: (loggedUserId: string, postId: string, authorsOfLike: []) => void;
+    removeLoggedUserLike: (loggedUserId: string, postId: string, authorsOfLike: []) => void;
+    addLike: (body: IBody) => void;
+    setCountOfLikes: (countOfLikes: number) => void;
+    deleteLike: (body: IBody) => void;
+    countOfLikes: number;
+    likeExist: boolean;
+    checkUserLikeExist: (doesExist: boolean) => void;
+    addNextFeedPosts: (pageNumber: number) => void;
+    loggedId: string;
+    loggedUsername: string;
+}
+
+export default class FeedPost extends React.Component<IProps> {
+
+    public componentDidUpdate(prevProps: any): void {
+        const {newsFeed: {authorsOfLike}}: any = this.props;
+        const {newsFeed:  {authorsOfLike: prevAuthorsOfLike}}: any = prevProps;
+        if (authorsOfLike !== prevAuthorsOfLike) {
+            this.props.setCountOfLikes(authorsOfLike.length);
+
+            const checkLoggedUserLikeExist = authorsOfLike.filter((userId: string) =>
+                this.props.user._id === userId,
+            );
+
+            this.props.checkUserLikeExist(!!checkLoggedUserLikeExist.length);
+        }
+    }
+
+    public onAddLike = (): void => {
+        const {
+            user: {_id: userId},
+            id: postId,
+        }: any = this.props;
+        const body = {userId, postId};
+        this.props.addLoggedUserLike(
+            this.props.loggedId,
+            postId,
+            this.props.authorsOfLike,
+        );
+        this.props.addLike(body);
+    }
+
+    public onDeleteLike = (): void => {
+        const {
+            user: {_id: userId},
+            id: postId,
+        }: any = this.props;
+        const body = {userId, postId};
+        this.props.removeLoggedUserLike(
+            this.props.loggedId,
+            postId,
+            this.props.authorsOfLike,
+        );
+        this.props.deleteLike(body);
+    }
 
     public render(): JSX.Element {
+        const {author, image, description, likeExist, authorsOfLike, id}: any = this.props;
+
+        const likeButton = likeExist ?
+            (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>) :
+            (<i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>);
+
         return (
             <div className='profile-post border mb-5'>
                 <div className='post-header p-2 border'>
                     <div className='d-flex flex-row'>
                         <img
-                            src={noAvatar}
+                            src={author.photoPath || noAvatar}
                             alt='avatar'
                             width={32}
                             height={32}
                             className='img-fluid rounded-circle'
                         />
                         <Link
-                            to={`/profile/${this.props.author}`}
+                            to={`/profile/${author.username}`}
                             className='text-dark mt-1 ml-3'>
-                            {this.props.author}
+                            {author.username}
                         </Link>
                     </div>
                 </div>
                 <img
-                    src={this.props.image}
+                    src={image}
                     className='w-100 img-fluid'
                     alt='post'
                 />
                 <div className='d-block mt-3 mb-2 pl-3'>
-                    <i className='fa fa-heart fa-2x fa-lg pr-1 like'/>
-                    <span className='pl-2'>5 likes</span>
+                    <span className='pl-2'>{likeButton} {authorsOfLike.length} likes</span>
                 </div>
                 <div className='description-post pb-3 border-bottom'>
                     <div className='d-block pl-3 text-description'>
                         <img
-                            src={noAvatar}
+                            src={author.photoPath || noAvatar}
                             alt='avatar'
                             width={32}
                             height={32}
                             className='img-fluid rounded-circle'
                         />
                         <Link
-                            to={`/profile/${this.props.author}`}
+                            to={`/profile/${author.username}`}
                             className='d-inline-block text-dark ml-2'
                         >
-                            {this.props.author}
+                            {author.username}
                         </Link>
                         <p className='pl-2 mt-2 justify-self-start align-self-start'>
-                            {this.props.description}
+                            {formatDescription(description)}
                         </p>
                     </div>
                 </div>
                 <div className='mt-3 px-2 d-flex'>
-                                        <textarea
-                                            className='add-comment p-0 border-0 col-9'
-                                            placeholder='Write your comment...'
-                                            autoComplete='off'
-                                            rows={3}
-                                        />
+                    <TextareaAutosize
+                        className='add-comment flex-grow-1 border-0 p-2'
+                        placeholder='Write your comment...'
+                        autoComplete='off'
+                        minRows={1}
+                        maxRows={4}
+                    />
                     <button
                         className='button-comment p-0 border-0 mr-lg-2 mr-3 col-3'
                         type='submit'

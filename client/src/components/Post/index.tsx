@@ -8,6 +8,7 @@ import { Modal, ModalHeader, Spinner, Input, FormGroup, Button, InputGroup, Inpu
 import './style.scss';
 import MenuPost from '../MenuPost';
 import noAvatar from '../../assets/noAvatar.svg';
+import { formatDescription } from '../../helpers/regex.description';
 
 interface IBody {
     userId: string;
@@ -130,24 +131,6 @@ export default class Post extends React.Component<IProps> {
         const {userPosts, user, likeExist, countOfLikes}: any = this.props;
         const {selectedPost: {description: desc}}: any = userPosts;
 
-        const HASH_REGEXP = /[#][a-z]+/;
-        const MENTION_REGEXP = /[@][a-z]+/;
-        const LINK_REGEXP = /(?:(?:https?|ftp):\/\/|www\.)[^\s/$.?#].[^\s]*/;
-
-        const hashtagRegex = new RegExp(`(${HASH_REGEXP.source}|${MENTION_REGEXP.source}|${LINK_REGEXP.source})`, 'ig');
-        const formatDescription = desc && desc.split(hashtagRegex).map((token: string) => {
-            switch (true) {
-                case !!token.match(HASH_REGEXP):
-                    return (<a href={`/profile/${token.slice(1)}`}>{token}</a>);
-                case !!token.match(MENTION_REGEXP):
-                    return (<a href={`/profile/${token.slice(1)}`}>{token}</a>);
-                case !!token.match(LINK_REGEXP):
-                    return (<a href={token}>{token}</a>);
-                default:
-                    return token;
-            }
-        });
-
         const likeButton = likeExist ?
             (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>) :
             (<i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>);
@@ -237,7 +220,7 @@ export default class Post extends React.Component<IProps> {
                                         {likeButton}
                                         <span>{countOfLikes} likes</span>
                                     </p>
-                                    <p>{formatDescription}</p>
+                                    <p>{formatDescription(desc)}</p>
                                 </div>
 
                                 <div className='flex-grow-1 comments px-3 text-description'>
