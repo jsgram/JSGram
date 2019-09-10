@@ -31,7 +31,7 @@ const SideBar = ({user: {fullName, photo}, loggedUsername}: any): JSX.Element =>
                         <div className='d-flex justify-content-center'>
                             <img
                                 src={photo || noAvatar}
-                                className='img-fluid w-50'
+                                className='img-fluid w-50 rounded-circle'
                                 alt='avatar'
                                 height={150}
                                 width={150}
