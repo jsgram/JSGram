@@ -10,13 +10,13 @@ interface IParams {
 
 export const getFeed = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { locals: { user: { following } } }: Response = res;
-        const { params: { page } }: IParams = req;
-        const skip = (page - 1) * postsPerPage;
-
-        const feed = await getPostsForFeed(following, skip, postsPerPage);
-
-        res.json({ feed });
+      
+        const {_id, username, email}: IUserModel = res.locals.user;
+        res.json({
+            _id,
+            username,
+            email,
+        })
     } catch (e) {
         return next(e);
     }

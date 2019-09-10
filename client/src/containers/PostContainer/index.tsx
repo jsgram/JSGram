@@ -9,9 +9,12 @@ import {
     editDescriptionForPost,
     resetPosts,
     addNextPosts,
+    addLike,
+    checkUserLikeExist,
+    deleteLike,
+    setCountOfLikes, addLoggedUserLike, removeLoggedUserLike,
 } from '../../store/post/actions';
 import { deletePhoto, getUser } from '../../store/profile/actions';
-import { addLike, checkUserLikeExist, deleteLike, setCountOfLikes } from '../../store/like/actions';
 
 const PostContainer = (props: any): JSX.Element => (
     <Post
@@ -21,8 +24,10 @@ const PostContainer = (props: any): JSX.Element => (
         getMorePostsAsync={props.getMorePostsAsync}
         deletePhoto={props.deletePhoto}
         addLike={props.addLike}
+        addLoggedUserLike={props.addLoggedUserLike}
         setCountOfLikes={props.setCountOfLikes}
         deleteLike={props.deleteLike}
+        removeLoggedUserLike={props.removeLoggedUserLike}
         countOfLikes={props.countOfLikes}
         showPost={props.showPost}
         likeExist={props.likeExist}
@@ -33,6 +38,7 @@ const PostContainer = (props: any): JSX.Element => (
         getUser={props.getUser}
         resetPosts={props.resetPosts}
         addNextPosts={props.addNextPosts}
+        loggedId={props.loggedId}
         loggedUsername={props.loggedUsername}
     />
 );
@@ -40,9 +46,10 @@ const PostContainer = (props: any): JSX.Element => (
 const mapStateToProps = (state: any, ownProps: { username: string }): any => ({
     userPosts: state.userPosts,
     user: state.profile.user,
-    countOfLikes: state.like.countOfLikes,
-    likeExist: state.like.likeExist,
+    countOfLikes: state.userPosts.countOfLikes,
+    likeExist: state.userPosts.likeExist,
     ownProps: ownProps.username,
+    loggedId: state.feed.loggedId,
     loggedUsername: state.feed.loggedUsername,
 });
 
@@ -52,8 +59,10 @@ const mapDispatchToProps = {
     deletePhoto,
     setCountOfLikes,
     addLike,
+    addLoggedUserLike,
     checkUserLikeExist,
     deleteLike,
+    removeLoggedUserLike,
     showPost,
     editPost,
     editDescriptionForPost,
