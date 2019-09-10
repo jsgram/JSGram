@@ -24,7 +24,7 @@ export interface IUserData {
     getPostsAsync: () => void;
 }
 
-export interface IProfileProps {
+export interface IProfileState {
     urlUsername: string;
     loggedUsername: string;
     user: IUserData;
@@ -35,7 +35,7 @@ export interface IProfileProps {
     resetPosts: () => void;
     getPostsAsync: (username: string) => void;
 }
-interface IModalProps{
+interface IModalState{
     loaded: boolean;
     followersModal: boolean;
     followingModal: boolean; 
@@ -43,9 +43,9 @@ interface IModalProps{
     [isOpenModal: string] : boolean;
 }
 
-export default class Profile extends React.Component<IProfileProps> {
+export default class Profile extends React.Component<IProfileState> {
 
-    public state: IModalProps = {
+    public state: IModalState = {
         loaded: false,
         avatarModal: false,
         followersModal: false,
