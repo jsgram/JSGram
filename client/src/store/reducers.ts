@@ -8,7 +8,6 @@ import {changeEmailReducer} from './emailChange/reducers';
 import {postReducer} from './post/reducers';
 import { feedReducer } from './feed/reducers';
 import { profileEditReducer } from './profileEdit/reducers';
-import { likeReducers } from './like/reducers';
 
 export default combineReducers({
     form: formReducer,
@@ -20,5 +19,4 @@ export default combineReducers({
     changeEmail: changeEmailReducer,
     userPosts: postReducer,
     feed: feedReducer,
-    like: likeReducers,
 });
