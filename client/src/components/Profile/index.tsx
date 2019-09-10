@@ -11,8 +11,8 @@ import PostContainer from '../../containers/PostContainer';
 
 export interface IUserData {
     posts: number;
-    followers: number;
-    following: number;
+    followers: number[];
+    following: number[];
     description: string;
     fullName: string;
     username: string;
@@ -24,11 +24,15 @@ export interface IUserData {
 
 export interface IProfileProps {
     urlUsername: string;
+    loggedId: string;
     loggedUsername: string;
     user: IUserData;
     loaded: boolean;
     loading: boolean;
+    loadFollow: boolean;
     getUser: (username: string) => void;
+    followUser: any; // TODO fix any
+    unfollowUser: any; // TODO fix any
     deletePhoto: () => void;
     resetPosts: () => void;
     getPostsAsync: (username: string) => void;
@@ -72,9 +76,24 @@ export default class Profile extends React.Component<IProfileProps> {
         this.setState({modal: !this.state.modal});
     }
 
+    public followUrlUser = (): void => {
+        const body = {_id: this.props.user._id};
+        this.props.followUser(body);
+    }
+
+    public unfollowUrlUser = (): void => {
+        const body = {_id: this.props.user._id};
+        this.props.unfollowUser(body);
+    }
+
     public render(): JSX.Element {
         const {user: {posts, followers, following, fullName, username, description, photo}}: IProfileProps = this.props;
         const {loaded}: { loaded: boolean } = this.state;
+
+        const loggedUserAlreadyFollowUrlUser =
+            followers.filter((follower: any) => follower === this.props.loggedId);
+        const urlUserAlreadyFollowLoggedUser =
+            following.filter((follower: any) => follower === this.props.loggedId);
 
         if (!loaded) {
             return (<Instagram/>);
@@ -110,24 +129,51 @@ export default class Profile extends React.Component<IProfileProps> {
                             <a href='#/' className='mr-2'><b>{posts}</b> posts</a>
                         </div>
                         <div>
-                            <a href='#/' className='mr-2'><b>{followers}</b> followers</a>
+                            <a href='#/' className='mr-2'><b>{followers.length}</b> followers</a>
                         </div>
                         <div>
-                            <a href='#/'><b>{following}</b> following</a>
+                            <a href='#/'><b>{following.length}</b> following</a>
                         </div>
                     </div>
                     <div className='description mt-4'>
                         <strong>{fullName}</strong>
                         <p>{description}</p>
                     </div>
-                    <Link to='/add-post'>
-                        {this.props.urlUsername === this.props.loggedUsername &&
-                        <Button className='btn' color='danger'><i
-                            className='fa fa-plus pr-3'/>
-                            Add Post
-                        </Button>
-                        }
-                    </Link>
+                    {this.props.loadFollow ? <Spinner color='light'/> :
+                        this.props.urlUsername === this.props.loggedUsername ?
+                        <Link to='/add-post'>
+                            <Button className='btn' color='danger'><i
+                                className='fa fa-plus pr-3'/>
+                                Add Post
+                            </Button>
+                        </Link>
+                        :
+                        !!loggedUserAlreadyFollowUrlUser.length ?
+                            <span onClick={this.unfollowUrlUser}>
+                                <Button className='btn' color='danger'><i
+                                    className=''
+                                />
+                                    Unfollow
+                                </Button>
+                            </span>
+                            :
+                            !!urlUserAlreadyFollowLoggedUser.length ?
+                                <span onClick={this.followUrlUser}>
+                                    <Button className='btn' color='danger'><i
+                                        className=''
+                                    />
+                                        Follow back
+                                    </Button>
+                                </span>
+                                :
+                                <span onClick={this.followUrlUser}>
+                                    <Button className='btn' color='danger'><i
+                                        className=''
+                                    />
+                                        Follow
+                                    </Button>
+                                </span>
+                    }
                     {this.state.modal && <PopUpModal
                         modal={this.state.modal}
                         toggleModal={this.toggleModal}

@@ -13,13 +13,14 @@ import {
     UPLOAD_AVATAR_PENDING,
     UPLOAD_AVATAR_SUCCESS,
     UPLOAD_AVATAR_ERROR,
+    FOLLOW_USER, UNFOLLOW_USER, FOLLOW_USER_PENDING, FOLLOW_USER_SUCCESS,
 } from './actionTypes';
 
 interface IState {
     user: {
         posts: number;
-        followers: number;
-        following: number;
+        followers: number[];
+        following: number[];
         description: string;
         fullName: string;
         username: string;
@@ -30,14 +31,15 @@ interface IState {
     error: any;
     loaded: boolean;
     loading: boolean;
+    loadFollow: boolean;
     avatar: File | null;
 }
 
 export const defaultState = {
     user: {
         posts: 0,
-        followers: 0,
-        following: 0,
+        followers: [],
+        following: [],
         description: '',
         fullName: '',
         username: '',
@@ -50,12 +52,13 @@ export const defaultState = {
     error: '',
     loaded: false,
     loading: false,
+    loadFollow: false,
     avatar: null,
 };
 
 export const profileReducer = (
-        state: IState = defaultState,
-        action: { type: string, payload: any },
+    state: IState = defaultState,
+    action: { type: string, payload: any },
 ): IState => {
     switch (action.type) {
         case GET_USER_PENDING:
@@ -156,6 +159,32 @@ export const profileReducer = (
                 error: action.payload,
                 loaded: false,
                 loading: false,
+            };
+        case FOLLOW_USER:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    followers: action.payload.urlUserFollowers,
+                },
+            };
+        case FOLLOW_USER_PENDING:
+            return {
+                ...state,
+                loadFollow: true,
+            };
+        case FOLLOW_USER_SUCCESS:
+            return {
+                ...state,
+                loadFollow: false,
+            };
+        case UNFOLLOW_USER:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    followers: action.payload.urlUserFollowers,
+                },
             };
         default:
             return state;
