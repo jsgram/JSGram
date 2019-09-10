@@ -40,7 +40,7 @@ interface IProps{
     followersModal: boolean;
     followingModal: boolean; 
     avatarModal: boolean;
-[isOpenModal: string] : boolean;
+    [isOpenModal: string] : boolean;
 }
 
 export default class Profile extends React.Component<IProfileProps> {
@@ -50,7 +50,6 @@ export default class Profile extends React.Component<IProfileProps> {
         avatarModal: false,
         followersModal: false,
         followingModal: false,
-        isOpenModal: false,
     };
     public timerHandle: any = 0;
 
@@ -80,7 +79,7 @@ export default class Profile extends React.Component<IProfileProps> {
         this.timerHandle = 0;
     }
 
-     public modalToggle = (isOpenModal:string): any => {
+     public modalToggle = (isOpenModal:string): void => {
 
         this.setState({ [isOpenModal]: !this.state[isOpenModal]});
     }
@@ -145,7 +144,7 @@ export default class Profile extends React.Component<IProfileProps> {
                     </Link>
                     {this.state.avatarModal && <PopUpModal
                         modal={this.state.avatarModal}
-                        toggleModal={this.modalToggle('avatarModal')}
+                        toggleModal={(): void => this.modalToggle('avatarModal')}
                         loading={this.props.loading}
                         deletePhoto={this.props.deletePhoto}
                         photo={photo}

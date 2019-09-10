@@ -270,42 +270,6 @@ export default class Post extends React.Component<IProps> {
                         </div>
                     </div>
                 </Modal>
-
-                {/* <Modal
-                    isOpen={this.state.editModal}
-                    toggle={(): void => this.toggleEdit(userPosts.selectedPost)}>
-                    <ModalHeader
-                        toggle={(): void => this.toggleEdit(userPosts.selectedPost)}>
-                        Edit Post
-                    </ModalHeader>
-                    <FormGroup className='text-center m-3 post-photo'>
-                        <img
-                            src={userPosts.selectedPost.imgPath}
-                            width={293}
-                            height={293}
-                            id={userPosts.selectedPost._id}
-                            alt='post'
-                            className='img-fluid w-100'
-                        />
-                    </FormGroup>
-                    <FormGroup className='m-3 change-description'>
-                        <Input
-                            type='textarea'
-                            name='description'
-                            placeholder='Write a caption...'
-                            spellCheck={false}
-                            value={userPosts.selectedPost.description}
-                            onChange={this.onDescriptionChange}
-                        />
-                        <Button
-                            color='danger'
-                            className='mt-2'
-                            block
-                            onClick={this.onEditPost}>
-                            Update Post
-                        </Button>
-                    </FormGroup>
-                </Modal> */}
             </div>
         );
     }

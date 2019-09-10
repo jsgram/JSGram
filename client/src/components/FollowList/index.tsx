@@ -2,8 +2,7 @@ import React, { ReactElement } from 'react';
 import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap';
 import userphoto from '../../assets/user1.png';
 import './style.scss';
-interface IFollowData 
- {
+interface IFollowData {
     username: string;
 }
 export const FollowList = ({toggle, modal, title,data}: {toggle: () => void,
