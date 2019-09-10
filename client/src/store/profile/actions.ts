@@ -142,7 +142,6 @@ export const uploadPostAvatar = (avatar: File): (dispatch: Dispatch) => Promise<
         }
     };
 
-// TODO fix any
 export const addFollowUser = (loggedId: string, urlUserFollowers: []):
     { type: string, payload: { loggedId: string, urlUserFollowers: [] } } => ({
         type: FOLLOW_USER,
@@ -163,7 +162,7 @@ export const removeFollowUser = (loggedId: string, urlUserFollowers: []):
         payload: {loggedId, urlUserFollowers},
     });
 
-export const followUser = (body: any): (dispatch: Dispatch) => Promise<void> =>
+export const followUser = (body: {_id: string}): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(followUserPending());
@@ -175,7 +174,7 @@ export const followUser = (body: any): (dispatch: Dispatch) => Promise<void> =>
         }
     };
 
-export const unfollowUser = (body: any): (dispatch: Dispatch) => Promise<void> =>
+export const unfollowUser = (body: {_id: string}): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(followUserPending());

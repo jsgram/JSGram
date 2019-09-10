@@ -31,8 +31,8 @@ export interface IProfileProps {
     loading: boolean;
     loadFollow: boolean;
     getUser: (username: string) => void;
-    followUser: any; // TODO fix any
-    unfollowUser: any; // TODO fix any
+    followUser: (body: {_id: string}) => void;
+    unfollowUser: (body: {_id: string}) => void;
     deletePhoto: () => void;
     resetPosts: () => void;
     getPostsAsync: (username: string) => void;
