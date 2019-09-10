@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/style.scss';
 import { Instagram } from 'react-content-loader';
-import { Button, Spinner, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Button, Spinner } from 'reactstrap';
 import './style.scss';
 import { FollowersData} from '../FollowList/FollowersData';
 import { FollowList } from '../FollowList';
@@ -35,7 +35,7 @@ export interface IProfileProps {
     resetPosts: () => void;
     getPostsAsync: (username: string) => void;
 }
-interface IProps{
+interface IModalProps{
     loaded: boolean;
     followersModal: boolean;
     followingModal: boolean; 
@@ -45,7 +45,7 @@ interface IProps{
 
 export default class Profile extends React.Component<IProfileProps> {
 
-    public state: IProps = {
+    public state: IModalProps = {
         loaded: false,
         avatarModal: false,
         followersModal: false,
