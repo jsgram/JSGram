@@ -149,8 +149,7 @@ export const postReducer = (
                 page: 1,
             };
         case ADD_USER_LIKE:
-            const addNewAuthorToLikeArray = [...action.payload.authorsOfLike];
-            addNewAuthorToLikeArray.push(action.payload.loggedUserId);
+            const addNewAuthorToLikeArray = [...action.payload.authorsOfLike, action.payload.loggedUserId];
             return {
                 ...state,
                 selectedPost: {
@@ -168,9 +167,8 @@ export const postReducer = (
                 }),
             };
         case REMOVE_USER_LIKE:
-            const removeAuthorsFromLikeArray = [...action.payload.authorsOfLike];
-            const index = removeAuthorsFromLikeArray.indexOf(action.payload.loggedUserId);
-            removeAuthorsFromLikeArray.splice(index, 1);
+            const removeAuthorsFromLikeArray = action.payload.authorsOfLike.filter((like: string) =>
+                like !== action.payload.loggedUserId);
             return {
                 ...state,
                 selectedPost: {

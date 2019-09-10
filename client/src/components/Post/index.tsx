@@ -87,17 +87,16 @@ export default class Post extends React.Component<IProps> {
     }
 
     public componentDidUpdate(prevProps: IProps): void {
-        if (this.props.userPosts.selectedPost.authorsOfLike !== prevProps.userPosts.selectedPost.authorsOfLike) {
-            this.props.setCountOfLikes(this.props.userPosts.selectedPost.authorsOfLike.length);
+        const {userPosts: {selectedPost: {authorsOfLike}}}: any = this.props;
+        const {userPosts: {selectedPost: {authorsOfLike: prevAuthorsOfLike}}}: any = prevProps;
+        if (authorsOfLike !== prevAuthorsOfLike) {
+            this.props.setCountOfLikes(authorsOfLike.length);
 
-            const arr = this.props.userPosts.selectedPost.authorsOfLike.filter((userId: string) =>
+            const checkLoggedUserLikeExist = authorsOfLike.filter((userId: string) =>
                 this.props.user._id === userId,
             );
 
-            if (arr.length) {
-                return this.props.checkUserLikeExist(true);
-            }
-            return this.props.checkUserLikeExist(false);
+            this.props.checkUserLikeExist(!!checkLoggedUserLikeExist.length);
         }
     }
 
