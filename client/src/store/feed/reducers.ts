@@ -2,17 +2,20 @@ import { SET_LOGGED_USERNAME } from './actionTypes';
 
 export interface IState {
     loggedUsername: string;
-    urlUsername: string;
+    loggedId: string;
 }
 
 interface IAction {
     type: string;
-    payload: string;
+    payload: {
+        loggedUsername: string,
+        loggedId: string,
+    };
 }
 
 const defaultState = {
     loggedUsername: '',
-    urlUsername: '',
+    loggedId: '',
 };
 
 export const feedReducer = (state: IState = defaultState, action: IAction): IState => {
@@ -20,7 +23,8 @@ export const feedReducer = (state: IState = defaultState, action: IAction): ISta
         case SET_LOGGED_USERNAME:
             return {
                 ...state,
-                loggedUsername: action.payload,
+                loggedUsername: action.payload.loggedUsername,
+                loggedId: action.payload.loggedId,
             };
         default:
             return state;

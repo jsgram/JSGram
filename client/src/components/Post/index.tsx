@@ -21,9 +21,11 @@ interface IProps {
     getPostsAsync: (username: string) => void;
     getMorePostsAsync: (username: string, page: number) => void;
     deletePhoto: () => void;
+    addLoggedUserLike: (loggedUserId: string, postId: string, authorsOfLike: []) => void;
     addLike: (body: IBody) => void;
     setCountOfLikes: (countOfLikes: number) => void;
     deleteLike: (body: IBody) => void;
+    removeLoggedUserLike: (loggedUserId: string, postId: string, authorsOfLike: []) => void;
     countOfLikes: number;
     editPost: (description: string, id: string) => void;
     showPost: (post: any) => void;
@@ -33,6 +35,7 @@ interface IProps {
     getUser: (username: string) => void;
     resetPosts: () => void;
     addNextPosts: (pageNumber: number) => void;
+    loggedId: string;
     loggedUsername: string;
 }
 
@@ -83,16 +86,18 @@ export default class Post extends React.Component<IProps> {
         this.props.getPostsAsync(this.props.user.username);
     }
 
-    public onDeleteLike = (): void => {
-        const {
-            user: {_id: userId},
-            userPosts: {selectedPost: {_id: postId}},
-        }: any = this.props;
-        const body = {userId, postId};
-        // TODO CAN NOT CHANGE PROPS DIRECTLY
-        const index = this.props.userPosts.selectedPost.authorsOfLike.indexOf(body.userId);
-        this.props.userPosts.selectedPost.authorsOfLike.splice(index, 1);
-        this.props.deleteLike(body);
+    public componentDidUpdate(prevProps: IProps): void {
+        const {userPosts: {selectedPost: {authorsOfLike}}}: any = this.props;
+        const {userPosts: {selectedPost: {authorsOfLike: prevAuthorsOfLike}}}: any = prevProps;
+        if (authorsOfLike !== prevAuthorsOfLike) {
+            this.props.setCountOfLikes(authorsOfLike.length);
+
+            const checkLoggedUserLikeExist = authorsOfLike.filter((userId: string) =>
+                this.props.user._id === userId,
+            );
+
+            this.props.checkUserLikeExist(!!checkLoggedUserLikeExist.length);
+        }
     }
 
     public onAddLike = (): void => {
@@ -101,32 +106,29 @@ export default class Post extends React.Component<IProps> {
             userPosts: {selectedPost: {_id: postId}},
         }: any = this.props;
         const body = {userId, postId};
-        // TODO CAN NOT CHANGE PROPS DIRECTLY
-        this.props.userPosts.selectedPost.authorsOfLike.push(this.props.user._id);
+        this.props.addLoggedUserLike(
+            this.props.loggedId,
+            this.props.userPosts.selectedPost._id,
+            this.props.userPosts.selectedPost.authorsOfLike);
         this.props.addLike(body);
     }
 
-    // TODO refactoring in next sprint
-    public setLikesCount = (): boolean | void => {
-        if (!!this.props.userPosts.selectedPost.authorsOfLike) {
-            this.props.setCountOfLikes(this.props.userPosts.selectedPost.authorsOfLike.length);
-
-            const arr = this.props.userPosts.selectedPost.authorsOfLike.filter((userId: string) =>
-                this.props.user._id === userId,
-            );
-
-            if (arr.length) {
-                this.props.checkUserLikeExist(true);
-                return true;
-            }
-            this.props.checkUserLikeExist(false);
-            return false;
-        }
+    public onDeleteLike = (): void => {
+        const {
+            user: {_id: userId},
+            userPosts: {selectedPost: {_id: postId}},
+        }: any = this.props;
+        const body = {userId, postId};
+        this.props.removeLoggedUserLike(
+            this.props.loggedId,
+            this.props.userPosts.selectedPost._id,
+            this.props.userPosts.selectedPost.authorsOfLike);
+        this.props.deleteLike(body);
     }
 
     public render(): JSX.Element {
-        const { userPosts, user, likeExist, countOfLikes }: any = this.props;
-        const { selectedPost: { description: desc } }: any = userPosts;
+        const {userPosts, user, likeExist, countOfLikes}: any = this.props;
+        const {selectedPost: {description: desc}}: any = userPosts;
 
         const HASH_REGEXP = /[#][a-z]+/;
         const MENTION_REGEXP = /[@][a-z]+/;
@@ -146,7 +148,7 @@ export default class Post extends React.Component<IProps> {
             }
         });
 
-        const likeButton = this.setLikesCount() && likeExist ?
+        const likeButton = likeExist ?
             (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>) :
             (<i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>);
 
@@ -176,7 +178,7 @@ export default class Post extends React.Component<IProps> {
                     />
                 </div>
                 <div className='w-100 d-flex align-items-center justify-content-center'>
-                    { userPosts.loading && <Spinner className='mt-3' color='dark'/>}
+                    {userPosts.loading && <Spinner className='mt-3' color='dark'/>}
                 </div>
                 <Modal className='profile-post modal-lg modal-dialog-centered px-3 py-3'
                        isOpen={this.state.modal}
