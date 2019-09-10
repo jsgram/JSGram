@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { getPostsForFeed } from '../../db.requests/getFeed.requests';
-import { postsPerPage } from '../../common.constants/getPosts.constants';
+import { POSTS_PER_PAGE } from '../../common.constants/getPosts.constants';
 
 interface IParams {
     params: {
@@ -12,9 +12,9 @@ export const getFeed = async (req: Request, res: Response, next: NextFunction): 
     try {
         const { locals: { user: { following } } }: Response = res;
         const { params: { page } }: IParams = req;
-        const skip = (page - 1) * postsPerPage;
+        const skip = (page - 1) * POSTS_PER_PAGE;
 
-        const feed = await getPostsForFeed(following, skip, postsPerPage);
+        const feed = await getPostsForFeed(following, skip, POSTS_PER_PAGE);
 
         res.json({ feed });
     } catch (e) {
