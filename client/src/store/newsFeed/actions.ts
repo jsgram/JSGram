@@ -30,19 +30,19 @@ export const addNextFeedPosts = (page: number): {type: string, payload: number} 
     payload: page,
 });
 
-export const allNewsFeedLoaded = (): { type: string } => ({
-    type: ALL_NEWS_FEED_LOADED,
-})
-
 export const clearNewsFeedLoaded = (): { type: string } => ({
     type: CLEAR_NEWS_FEED_LOADED,
+})
+
+export const allNewsFeedLoaded = (): { type: string } => ({
+    type: ALL_NEWS_FEED_LOADED,
 })
 
 export const getNewsFeedAsync = (): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(getNewsFeedPending());
-            const res = await AuthAPI.get(`/feed/1`);
+            const res = await AuthAPI.get('/feed/1');
 
             dispatch(getNewsFeedSuccess(res.data.feed));
             dispatch(clearNewsFeedLoaded());

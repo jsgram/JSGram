@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getNewsFeedAsync, getMoreNewsFeedAsync, addNextFeedPosts } from '../../store/newsFeed/actions';
+import * as newsFeedAction from '../../store/newsFeed/actions';
 import { addLike, checkUserLikeExist, deleteLike, setCountOfLikes } from '../../store/like/actions';
 import FeedPost from '../../components/FeedPost';
 import Menu from '../../components/Menu';
@@ -11,7 +11,8 @@ import { INewsFeed } from '../../store/newsFeed/reducers';
 
 class FeedContainer extends React.Component<any> {
     public render(): JSX.Element {
-        const {newsFeed, user, loggedUsername}: any = this.props;
+        const {newsFeed, user, loggedUsername,
+            getNewsFeedAsync, getMoreNewsFeedAsync, addNextFeedPosts}: any = this.props;
         return (
             <Container>
                 <Menu/>
@@ -24,15 +25,15 @@ class FeedContainer extends React.Component<any> {
                                 author={feed.author}
                                 image={feed.imgPath}
                                 description={feed.description}
-                                getNewsFeedAsync={this.props.getNewsFeedAsync}
-                                getMoreNewsFeedAsync={this.props.getMoreNewsFeedAsync}
+                                getNewsFeedAsync={getNewsFeedAsync}
+                                getMoreNewsFeedAsync={getMoreNewsFeedAsync}
                                 addLike={this.props.addLike}
                                 setCountOfLikes={this.props.setCountOfLikes}
                                 deleteLike={this.props.deleteLike}
                                 countOfLikes={this.props.countOfLikes}
                                 likeExist={this.props.likeExist}
                                 checkUserLikeExist={this.props.checkUserLikeExist}
-                                addNextFeedPosts={this.props.addNextFeedPosts}
+                                addNextFeedPosts={addNextFeedPosts}
                                 loggedUsername={loggedUsername}
                             />,
                             )}
@@ -65,13 +66,13 @@ const mapStateToProps = (state: any): any => ({
 });
 
 const mapDispatchToProps = {
-    getNewsFeedAsync,
-    getMoreNewsFeedAsync,
+    getNewsFeedAsync: newsFeedAction.getNewsFeedAsync,
+    getMoreNewsFeedAsync: newsFeedAction.getMoreNewsFeedAsync,
     setCountOfLikes,
     addLike,
     checkUserLikeExist,
     deleteLike,
-    addNextFeedPosts,
+    addNextFeedPosts: newsFeedAction.addNextFeedPosts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeedContainer);

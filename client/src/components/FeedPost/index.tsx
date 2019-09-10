@@ -5,6 +5,8 @@ import noAvatar from '../../assets/noAvatar.svg';
 import { Link } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
 import { formatDescription } from '../../helpers/regex.description';
+import { Spinner } from 'reactstrap';
+import TextareaAutosize from 'react-textarea-autosize';
 
 interface IBody {
     userId: string;
@@ -30,15 +32,15 @@ interface IProps {
 
 export default class FeedPost extends React.Component<IProps> {
 
-    public componentDidMount(): void {
-        this.props.getNewsFeedAsync();
-    }
-
-    public getMorePosts = (): void => {
+    public getMoreFeedPosts = (): void => {
         if (!this.props.newsFeed.loaded) {
             this.props.addNextFeedPosts(this.props.newsFeed.page + 1);
             this.props.getMoreNewsFeedAsync(this.props.newsFeed.page);
         }
+    }
+
+    public componentDidMount(): void {
+        this.props.getNewsFeedAsync();
     }
 
     public render(): JSX.Element {
@@ -91,12 +93,13 @@ export default class FeedPost extends React.Component<IProps> {
                     </div>
                 </div>
                 <div className='mt-3 px-2 d-flex'>
-                                        <textarea
-                                            className='add-comment p-0 border-0 col-9'
-                                            placeholder='Write your comment...'
-                                            autoComplete='off'
-                                            rows={3}
-                                        />
+                    <TextareaAutosize
+                        className='add-comment flex-grow-1 border-0 p-2'
+                        placeholder='Write your comment...'
+                        autoComplete='off'
+                        minRows={1}
+                        maxRows={4}
+                    />
                     <button
                         className='button-comment p-0 border-0 mr-lg-2 mr-3 col-3'
                         type='submit'
@@ -108,9 +111,12 @@ export default class FeedPost extends React.Component<IProps> {
                 <Waypoint
                     scrollableAncestor={window}
                     onEnter={(): void => {
-                        this.getMorePosts();
+                        this.getMoreFeedPosts();
                     }}
                 />
+                <div className='w-100 d-flex align-items-center justify-content-center'>
+                    { this.props.newsFeed.loading && <Spinner className='mt-3' color='dark'/>}
+                </div>
             </div>
         );
     }
