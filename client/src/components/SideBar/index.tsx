@@ -5,7 +5,7 @@ import { Container, Nav, Col, Row } from 'reactstrap';
 import { SidebarRoute } from '../../routes/SidebarRoute';
 import { getUser } from '../../store/profile/actions';
 import { IUser } from '../../store/commonInterfaces/commonInterfaces';
-import noAvatar from '../../assets/noAvatar.svg';
+import noAvatar from '../../assets/noAvatar.png';
 import Menu from '../Menu';
 import './style.scss';
 

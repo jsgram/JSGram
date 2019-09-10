@@ -4,7 +4,7 @@ import { Instagram } from 'react-content-loader';
 import { Button, Spinner } from 'reactstrap';
 import './style.scss';
 import { PopUpModal } from '../PopUp';
-import noAvatar from '../../assets/noAvatar.svg';
+import noAvatar from '../../assets/noAvatar.png';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 import PostContainer from '../../containers/PostContainer';
