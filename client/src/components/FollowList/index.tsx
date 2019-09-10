@@ -9,8 +9,7 @@ export const FollowList = ({toggle, modal, title,data}: {toggle: () => void,
     modal: boolean, title: string, data: IFollowData[]}): ReactElement=> (
             <div>
                 <Modal className='modal-dialog-centered followers-modal' isOpen={modal}>
-                    <ModalHeader className='modal-header' toggle={toggle}
-                     cssModule={{'modal-title': 'w-100 text-center '}}>
+                    <ModalHeader className='modal-header' toggle={toggle}>
                         <p>{title}</p>
                     </ModalHeader>
                     <ModalBody className='modal-body'>
