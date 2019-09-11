@@ -25,14 +25,11 @@
     padding-bottom: 30%;
 
     &::-webkit-scrollbar {
-      width: 0px;
-    }
-
-    .com {
-      height: 10px;
+      width: 0;
     }
   }
 
+  // stylelint-disable
   .one-comment {
     &:hover {
       .edit-delete-comment {
@@ -57,6 +54,7 @@
       }
     }
   }
+  // stylelint-enable
 
 
   .add-comment {
