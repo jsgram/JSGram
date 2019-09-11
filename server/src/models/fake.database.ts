@@ -13,7 +13,7 @@ import faker from 'faker/locale/en';
 faker.seed(983465);
 mongoose.set('useNewUrlParser', true);
 
-const { env: { DB_PATH } }: any = process; // FIXME any type
+const { env: { DB_PATH } }: any = process;
 const FAKE_DB_SIZE = parseInt(process.env.FAKE_DB_SIZE, 10);
 
 const clearDatabase = async function(path: string): Promise<void> {
@@ -24,9 +24,11 @@ const generateUsers = async function(size: number): Promise<IUserModel[]> {
     const {
         internet: { email, userName, password },
         name: { firstName, lastName },
-    }: any = faker; // FIXME any type
+        helpers: { shuffle },
+        random: { number: randomNumber },
+    }: any = faker;
 
-    const users = Array(size).fill(null).map((throwaway: null) => ({
+    const users = new Array(size).fill(null).map((throwaway: null) => ({
         email: email(),
         fullName: [firstName(), lastName()].join(' '),
         username: userName(),
@@ -34,13 +36,27 @@ const generateUsers = async function(size: number): Promise<IUserModel[]> {
         isVerified: true,
     }));
 
-    return await User.insertMany(users);
+    const createdUsers = await User.insertMany(users);
+
+    createdUsers.forEach(async (user: IUserModel) => {
+        const otherUsers = createdUsers.filter((u: IUserModel) => u !== user);
+        shuffle(otherUsers);
+
+        const followers = otherUsers.slice(randomNumber(size));
+        user.followers = followers;
+
+        followers.forEach(async (follower: IUserModel) => follower.following.push(user));
+    });
+
+    createdUsers.forEach(async (user: IUserModel) => await user.save());
+
+    return createdUsers;
 };
 
 const generateTokens = async function(users: IUserModel[], size: number): Promise<ITokenModel[]> {
-    const { random: { arrayElement, alphaNumeric } }: any = faker; // FIXME any type
+    const { random: { arrayElement, alphaNumeric } }: any = faker;
 
-    const tokens = Array(size).fill(null).map((throwaway: null) => ({
+    const tokens = new Array(size).fill(null).map((throwaway: null) => ({
         user: arrayElement(users),
         token: alphaNumeric(32),
     }));
@@ -52,9 +68,9 @@ const generatePosts = async function(users: IUserModel[], size: number): Promise
     const {
         random: { arrayElement, alphaNumeric, number },
         lorem: { words },
-    }: any = faker; // FIXME any type
+    }: any = faker;
 
-    const posts = Array(size).fill(null).map((throwaway: null) => ({
+    const posts = new Array(size).fill(null).map((throwaway: null) => ({
         user: arrayElement(users),
         description: words(number(12)),
         imgPath: alphaNumeric(32) + '.jpg',
@@ -65,9 +81,9 @@ const generatePosts = async function(users: IUserModel[], size: number): Promise
 };
 
 const generateLikes = async function(users: IUserModel[], posts: IPostModel[], size: number): Promise<ILikeModel[]> {
-    const { random: { arrayElement } }: any = faker; // FIXME any type
+    const { random: { arrayElement } }: any = faker;
 
-    const likes = Array(size).fill(null).map((throwaway: null) => ({
+    const likes = new Array(size).fill(null).map((throwaway: null) => ({
         userId: arrayElement(users),
         postId: arrayElement(posts),
     }));
