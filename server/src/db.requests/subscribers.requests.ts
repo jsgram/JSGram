@@ -15,10 +15,10 @@ export const findUser = async (username: string, next: NextFunction):
     }
 };
 
-export const findSubscribers = async (following: IUserModel[], skip: number, next: NextFunction):
+export const findSubscribers = async (subscribers: string[], skip: number, next: NextFunction):
     Promise<any> => {
     try {
-        const users = await User.find({_id: {$in: following}}).limit(20).skip(skip);
+        const users = await User.find({_id: {$in: subscribers}}).limit(20).skip(skip);
         if (!users) {
             throw new Error('Can not show users\' subscribers');
         }
