@@ -29,7 +29,6 @@
     }
   }
 
-  // stylelint-disable
   .one-comment {
     &:hover {
       .edit-delete-comment {
@@ -54,8 +53,6 @@
       }
     }
   }
-  // stylelint-enable
-
 
   .add-comment {
     outline: 0;
