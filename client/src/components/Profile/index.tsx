@@ -86,11 +86,13 @@ export default class Profile extends React.Component<IProfileProps> {
         this.props.unfollowUser(body);
     }
 
+    public filterUserList = (userList: any): IUserData[] =>
+        userList.filter((follower: string) => follower === this.props.loggedId,
+        )
+
     public dynamicButton = (): any => {
-        const loggedUserAlreadyFollowUrlUser =
-            this.props.user.followers.filter((follower: any) => follower === this.props.loggedId);
-        const urlUserAlreadyFollowLoggedUser =
-            this.props.user.following.filter((follower: any) => follower === this.props.loggedId);
+        const loggedUserAlreadyFollowUrlUser = this.filterUserList(this.props.user.followers);
+        const urlUserAlreadyFollowLoggedUser = this.filterUserList(this.props.user.following);
 
         if (this.props.loadFollow) {
             return <span><Spinner color='light'/></span>;

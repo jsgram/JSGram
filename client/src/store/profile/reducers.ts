@@ -161,6 +161,7 @@ export const profileReducer = (
                 loading: false,
             };
         case FOLLOW_USER:
+        case UNFOLLOW_USER:
             return {
                 ...state,
                 loadFollow: false,
@@ -173,15 +174,6 @@ export const profileReducer = (
             return {
                 ...state,
                 loadFollow: true,
-            };
-        case UNFOLLOW_USER:
-            return {
-                ...state,
-                loadFollow: false,
-                user: {
-                    ...state.user,
-                    followers: action.payload.urlUserFollowers,
-                },
             };
         default:
             return state;
