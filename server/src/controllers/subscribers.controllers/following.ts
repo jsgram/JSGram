@@ -1,14 +1,24 @@
 import { Request, Response, NextFunction } from 'express';
 import { IUserModel } from '../../models/user.model';
-import { findSubscribers } from '../../db.requests/subscribers.requests';
+import { findUser, findSubscribers } from '../../db.requests/subscribers.requests';
+import { POSTS_PER_PAGE } from '../../common.constants/getPosts.constants';
 
 export const getFollowing = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {locals: {user: {following}}}: { locals: { user: IUserModel } } = res.locals;
+        const {params: {username, page}}: { params: { username: string, page: number } } = req;
 
-        const users = await findSubscribers(following, next);
+        const urlUser = await findUser(username, next);
+        if (!urlUser) {
+            throw new Error('Can not find user');
+        }
+
+        const {following}: IUserModel = urlUser;
+
+        const skip = (page - 1) * POSTS_PER_PAGE;
+
+        const users = await findSubscribers(following, skip, next);
         if (!users) {
-            throw new Error('Can not show users\' following');
+            throw new Error('Can not show users\' followers');
         }
 
         res.json({users});
