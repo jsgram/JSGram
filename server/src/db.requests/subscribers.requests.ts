@@ -24,11 +24,13 @@ export const findSubscribers = async (subscribers: string[], skip: number, next:
         }
 
         const necessarySubscribersInfo = users.map((user: IUserModel) => {
-            const {_id, username, photoPath}: IUserModel = user;
+            const {_id, username, photoPath, followers, following}: IUserModel = user;
             return{
                 _id,
                 username,
                 photoPath,
+                followers,
+                following,
             };
         });
 
