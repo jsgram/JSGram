@@ -20,7 +20,7 @@ import { IUserData } from '../../components/Profile';
 import { showAlert } from '../alert/actions';
 import { IUserSubscriptions } from '../../containers/ProfileSubscriptionsContainer';
 import { IUserPrivacy } from '../../containers/ProfilePrivacyContainer';
-import { createDataForAWS } from '../../helpers/upload.photo';
+import {base64ToFile, createDataForAWS} from '../../helpers/upload.photo';
 
 export const getUserPending = (): { type: string } => ({
     type: GET_USER_PENDING,
@@ -78,7 +78,7 @@ export const uploadAvatarPending = (): { type: string } => ({
     type: UPLOAD_AVATAR_PENDING,
 });
 
-export const uploadAvatarSuccess = (avatar: any): { type: string, payload: File } => ({
+export const uploadAvatarSuccess = (avatar: string): { type: string, payload: string } => ({
     type: UPLOAD_AVATAR_SUCCESS,
     payload: avatar,
 });
@@ -128,13 +128,14 @@ export const changeSettings = (
         }
     };
 
-export const uploadPostAvatar = (avatar: File): (dispatch: Dispatch) => Promise<void> =>
+export const uploadPostAvatar = (croppedImage: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(uploadAvatarPending());
-            const res = await AuthAPI.post('/profile/photo', createDataForAWS('userPhoto', avatar));
+            const newFile = await base64ToFile(croppedImage, 'avatar', 'image/png');
+            const res = await AuthAPI.post('/profile/photo', createDataForAWS('userPhoto', newFile));
             dispatch(showAlert('Successfully uploaded', 'success'));
-            dispatch(uploadAvatarSuccess(res.data.userProfile));
+            dispatch(uploadAvatarSuccess(res.data.photoPath));
             dispatch(setPhotoToState(res.data.photoPath));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));

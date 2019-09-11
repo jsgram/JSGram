@@ -142,6 +142,7 @@ export default class AddPostCropper extends React.Component<IAddPostCropperProps
                                                 uploadImageToCropper={this.onUploadImageToCropper}
                                                 informFileError={informFileError}
                                                 resetImageSrc={this.resetImageSrc}
+                                                sizeMB={4}
                                             />
                                         )
                                 }
