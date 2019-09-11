@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import { formatDescription } from '../../helpers/regex.description';
 import { IUserData } from '../Profile';
+import { comments } from '../Post';
 
 interface IBody {
     userId: string;
@@ -129,6 +130,27 @@ export default class FeedPost extends React.Component<IProps> {
                         <p className='pl-2 mt-2 justify-self-start align-self-start'>
                             {formatDescription(description)}
                         </p>
+                    </div>
+                </div>
+                <div className='flex-grow-1 comments border-top position-relative'>
+                    <div className='position-absolute h-100'>
+                        { comments.map((comment: any) => (
+                            <div className='one-comment px-3' key={comment.id}>
+                                <img
+                                    src={comment.image || noAvatar}
+                                    alt='avatar'
+                                    width={24}
+                                    height={24}
+                                    className='img-fluid rounded-circle mt-1 mr-1 mb-1'
+                                />
+                                <span className='mt-1'>{comment.username}</span>
+                                <div className='d-inline-flex mt-3 float-right edit-delete-comment'>
+                                    <i className='fa fa-pencil mr-2 edit-comment' />
+                                    <i className='fa fa-trash-o delete-comment' />
+                                </div>
+                                <p>{comment.text}</p>
+                            </div>
+                        )) }
                     </div>
                 </div>
                 <div className='mt-3 px-2 d-flex'>
