@@ -12,6 +12,7 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
         const user = await getUserByUsername(userName, next);
 
         const {
+            _id,
             posts,
             followers,
             following,
@@ -24,13 +25,11 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
             email,
         }: any = user;
 
-        const _id = res.locals.user._id;
-
         const userProfile = {
             _id,
             posts: posts.length,
-            followers: followers.length,
-            following: following.length,
+            followers,
+            following,
             description: bio,
             fullName,
             username,
