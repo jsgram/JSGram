@@ -1,26 +1,31 @@
 import {
     SET_AVATAR_TO_CROPPER,
+    SET_CROPPED_IMAGE_FOR_AVATAR,
 } from './actionTypes';
-import { Dispatch } from 'redux';
-import { showAlert } from '../alert/actions';
-import { base64ToFile } from '../../helpers/upload.photo';
+import {Dispatch} from 'redux';
+import {showAlert} from '../alert/actions';
+import {history} from '../../history';
+import {RESET_ADD_POST} from '../addPost/actionTypes';
 
 export const setAvatarToCropper = (avatar: File): { type: string, payload: File } => ({
     type: SET_AVATAR_TO_CROPPER,
     payload: avatar,
 });
 
-export const informFileIsTooBig = (): (dispatch: Dispatch) => void =>
+export const setCroppedImageForAvatar = (croppedImage: string): { type: string, payload: string } => ({
+    type: SET_CROPPED_IMAGE_FOR_AVATAR,
+    payload: croppedImage,
+});
+
+export const informFileError = (message: string): (dispatch: Dispatch) => void =>
     (dispatch: Dispatch): void => {
-        dispatch(showAlert('File is too big', 'danger'));
+        dispatch(showAlert(message, 'danger'));
     };
 
-export const createFile = (preview: string): (dispatch: Dispatch) => Promise<void> =>
-    async (dispatch: Dispatch): Promise<void> => {
-        try {
-            const newFile = await base64ToFile(preview, 'avatar', 'image/png');
-            dispatch(setAvatarToCropper(newFile));
-        } catch (e) {
-            dispatch(showAlert(e.response.data.message, 'danger'));
-        }
+export const resetAddPost = (username: string): { type: string, payload: string } => {
+    history.push(`profile/${username}`);
+    return {
+        type: RESET_ADD_POST,
+        payload: username,
     };
+};

@@ -1,56 +1,34 @@
 import React from 'react';
-import { createFile, setAvatarToCropper, informFileIsTooBig } from '../../store/cropper/actions';
+import { informFileError, setCroppedImageForAvatar, resetAddPost } from '../../store/cropper/actions';
 import { uploadPostAvatar } from '../../store/profile/actions';
 import { connect } from 'react-redux';
-import Cropper, { ICropperProps } from '../../components/Cropper';
-import { IUserData } from '../../components/Profile';
+import CropperAvatar, {IAddAvatarCropperProps} from '../../components/Cropper';
 
-interface IState {
-    avatar: File | null;
-    file: File | null;
-    error: Error | null;
-    loaded: boolean;
+export interface IState {
+    croppedImage: string;
     loading: boolean;
-    user: IUserData;
 }
 
-interface ICropperState {
-    cropper: IState;
-    profile: {
-        user: IUserData;
-    };
-}
-
-const CropperContainer = (props: ICropperProps): JSX.Element => (
-    <Cropper
-        avatar={props.avatar}
-        file={props.file}
-        loaded={props.loaded}
-        error={props.error}
+const CropperContainer = (props: IAddAvatarCropperProps): JSX.Element => (
+    <CropperAvatar
         loading={props.loading}
-        user={props.user}
+        croppedImage={props.croppedImage}
         uploadPostAvatar={props.uploadPostAvatar}
-        setAvatarToCropper={props.setAvatarToCropper}
-        createFile={props.createFile}
-        informFileIsTooBig={props.informFileIsTooBig}
-        modalToggle={props.modalToggle}
+        setCroppedImageForAvatar={props.setCroppedImageForAvatar}
+        informFileError={props.informFileError}
+        resetAddPost={props.resetAddPost}
     />
 );
-
-const mapStateToProps = (state: ICropperState): IState => ({
-    avatar: state.cropper.avatar,
-    file: state.cropper.file,
-    loaded: state.cropper.loaded,
-    error: state.cropper.error,
-    loading: state.cropper.loading,
-    user: state.profile.user,
+const mapStateToProps = (state: any): IState => ({
+    croppedImage: state.cropper.croppedImage,
+    loading: state.profile.loading,
 });
 
 const mapDispatchToProps = {
     uploadPostAvatar,
-    setAvatarToCropper,
-    createFile,
-    informFileIsTooBig,
+    setCroppedImageForAvatar,
+    informFileError,
+    resetAddPost,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CropperContainer);

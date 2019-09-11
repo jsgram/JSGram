@@ -3,7 +3,7 @@ import {Col, Container, Row} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import Menu from '../Menu';
 import FeedPost from '../FeedPost';
-import noAvatar from '../../assets/noAvatar.svg';
+import noAvatar from '../../assets/noAvatar.png';
 
 interface IProps {
     loggedUsername: string;
