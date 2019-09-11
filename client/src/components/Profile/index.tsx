@@ -31,8 +31,8 @@ export interface IProfileProps {
     loading: boolean;
     loadFollow: boolean;
     getUser: (username: string) => void;
-    followUser: (body: {_id: string}) => void;
-    unfollowUser: (body: {_id: string}) => void;
+    followUser: (body: { _id: string }) => void;
+    unfollowUser: (body: { _id: string }) => void;
     deletePhoto: () => void;
     resetPosts: () => void;
     getPostsAsync: (username: string) => void;
@@ -86,18 +86,60 @@ export default class Profile extends React.Component<IProfileProps> {
         this.props.unfollowUser(body);
     }
 
+    public dynamicButton = (): any => {
+        const loggedUserAlreadyFollowUrlUser =
+            this.props.user.followers.filter((follower: any) => follower === this.props.loggedId);
+        const urlUserAlreadyFollowLoggedUser =
+            this.props.user.following.filter((follower: any) => follower === this.props.loggedId);
+
+        if (this.props.loadFollow) {
+            return <span><Spinner color='light'/></span>;
+        }
+        if (this.props.urlUsername === this.props.loggedUsername) {
+            return <Link to='/add-post'>
+                <Button className='btn' color='danger'><i
+                    className='fa fa-plus pr-3'/>
+                    Add Post
+                </Button>
+            </Link>;
+        }
+        if (!!loggedUserAlreadyFollowUrlUser.length) {
+            return <span onClick={this.unfollowUrlUser}>
+                        <Button className='btn' color='danger'><i
+                            className=''
+                        />
+                            Unfollow
+                        </Button>
+                    </span>;
+        }
+        if (!!urlUserAlreadyFollowLoggedUser.length) {
+            return <span onClick={this.followUrlUser}>
+                            <Button className='btn' color='danger'><i
+                                className=''
+                            />
+                                Follow back
+                            </Button>
+                        </span>;
+        }
+        if (!urlUserAlreadyFollowLoggedUser.length) {
+            return <span onClick={this.followUrlUser}>
+                            <Button className='btn' color='danger'><i
+                                className=''
+                            />
+                                Follow
+                            </Button>
+                        </span>;
+        }
+    }
+
     public render(): JSX.Element {
         const {user: {posts, followers, following, fullName, username, description, photo}}: IProfileProps = this.props;
         const {loaded}: { loaded: boolean } = this.state;
 
-        const loggedUserAlreadyFollowUrlUser =
-            followers.filter((follower: any) => follower === this.props.loggedId);
-        const urlUserAlreadyFollowLoggedUser =
-            following.filter((follower: any) => follower === this.props.loggedId);
-
         if (!loaded) {
             return (<Instagram/>);
         }
+
         return (
             <div
                 className='row profile d-flex pt-2 justify-content-lg-center
@@ -139,41 +181,7 @@ export default class Profile extends React.Component<IProfileProps> {
                         <strong>{fullName}</strong>
                         <p>{description}</p>
                     </div>
-                    {this.props.loadFollow ? <Spinner color='light'/> :
-                        this.props.urlUsername === this.props.loggedUsername ?
-                        <Link to='/add-post'>
-                            <Button className='btn' color='danger'><i
-                                className='fa fa-plus pr-3'/>
-                                Add Post
-                            </Button>
-                        </Link>
-                        :
-                        !!loggedUserAlreadyFollowUrlUser.length ?
-                            <span onClick={this.unfollowUrlUser}>
-                                <Button className='btn' color='danger'><i
-                                    className=''
-                                />
-                                    Unfollow
-                                </Button>
-                            </span>
-                            :
-                            !!urlUserAlreadyFollowLoggedUser.length ?
-                                <span onClick={this.followUrlUser}>
-                                    <Button className='btn' color='danger'><i
-                                        className=''
-                                    />
-                                        Follow back
-                                    </Button>
-                                </span>
-                                :
-                                <span onClick={this.followUrlUser}>
-                                    <Button className='btn' color='danger'><i
-                                        className=''
-                                    />
-                                        Follow
-                                    </Button>
-                                </span>
-                    }
+                    {this.dynamicButton()}
                     {this.state.modal && <PopUpModal
                         modal={this.state.modal}
                         toggleModal={this.toggleModal}
