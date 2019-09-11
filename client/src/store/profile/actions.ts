@@ -168,7 +168,6 @@ export const followUser = (body: {_id: string}): (dispatch: Dispatch) => Promise
             dispatch(followUserPending());
             const res = await AuthAPI.post('/following/follow', body);
             dispatch(addFollowUser(res.data.updatedLoggedUser._id, res.data.updatedFollowingUserId.followers));
-            dispatch(followUserSuccess());
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
@@ -180,7 +179,6 @@ export const unfollowUser = (body: {_id: string}): (dispatch: Dispatch) => Promi
             dispatch(followUserPending());
             const res = await AuthAPI.put(`/following/unfollow/${body._id}`);
             dispatch(removeFollowUser(res.data.updatedLoggedUser._id, res.data.updatedFollowingUserId.followers));
-            dispatch(followUserSuccess());
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
