@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import noAvatar from '../../assets/noAvatar.svg';
 import { INewsFeed } from '../../store/newsFeed/reducers';
 import { Waypoint } from 'react-waypoint';
-import { getUser } from '../../store/profile/actions';
 
 class FeedContainer extends React.Component<any> {
 
@@ -23,11 +22,11 @@ class FeedContainer extends React.Component<any> {
     public componentDidMount(): void {
         this.props.getNewsFeedAsync();
     }
-
+    // TODO refactor props
     public render(): JSX.Element {
         const {newsFeed, user, loggedUsername, loggedId,
             getNewsFeedAsync, getMoreNewsFeedAsync, addNextFeedPosts,
-            addLike, setCountOfLikes, deleteLike, countOfLikes,
+            addLike, setCountOfLikes, deleteLike,
             checkUserLikeExist, addLoggedUserLike, removeLoggedUserLike,
         }: any = this.props;
 
@@ -37,7 +36,7 @@ class FeedContainer extends React.Component<any> {
                 <Row>
                     <Col sm={8} className='order-2 order-sm-1'>
                         {
-                            newsFeed.feed.map((feed: any) => {
+                            newsFeed.feed.map((feed: INewsFeed) => {
                                 const likeExist = feed.authorsOfLike.includes(loggedId);
                                 return (<FeedPost
                                     key={feed._id}
@@ -53,7 +52,6 @@ class FeedContainer extends React.Component<any> {
                                     addLike={addLike}
                                     setCountOfLikes={setCountOfLikes}
                                     deleteLike={deleteLike}
-                                    countOfLikes={countOfLikes}
                                     likeExist={likeExist}
                                     checkUserLikeExist={checkUserLikeExist}
                                     addLoggedUserLike={addLoggedUserLike}
@@ -98,11 +96,10 @@ const mapStateToProps = (state: any): any => ({
     author: state.author,
     image: state.image,
     description: state.description,
-    countOfLikes: state.userPosts.countOfLikes,
     likeExist: state.userPosts.likeExist,
     loggedId: state.feed.loggedId,
     loggedUsername: state.feed.loggedUsername,
-});
+    });
 
 const mapDispatchToProps = {
     getNewsFeedAsync: newsFeedAction.getNewsFeedAsync,

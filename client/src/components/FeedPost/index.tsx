@@ -27,7 +27,6 @@ interface IProps {
     addLike: (body: IBody) => void;
     setCountOfLikes: (countOfLikes: number) => void;
     deleteLike: (body: IBody) => void;
-    countOfLikes: number;
     likeExist: boolean;
     checkUserLikeExist: (doesExist: boolean) => void;
     addNextFeedPosts: (pageNumber: number) => void;
@@ -80,7 +79,7 @@ export default class FeedPost extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        const {author, image, description, likeExist, authorsOfLike, id}: any = this.props;
+        const {author, image, description, likeExist, authorsOfLike}: any = this.props;
 
         const likeButton = likeExist ?
             (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>) :

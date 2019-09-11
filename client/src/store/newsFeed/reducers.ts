@@ -24,6 +24,7 @@ export interface INewsFeed {
     photoPath: string;
     username: string;
     createdAt: string;
+    likeExist: boolean;
 }
 
 const defaultState = {
