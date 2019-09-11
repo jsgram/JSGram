@@ -4,7 +4,7 @@ import { Instagram } from 'react-content-loader';
 import { Button, Spinner } from 'reactstrap';
 import './style.scss';
 import { PopUpModal } from '../PopUp';
-import noAvatar from '../../assets/noAvatar.svg';
+import noAvatar from '../../assets/noAvatar.png';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 import PostContainer from '../../containers/PostContainer';
@@ -87,7 +87,7 @@ export default class Profile extends React.Component<IProfileProps> {
                 <div className='mr-lg-5 mr-3'>
                     {this.props.loading ? <Spinner style={{height: 150, width: 150}} type='grow' color='dark'/> : <img
                         src={photo || noAvatar}
-                        className='img-fluid float-right mb-2 avatar-img'
+                        className='img-fluid rounded-circle float-right mb-2 avatar-img'
                         alt='avatar'
                         height={150}
                         width={150}

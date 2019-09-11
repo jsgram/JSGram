@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/style.scss';
 import '../Post/style.scss';
-import noAvatar from '../../assets/noAvatar.svg';
+import noAvatar from '../../assets/noAvatar.png';
 import {Link} from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import { formatDescription } from '../../helpers/regex.description';

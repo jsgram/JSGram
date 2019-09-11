@@ -7,8 +7,8 @@ import { IPost } from '../../store/post/reducers';
 import { Modal, ModalHeader, Spinner, Input, FormGroup, Button, InputGroup, InputGroupAddon } from 'reactstrap';
 import './style.scss';
 import MenuPost from '../MenuPost';
-import noAvatar from '../../assets/noAvatar.svg';
 import { formatDescription } from '../../helpers/regex.description';
+import noAvatar from '../../assets/noAvatar.png';
 
 interface IBody {
     userId: string;

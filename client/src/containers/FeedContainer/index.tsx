@@ -6,7 +6,7 @@ import FeedPost from '../../components/FeedPost';
 import Menu from '../../components/Menu';
 import { Col, Container, Row, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import noAvatar from '../../assets/noAvatar.svg';
+import noAvatar from '../../assets/noAvatar.png';
 import { INewsFeed } from '../../store/newsFeed/reducers';
 import { Waypoint } from 'react-waypoint';
 
