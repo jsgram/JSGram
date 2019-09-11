@@ -53,9 +53,9 @@ export default class Profile extends React.Component<IProfileProps> {
     public componentDidUpdate(prevProps: IProfileProps): void {
         if (prevProps.loaded !== this.props.loaded && this.props.loaded) {
             this.timerHandle = setTimeout(() => {
-                this.setState({loaded: true});
-                this.timerHandle = 0;
-            },
+                    this.setState({loaded: true});
+                    this.timerHandle = 0;
+                },
                 1500,
             );
         }
@@ -95,40 +95,52 @@ export default class Profile extends React.Component<IProfileProps> {
         if (this.props.loadFollow) {
             return <span><Spinner color='light'/></span>;
         }
+
         if (this.props.urlUsername === this.props.loggedUsername) {
-            return <Link to='/add-post'>
-                <Button className='btn' color='danger'><i
-                    className='fa fa-plus pr-3'/>
-                    Add Post
-                </Button>
-            </Link>;
+            return (
+                <Link to='/add-post'>
+                    <Button className='btn' color='danger'><i
+                        className='fa fa-plus pr-3'/>
+                        Add Post
+                    </Button>
+                </Link>
+            );
         }
+
         if (!!loggedUserAlreadyFollowUrlUser.length) {
-            return <span onClick={this.unfollowUrlUser}>
+            return (
+                <span onClick={this.unfollowUrlUser}>
                         <Button className='btn' color='danger'><i
                             className=''
                         />
                             Unfollow
                         </Button>
-                    </span>;
+                    </span>
+            );
         }
+
         if (!!urlUserAlreadyFollowLoggedUser.length) {
-            return <span onClick={this.followUrlUser}>
+            return (
+                <span onClick={this.followUrlUser}>
                             <Button className='btn' color='danger'><i
                                 className=''
                             />
                                 Follow back
                             </Button>
-                        </span>;
+                        </span>
+            );
         }
+
         if (!urlUserAlreadyFollowLoggedUser.length) {
-            return <span onClick={this.followUrlUser}>
+            return (
+                <span onClick={this.followUrlUser}>
                             <Button className='btn' color='danger'><i
                                 className=''
                             />
                                 Follow
                             </Button>
-                        </span>;
+                        </span>
+            );
         }
     }
 
