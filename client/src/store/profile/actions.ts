@@ -152,10 +152,6 @@ export const followUserPending = (): {type: string} => ({
     type: FOLLOW_USER_PENDING,
 });
 
-export const followUserSuccess = (): {type: string} => ({
-    type: FOLLOW_USER_SUCCESS,
-});
-
 export const removeFollowUser = (loggedId: string, urlUserFollowers: []):
     { type: string, payload: { loggedId: string, urlUserFollowers: [] } } => ({
         type: UNFOLLOW_USER,
