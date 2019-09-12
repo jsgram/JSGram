@@ -18,7 +18,7 @@ export const addComments = async (req: Request, res: Response, next: NextFunctio
             throw new Error('Can not create comment');
         }
 
-        res.json({message: 'Comment added successfully', updatedPost});
+        res.json({message: 'Comment added successfully', createdComment, updatedPost});
     } catch (e) {
         next({status: 409, message: e.message});
     }
