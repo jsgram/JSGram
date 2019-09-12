@@ -18,6 +18,42 @@
     word-wrap: break-word;
   }
 
+  .comments {
+    overflow-x: hidden;
+    overflow-y: auto;
+    word-break: break-all;
+    padding-bottom: 30%;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+  }
+
+  .one-comment {
+    &:hover {
+      .edit-delete-comment {
+        opacity: 1;
+      }
+    }
+
+    .edit-delete-comment {
+      transition: 0.4s;
+      opacity: 0;
+    }
+
+    .edit-comment {
+      &:hover {
+        color: $color-dove-gray;
+      }
+    }
+
+    .delete-comment {
+      &:hover {
+        color: $color-like;
+      }
+    }
+  }
+
   .add-comment {
     outline: 0;
     resize: none;
