@@ -29,7 +29,8 @@ const CommentSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        required: true},
+        required: true
+    },
 });
 
 export const Comment: Model<ICommentModel> = model<ICommentModel>('Comment', CommentSchema);
