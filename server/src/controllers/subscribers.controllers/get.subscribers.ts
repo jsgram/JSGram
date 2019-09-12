@@ -6,23 +6,18 @@ import { POSTS_PER_PAGE } from '../../common.constants/getPosts.constants';
 export const getSubscribers = async (username: string, subscribers: any, page: number, next: NextFunction):
     Promise<IUserModel[] | null | void> => {
     try {
-        const urlUser = await findUser(username, next);
-        if (!urlUser) {
+        const profileUser = await findUser(username, next);
+        if (!profileUser) {
             throw new Error('Can not find user');
         }
 
-        const {followers, following}: IUserModel = urlUser;
+        const {followers, following}: IUserModel = profileUser;
 
-        const checkSubscribers = (): string[] => {
-            if (subscribers === 'followers') {
-                return followers;
-            }
-            return following;
-        };
+        const checkSubscribers = subscribers === 'followers' ? followers : following;
 
         const skip = (page - 1) * POSTS_PER_PAGE;
 
-        const users = await findSubscribers(checkSubscribers(), skip, next);
+        const users = await findSubscribers(checkSubscribers, skip, next);
         if (!users) {
             throw new Error('Can not show users\' followers');
         }
