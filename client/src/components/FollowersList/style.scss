@@ -1,0 +1,12 @@
+@import '../../styles/variables';
+
+.followers-list {
+  width: 20em;
+  @media only screen and (max-width: $break-medium) {
+    width: 9em;  
+    // background-color: blue;
+  }
+  @media only screen and (max-width: $break-small) {
+    width: 3em;  
+  }    
+}
