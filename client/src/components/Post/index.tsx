@@ -9,6 +9,7 @@ import './style.scss';
 import MenuPost from '../MenuPost';
 import { formatDescription } from '../../helpers/regex.description';
 import noAvatar from '../../assets/noAvatar.png';
+import { Comment } from '../Comments';
 
 interface IBody {
     userId: string;
@@ -222,11 +223,7 @@ export default class Post extends React.Component<IProps> {
                                     </p>
                                     <p>{formatDescription(desc)}</p>
                                 </div>
-
-                                <div className='flex-grow-1 comments px-3 text-description'>
-                                    {/* HERE WILL BE COMMENTS */}
-                                </div>
-
+                                <Comment/>
                                 <div className='flex-grow-0'>
                                     <div className='d-none d-lg-block p-3 mb-3 border-top border-bottom'>
                                         {likeButton}

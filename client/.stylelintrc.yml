@@ -9,7 +9,7 @@ rules:
   declaration-no-important: true
   font-family-no-duplicate-names: true
   function-name-case: 'lower'
-  max-nesting-depth: 2
+  max-nesting-depth: 3
   no-duplicate-selectors: true
   no-empty-first-line: true
   order/properties-alphabetical-order: null

@@ -5,5 +5,5 @@ import { isAuthorized } from '../../controllers/auth.controllers/auth.isAuthoriz
 
 export const subscribersRouter = Router();
 
-subscribersRouter.get('/followers', isAuthorized, getFollowers);
-subscribersRouter.get('/following', isAuthorized, getFollowing);
+subscribersRouter.get('/followers/:username/:page', isAuthorized, getFollowers);
+subscribersRouter.get('/following/:username/:page', isAuthorized, getFollowing);
