@@ -6,6 +6,7 @@ export interface ICommentModel extends Document {
     postId: IPostModel['_id'];
     authorId: IUserModel['_id'];
     comment: string;
+    createdAt: Date;
 }
 
 const CommentSchema = new Schema({
@@ -25,6 +26,10 @@ const CommentSchema = new Schema({
         maxlength: 200,
         required: true,
     },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        required: true},
 });
 
 export const Comment: Model<ICommentModel> = model<ICommentModel>('Comment', CommentSchema);
