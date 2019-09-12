@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import { formatDescription } from '../../helpers/regex.description';
 import { IUserData } from '../Profile';
+import { Comment } from '../Comments';
 
 interface IBody {
     userId: string;
@@ -131,6 +132,7 @@ export default class FeedPost extends React.Component<IProps> {
                         </p>
                     </div>
                 </div>
+                <Comment/>
                 <div className='mt-3 px-2 d-flex'>
                     <TextareaAutosize
                         className='add-comment flex-grow-1 border-0 p-2'
