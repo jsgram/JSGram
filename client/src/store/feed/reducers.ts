@@ -1,24 +1,30 @@
-import { SET_USERNAME } from './actionTypes';
+import { SET_LOGGED_USERNAME } from './actionTypes';
 
 export interface IState {
-    username: string;
+    loggedUsername: string;
+    loggedId: string;
 }
 
 interface IAction {
     type: string;
-    payload: string;
+    payload: {
+        loggedUsername: string,
+        loggedId: string,
+    };
 }
 
 const defaultState = {
-    username: '',
+    loggedUsername: '',
+    loggedId: '',
 };
 
 export const feedReducer = (state: IState = defaultState, action: IAction): IState => {
     switch (action.type) {
-        case SET_USERNAME:
+        case SET_LOGGED_USERNAME:
             return {
                 ...state,
-                username: action.payload,
+                loggedUsername: action.payload.loggedUsername,
+                loggedId: action.payload.loggedId,
             };
         default:
             return state;

@@ -10,6 +10,9 @@ import {
     CHANGE_SETTINGS_SUCCESS,
     CHANGE_SETTINGS_ERROR,
     DECREMENT_POST_COUNT,
+    UPLOAD_AVATAR_PENDING,
+    UPLOAD_AVATAR_ERROR,
+    UPLOAD_AVATAR_SUCCESS, FOLLOW_USER, UNFOLLOW_USER, FOLLOW_USER_PENDING, FOLLOW_USER_SUCCESS,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
@@ -17,6 +20,7 @@ import { IUserData } from '../../components/Profile';
 import { showAlert } from '../alert/actions';
 import { IUserSubscriptions } from '../../containers/ProfileSubscriptionsContainer';
 import { IUserPrivacy } from '../../containers/ProfilePrivacyContainer';
+import {base64ToFile, createDataForAWS} from '../../helpers/upload.photo';
 
 export const getUserPending = (): { type: string } => ({
     type: GET_USER_PENDING,
@@ -70,7 +74,21 @@ export const deletePhoto = (): (dispatch: Dispatch) => Promise<void> =>
         }
     };
 
-export const setPhotoToState = (photo: string): {type: string, payload: string} => ({
+export const uploadAvatarPending = (): { type: string } => ({
+    type: UPLOAD_AVATAR_PENDING,
+});
+
+export const uploadAvatarSuccess = (avatar: string): { type: string, payload: string } => ({
+    type: UPLOAD_AVATAR_SUCCESS,
+    payload: avatar,
+});
+
+export const uploadAvatarError = (error: Error): { type: string, payload: Error } => ({
+    type: UPLOAD_AVATAR_ERROR,
+    payload: error,
+});
+
+export const setPhotoToState = (photo: string): { type: string, payload: string } => ({
     type: SET_PHOTO_TO_STATE,
     payload: photo,
 });
@@ -101,11 +119,64 @@ export const changeSettings = (
     Promise<void> => async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(changeSettingsPending());
-            const res = await AuthAPI.put(`/profile/${username}/edit-settings`, { subscriptions, privacy });
+            const res = await AuthAPI.put(`/profile/${username}/edit-settings`, {subscriptions, privacy});
             dispatch(changeSettingsSuccess(res.data.data));
             dispatch(showAlert(res.data.message, 'success'));
         } catch (e) {
             dispatch(changeSettingsError(e.message));
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const uploadPostAvatar = (croppedImage: string): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            dispatch(uploadAvatarPending());
+            const newFile = await base64ToFile(croppedImage, 'avatar', 'image/png');
+            const res = await AuthAPI.post('/profile/photo', createDataForAWS('userPhoto', newFile));
+            dispatch(showAlert('Successfully uploaded', 'success'));
+            dispatch(uploadAvatarSuccess(res.data.photoPath));
+            dispatch(setPhotoToState(res.data.photoPath));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+            dispatch(uploadAvatarError(e.response.data));
+        }
+    };
+
+export const addFollowUser = (loggedId: string, urlUserFollowers: []):
+    { type: string, payload: { loggedId: string, urlUserFollowers: [] } } => ({
+        type: FOLLOW_USER,
+        payload: {loggedId, urlUserFollowers},
+    });
+
+export const followUserPending = (): {type: string} => ({
+    type: FOLLOW_USER_PENDING,
+});
+
+export const removeFollowUser = (loggedId: string, urlUserFollowers: []):
+    { type: string, payload: { loggedId: string, urlUserFollowers: [] } } => ({
+        type: UNFOLLOW_USER,
+        payload: {loggedId, urlUserFollowers},
+    });
+
+export const followUser = (body: {_id: string}): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            dispatch(followUserPending());
+            const res = await AuthAPI.post('/following/follow', body);
+            dispatch(addFollowUser(res.data.updatedLoggedUser._id, res.data.updatedFollowingUserId.followers));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const unfollowUser = (body: {_id: string}): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            dispatch(followUserPending());
+            const res = await AuthAPI.put(`/following/unfollow/${body._id}`);
+            dispatch(removeFollowUser(res.data.updatedLoggedUser._id, res.data.updatedFollowingUserId.followers));
+        } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };

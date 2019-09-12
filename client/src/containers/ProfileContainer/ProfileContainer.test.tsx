@@ -1,11 +1,12 @@
 import { ProfileContainer } from './index';
+import * as profile from '../../components/Profile';
 
 import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import React from 'react';
 import { Provider } from 'react-redux';
 
-describe.skip('ProfileContainer component:', () => {
+describe('ProfileContainer component:', () => {
     let renderer;
 
     beforeEach(() => {
@@ -15,8 +16,12 @@ describe.skip('ProfileContainer component:', () => {
             loading: false,
             getUser: jest.fn(() => 'somevalue'),
             deletePhoto: jest.fn(() => 'someanothervalue'),
+            match: {
+                params: 'fakeparams',
+            },
         };
 
+        profile.default = jest.fn(() => <div></div>);
         const store = configureStore()(props);
         renderer = shallow(<Provider store={store}>
                                <ProfileContainer {...props} />
@@ -24,7 +29,6 @@ describe.skip('ProfileContainer component:', () => {
     });
 
     test('render - success', () => {
-        // TODO to toHaveLength
-        expect(renderer.html().length).toBeGreaterThan(1100);
+        expect(renderer.html()).toHaveLength(40);
     });
 });

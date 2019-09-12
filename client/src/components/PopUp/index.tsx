@@ -2,7 +2,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import React from 'react';
 import CropperContainer from '../../containers/CropperContainer';
 
-interface IProps {
+export interface IProps {
+    // TODO DON'T USE LOADING! DO WE NEED IT?
     loading: boolean;
     modal: boolean;
     photo: string;
@@ -10,29 +11,28 @@ interface IProps {
     toggleModal: () => void;
 }
 
-export default class PopUpModal extends React.Component<IProps> {
+export const PopUpModal = ({modal, photo, deletePhoto: photoDelete, toggleModal}: IProps): JSX.Element => {
+    const deletePhoto = (): void => {
+        photoDelete();
+    };
 
-    public deletePhoto(): void {
-        this.props.deletePhoto();
-        this.props.toggleModal();
-    }
-
-    public render(): JSX.Element {
-        return (
-          <div>
-              <Modal className='text-center' isOpen={this.props.modal} toggle={this.props.toggleModal} >
-              <ModalHeader toggle={this.props.toggleModal}>Change Profile Photo</ModalHeader>
-              <ModalBody>
-                <CropperContainer modalToggle={this.props.toggleModal}/>
-                {this.props.photo && <Button className='mt-3' outline size='lg' color='danger' onClick={(): void => {
-                    this.deletePhoto(); }}>Delete Current Photo</Button>}
+    return (
+        <div>
+            <Modal className='text-center' isOpen={modal} toggle={toggleModal}>
+                <ModalHeader toggle={toggleModal}>Change Profile Photo</ModalHeader>
+                <ModalBody>
+                    <CropperContainer/>
+                    {photo &&
+                    <Button className='mt-3' outline size='lg' color='danger' onClick={(): void => {
+                        deletePhoto();
+                    }}>Delete Current Photo</Button>}
                 </ModalBody>
                 <ModalFooter>
                     <Button className='m-auto' outline color='secondary' onClick={(): void => {
-                        this.props.toggleModal(); }}>Cancel</Button>
+                        toggleModal();
+                    }}>Cancel</Button>
                 </ModalFooter>
             </Modal>
-          </div>
-        );
-    }
-}
+        </div>
+    );
+};

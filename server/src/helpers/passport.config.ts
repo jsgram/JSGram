@@ -71,7 +71,7 @@ passport.use(new GoogleStrategy({
     }),
 );
 
-passport.serializeUser<any, any>((user: IUserModel, done: any) => { // FIXME types
+passport.serializeUser<IUserModel, any>((user: IUserModel, done: any) => { // FIXME types
     done(null, user.username);
 });
 
