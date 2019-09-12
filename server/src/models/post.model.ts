@@ -1,11 +1,12 @@
 import { Schema, Document, model } from 'mongoose';
 import { ILikeModel } from './like.model';
+import { ICommentModel } from './comment.model';
 
 export interface IPostModel extends Document {
     author: string;
     imgPath: string;
     description?: string;
-    comments?: any[];
+    comments?: ICommentModel['_id'];
     tags?: string[];
     likes?: ILikeModel['_id'];
     createdAt: Date;
