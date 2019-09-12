@@ -29,7 +29,7 @@ const CommentSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        required: true
+        required: true,
     },
 });
 
