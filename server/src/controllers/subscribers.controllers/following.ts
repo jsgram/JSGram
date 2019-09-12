@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import { IUserModel } from '../../models/user.model';
-import { findSubscribers } from '../../db.requests/subscribers.requests';
+import { getSubscribers } from './get.subscribers';
 
 export const getFollowing = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {locals: {user: {following}}}: { locals: { user: IUserModel } } = res;
+        const {params: {username, page}}: { params: { username: string, page: number } } = req;
 
-        const users = await findSubscribers(following, next);
+        const users = await getSubscribers(username, 'following', page, next);
+
         if (!users) {
             throw new Error('Can not show users\' following');
         }
