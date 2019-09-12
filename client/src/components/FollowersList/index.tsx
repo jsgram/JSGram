@@ -18,7 +18,7 @@ export const FollowList = ({title,data}: { title: string, data: IFollowData[]}):
                                     alt='avatar'
                                     width={32}
                                     height={32}
-                                    className='img-fluid rounded-circle ml-3 mr-2 mt-1'
+                                    className='img-fluid rounded-circle ml-2 mr-2 mt-1'
                                 />
                                 <h6 className='align-self-end'>{item.username}</h6>
                             </div>
