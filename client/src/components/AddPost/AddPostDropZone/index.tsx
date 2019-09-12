@@ -2,6 +2,7 @@ import React from 'react';
 import { DropzoneState, useDropzone } from 'react-dropzone';
 import { Container, Row } from 'reactstrap';
 import '../PostPost/style.scss';
+import { showAlert } from '../../../store/alert/actions';
 
 interface IProps {
     uploadImageToCropper: (imageFile: File) => void;
@@ -14,13 +15,19 @@ const AddPostDropZone = (props: IProps): JSX.Element => {
     const {getRootProps, getInputProps}: DropzoneState = useDropzone({
         accept: 'image/jpeg, image/png',
         onDrop: (files: any): void => {
-            const maxFileSize = 1024 * 1024 * 4;
-            if (files[0].size > maxFileSize) {
-                resetImageSrc();
-                return informFileError('Image is too big');
+            try {
+                const maxFileSize = 1024 * 1024 * 4;
+                if (files[0].size > maxFileSize) {
+                    resetImageSrc();
+                    return informFileError('Image is too big');
+                }
+                return uploadImageToCropper(files[0]);
             }
-            return uploadImageToCropper(files[0]);
+            catch(e){
+                return informFileError(e.name);
+            }
         },
+        
     });
 
     return (
