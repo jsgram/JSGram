@@ -6,6 +6,7 @@ declare global {
         interface ProcessEnv { // tslint:disable-line interface-name
             DB_PATH: string;
             PORT: string;
+            FAKE_DB_SIZE: string;
             BACK_PASS: string;
             FRONT_PASS: string;
             STATIC_PATH: string;

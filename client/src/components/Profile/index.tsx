@@ -13,8 +13,8 @@ import PostContainer from '../../containers/PostContainer';
 
 export interface IUserData {
     posts: number;
-    followers: number;
-    following: number;
+    followers: number[];
+    following: number[];
     description: string;
     fullName: string;
     username: string;
@@ -26,11 +26,15 @@ export interface IUserData {
 
 export interface IProfileProps {
     urlUsername: string;
+    loggedId: string;
     loggedUsername: string;
     user: IUserData;
     loaded: boolean;
     loading: boolean;
+    loadFollow: boolean;
     getUser: (username: string) => void;
+    followUser: (body: { _id: string }) => void;
+    unfollowUser: (body: { _id: string }) => void;
     deletePhoto: () => void;
     resetPosts: () => void;
     getPostsAsync: (username: string) => void;
@@ -60,9 +64,9 @@ export default class Profile extends React.Component<IProfileProps> {
     public componentDidUpdate(prevProps: IProfileProps): void {
         if (prevProps.loaded !== this.props.loaded && this.props.loaded) {
             this.timerHandle = setTimeout(() => {
-                this.setState({loaded: true});
-                this.timerHandle = 0;
-            },
+                    this.setState({loaded: true});
+                    this.timerHandle = 0;
+                },
                 1500,
             );
         }
@@ -84,6 +88,76 @@ export default class Profile extends React.Component<IProfileProps> {
         this.setState({ [isOpenModal]: !this.state[isOpenModal]});
     }
 
+    public followUrlUser = (): void => {
+        const body = {_id: this.props.user._id};
+        this.props.followUser(body);
+    }
+
+    public unfollowUrlUser = (): void => {
+        const body = {_id: this.props.user._id};
+        this.props.unfollowUser(body);
+    }
+
+    public filterUserList = (userList: any): IUserData[] =>
+        userList.filter((follower: string) => follower === this.props.loggedId,
+        )
+
+    public dynamicButton = (): any => {
+        const loggedUserAlreadyFollowUrlUser = this.filterUserList(this.props.user.followers);
+        const urlUserAlreadyFollowLoggedUser = this.filterUserList(this.props.user.following);
+
+        if (this.props.loadFollow) {
+            return <span><Spinner color='light'/></span>;
+        }
+
+        if (this.props.urlUsername === this.props.loggedUsername) {
+            return (
+                <Link to='/add-post'>
+                    <Button className='btn' color='danger'><i
+                        className='fa fa-plus pr-3'/>
+                        Add Post
+                    </Button>
+                </Link>
+            );
+        }
+
+        if (!!loggedUserAlreadyFollowUrlUser.length) {
+            return (
+                <span onClick={this.unfollowUrlUser}>
+                        <Button className='btn' color='danger'><i
+                            className=''
+                        />
+                            Unfollow
+                        </Button>
+                    </span>
+            );
+        }
+
+        if (!!urlUserAlreadyFollowLoggedUser.length) {
+            return (
+                <span onClick={this.followUrlUser}>
+                            <Button className='btn' color='danger'><i
+                                className=''
+                            />
+                                Follow back
+                            </Button>
+                        </span>
+            );
+        }
+
+        if (!urlUserAlreadyFollowLoggedUser.length) {
+            return (
+                <span onClick={this.followUrlUser}>
+                            <Button className='btn' color='danger'><i
+                                className=''
+                            />
+                                Follow
+                            </Button>
+                        </span>
+            );
+        }
+    }
+
     public render(): JSX.Element {
         const {user: {posts, followers, following, fullName, username, description, photo}}: IProfileProps = this.props;
         const {loaded}: { loaded: boolean } = this.state;
@@ -91,6 +165,7 @@ export default class Profile extends React.Component<IProfileProps> {
         if (!loaded) {
             return (<Instagram/>);
         }
+
         return (
             <div
                 className='row profile d-flex pt-2 justify-content-lg-center
@@ -122,18 +197,26 @@ export default class Profile extends React.Component<IProfileProps> {
                             <button className='mr-2 following-button'><b>{posts}</b> posts</button>
                         </div>
                         <div>
+<<<<<<< HEAD
                             <button onClick={(): void => this.modalToggle('followersModal')} className='mr-2 following-button'>
                                 <b>{followers}</b> followers</button>
                         </div>
                         <div>
                             <button onClick={(): void => this.modalToggle('followingModal')} className='following-button'>
                                 <b>{following}</b> following</button>
+=======
+                            <a href='#/' className='mr-2'><b>{followers.length}</b> followers</a>
+                        </div>
+                        <div>
+                            <a href='#/'><b>{following.length}</b> following</a>
+>>>>>>> 6e4a9909c15e30256a512b07c6a317667985619a
                         </div>
                     </div>
                     <div className='description mt-4'>
                         <strong>{fullName}</strong>
                         <p>{description}</p>
                     </div>
+<<<<<<< HEAD
                     <Link to='/add-post'>
                         {this.props.urlUsername === this.props.loggedUsername &&
                         <Button className='btn' color='danger'><i
@@ -145,6 +228,12 @@ export default class Profile extends React.Component<IProfileProps> {
                     {this.state.avatarModal && <PopUpModal
                         modal={this.state.avatarModal}
                         toggleModal={(): void => this.modalToggle('avatarModal')}
+=======
+                    {this.dynamicButton()}
+                    {this.state.modal && <PopUpModal
+                        modal={this.state.modal}
+                        toggleModal={this.toggleModal}
+>>>>>>> 6e4a9909c15e30256a512b07c6a317667985619a
                         loading={this.props.loading}
                         deletePhoto={this.props.deletePhoto}
                         photo={photo}

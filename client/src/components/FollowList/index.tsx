@@ -14,7 +14,7 @@ export const FollowList = ({toggle, modal, title,data}: {toggle: () => void,
                     </ModalHeader>
                     <ModalBody className='modal-body'>
                     {data.map((item: any) => (
-                        <div className='d-flex mr-2 justify-content-between mt-3' key={item.username}>
+                        <div className='d-flex mr-2 justify-content-between mt-3 mb-1' key={item.username}>
                             <div className='row'>
                                 <img
                                     src={userphoto}

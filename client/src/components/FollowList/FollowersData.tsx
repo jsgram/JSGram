@@ -32,4 +32,7 @@ export const FollowersData = [
     {
         username: 'mariasyk_potter',
     },
+    {
+        username: 'mariasyk_potter21',
+    },
 ];
