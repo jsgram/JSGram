@@ -29,7 +29,7 @@ export interface IUserModel extends Document {
     subscriptions?: IUserSubscriptions;
     privacy?: IUserPrivacy;
     followers?: IUserModel['_id'];
-    following?: IUserModel['_id'];
+    following: IUserModel['_id'];
     posts?: IPostModel['_id'];
 }
 
