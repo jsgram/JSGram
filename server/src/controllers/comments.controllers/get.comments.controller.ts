@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { getCommentsWithPagination } from '../../db.requests/get.comments.with.pagination';
+import { COMMENTS_PER_PAGE } from '../../common.constants/getPosts.constants';
 
 interface IParams {
     params: {
@@ -7,8 +8,6 @@ interface IParams {
         page: number;
     };
 }
-
-export const COMMENTS_PER_PAGE = 10;
 
 export const getPostComments = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

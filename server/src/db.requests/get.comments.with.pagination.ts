@@ -1,6 +1,6 @@
 import { NextFunction } from 'express';
 import { Comment, ICommentModel } from '../models/comment.model';
-import { COMMENTS_PER_PAGE } from '../controllers/comments.controllers/get.comments.controller';
+import { COMMENTS_PER_PAGE } from '../common.constants/getPosts.constants';
 
 export const getCommentsWithPagination = async (postId: string, skip: number, next: NextFunction):
     Promise<ICommentModel[] | void | null> => {
