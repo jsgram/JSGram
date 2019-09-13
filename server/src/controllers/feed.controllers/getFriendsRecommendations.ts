@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { findUser, findUsers } from '../../db.requests/getFriendsRecommendations.requests';
-import { createGraph, findRecommendations } from '../../helpers/getFriendsRecommendations';
+import { createGraph, findRecommendations, sortFriendsRecommendations } from '../../helpers/getFriendsRecommendations';
 
 export const getFriendsRecommendations = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -11,7 +11,9 @@ export const getFriendsRecommendations = async (req: Request, res: Response, nex
 
         const usersGraph = createGraph(user);
 
-        const sortedListOfRecommendations = findRecommendations(usersGraph, user._id);
+        const listOfRecommendations = findRecommendations(usersGraph, user._id);
+
+        const sortedListOfRecommendations = sortFriendsRecommendations(listOfRecommendations);
 
         const friendsRecommendations = await findUsers(sortedListOfRecommendations);
 

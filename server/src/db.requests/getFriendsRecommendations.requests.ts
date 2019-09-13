@@ -26,7 +26,6 @@ export const findUsers = async (listOfUsers: string[]): Promise<object[]> => {
     const users = await User.find({_id: {$in: listOfUsers}})
         .select('username photoPath');
 
-    users.sort((a: any, b: any) => listOfUsers.findIndex((id: string) => a._id.equals(id)) -
-                                   listOfUsers.findIndex((id: string) => b._id.equals(id)));
-    return users;
+    return users.sort((a: any, b: any) => listOfUsers.findIndex((id: string) => a._id.equals(id)) -
+                                          listOfUsers.findIndex((id: string) => b._id.equals(id)));
 };

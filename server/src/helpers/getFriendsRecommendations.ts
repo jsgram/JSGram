@@ -14,19 +14,24 @@ interface IFriendsRecommendations {
 
 export const createGraph = (user: IUser): IGraph => {
     const graph: IGraph = {};
+
     graph[user._id] = user.following.map((fol: any) => fol._id);
 
-    user.following.forEach((fol: any) => {
-        graph[fol._id] = fol.following.map((f: object) => f.toString());
-        fol.following.forEach((f: string) => {
-            graph[f] = [];
-        });
-    });
+    user.following.reduce((acc: IGraph, cur: any) => {
+        acc[cur._id] = cur.following.map((fol: object) => fol.toString());
+
+        cur.following.reduce((accumulator: IGraph, current: any) => {
+            accumulator[current] = [];
+            return accumulator;
+        }, acc);
+
+        return acc;
+    }, graph);
 
     return graph;
 };
 
-export const findRecommendations = (users: IGraph, root: string): string[] => {
+export const findRecommendations = (users: IGraph, root: string): IFriendsRecommendations => {
     const usersFriendshipDegree: IUsersFriendshipDegree = {};
     const friendsRecommendations: IFriendsRecommendations = {};
 
@@ -56,8 +61,12 @@ export const findRecommendations = (users: IGraph, root: string): string[] => {
             }
         });
     }
-    const sortedListOfRecommendations = Object.keys(friendsRecommendations)
-          .sort((a: string, b: string) => friendsRecommendations[b] - friendsRecommendations[a]);
 
-    return sortedListOfRecommendations;
+    return friendsRecommendations;
+};
+
+export const sortFriendsRecommendations = (friendsRecommendations: IFriendsRecommendations): string[] => {
+
+    return Object.keys(friendsRecommendations)
+           .sort((a: string, b: string) => friendsRecommendations[b] - friendsRecommendations[a]);
 };
