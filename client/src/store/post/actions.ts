@@ -70,9 +70,9 @@ export const resetPosts = (): { type: string } => ({
     type: RESET_POSTS,
 });
 
-export const addNewComment = (postId: string, authorId: string, comment: string): { type: string, payload: any } => ({
+export const addNewComment = (comment: string): { type: string, payload: any } => ({
     type: ADD_COMMENT,
-    payload: { postId, authorId, comment },
+    payload: comment,
 });
 
 export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise<void> =>

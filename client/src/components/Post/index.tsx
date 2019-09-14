@@ -83,12 +83,12 @@ export default class Post extends React.Component<IProps> {
         this.props.addComment(
             this.props.userPosts.selectedPost._id,
             this.props.user._id,
-            this.props.userPosts.selectedPost.comment,
+            this.props.userPosts.selectedPost.comment
             );
     }
 
     public onCommentChange = (event: any): void => {
-        this.props.addNewComment(this.props.userPosts.selectedPost._id, this.props.user._id, event.target.value);
+        this.props.addNewComment(event.target.value);
     }
 
     public getMorePosts = (): void => {

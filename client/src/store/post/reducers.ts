@@ -205,7 +205,7 @@ export const postReducer = (
                 ...state,
                 selectedPost: {
                     ...state.selectedPost,
-                    comment: action.payload.comment,
+                    comment: action.payload,
                 },
             };
         default:
