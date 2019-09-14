@@ -1,5 +1,5 @@
 import React from 'react';
-import noAvatar from '../../../assets/noAvatar.png';
+import noAvatar from '../../assets/noAvatar.png';
 import { connect } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
 import {
@@ -7,7 +7,7 @@ import {
     getComments,
     getMoreComments,
     resetComments,
-} from '../../../store/post/comments/actions';
+} from '../../store/comments/actions';
 
 interface ILocalState {
     postId: string;

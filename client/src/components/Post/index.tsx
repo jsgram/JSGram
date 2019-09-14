@@ -8,7 +8,7 @@ import './style.scss';
 import MenuPost from '../MenuPost';
 import { formatDescription } from '../../helpers/regex.description';
 import noAvatar from '../../assets/noAvatar.png';
-import Comment from './Comments';
+import Comment from '../Comments';
 import { IPost } from '../../store/post/reducers';
 
 interface IBody {

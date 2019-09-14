@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import { formatDescription } from '../../helpers/regex.description';
 import { IUserData } from '../Profile';
-import Comment from '../Post/Comments';
+import Comment from '../Comments';
 
 interface IBody {
     userId: string;

@@ -7,8 +7,8 @@ import {
     RESET_COMMENTS,
 } from './actionTypes';
 import { Dispatch } from 'redux';
-import { AuthAPI } from '../../api';
-import { showAlert } from '../../alert/actions';
+import { AuthAPI } from '../api';
+import { showAlert } from '../alert/actions';
 import { IComments } from './reducers';
 
 export const getCommentsPending = (): { type: string } => ({
