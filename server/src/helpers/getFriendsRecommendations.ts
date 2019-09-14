@@ -13,22 +13,20 @@ interface IFriendsRecommendations {
 }
 
 export const createGraph = (user: IUser): IGraph => {
-    const graph: IGraph = {};
+    const graph: IGraph = {
+        [user._id]: user.following.map((fol: any) => fol._id),
+    };
 
-    graph[user._id] = user.following.map((fol: any) => fol._id);
+    return user.following.reduce((result: IGraph, fol: any) => {
+        const updatedByFollowingResult = fol.following.reduce((res: IGraph, follow: any) => {
+            if (!res[follow]) {
+                return {...res, [follow]: [] };
+            }
+            return res;
+        }, result);
 
-    user.following.reduce((acc: IGraph, cur: any) => {
-        acc[cur._id] = cur.following.map((fol: object) => fol.toString());
-
-        cur.following.reduce((accumulator: IGraph, current: any) => {
-            accumulator[current] = [];
-            return accumulator;
-        }, acc);
-
-        return acc;
+        return {...updatedByFollowingResult, [fol._id]: fol.following.map((f: object) => f.toString())};
     }, graph);
-
-    return graph;
 };
 
 export const findRecommendations = (users: IGraph, root: string): IFriendsRecommendations => {
