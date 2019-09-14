@@ -10,7 +10,7 @@ import MenuPost from '../MenuPost';
 import { formatDescription } from '../../helpers/regex.description';
 import noAvatar from '../../assets/noAvatar.png';
 import { Comment } from '../Comments';
-import Likes from '../Likes';
+import Likes from '../../containers/ProfileLikesContainer';
 
 interface IProps {
     userPosts: any;

@@ -39,25 +39,25 @@ class FeedContainer extends React.Component<any> {
                     <Col sm={8} className='order-2 order-sm-1'>
                         {
                             newsFeed.feed.map((feed: INewsFeed) => {
-                                const likeExist = feed.authorsOfLike.includes(loggedId);
+                                // const likeExist = feed.authorsOfLike.includes(loggedId);
                                 return (<FeedPost
                                     key={feed._id}
                                     id={feed._id}
                                     newsFeed={newsFeed}
                                     author={feed.author}
-                                    authorsOfLike={feed.authorsOfLike}
                                     image={feed.imgPath}
                                     description={feed.description}
                                     user={user}
                                     getNewsFeedAsync={getNewsFeedAsync}
                                     getMoreNewsFeedAsync={getMoreNewsFeedAsync}
-                                    addLike={addLike}
-                                    setCountOfLikes={setCountOfLikes}
-                                    deleteLike={deleteLike}
-                                    likeExist={likeExist}
-                                    checkUserLikeExist={checkUserLikeExist}
-                                    addLoggedUserLike={addLoggedUserLike}
-                                    removeLoggedUserLike={removeLoggedUserLike}
+                                    // authorsOfLike={feed.authorsOfLike}
+                                    // addLike={addLike}
+                                    // setCountOfLikes={setCountOfLikes}
+                                    // deleteLike={deleteLike}
+                                    // likeExist={likeExist}
+                                    // checkUserLikeExist={checkUserLikeExist}
+                                    // addLoggedUserLike={addLoggedUserLike}
+                                    // removeLoggedUserLike={removeLoggedUserLike}
                                     addNextFeedPosts={addNextFeedPosts}
                                     loggedId={loggedId}
                                     loggedUsername={loggedUsername}
@@ -98,7 +98,7 @@ const mapStateToProps = (state: any): any => ({
     author: state.author,
     image: state.image,
     description: state.description,
-    likeExist: state.userPosts.likeExist,
+    // likeExist: state.userPosts.likeExist,
     loggedId: state.feed.loggedId,
     loggedUsername: state.feed.loggedUsername,
 });
