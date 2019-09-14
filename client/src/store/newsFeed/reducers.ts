@@ -7,10 +7,10 @@ import {
     CLEAR_NEWS_FEED_LOADED,
 } from './actionTypes';
 import {
-    CHECK_USER_LIKE_EXIST,
-    SET_COUNTS_OF_LIKES,
-    ADD_USER_LIKE,
-    REMOVE_USER_LIKE,
+    // CHECK_USER_LIKE_EXIST,
+    // SET_COUNTS_OF_LIKES,
+    // ADD_USER_LIKE,
+    // REMOVE_USER_LIKE,
 } from '../post/actionTypes';
 
 export interface INewsFeed {
@@ -94,49 +94,49 @@ export const newsFeedReducer = (
                 page: action.payload,
             };
 
-        case SET_COUNTS_OF_LIKES:
-            return {
-                ...state,
-                countOfLikes: action.payload,
-            };
-
-        case CHECK_USER_LIKE_EXIST:
-            return {
-                ...state,
-                likeExist: action.payload,
-            };
-
-        case ADD_USER_LIKE:
-            const addNewAuthorToLikeArray = [...action.payload.authorsOfLike, action.payload.loggedUserId];
-            return {
-                ...state,
-                feed: state.feed.map((feed: any) => {
-                    if (feed._id === action.payload.postId) {
-                        return {
-                            ...feed,
-                            authorsOfLike: addNewAuthorToLikeArray,
-                            likeExist: addNewAuthorToLikeArray.includes(action.payload.loggedUserId),
-                        };
-                    }
-                    return feed;
-                }),
-            };
-        case REMOVE_USER_LIKE:
-            const removeAuthorsFromLikeArray = action.payload.authorsOfLike.filter((like: string) =>
-                like !== action.payload.loggedUserId);
-            return {
-                ...state,
-                feed: state.feed.map((feed: any) => {
-                    if (feed._id === action.payload.postId) {
-                        return {
-                            ...feed,
-                            authorsOfLike: removeAuthorsFromLikeArray,
-                            likeExist: removeAuthorsFromLikeArray.includes(action.payload.loggedUserId),
-                        };
-                    }
-                    return feed;
-                }),
-            };
+        // case SET_COUNTS_OF_LIKES:
+        //     return {
+        //         ...state,
+        //         countOfLikes: action.payload,
+        //     };
+        //
+        // case CHECK_USER_LIKE_EXIST:
+        //     return {
+        //         ...state,
+        //         likeExist: action.payload,
+        //     };
+        //
+        // case ADD_USER_LIKE:
+        //     const addNewAuthorToLikeArray = [...action.payload.authorsOfLike, action.payload.loggedUserId];
+        //     return {
+        //         ...state,
+        //         feed: state.feed.map((feed: any) => {
+        //             if (feed._id === action.payload.postId) {
+        //                 return {
+        //                     ...feed,
+        //                     authorsOfLike: addNewAuthorToLikeArray,
+        //                     likeExist: addNewAuthorToLikeArray.includes(action.payload.loggedUserId),
+        //                 };
+        //             }
+        //             return feed;
+        //         }),
+        //     };
+        // case REMOVE_USER_LIKE:
+        //     const removeAuthorsFromLikeArray = action.payload.authorsOfLike.filter((like: string) =>
+        //         like !== action.payload.loggedUserId);
+        //     return {
+        //         ...state,
+        //         feed: state.feed.map((feed: any) => {
+        //             if (feed._id === action.payload.postId) {
+        //                 return {
+        //                     ...feed,
+        //                     authorsOfLike: removeAuthorsFromLikeArray,
+        //                     likeExist: removeAuthorsFromLikeArray.includes(action.payload.loggedUserId),
+        //                 };
+        //             }
+        //             return feed;
+        //         }),
+        //     };
 
         default:
             return state;

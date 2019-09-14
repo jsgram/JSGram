@@ -10,10 +10,8 @@ import {
     SHOW_SELECTED_POST,
     RESET_POSTS,
     UPLOAD_NEXT_POSTS,
-    CHECK_USER_LIKE_EXIST,
-    SET_COUNTS_OF_LIKES,
-    ADD_USER_LIKE,
-    REMOVE_USER_LIKE,
+    ADD_USER_LIKE_TO_SELECTED_POST,
+    REMOVE_USER_LIKE_FROM_SELECTED_POST,
 } from './actionTypes';
 
 export interface IPost {
@@ -120,17 +118,6 @@ export const postReducer = (
                 ...state,
                 page: action.payload,
             };
-        case SET_COUNTS_OF_LIKES:
-            return {
-                ...state,
-                countOfLikes: action.payload,
-            };
-
-        case CHECK_USER_LIKE_EXIST:
-            return {
-                ...state,
-                likeExist: action.payload,
-            };
         case RESET_POSTS:
             return {
                 ...state,
@@ -148,38 +135,34 @@ export const postReducer = (
                 ],
                 page: 1,
             };
-        case ADD_USER_LIKE:
-            const addNewAuthorToLikeArray = [...action.payload.authorsOfLike, action.payload.loggedUserId];
+        case ADD_USER_LIKE_TO_SELECTED_POST:
             return {
                 ...state,
                 selectedPost: {
                     ...state.selectedPost,
-                    authorsOfLike: addNewAuthorToLikeArray,
                 },
                 posts: state.posts.map((post: any) => {
                     if (post._id === action.payload.postId) {
                         return {
                             ...post,
-                            authorsOfLike: addNewAuthorToLikeArray,
+                            authorsOfLike: [...post.authorsOfLike, action.payload.loggedId],
                         };
                     }
                     return post;
                 }),
             };
-        case REMOVE_USER_LIKE:
-            const removeAuthorsFromLikeArray = action.payload.authorsOfLike.filter((like: string) =>
-                like !== action.payload.loggedUserId);
+        case REMOVE_USER_LIKE_FROM_SELECTED_POST:
             return {
                 ...state,
                 selectedPost: {
                     ...state.selectedPost,
-                    authorsOfLike: removeAuthorsFromLikeArray,
                 },
                 posts: state.posts.map((post: any) => {
                     if (post._id === action.payload.postId) {
                         return {
                             ...post,
-                            authorsOfLike: removeAuthorsFromLikeArray,
+                            authorsOfLike: post.authorsOfLike.filter((userId: string) =>
+                                userId !== action.payload.loggedId),
                         };
                     }
                     return post;

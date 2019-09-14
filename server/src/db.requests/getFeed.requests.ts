@@ -6,7 +6,7 @@ export const getPostsForFeed = async (following: string[], skip: number, POSTS_P
     const feed = await Post
         .find({
             author: { $in: following },
-            createdAt: { $gt: new Date(Date.now() - TWO_DAYS)},
+            // createdAt: { $gt: new Date(Date.now() - TWO_DAYS)},
             })
         .populate('author', 'username photoPath')
         .sort('-createdAt')

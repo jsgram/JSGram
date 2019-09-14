@@ -1,6 +1,6 @@
 import { SET_LOGGED_USERNAME } from './actionTypes';
 
-export interface IState {
+export interface IFeedState {
     loggedUsername: string;
     loggedId: string;
 }
@@ -18,7 +18,7 @@ const defaultState = {
     loggedId: '',
 };
 
-export const feedReducer = (state: IState = defaultState, action: IAction): IState => {
+export const feedReducer = (state: IFeedState = defaultState, action: IAction): IFeedState => {
     switch (action.type) {
         case SET_LOGGED_USERNAME:
             return {
