@@ -3,6 +3,7 @@ import {
     ALL_COMMENTS_LOADED,
     GET_COMMENTS_PENDING,
     GET_COMMENTS_SUCCESS,
+    GET_MORE_COMMENTS_SUCCESS,
     RESET_COMMENTS,
 } from './actionTypes';
 
@@ -39,6 +40,12 @@ export const commentsReducer = (state: IComments = defaultState, action: {type: 
                 commentsLoading: true,
             };
         case GET_COMMENTS_SUCCESS:
+            return {
+                ...state,
+                comments: action.payload,
+                commentsLoading: false,
+            };
+        case GET_MORE_COMMENTS_SUCCESS:
             return {
                 ...state,
                 comments: [...state.comments, ...action.payload],

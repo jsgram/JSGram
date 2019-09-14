@@ -2,6 +2,7 @@ import {
     GET_COMMENTS_PENDING,
     GET_COMMENTS_SUCCESS,
     ALL_COMMENTS_LOADED,
+    GET_MORE_COMMENTS_SUCCESS,
     ADD_NEXT_COMMENTS_PAGE,
     RESET_COMMENTS,
 } from './actionTypes';
@@ -22,6 +23,11 @@ export const getCommentsSuccess = (comments: IComments): { type: string, payload
 export const addNextCommentsPage = (commentsPage: number): { type: string, payload: number } => ({
     type: ADD_NEXT_COMMENTS_PAGE,
     payload: commentsPage,
+});
+
+export const getMoreCommentsSuccess = (comments: IComments): { type: string, payload: IComments } => ({
+    type: GET_MORE_COMMENTS_SUCCESS,
+    payload: comments,
 });
 
 export const allCommentsLoaded = (): { type: string } => ({
@@ -54,7 +60,7 @@ export const getMoreComments = (postId: string, page: number): (dispatch: Dispat
                 return;
             }
 
-            dispatch(getCommentsSuccess(res.data.commentsAll));
+            dispatch(getMoreCommentsSuccess(res.data.commentsAll));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
