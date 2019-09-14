@@ -3,8 +3,8 @@ import { updateComment } from '../../db.requests/update.comment.request';
 
 export const update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const id = req.params.id;
-        const comment = req.body.comment;
+        const {id}: {id: string} = req.params;
+        const {comment}: {comment: string} = req.body;
 
         const updatedComment = await updateComment(id, comment, next);
 
