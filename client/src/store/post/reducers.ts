@@ -14,11 +14,6 @@ import {
     SET_COUNTS_OF_LIKES,
     ADD_USER_LIKE,
     REMOVE_USER_LIKE, SET_COMMENTS_TO_POST,
-    // GET_COMMENTS_PENDING,
-    // GET_COMMENTS_SUCCESS,
-    // GET_MORE_COMMENTS_SUCCESS,
-    // ALL_COMMENTS_LOADED,
-    // UPLOAD_NEXT_COMMENTS,
 } from './actionTypes';
 
 export interface IPost {
