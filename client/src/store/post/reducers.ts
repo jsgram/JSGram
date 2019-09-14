@@ -14,11 +14,13 @@ import {
     SET_COUNTS_OF_LIKES,
     ADD_USER_LIKE,
     REMOVE_USER_LIKE,
+    ADD_COMMENT,
 } from './actionTypes';
 
 export interface IPost {
     description: string;
     comments: any;
+    comment: any;
     tags: any;
     authorsOfLike: any;
     _id: string;
@@ -183,6 +185,21 @@ export const postReducer = (
                         };
                     }
                     return post;
+                }),
+            };
+        case ADD_COMMENT:
+            return {
+                ...state,
+                /*selectedPost: {
+                    ...state.selectedPost,
+                    comments: [action.payload.comment],
+                },*/
+                comments: state.posts.comments.map((comment: any) => {
+                    if (post._id === action.payload.postId) {
+                        return {
+                            ...comment,
+                        };
+                }
                 }),
             };
         default:

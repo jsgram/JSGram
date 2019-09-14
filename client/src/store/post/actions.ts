@@ -15,6 +15,7 @@ import {
     CHECK_USER_LIKE_EXIST,
     ADD_USER_LIKE,
     REMOVE_USER_LIKE,
+    ADD_COMMENT,
 } from './actionTypes';
 import { IPost } from './reducers';
 import { decrementPostCount } from '../profile/actions';
@@ -67,6 +68,11 @@ export const addNextPosts = (page: number): { type: string, payload: number } =>
 
 export const resetPosts = (): { type: string } => ({
     type: RESET_POSTS,
+});
+
+export const addNewComment = (postId: string, authorId: string, comment: string): { type: string, payload: any } => ({
+    type: ADD_COMMENT,
+    payload: { postId, authorId, comment },
 });
 
 export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise<void> =>
@@ -165,6 +171,16 @@ export const deleteLike = (body: IBody): (dispatch: Dispatch) => Promise<void> =
             const {userId, postId}: IBody = body;
             await AuthAPI.delete(`likes/unlike/${postId}`, {data: {userId}});
             dispatch(checkUserLikeExist(false));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const addComment = (postId: any, authorId: any, comment: string): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const res = await AuthAPI.post(`/comments`, { postId, authorId, comment });
+            dispatch(showAlert(res.data.message, 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }

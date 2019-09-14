@@ -39,6 +39,8 @@ interface IProps {
     addNextPosts: (pageNumber: number) => void;
     loggedId: string;
     loggedUsername: string;
+    addComment: any;
+    addNewComment: any;
 }
 
 interface IModalState {
@@ -75,6 +77,14 @@ export default class Post extends React.Component<IProps> {
 
     public onDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         this.props.editDescriptionForPost(event.target.value, this.props.userPosts.selectedPost._id);
+    }
+
+    public onAddComment = (): void => {
+        this.props.addComment(this.props.userPosts.selectedPost._id, this.props.user._id, this.props.userPosts.selectedPost.comment);
+    }
+
+    public onCommentChange = (event: any): void => {
+        this.props.addNewComment(this.props.userPosts.selectedPost._id, this.props.user._id, event.target.value);
     }
 
     public getMorePosts = (): void => {
@@ -236,12 +246,14 @@ export default class Post extends React.Component<IProps> {
                                             autoComplete='off'
                                             minRows={1}
                                             maxRows={4}
+                                            value={userPosts.selectedPost.comment}
+                                            onChange={this.onCommentChange}
                                         />
                                         <InputGroupAddon addonType='append' className='flex-grow-0'>
                                             <Button
                                                 className='btn-block button-comment border-0'
                                                 type='submit'
-                                                disabled
+                                                onClick={this.onAddComment}
                                             >
                                                 Add
                                             </Button>
