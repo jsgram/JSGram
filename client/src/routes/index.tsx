@@ -14,11 +14,15 @@ import { Error404 } from '../components/Error404';
 import { RegisterRoute } from '../components/RegisterRoute';
 import { PrivateRoute } from './PrivateRoute';
 import FeedContainer from '../containers/FeedContainer';
+import FollowersContainer from '../containers/SubscribersContainer/FollowersContainer';
+import FollowingContainer from '../containers/SubscribersContainer/FollowingContainer';
 
 export const routes = (
     <Router history={history}>
         <Switch>
             <PrivateRoute exact path='/profile/:username' component={ProfileContainer}/>
+            <PrivateRoute exact path='/profile/:username/followers' component={FollowersContainer}/>
+            <PrivateRoute exact path='/profile/:username/following' component={FollowingContainer}/>
             <PrivateRoute exact path='/add-post' component={AddPostContainer}/>
             <PrivateRoute exact path='/feed' component={FeedContainer}/>
             <PrivateRoute path='/profile/:username/edit' component={SideBar}/>
