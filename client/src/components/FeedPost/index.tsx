@@ -132,7 +132,7 @@ export default class FeedPost extends React.Component<IProps> {
                         </p>
                     </div>
                 </div>
-                <Comment postId={id}/>
+                <Comment/>
                 <div className='mt-3 px-2 d-flex'>
                     <TextareaAutosize
                         className='add-comment flex-grow-1 border-0 p-2'

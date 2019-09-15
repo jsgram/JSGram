@@ -223,7 +223,7 @@ export default class Post extends React.Component<IProps> {
                                     </p>
                                     <p>{formatDescription(desc)}</p>
                                 </div>
-                                <Comment postId={userPosts.selectedPost._id}/>
+                                <Comment/>
                                 <div className='flex-grow-0'>
                                     <div className='d-none d-lg-block p-3 mb-3 border-top border-bottom'>
                                         {likeButton}

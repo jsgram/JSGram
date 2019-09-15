@@ -1,9 +1,9 @@
 import {
-    ADD_NEXT_COMMENTS_PAGE,
-    ALL_COMMENTS_LOADED,
+    GET_COMMENTS,
     GET_COMMENTS_PENDING,
-    GET_COMMENTS_SUCCESS,
+    ALL_COMMENTS_LOADED,
     GET_MORE_COMMENTS_SUCCESS,
+    ADD_NEXT_COMMENTS_PAGE,
     RESET_COMMENTS,
 } from './actionTypes';
 
@@ -39,7 +39,7 @@ export const commentsReducer = (state: IComments = defaultState, action: {type: 
                 ...state,
                 commentsLoading: true,
             };
-        case GET_COMMENTS_SUCCESS:
+        case GET_COMMENTS:
             return {
                 ...state,
                 comments: action.payload,
