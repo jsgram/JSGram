@@ -42,24 +42,24 @@ export class Followers extends React.Component<IFollowersProps> {
         }
     }
 
+    public followSubscriber = (_id: string): void => {
+        this.props.followUser({_id});
+        this.props.changeUserFollowing(_id);
+    }
+
+    public unfollowSubscriber = (_id: string): void => {
+        this.props.unfollowUser({_id});
+        this.props.changeUserFollowing(_id);
+    }
+
     public dynamicButton = (_id: string, alreadyFollow: boolean): any => {
-        const followSubscriber = (): void => {
-            this.props.followUser({_id});
-            this.props.changeUserFollowing(_id);
-        };
-
-        const unfollowSubscriber = (): void => {
-            this.props.unfollowUser({_id});
-            this.props.changeUserFollowing(_id);
-        };
-
         if (this.props.loadFollow) {
             return <span><Spinner color='light'/></span>;
         }
 
         if (alreadyFollow) {
             return (
-                <span onClick={unfollowSubscriber}>
+                <span onClick={(): any => this.unfollowSubscriber(_id)}>
                         <Button className='btn' color='danger'>
                             Unfollow
                         </Button>
@@ -68,7 +68,7 @@ export class Followers extends React.Component<IFollowersProps> {
         }
 
         return (
-            <span onClick={followSubscriber}>
+            <span onClick={(): any => this.followSubscriber(_id)}>
                             <Button className='btn' color='danger'>
                                 Follow
                             </Button>
