@@ -11,6 +11,7 @@ import {
     changeComment,
 } from '../../store/comments/actions';
 import { IComment } from '../../store/comments/reducers';
+import {IUserData} from '../Profile';
 
 interface ILocalState {
     postId: string;
@@ -18,6 +19,7 @@ interface ILocalState {
     commentsPage: number;
     commentsLoading: boolean;
     allCommentsLoaded: boolean;
+    user: IUserData;
 }
 
 interface IState {
@@ -25,12 +27,15 @@ interface IState {
     ownProps: {
         postId: string;
     };
+    profile: {
+        user: IUserData;
+    };
 }
 
 interface IOwnCommentsProps {
     getComments: (postId: string, page: number) => void;
     resetComments: () => void;
-    editCommentAsync: (comment: string, commentId: string) => void;
+    editCommentAsync: (comment: string, commentId: string, email: string) => void;
     changeEditStatus: (commentId: string) => void;
     changeComment: (comment: string, commentId: string) => void;
 }
@@ -54,8 +59,8 @@ class Comments extends React.Component<ICommentsProps> {
         }
     }
 
-    public editComment = (comment: string, id: string): void => {
-        this.props.editCommentAsync(comment, id);
+    public editComment = (comment: string, id: string, email: string): void => {
+        this.props.editCommentAsync(comment, id, email);
     }
 
     public render(): JSX.Element {
@@ -92,6 +97,7 @@ class Comments extends React.Component<ICommentsProps> {
                                                          onClick={(): void => this.editComment(
                                                              comment.newComment,
                                                              comment._id,
+                                                             comment.authorId.email,
                                                          )}
                                                     >
                                                         Change
@@ -145,6 +151,7 @@ const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalSta
     commentsPage: state.comments.commentsPage,
     commentsLoading: state.comments.commentsLoading,
     allCommentsLoaded: state.comments.allCommentsLoaded,
+    user: state.profile.user,
 });
 
 const mapDispatchToProps = {

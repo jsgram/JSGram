@@ -77,11 +77,12 @@ export const changeEditStatus = (commentId: string): { type: string, payload: st
 export const editCommentAsync = (
     comment: string,
     commentId: string,
+    email: string,
 ): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(editComment(comment, commentId));
-            const res = await AuthAPI.patch(`/comments/${commentId}`, {comment});
+            const res = await AuthAPI.patch(`/comments/${commentId}`, {comment, email});
             dispatch(showAlert(res.data.message, 'success'));
             dispatch(changeEditStatus(commentId));
         } catch (e) {
