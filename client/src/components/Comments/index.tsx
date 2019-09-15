@@ -1,34 +1,101 @@
 import React from 'react';
 import noAvatar from '../../assets/noAvatar.png';
+import { connect } from 'react-redux';
+import { Waypoint } from 'react-waypoint';
+import {
+    addNextCommentsPage,
+    getComments,
+    getMoreComments,
+    resetComments,
+} from '../../store/comments/actions';
+import { IComment } from '../../store/comments/reducers';
 
-export const comments = [
-    {id: 1, image: noAvatar, username: 'Artem', text: 'Artem will implement realisation for comment :)'},
-    {id: 2, image: noAvatar, username: 'Yurii', text: 'Artem will implement realisation for comment :)'},
-    {id: 3, image: noAvatar, username: 'Ostap', text: 'Artem will implement realisation for comment :)'},
-    {id: 4, image: noAvatar, username: 'Rostik', text: 'If you have something advices, dont speak about this)))'},
-    {id: 5, image: noAvatar, username: 'Artem', text: 'If you have something advices, dont speak about this)))'},
-]
+interface ILocalState {
+    postId: string;
+    comments: IComment[];
+    commentsPage: number;
+    commentsLoading: boolean;
+    allCommentsLoaded: boolean;
+}
 
-export const Comment = (): JSX.Element => (
-    <div className='flex-grow-1 comments border-top position-relative'>
-        <div className='position-absolute h-100'>
-            { comments.map((comment: any) => (
-                <div className='one-comment px-3' key={comment.id}>
-                    <img
-                        src={comment.image || noAvatar}
-                        alt='avatar'
-                        width={24}
-                        height={24}
-                        className='img-fluid rounded-circle mt-1 mr-1 mb-1'
+interface IState {
+    comments: ILocalState;
+    ownProps: {
+        postId: string;
+    };
+}
+
+interface IOwnCommentsProps {
+    getComments: (postId: string) => void;
+    getMoreComments: (postId: string, page: number) => void;
+    addNextCommentsPage: (commentsPage: number) => void;
+    resetComments: () => void;
+}
+
+export type ICommentsProps = IOwnCommentsProps & ILocalState;
+
+class Comments extends React.Component<ICommentsProps> {
+    public componentDidMount(): void {
+        this.props.getComments(this.props.postId);
+    }
+
+    public componentWillUnmount(): void {
+        this.props.resetComments();
+    }
+
+    public getMoreComments = (): void => {
+        if (!this.props.allCommentsLoaded) {
+            this.props.addNextCommentsPage(this.props.commentsPage);
+            this.props.getMoreComments(this.props.postId, this.props.commentsPage);
+        }
+    }
+
+    public render(): JSX.Element {
+        return (
+            <div className='flex-grow-1 comments border-top position-relative'>
+                <div className='position-absolute h-100'>
+                    {!!this.props.comments && this.props.comments.map((comment: any) => (
+                        <div className='one-comment px-3' key={comment._id}>
+                            <img
+                                src={comment.authorId.photoPath || noAvatar}
+                                alt='avatar'
+                                width={24}
+                                height={24}
+                                className='img-fluid rounded-circle mt-1 mr-1 mb-1'
+                            />
+                            <span className='mt-1'>{comment.authorId.username}</span>
+                            <div className='d-inline-flex mt-3 float-right edit-delete-comment'>
+                                <i className='fa fa-pencil mr-2 edit-comment'/>
+                                <i className='fa fa-trash-o delete-comment'/>
+                            </div>
+                            <p>{comment.comment}</p>
+                        </div>
+                    ))}
+                    <Waypoint
+                        scrollableAncestor={window}
+                        onEnter={(): void => {
+                            this.getMoreComments();
+                        }}
                     />
-                    <span className='mt-1'>{comment.username}</span>
-                    <div className='d-inline-flex mt-3 float-right edit-delete-comment'>
-                        <i className='fa fa-pencil mr-2 edit-comment' />
-                        <i className='fa fa-trash-o delete-comment' />
-                    </div>
-                    <p>{comment.text}</p>
                 </div>
-            )) }
-        </div>
-    </div>
-)
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalState => ({
+    postId: ownProps.postId,
+    comments: state.comments.comments,
+    commentsPage: state.comments.commentsPage,
+    commentsLoading: state.comments.commentsLoading,
+    allCommentsLoaded: state.comments.allCommentsLoaded,
+});
+
+const mapDispatchToProps = {
+    getComments,
+    getMoreComments,
+    addNextCommentsPage,
+    resetComments,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comments);
