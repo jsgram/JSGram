@@ -99,7 +99,7 @@ const mapStateToProps = (state: any): any => ({
     likeExist: state.userPosts.likeExist,
     loggedId: state.feed.loggedId,
     loggedUsername: state.feed.loggedUsername,
-    });
+});
 
 const mapDispatchToProps = {
     getNewsFeedAsync: newsFeedAction.getNewsFeedAsync,
