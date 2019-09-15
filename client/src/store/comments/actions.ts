@@ -3,6 +3,9 @@ import {
     GET_COMMENTS_SUCCESS,
     ALL_COMMENTS_LOADED,
     RESET_COMMENTS,
+    EDIT_COMMENT,
+    CHANGE_COMMENT,
+    CHANGE_EDIT_STATUS_COMMENT,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
@@ -41,6 +44,47 @@ export const getComments = (postId: string, page: number): (dispatch: Dispatch) 
             }
 
             dispatch(getCommentsSuccess(res.data.commentsAll, page));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const editComment = (comment: string, commentId: string)
+    : { type: string, payload: any } => (
+    {
+        type: EDIT_COMMENT,
+        payload: {
+            comment,
+            commentId,
+        },
+    });
+
+export const changeComment = (comment: string, commentId: string)
+    : { type: string, payload: any } => (
+    {
+        type: CHANGE_COMMENT,
+        payload: {
+            comment,
+            commentId,
+        },
+    });
+
+export const changeEditStatus = (commentId: string): { type: string, payload: string } => ({
+    type: CHANGE_EDIT_STATUS_COMMENT,
+    payload: commentId,
+});
+
+export const editCommentAsync = (
+    comment: string,
+    commentId: string,
+    email: string,
+): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            dispatch(editComment(comment, commentId));
+            const res = await AuthAPI.patch(`/comments/${commentId}`, {comment, email});
+            dispatch(showAlert(res.data.message, 'success'));
+            dispatch(changeEditStatus(commentId));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
