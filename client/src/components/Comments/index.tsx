@@ -43,7 +43,7 @@ class Comments extends React.Component<ICommentsProps> {
     }
 
     public getMoreComments = (): void => {
-        if (!this.props.allCommentsLoaded) {
+        if (!this.props.allCommentsLoaded && !!this.props.comments) {
             this.props.addNextCommentsPage(this.props.commentsPage);
             this.props.getMoreComments(this.props.selectedPost._id, this.props.commentsPage);
         }
@@ -54,8 +54,7 @@ class Comments extends React.Component<ICommentsProps> {
             <>
                 <div className='flex-grow-1 comments border-top position-relative'>
                     <div className='position-absolute h-100'>
-                            {
-                                this.props.comments.map((comment: any) => (
+                            {!!this.props.comments && this.props.comments.map((comment: any) => (
                                         <div className='one-comment px-3' key={comment._id}>
                                             <img
                                                 src={comment.authorId.photoPath || noAvatar}

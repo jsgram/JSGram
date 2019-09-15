@@ -80,7 +80,7 @@ export default class FeedPost extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        const {id, author, image, description, likeExist, authorsOfLike}: any = this.props;
+        const {author, image, description, likeExist, authorsOfLike}: any = this.props;
 
         const likeButton = likeExist ?
             (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>) :
