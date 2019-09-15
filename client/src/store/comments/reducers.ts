@@ -5,6 +5,7 @@ import {
     GET_COMMENTS_SUCCESS,
     GET_MORE_COMMENTS_SUCCESS,
     RESET_COMMENTS,
+    ADD_COMMENT_DISPATCH,
 } from './actionTypes';
 
 interface IComment {
@@ -67,6 +68,11 @@ export const commentsReducer = (state: IComments = defaultState, action: {type: 
                 comments: [],
                 commentsPage: 1,
                 allCommentsLoaded: false,
+            };
+        case ADD_COMMENT_DISPATCH:
+            return {
+                ...state,
+                comments: [...state.comments, ...action.payload.comment],
             };
         default:
             return state;

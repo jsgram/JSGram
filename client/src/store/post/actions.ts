@@ -19,6 +19,7 @@ import {
 } from './actionTypes';
 import { IPost } from './reducers';
 import { decrementPostCount } from '../profile/actions';
+import { addCommentDispatch } from '../comments/actions';
 
 export const getPostsPending = (): { type: string } => ({
     type: GET_POSTS_PENDING,
@@ -180,6 +181,7 @@ export const addComment = (postId: any, authorId: any, comment: string): (dispat
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const res = await AuthAPI.post(`/comments`, { postId, authorId, comment });
+            dispatch(addCommentDispatch(postId, comment));
             dispatch(showAlert(res.data.message, 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
