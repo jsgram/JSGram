@@ -8,14 +8,15 @@ import {
     getMoreComments,
     resetComments,
 } from '../../store/comments/actions';
-import { IComment } from '../../store/comments/reducers';
-import { IPosts } from '../../store/post/reducers';
+import { IComment, IComments } from '../../store/comments/reducers';
+import { IPost, IPosts } from '../../store/post/reducers';
 
 interface ILocalState {
     comments: IComment[];
     commentsPage: number;
     commentsLoading: boolean;
     allCommentsLoaded: boolean;
+    selectedPost: IPost;
 }
 
 interface IState {
@@ -24,6 +25,7 @@ interface IState {
 }
 
 interface IOwnCommentsProps {
+    getComments: (comments: IComments) => void;
     getMoreComments: (postId: string, page: number) => void;
     addNextCommentsPage: (commentsPage: number) => void;
     resetComments: () => void;
@@ -31,7 +33,7 @@ interface IOwnCommentsProps {
 
 export type ICommentsProps = IOwnCommentsProps & ILocalState;
 
-class Comments extends React.Component<any> {
+class Comments extends React.Component<ICommentsProps> {
     public componentDidMount(): void {
         this.props.getComments(this.props.selectedPost.comments);
     }
@@ -85,12 +87,12 @@ class Comments extends React.Component<any> {
     }
 }
 
-const mapStateToProps = (state: IState): any => ({
-    selectedPost: state.userPosts.selectedPost,
+const mapStateToProps = (state: IState): ILocalState => ({
     comments: state.comments.comments,
     commentsPage: state.comments.commentsPage,
     commentsLoading: state.comments.commentsLoading,
     allCommentsLoaded: state.comments.allCommentsLoaded,
+    selectedPost: state.userPosts.selectedPost,
 });
 
 const mapDispatchToProps = {
