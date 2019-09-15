@@ -1,16 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setAuthorsOfLike, setUserLikeExist, addLike, deleteLike } from '../../store/likes/actions';
+import { setPostAuthorsOfLike, setUserLikeExist, addLike, deleteLike } from '../../store/likes/actions';
 import { ILike } from '../../store/likes/reducers';
 import { IFeedState } from '../../store/feed/reducers';
 import { Likes } from '../../components/Likes';
 
-class ProfileLikesContainer extends React.Component<any> {
+interface ILikeState {
+    feed: IFeedState;
+    likes: ILike;
+    userPosts: any;
+}
+
+interface ILikeProps {
+    loggedId: never | string;
+    userPosts: any;
+    authorsOfLike: any;
+    loggedUserLikeExist: boolean;
+}
+
+interface ILocalProps {
+    setPostAuthorsOfLike: any;
+    setUserLikeExist: any;
+    addLike: any;
+    deleteLike: any;
+}
+
+type IProfileLikesProps = ILikeProps & ILocalProps;
+
+class ProfileLikesContainer extends React.Component<IProfileLikesProps> {
     public componentDidMount(): void {
-        this.props.setAuthorsOfLike(this.props.userPosts.selectedPost.authorsOfLike);
+        this.props.setPostAuthorsOfLike(this.props.userPosts.selectedPost.authorsOfLike);
     }
 
-    public componentDidUpdate(prevProps: any): void {
+    public componentDidUpdate(prevProps: IProfileLikesProps): void {
         if (prevProps.authorsOfLike !== this.props.authorsOfLike) {
             this.props.setUserLikeExist(this.props.authorsOfLike.includes(this.props.loggedId));
         }
@@ -30,28 +52,15 @@ class ProfileLikesContainer extends React.Component<any> {
     }
 }
 
-interface ILikeState {
-    feed: IFeedState;
-    userPosts: any;
-    likes: ILike;
-}
-
-interface ILikeProps {
-    loggedId: string;
-    userPosts: [];
-    authorsOfLike: never[];
-    loggedUserLikeExist: boolean;
-}
-
 const mapStateToProps = (state: ILikeState): ILikeProps => ({
     loggedId: state.feed.loggedId,
     userPosts: state.userPosts,
-    authorsOfLike: state.likes.authorsOfLike,
+    authorsOfLike: state.likes.postAuthorsOfLike,
     loggedUserLikeExist: state.likes.loggedUserLikeExist,
 });
 
 const mapDispatchToProps = {
-    setAuthorsOfLike,
+    setPostAuthorsOfLike,
     setUserLikeExist,
     addLike,
     deleteLike,

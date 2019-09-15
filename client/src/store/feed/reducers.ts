@@ -3,6 +3,7 @@ import { SET_LOGGED_USERNAME } from './actionTypes';
 export interface IFeedState {
     loggedUsername: string;
     loggedId: string;
+    loggedPhotoPath: string;
 }
 
 interface IAction {
@@ -10,12 +11,14 @@ interface IAction {
     payload: {
         loggedUsername: string,
         loggedId: string,
+        loggedPhotoPath: string,
     };
 }
 
 const defaultState = {
     loggedUsername: '',
     loggedId: '',
+    loggedPhotoPath: '',
 };
 
 export const feedReducer = (state: IFeedState = defaultState, action: IAction): IFeedState => {
@@ -25,6 +28,7 @@ export const feedReducer = (state: IFeedState = defaultState, action: IAction): 
                 ...state,
                 loggedUsername: action.payload.loggedUsername,
                 loggedId: action.payload.loggedId,
+                loggedPhotoPath: action.payload.loggedPhotoPath,
             };
         default:
             return state;

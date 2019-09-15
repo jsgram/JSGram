@@ -6,13 +6,13 @@ interface ILikesProps {
     authorsOfLike: [];
     loggedUserLikeExist: boolean;
     addLike: (body: { userId: string, postId: string }) => void;
-    deleteLike: (body: { userId: string, postId: string }) => void;
+    deleteLike: (body: { userId: string, postId: string}) => void;
 }
 
 export const Likes = ({
                           userId, postId,
                           authorsOfLike, loggedUserLikeExist, addLike, deleteLike,
-                      }: ILikesProps): any => {
+                      }: ILikesProps): JSX.Element => {
     const onAddLike = (): void => {
         const body = {userId, postId};
         addLike(body);

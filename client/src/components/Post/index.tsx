@@ -10,7 +10,7 @@ import MenuPost from '../MenuPost';
 import { formatDescription } from '../../helpers/regex.description';
 import noAvatar from '../../assets/noAvatar.png';
 import { Comment } from '../Comments';
-import Likes from '../../containers/ProfileLikesContainer';
+import ProfileLikes from '../../containers/ProfileLikesContainer';
 
 interface IProps {
     userPosts: any;
@@ -160,14 +160,14 @@ export default class Post extends React.Component<IProps> {
                                         </div>
                                     </div>
                                     <p className='d-lg-none'>
-                                        <Likes/>
+                                        <ProfileLikes/>
                                     </p>
                                     <p>{formatDescription(desc)}</p>
                                 </div>
                                 <Comment/>
                                 <div className='flex-grow-0'>
                                     <div className='d-none d-lg-block p-3 mb-3 border-top border-bottom'>
-                                        <Likes/>
+                                        <ProfileLikes/>
                                     </div>
                                     <InputGroup>
                                         <TextareaAutosize
