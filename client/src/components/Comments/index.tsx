@@ -3,9 +3,8 @@ import noAvatar from '../../assets/noAvatar.png';
 import { connect } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
 import {
-    addNextCommentsPage,
+    FIRST_PAGE,
     getComments,
-    getMoreComments,
     resetComments,
 } from '../../store/comments/actions';
 import { IComment } from '../../store/comments/reducers';
@@ -26,9 +25,7 @@ interface IState {
 }
 
 interface IOwnCommentsProps {
-    getComments: (postId: string) => void;
-    getMoreComments: (postId: string, page: number) => void;
-    addNextCommentsPage: (commentsPage: number) => void;
+    getComments: (postId: string, page: number) => void;
     resetComments: () => void;
 }
 
@@ -36,7 +33,7 @@ export type ICommentsProps = IOwnCommentsProps & ILocalState;
 
 class Comments extends React.Component<ICommentsProps> {
     public componentDidMount(): void {
-        this.props.getComments(this.props.postId);
+        this.props.getComments(this.props.postId, FIRST_PAGE);
     }
 
     public componentWillUnmount(): void {
@@ -45,8 +42,7 @@ class Comments extends React.Component<ICommentsProps> {
 
     public getMoreComments = (): void => {
         if (!this.props.allCommentsLoaded) {
-            this.props.addNextCommentsPage(this.props.commentsPage);
-            this.props.getMoreComments(this.props.postId, this.props.commentsPage);
+            this.props.getComments(this.props.postId, this.props.commentsPage + 1);
         }
     }
 
@@ -93,8 +89,6 @@ const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalSta
 
 const mapDispatchToProps = {
     getComments,
-    getMoreComments,
-    addNextCommentsPage,
     resetComments,
 };
 
