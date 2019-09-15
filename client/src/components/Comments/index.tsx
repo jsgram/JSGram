@@ -8,10 +8,11 @@ import {
     getMoreComments,
     resetComments,
 } from '../../store/comments/actions';
+import { IComment } from '../../store/comments/reducers';
 
 interface ILocalState {
     postId: string;
-    comments: [];
+    comments: IComment[];
     commentsPage: number;
     commentsLoading: boolean;
     allCommentsLoaded: boolean;
@@ -24,19 +25,16 @@ interface IState {
     };
 }
 
-interface IComments {
-    postId: string;
-    comments: [];
-    commentsPage: number;
-    commentsLoading: boolean;
-    allCommentsLoaded: boolean;
+interface IOwnCommentsProps {
     getComments: (postId: string) => void;
     getMoreComments: (postId: string, page: number) => void;
     addNextCommentsPage: (commentsPage: number) => void;
     resetComments: () => void;
 }
 
-class Comments extends React.Component<IComments> {
+export type ICommentsProps = IOwnCommentsProps & ILocalState;
+
+class Comments extends React.Component<ICommentsProps> {
     public componentDidMount(): void {
         this.props.getComments(this.props.postId);
     }

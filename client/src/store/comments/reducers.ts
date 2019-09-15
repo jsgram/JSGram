@@ -7,7 +7,7 @@ import {
     RESET_COMMENTS,
 } from './actionTypes';
 
-interface IComment {
+export interface IComment {
     _id: string;
     postId: string;
     comment: string;
