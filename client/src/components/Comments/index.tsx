@@ -33,7 +33,9 @@ export type ICommentsProps = IOwnCommentsProps & ILocalState;
 
 class Comments extends React.Component<ICommentsProps> {
     public componentDidMount(): void {
-        this.props.getComments(this.props.postId, FIRST_PAGE);
+        if (this.props.postId) {
+            this.props.getComments(this.props.postId, FIRST_PAGE);
+        }
     }
 
     public componentWillUnmount(): void {
@@ -41,7 +43,7 @@ class Comments extends React.Component<ICommentsProps> {
     }
 
     public getMoreComments = (): void => {
-        if (!this.props.allCommentsLoaded) {
+        if (!this.props.allCommentsLoaded && this.props.postId) {
             this.props.getComments(this.props.postId, this.props.commentsPage + 1);
         }
     }
