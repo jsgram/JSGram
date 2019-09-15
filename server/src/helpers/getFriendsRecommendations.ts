@@ -57,13 +57,11 @@ const setDistanceAndPushToQueue = (queue: string[], friend: string,
 export const findRecommendations = (users: IGraph, rootUser: string): IFriendsRecommendations => {
     // Object, where key - is node, value - distance from the root node
     // (in our case, distance 1 - they are friends, 2 - have mutual friend, and so on)
-    const usersFriendshipDegree: IUsersFriendshipDegree = {};
+    const usersFriendshipDegree: IUsersFriendshipDegree =
+    // Take all nodes of graph and set distance to rootUser to Infinity, which means, that node is not visited yet
+          Object.keys(users).reduce((result: object, item: string) => ({...result, [item]: Infinity }), {});
     // Object, where key - user to be recommended, value - recommendation score
     const friendsRecommendations: IFriendsRecommendations = {};
-
-    // Take all nodes of graph and set distance to rootUser to Infinity, which means, that node is not visited yet
-    const allUsers = Object.keys(users);
-    allUsers.forEach((user: string) => usersFriendshipDegree[user] = Infinity);
     // Set distance from root node to itself to 0
     usersFriendshipDegree[rootUser] = 0;
     // Keep track of nodes to visit
