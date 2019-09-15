@@ -112,6 +112,7 @@ class Comments extends React.Component<ICommentsProps> {
                                                 </>
                                             )
                                             :
+                                            this.props.user.email === comment.authorId.email &&
                                             (
                                                 <>
                                                     <div className='d-inline-flex mt-3 float-right
@@ -124,10 +125,10 @@ class Comments extends React.Component<ICommentsProps> {
                                                         />
                                                         <i className='fa fa-trash-o delete-comment'/>
                                                     </div>
-                                                    <p>{comment.comment}</p>
                                                 </>
                                             )
                                     }
+                                    <p>{comment.comment}</p>
                                 </div>
                             ),
                         )
