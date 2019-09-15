@@ -8,6 +8,7 @@ import {
     SET_MORE_FOLLOWING,
     ALL_FOLLOWING_LOADED,
 } from './actionTypes';
+import {CHANGE_USER_FOLLOWING } from '../followers/actionTypes';
 
 export const setFollowingPending = (): { type: string } => ({
     type: SET_FOLLOWING_PENDING,
@@ -29,6 +30,11 @@ export const setMoreFollowing = (loggedId: string, following: []):
         type: SET_MORE_FOLLOWING,
         payload: {loggedId, following},
     });
+
+export const changeUserFollowing = (userId: string): {type: string, payload: string} => ({
+    type: CHANGE_USER_FOLLOWING,
+    payload: userId,
+});
 
 export const allFollowingLoaded = (): { type: string } => ({
     type: ALL_FOLLOWING_LOADED,

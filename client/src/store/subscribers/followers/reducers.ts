@@ -31,20 +31,16 @@ export const followersReducer = (state: any = defaultState, action: { type: stri
             return {
                 ...state,
                 loading: false,
-                followers: action.payload.followers.map((follower: any) => {
-                    return {
-                        ...follower,
-                        alreadyFollow: follower.followers.includes(action.payload.loggedId),
-                    };
-                }),
-            };
-        case SET_MORE_FOLLOWERS:
-            const newFollowers = action.payload.followers.map((follower: any) => {
-                return {
+                followers: action.payload.followers.map((follower: any) => ({
                     ...follower,
                     alreadyFollow: follower.followers.includes(action.payload.loggedId),
-                };
-            });
+                })),
+            };
+        case SET_MORE_FOLLOWERS:
+            const newFollowers = action.payload.followers.map((follower: any) => ({
+                ...follower,
+                alreadyFollow: follower.followers.includes(action.payload.loggedId),
+            }));
             return {
                 ...state,
                 followers: [...state.followers, ...newFollowers],
@@ -53,17 +49,10 @@ export const followersReducer = (state: any = defaultState, action: { type: stri
         case CHANGE_USER_FOLLOWING:
             return {
                 ...state,
-                followers: state.followers.map((follower: any) => {
-                    if (follower._id === action.payload) {
-                        return {
-                            ...follower,
-                            alreadyFollow: !follower.alreadyFollow,
-                        };
-                    }
-                    return {
-                        ...follower,
-                    };
-                }),
+                followers: state.followers.map((follower: any) => follower._id === action.payload ? {
+                    ...follower,
+                    alreadyFollow: !follower.alreadyFollow,
+                } : follower),
             };
         case SET_NEXT_PAGE:
             return {
