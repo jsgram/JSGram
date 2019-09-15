@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { updateComment } from '../../db.requests/update.comment.request';
-import {decodeJWT} from "../../helpers/jwt.encoders";
+import { decodeJWT } from '../../helpers/jwt.encoders';
 
 interface IParams {
     params: {
