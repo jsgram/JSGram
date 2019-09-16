@@ -120,9 +120,9 @@ class Comments extends React.Component<ICommentsProps> {
                                                     />
                                                     <i className='fa fa-trash-o delete-comment'/>
                                                 </div>
-                                                <p>{comment.comment}</p>
                                             </>
                                     }
+                                    <p>{!comment.isEdit && comment.comment}</p>
                                 </div>
                             ),
                         )
