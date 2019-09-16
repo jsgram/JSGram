@@ -18,16 +18,16 @@ export interface IComment {
 
 export interface IComments {
     comments: IComment[];
-    commentsPage: number;
+    commentsPage: any;
+    allCommentsLoaded: any;
     commentsLoading: boolean;
-    allCommentsLoaded: boolean;
 }
 
 const defaultState = {
     comments: [],
-    commentsPage: 1,
+    commentsPage: [],
+    allCommentsLoaded: [],
     commentsLoading: false,
-    allCommentsLoaded: false,
 };
 
 export const commentsReducer = (state: IComments = defaultState, action: { type: string, payload: any }): any => {
@@ -38,23 +38,38 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                 commentsLoading: true,
             };
         case GET_COMMENTS_SUCCESS:
+            const commentPageExist = state.commentsPage.some((commentState: any) =>
+                commentState.postId === action.payload.postId);
+
+            const commentsState = commentPageExist ?
+                state.commentsPage.map((commentState: any) => {
+                    if (commentState.postId === action.payload.postId) {
+                        return {
+                            postId: commentState.postId,
+                            page: action.payload.page,
+                        };
+                    }
+                    return commentState;
+                })
+                :
+                [...state.commentsPage, {postId: action.payload.postId, page: action.payload.page}];
             return {
                 ...state,
                 comments: [...state.comments, ...action.payload.comments],
-                commentsPage: action.payload.page,
+                commentsPage: commentsState,
                 commentsLoading: false,
             };
         case ALL_COMMENTS_LOADED:
             return {
                 ...state,
-                allCommentsLoaded: true,
+                allCommentsLoaded: [...state.allCommentsLoaded, action.payload.postId],
             };
         case RESET_COMMENTS:
             return {
                 ...state,
                 comments: [],
-                commentsPage: 1,
-                allCommentsLoaded: false,
+                commentsPage: [],
+                allCommentsLoaded: [],
             };
         default:
             return state;
