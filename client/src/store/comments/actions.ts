@@ -81,8 +81,8 @@ export const editCommentAsync = (
 ): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            dispatch(editComment(comment, commentId));
             const res = await AuthAPI.patch(`/comments/${commentId}`, {comment, email});
+            dispatch(editComment(comment, commentId));
             dispatch(showAlert(res.data.message, 'success'));
             dispatch(changeEditStatus(commentId));
         } catch (e) {

@@ -82,17 +82,18 @@ class Comments extends React.Component<ICommentsProps> {
                                         comment.isEdit ?
                                             (
                                                 <>
-                                                             <textarea
-                                                                 rows={3}
-                                                                 className='form-control'
-                                                                 value={comment.newComment || comment.comment}
-                                                                 onChange={
-                                                                     (event: any): void => this.props.changeComment(
-                                                                         event.target.value,
-                                                                         comment._id,
-                                                                     )
-                                                                 }
-                                                             />
+                                                     <textarea
+                                                         rows={3}
+                                                         className='form-control'
+                                                         value={comment.newComment || comment.comment}
+                                                         onChange={
+                                                             (event: React.ChangeEvent<any>)
+                                                                 : void => this.props.changeComment(
+                                                                 event.target.value,
+                                                                 comment._id,
+                                                             )
+                                                         }
+                                                     />
                                                     <div className='btn btn-danger mt-2'
                                                          onClick={(): void => this.editComment(
                                                              comment.newComment,
@@ -114,18 +115,16 @@ class Comments extends React.Component<ICommentsProps> {
                                             :
                                             this.props.user.email === comment.authorId.email &&
                                             (
-                                                <>
-                                                    <div className='d-inline-flex mt-3 float-right
-                                                            edit-delete-comment'>
-                                                        <i
-                                                            className='fa fa-pencil mr-2 edit-comment'
-                                                            onClick={(): void => this.props.changeEditStatus(
-                                                                comment._id,
-                                                            )}
-                                                        />
-                                                        <i className='fa fa-trash-o delete-comment'/>
-                                                    </div>
-                                                </>
+                                                <div className='d-inline-flex mt-3 float-right
+                                                        edit-delete-comment'>
+                                                    <i
+                                                        className='fa fa-pencil mr-2 edit-comment'
+                                                        onClick={(): void => this.props.changeEditStatus(
+                                                            comment._id,
+                                                        )}
+                                                    />
+                                                    <i className='fa fa-trash-o delete-comment'/>
+                                                </div>
                                             )
                                     }
                                     <p>{comment.comment}</p>
