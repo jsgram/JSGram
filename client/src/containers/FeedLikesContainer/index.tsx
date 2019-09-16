@@ -7,6 +7,21 @@ import { ILike } from '../../store/likes/reducers';
 import { IFeedState } from '../../store/feed/reducers';
 import { Likes } from '../../components/Likes';
 
+interface ILikeState {
+    feed: IFeedState;
+    userPosts: any;
+    likes: ILike;
+    newsFeed: [];
+}
+
+interface ILikeProps {
+    postId: string;
+    likes: [];
+    loggedId: string;
+    authorsOfLike: never[];
+    newsFeed: [];
+}
+
 interface ICommentsState {
     postId: string;
     authorsOfLike: [];
@@ -29,9 +44,6 @@ class FeedLikesContainer extends React.Component<any> {
 
     public componentDidUpdate(prevProps: any): void {
         if (prevProps.authorsOfLike !== this.props.authorsOfLike) {
-            // const likeExist = this.props.likes.includes(this.props.loggedId);
-            // this.props.setFeedAuthorsOfLike(this.props.postId, this.props.likes, likeExist);
-
             this.props.authorsOfLike.forEach(({postId, authorsOfLike, userLikeExist}: ICommentsState) => {
                 if (this.props.postId === postId) {
                     this.setState({
@@ -58,20 +70,7 @@ class FeedLikesContainer extends React.Component<any> {
     }
 }
 
-interface ILikeState {
-    feed: IFeedState;
-    userPosts: any;
-    likes: ILike;
-}
-
-interface ILikeProps {
-    loggedId: string;
-    userPosts: [];
-    authorsOfLike: never[];
-    loggedUserLikeExist: boolean;
-}
-
-const mapStateToProps = (state: any, ownProps: { postId: string, likes: [] }): any => ({
+const mapStateToProps = (state: ILikeState, ownProps: { postId: string, likes: [] }): ILikeProps => ({
     postId: ownProps.postId,
     likes: ownProps.likes,
     loggedId: state.feed.loggedId,

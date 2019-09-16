@@ -3,15 +3,33 @@ import { connect } from 'react-redux';
 import * as newsFeedAction from '../../store/newsFeed/actions';
 import { FeedPost } from '../../components/FeedPost';
 
-// TODO fix any
-const FeedContainer = (props: any): JSX.Element => {
-    const {
-        loggedId,
-        loggedUsername,
-        loggedPhotoPath,
-        newsFeed,
-        getNewsFeedAsync, getMoreNewsFeedAsync, addNextFeedPosts,
-    }: any = props;
+interface ILocalProps {
+    newsFeed: [];
+    loggedId: string;
+    loggedUsername: string;
+    loggedPhotoPath: string;
+}
+
+interface IState {
+    newsFeed: [];
+    feed: ILocalProps;
+}
+
+interface IProps {
+    getNewsFeedAsync: () => void;
+    getMoreNewsFeedAsync: (page: number) => void;
+    addNextFeedPosts: (page: number) => void;
+}
+
+type FeedProps = ILocalProps & IProps;
+
+const FeedContainer = ({
+                           loggedId,
+                           loggedUsername,
+                           loggedPhotoPath,
+                           newsFeed,
+                           getNewsFeedAsync, getMoreNewsFeedAsync, addNextFeedPosts,
+                       }: FeedProps): JSX.Element => {
     return (
         <FeedPost
             loggedId={loggedId}
@@ -25,7 +43,7 @@ const FeedContainer = (props: any): JSX.Element => {
     );
 };
 
-const mapStateToProps = (state: any): any => ({
+const mapStateToProps = (state: IState): ILocalProps => ({
     newsFeed: state.newsFeed,
     loggedId: state.feed.loggedId,
     loggedUsername: state.feed.loggedUsername,

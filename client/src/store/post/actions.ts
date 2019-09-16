@@ -67,11 +67,11 @@ export const resetPosts = (): { type: string } => ({
     type: RESET_POSTS,
 });
 
-// TODO fix any
-export const addUserLikeToSelectedPost = (loggedId: string, postId: string): { type: string, payload: any } => ({
-    type: ADD_USER_LIKE_TO_SELECTED_POST,
-    payload: {loggedId, postId},
-});
+export const addUserLikeToSelectedPost = (loggedId: string, postId: string):
+    { type: string, payload: {loggedId: string, postId: string} } => ({
+        type: ADD_USER_LIKE_TO_SELECTED_POST,
+        payload: {loggedId, postId},
+    });
 
 export const removeUserLikeFromSelectedPost = (loggedId: string, postId: string): { type: string, payload: any } => ({
     type: REMOVE_USER_LIKE_FROM_SELECTED_POST,

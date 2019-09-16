@@ -9,7 +9,6 @@ export const setLoggedUsername = (loggedId: string, loggedUsername: string, logg
         payload: {loggedId, loggedUsername, loggedPhotoPath},
     });
 
-// TODO FIX with feed component
 export const getUserInfoFromToken = (): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
