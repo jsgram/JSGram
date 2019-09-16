@@ -2,7 +2,6 @@ import React from 'react';
 import { DropzoneState, useDropzone } from 'react-dropzone';
 import { Container, Row } from 'reactstrap';
 import '../PostPost/style.scss';
-import { showAlert } from '../../../store/alert/actions';
 
 interface IProps {
     uploadImageToCropper: (imageFile: File) => void;
@@ -27,7 +26,7 @@ const AddPostDropZone = (props: IProps): JSX.Element => {
                 return informFileError('Uploaded file is not a valid image');
             }
         },
-        
+
     });
 
     return (

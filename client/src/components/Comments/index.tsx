@@ -63,12 +63,10 @@ class Comments extends React.Component<ICommentsProps> {
         this.props.editCommentAsync(comment, id, email);
     }
 
-    public render(): JSX.Element {
-
-        const renderComment = (comment: IComment): any => {
-            if (comment.isEdit) {
-                return(
-                    <>
+    public renderComment = (comment: IComment): any => (
+        comment.isEdit ?
+            (
+                <>
                          <textarea
                              rows={3}
                              className='form-control'
@@ -81,26 +79,26 @@ class Comments extends React.Component<ICommentsProps> {
                                  )
                              }
                          />
-                        <div className='btn btn-danger mt-2'
-                             onClick={(): void => this.editComment(
-                                 comment.newComment,
-                                 comment._id,
-                                 comment.authorId.email,
-                             )}
-                        >
-                            Change
-                        </div>
-                        <div className='btn btn-danger mt-2 ml-2'
-                             onClick={(): void => this.props.changeEditStatus(
-                                 comment._id,
-                             )}
-                        >
-                            Cancel
-                        </div>
-                    </>
-                );
-            }
-            return(
+                    <div className='btn btn-danger mt-2'
+                         onClick={(): void => this.editComment(
+                             comment.newComment,
+                             comment._id,
+                             comment.authorId.email,
+                         )}
+                    >
+                        Change
+                    </div>
+                    <div className='btn btn-danger mt-2 ml-2'
+                         onClick={(): void => this.props.changeEditStatus(
+                             comment._id,
+                         )}
+                    >
+                        Cancel
+                    </div>
+                </>
+            )
+            :
+            (
                 <>
                     <div className='d-inline-flex mt-3 float-right edit-delete-comment'>
                         <i
@@ -111,8 +109,10 @@ class Comments extends React.Component<ICommentsProps> {
                     </div>
                     <p>{comment.comment}</p>
                 </>
-            );
-        };
+            )
+    )
+
+    public render(): JSX.Element {
         return (
             <>
                 <div className='flex-grow-1 comments border-top position-relative'>
@@ -129,7 +129,7 @@ class Comments extends React.Component<ICommentsProps> {
                                     <span className='mt-1'>{comment.authorId.username}</span>
                                     {
                                         this.props.user.email === comment.authorId.email
-                                            ? renderComment(comment)
+                                            ? this.renderComment(comment)
                                             : <p>{comment.comment}</p>
                                     }
                                 </div>
