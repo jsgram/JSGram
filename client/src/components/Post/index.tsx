@@ -12,11 +12,6 @@ import ProfileLikes from '../../containers/ProfileLikesContainer';
 import { IPost } from '../../store/post/reducers';
 import Comments from '../Comments';
 
-interface IBody {
-    userId: string;
-    postId: string;
-}
-
 interface IProps {
     userPosts: any;
     user: IUserData;
