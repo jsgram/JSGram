@@ -5,10 +5,10 @@ import './style.scss';
 interface IFollowData {
     username: string;
 }
-export const FollowList = ({title,data}: { title: string, data: IFollowData[]}): ReactElement=> (
+export const FollowList = ({title, data}: { title: string, data: IFollowData[]}): ReactElement => (
     <div>
         <h4 className='text-center'>{title}</h4>
-            <div className='d-flex justify-content-center'> 
+            <div className='d-flex justify-content-center'>
                     <div className='follow-wrapper'>
                     {data.map((item: any) => (
                         <div className='d-flex mt-1 mb-3 justify-content-between' key={item.username}>
