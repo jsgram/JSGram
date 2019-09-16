@@ -19,9 +19,7 @@ export const update = async (req: Request, res: Response, next: NextFunction): P
     try {
         const { params: { id } }: IParams = req;
         const { body: { comment, email } }: IReqBody = req;
-        const token: any = req.get('x-access-token');
-        const tokenObject: any = decodeJWT(token, process.env.SECRET_KEY);
-        const decodedTokenEmail = tokenObject.email;
+        const decodedTokenEmail = res.locals.user.email;
 
         if (decodedTokenEmail !== email) {
             throw new Error('You don\'t have permission to change comment');
