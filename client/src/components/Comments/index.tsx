@@ -55,20 +55,20 @@ class Comments extends React.Component<ICommentsProps> {
                     {!!this.props.comments && this.props.comments.map((comment: any) => (
                         <div className='one-comment px-3' key={comment._id}>
                             <div className='d-flex justify-content-between'>
-                            <div>
-                            <img
-                                src={comment.authorId.photoPath || noAvatar}
-                                alt='avatar'
-                                width={24}
-                                height={24}
-                                className='img-fluid rounded-circle mt-1 mr-1 mb-1'
-                            />
-                            <span className='mt-1'>{comment.authorId.username}</span>
-                            </div>
-                            <div className='d-inline align-self-center edit-delete-comment'>
-                                <i className='fa fa-pencil mr-2 edit-comment'/>
-                                <i className='fa fa-trash-o delete-comment'/>
-                            </div>
+                                <div>
+                                    <img
+                                        src={comment.authorId.photoPath || noAvatar}
+                                        alt='avatar'
+                                        width={24}
+                                        height={24}
+                                        className='img-fluid rounded-circle mt-1 mr-1 mb-1'
+                                    />
+                                    <span className='mt-1'>{comment.authorId.username}</span>
+                                </div>
+                                <div className='d-inline align-self-center edit-delete-comment'>
+                                    <i className='fa fa-pencil mr-2 edit-comment'/>
+                                    <i className='fa fa-trash-o delete-comment'/>
+                                </div>
                             </div>
                             <p>{comment.comment}</p>
                         </div>
