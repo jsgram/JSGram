@@ -8,22 +8,24 @@ import {
     UPLOAD_NEXT_FEED_POSTS,
     ALL_NEWS_FEED_LOADED,
     CLEAR_NEWS_FEED_LOADED,
+    GET_RECOMMENDATIONS_PENDING,
+    GET_RECOMMENDATIONS_SUCCESS,
 } from './actionTypes';
 import { INewsFeed } from './reducers';
 
 export const getNewsFeedPending = (): { type: string } => ({
     type: GET_NEWS_FEED_PENDING,
-})
+});
 
 export const getNewsFeedSuccess = (userNews: INewsFeed): { type: string, payload: any } => ({
     type: GET_NEWS_FEED_SUCCESS,
     payload: userNews,
-})
+});
 
 export const getMoreNewsFeedSuccess = (userNews: any): { type: string, payload: any } => ({
     type: GET_MORE_NEWS_FEED_SUCCESS,
     payload: userNews,
-})
+});
 
 export const addNextFeedPosts = (page: number): {type: string, payload: number} => ({
     type: UPLOAD_NEXT_FEED_POSTS,
@@ -32,11 +34,11 @@ export const addNextFeedPosts = (page: number): {type: string, payload: number} 
 
 export const clearNewsFeedLoaded = (): { type: string } => ({
     type: CLEAR_NEWS_FEED_LOADED,
-})
+});
 
 export const allNewsFeedLoaded = (): { type: string } => ({
     type: ALL_NEWS_FEED_LOADED,
-})
+});
 
 export const getNewsFeedAsync = (): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
@@ -57,7 +59,6 @@ export const getMoreNewsFeedAsync = (page: number): (dispatch: Dispatch) => Prom
             dispatch(getNewsFeedPending());
             const res = await AuthAPI.get(`/feed/${page}`);
 
-
             if (!res.data.feed.length) {
                 dispatch(allNewsFeedLoaded());
                 return;
@@ -67,4 +68,20 @@ export const getMoreNewsFeedAsync = (page: number): (dispatch: Dispatch) => Prom
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
+    };
+
+export const getRecommendationsPending = (): { type: string } => ({
+    type: GET_RECOMMENDATIONS_PENDING,
+});
+
+export const getRecommendationsSuccess = (users: object[]): { type: string, payload: object[] } => ({
+    type: GET_RECOMMENDATIONS_SUCCESS,
+    payload: users,
+});
+
+export const getRecommendations = (): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        dispatch(getRecommendationsPending());
+        const res = await AuthAPI.get('/feed');
+        dispatch(getRecommendationsSuccess(res.data.friendsRecommendations));
     };

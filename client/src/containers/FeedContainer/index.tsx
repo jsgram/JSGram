@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as newsFeedAction from '../../store/newsFeed/actions';
 import * as addPostLike from '../../store/post/actions';
+import { followUser } from '../../store/profile/actions';
 import FeedPost from '../../components/FeedPost';
 import Menu from '../../components/Menu';
 import { Col, Container, Row, Spinner } from 'reactstrap';
@@ -9,6 +10,7 @@ import { Link } from 'react-router-dom';
 import noAvatar from '../../assets/noAvatar.png';
 import { INewsFeed } from '../../store/newsFeed/reducers';
 import { Waypoint } from 'react-waypoint';
+import { FriendsRecomendations } from '../../components/FriendsRecommendations';
 
 class FeedContainer extends React.Component<any> {
 
@@ -21,6 +23,7 @@ class FeedContainer extends React.Component<any> {
 
     public componentDidMount(): void {
         this.props.getNewsFeedAsync();
+        this.props.getRecommendations();
     }
     // TODO refactor props
     public render(): JSX.Element {
@@ -74,6 +77,12 @@ class FeedContainer extends React.Component<any> {
                         <Link to={`/profile/${loggedUsername}`} className='mt-1 ml-3 mr-4
                         text-dark'>{loggedUsername}</Link>
                         <Link to='/logout' className='text-danger pl-1'>Logout</Link>
+                        {newsFeed.friendsRecommendations.users.length !== 0 &&
+                            <FriendsRecomendations
+                            loggedUsername={loggedUsername}
+                            friendsRecommendations={newsFeed.friendsRecommendations}
+                            followUser={this.props.followUser}
+                        />}
                     </Col>
                 </Row>
                 <Waypoint
@@ -99,7 +108,7 @@ const mapStateToProps = (state: any): any => ({
     likeExist: state.userPosts.likeExist,
     loggedId: state.feed.loggedId,
     loggedUsername: state.feed.loggedUsername,
-    });
+});
 
 const mapDispatchToProps = {
     getNewsFeedAsync: newsFeedAction.getNewsFeedAsync,
@@ -111,6 +120,8 @@ const mapDispatchToProps = {
     setCountOfLikes: addPostLike.setCountOfLikes,
     addLoggedUserLike: addPostLike.addLoggedUserLike,
     removeLoggedUserLike: addPostLike.removeLoggedUserLike,
+    getRecommendations: newsFeedAction.getRecommendations,
+    followUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeedContainer);
