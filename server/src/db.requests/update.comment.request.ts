@@ -4,6 +4,7 @@ import { Comment, ICommentModel } from '../models/comment.model';
 export const updateComment = async (id: string, comment: string, next: NextFunction)
     : Promise<ICommentModel | void> => {
     try {
+
         const updatedComment = await Comment.findByIdAndUpdate(id, {comment}, {new: true});
         if (!updatedComment) {
             throw new Error('Comment doesn\'t exist');
