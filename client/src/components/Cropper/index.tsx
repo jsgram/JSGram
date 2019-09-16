@@ -12,6 +12,7 @@ export interface IAddAvatarCropperProps {
     loading: boolean;
     informFileError: any;
     resetAddPost: any;
+    toggleModal: () => void;
 }
 
 interface IState {
@@ -84,6 +85,7 @@ export default class AddPostCropper extends React.Component<IAddAvatarCropperPro
         await createBlobUrl(cropped, (data: any) => {
             this.props.setCroppedImageForAvatar(data.target.result);
             this.props.uploadPostAvatar(this.props.croppedImage);
+            this.props.toggleModal();
         });
     }
 
