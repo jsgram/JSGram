@@ -51,9 +51,11 @@ class Comments extends React.Component<ICommentsProps> {
     public render(): JSX.Element {
         return (
             <div className='flex-grow-1 comments border-top position-relative'>
-                <div className='position-absolute h-100'>
+                <div className='position-absolute h-100 w-100'>
                     {!!this.props.comments && this.props.comments.map((comment: any) => (
                         <div className='one-comment px-3' key={comment._id}>
+                            <div className='d-flex justify-content-between'>
+                            <div>
                             <img
                                 src={comment.authorId.photoPath || noAvatar}
                                 alt='avatar'
@@ -62,9 +64,11 @@ class Comments extends React.Component<ICommentsProps> {
                                 className='img-fluid rounded-circle mt-1 mr-1 mb-1'
                             />
                             <span className='mt-1'>{comment.authorId.username}</span>
-                            <div className='d-inline-flex mt-3 float-right edit-delete-comment'>
+                            </div>
+                            <div className='d-inline align-self-center edit-delete-comment'>
                                 <i className='fa fa-pencil mr-2 edit-comment'/>
                                 <i className='fa fa-trash-o delete-comment'/>
+                            </div>
                             </div>
                             <p>{comment.comment}</p>
                         </div>
