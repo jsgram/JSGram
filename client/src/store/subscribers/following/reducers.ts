@@ -8,6 +8,7 @@ import {
 import { CHANGE_USER_FOLLOWING } from '../followers/actionTypes';
 
 const defaultState = {
+    title: 'Following',
     page: 1,
     loading: false,
     allFollowingLoaded: false,

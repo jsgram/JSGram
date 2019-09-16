@@ -7,9 +7,10 @@ import {
     changeUserFollowing,
 } from '../../../store/subscribers/following/actions';
 import { followUser, unfollowUser } from '../../../store/profile/actions';
-import { Followers } from '../../../components/Subscriber/Followers';
+import { Followers } from '../../../components/Followers';
 
 export interface IFollowingProps {
+    title: string;
     following: [];
     urlUsername: string;
     page: number;
@@ -29,6 +30,7 @@ export interface IFollowingProps {
 const FollowingsContainer = (props: IFollowingProps): JSX.Element => {
     return(
         <Followers
+            title={props.title}
             loggedId={props.loggedId}
             urlUsername={props.urlUsername}
             page={props.page}
@@ -48,6 +50,7 @@ const FollowingsContainer = (props: IFollowingProps): JSX.Element => {
 };
 
 const mapStateToProps = (state: any): any => ({
+    title: state.following.title,
     loggedId: state.feed.loggedId,
     page: state.following.page,
     loaded: state.followers.loaded,

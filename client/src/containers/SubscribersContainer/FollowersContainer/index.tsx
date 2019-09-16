@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Followers, IFollowersProps } from '../../../components/Subscriber/Followers';
+import { Followers, IFollowersProps } from '../../../components/Followers';
 import {
     getFollowers,
     setNextPage,
@@ -12,6 +12,7 @@ import { followUser, unfollowUser } from '../../../store/profile/actions';
 const FollowersContainer = (props: IFollowersProps): JSX.Element => {
     return(
         <Followers
+            title={props.title}
             loggedId={props.loggedId}
             urlUsername={props.urlUsername}
             page={props.page}
@@ -31,6 +32,7 @@ const FollowersContainer = (props: IFollowersProps): JSX.Element => {
 };
 
 const mapStateToProps = (state: any): any => ({
+    title: state.followers.title,
     loggedId: state.feed.loggedId,
     page: state.followers.page,
     loaded: state.followers.loaded,
