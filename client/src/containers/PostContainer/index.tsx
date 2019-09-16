@@ -36,6 +36,7 @@ const PostContainer = (props: any): JSX.Element => (
 );
 
 const mapStateToProps = (state: any, ownProps: { username: string }): any => ({
+    loggedId: state.feed.loggedId,
     userPosts: state.userPosts,
     user: state.profile.user,
     ownProps: ownProps.username,

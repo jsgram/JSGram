@@ -58,7 +58,7 @@ export const showPost = (post: any): { type: string, payload: any } => ({
 
 export const editDescriptionForPost = (description: string, postId: string): { type: string, payload: any } => ({
     type: EDIT_DESCRIPTION_FOR_POST,
-    payload: { description, postId },
+    payload: {description, postId},
 });
 
 export const addNextPosts = (page: number): { type: string, payload: number } => ({
@@ -71,7 +71,7 @@ export const resetPosts = (): { type: string } => ({
 });
 
 export const addUserLikeToSelectedPost = (loggedId: string, postId: string):
-    { type: string, payload: {loggedId: string, postId: string} } => ({
+    { type: string, payload: { loggedId: string, postId: string } } => ({
         type: ADD_USER_LIKE_TO_SELECTED_POST,
         payload: {loggedId, postId},
     });
@@ -79,6 +79,7 @@ export const addUserLikeToSelectedPost = (loggedId: string, postId: string):
 export const removeUserLikeFromSelectedPost = (loggedId: string, postId: string): { type: string, payload: any } => ({
     type: REMOVE_USER_LIKE_FROM_SELECTED_POST,
     payload: {loggedId, postId},
+});
 
 export const addNewComment = (comment: string): { type: string, payload: string } => ({
     type: ADD_COMMENT,
@@ -136,7 +137,7 @@ export const deletePost = (postId: string): (dispatch: Dispatch) => Promise<void
 export const editPost = (description: any, id: any): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const res = await AuthAPI.patch(`/post/${id}`, JSON.stringify({ description }));
+            const res = await AuthAPI.patch(`/post/${id}`, JSON.stringify({description}));
             dispatch(showAlert(res.data.message, 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
@@ -146,7 +147,7 @@ export const editPost = (description: any, id: any): (dispatch: Dispatch) => Pro
 export const addComment = (postId: string, authorId: string, comment: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const res = await AuthAPI.post(`/comments`, { postId, authorId, comment });
+            const res = await AuthAPI.post(`/comments`, {postId, authorId, comment});
             dispatch(addCommentDispatch(res.data.createdComment));
             dispatch(resetComment());
             dispatch(showAlert(res.data.message, 'success'));
