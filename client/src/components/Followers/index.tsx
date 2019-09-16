@@ -1,12 +1,13 @@
 import React from 'react';
 import { Waypoint } from 'react-waypoint';
 import { Button, Spinner } from 'reactstrap';
-import noAvatar from '../../../assets/noAvatar.png';
+import noAvatar from '../../assets/noAvatar.png';
 import './style.scss';
-import Menu from '../../Menu';
+import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 
 export interface IFollowersProps {
+    title: string;
     followers: [];
     urlUsername: string;
     page: number;
@@ -80,6 +81,7 @@ export class Followers extends React.Component<IFollowersProps> {
         return (
             <div>
                 <Menu/>
+                <h4 className='text-center font-weight-light text-secondary text-uppercase'>{this.props.title}</h4>
                 <div className='d-flex justify-content-center'>
                 <div className='follow-wrapper'>
                         {this.props.followers.map((follower: any) =>
@@ -93,7 +95,10 @@ export class Followers extends React.Component<IFollowersProps> {
                                         className='img-fluid rounded-circle ml-2 mr-2 mt-1'
                                     />
                                     <h6 className='align-self-end'>
-                                        <Link to={`/profile/${follower.username}`}>{follower.username}</Link>
+                                        <Link
+                                            to={`/profile/${follower.username}`}
+                                            className='text-dark'>{follower.username}
+                                        </Link>
                                     </h6>
                                 </div>
                                 <h3>{follower.follow}</h3>
