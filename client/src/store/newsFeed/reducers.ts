@@ -5,6 +5,8 @@ import {
     UPLOAD_NEXT_FEED_POSTS,
     ALL_NEWS_FEED_LOADED,
     CLEAR_NEWS_FEED_LOADED,
+    GET_RECOMMENDATIONS_PENDING,
+    GET_RECOMMENDATIONS_SUCCESS,
 } from './actionTypes';
 import {
     CHECK_USER_LIKE_EXIST,
@@ -49,6 +51,10 @@ const defaultState = {
     countOfLikes: 0,
     loaded: false,
     loading: false,
+    friendsRecommendations: {
+        users: [],
+        loading: false,
+    },
 };
 
 export const newsFeedReducer = (
@@ -137,7 +143,23 @@ export const newsFeedReducer = (
                     return feed;
                 }),
             };
-
+        case GET_RECOMMENDATIONS_PENDING:
+            return {
+                ...state,
+                friendsRecommendations: {
+                    ...state.friendsRecommendations,
+                    loading: true,
+                },
+            };
+        case GET_RECOMMENDATIONS_SUCCESS:
+            return {
+                ...state,
+                friendsRecommendations: {
+                    ...state.friendsRecommendations,
+                    users: action.payload,
+                    loading: false,
+                },
+            };
         default:
             return state;
     }
