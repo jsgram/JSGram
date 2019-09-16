@@ -4,8 +4,6 @@ import {
     CHECK_LOGGED_USER_LIKE_EXIST,
     ADD_USER_LIKE,
     REMOVE_USER_LIKE,
-    ADD_FEED_USER_LIKE,
-    REMOVE_FEED_USER_LIKE,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
@@ -33,25 +31,15 @@ export const setUserLikeExist = (loggedUserLikeExist: boolean): { type: string, 
     payload: loggedUserLikeExist,
 });
 
-export const addLoggedUserLike = (loggedUserId: string): { type: string, payload: string } => ({
-    type: ADD_USER_LIKE,
-    payload: loggedUserId,
-});
-
-export const removeLoggedUserLike = (loggedUserId: string): { type: string, payload: string } => ({
-    type: REMOVE_USER_LIKE,
-    payload: loggedUserId,
-});
-
-export const addFeedUserLike = (userId: string, postId: string):
+export const addUserLike = (userId: string, postId: string):
     { type: string, payload: {userId: string, postId: string} } => ({
-        type: ADD_FEED_USER_LIKE,
+        type: ADD_USER_LIKE,
         payload: {userId, postId},
     });
 
-export const removeFeedUserLike = (userId: string, postId: string):
+export const removeUserLike = (userId: string, postId: string):
     { type: string, payload: {userId: string, postId: string} } => ({
-        type: REMOVE_FEED_USER_LIKE,
+        type: REMOVE_USER_LIKE,
         payload: {userId, postId},
     });
 
@@ -59,9 +47,8 @@ export const addLike = (body: IBody): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             await AuthAPI.post(`likes/like`, body);
-            dispatch(addLoggedUserLike(body.userId));
+            dispatch(addUserLike(body.userId, body.postId));
             dispatch(addUserLikeToSelectedPost(body.userId, body.postId));
-            dispatch(addFeedUserLike(body.userId, body.postId));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
@@ -72,9 +59,8 @@ export const deleteLike = (body: IBody): (dispatch: Dispatch) => Promise<void> =
         try {
             const {userId, postId}: IBody = body;
             await AuthAPI.delete(`likes/unlike/${postId}`, {data: {userId}});
-            dispatch(removeLoggedUserLike(userId));
+            dispatch(removeUserLike(body.userId, body.postId));
             dispatch(removeUserLikeFromSelectedPost(userId, postId));
-            dispatch(removeFeedUserLike(body.userId, body.postId));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }

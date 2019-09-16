@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setFeedAuthorsOfLike,
+import {
+    setFeedAuthorsOfLike,
     setUserLikeExist,
-    addLike, deleteLike } from '../../store/likes/actions';
+    addLike, deleteLike,
+} from '../../store/likes/actions';
 import { ILike } from '../../store/likes/reducers';
 import { IFeedState } from '../../store/feed/reducers';
 import { Likes } from '../../components/Likes';
@@ -43,15 +45,16 @@ class FeedLikesContainer extends React.Component<any> {
     }
 
     public componentDidUpdate(prevProps: any): void {
-        if (prevProps.authorsOfLike !== this.props.authorsOfLike) {
-            this.props.authorsOfLike.forEach(({postId, authorsOfLike, userLikeExist}: ICommentsState) => {
-                if (this.props.postId === postId) {
-                    this.setState({
-                        postId,
-                        authorsOfLike,
-                        userLikeExist,
-                    });
-                }
+        const userPost = this.props.authorsOfLike.filter(({postId}: { postId: string }) =>
+            this.props.postId === postId);
+
+        if (prevProps.authorsOfLike !== this.props.authorsOfLike && userPost.length) {
+            const [{postId, authorsOfLike, userLikeExist}]:
+                [{postId: string, authorsOfLike: string, userLikeExist: string}] = userPost;
+            this.setState({
+                postId,
+                authorsOfLike,
+                userLikeExist,
             });
         }
     }

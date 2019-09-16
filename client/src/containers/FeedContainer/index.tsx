@@ -28,7 +28,9 @@ const FeedContainer = ({
                            loggedUsername,
                            loggedPhotoPath,
                            newsFeed,
-                           getNewsFeedAsync, getMoreNewsFeedAsync, addNextFeedPosts,
+                           getNewsFeedAsync,
+                           getMoreNewsFeedAsync,
+                           addNextFeedPosts,
                        }: FeedProps): JSX.Element => {
     return (
         <FeedPost

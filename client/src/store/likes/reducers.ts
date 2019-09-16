@@ -4,8 +4,6 @@ import {
     CHECK_LOGGED_USER_LIKE_EXIST,
     ADD_USER_LIKE,
     REMOVE_USER_LIKE,
-    ADD_FEED_USER_LIKE,
-    REMOVE_FEED_USER_LIKE,
 } from './actionTypes';
 
 export interface ILike {
@@ -42,16 +40,7 @@ export const likesReducer = (
         case ADD_USER_LIKE:
             return {
                 ...state,
-                postAuthorsOfLike: [...state.postAuthorsOfLike, action.payload],
-            };
-        case REMOVE_USER_LIKE:
-            return {
-                ...state,
-                postAuthorsOfLike: state.postAuthorsOfLike.filter((userId: string) => userId !== action.payload),
-            };
-        case ADD_FEED_USER_LIKE:
-            return {
-                ...state,
+                postAuthorsOfLike: [...state.postAuthorsOfLike, action.payload.userId],
                 feedAuthorsOfLike: state.feedAuthorsOfLike.map((feed: any) => {
                     if (feed.postId === action.payload.postId) {
                         return {
@@ -63,9 +52,10 @@ export const likesReducer = (
                     return feed;
                 }),
             };
-        case REMOVE_FEED_USER_LIKE:
+        case REMOVE_USER_LIKE:
             return {
                 ...state,
+                postAuthorsOfLike: state.postAuthorsOfLike.filter((userId: string) => userId !== action.payload.userId),
                 feedAuthorsOfLike: state.feedAuthorsOfLike.map((feed: any) => {
                     if (feed.postId === action.payload.postId) {
                         return {

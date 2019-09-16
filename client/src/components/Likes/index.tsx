@@ -14,17 +14,16 @@ export const Likes = ({
                           authorsOfLike, loggedUserLikeExist, addLike, deleteLike,
                       }: ILikesProps): JSX.Element => {
     const onAddLike = (): void => {
-        const body = {userId, postId};
-        addLike(body);
+        addLike({userId, postId});
     };
 
     const onDeleteLike = (): void => {
-        const body = {userId, postId};
-        deleteLike(body);
+        deleteLike({userId, postId});
     };
 
     const likeButton = loggedUserLikeExist ?
-        (<i className='fa fa-heart fa-lg pr-1 like' onClick={onDeleteLike}/>) :
+        (<i className='fa fa-heart fa-lg pr-1 like' onClick={onDeleteLike}/>)
+        :
         (<i className='fa fa-heart-o fa-lg pr-1' onClick={onAddLike}/>);
     return (
         <>
