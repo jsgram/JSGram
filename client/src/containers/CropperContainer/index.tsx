@@ -17,6 +17,7 @@ const CropperContainer = (props: IAddAvatarCropperProps): JSX.Element => (
         setCroppedImageForAvatar={props.setCroppedImageForAvatar}
         informFileError={props.informFileError}
         resetAddPost={props.resetAddPost}
+        toggleModal={props.toggleModal}
     />
 );
 const mapStateToProps = (state: any): IState => ({
