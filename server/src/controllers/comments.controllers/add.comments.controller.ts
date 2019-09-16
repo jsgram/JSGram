@@ -6,7 +6,6 @@ export const addComments = async (req: Request, res: Response, next: NextFunctio
     try {
         const {body: {postId, authorId, comment}}: { body: ICommentModel } = req;
 
-        console.log(req.body);
         const createdComment = await createComment(postId, authorId, comment, next);
         if (!createdComment) {
             throw new Error('Can not create comment');
