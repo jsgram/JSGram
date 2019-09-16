@@ -15,9 +15,12 @@ import {
     CHECK_USER_LIKE_EXIST,
     ADD_USER_LIKE,
     REMOVE_USER_LIKE,
+    ADD_COMMENT,
+    RESET_COMMENT,
 } from './actionTypes';
 import { IPost } from './reducers';
 import { decrementPostCount } from '../profile/actions';
+import { addCommentDispatch } from '../comments/actions';
 
 export const getPostsPending = (): { type: string } => ({
     type: GET_POSTS_PENDING,
@@ -57,7 +60,7 @@ export const showPost = (post: any): { type: string, payload: any } => ({
 
 export const editDescriptionForPost = (description: string, postId: string): { type: string, payload: any } => ({
     type: EDIT_DESCRIPTION_FOR_POST,
-    payload: {description, postId},
+    payload: { description, postId },
 });
 
 export const addNextPosts = (page: number): { type: string, payload: number } => ({
@@ -67,6 +70,15 @@ export const addNextPosts = (page: number): { type: string, payload: number } =>
 
 export const resetPosts = (): { type: string } => ({
     type: RESET_POSTS,
+});
+
+export const addNewComment = (comment: string): { type: string, payload: string } => ({
+    type: ADD_COMMENT,
+    payload: comment,
+});
+
+export const resetComment = (): { type: string } => ({
+    type: RESET_COMMENT,
 });
 
 export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise<void> =>
@@ -115,7 +127,7 @@ export const deletePost = (postId: string): (dispatch: Dispatch) => Promise<void
 export const editPost = (description: any, id: any): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const res = await AuthAPI.patch(`/post/${id}`, JSON.stringify({description}));
+            const res = await AuthAPI.patch(`/post/${id}`, JSON.stringify({ description }));
             dispatch(showAlert(res.data.message, 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
@@ -140,13 +152,13 @@ export const setCountOfLikes = (countOfLikes: number): { type: string, payload: 
 export const addLoggedUserLike =
     (loggedUserId: string, postId: string, authorsOfLike: []): { type: string, payload: any } => ({
         type: ADD_USER_LIKE,
-        payload: {loggedUserId, postId, authorsOfLike},
+        payload: { loggedUserId, postId, authorsOfLike },
     });
 
 export const removeLoggedUserLike =
     (loggedUserId: string, postId: string, authorsOfLike: []): { type: string, payload: any } => ({
         type: REMOVE_USER_LIKE,
-        payload: {loggedUserId, postId, authorsOfLike},
+        payload: { loggedUserId, postId, authorsOfLike },
     });
 
 export const addLike = (body: IBody): (dispatch: Dispatch) => Promise<void> =>
@@ -162,9 +174,21 @@ export const addLike = (body: IBody): (dispatch: Dispatch) => Promise<void> =>
 export const deleteLike = (body: IBody): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const {userId, postId}: IBody = body;
-            await AuthAPI.delete(`likes/unlike/${postId}`, {data: {userId}});
+            const { userId, postId }: IBody = body;
+            await AuthAPI.delete(`likes/unlike/${postId}`, { data: { userId } });
             dispatch(checkUserLikeExist(false));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const addComment = (postId: string, authorId: string, comment: string): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const res = await AuthAPI.post(`/comments`, { postId, authorId, comment });
+            dispatch(addCommentDispatch(res.data.createdComment));
+            dispatch(resetComment());
+            dispatch(showAlert(res.data.message, 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
