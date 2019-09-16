@@ -45,7 +45,7 @@ class Comments extends React.Component<ICommentsProps> {
         if (!!this.props.postId) {
             const commentStateForCurrentPost =
                 this.props.commentsPage.filter((info: { postId: string, page: number }) =>
-                info.postId === this.props.postId);
+                    info.postId === this.props.postId);
             // @ts-ignore
             if (!this.props.allCommentsLoaded.includes(this.props.postId) && commentStateForCurrentPost.length) {
                 // @ts-ignore
@@ -67,22 +67,23 @@ class Comments extends React.Component<ICommentsProps> {
                         <div key={comment._id}>
                             {comment.postId === this.props.postId &&
                             <div className='one-comment px-3'>
-                              <div className='d-flex justify-content-between'>
-                                <div>
-                                <img
-                                    src={comment.authorId.photoPath || noAvatar}
-                                    alt='avatar'
-                                    width={24}
-                                    height={24}
-                                    className='img-fluid rounded-circle mt-1 mr-1 mb-1'
-                                />
-                                <span className='mt-1'>{comment.authorId.username}</span>
+                                <div className='d-flex justify-content-between'>
+                                    <div>
+                                        <img
+                                            src={comment.authorId.photoPath || noAvatar}
+                                            alt='avatar'
+                                            width={24}
+                                            height={24}
+                                            className='img-fluid rounded-circle mt-1 mr-1 mb-1'
+                                        />
+                                        <span className='mt-1'>{comment.authorId.username}</span>
+                                    </div>
+                                    <div className='d-inline align-self-center edit-delete-comment'>
+                                        <i className='fa fa-pencil mr-2 edit-comment'/>
+                                        <i className='fa fa-trash-o delete-comment'/>
+                                    </div>
+                                    <p>{comment.comment}</p>
                                 </div>
-                                <div className='d-inline align-self-center edit-delete-comment'>
-                                    <i className='fa fa-pencil mr-2 edit-comment'/>
-                                    <i className='fa fa-trash-o delete-comment'/>
-                                </div>
-                                <p>{comment.comment}</p>
                             </div>
                             }
                         </div>
