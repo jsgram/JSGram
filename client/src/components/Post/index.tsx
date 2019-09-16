@@ -40,7 +40,7 @@ interface IProps {
     loggedId: string;
     loggedUsername: string;
     addComment: (postId: string, loggedUserId: string, comment: string) => void;
-    addNewComment: any;
+    addNewComment: (comment: string) => void;
 }
 
 interface IModalState {
