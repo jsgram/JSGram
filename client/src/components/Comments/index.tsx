@@ -82,8 +82,8 @@ class Comments extends React.Component<ICommentsProps> {
                                         <i className='fa fa-pencil mr-2 edit-comment'/>
                                         <i className='fa fa-trash-o delete-comment'/>
                                     </div>
-                                    <p>{comment.comment}</p>
                                 </div>
+                                <p>{comment.comment}</p>
                             </div>
                             }
                         </div>
