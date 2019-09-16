@@ -10,7 +10,13 @@ export const createComment = async (postId: string, authorId: string, comment: s
             throw new Error('Can not create comment');
         }
 
-        return createdComment;
+        const createdCommentWithAuthor = await createdComment.populate({
+            path: 'authorId',
+            select: '_id username photoPath',
+        })
+            .execPopulate();
+
+        return createdCommentWithAuthor;
     } catch (e) {
         next({status: 409, message: e.message});
     }
