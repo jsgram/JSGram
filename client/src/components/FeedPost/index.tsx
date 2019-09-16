@@ -5,12 +5,18 @@ import noAvatar from '../../assets/noAvatar.png';
 import { Link } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import { formatDescription } from '../../helpers/regex.description';
-import { Comment } from '../Comments';
 import FeedLikesContainer from '../../containers/FeedLikesContainer';
 import Menu from '../Menu';
 import { Col, Container, Row, Spinner } from 'reactstrap';
 import { INewsFeed } from '../../store/newsFeed/reducers';
 import { Waypoint } from 'react-waypoint';
+import { IUserData } from '../Profile';
+import Comment from '../Comments';
+
+interface IBody {
+    userId: string;
+    postId: string;
+}
 
 interface IProps {
     loggedId: string;
@@ -36,6 +42,7 @@ export class FeedPost extends React.Component<IProps> {
 
     public render(): JSX.Element {
         const {loggedUsername, loggedPhotoPath, newsFeed}: any = this.props;
+        const {id, author, image, description, likeExist, authorsOfLike}: any = this.props;
         return (
             <Container>
                 <Menu/>
@@ -133,8 +140,50 @@ export class FeedPost extends React.Component<IProps> {
                     }}
                 />
 
+// TODO fix
                 <div className='w-100 d-flex align-items-center justify-content-center'>
                     {this.props.newsFeed.feedLoading && <Spinner className='mt-3' color='dark'/>}
+
+                <div className='d-block mt-3 mb-2 pl-3'>
+                    <span className='pl-2'>{likeButton} {authorsOfLike.length} likes</span>
+                </div>
+                <div className='description-post pb-3 border-bottom'>
+                    <div className='d-block pl-3 text-description'>
+                        <img
+                            src={author.photoPath || noAvatar}
+                            alt='avatar'
+                            width={32}
+                            height={32}
+                            className='img-fluid rounded-circle'
+                        />
+                        <Link
+                            to={`/profile/${author.username}`}
+                            className='d-inline-block text-dark ml-2'
+                        >
+                            {author.username}
+                        </Link>
+                        <p className='pl-2 mt-2 justify-self-start align-self-start'>
+                            {formatDescription(description)}
+                        </p>
+                    </div>
+                </div>
+                <Comment postId={id}/>
+                <div className='mt-3 px-2 d-flex'>
+                    <TextareaAutosize
+                        className='add-comment flex-grow-1 border-0 p-2'
+                        placeholder='Write your comment...'
+                        autoComplete='off'
+                        minRows={1}
+                        maxRows={4}
+                    />
+                    <button
+                        className='button-comment p-0 border-0 mr-lg-2 mr-3 col-3'
+                        type='submit'
+                        disabled
+                    >
+                        Add
+                    </button>
+
                 </div>
             </Container>
         );

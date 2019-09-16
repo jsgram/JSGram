@@ -12,38 +12,48 @@ import {
     UPLOAD_NEXT_POSTS,
     ADD_USER_LIKE_TO_SELECTED_POST,
     REMOVE_USER_LIKE_FROM_SELECTED_POST,
+    CHECK_USER_LIKE_EXIST,
+    SET_COUNTS_OF_LIKES,
+    ADD_USER_LIKE,
+    REMOVE_USER_LIKE, SET_COMMENTS_TO_POST,
 } from './actionTypes';
 
 export interface IPost {
-    description: string;
-    comments: any;
-    tags: any;
-    authorsOfLike: any;
     _id: string;
     imgPath: string;
     author: string;
+    description: string;
+    tags: any;
+    comments: any;
+    authorsOfLike: any;
+    fullComments: [];
     createdAt: string;
 }
 
+export interface IPosts {
+    posts: IPost[];
+    page: number;
+    commentsPage: number;
+    selectedPost: IPost;
+    countOfLikes: number;
+    likeExist: boolean;
+    loaded: boolean;
+    loading: boolean;
+    commentsLoading: boolean;
+    commentsLoaded: boolean;
+}
+
 const defaultState = {
-    posts: [
-        {
-            description: '',
-            comments: [],
-            tags: [],
-            authorsOfLike: [],
-            _id: '',
-            imgPath: '',
-            author: '',
-            createdAt: '',
-        },
-    ],
+    posts: [],
     page: 1,
+    commentsPage: 1,
     selectedPost: {},
     countOfLikes: 0,
     likeExist: false,
     loaded: false,
     loading: false,
+    commentsLoading: false,
+    commentsLoaded: false,
 };
 
 export const postReducer = (
@@ -167,6 +177,14 @@ export const postReducer = (
                     }
                     return post;
                 }),
+            };
+        case SET_COMMENTS_TO_POST:
+            return {
+                ...state,
+                selectedPost: {
+                    ...state.selectedPost,
+                    fullComments: action.payload,
+                },
             };
         default:
             return state;
