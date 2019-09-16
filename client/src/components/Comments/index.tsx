@@ -113,7 +113,6 @@ class Comments extends React.Component<ICommentsProps> {
                                                 </>
                                             )
                                             :
-                                            this.props.user.email === comment.authorId.email &&
                                             (
                                                 <div className='d-inline-flex mt-3 float-right
                                                         edit-delete-comment'>
