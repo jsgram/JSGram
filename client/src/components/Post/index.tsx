@@ -25,6 +25,10 @@ interface IProps {
     getUser: (username: string) => void;
     resetPosts: () => void;
     addNextPosts: (pageNumber: number) => void;
+    loggedId: string;
+    loggedUsername: string;
+    addComment: (postId: string, loggedUserId: string, comment: string) => void;
+    addNewComment: (comment: string) => void;
 }
 
 interface IModalState {
@@ -63,6 +67,18 @@ export default class Post extends React.Component<IProps> {
         this.props.editDescriptionForPost(event.target.value, this.props.userPosts.selectedPost._id);
     }
 
+    public onAddComment = (): void => {
+        this.props.addComment(
+            this.props.userPosts.selectedPost._id,
+            this.props.loggedId,
+            this.props.userPosts.selectedPost.comment,
+        );
+    }
+
+    public onCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
+        this.props.addNewComment(event.target.value);
+    }
+
     public getMorePosts = (): void => {
         if (!this.props.userPosts.loaded) {
             this.props.addNextPosts(this.props.userPosts.page + 1);
@@ -83,17 +99,17 @@ export default class Post extends React.Component<IProps> {
                 <div className='row mt-5 profile-post'>
                     {
                         userPosts.posts.map((post: IPost) => (
-                                <div key={post._id} className='col-sm-4 text-center pt-4 post-photo'>
-                                    <img
-                                        src={post.imgPath}
-                                        width={293}
-                                        height={293}
-                                        alt=''
-                                        onClick={(): void => this.toggle(post)}
-                                        className='img-fluid one-profile-photo'
-                                    />
-                                </div>
-                            ),
+                            <div key={post._id} className='col-sm-4 text-center pt-4 post-photo'>
+                                <img
+                                    src={post.imgPath}
+                                    width={293}
+                                    height={293}
+                                    alt=''
+                                    onClick={(): void => this.toggle(post)}
+                                    className='img-fluid one-profile-photo'
+                                />
+                            </div>
+                        ),
                         )
                     }
                     <Waypoint
@@ -104,11 +120,11 @@ export default class Post extends React.Component<IProps> {
                     />
                 </div>
                 <div className='w-100 d-flex align-items-center justify-content-center'>
-                    {userPosts.loading && <Spinner className='mt-3' color='dark'/>}
+                    {userPosts.loading && <Spinner className='mt-3' color='dark' />}
                 </div>
                 <Modal className='profile-post modal-lg modal-dialog-centered px-3 py-3'
-                       isOpen={this.state.modal}
-                       toggle={(): void => this.toggle(userPosts.selectedPost)}>
+                    isOpen={this.state.modal}
+                    toggle={(): void => this.toggle(userPosts.selectedPost)}>
                     <div className='modal-body p-0'>
                         <div className='row m-0'>
                             <ModalHeader
@@ -176,14 +192,17 @@ export default class Post extends React.Component<IProps> {
                                             autoComplete='off'
                                             minRows={1}
                                             maxRows={4}
+                                            value={userPosts.selectedPost.comment}
+                                            onChange={this.onCommentChange}
                                         />
                                         <InputGroupAddon addonType='append' className='flex-grow-0'>
                                             <Button
                                                 className='btn-block button-comment border-0'
                                                 type='submit'
-                                                disabled
+                                                onClick={this.onAddComment}
+                                                disabled={!userPosts.selectedPost.comment}
                                             >
-                                                Add
+                                            Add
                                             </Button>
                                         </InputGroupAddon>
                                     </InputGroup>
