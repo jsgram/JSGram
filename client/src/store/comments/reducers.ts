@@ -16,6 +16,7 @@ export interface IComment {
         _id: string;
         username: string;
         photoPath: string;
+        email: string;
     };
     isEdit: boolean;
     newComment: string;
