@@ -25,7 +25,11 @@
     padding-bottom: 30%;
 
     &::-webkit-scrollbar {
-      width: 0;
+      width: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-dove-gray;
     }
   }
 
