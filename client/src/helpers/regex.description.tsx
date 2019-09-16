@@ -18,4 +18,4 @@ export const formatDescription = (description: string): any =>
                 return token;
         }
     },
-    )
+    );

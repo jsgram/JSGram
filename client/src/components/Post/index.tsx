@@ -3,20 +3,13 @@ import '../../styles/style.scss';
 import { Waypoint } from 'react-waypoint';
 import TextareaAutosize from 'react-textarea-autosize';
 import { IUserData } from '../Profile';
-import { IPost } from '../../store/post/reducers';
 import { Modal, ModalHeader, Spinner, Input, FormGroup, Button, InputGroup, InputGroupAddon } from 'reactstrap';
 import './style.scss';
 import MenuPost from '../MenuPost';
 import { formatDescription } from '../../helpers/regex.description';
 import noAvatar from '../../assets/noAvatar.png';
-
-export const comments = [
-    {id: 1, image: noAvatar, username: 'Artem', text: 'Artem will implement realisation for comment :)'},
-    {id: 2, image: noAvatar, username: 'Yurii', text: 'Artem will implement realisation for comment :)'},
-    {id: 3, image: noAvatar, username: 'Ostap', text: 'Artem will implement realisation for comment :)'},
-    {id: 4, image: noAvatar, username: 'Rostik', text: 'If you have something advices, dont speak about this)))'},
-    {id: 5, image: noAvatar, username: 'Artem', text: 'If you have something advices, dont speak about this)))'},
-]
+import Comment from '../Comments';
+import { IPost } from '../../store/post/reducers';
 
 interface IBody {
     userId: string;
@@ -230,29 +223,7 @@ export default class Post extends React.Component<IProps> {
                                     </p>
                                     <p>{formatDescription(desc)}</p>
                                 </div>
-
-                                <div className='flex-grow-1 comments py-lg-3 border-top position-relative'>
-                                    <div className='position-absolute h-100'>
-                                        { comments.map((comment: any) => (
-                                            <div className='one-comment px-3' key={comment.id}>
-                                                <img
-                                                    src={comment.image || noAvatar}
-                                                    alt='avatar'
-                                                    width={24}
-                                                    height={24}
-                                                    className='img-fluid rounded-circle mt-1 mr-1 mb-1'
-                                                />
-                                                <span className='mt-1'>{comment.username}</span>
-                                                <div className='d-inline-flex mt-3 float-right edit-delete-comment'>
-                                                    <i className='fa fa-pencil mr-2 edit-comment' />
-                                                    <i className='fa fa-trash-o delete-comment' />
-                                                </div>
-                                                <p>{comment.text}</p>
-                                            </div>
-                                        )) }
-                                    </div>
-                                </div>
-
+                                <Comment postId={userPosts.selectedPost._id}/>
                                 <div className='flex-grow-0'>
                                     <div className='d-none d-lg-block p-3 mb-3 border-top border-bottom'>
                                         {likeButton}

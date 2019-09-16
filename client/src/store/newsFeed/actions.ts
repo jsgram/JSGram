@@ -13,30 +13,30 @@ import { INewsFeed } from './reducers';
 
 export const getNewsFeedPending = (): { type: string } => ({
     type: GET_NEWS_FEED_PENDING,
-})
+});
 
 export const getNewsFeedSuccess = (userNews: INewsFeed): { type: string, payload: any } => ({
     type: GET_NEWS_FEED_SUCCESS,
     payload: userNews,
-})
+});
 
 export const getMoreNewsFeedSuccess = (userNews: any): { type: string, payload: any } => ({
     type: GET_MORE_NEWS_FEED_SUCCESS,
     payload: userNews,
-})
+});
 
-export const addNextFeedPosts = (page: number): {type: string, payload: number} => ({
+export const addNextFeedPosts = (page: number): { type: string, payload: number } => ({
     type: UPLOAD_NEXT_FEED_POSTS,
     payload: page,
 });
 
 export const clearNewsFeedLoaded = (): { type: string } => ({
     type: CLEAR_NEWS_FEED_LOADED,
-})
+});
 
 export const allNewsFeedLoaded = (): { type: string } => ({
     type: ALL_NEWS_FEED_LOADED,
-})
+});
 
 export const getNewsFeedAsync = (): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
@@ -56,7 +56,6 @@ export const getMoreNewsFeedAsync = (page: number): (dispatch: Dispatch) => Prom
         try {
             dispatch(getNewsFeedPending());
             const res = await AuthAPI.get(`/feed/${page}`);
-
 
             if (!res.data.feed.length) {
                 dispatch(allNewsFeedLoaded());

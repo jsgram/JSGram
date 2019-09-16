@@ -53,9 +53,9 @@ export default class Profile extends React.Component<IProfileProps> {
     public componentDidUpdate(prevProps: IProfileProps): void {
         if (prevProps.loaded !== this.props.loaded && this.props.loaded) {
             this.timerHandle = setTimeout(() => {
-                    this.setState({loaded: true});
-                    this.timerHandle = 0;
-                },
+                this.setState({loaded: true});
+                this.timerHandle = 0;
+            },
                 1500,
             );
         }
@@ -185,10 +185,14 @@ export default class Profile extends React.Component<IProfileProps> {
                             <a href='#/' className='mr-2'><b>{posts}</b> posts</a>
                         </div>
                         <div>
-                            <a href='#/' className='mr-2'><b>{followers.length}</b> followers</a>
+                            <Link to={`/profile/${this.props.urlUsername}/followers`}
+                                className='mr-2'><b>{followers.length}</b> followers
+                            </Link>
                         </div>
                         <div>
-                            <a href='#/'><b>{following.length}</b> following</a>
+                            <Link to={`/profile/${this.props.urlUsername}/following`}>
+                                <b>{following.length}</b> following
+                            </Link>
                         </div>
                     </div>
                     <div className='description mt-4'>
