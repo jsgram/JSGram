@@ -3,6 +3,7 @@ import {
     GET_COMMENTS_SUCCESS,
     ALL_COMMENTS_LOADED,
     RESET_COMMENTS,
+    ADD_COMMENT_DISPATCH,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
@@ -29,6 +30,11 @@ export const getCommentsSuccess = (postId: string, comments: IComments, page: nu
 
 export const resetComments = (): { type: string } => ({
     type: RESET_COMMENTS,
+});
+
+export const addCommentDispatch = (res: IComments): { type: string, payload: any } => ({
+    type: ADD_COMMENT_DISPATCH,
+    payload: res,
 });
 
 export const getComments = (postId: string, page: number): (dispatch: Dispatch) => Promise<void> =>

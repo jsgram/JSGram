@@ -13,6 +13,8 @@ import {
     ADD_USER_LIKE_TO_SELECTED_POST,
     REMOVE_USER_LIKE_FROM_SELECTED_POST,
     SET_COMMENTS_TO_POST,
+    ADD_COMMENT,
+    RESET_COMMENT,
 } from './actionTypes';
 
 export interface IPost {
@@ -181,6 +183,22 @@ export const postReducer = (
                 selectedPost: {
                     ...state.selectedPost,
                     fullComments: action.payload,
+                },
+            };
+        case ADD_COMMENT:
+            return {
+                ...state,
+                selectedPost: {
+                    ...state.selectedPost,
+                    comment: action.payload,
+                },
+            };
+        case RESET_COMMENT:
+            return {
+                ...state,
+                selectedPost: {
+                    ...state.selectedPost,
+                    comment: '',
                 },
             };
         default:
