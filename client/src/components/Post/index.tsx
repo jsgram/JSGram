@@ -8,7 +8,7 @@ import './style.scss';
 import MenuPost from '../MenuPost';
 import { formatDescription } from '../../helpers/regex.description';
 import noAvatar from '../../assets/noAvatar.png';
-import Comment from '../Comments';
+import ProfileLikes from '../../containers/ProfileLikesContainer';
 import { IPost } from '../../store/post/reducers';
 
 interface IBody {
@@ -23,22 +23,12 @@ interface IProps {
     getPostsAsync: (username: string) => void;
     getMorePostsAsync: (username: string, page: number) => void;
     deletePhoto: () => void;
-    addLoggedUserLike: (loggedUserId: string, postId: string, authorsOfLike: []) => void;
-    addLike: (body: IBody) => void;
-    setCountOfLikes: (countOfLikes: number) => void;
-    deleteLike: (body: IBody) => void;
-    removeLoggedUserLike: (loggedUserId: string, postId: string, authorsOfLike: []) => void;
-    countOfLikes: number;
     editPost: (description: string, id: string) => void;
     showPost: (post: any) => void;
-    likeExist: boolean;
-    checkUserLikeExist: (doesExist: boolean) => void;
     username: string;
     getUser: (username: string) => void;
     resetPosts: () => void;
     addNextPosts: (pageNumber: number) => void;
-    loggedId: string;
-    loggedUsername: string;
 }
 
 interface IModalState {
@@ -88,54 +78,10 @@ export default class Post extends React.Component<IProps> {
         this.props.getPostsAsync(this.props.user.username);
     }
 
-    public componentDidUpdate(prevProps: IProps): void {
-        const {userPosts: {selectedPost: {authorsOfLike}}}: any = this.props;
-        const {userPosts: {selectedPost: {authorsOfLike: prevAuthorsOfLike}}}: any = prevProps;
-        if (authorsOfLike !== prevAuthorsOfLike) {
-            this.props.setCountOfLikes(authorsOfLike.length);
-
-            const checkLoggedUserLikeExist = authorsOfLike.filter((userId: string) =>
-                this.props.user._id === userId,
-            );
-
-            this.props.checkUserLikeExist(!!checkLoggedUserLikeExist.length);
-        }
-    }
-
-    public onAddLike = (): void => {
-        const {
-            user: {_id: userId},
-            userPosts: {selectedPost: {_id: postId}},
-        }: any = this.props;
-        const body = {userId, postId};
-        this.props.addLoggedUserLike(
-            this.props.loggedId,
-            this.props.userPosts.selectedPost._id,
-            this.props.userPosts.selectedPost.authorsOfLike);
-        this.props.addLike(body);
-    }
-
-    public onDeleteLike = (): void => {
-        const {
-            user: {_id: userId},
-            userPosts: {selectedPost: {_id: postId}},
-        }: any = this.props;
-        const body = {userId, postId};
-        this.props.removeLoggedUserLike(
-            this.props.loggedId,
-            this.props.userPosts.selectedPost._id,
-            this.props.userPosts.selectedPost.authorsOfLike);
-        this.props.deleteLike(body);
-    }
-
     public render(): JSX.Element {
-        const {userPosts, user, likeExist, countOfLikes}: any = this.props;
+        const {userPosts, user,
+        }: any = this.props;
         const {selectedPost: {description: desc}}: any = userPosts;
-
-        const likeButton = likeExist ?
-            (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>) :
-            (<i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>);
-
         return (
             <div className='container justify-content-center'>
                 <div className='row mt-5 profile-post'>
@@ -218,16 +164,14 @@ export default class Post extends React.Component<IProps> {
                                         </div>
                                     </div>
                                     <p className='d-lg-none'>
-                                        {likeButton}
-                                        <span>{countOfLikes} likes</span>
+                                        <ProfileLikes/>
                                     </p>
                                     <p>{formatDescription(desc)}</p>
                                 </div>
                                 <Comment postId={userPosts.selectedPost._id}/>
                                 <div className='flex-grow-0'>
                                     <div className='d-none d-lg-block p-3 mb-3 border-top border-bottom'>
-                                        {likeButton}
-                                        <span>{countOfLikes} likes</span>
+                                        <ProfileLikes/>
                                     </div>
                                     <InputGroup>
                                         <TextareaAutosize
