@@ -39,7 +39,7 @@ interface IProps {
     addNextPosts: (pageNumber: number) => void;
     loggedId: string;
     loggedUsername: string;
-    addComment: any;
+    addComment: (postId: string, loggedUserId: string, comment: string) => void;
     addNewComment: any;
 }
 
@@ -87,7 +87,7 @@ export default class Post extends React.Component<IProps> {
         );
     }
 
-    public onCommentChange = (event: any): void => {
+    public onCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
         this.props.addNewComment(event.target.value);
     }
 
