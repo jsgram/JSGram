@@ -6,6 +6,7 @@ import {
     EDIT_COMMENT,
     CHANGE_COMMENT,
     CHANGE_EDIT_STATUS_COMMENT,
+    ADD_COMMENT_DISPATCH,
 } from './actionTypes';
 
 export interface IComment {
@@ -100,6 +101,21 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                     }
                     return comment;
                 }),
+            };
+        case ADD_COMMENT_DISPATCH:
+            return {
+                ...state,
+                comments: [...state.comments, {
+                    _id: action.payload._id,
+                    postId: action.payload.postId,
+                    authorId: {
+                        _id: action.payload.authorId._id,
+                        username: action.payload.authorId.username,
+                        photoPath: action.payload.authorId.photoPath,
+                    },
+                    comment: action.payload.comment,
+                    createdAt: action.payload.createdAt,
+                }],
             };
         default:
             return state;

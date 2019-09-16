@@ -19,13 +19,17 @@
   }
 
   .comments {
+    padding-bottom: 30%;
     overflow-x: hidden;
     overflow-y: auto;
     word-break: break-all;
-    padding-bottom: 30%;
 
     &::-webkit-scrollbar {
-      width: 0;
+      width: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-dove-gray;
     }
   }
 
@@ -37,8 +41,8 @@
     }
 
     .edit-delete-comment {
-      transition: 0.4s;
       opacity: 0;
+      transition: 0.4s;
     }
 
     .edit-comment {
