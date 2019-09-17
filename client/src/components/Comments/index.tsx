@@ -13,7 +13,7 @@ import { showAlert } from '../../store/alert/actions';
 interface ILocalState {
     postId: string;
     comments: IComment[];
-    commentsPage: [];
+    commentsPage: any[];
     commentsLoading: boolean;
     allCommentsLoaded: [];
 }
@@ -50,7 +50,6 @@ class Comments extends React.Component<ICommentsProps> {
             const commentsLoaded = this.props.allCommentsLoaded.some((post: any) => post === this.props.postId);
 
             if (commentStateForCurrentPost.length && !commentsLoaded) {
-                // @ts-ignore
                 return this.props.getComments(this.props.postId, commentStateForCurrentPost[0].page + 1);
             }
             this.props.showAlert('All comments loaded', 'warning');
