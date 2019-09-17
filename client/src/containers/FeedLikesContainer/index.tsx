@@ -38,7 +38,7 @@ class FeedLikesContainer extends React.Component<any> {
     };
 
     public componentDidMount(): void {
-        if (!!this.props.postId && this.props.likes) {
+        if (this.props.postId && this.props.likes) {
             const userLikeExist = this.props.likes.includes(this.props.loggedId);
             this.props.setFeedAuthorsOfLike(this.props.postId, this.props.likes, userLikeExist);
         }

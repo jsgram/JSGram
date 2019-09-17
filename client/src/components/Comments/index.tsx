@@ -123,7 +123,7 @@ class Comments extends React.Component<ICommentsProps> {
         return (
             <div className='flex-grow-1 comments border-top position-relative'>
                 <div className='position-absolute h-100 w-100'>
-                    {!!this.props.comments && this.props.comments.map((comment: any) => (
+                    {this.props.comments && this.props.comments.map((comment: any) => (
                         <div key={comment._id}>
                             {comment.postId === this.props.postId &&
                             <div className='one-comment px-3'>

@@ -5,6 +5,11 @@ import { ILike } from '../../store/likes/reducers';
 import { IFeedState } from '../../store/feed/reducers';
 import { Likes } from '../../components/Likes';
 
+interface IBody {
+    userId: string;
+    postId: string;
+}
+
 interface ILikeState {
     feed: IFeedState;
     likes: ILike;
@@ -19,10 +24,10 @@ interface ILikeProps {
 }
 
 interface ILocalProps {
-    setPostAuthorsOfLike: any;
-    setUserLikeExist: any;
-    addLike: any;
-    deleteLike: any;
+    setPostAuthorsOfLike: (authorsOfLike: []) => void;
+    setUserLikeExist: (loggedUserLikeExist: boolean) => void;
+    addLike: (body: IBody) => void;
+    deleteLike: (body: IBody) => void;
 }
 
 type IProfileLikesProps = ILikeProps & ILocalProps;
