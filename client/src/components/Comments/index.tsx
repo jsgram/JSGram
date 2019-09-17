@@ -13,6 +13,7 @@ import {
 import { IComment } from '../../store/comments/reducers';
 import { IUserData } from '../Profile';
 import { Button } from 'reactstrap';
+import { IFeedState } from '../../store/feed/reducers';
 
 interface ILocalState {
     postId: string;
@@ -20,7 +21,7 @@ interface ILocalState {
     commentsPage: any[];
     commentsLoading: boolean;
     allCommentsLoaded: any[];
-    user: IUserData;
+    feed: IFeedState;
 }
 
 interface IState {
@@ -28,9 +29,7 @@ interface IState {
     ownProps: {
         postId: string;
     };
-    profile: {
-        user: IUserData;
-    };
+    feed: IFeedState;
 }
 
 interface IOwnCommentsProps {
@@ -145,7 +144,7 @@ class Comments extends React.Component<ICommentsProps> {
                                         />
                                         <span className='mt-1'>{comment.authorId.username}</span>
                                         {
-                                            this.props.user.email === comment.authorId.email
+                                            this.props.feed.loggedUsername === comment.authorId.username
                                                 ? this.renderComment(comment)
                                                 : <p>{comment.comment}</p>
                                         }
@@ -174,7 +173,7 @@ const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalSta
     commentsPage: state.comments.commentsPage,
     commentsLoading: state.comments.commentsLoading,
     allCommentsLoaded: state.comments.allCommentsLoaded,
-    user: state.profile.user,
+    feed: state.feed,
 });
 
 const mapDispatchToProps = {
