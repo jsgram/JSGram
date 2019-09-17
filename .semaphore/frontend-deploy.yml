@@ -32,8 +32,11 @@ blocks:
       jobs:
         - name: FE deploy
           commands:
-            - export REACT_APP_BASE_API="https://jsgram-backend-${SEMAPHORE_GIT_BRANCH}.herokuapp.com"
-            - export REACT_APP_GOOGLE_AUTH_URL="https://jsgram-backend-${SEMAPHORE_GIT_BRANCH}.herokuapp.com/auth/google"
+            - >
+              [[ $SEMAPHORE_GIT_BRANCH =~ 'dev|master' ]] && export PUSH_BRANCH=$SEMAPHORE_GIT_BRANCH || export PUSH_BRANCH='dev'
+
+            - export REACT_APP_BASE_API="https://jsgram-backend-${PUSH_BRANCH}.herokuapp.com"
+            - export REACT_APP_GOOGLE_AUTH_URL="https://jsgram-backend-${PUSH_BRANCH}.herokuapp.com/auth/google"
 
             - cd client
             - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
@@ -50,7 +53,7 @@ blocks:
                     }' > static.json
 
             - git init
-            - git remote add heroku "https://git.heroku.com/jsgram-frontend-${SEMAPHORE_GIT_BRANCH}.git"
+            - git remote add heroku "https://git.heroku.com/jsgram-frontend-${PUSH_BRANCH}.git"
             - git remote show heroku
 
             - git add .
