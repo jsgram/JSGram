@@ -25,10 +25,10 @@ export const allCommentsLoaded = (): { type: string } => ({
 });
 
 export const getCommentsSuccess = (comments: IComments, page: number):
-    { type: string, payload: { comments: IComments, page: number } } => ({
-        type: GET_COMMENTS_SUCCESS,
-        payload: {comments, page},
-    });
+{ type: string, payload: { comments: IComments, page: number } } => ({
+    type: GET_COMMENTS_SUCCESS,
+    payload: { comments, page },
+});
 
 export const resetComments = (): { type: string } => ({
     type: RESET_COMMENTS,
@@ -64,9 +64,13 @@ export const getComments = (postId: string, page: number): (dispatch: Dispatch) 
 export const deleteComment = (commentId: string, authorId: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const res = await AuthAPI.delete(`/comments/${commentId}`, { data: {authorId} });
+            const res = await AuthAPI.delete(`/comments/${commentId}`, { data: { authorId } });
             dispatch(deleteCommentSuccess(commentId));
             dispatch(showAlert(res.data.message, 'success'));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
 
 export const editComment = (comment: string, commentId: string)
     : { type: string, payload: any } => (
@@ -100,7 +104,7 @@ export const editCommentAsync = (
 ): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const res = await AuthAPI.patch(`/comments/${commentId}`, {comment, email});
+            const res = await AuthAPI.patch(`/comments/${commentId}`, { comment, email });
             dispatch(editComment(comment, commentId));
             dispatch(showAlert(res.data.message, 'success'));
             dispatch(changeEditStatus(commentId));
