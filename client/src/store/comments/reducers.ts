@@ -3,6 +3,9 @@ import {
     GET_COMMENTS_PENDING,
     GET_COMMENTS_SUCCESS,
     RESET_COMMENTS,
+    EDIT_COMMENT,
+    CHANGE_COMMENT,
+    CHANGE_EDIT_STATUS_COMMENT,
     ADD_COMMENT_DISPATCH,
     DELETE_COMMENT,
 } from './actionTypes';
@@ -15,7 +18,10 @@ export interface IComment {
         _id: string;
         username: string;
         photoPath: string;
+        email: string;
     };
+    isEdit: boolean;
+    newComment: string;
 }
 
 export interface IComments {
@@ -57,6 +63,45 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                 comments: [],
                 commentsPage: 1,
                 allCommentsLoaded: false,
+            };
+        case EDIT_COMMENT:
+            return {
+                ...state,
+                comments: state.comments.map((comment: any) => {
+                    if (comment._id === action.payload.commentId) {
+                        return {
+                            ...comment,
+                            comment: action.payload.comment,
+                        };
+                    }
+                    return comment;
+                }),
+            };
+        case CHANGE_COMMENT:
+            return {
+                ...state,
+                comments: state.comments.map((comment: any) => {
+                    if (comment._id === action.payload.commentId) {
+                        return {
+                            ...comment,
+                            newComment: action.payload.comment,
+                        };
+                    }
+                    return comment;
+                }),
+            };
+        case CHANGE_EDIT_STATUS_COMMENT:
+            return {
+                ...state,
+                comments: state.comments.map((comment: any) => {
+                    if (comment._id === action.payload) {
+                        return {
+                            ...comment,
+                            isEdit: !comment.isEdit,
+                        };
+                    }
+                    return comment;
+                }),
             };
         case ADD_COMMENT_DISPATCH:
             return {
