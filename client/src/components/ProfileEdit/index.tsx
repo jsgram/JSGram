@@ -15,8 +15,8 @@ export const ProfileEdit = ({ handleSubmit, onChangeProfile, submitting }: FormP
                         <Field name='fullName'
                             type='text'
                             component={renderField}
-                            label='fullname'
-                            placeholder='Fullname'
+                            label='fullName'
+                            placeholder='FullName'
                             className='form-control' />
                     </Col>
                 </FormGroup>
