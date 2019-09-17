@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Profile, { IProfileProps, IUserData } from '../../components/Profile';
 import { getUser, deletePhoto, followUser, unfollowUser } from '../../store/profile/actions';
 import { getPostsAsync, resetPosts } from '../../store/post/actions';
+import { IFeedState } from '../../store/feed/reducers';
 
 interface IStateToPropsProfile {
     user: IUserData;
@@ -12,6 +13,7 @@ interface IStateToPropsProfile {
 
 interface IState {
     profile: IStateToPropsProfile;
+    feed: IFeedState;
 }
 
 export const ProfileContainer = (props: IProfileProps): JSX.Element => {
@@ -37,11 +39,12 @@ export const ProfileContainer = (props: IProfileProps): JSX.Element => {
 };
 
 const mapStateToProps = (state: IState):
-    { user: IUserData, loaded: boolean, loading: boolean, loadFollow: boolean } => ({
+    { user: IUserData, loaded: boolean, loading: boolean, loadFollow: boolean, feed: IFeedState } => ({
         user: state.profile.user,
         loaded: state.profile.loaded,
         loading: state.profile.loading,
         loadFollow: state.profile.loading,
+        feed: state.feed,
     });
 
 const mapDispatchToProps = {
