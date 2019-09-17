@@ -15,7 +15,7 @@ interface ILocalState {
     comments: IComment[];
     commentsPage: any[];
     commentsLoading: boolean;
-    allCommentsLoaded: [];
+    allCommentsLoaded: any[];
 }
 
 interface IState {
