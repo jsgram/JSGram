@@ -10,42 +10,49 @@ import {
     SHOW_SELECTED_POST,
     RESET_POSTS,
     UPLOAD_NEXT_POSTS,
-    CHECK_USER_LIKE_EXIST,
-    SET_COUNTS_OF_LIKES,
-    ADD_USER_LIKE,
-    REMOVE_USER_LIKE,
+    ADD_USER_LIKE_TO_SELECTED_POST,
+    REMOVE_USER_LIKE_FROM_SELECTED_POST,
+    SET_COMMENTS_TO_POST,
+    ADD_COMMENT,
+    RESET_COMMENT,
 } from './actionTypes';
 
 export interface IPost {
-    description: string;
-    comments: any;
-    tags: any;
-    authorsOfLike: any;
     _id: string;
     imgPath: string;
     author: string;
+    description: string;
+    tags: any;
+    comments: any;
+    authorsOfLike: any;
+    fullComments: [];
     createdAt: string;
 }
 
+export interface IPosts {
+    posts: IPost[];
+    page: number;
+    commentsPage: number;
+    selectedPost: IPost;
+    countOfLikes: number;
+    likeExist: boolean;
+    loaded: boolean;
+    loading: boolean;
+    commentsLoading: boolean;
+    commentsLoaded: boolean;
+}
+
 const defaultState = {
-    posts: [
-        {
-            description: '',
-            comments: [],
-            tags: [],
-            authorsOfLike: [],
-            _id: '',
-            imgPath: '',
-            author: '',
-            createdAt: '',
-        },
-    ],
+    posts: [],
     page: 1,
+    commentsPage: 1,
     selectedPost: {},
     countOfLikes: 0,
     likeExist: false,
     loaded: false,
     loading: false,
+    commentsLoading: false,
+    commentsLoaded: false,
 };
 
 export const postReducer = (
@@ -120,17 +127,6 @@ export const postReducer = (
                 ...state,
                 page: action.payload,
             };
-        case SET_COUNTS_OF_LIKES:
-            return {
-                ...state,
-                countOfLikes: action.payload,
-            };
-
-        case CHECK_USER_LIKE_EXIST:
-            return {
-                ...state,
-                likeExist: action.payload,
-            };
         case RESET_POSTS:
             return {
                 ...state,
@@ -148,42 +144,62 @@ export const postReducer = (
                 ],
                 page: 1,
             };
-        case ADD_USER_LIKE:
-            const addNewAuthorToLikeArray = [...action.payload.authorsOfLike, action.payload.loggedUserId];
+        case ADD_USER_LIKE_TO_SELECTED_POST:
             return {
                 ...state,
                 selectedPost: {
                     ...state.selectedPost,
-                    authorsOfLike: addNewAuthorToLikeArray,
                 },
                 posts: state.posts.map((post: any) => {
                     if (post._id === action.payload.postId) {
                         return {
                             ...post,
-                            authorsOfLike: addNewAuthorToLikeArray,
+                            authorsOfLike: [...post.authorsOfLike, action.payload.loggedId],
                         };
                     }
                     return post;
                 }),
             };
-        case REMOVE_USER_LIKE:
-            const removeAuthorsFromLikeArray = action.payload.authorsOfLike.filter((like: string) =>
-                like !== action.payload.loggedUserId);
+        case REMOVE_USER_LIKE_FROM_SELECTED_POST:
             return {
                 ...state,
                 selectedPost: {
                     ...state.selectedPost,
-                    authorsOfLike: removeAuthorsFromLikeArray,
                 },
                 posts: state.posts.map((post: any) => {
                     if (post._id === action.payload.postId) {
                         return {
                             ...post,
-                            authorsOfLike: removeAuthorsFromLikeArray,
+                            authorsOfLike: post.authorsOfLike.filter((userId: string) =>
+                                userId !== action.payload.loggedId),
                         };
                     }
                     return post;
                 }),
+            };
+        case SET_COMMENTS_TO_POST:
+            return {
+                ...state,
+                selectedPost: {
+                    ...state.selectedPost,
+                    fullComments: action.payload,
+                },
+            };
+        case ADD_COMMENT:
+            return {
+                ...state,
+                selectedPost: {
+                    ...state.selectedPost,
+                    comment: action.payload,
+                },
+            };
+        case RESET_COMMENT:
+            return {
+                ...state,
+                selectedPost: {
+                    ...state.selectedPost,
+                    comment: '',
+                },
             };
         default:
             return state;

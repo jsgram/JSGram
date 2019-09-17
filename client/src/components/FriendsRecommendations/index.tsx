@@ -24,10 +24,9 @@ export const FriendsRecomendations = ({loggedUsername, friendsRecommendations, f
     const topRecommendations = friendsRecommendations.users.slice(0, 4);
 
     return (
-        <div className='mt-5 sticky-top'>
+        <div className='mt-5'>
             <h4 className='text-center'>Suggestions for you:</h4>
-            {topRecommendations.map((user: IUser) => {
-                return (
+            {topRecommendations.map((user: IUser) => (
                         <div className='d-flex justify-content-between mb-2' key={user._id}>
                             <div className='wrapper'>
                             <Link to={`/profile/${user.username}`}>
@@ -47,8 +46,8 @@ export const FriendsRecomendations = ({loggedUsername, friendsRecommendations, f
                                     e.target.disabled = true;
                                 }}>Follow</Button>
                         </div>
-                );
-            })}
+                ),
+            )}
             {friendsRecommendations.users.length > topRecommendations.length &&
                 <Link to={`/profile/${loggedUsername}/recommendations`} className='mr-2'>See all recommendations</Link>}
       </div>

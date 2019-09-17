@@ -3,18 +3,14 @@ import '../../styles/style.scss';
 import { Waypoint } from 'react-waypoint';
 import TextareaAutosize from 'react-textarea-autosize';
 import { IUserData } from '../Profile';
-import { IPost } from '../../store/post/reducers';
 import { Modal, ModalHeader, Spinner, Input, FormGroup, Button, InputGroup, InputGroupAddon } from 'reactstrap';
 import './style.scss';
 import MenuPost from '../MenuPost';
 import { formatDescription } from '../../helpers/regex.description';
 import noAvatar from '../../assets/noAvatar.png';
-import { Comment } from '../Comments';
-
-interface IBody {
-    userId: string;
-    postId: string;
-}
+import ProfileLikes from '../../containers/ProfileLikesContainer';
+import { IPost } from '../../store/post/reducers';
+import Comments from '../Comments';
 
 interface IProps {
     userPosts: any;
@@ -23,22 +19,16 @@ interface IProps {
     getPostsAsync: (username: string) => void;
     getMorePostsAsync: (username: string, page: number) => void;
     deletePhoto: () => void;
-    addLoggedUserLike: (loggedUserId: string, postId: string, authorsOfLike: []) => void;
-    addLike: (body: IBody) => void;
-    setCountOfLikes: (countOfLikes: number) => void;
-    deleteLike: (body: IBody) => void;
-    removeLoggedUserLike: (loggedUserId: string, postId: string, authorsOfLike: []) => void;
-    countOfLikes: number;
     editPost: (description: string, id: string) => void;
     showPost: (post: any) => void;
-    likeExist: boolean;
-    checkUserLikeExist: (doesExist: boolean) => void;
     username: string;
     getUser: (username: string) => void;
     resetPosts: () => void;
     addNextPosts: (pageNumber: number) => void;
     loggedId: string;
     loggedUsername: string;
+    addComment: (postId: string, loggedUserId: string, comment: string) => void;
+    addNewComment: (comment: string) => void;
 }
 
 interface IModalState {
@@ -77,6 +67,18 @@ export default class Post extends React.Component<IProps> {
         this.props.editDescriptionForPost(event.target.value, this.props.userPosts.selectedPost._id);
     }
 
+    public onAddComment = (): void => {
+        this.props.addComment(
+            this.props.userPosts.selectedPost._id,
+            this.props.loggedId,
+            this.props.userPosts.selectedPost.comment,
+        );
+    }
+
+    public onCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
+        this.props.addNewComment(event.target.value);
+    }
+
     public getMorePosts = (): void => {
         if (!this.props.userPosts.loaded) {
             this.props.addNextPosts(this.props.userPosts.page + 1);
@@ -88,70 +90,26 @@ export default class Post extends React.Component<IProps> {
         this.props.getPostsAsync(this.props.user.username);
     }
 
-    public componentDidUpdate(prevProps: IProps): void {
-        const {userPosts: {selectedPost: {authorsOfLike}}}: any = this.props;
-        const {userPosts: {selectedPost: {authorsOfLike: prevAuthorsOfLike}}}: any = prevProps;
-        if (authorsOfLike !== prevAuthorsOfLike) {
-            this.props.setCountOfLikes(authorsOfLike.length);
-
-            const checkLoggedUserLikeExist = authorsOfLike.filter((userId: string) =>
-                this.props.user._id === userId,
-            );
-
-            this.props.checkUserLikeExist(!!checkLoggedUserLikeExist.length);
-        }
-    }
-
-    public onAddLike = (): void => {
-        const {
-            user: {_id: userId},
-            userPosts: {selectedPost: {_id: postId}},
-        }: any = this.props;
-        const body = {userId, postId};
-        this.props.addLoggedUserLike(
-            this.props.loggedId,
-            this.props.userPosts.selectedPost._id,
-            this.props.userPosts.selectedPost.authorsOfLike);
-        this.props.addLike(body);
-    }
-
-    public onDeleteLike = (): void => {
-        const {
-            user: {_id: userId},
-            userPosts: {selectedPost: {_id: postId}},
-        }: any = this.props;
-        const body = {userId, postId};
-        this.props.removeLoggedUserLike(
-            this.props.loggedId,
-            this.props.userPosts.selectedPost._id,
-            this.props.userPosts.selectedPost.authorsOfLike);
-        this.props.deleteLike(body);
-    }
-
     public render(): JSX.Element {
-        const {userPosts, user, likeExist, countOfLikes}: any = this.props;
+        const {userPosts, user,
+        }: any = this.props;
         const {selectedPost: {description: desc}}: any = userPosts;
-
-        const likeButton = likeExist ?
-            (<i className='fa fa-heart fa-lg pr-1 like' onClick={this.onDeleteLike}/>) :
-            (<i className='fa fa-heart-o fa-lg pr-1' onClick={this.onAddLike}/>);
-
         return (
             <div className='container justify-content-center'>
                 <div className='row mt-5 profile-post'>
                     {
                         userPosts.posts.map((post: IPost) => (
-                                <div key={post._id} className='col-sm-4 text-center pt-4 post-photo'>
-                                    <img
-                                        src={post.imgPath}
-                                        width={293}
-                                        height={293}
-                                        alt=''
-                                        onClick={(): void => this.toggle(post)}
-                                        className='img-fluid one-profile-photo'
-                                    />
-                                </div>
-                            ),
+                            <div key={post._id} className='col-sm-4 text-center pt-4 post-photo'>
+                                <img
+                                    src={post.imgPath}
+                                    width={293}
+                                    height={293}
+                                    alt=''
+                                    onClick={(): void => this.toggle(post)}
+                                    className='img-fluid one-profile-photo'
+                                />
+                            </div>
+                        ),
                         )
                     }
                     <Waypoint
@@ -162,11 +120,11 @@ export default class Post extends React.Component<IProps> {
                     />
                 </div>
                 <div className='w-100 d-flex align-items-center justify-content-center'>
-                    {userPosts.loading && <Spinner className='mt-3' color='dark'/>}
+                    {userPosts.loading && <Spinner className='mt-3' color='dark' />}
                 </div>
                 <Modal className='profile-post modal-lg modal-dialog-centered px-3 py-3'
-                       isOpen={this.state.modal}
-                       toggle={(): void => this.toggle(userPosts.selectedPost)}>
+                    isOpen={this.state.modal}
+                    toggle={(): void => this.toggle(userPosts.selectedPost)}>
                     <div className='modal-body p-0'>
                         <div className='row m-0'>
                             <ModalHeader
@@ -218,16 +176,14 @@ export default class Post extends React.Component<IProps> {
                                         </div>
                                     </div>
                                     <p className='d-lg-none'>
-                                        {likeButton}
-                                        <span>{countOfLikes} likes</span>
+                                        <ProfileLikes/>
                                     </p>
                                     <p>{formatDescription(desc)}</p>
                                 </div>
-                                <Comment/>
+                                <Comments postId={userPosts.selectedPost._id}/>
                                 <div className='flex-grow-0'>
                                     <div className='d-none d-lg-block p-3 mb-3 border-top border-bottom'>
-                                        {likeButton}
-                                        <span>{countOfLikes} likes</span>
+                                        <ProfileLikes/>
                                     </div>
                                     <InputGroup>
                                         <TextareaAutosize
@@ -236,14 +192,17 @@ export default class Post extends React.Component<IProps> {
                                             autoComplete='off'
                                             minRows={1}
                                             maxRows={4}
+                                            value={userPosts.selectedPost.comment}
+                                            onChange={this.onCommentChange}
                                         />
                                         <InputGroupAddon addonType='append' className='flex-grow-0'>
                                             <Button
                                                 className='btn-block button-comment border-0'
                                                 type='submit'
-                                                disabled
+                                                onClick={this.onAddComment}
+                                                disabled={!userPosts.selectedPost.comment}
                                             >
-                                                Add
+                                            Add
                                             </Button>
                                         </InputGroupAddon>
                                     </InputGroup>

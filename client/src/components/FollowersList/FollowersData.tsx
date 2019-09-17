@@ -1,50 +1,50 @@
 export const FollowersData = [
     {
         username: 'm',
-        following: true
+        following: true,
     },
     {
         username: 'ma',
-        following: true
+        following: true,
     },
     {
         username: 'mar',
-        following: true
+        following: true,
     },
     {
         username: 'mari',
-        following: false
+        following: false,
     },
     {
         username: 'maria',
-        following: true
+        following: true,
     },
     {
         username: 'marias',
-        following: true
+        following: true,
     },
     {
         username: 'mariasy',
-        following: false
+        following: false,
     },
     {
         username: 'mariasyk',
-        following: true
+        following: true,
     },
     {
         username: 'mariasyk_p',
-        following: false
+        following: false,
     },
     {
         username: 'mariasyk_po',
-        following: true
+        following: true,
     },
     {
         username: 'mariasyk_potter',
-        following: false
+        following: false,
     },
     {
         username: 'mariasyk_potter21',
-        following: true
+        following: true,
     },
 ];

@@ -9,6 +9,8 @@ import {postReducer} from './post/reducers';
 import { feedReducer } from './feed/reducers';
 import { profileEditReducer } from './profileEdit/reducers';
 import { newsFeedReducer } from './newsFeed/reducers';
+import { likesReducer } from './likes/reducers';
+import { commentsReducer } from './comments/reducers';
 import { followersReducer } from './subscribers/followers/reducers';
 import { followingReducer } from './subscribers/following/reducers';
 
@@ -23,6 +25,8 @@ export default combineReducers({
     userPosts: postReducer,
     feed: feedReducer,
     newsFeed: newsFeedReducer,
+    likes: likesReducer,
+    comments: commentsReducer,
     followers: followersReducer,
     following: followingReducer,
 });

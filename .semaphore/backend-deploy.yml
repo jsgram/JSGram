@@ -32,6 +32,9 @@ blocks:
       jobs:
         - name: BE deploy
           commands:
+            - >
+              [[ $SEMAPHORE_GIT_BRANCH =~ 'dev|master' ]] && export PUSH_BRANCH=$SEMAPHORE_GIT_BRANCH || export PUSH_BRANCH='dev'
+
             - cd server
             - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master
             - npm run build
@@ -44,7 +47,7 @@ blocks:
               sed -i 's/"start": "node dist\/server.js",/"start": "node server.js",/' package.json
 
             - git init
-            - git remote add heroku "https://git.heroku.com/jsgram-backend-${SEMAPHORE_GIT_BRANCH}.git"
+            - git remote add heroku "https://git.heroku.com/jsgram-backend-${PUSH_BRANCH}.git"
             - git remote show heroku
 
             - git add .

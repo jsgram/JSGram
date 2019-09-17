@@ -8,25 +8,33 @@ import {
     GET_RECOMMENDATIONS_PENDING,
     GET_RECOMMENDATIONS_SUCCESS,
 } from './actionTypes';
-import {
-    CHECK_USER_LIKE_EXIST,
-    SET_COUNTS_OF_LIKES,
-    ADD_USER_LIKE,
-    REMOVE_USER_LIKE,
-} from '../post/actionTypes';
 
 export interface INewsFeed {
-    description: string;
-    comments: any;
-    tags: any;
-    authorsOfLike: any;
     _id: string;
-    imgPath: string;
-    author: any;
-    photoPath: string;
-    username: string;
-    createdAt: string;
+    description: string;
+    comments: [];
+    tags: [];
+    authorsOfLike: [];
     likeExist: boolean;
+    imgPath: string;
+    createdAt: string;
+    author: {
+        _id: string;
+        username: string;
+        photoPath: string;
+    };
+    friendsRecommendations: {
+        users: object[];
+        loading: boolean;
+    };
+}
+
+interface IFeedState {
+    feed: any;
+    page: number;
+    feedLoaded: boolean;
+    feedLoading: boolean;
+    friendsRecommendations: {users: object[], loading: boolean};
 }
 
 const defaultState = {
@@ -48,9 +56,8 @@ const defaultState = {
         },
     ],
     page: 1,
-    countOfLikes: 0,
-    loaded: false,
-    loading: false,
+    feedLoaded: false,
+    feedLoading: false,
     friendsRecommendations: {
         users: [],
         loading: false,
@@ -58,90 +65,46 @@ const defaultState = {
 };
 
 export const newsFeedReducer = (
-    state: any = defaultState,
-    action: { type: string, payload: any}): any => {
+    state: IFeedState = defaultState,
+    action: { type: string, payload: any }): any => {
     switch (action.type) {
         case GET_NEWS_FEED_PENDING:
             return {
                 ...state,
-                loading: true,
+                feedLoading: true,
             };
 
         case GET_NEWS_FEED_SUCCESS:
             return {
                 ...state,
                 feed: action.payload,
-                loading: false,
+                feedLoading: false,
             };
 
         case GET_MORE_NEWS_FEED_SUCCESS:
             return {
                 ...state,
                 feed: [...state.feed, ...action.payload],
-                loading: false,
+                feedLoading: false,
             };
 
         case ALL_NEWS_FEED_LOADED:
             return {
                 ...state,
-                loaded: true,
-                loading: false,
+                feedLoaded: true,
+                feedLoading: false,
             };
 
         case CLEAR_NEWS_FEED_LOADED:
             return {
                 ...state,
-                loaded: false,
+                feedLoaded: false,
             };
 
         case UPLOAD_NEXT_FEED_POSTS:
             return {
                 ...state,
-                page: action.payload,
-            };
-
-        case SET_COUNTS_OF_LIKES:
-            return {
-                ...state,
-                countOfLikes: action.payload,
-            };
-
-        case CHECK_USER_LIKE_EXIST:
-            return {
-                ...state,
-                likeExist: action.payload,
-            };
-
-        case ADD_USER_LIKE:
-            const addNewAuthorToLikeArray = [...action.payload.authorsOfLike, action.payload.loggedUserId];
-            return {
-                ...state,
-                feed: state.feed.map((feed: any) => {
-                    if (feed._id === action.payload.postId) {
-                        return {
-                            ...feed,
-                            authorsOfLike: addNewAuthorToLikeArray,
-                            likeExist: addNewAuthorToLikeArray.includes(action.payload.loggedUserId),
-                        };
-                    }
-                    return feed;
-                }),
-            };
-        case REMOVE_USER_LIKE:
-            const removeAuthorsFromLikeArray = action.payload.authorsOfLike.filter((like: string) =>
-                like !== action.payload.loggedUserId);
-            return {
-                ...state,
-                feed: state.feed.map((feed: any) => {
-                    if (feed._id === action.payload.postId) {
-                        return {
-                            ...feed,
-                            authorsOfLike: removeAuthorsFromLikeArray,
-                            likeExist: removeAuthorsFromLikeArray.includes(action.payload.loggedUserId),
-                        };
-                    }
-                    return feed;
-                }),
+                page: action.payload + 1,
             };
         case GET_RECOMMENDATIONS_PENDING:
             return {

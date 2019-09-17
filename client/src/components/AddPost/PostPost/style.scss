@@ -32,6 +32,7 @@
     background-color: $color-button;
     border-style: none;
     border-radius: 6px;
+    outline: none;
 
     @media screen and (max-width:$break-small) {
       width: 70px;
@@ -91,3 +92,4 @@
     margin-top: 45%;
   }
 }
+

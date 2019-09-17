@@ -27,7 +27,7 @@ export const getMoreNewsFeedSuccess = (userNews: any): { type: string, payload: 
     payload: userNews,
 });
 
-export const addNextFeedPosts = (page: number): {type: string, payload: number} => ({
+export const addNextFeedPosts = (page: number): { type: string, payload: number } => ({
     type: UPLOAD_NEXT_FEED_POSTS,
     payload: page,
 });
