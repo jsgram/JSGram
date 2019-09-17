@@ -6,12 +6,13 @@ import {
     FIRST_PAGE,
     getComments,
     resetComments,
+    deleteComment,
     editCommentAsync,
     changeEditStatus,
     changeComment,
 } from '../../store/comments/actions';
 import { IComment } from '../../store/comments/reducers';
-import {IUserData} from '../Profile';
+import { IUserData } from '../Profile';
 
 interface ILocalState {
     postId: string;
@@ -38,6 +39,7 @@ interface IOwnCommentsProps {
     editCommentAsync: (comment: string, commentId: string, email: string) => void;
     changeEditStatus: (commentId: string) => void;
     changeComment: (comment: string, commentId: string) => void;
+    deleteComment: (postId: string, authorId: string) => void;
 }
 
 export type ICommentsProps = IOwnCommentsProps & ILocalState;
@@ -63,35 +65,41 @@ class Comments extends React.Component<ICommentsProps> {
         this.props.editCommentAsync(comment, id, email);
     }
 
+    public onDeleteComment = (commentId: string, authorId: string): void => {
+        this.props.deleteComment(
+            commentId, authorId,
+        );
+    }
+
     public renderComment = (comment: IComment): any => (
         comment.isEdit ?
             (
                 <>
-                         <textarea
-                             rows={3}
-                             className='form-control'
-                             value={comment.newComment || comment.comment}
-                             onChange={
-                                 (event: React.ChangeEvent<any>)
-                                     : void => this.props.changeComment(
-                                     event.target.value,
-                                     comment._id,
-                                 )
-                             }
-                         />
+                    <textarea
+                        rows={3}
+                        className='form-control'
+                        value={comment.newComment || comment.comment}
+                        onChange={
+                            (event: React.ChangeEvent<any>)
+                                : void => this.props.changeComment(
+                                    event.target.value,
+                                    comment._id,
+                                )
+                        }
+                    />
                     <div className='btn btn-danger mt-2'
-                         onClick={(): void => this.editComment(
-                             comment.newComment,
-                             comment._id,
-                             comment.authorId.email,
-                         )}
+                        onClick={(): void => this.editComment(
+                            comment.newComment,
+                            comment._id,
+                            comment.authorId.email,
+                        )}
                     >
                         Change
                     </div>
                     <div className='btn btn-danger mt-2 ml-2'
-                         onClick={(): void => this.props.changeEditStatus(
-                             comment._id,
-                         )}
+                        onClick={(): void => this.props.changeEditStatus(
+                            comment._id,
+                        )}
                     >
                         Cancel
                     </div>
@@ -105,7 +113,9 @@ class Comments extends React.Component<ICommentsProps> {
                             className='fa fa-pencil mr-2 edit-comment'
                             onClick={(): void => this.props.changeEditStatus(comment._id)}
                         />
-                        <i className='fa fa-trash-o delete-comment'/>
+                        <i className='fa fa-trash-o delete-comment' onClick={
+                            (): void => this.onDeleteComment(comment._id, comment.authorId._id)
+                        } />
                     </div>
                     <p>{comment.comment}</p>
                 </>
@@ -118,22 +128,22 @@ class Comments extends React.Component<ICommentsProps> {
                 <div className='flex-grow-1 comments border-top position-relative'>
                     <div className='position-absolute h-100'>
                         {!!this.props.comments && this.props.comments.map((comment: any) => (
-                                <div className='one-comment px-3' key={comment._id}>
-                                    <img
-                                        src={comment.authorId.photoPath || noAvatar}
-                                        alt='avatar'
-                                        width={24}
-                                        height={24}
-                                        className='img-fluid rounded-circle mt-1 mr-1 mb-1'
-                                    />
-                                    <span className='mt-1'>{comment.authorId.username}</span>
-                                    {
-                                        this.props.user.email === comment.authorId.email
-                                            ? this.renderComment(comment)
-                                            : <p>{comment.comment}</p>
-                                    }
-                                </div>
-                            ),
+                            <div className='one-comment px-3' key={comment._id}>
+                                <img
+                                    src={comment.authorId.photoPath || noAvatar}
+                                    alt='avatar'
+                                    width={24}
+                                    height={24}
+                                    className='img-fluid rounded-circle mt-1 mr-1 mb-1'
+                                />
+                                <span className='mt-1'>{comment.authorId.username}</span>
+                                {
+                                    this.props.user.email === comment.authorId.email
+                                        ? this.renderComment(comment)
+                                        : <p>{comment.comment}</p>
+                                }
+                            </div>
+                        ),
                         )
                         }
                     </div>
@@ -164,6 +174,7 @@ const mapDispatchToProps = {
     editCommentAsync,
     changeEditStatus,
     changeComment,
+    deleteComment,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comments);

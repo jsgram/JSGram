@@ -7,6 +7,7 @@ import {
     CHANGE_COMMENT,
     CHANGE_EDIT_STATUS_COMMENT,
     ADD_COMMENT_DISPATCH,
+    DELETE_COMMENT,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
@@ -24,10 +25,10 @@ export const allCommentsLoaded = (): { type: string } => ({
 });
 
 export const getCommentsSuccess = (comments: IComments, page: number):
-    { type: string, payload: { comments: IComments, page: number } } => ({
-        type: GET_COMMENTS_SUCCESS,
-        payload: {comments, page},
-    });
+{ type: string, payload: { comments: IComments, page: number } } => ({
+    type: GET_COMMENTS_SUCCESS,
+    payload: { comments, page },
+});
 
 export const resetComments = (): { type: string } => ({
     type: RESET_COMMENTS,
@@ -36,6 +37,11 @@ export const resetComments = (): { type: string } => ({
 export const addCommentDispatch = (res: IComments): { type: string, payload: any } => ({
     type: ADD_COMMENT_DISPATCH,
     payload: res,
+});
+
+export const deleteCommentSuccess = (commentId: string): { type: string, payload: string } => ({
+    type: DELETE_COMMENT,
+    payload: commentId,
 });
 
 export const getComments = (postId: string, page: number): (dispatch: Dispatch) => Promise<void> =>
@@ -50,6 +56,17 @@ export const getComments = (postId: string, page: number): (dispatch: Dispatch) 
             }
 
             dispatch(getCommentsSuccess(res.data.commentsAll, page));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const deleteComment = (commentId: string, authorId: string): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const res = await AuthAPI.delete(`/comments/${commentId}`, { data: { authorId } });
+            dispatch(deleteCommentSuccess(commentId));
+            dispatch(showAlert(res.data.message, 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
@@ -87,7 +104,7 @@ export const editCommentAsync = (
 ): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const res = await AuthAPI.patch(`/comments/${commentId}`, {comment, email});
+            const res = await AuthAPI.patch(`/comments/${commentId}`, { comment, email });
             dispatch(editComment(comment, commentId));
             dispatch(showAlert(res.data.message, 'success'));
             dispatch(changeEditStatus(commentId));

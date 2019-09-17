@@ -1,14 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import { ICommentModel } from '../../models/comment.model';
-import { IUserModel } from '../../models/user.model';
 import { deleteComment, deleteCommentFromPost } from '../../db.requests/delete.comments.requests';
 
 export const deleteComments = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { body: { commentId, authorId } }: Request = req;
-        const { locals: { user: { _id: loggedUserId } } }: Response = res;
+        const { body: { authorId }, params: { id: commentId } }: any = req;
+        const { locals: { user: { _id: loggedUserId } } }:
+        { locals: { user: { _id: { loggedUserId: string } } } } = res;
 
-        if (authorId !== loggedUserId) {
+        if (authorId !== loggedUserId.toString()) {
             throw new Error(`Unauthorized attempt to delete comment ${commentId}.`);
         }
 
