@@ -26,7 +26,6 @@ const AddPostDropZone = (props: IProps): JSX.Element => {
                 return informFileError('Uploaded file is not a valid image');
             }
         },
-
     });
 
     return (

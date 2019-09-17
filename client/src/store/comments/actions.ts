@@ -19,14 +19,16 @@ export const getCommentsPending = (): { type: string } => ({
     type: GET_COMMENTS_PENDING,
 });
 
-export const allCommentsLoaded = (): { type: string } => ({
-    type: ALL_COMMENTS_LOADED,
-});
+export const allCommentsLoaded = (postId: string, page: number):
+    { type: string, payload: { postId: string, page: number } } => ({
+        type: ALL_COMMENTS_LOADED,
+        payload: {postId, page},
+    });
 
-export const getCommentsSuccess = (comments: IComments, page: number):
-    { type: string, payload: { comments: IComments, page: number } } => ({
+export const getCommentsSuccess = (postId: string, comments: IComments, page: number):
+    { type: string, payload: { postId: string, comments: IComments, page: number } } => ({
         type: GET_COMMENTS_SUCCESS,
-        payload: {comments, page},
+        payload: {postId, comments, page},
     });
 
 export const resetComments = (): { type: string } => ({
@@ -38,18 +40,25 @@ export const addCommentDispatch = (res: IComments): { type: string, payload: any
     payload: res,
 });
 
-export const getComments = (postId: string, page: number): (dispatch: Dispatch) => Promise<void> =>
+export const getComments = (postId: string, commentState: any, commentsLoaded?: boolean): (dispatch: Dispatch) =>
+    Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(getCommentsPending());
-            const res = await AuthAPI.get(`comments/${postId}/${page}`);
+            const page = typeof commentState === 'number' ? commentState :
+                commentState[0] ? commentState[0].page : false;
 
-            if (!res.data.commentsAll.length) {
-                dispatch(allCommentsLoaded());
+            const res = await AuthAPI.get(`comments/${postId}/${page || 1}`);
+
+            if (!res.data.commentsAll.length || commentsLoaded || !page ) {
+                if (page !== FIRST_PAGE) {
+                    dispatch(showAlert('All comments loaded', 'warning'));
+                }
+                dispatch(allCommentsLoaded(postId, page));
                 return;
             }
 
-            dispatch(getCommentsSuccess(res.data.commentsAll, page));
+            dispatch(getCommentsSuccess(postId, res.data.commentsAll, page + 1));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
