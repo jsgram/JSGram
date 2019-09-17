@@ -21,7 +21,7 @@ interface ILocalState {
 interface IState {
     comments: ILocalState;
     ownProps: {
-        postId: any;
+        postId: string;
     };
 }
 
