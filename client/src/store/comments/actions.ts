@@ -37,13 +37,17 @@ export const addCommentDispatch = (res: IComments): { type: string, payload: any
     payload: res,
 });
 
-export const getComments = (postId: string, page: number): (dispatch: Dispatch) => Promise<void> =>
+export const getComments = (postId: string, commentState: any, commentsLoaded?: boolean): (dispatch: Dispatch) =>
+    Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(getCommentsPending());
-            const res = await AuthAPI.get(`comments/${postId}/${page}`);
+            const page = typeof commentState === 'number' ? commentState :
+                commentState[0] ? commentState[0].page : false;
 
-            if (!res.data.commentsAll.length) {
+            const res = await AuthAPI.get(`comments/${postId}/${page || 1}`);
+
+            if (!res.data.commentsAll.length || commentsLoaded || !page ) {
                 if (page !== FIRST_PAGE) {
                     dispatch(showAlert('All comments loaded', 'warning'));
                 }
@@ -51,7 +55,7 @@ export const getComments = (postId: string, page: number): (dispatch: Dispatch) 
                 return;
             }
 
-            dispatch(getCommentsSuccess(postId, res.data.commentsAll, page));
+            dispatch(getCommentsSuccess(postId, res.data.commentsAll, page + 1));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }

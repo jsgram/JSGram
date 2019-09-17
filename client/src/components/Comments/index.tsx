@@ -26,9 +26,8 @@ interface IState {
 }
 
 interface IOwnCommentsProps {
-    getComments: (postId: string, page: number) => void;
+    getComments: (postId: string, commentState: any, commentsLoaded?: boolean) => void;
     resetComments: () => void;
-    showAlert: (alert: string, color: string) => void;
 }
 
 export type ICommentsProps = IOwnCommentsProps & ILocalState;
@@ -42,17 +41,14 @@ class Comments extends React.Component<ICommentsProps> {
 
     public getMoreComments = (): void => {
 
-        if (!!this.props.postId) {
+        if (this.props.postId) {
             const commentStateForCurrentPost =
                 this.props.commentsPage.filter((info: { postId: string, page: number }) =>
                     info.postId === this.props.postId);
 
             const commentsLoaded = this.props.allCommentsLoaded.some((post: any) => post === this.props.postId);
 
-            if (commentStateForCurrentPost.length && !commentsLoaded) {
-                return this.props.getComments(this.props.postId, commentStateForCurrentPost[0].page + 1);
-            }
-            this.props.showAlert('All comments loaded', 'warning');
+            this.props.getComments(this.props.postId, commentStateForCurrentPost, commentsLoaded);
         }
     }
 

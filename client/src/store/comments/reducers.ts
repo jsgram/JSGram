@@ -19,8 +19,8 @@ export interface IComment {
 
 export interface IComments {
     comments: IComment[];
-    commentsPage: any;
-    allCommentsLoaded: any;
+    commentsPage: any[];
+    allCommentsLoaded: any[];
     commentsLoading: boolean;
 }
 
