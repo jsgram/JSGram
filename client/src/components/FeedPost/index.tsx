@@ -11,6 +11,7 @@ import { Col, Container, Row, Spinner } from 'reactstrap';
 import { INewsFeed } from '../../store/newsFeed/reducers';
 import { Waypoint } from 'react-waypoint';
 import Comment from '../Comments';
+import { FriendsRecomendations } from '../FriendsRecommendations';
 
 interface IProps {
     loggedId: string;
@@ -20,11 +21,15 @@ interface IProps {
     getNewsFeedAsync: () => void;
     getMoreNewsFeedAsync: (page: number) => void;
     addNextFeedPosts: (pageNumber: number) => void;
+    getRecommendations: () => void;
+    followUser: (body: {_id: string}) => void;
+    friendsRecommendations: any;
 }
 
 export class FeedPost extends React.Component<IProps> {
     public componentDidMount(): void {
         this.props.getNewsFeedAsync();
+        this.props.getRecommendations();
     }
 
     public getMoreFeedPosts = (): void => {
@@ -35,7 +40,7 @@ export class FeedPost extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        const {loggedUsername, loggedPhotoPath, newsFeed}: any = this.props;
+        const {loggedUsername, loggedPhotoPath, newsFeed, followUser}: any = this.props;
         return (
             <Container>
                 <Menu/>
@@ -113,6 +118,7 @@ export class FeedPost extends React.Component<IProps> {
                               }
                     </Col>
                     <Col sm={4} className='order-1 order-sm-2 text-sm-center'>
+                        <div className='sticky-top'>
                         <img
                             src={loggedPhotoPath || noAvatar}
                             alt='avatar'
@@ -123,6 +129,13 @@ export class FeedPost extends React.Component<IProps> {
                         <Link to={`/profile/${loggedUsername}`} className='mt-1 ml-3 mr-4
                         text-dark'>{loggedUsername}</Link>
                         <Link to='/logout' className='text-danger pl-1'>Logout</Link>
+                        {newsFeed.friendsRecommendations.users.length !== 0 &&
+                            <FriendsRecomendations
+                            loggedUsername={loggedUsername}
+                            friendsRecommendations={newsFeed.friendsRecommendations}
+                            followUser={followUser}
+                        />}
+                        </div>
                     </Col>
                 </Row>
 
