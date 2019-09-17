@@ -122,7 +122,7 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
         case ADD_COMMENT_DISPATCH:
             return {
                 ...state,
-                comments: [...state.comments, {
+                comments: [{
                     _id: action.payload._id,
                     postId: action.payload.postId,
                     authorId: {
@@ -132,7 +132,7 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                     },
                     comment: action.payload.comment,
                     createdAt: action.payload.createdAt,
-                }],
+                }, ...state.comments],
             };
         case DELETE_COMMENT:
             return {
