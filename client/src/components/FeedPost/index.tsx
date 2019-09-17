@@ -23,6 +23,22 @@ interface IProps {
 }
 
 export class FeedPost extends React.Component<IProps> {
+    public state: { loaded: boolean} = {
+        loaded: false,
+    };
+    public timerHandle: any = 0;
+
+    public componentDidUpdate(): void {
+        if (!this.props.getNewsFeedAsync.length) {
+            this.timerHandle = setTimeout(() => {
+                this.setState({loaded: true});
+                this.timerHandle = 0;
+            },
+                800,
+            );
+        }
+    }
+
     public componentDidMount(): void {
         this.props.getNewsFeedAsync();
     }
@@ -34,8 +50,22 @@ export class FeedPost extends React.Component<IProps> {
         }
     }
 
+    public componentWillUnmount(): void {
+        clearTimeout(this.timerHandle);
+        this.timerHandle = 0;
+    }
+
     public render(): JSX.Element {
         const {loggedUsername, loggedPhotoPath, newsFeed}: any = this.props;
+        const {loaded}: { loaded: boolean } = this.state;
+
+        if (!loaded) {
+            return (
+                <div className='w-100 flex-grow-1 d-flex align-items-center justify-content-center'>
+                    <Spinner className='mt-3' color='dark'/>
+                </div>
+            );
+        }
         return (
             <Container>
                 <Menu/>
@@ -110,7 +140,7 @@ export class FeedPost extends React.Component<IProps> {
                                     </div>
                                 );
                             })
-                              }
+                        }
                     </Col>
                     <Col sm={4} className='order-1 order-sm-2 text-sm-center'>
                         <img

@@ -3,13 +3,12 @@ import './style.scss';
 
 const footerLink = [
     {id: 1, label: 'About us', href: '#'},
-    {id: 2, label: 'Github', href: '#'},
-    {id: 3, label: 'Demos', href: '#'},
-    {id: 4, label: 'Softserve', href: '#'},
+    {id: 2, label: 'Github', href: 'https://github.com/jsgram/JSGram'},
+    {id: 3, label: 'Softserve', href: 'https://career.softserveinc.com/uk-ua/technology'},
 ];
 
 export const Footer = (): ReactElement => (
-    <div className='page-footer footer mt-3'>
+    <div className='page-footer footer flex-grow-0 mt-3'>
         <ul className='footer-link'>
             {
                 footerLink.map((footer: { id: number, href: string, label: string }) => (
