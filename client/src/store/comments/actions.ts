@@ -7,6 +7,7 @@ import {
     CHANGE_COMMENT,
     CHANGE_EDIT_STATUS_COMMENT,
     ADD_COMMENT_DISPATCH,
+    DELETE_COMMENT,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
@@ -38,6 +39,11 @@ export const addCommentDispatch = (res: IComments): { type: string, payload: any
     payload: res,
 });
 
+export const deleteCommentSuccess = (commentId: string): { type: string, payload: string } => ({
+    type: DELETE_COMMENT,
+    payload: commentId,
+});
+
 export const getComments = (postId: string, page: number): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
@@ -54,6 +60,13 @@ export const getComments = (postId: string, page: number): (dispatch: Dispatch) 
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };
+
+export const deleteComment = (commentId: string, authorId: string): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const res = await AuthAPI.delete(`/comments/${commentId}`, { data: {authorId} });
+            dispatch(deleteCommentSuccess(commentId));
+            dispatch(showAlert(res.data.message, 'success'));
 
 export const editComment = (comment: string, commentId: string)
     : { type: string, payload: any } => (

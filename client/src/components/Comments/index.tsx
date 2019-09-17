@@ -6,6 +6,7 @@ import {
     FIRST_PAGE,
     getComments,
     resetComments,
+    deleteComment,
     editCommentAsync,
     changeEditStatus,
     changeComment,
@@ -35,6 +36,7 @@ interface IState {
 interface IOwnCommentsProps {
     getComments: (postId: string, page: number) => void;
     resetComments: () => void;
+    deleteComment: (postId: string, authorId: string) => void;
     editCommentAsync: (comment: string, commentId: string, email: string) => void;
     changeEditStatus: (commentId: string) => void;
     changeComment: (comment: string, commentId: string) => void;
@@ -57,6 +59,12 @@ class Comments extends React.Component<ICommentsProps> {
         if (!this.props.allCommentsLoaded && this.props.postId) {
             this.props.getComments(this.props.postId, this.props.commentsPage + 1);
         }
+    }
+
+    public onDeleteComment = (commentId: string, authorId: string): void => {
+        this.props.deleteComment(
+            commentId, authorId,
+        );
     }
 
     public editComment = (comment: string, id: string, email: string): void => {
@@ -133,6 +141,22 @@ class Comments extends React.Component<ICommentsProps> {
                                             : <p>{comment.comment}</p>
                                     }
                                 </div>
+                                <div className='d-inline align-self-center edit-delete-comment'>
+                                    <i className='fa fa-pencil mr-2 edit-comment'/>
+                                    <i className='fa fa-trash-o delete-comment' onClick={
+                                        (): void => this.onDeleteComment(comment._id, comment.authorId._id)
+                                    } />
+                                </div>
+                            </div>
+                            <p>{comment.comment}</p>
+                        </div>
+                    ))}
+                    <Waypoint
+                        scrollableAncestor={window}
+                        onEnter={(): void => {
+                            this.getMoreComments();
+                        }}
+                    />
                             ),
                         )
                         }
@@ -161,6 +185,7 @@ const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalSta
 const mapDispatchToProps = {
     getComments,
     resetComments,
+    deleteComment,
     editCommentAsync,
     changeEditStatus,
     changeComment,
