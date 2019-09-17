@@ -1,20 +1,21 @@
 import React from 'react';
 import noAvatar from '../../assets/noAvatar.png';
 import { connect } from 'react-redux';
-import { Waypoint } from 'react-waypoint';
 import {
     FIRST_PAGE,
     getComments,
     resetComments,
 } from '../../store/comments/actions';
 import { IComment } from '../../store/comments/reducers';
+import { Button } from 'reactstrap';
+import { showAlert } from '../../store/alert/actions';
 
 interface ILocalState {
     postId: string;
     comments: IComment[];
-    commentsPage: number;
+    commentsPage: [];
     commentsLoading: boolean;
-    allCommentsLoaded: boolean;
+    allCommentsLoaded: [];
 }
 
 interface IState {
@@ -27,6 +28,7 @@ interface IState {
 interface IOwnCommentsProps {
     getComments: (postId: string, page: number) => void;
     resetComments: () => void;
+    showAlert: (alert: string, color: string) => void;
 }
 
 export type ICommentsProps = IOwnCommentsProps & ILocalState;
@@ -38,14 +40,25 @@ class Comments extends React.Component<ICommentsProps> {
         }
     }
 
-    public componentWillUnmount(): void {
-        this.props.resetComments();
+    public getMoreComments = (): void => {
+
+        if (!!this.props.postId) {
+            const commentStateForCurrentPost =
+                this.props.commentsPage.filter((info: { postId: string, page: number }) =>
+                    info.postId === this.props.postId);
+
+            const commentsLoaded = this.props.allCommentsLoaded.some((post: any) => post === this.props.postId);
+
+            if (commentStateForCurrentPost.length && !commentsLoaded) {
+                // @ts-ignore
+                return this.props.getComments(this.props.postId, commentStateForCurrentPost[0].page + 1);
+            }
+            this.props.showAlert('All comments loaded', 'warning');
+        }
     }
 
-    public getMoreComments = (): void => {
-        if (!this.props.allCommentsLoaded && this.props.postId) {
-            this.props.getComments(this.props.postId, this.props.commentsPage + 1);
-        }
+    public componentWillUnmount(): void {
+        this.props.resetComments();
     }
 
     public render(): JSX.Element {
@@ -53,32 +66,37 @@ class Comments extends React.Component<ICommentsProps> {
             <div className='flex-grow-1 comments border-top position-relative'>
                 <div className='position-absolute h-100 w-100'>
                     {!!this.props.comments && this.props.comments.map((comment: any) => (
-                        <div className='one-comment px-3' key={comment._id}>
-                            <div className='d-flex justify-content-between'>
-                                <div>
-                                    <img
-                                        src={comment.authorId.photoPath || noAvatar}
-                                        alt='avatar'
-                                        width={24}
-                                        height={24}
-                                        className='img-fluid rounded-circle mt-1 mr-1 mb-1'
-                                    />
-                                    <span className='mt-1'>{comment.authorId.username}</span>
+                        <div key={comment._id}>
+                            {comment.postId === this.props.postId &&
+                            <div className='one-comment px-3'>
+                                <div className='d-flex justify-content-between'>
+                                    <div>
+                                        <img
+                                            src={comment.authorId.photoPath || noAvatar}
+                                            alt='avatar'
+                                            width={24}
+                                            height={24}
+                                            className='img-fluid rounded-circle mt-1 mr-1 mb-1'
+                                        />
+                                        <span className='mt-1'>{comment.authorId.username}</span>
+                                    </div>
+                                    <div className='d-inline align-self-center edit-delete-comment'>
+                                        <i className='fa fa-pencil mr-2 edit-comment'/>
+                                        <i className='fa fa-trash-o delete-comment'/>
+                                    </div>
                                 </div>
-                                <div className='d-inline align-self-center edit-delete-comment'>
-                                    <i className='fa fa-pencil mr-2 edit-comment'/>
-                                    <i className='fa fa-trash-o delete-comment'/>
-                                </div>
+                                <p>{comment.comment}</p>
                             </div>
-                            <p>{comment.comment}</p>
+                            }
                         </div>
                     ))}
-                    <Waypoint
-                        scrollableAncestor={window}
-                        onEnter={(): void => {
-                            this.getMoreComments();
-                        }}
-                    />
+                    <Button
+                        outline
+                        size='sm'
+                        onClick={this.getMoreComments}
+                    >
+                        Get more comments
+                    </Button>
                 </div>
             </div>
         );
@@ -96,6 +114,7 @@ const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalSta
 const mapDispatchToProps = {
     getComments,
     resetComments,
+    showAlert,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comments);
