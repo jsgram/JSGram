@@ -21,7 +21,7 @@ export const PopUpModal = ({modal, photo, deletePhoto: photoDelete, toggleModal}
             <Modal className='text-center' isOpen={modal} toggle={toggleModal}>
                 <ModalHeader toggle={toggleModal}>Change Profile Photo</ModalHeader>
                 <ModalBody>
-                    <CropperContainer/>
+                    <CropperContainer toggleModal={toggleModal} />
                     {photo &&
                     <Button className='mt-3' outline size='lg' color='danger' onClick={(): void => {
                         deletePhoto();
