@@ -90,7 +90,11 @@ class Comments extends React.Component<ICommentsProps> {
                             }
                         </div>
                     ))}
-                    <Button onClick={this.getMoreComments}>
+                    <Button
+                        outline
+                        size='sm'
+                        onClick={this.getMoreComments}
+                    >
                         Get more comments
                     </Button>
                 </div>
