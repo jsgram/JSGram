@@ -8,6 +8,7 @@ import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import noAvatar from '../../assets/noAvatar.png';
 import Menu from '../Menu';
 import './style.scss';
+import {IStateProfileEdit} from "../../store/profileEdit/reducers";
 
 interface IStateToProps {
     user: IUser;
@@ -15,9 +16,10 @@ interface IStateToProps {
 
 interface IState {
     profile: IStateToProps;
+    profileEdit: IStateProfileEdit;
 }
 
-const SideBar = ({user: {fullName, photo}, loggedUsername}: any): JSX.Element => (
+const SideBar = ({user: {fullName, photo}, loggedUsername, profileEdit: {newFullName}}: any): JSX.Element => (
     <Container>
         <div
             className='row profile d-flex pt-2 justify-content-lg-center
@@ -39,7 +41,7 @@ const SideBar = ({user: {fullName, photo}, loggedUsername}: any): JSX.Element =>
                         </div>
                         <div className='mt-2 text-center'>
                             <div className='profile-usertitle-name'>
-                                {fullName}
+                                {newFullName ? newFullName : fullName}
                             </div>
                             <div className='profile-title'>
                                 View Profile
@@ -107,8 +109,9 @@ const SideBar = ({user: {fullName, photo}, loggedUsername}: any): JSX.Element =>
     </Container>
 );
 
-const mapStateToProps = (state: IState): { user: IUser } => ({
+const mapStateToProps = (state: IState): { user: IUser, profileEdit: IStateProfileEdit } => ({
     user: state.profile.user,
+    profileEdit: state.profileEdit,
 });
 
 const mapDispatchToProps = {
