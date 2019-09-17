@@ -113,6 +113,7 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                         return {
                             ...comment,
                             isEdit: !comment.isEdit,
+                            newComment: comment.comment,
                         };
                     }
                     return comment;
