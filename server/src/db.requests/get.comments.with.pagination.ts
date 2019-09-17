@@ -8,6 +8,7 @@ export const getCommentsWithPagination = async (postId: string, skip: number, ne
         return await Comment
             .find({postId})
             .populate('authorId', ['username', '_id', 'photoPath', 'email'])
+            .sort({createdAt: -1})
             .limit(COMMENTS_PER_PAGE)
             .skip(skip);
     } catch (e) {
