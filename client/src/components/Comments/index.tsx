@@ -111,7 +111,7 @@ class Comments extends React.Component<ICommentsProps> {
             :
             (
                 <>
-                    <div className='d-inline-flex mt-3 float-right edit-delete-comment'>
+                    <div className='d-inline float-right edit-delete-comment'>
                         <i
                             className='fa fa-pencil mr-2 edit-comment'
                             onClick={(): void => this.props.changeEditStatus(comment._id)}
@@ -134,7 +134,7 @@ class Comments extends React.Component<ICommentsProps> {
                             {comment.postId === this.props.postId &&
                             <div className='one-comment px-3'>
                                 <div className='d-flex justify-content-between'>
-                                    <div>
+                                    <div className='w-100'>
                                         <img
                                             src={comment.authorId.photoPath || noAvatar}
                                             alt='avatar'
