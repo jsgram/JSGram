@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { Field } from 'redux-form';
 import { Button, Form, FormProps, FormGroup, Label, Col, Spinner } from 'reactstrap';
 import { renderField } from '../CommonComponents/ReduxFormFields';
+import '../../styles/style.scss';
 
 export const ProfileEdit = ({ handleSubmit, onChangeProfile, submitting }: FormProps): ReactElement => {
     return (
@@ -38,7 +39,7 @@ export const ProfileEdit = ({ handleSubmit, onChangeProfile, submitting }: FormP
                             component={renderField}
                             label='description'
                             placeholder='Description'
-                            className='form-control' />
+                            className='form-control bio' />
                     </Col>
                 </FormGroup>
                 <Button
