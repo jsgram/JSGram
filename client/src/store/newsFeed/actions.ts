@@ -81,7 +81,11 @@ export const getRecommendationsSuccess = (users: object[]): { type: string, payl
 
 export const getRecommendations = (): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
-        dispatch(getRecommendationsPending());
-        const res = await AuthAPI.get('/feed');
-        dispatch(getRecommendationsSuccess(res.data.friendsRecommendations));
+        try {
+            dispatch(getRecommendationsPending());
+            const res = await AuthAPI.get('/feed');
+            dispatch(getRecommendationsSuccess(res.data.friendsRecommendations));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
     };

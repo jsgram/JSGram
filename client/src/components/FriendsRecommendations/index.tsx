@@ -21,7 +21,8 @@ interface IProps {
 }
 
 export const FriendsRecomendations = ({loggedUsername, friendsRecommendations, followUser}: IProps): JSX.Element => {
-    const topRecommendations = friendsRecommendations.users.slice(0, 4);
+    const USERS_PER_PAGE = 4;
+    const topRecommendations = friendsRecommendations.users.slice(0, USERS_PER_PAGE);
 
     return (
         <div className='mt-5'>

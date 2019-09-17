@@ -129,7 +129,7 @@ export class FeedPost extends React.Component<IProps> {
                         <Link to={`/profile/${loggedUsername}`} className='mt-1 ml-3 mr-4
                         text-dark'>{loggedUsername}</Link>
                         <Link to='/logout' className='text-danger pl-1'>Logout</Link>
-                        {newsFeed.friendsRecommendations.users.length !== 0 &&
+                        {!!newsFeed.friendsRecommendations.users.length &&
                             <FriendsRecomendations
                             loggedUsername={loggedUsername}
                             friendsRecommendations={newsFeed.friendsRecommendations}

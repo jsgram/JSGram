@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import * as newsFeedAction from '../../store/newsFeed/actions';
 import { followUser as followUserAction } from '../../store/profile/actions';
 import { FeedPost } from '../../components/FeedPost';
-import { INewsFeed } from '../../store/newsFeed/reducers';
+import { IFeedState } from '../../store/newsFeed/reducers';
 
 interface ILocalProps {
-    newsFeed: INewsFeed;
+    newsFeed: IFeedState;
     loggedId: string;
     loggedUsername: string;
     loggedPhotoPath: string;
 }
 
 interface IState {
-    newsFeed: INewsFeed;
+    newsFeed: IFeedState;
     feed: ILocalProps;
 }
 

@@ -8,6 +8,7 @@ import {
     GET_RECOMMENDATIONS_PENDING,
     GET_RECOMMENDATIONS_SUCCESS,
 } from './actionTypes';
+import { IUser } from '../../components/FriendsRecommendations';
 
 export interface INewsFeed {
     _id: string;
@@ -23,18 +24,14 @@ export interface INewsFeed {
         username: string;
         photoPath: string;
     };
-    friendsRecommendations: {
-        users: object[];
-        loading: boolean;
-    };
 }
 
-interface IFeedState {
+export interface IFeedState {
     feed: any;
     page: number;
     feedLoaded: boolean;
     feedLoading: boolean;
-    friendsRecommendations: {users: object[], loading: boolean};
+    friendsRecommendations: {users: IUser[], loading: boolean};
 }
 
 const defaultState = {
