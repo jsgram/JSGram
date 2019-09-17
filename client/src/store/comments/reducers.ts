@@ -4,6 +4,7 @@ import {
     GET_COMMENTS_SUCCESS,
     RESET_COMMENTS,
     ADD_COMMENT_DISPATCH,
+    DELETE_COMMENT,
 } from './actionTypes';
 
 export interface IComment {
@@ -71,6 +72,11 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                     comment: action.payload.comment,
                     createdAt: action.payload.createdAt,
                 }],
+            };
+        case DELETE_COMMENT:
+            return {
+                ...state,
+                comments: state.comments.filter((x: IComment): boolean => x._id !== action.payload),
             };
         default:
             return state;

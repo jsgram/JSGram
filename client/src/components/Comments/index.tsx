@@ -6,6 +6,7 @@ import {
     FIRST_PAGE,
     getComments,
     resetComments,
+    deleteComment,
 } from '../../store/comments/actions';
 import { IComment } from '../../store/comments/reducers';
 
@@ -27,6 +28,7 @@ interface IState {
 interface IOwnCommentsProps {
     getComments: (postId: string, page: number) => void;
     resetComments: () => void;
+    deleteComment: (postId: string, authorId: string) => void;
 }
 
 export type ICommentsProps = IOwnCommentsProps & ILocalState;
@@ -48,6 +50,12 @@ class Comments extends React.Component<ICommentsProps> {
         }
     }
 
+    public onDeleteComment = (commentId: string, authorId: string): void => {
+        this.props.deleteComment(
+            commentId, authorId,
+        );
+    }
+
     public render(): JSX.Element {
         return (
             <div className='flex-grow-1 comments border-top position-relative'>
@@ -67,7 +75,9 @@ class Comments extends React.Component<ICommentsProps> {
                                 </div>
                                 <div className='d-inline align-self-center edit-delete-comment'>
                                     <i className='fa fa-pencil mr-2 edit-comment'/>
-                                    <i className='fa fa-trash-o delete-comment'/>
+                                    <i className='fa fa-trash-o delete-comment' onClick={
+                                        (): void => this.onDeleteComment(comment._id, comment.authorId._id)
+                                    } />
                                 </div>
                             </div>
                             <p>{comment.comment}</p>
@@ -96,6 +106,7 @@ const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalSta
 const mapDispatchToProps = {
     getComments,
     resetComments,
+    deleteComment,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comments);
