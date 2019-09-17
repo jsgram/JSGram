@@ -49,8 +49,11 @@ blocks:
                       }
                     }' > static.json
 
+            - >
+              [[ $SEMAPHORE_GIT_BRANCH =~ 'dev|master' ]] && export PUSH_BRANCH=$SEMAPHORE_GIT_BRANCH || export PUSH_BRANCH='dev'
+
             - git init
-            - git remote add heroku "https://git.heroku.com/jsgram-frontend-${SEMAPHORE_GIT_BRANCH}.git"
+            - git remote add heroku "https://git.heroku.com/jsgram-frontend-${PUSH_BRANCH}.git"
             - git remote show heroku
 
             - git add .

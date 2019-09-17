@@ -43,8 +43,11 @@ blocks:
             - >
               sed -i 's/"start": "node dist\/server.js",/"start": "node server.js",/' package.json
 
+            - >
+              [[ $SEMAPHORE_GIT_BRANCH =~ 'dev|master' ]] && export PUSH_BRANCH=$SEMAPHORE_GIT_BRANCH || export PUSH_BRANCH='dev'
+
             - git init
-            - git remote add heroku "https://git.heroku.com/jsgram-backend-${SEMAPHORE_GIT_BRANCH}.git"
+            - git remote add heroku "https://git.heroku.com/jsgram-backend-${PUSH_BRANCH}.git"
             - git remote show heroku
 
             - git add .
