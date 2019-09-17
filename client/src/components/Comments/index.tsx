@@ -11,7 +11,6 @@ import {
     changeComment,
 } from '../../store/comments/actions';
 import { IComment } from '../../store/comments/reducers';
-import { IUserData } from '../Profile';
 import { Button } from 'reactstrap';
 import { IFeedState } from '../../store/feed/reducers';
 
@@ -81,7 +80,7 @@ class Comments extends React.Component<ICommentsProps> {
                     <textarea
                         rows={3}
                         className='form-control'
-                        value={comment.newComment || comment.comment}
+                        value={comment.newComment}
                         onChange={
                             (event: React.ChangeEvent<any>)
                                 : void => this.props.changeComment(
@@ -90,7 +89,10 @@ class Comments extends React.Component<ICommentsProps> {
                                 )
                         }
                     />
-                    <div className='btn btn-danger mt-2'
+                    <Button
+                        className='mt-2'
+                        color='danger'
+                        disabled={!comment.newComment}
                         onClick={(): void => this.editComment(
                             comment.newComment,
                             comment._id,
@@ -98,7 +100,7 @@ class Comments extends React.Component<ICommentsProps> {
                         )}
                     >
                         Change
-                    </div>
+                    </Button>
                     <div className='btn btn-danger mt-2 ml-2'
                         onClick={(): void => this.props.changeEditStatus(
                             comment._id,
