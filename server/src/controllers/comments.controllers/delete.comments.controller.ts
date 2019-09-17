@@ -17,7 +17,7 @@ export const deleteComments = async (req: Request, res: Response, next: NextFunc
             throw new Error(`Cannot delete comment ${commentId}.`);
         }
 
-        const { postId }: ICommentModel = deletedComment;
+        const {postId}: ICommentModel = deletedComment;
 
         const updatedPost = await deleteCommentFromPost(postId, commentId, next);
         if (!updatedPost) {
@@ -26,6 +26,6 @@ export const deleteComments = async (req: Request, res: Response, next: NextFunc
 
         res.json({ message: 'Comment deleted successfully.', updatedPost });
     } catch (e) {
-        next({ status: 409, message: e.message });
+        next({status: 409, message: e.message});
     }
 };
