@@ -20,7 +20,7 @@ export const changeEmail = async (req: Request, res: Response, next: NextFunctio
 
         const anotherUser = await User.findOne({email: newEmail});
 
-        if (email === newEmail || anotherUser) {
+        if (anotherUser) {
             throw new Error('Can not change email');
         }
 
