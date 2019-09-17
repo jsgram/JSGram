@@ -7,7 +7,6 @@ import {
 } from './actionTypes';
 
 const defaultState = {
-    title: 'Followers',
     page: 1,
     loading: false,
     allFollowersLoaded: false,

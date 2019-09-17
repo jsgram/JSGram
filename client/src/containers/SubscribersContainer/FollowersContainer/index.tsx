@@ -12,7 +12,7 @@ import { followUser, unfollowUser } from '../../../store/profile/actions';
 const FollowersContainer = (props: IFollowersProps): JSX.Element => {
     return(
         <Followers
-            title={props.title}
+            title='followers'
             loggedId={props.loggedId}
             urlUsername={props.urlUsername}
             page={props.page}
@@ -32,7 +32,6 @@ const FollowersContainer = (props: IFollowersProps): JSX.Element => {
 };
 
 const mapStateToProps = (state: any): any => ({
-    title: state.followers.title,
     loggedId: state.feed.loggedId,
     page: state.followers.page,
     loaded: state.followers.loaded,
