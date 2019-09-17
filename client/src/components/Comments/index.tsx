@@ -117,8 +117,8 @@ class Comments extends React.Component<ICommentsProps> {
                     <p>{comment.comment}</p>
                 </>
             )
-    )    
-        
+    )
+
     public render(): JSX.Element {
         return (
             <div className='flex-grow-1 comments border-top position-relative'>
@@ -137,11 +137,11 @@ class Comments extends React.Component<ICommentsProps> {
                                             className='img-fluid rounded-circle mt-1 mr-1 mb-1'
                                         />
                                         <span className='mt-1'>{comment.authorId.username}</span>
-                                      {
-                                        this.props.user.email === comment.authorId.email
-                                            ? this.renderComment(comment)
-                                            : <p>{comment.comment}</p>
-                                    }
+                                        {
+                                            this.props.user.email === comment.authorId.email
+                                                ? this.renderComment(comment)
+                                                : <p>{comment.comment}</p>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -155,35 +155,8 @@ class Comments extends React.Component<ICommentsProps> {
                     >
                         Get more comments
                     </Button>
-
-    public render(): JSX.Element {
-        return (
-            <>
-                <div className='flex-grow-1 comments border-top position-relative'>
-                    <div className='position-absolute h-100'>
-                        {!!this.props.comments && this.props.comments.map((comment: any) => (
-                                <div className='one-comment px-3' key={comment._id}>
-                                    <img
-                                        src={comment.authorId.photoPath || noAvatar}
-                                        alt='avatar'
-                                        width={24}
-                                        height={24}
-                                        className='img-fluid rounded-circle mt-1 mr-1 mb-1'
-                                    />
-                                    <span className='mt-1'>{comment.authorId.username}</span>
-                                    {
-                                        this.props.user.email === comment.authorId.email
-                                            ? this.renderComment(comment)
-                                            : <p>{comment.comment}</p>
-                                    }
-                                </div>
-                            ),
-                        )
-                        }
-                    </div>
-
                 </div>
-            </>
+            </div>
         );
     }
 }
