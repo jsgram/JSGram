@@ -147,7 +147,8 @@ export default class Profile extends React.Component<IProfileProps> {
     }
 
     public render(): JSX.Element {
-        const {user: {posts, followers, following, fullName, username, description, photo}}: IProfileProps = this.props;
+        const {user: {posts, followers, following, fullName, username, description, photo, _id}}
+            : IProfileProps = this.props;
         const {loaded}: { loaded: boolean } = this.state;
 
         if (!loaded) {
@@ -166,7 +167,11 @@ export default class Profile extends React.Component<IProfileProps> {
                         alt='avatar'
                         height={150}
                         width={150}
-                        onClick={this.toggleModal}
+                        onClick={(): void => {
+                            if (this.props.loggedId === _id) {
+                                this.toggleModal();
+                            }
+                        }}
                     />}
                 </div>
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
