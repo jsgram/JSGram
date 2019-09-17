@@ -4,8 +4,9 @@ import { deleteComment, deleteCommentFromPost } from '../../db.requests/delete.c
 
 export const deleteComments = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {body: {authorId}, params: {id: commentId}}: any = req;
-        const {locals: {user: {_id: loggedUserId}}}: {locals: {user: {_id: {loggedUserId: string}}}} = res;
+        const { body: { authorId }, params: { id: commentId } }: any = req;
+        const { locals: { user: { _id: loggedUserId } } }:
+        { locals: { user: { _id: { loggedUserId: string } } } } = res;
 
         if (authorId !== loggedUserId.toString()) {
             throw new Error(`Unauthorized attempt to delete comment ${commentId}.`);
