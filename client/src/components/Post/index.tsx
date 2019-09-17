@@ -132,11 +132,16 @@ export default class Post extends React.Component<IProps> {
                                 toggle={(): void => this.toggle(userPosts.selectedPost)}
                             >
                                 <div className='d-flex'>
-                                    <MenuPost
-                                        post={userPosts.selectedPost}
-                                        toggleEdit={this.toggleEdit}
-                                        toggleModal={this.toggle}
-                                    />
+                                    {
+                                        userPosts.selectedPost.author === this.props.loggedId &&
+                                        (
+                                            <MenuPost
+                                                post={userPosts.selectedPost}
+                                                toggleEdit={this.toggleEdit}
+                                                toggleModal={this.toggle}
+                                            />
+                                        )
+                                    }
                                     <img
                                         src={user.photo || noAvatar}
                                         alt='avatar'
@@ -167,13 +172,19 @@ export default class Post extends React.Component<IProps> {
                                             className='img-fluid rounded-circle mt-2 mr-2 mb-2'
                                         />
                                         <span className='mt-2 font-weight-bolder'>{user.username}</span>
-                                        <div className='d-lg-block d-none float-right'>
-                                            <MenuPost
-                                                post={userPosts.selectedPost}
-                                                toggleEdit={this.toggleEdit}
-                                                toggleModal={this.toggle}
-                                            />
-                                        </div>
+                                        {
+                                            userPosts.selectedPost.author === this.props.loggedId &&
+                                            (
+                                                <div className='d-lg-block d-none float-right'>
+                                                    <MenuPost
+                                                        post={userPosts.selectedPost}
+                                                        toggleEdit={this.toggleEdit}
+                                                        toggleModal={this.toggle}
+                                                    />
+                                                </div>
+                                            )
+                                        }
+
                                     </div>
                                     <p className='d-lg-none'>
                                         <ProfileLikes/>
