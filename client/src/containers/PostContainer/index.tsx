@@ -9,10 +9,6 @@ import {
     editDescriptionForPost,
     resetPosts,
     addNextPosts,
-    addLike,
-    checkUserLikeExist,
-    deleteLike,
-    setCountOfLikes, addLoggedUserLike, removeLoggedUserLike,
     addComment,
     addNewComment,
 } from '../../store/post/actions';
@@ -25,15 +21,7 @@ const PostContainer = (props: any): JSX.Element => (
         getPostsAsync={props.getPostsAsync}
         getMorePostsAsync={props.getMorePostsAsync}
         deletePhoto={props.deletePhoto}
-        addLike={props.addLike}
-        addLoggedUserLike={props.addLoggedUserLike}
-        setCountOfLikes={props.setCountOfLikes}
-        deleteLike={props.deleteLike}
-        removeLoggedUserLike={props.removeLoggedUserLike}
-        countOfLikes={props.countOfLikes}
         showPost={props.showPost}
-        likeExist={props.likeExist}
-        checkUserLikeExist={props.checkUserLikeExist}
         editPost={props.editPost}
         editDescriptionForPost={props.editDescriptionForPost}
         username={props.username}
@@ -48,25 +36,16 @@ const PostContainer = (props: any): JSX.Element => (
 );
 
 const mapStateToProps = (state: any, ownProps: { username: string }): any => ({
+    loggedId: state.feed.loggedId,
     userPosts: state.userPosts,
     user: state.profile.user,
-    countOfLikes: state.userPosts.countOfLikes,
-    likeExist: state.userPosts.likeExist,
     ownProps: ownProps.username,
-    loggedId: state.feed.loggedId,
-    loggedUsername: state.feed.loggedUsername,
 });
 
 const mapDispatchToProps = {
     getPostsAsync,
     getMorePostsAsync,
     deletePhoto,
-    setCountOfLikes,
-    addLike,
-    addLoggedUserLike,
-    checkUserLikeExist,
-    deleteLike,
-    removeLoggedUserLike,
     showPost,
     editPost,
     editDescriptionForPost,
