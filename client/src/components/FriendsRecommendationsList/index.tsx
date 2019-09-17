@@ -28,7 +28,7 @@ class FriendsRecommendationsList extends React.Component <IProps> {
                 <Menu/>
                 <div className='d-flex justify-content-center'>
                     <div className='follow-wrapper'>
-                        <h4 className='text-center'>Recommendations:</h4>
+                        <h4 className='text-center font-weight-light text-secondary text-uppercase'>Recommendations:</h4>
                         {users.map((user: IUser) =>
                             <div className='d-flex mt-1 mb-3 justify-content-between' key={user._id}>
                                 <div className='row'>
