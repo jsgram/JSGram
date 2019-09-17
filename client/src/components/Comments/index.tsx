@@ -50,16 +50,13 @@ class Comments extends React.Component<ICommentsProps> {
     }
 
     public getMoreComments = (): void => {
-
-        if (this.props.postId) {
-            const commentStateForCurrentPost =
+        const commentStateForCurrentPost =
                 this.props.commentsPage.filter((info: { postId: string, page: number }) =>
                     info.postId === this.props.postId);
 
-            const commentsLoaded = this.props.allCommentsLoaded.some((post: any) => post === this.props.postId);
+        const commentsLoaded = this.props.allCommentsLoaded.some((post: any) => post === this.props.postId);
 
-            this.props.getComments(this.props.postId, commentStateForCurrentPost, commentsLoaded);
-        }
+        this.props.getComments(this.props.postId, commentStateForCurrentPost, commentsLoaded);
     }
 
     public componentWillUnmount(): void {
