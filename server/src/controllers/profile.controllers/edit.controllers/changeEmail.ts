@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { sendChangingEmail } from '../../../helpers/send.email';
 import { changeEmailMessage } from '../../../helpers/send.email.change.email';
 import Validator from 'validator';
+import {User} from '../../../models/user.model';
 
 interface IChangeEmail {
     newEmail: string;
@@ -15,6 +16,12 @@ export const changeEmail = async (req: Request, res: Response, next: NextFunctio
         const { newEmail, profileUser: {email} }: IChangeEmail = req.body;
         if (Validator.isEmpty(newEmail)) {
             throw new Error('Email is empty');
+        }
+
+        const anotherUser = await User.findOne({email: newEmail});
+
+        if (email === newEmail || anotherUser) {
+            throw new Error('Can not change email');
         }
 
         await sendChangingEmail(newEmail, email, changeEmailMessage, next);
