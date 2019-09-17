@@ -1,17 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as newsFeedAction from '../../store/newsFeed/actions';
+import { followUser as followUserAction } from '../../store/profile/actions';
 import { FeedPost } from '../../components/FeedPost';
+import { INewsFeed } from '../../store/newsFeed/reducers';
 
 interface ILocalProps {
-    newsFeed: [];
+    newsFeed: INewsFeed;
     loggedId: string;
     loggedUsername: string;
     loggedPhotoPath: string;
 }
 
 interface IState {
-    newsFeed: [];
+    newsFeed: INewsFeed;
     feed: ILocalProps;
 }
 
@@ -19,6 +21,8 @@ interface IProps {
     getNewsFeedAsync: () => void;
     getMoreNewsFeedAsync: (page: number) => void;
     addNextFeedPosts: (page: number) => void;
+    getRecommendations: () => void;
+    followUser: (body: {_id: string}) => void;
 }
 
 type FeedProps = ILocalProps & IProps;
@@ -31,6 +35,8 @@ const FeedContainer = ({
                            getNewsFeedAsync,
                            getMoreNewsFeedAsync,
                            addNextFeedPosts,
+                           getRecommendations,
+                           followUser,
                        }: FeedProps): JSX.Element => {
     return (
         <FeedPost
@@ -41,6 +47,9 @@ const FeedContainer = ({
             getNewsFeedAsync={getNewsFeedAsync}
             addNextFeedPosts={addNextFeedPosts}
             getMoreNewsFeedAsync={getMoreNewsFeedAsync}
+            getRecommendations={getRecommendations}
+            friendsRecommendations={newsFeed.friendsRecommendations}
+            followUser={followUser}
         />
     );
 };
@@ -56,6 +65,8 @@ const mapDispatchToProps = {
     getNewsFeedAsync: newsFeedAction.getNewsFeedAsync,
     getMoreNewsFeedAsync: newsFeedAction.getMoreNewsFeedAsync,
     addNextFeedPosts: newsFeedAction.addNextFeedPosts,
+    getRecommendations: newsFeedAction.getRecommendations,
+    followUser: followUserAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeedContainer);
