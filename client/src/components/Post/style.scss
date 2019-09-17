@@ -48,12 +48,14 @@
     .edit-comment {
       &:hover {
         color: $color-dove-gray;
+        cursor: pointer;
       }
     }
 
     .delete-comment {
       &:hover {
         color: $color-like;
+        cursor: pointer;
       }
     }
   }
