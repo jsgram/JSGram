@@ -1,6 +1,6 @@
 import React from 'react';
 import Cropper from 'react-easy-crop';
-import {Container, Row, Spinner} from 'reactstrap';
+import { Container, Row, Spinner } from 'reactstrap';
 import AddPostDropZone from '../AddPost/AddPostDropZone';
 import '../AddPost/PostPost/style.scss';
 import { createBlobUrl, getCroppedImg } from '../../helpers/upload.photo';
@@ -128,15 +128,27 @@ export default class AddPostCropper extends React.Component<IAddAvatarCropperPro
                 </Container>
                 {
                     imageSrc &&
-                        <Row className='justify-content-center post mx-auto'>
-                            <button
-                                className='mt-3 ml-0 button'
-                                onClick={this.onShowCroppedImage}
-                                disabled={!imageSrc}
-                            >
-                                {this.props.loading ? <Spinner color='white'/> : 'Save'}
-                            </button>
-                        </Row>
+                    (
+                        <>
+                            <Row className='justify-content-center post mx-auto'>
+                                <button
+                                    className='mt-3 ml-0 button'
+                                    onClick={this.onShowCroppedImage}
+                                    disabled={!imageSrc}
+                                >
+                                    {this.props.loading ? <Spinner color='white'/> : 'Save'}
+                                </button>
+                            </Row>
+                            <Row className='justify-content-center post mx-auto'>
+                                <button
+                                    className='btn btn-danger mt-3 ml-0'
+                                    onClick={(): void => this.setState({imageSrc: ''})}
+                                    >
+                                    Reset photo
+                                </button>
+                            </Row>
+                        </>
+                    )
                 }
             </div>
         );
