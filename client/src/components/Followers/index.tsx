@@ -38,7 +38,6 @@ export class Followers extends React.Component<IFollowersProps> {
 
     public getMoreFollowers = (): void => {
         if (!this.props.allFollowersLoaded && this.props.loggedId) {
-            this.props.setNextPage(this.props.page);
             this.props.getMoreFollowers(this.props.loggedId, this.props.urlUsername, this.props.page);
         }
     }
@@ -53,7 +52,7 @@ export class Followers extends React.Component<IFollowersProps> {
         this.props.changeUserFollowing(_id);
     }
 
-    public dynamicButton = (_id: string, alreadyFollow: boolean): any => {
+    public dynamicButton = (_id: string, alreadyFollow: boolean): JSX.Element => {
         if (this.props.loadFollow) {
             return <span><Spinner color='light'/></span>;
         }

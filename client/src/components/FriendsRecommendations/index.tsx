@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Spinner } from 'reactstrap';
+import { Button } from 'reactstrap';
 import noAvatar from '../../assets/noAvatar.png';
 
 export interface IUser {

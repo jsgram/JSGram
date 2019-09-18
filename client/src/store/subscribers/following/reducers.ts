@@ -34,17 +34,19 @@ export const followingReducer = (state: any = defaultState, action: { type: stri
                 loading: false,
                 following: action.payload.following.map((followings: any) => ({
                     ...followings,
-                    alreadyFollow: followings.following.includes(action.payload.loggedId),
+                    alreadyFollow: followings.followers.includes(action.payload.loggedId),
                 })),
+                page: 2,
             };
         case SET_MORE_FOLLOWING:
             const newFollowings = action.payload.following.map((followings: any) => ({
                 ...followings,
-                alreadyFollow: followings.following.includes(action.payload.loggedId),
+                alreadyFollow: followings.followers.includes(action.payload.loggedId),
             }));
             return {
                 ...state,
                 following: [...state.following, ...newFollowings],
+                page: action.payload.page + 1,
                 loading: false,
             };
         case CHANGE_USER_FOLLOWING:
@@ -63,6 +65,7 @@ export const followingReducer = (state: any = defaultState, action: { type: stri
         case ALL_FOLLOWING_LOADED:
             return {
                 ...state,
+                loading: false,
                 allFollowingLoaded: true,
             };
         default: {
