@@ -10,7 +10,7 @@ export interface IRegisterProps {
     handleSubmit: (event: FormEvent<HTMLFormElement>) => any;
     submitting: any;
     onSubmit: any;
-    invalid: any;
+    invalid: string;
 }
 
 export const Register = ({handleSubmit, onSubmit, submitting, invalid}: IRegisterProps): JSX.Element => {
