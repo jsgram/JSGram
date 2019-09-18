@@ -1,0 +1,9 @@
+.shadow-card {
+  transition: 1s;
+
+  &:hover {
+    box-shadow: 5px 4px 5px 0 rgba(0, 0, 0, 0.75);
+    transform: scale(1.05);
+    transition: 1s;
+  }
+}
