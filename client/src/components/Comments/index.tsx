@@ -89,24 +89,19 @@ class Comments extends React.Component<ICommentsProps> {
                                 )
                         }
                     />
-                    <Button
-                        className='mt-2'
-                        color='danger'
-                        disabled={!comment.newComment}
-                        onClick={(): void => this.editComment(
-                            comment.newComment,
-                            comment._id,
-                            comment.authorId.email,
-                        )}
-                    >
-                        Change
-                    </Button>
-                    <div className='btn btn-danger mt-2 ml-2'
-                        onClick={(): void => this.props.changeEditStatus(
-                            comment._id,
-                        )}
-                    >
-                        Cancel
+                    <div className='d-flex justify-content-between mt-1'>
+                        <i className='fa fa-times-circle text-danger icon-edit'
+                            onClick={(): void => this.props.changeEditStatus(
+                                comment._id,
+                            )}>
+                        </i>
+                        <i className='fa fa-check-circle text-success icon-edit'
+                            onClick={(): void => this.editComment(
+                                comment.newComment,
+                                comment._id,
+                                comment.authorId.email,
+                            )}>
+                        </i>
                     </div>
                 </>
             )
