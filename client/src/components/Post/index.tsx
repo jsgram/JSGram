@@ -186,15 +186,15 @@ export default class Post extends React.Component<IProps> {
                                         }
 
                                     </div>
-                                    <p className='d-lg-none'>
-                                        <ProfileLikes/>
-                                    </p>
+                                    <div className='d-lg-none'>
+                                        <ProfileLikes postId={userPosts.selectedPost._id}/>
+                                    </div>
                                     <p>{formatDescription(desc)}</p>
                                 </div>
                                 <Comments postId={userPosts.selectedPost._id}/>
                                 <div className='flex-grow-0'>
                                     <div className='d-none d-lg-block p-3 mb-3 border-top border-bottom'>
-                                        <ProfileLikes/>
+                                        <ProfileLikes postId={userPosts.selectedPost._id}/>
                                     </div>
                                     <InputGroup>
                                         <TextareaAutosize
