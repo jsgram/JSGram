@@ -3,7 +3,7 @@ import { informFileError, setCroppedImageForAvatar, resetAddPost } from '../../s
 import { uploadPostAvatar } from '../../store/profile/actions';
 import { connect } from 'react-redux';
 import CropperAvatar, {IAddAvatarCropperProps} from '../../components/Cropper';
-import {IUserData} from '../../components/Profile';
+import { IUserData } from '../../components/Profile';
 
 export interface IState {
     croppedImage: string;
