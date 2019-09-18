@@ -11,8 +11,8 @@ import {
     changeComment,
 } from '../../store/comments/actions';
 import { IComment } from '../../store/comments/reducers';
-import { Button } from 'reactstrap';
 import { IFeedState } from '../../store/feed/reducers';
+import './style.scss';
 
 interface ILocalState {
     postId: string;
@@ -51,8 +51,8 @@ class Comments extends React.Component<ICommentsProps> {
 
     public getMoreComments = (): void => {
         const commentStateForCurrentPost =
-                this.props.commentsPage.filter((info: { postId: string, page: number }) =>
-                    info.postId === this.props.postId);
+            this.props.commentsPage.filter((info: { postId: string, page: number }) =>
+                info.postId === this.props.postId);
 
         const commentsLoaded = this.props.allCommentsLoaded.some((post: any) => post === this.props.postId);
 
@@ -84,9 +84,9 @@ class Comments extends React.Component<ICommentsProps> {
                         onChange={
                             (event: React.ChangeEvent<any>)
                                 : void => this.props.changeComment(
-                                    event.target.value,
-                                    comment._id,
-                                )
+                                event.target.value,
+                                comment._id,
+                            )
                         }
                     />
                     <div className='d-flex justify-content-between mt-1'>
@@ -115,11 +115,31 @@ class Comments extends React.Component<ICommentsProps> {
                         />
                         <i className='fa fa-trash-o delete-comment' onClick={
                             (): void => this.onDeleteComment(comment._id, comment.authorId._id)
-                        } />
+                        }/>
                     </div>
                     <p>{comment.comment}</p>
                 </>
             )
+    )
+
+    public getComments = (): JSX.Element => (
+        <div
+             className='d-inline float-left get-more-comments'>
+            {this.props.allCommentsLoaded.some((post: any) => post === this.props.postId) ?
+                <p
+                    className='comments-loaded'
+                >
+                    All comments loaded
+                </p>
+                :
+                <p
+                    className='get-comments'
+                    onClick={this.getMoreComments}
+                >
+                    Get more comments
+                </p>
+            }
+        </div>
     )
 
     public render(): JSX.Element {
@@ -151,13 +171,7 @@ class Comments extends React.Component<ICommentsProps> {
                             }
                         </div>
                     ))}
-                    <Button
-                        outline
-                        size='sm'
-                        onClick={this.getMoreComments}
-                    >
-                        Get more comments
-                    </Button>
+                    {this.getComments()}
                 </div>
             </div>
         );
