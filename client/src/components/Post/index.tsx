@@ -147,7 +147,7 @@ export default class Post extends React.Component<IProps> {
                                         alt='avatar'
                                         width={32}
                                         height={32}
-                                        className='img-fluid rounded-circle mt-2 ml-4'
+                                        className='img-fluid rounded-circle mt-2 mb-2 ml-4'
                                     />
                                     <span className='mt-2 ml-2'>{user.username}</span>
                                 </div>
