@@ -35,6 +35,7 @@ export const followersReducer = (state: any = defaultState, action: { type: stri
                     ...follower,
                     alreadyFollow: follower.followers.includes(action.payload.loggedId),
                 })),
+                page: 2,
             };
         case SET_MORE_FOLLOWERS:
             const newFollowers = action.payload.followers.map((follower: any) => ({
@@ -45,6 +46,7 @@ export const followersReducer = (state: any = defaultState, action: { type: stri
                 ...state,
                 followers: [...state.followers, ...newFollowers],
                 loading: false,
+                page: action.payload.page + 1,
             };
         case CHANGE_USER_FOLLOWING:
             return {
@@ -62,6 +64,7 @@ export const followersReducer = (state: any = defaultState, action: { type: stri
         case ALL_FOLLOWERS_LOADED:
             return {
                 ...state,
+                loading: false,
                 allFollowersLoaded: true,
             };
         default: {

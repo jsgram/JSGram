@@ -25,10 +25,10 @@ export const setNextPage = (page: number): { type: string, payload: number } => 
     payload: page,
 });
 
-export const setMoreFollowing = (loggedId: string, following: []):
-    { type: string, payload: {loggedId: string, following: []} } => ({
+export const setMoreFollowing = (loggedId: string, following: [], page: number):
+    { type: string, payload: {loggedId: string, following: [], page: number} } => ({
         type: SET_MORE_FOLLOWING,
-        payload: {loggedId, following},
+        payload: {loggedId, following, page},
     });
 
 export const changeUserFollowing = (userId: string): {type: string, payload: string} => ({
@@ -61,7 +61,7 @@ export const getMoreFollowings = (loggedId: string, urlUsername: string, page: n
                 return;
             }
 
-            dispatch(setMoreFollowing(loggedId, res.data.users));
+            dispatch(setMoreFollowing(loggedId, res.data.users, page));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Container, Button, Spinner } from 'reactstrap';
+import { Container, Button } from 'reactstrap';
 import { followUser } from '../../store/profile/actions';
 import { getRecommendations } from '../../store/newsFeed/actions';
 import { IUser, IFriendsRecommendation } from '../FriendsRecommendations';
@@ -22,7 +22,7 @@ class FriendsRecommendationsList extends React.Component <IProps> {
 
     public render(): JSX.Element {
 
-        const { friendsRecommendations: { users, loading } }: IProps = this.props;
+        const { friendsRecommendations: { users } }: IProps = this.props;
         return (
             <Container>
                 <Menu/>
