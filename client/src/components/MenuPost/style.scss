@@ -1,64 +1,31 @@
 @import '../../styles/variables';
 
-.burger-menu {
-  position: relative;
-
-  .dots {
-    font-weight: bold;
-    font-size: 30px;
-    line-height: 4px;
-    cursor: default;
-    @media screen and (min-width: $break-md) {
-      margin-top: 0;
-      margin-left: 2.7em;
-    }
+.edit-post {
+  &:hover {
+    font-weight: 700;
   }
 
-  .menu-navigation {
-    position: absolute;
-    left: -300vw;
-    width: 120px;
-    height: 85px;
-    background-color: $color-white;
-    border: 0.5px solid $color-grey;
-    border-radius: 0.3em;
+  &:active {
+    color: $color-black !important;
+    background-color: $color-white !important;
   }
 
-  li {
-    &:first-of-type {
-      border-bottom: 1px solid $aqua-haze;
-    }
-  }
-
-
-  .menu-link {
-    margin: auto;
-    color: $color-grey-dark;
-    font-weight: 500;
-    font-size: 1rem;
-    text-decoration: none;
-    background-color: $color-white;
-    border: 0;
-    cursor: default;
-
-    &:hover {
-      color: $color-black;
-      font-weight: 700;
-    }
-  }
-
-  .show-menu {
-    top: 2.3em;
-    left: -7em;
-    z-index: 5;
-    @media screen and (max-width: $break-md) {
-      top: 2.8em;
-      left: -0.8em;
-    }
+  &:focus {
+    outline: none;
   }
 }
 
+.delete-post {
+  &:hover {
+    font-weight: 700;
+  }
 
+  &:active {
+    color: $color-black !important;
+    background-color: $color-white !important;
+  }
 
-
-
+  &:focus {
+    outline: none;
+  }
+}

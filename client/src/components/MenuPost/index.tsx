@@ -1,6 +1,9 @@
 import React from 'react';
 import './style.scss';
-import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
+import {
+    Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
+    Modal, ModalBody, ModalFooter,
+} from 'reactstrap';
 import { deletePost } from '../../store/post/actions';
 import { connect } from 'react-redux';
 
@@ -22,16 +25,20 @@ class MenuPost extends React.Component<IProps, IState> {
         isMenuOpen: false,
     };
 
-    public handleMenuButtonClick = (): void => {
-        this.setState({ isMenuOpen: !this.state.isMenuOpen });
+    public toggle = (): void => {
+        this.setState({
+            isMenuOpen: !this.state.isMenuOpen,
+        });
     }
 
-    public toggle = (): void => {
-        this.setState({ modal: !this.state.modal });
+    public handleMenuButtonClick = (): void => {
+        this.setState({
+            modal: !this.state.modal,
+        });
     }
 
     public deletePostHandler = (): void => {
-        const { post }: any = this.props;
+        const {post}: any = this.props;
 
         this.props.toggleModal(post);
         this.props.deletePost(post._id);
@@ -44,34 +51,28 @@ class MenuPost extends React.Component<IProps, IState> {
 
     public render(): JSX.Element {
         return (
-            <div className='burger-menu pt-1'>
-                <div className='dots flex-column m-0' onClick={this.handleMenuButtonClick}>
-                    <div>.</div>
-                    <div className='mt-1'>.</div>
-                    <div className='mt-1'>.</div>
-                </div>
-                    <nav className={ `menu-navigation float-right ${ this.state.isMenuOpen && 'show-menu' }` }>
-                    <ul className='list-unstyled menu-items'>
-                        <li className='menu-list'>
-                            <button className = 'menu-link d-flex my-2'
-                             onClick=  {(): any =>  this.props.toggleEdit(this.props.post)}>Edit</button>
-                        </li>
-                        <li>
-                            <button className = 'menu-link d-flex my-2' onClick={this.toggle}>Delete</button>
-                        </li>
-                    </ul>
-                    </nav>
-                <Modal isOpen={this.state.modal} toggle={this.toggle}
-                className='modal-sm modal-dialog-centered'>
-                    <ModalBody className='text-center'>
-                        <h2>Delete post?</h2>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color='danger' onClick={this.deletePostHandler}>Delete</Button>
-                        <Button color='secondary' onClick={this.cancelDelete}>Cancel</Button>
-                    </ModalFooter>
-                </Modal>
-            </div>
+                <Dropdown isOpen={this.state.isMenuOpen} toggle={this.toggle} color='light'>
+                    <DropdownToggle tag='a' className='nav-link'>
+                        <i className='fa fa-ellipsis-v fa-lg' />
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem className='text-center edit-post'
+                                      onClick={(): any => this.props.toggleEdit(this.props.post)}>Edit</DropdownItem>
+                        <DropdownItem divider/>
+                        <DropdownItem className='text-center delete-post'
+                                      onClick={this.handleMenuButtonClick}>Delete</DropdownItem>
+                    </DropdownMenu>
+                    <Modal isOpen={this.state.modal} toggle={this.handleMenuButtonClick}
+                           className='modal-sm modal-dialog-centered'>
+                        <ModalBody className='text-center'>
+                            <h2>Delete post?</h2>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color='danger' onClick={this.deletePostHandler}>Delete</Button>
+                            <Button color='secondary' onClick={this.cancelDelete}>Cancel</Button>
+                        </ModalFooter>
+                    </Modal>
+                </Dropdown>
         );
     }
 }
