@@ -16,6 +16,7 @@ import { PrivateRoute } from './PrivateRoute';
 import FeedContainer from '../containers/FeedContainer';
 import FollowersContainer from '../containers/SubscribersContainer/FollowersContainer';
 import FollowingContainer from '../containers/SubscribersContainer/FollowingContainer';
+import { AboutUs } from '../components/AboutUs';
 
 export const routes = (
     <Router history={history}>
@@ -27,6 +28,7 @@ export const routes = (
             <PrivateRoute exact path='/feed' component={FeedContainer}/>
             <PrivateRoute path='/profile/:username/edit' component={SideBar}/>
             <Route exact path='/logout' component={Logout}/>
+            <Route exact path='/about-us' component={AboutUs}/>
             <PublicRoute exact path='/' component={Main}/>
             <PublicRoute path='/login/:token?' component={LoginContainer}/>
             <PublicRoute exact path='/password-reset' component={CheckEmail}/>
