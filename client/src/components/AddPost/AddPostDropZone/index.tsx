@@ -52,7 +52,7 @@ const AddPostDropZone = (props: IProps): JSX.Element => {
     };
 
     return (
-        <Container className='drop-zone' style={{cursor: isDragActive ? 'default' : 'default'}}>
+        <Container className='drop-zone'>
             <Row>
                 <div {...getRootProps({className: 'dropzone border-style cropper-photo'})}>
                     <input {...getInputProps({})}/>
