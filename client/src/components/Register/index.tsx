@@ -10,9 +10,10 @@ export interface IRegisterProps {
     handleSubmit: (event: FormEvent<HTMLFormElement>) => any;
     submitting: any;
     onSubmit: any;
+    invalid: any;
 }
 
-export const Register = ({handleSubmit, onSubmit, submitting}: IRegisterProps): JSX.Element => {
+export const Register = ({handleSubmit, onSubmit, submitting, invalid}: IRegisterProps): JSX.Element => {
     return (
         <div>
             <Form className='mt-4 bg-white' onSubmit={handleSubmit(onSubmit)}>
@@ -62,7 +63,7 @@ export const Register = ({handleSubmit, onSubmit, submitting}: IRegisterProps): 
                         />
                         <Button
                             className='mt-3'
-                            disabled={submitting}
+                            disabled={submitting || invalid}
                             color='danger'
                             size='lg'
                             block
