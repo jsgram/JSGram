@@ -47,7 +47,7 @@ export class FeedPost extends React.Component<IProps> {
                 <Row>
                     <Col sm={8} className='order-2 order-sm-1'>
                         {
-                            newsFeed.feed.map((feed: INewsFeed) => {
+                            newsFeed.feed.filter((feed: INewsFeed) => !!feed._id).map((feed: INewsFeed) => {
                                 const {description, imgPath, author: {photoPath, username}}: any = feed;
                                 return (
                                     <div className='profile-post border mb-5' key={feed._id}>

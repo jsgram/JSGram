@@ -96,7 +96,7 @@ export default class AddPostCropper extends React.Component<IAddAvatarCropperPro
 
                 <Container>
                     <Row>
-                        <div className=' mx-auto mt-3 post-label'>New post</div>
+                        <div className=' mx-auto mt-3 post-label'>Change avatar</div>
                     </Row>
                     <div className='cropper-photo mt-3 mx-auto'>
                         {
@@ -126,16 +126,18 @@ export default class AddPostCropper extends React.Component<IAddAvatarCropperPro
                         }
                     </div>
                 </Container>
-
-                <Row className='justify-content-center post mx-auto'>
-                    <button
-                        className='mt-3 ml-0 button'
-                        onClick={this.onShowCroppedImage}
-                        disabled={!imageSrc}
-                    >
-                        {this.props.loading ? <Spinner color='white'/> : 'Save'}
-                    </button>
-                </Row>
+                {
+                    imageSrc &&
+                        <Row className='justify-content-center post mx-auto'>
+                            <button
+                                className='mt-3 ml-0 button'
+                                onClick={this.onShowCroppedImage}
+                                disabled={!imageSrc}
+                            >
+                                {this.props.loading ? <Spinner color='white'/> : 'Save'}
+                            </button>
+                        </Row>
+                }
             </div>
         );
     }
