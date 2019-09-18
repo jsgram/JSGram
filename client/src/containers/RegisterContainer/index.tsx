@@ -7,7 +7,7 @@ import validate from '../../utils/validation';
 import { FormProps } from 'reactstrap';
 import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 
-const RegisterContainer = ({registerUser, handleSubmit, submitting}: FormProps): JSX.Element => {
+const RegisterContainer = ({ registerUser, handleSubmit, submitting, invalid }: FormProps): JSX.Element => {
     const onSubmit = (user: IUser): void => {
         registerUser(user);
     };
@@ -17,6 +17,7 @@ const RegisterContainer = ({registerUser, handleSubmit, submitting}: FormProps):
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
             submitting={submitting}
+            invalid={invalid}
         />
     );
 };
