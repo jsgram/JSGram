@@ -29,7 +29,8 @@ const our_team = [
         href: 'https://github.com/rostyk1331',
         image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThXhBwo6cqPjlOSjbYhri-vV8bfOSxkohzS_zD9jHPia2AkDlM',
         username: 'Rostyslav Khanas',
-        info: 'Ростислав Ханас, в IT з 10 років, працюю як на фронті так на беці, люблю пробувати і робити щось нове, ' +
+        info: 'Ростислав Ханас, в IT з 10 років, працюю як на фронті так на беці, ' +
+            'люблю пробувати і робити щось нове, ' +
             'скоренько всьо роблю, потім допогаю тімі',
     },
     {
@@ -45,7 +46,8 @@ const our_team = [
         href: 'https://github.com/yuriimartynenko',
         image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhL-jHCVQMW9KyY-70hFgaRtQ5B1KAPxu-5ZPhFKZiCmL8y-8q',
         username: 'Yurii Martinenko',
-        info: 'Юрій Мартиненко, в IT майже рік, маю хороші знання з фронт розробки, верстаю все що бачу, роути за 2 хв ' +
+        info: 'Юрій Мартиненко, в IT майже рік, маю хороші знання з фронт розробки, верстаю все що бачу, ' +
+            'роути за 2 хв ' +
             'роблю, хороші знання для створення логіки, бек не вчу бо в нас є Остап, командний я!',
     },
     {
@@ -53,7 +55,8 @@ const our_team = [
         href: 'https://github.com/IhorKalyta',
         image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPQYYQnEXfwWGMxxDOsgxRMRjQKLy8bYDUZ5_SySy97lrTppZYqg',
         username: 'Ihor Kalyta',
-        info: 'Ігор Калита, в ІТ недавно, стараюсь робити все почучуть, більше роблю фронт частину, наполегливий ' +
+        info: 'Ігор Калита, в ІТ недавно, стараюсь робити все почучуть, більше роблю фронт частину, ' +
+            'наполегливий ' +
             'фіксаю добре баги, деколи ноут тупить але то нічо',
     },
     {
@@ -61,7 +64,8 @@ const our_team = [
         href: 'https://github.com/Volodia1999',
         image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyM2KE2TQV8tAXchKni2S9vyAgGwg2mh-IRdsFi2ZSLOTVn-Pvqw',
         username: 'Volodia Revura',
-        info: 'Я Володя, в IT зовсім не початківець, дуже круто виконую поставлені на себе завдання, тіма для мене дуже багато ' +
+        info: 'Я Володя, в IT зовсім не початківець, дуже круто виконую поставлені на себе завдання, ' +
+            'тіма для мене дуже багато ' +
             'значить, часто помагаю всім почучуть, роблю ui і деколи бізнес логіку, все взагалі супер :)',
     },
     {
