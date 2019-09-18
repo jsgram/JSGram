@@ -2,10 +2,9 @@ import {
     SET_AVATAR_TO_CROPPER,
     SET_CROPPED_IMAGE_FOR_AVATAR,
 } from './actionTypes';
-import {Dispatch} from 'redux';
-import {showAlert} from '../alert/actions';
-import {history} from '../../history';
-import {RESET_ADD_POST} from '../addPost/actionTypes';
+import { Dispatch } from 'redux';
+import { showAlert } from '../alert/actions';
+import { RESET_ADD_POST } from '../addPost/actionTypes';
 
 export const setAvatarToCropper = (avatar: File): { type: string, payload: File } => ({
     type: SET_AVATAR_TO_CROPPER,
@@ -23,7 +22,6 @@ export const informFileError = (message: string): (dispatch: Dispatch) => void =
     };
 
 export const resetAddPost = (username: string): { type: string, payload: string } => {
-    history.push(`profile/${username}`);
     return {
         type: RESET_ADD_POST,
         payload: username,

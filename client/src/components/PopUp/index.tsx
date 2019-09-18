@@ -14,6 +14,7 @@ export interface IProps {
 export const PopUpModal = ({modal, photo, deletePhoto: photoDelete, toggleModal}: IProps): JSX.Element => {
     const deletePhoto = (): void => {
         photoDelete();
+        toggleModal();
     };
 
     return (

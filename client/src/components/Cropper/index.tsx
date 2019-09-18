@@ -4,6 +4,7 @@ import { Container, Row, Spinner } from 'reactstrap';
 import AddPostDropZone from '../AddPost/AddPostDropZone';
 import '../AddPost/PostPost/style.scss';
 import { createBlobUrl, getCroppedImg } from '../../helpers/upload.photo';
+import { IUserData } from '../Profile';
 
 export interface IAddAvatarCropperProps {
     croppedImage: string;
@@ -13,6 +14,7 @@ export interface IAddAvatarCropperProps {
     informFileError: any;
     resetAddPost: any;
     toggleModal: () => void;
+    user: IUserData;
 }
 
 interface IState {
@@ -119,7 +121,7 @@ export default class AddPostCropper extends React.Component<IAddAvatarCropperPro
                                     <AddPostDropZone
                                         uploadImageToCropper={this.onUploadImageToCropper}
                                         informFileError={this.props.informFileError}
-                                        resetImageSrc={this.props.resetAddPost}
+                                        resetImageSrc={(): void => this.props.resetAddPost(this.props.user.username)}
                                         sizeMB={2}
                                     />
                                 )
