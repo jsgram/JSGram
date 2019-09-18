@@ -1,7 +1,7 @@
 import React from 'react';
 import { Waypoint } from 'react-waypoint';
 import { Container, Button, Spinner } from 'reactstrap';
-import noAvatar from '../../../assets/noAvatar.png';
+import noAvatar from '../../assets/noAvatar.png';
 import './style.scss';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
