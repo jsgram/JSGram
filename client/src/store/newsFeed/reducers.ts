@@ -5,7 +5,10 @@ import {
     UPLOAD_NEXT_FEED_POSTS,
     ALL_NEWS_FEED_LOADED,
     CLEAR_NEWS_FEED_LOADED,
+    GET_RECOMMENDATIONS_PENDING,
+    GET_RECOMMENDATIONS_SUCCESS,
 } from './actionTypes';
+import { IUser } from '../../components/FriendsRecommendations';
 
 export interface INewsFeed {
     _id: string;
@@ -23,11 +26,12 @@ export interface INewsFeed {
     };
 }
 
-interface IFeedState {
+export interface IFeedState {
     feed: any;
     page: number;
     feedLoaded: boolean;
     feedLoading: boolean;
+    friendsRecommendations: {users: IUser[], loading: boolean};
 }
 
 const defaultState = {
@@ -51,6 +55,10 @@ const defaultState = {
     page: 1,
     feedLoaded: false,
     feedLoading: false,
+    friendsRecommendations: {
+        users: [],
+        loading: false,
+    },
 };
 
 export const newsFeedReducer = (
@@ -94,6 +102,23 @@ export const newsFeedReducer = (
             return {
                 ...state,
                 page: action.payload + 1,
+            };
+        case GET_RECOMMENDATIONS_PENDING:
+            return {
+                ...state,
+                friendsRecommendations: {
+                    ...state.friendsRecommendations,
+                    loading: true,
+                },
+            };
+        case GET_RECOMMENDATIONS_SUCCESS:
+            return {
+                ...state,
+                friendsRecommendations: {
+                    ...state.friendsRecommendations,
+                    users: action.payload,
+                    loading: false,
+                },
             };
         default:
             return state;
