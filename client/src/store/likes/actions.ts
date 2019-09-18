@@ -1,4 +1,5 @@
 import {
+    SET_LIKE_PENDING,
     SET_POST_AUTHORS_OF_LIKES,
     SET_FEED_AUTHORS_OF_LIKES,
     CHECK_LOGGED_USER_LIKE_EXIST,
@@ -14,6 +15,10 @@ interface IBody {
     userId: string;
     postId: string;
 }
+
+export const setLikePending = (): {type: string} => ({
+    type: SET_LIKE_PENDING,
+});
 
 export const setPostAuthorsOfLike = (authorsOfLike: []): { type: string, payload: [] } => ({
     type: SET_POST_AUTHORS_OF_LIKES,
@@ -43,9 +48,20 @@ export const removeUserLike = (userId: string, postId: string):
         payload: {userId, postId},
     });
 
+export const getLikes =  (postID: string): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const res = await AuthAPI.get(`post/${postID}`);
+            dispatch(setPostAuthorsOfLike(res.data.post.authorsOfLike));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
 export const addLike = (body: IBody): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
+            dispatch(setLikePending());
             await AuthAPI.post(`likes/like`, body);
             dispatch(addUserLike(body.userId, body.postId));
             dispatch(addUserLikeToSelectedPost(body.userId, body.postId));
@@ -58,6 +74,7 @@ export const deleteLike = (body: IBody): (dispatch: Dispatch) => Promise<void> =
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const {userId, postId}: IBody = body;
+            dispatch(setLikePending());
             await AuthAPI.delete(`likes/unlike/${postId}`, {data: {userId}});
             dispatch(removeUserLike(body.userId, body.postId));
             dispatch(removeUserLikeFromSelectedPost(userId, postId));
