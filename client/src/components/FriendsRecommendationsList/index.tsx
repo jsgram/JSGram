@@ -41,7 +41,8 @@ class FriendsRecommendationsList extends React.Component <IProps> {
                                         className='img-fluid rounded-circle ml-2 mr-2 mt-1'
                                     />
                                     <h6 className='align-self-end'>
-                                    <Link to={`/profile/${user.username}`}>{user.username}</Link>
+                                    <Link to={`/profile/${user.username}`}
+                                          className='text-dark'>{user.username}</Link>
                                     </h6>
                                 </div>
                                 <Button className='align-self-center' color='danger'

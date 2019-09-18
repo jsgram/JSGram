@@ -50,7 +50,8 @@ export const FriendsRecomendations = ({loggedUsername, friendsRecommendations, f
                 ),
             )}
             {friendsRecommendations.users.length > topRecommendations.length &&
-                <Link to={`/profile/${loggedUsername}/recommendations`} className='mr-2'>See all recommendations</Link>}
+                <Link to={`/profile/${loggedUsername}/recommendations`} className='mr-2 text-decoration-none'>
+                        See all recommendations</Link>}
       </div>
     );
 };
