@@ -8,7 +8,7 @@ import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import noAvatar from '../../assets/noAvatar.png';
 import Menu from '../Menu';
 import './style.scss';
-import {IStateProfileEdit} from "../../store/profileEdit/reducers";
+import {IStateProfileEdit} from '../../store/profileEdit/reducers';
 
 interface IStateToProps {
     user: IUser;
