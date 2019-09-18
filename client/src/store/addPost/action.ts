@@ -37,11 +37,9 @@ export const setDescriptionForPost = (description: string): { type: string, payl
     payload: description,
 });
 
-export const resetAddPost = (username: string): { type: string, payload: string } => {
-    history.push(`profile/${username}`);
+export const resetAddPost = (): { type: string } => {
     return {
         type: RESET_ADD_POST,
-        payload: username,
     };
 };
 
@@ -58,7 +56,8 @@ export const uploadPost = (croppedImage: string, description: string, username: 
             const newFile = await base64ToFile(croppedImage, 'post', 'image/png');
             const res = await AuthAPI.post('/post', createDataForAWS('postImage', newFile, description));
             dispatch(getPostSuccess(res.data));
-            dispatch(resetAddPost(username));
+            dispatch(resetAddPost());
+            history.push(`profile/${username}`);
             dispatch(showAlert('Successfully uploaded', 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));

@@ -9,6 +9,7 @@ import noAvatar from '../../assets/noAvatar.png';
 import Menu from '../Menu';
 import './style.scss';
 import { PopUpModal } from '../PopUp';
+import {IStateProfileEdit} from '../../store/profileEdit/reducers';
 
 interface IStateToProps {
     user: IUser;
@@ -17,6 +18,7 @@ interface IStateToProps {
 
 interface IState {
     profile: IStateToProps;
+    profileEdit: IStateProfileEdit;
 }
 
 interface ISideBarProps {
@@ -42,7 +44,7 @@ class SideBar extends React.Component<ISideBarProps> {
     }
 
     public render(): JSX.Element {
-        const {user: {username, fullName, photo}}: any = this.props;
+        const {loggedUsername, user: {fullName, photo}, profileEdit: {newFullName}}: any = this.props;
         return (
             <Container>
                 <div
@@ -76,7 +78,7 @@ class SideBar extends React.Component<ISideBarProps> {
                                 </div>
                                 <div className='mt-2 text-center'>
                                     <div className='profile-usertitle-name'>
-                                        {fullName}
+                                        {newFullName ? newFullName : fullName}
                                     </div>
                                     <div className='profile-title'>
                                         View Profile
@@ -87,7 +89,7 @@ class SideBar extends React.Component<ISideBarProps> {
                                         <li className='nav-item'>
                                             <NavLink
                                                 exact
-                                                to={`/profile/${username}/edit`}
+                                                to={`/profile/${loggedUsername}/edit`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                 <i className='fa fa-edit'></i>
@@ -96,7 +98,7 @@ class SideBar extends React.Component<ISideBarProps> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${username}/edit/change-email`}
+                                                to={`/profile/${loggedUsername}/edit/change-email`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                 <i className='fa fa-envelope'></i>
@@ -105,7 +107,7 @@ class SideBar extends React.Component<ISideBarProps> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${username}/edit/change-password`}
+                                                to={`/profile/${loggedUsername}/edit/change-password`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                 <i className='fa fa-key'></i>
@@ -114,7 +116,7 @@ class SideBar extends React.Component<ISideBarProps> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${username}/edit/subscriptions`}
+                                                to={`/profile/${loggedUsername}/edit/subscriptions`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                 <i className='fa fa-check-circle'></i>
@@ -123,7 +125,7 @@ class SideBar extends React.Component<ISideBarProps> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${username}/edit/privacy`}
+                                                to={`/profile/${loggedUsername}/edit/privacy`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                 <i className='fa fa-user-secret'></i>
@@ -153,9 +155,10 @@ class SideBar extends React.Component<ISideBarProps> {
     }
 }
 
-const mapStateToProps = (state: IState): { user: IUser, loading: boolean } => ({
+const mapStateToProps = (state: IState): { user: IUser, loading: boolean, profileEdit: IStateProfileEdit } => ({
     user: state.profile.user,
     loading: state.profile.loading,
+    profileEdit: state.profileEdit,
 });
 
 const mapDispatchToProps = {

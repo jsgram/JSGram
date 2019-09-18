@@ -5,6 +5,7 @@ import { Container, Row, Spinner } from 'reactstrap';
 import AddPostDropZone from '../AddPostDropZone';
 import { getCroppedImg, createBlobUrl } from '../../../helpers/upload.photo';
 import '../PostPost/style.scss';
+import { history } from '../../../history';
 
 export interface IAddPostCropperProps {
     loggedUsername: string;
@@ -14,7 +15,7 @@ export interface IAddPostCropperProps {
     uploadPost: (croppedImage: string, description: string, username: string) => void;
     setCroppedImageForPost: (croppedImage: string) => void;
     setDescriptionForPost: (description: string) => void;
-    resetAddPost: (username: string) => void;
+    resetAddPost: () => void;
     informFileError: (message: string) => void;
 }
 
@@ -50,9 +51,14 @@ export default class AddPostCropper extends React.Component<IAddPostCropperProps
         croppedAreaPixels: null,
     };
 
-    // Helper
     public previousPage = (): void => {
-        this.props.resetAddPost(this.props.loggedUsername);
+        history.push(`profile/${this.props.loggedUsername}`);
+        this.props.resetAddPost();
+    }
+
+    public resetPhoto = (): void => {
+        this.setState({imageSrc: ''});
+        this.props.resetAddPost();
     }
 
     // 1 Select image
@@ -150,7 +156,10 @@ export default class AddPostCropper extends React.Component<IAddPostCropperProps
                         </Container>)
                 }
                 <Row className='justify-content-between post mx-auto'>
-                    <button className='mt-3 ml-0 button' onClick={this.previousPage}>Cancel</button>
+                    <button className='mt-3 ml-0 button' onClick={this.previousPage}>
+                        Cancel
+                    </button>
+                    <button className='mt-3 ml-0 button' onClick={this.resetPhoto}>Reset</button>
                     <button
                         className='mt-3 ml-0 button'
                         onClick={croppedImage ? this.onUploadPost : this.onShowCroppedImage}
