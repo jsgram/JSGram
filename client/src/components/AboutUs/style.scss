@@ -4,7 +4,7 @@
   transition: 1s;
 
   &:hover {
-    box-shadow: 5px 4px 5px 0 rgba($color-black, 0.75);
+    box-shadow: 5px 4px 5px 0 $color-black-75;
     transform: scale(1.05);
     transition: 1s;
   }
