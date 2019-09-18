@@ -12,7 +12,7 @@ interface IProps {
 
 const AddPostDropZone = (props: IProps): JSX.Element => {
     const {uploadImageToCropper, informFileError, resetImageSrc, sizeMB}: IProps = props;
-    const {getRootProps, getInputProps}: DropzoneState = useDropzone({
+    const {getRootProps, getInputProps, isDragActive, isDragReject}: DropzoneState = useDropzone({
         accept: 'image/jpeg, image/png',
         onDrop: (files: any): void => {
             try {
@@ -28,14 +28,35 @@ const AddPostDropZone = (props: IProps): JSX.Element => {
         },
     });
 
+    const inform = (): JSX.Element => {
+        if (isDragActive && !isDragReject) {
+            return (
+                <p className='upload-text'>
+                    Drop photo here...
+                </p>
+            );
+        }
+        if (isDragActive && isDragReject) {
+            return (
+            <p className='upload-text'>
+                This file will be rejected
+            </p>
+            );
+        }
+        return (
+            <p className='upload-text'>
+                Drag your photo here or click to select it.
+                You can upload only jpeg/png format images
+            </p>
+        );
+    };
+
     return (
-        <Container className='drop-zone'>
+        <Container className='drop-zone' style={{cursor: isDragActive ? 'default' : 'default'}}>
             <Row>
                 <div {...getRootProps({className: 'dropzone border-style cropper-photo'})}>
                     <input {...getInputProps({})}/>
-                    <p className='upload-text'>
-                        Drag your photo here or click to select it.
-                        You can upload only jpeg/png format images</p>
+                    {inform()}
                 </div>
             </Row>
         </Container>
