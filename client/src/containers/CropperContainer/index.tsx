@@ -3,10 +3,12 @@ import { informFileError, setCroppedImageForAvatar, resetAddPost } from '../../s
 import { uploadPostAvatar } from '../../store/profile/actions';
 import { connect } from 'react-redux';
 import CropperAvatar, {IAddAvatarCropperProps} from '../../components/Cropper';
+import { IUserData } from '../../components/Profile';
 
 export interface IState {
     croppedImage: string;
     loading: boolean;
+    user: IUserData;
 }
 
 const CropperContainer = (props: IAddAvatarCropperProps): JSX.Element => (
@@ -18,11 +20,13 @@ const CropperContainer = (props: IAddAvatarCropperProps): JSX.Element => (
         informFileError={props.informFileError}
         resetAddPost={props.resetAddPost}
         toggleModal={props.toggleModal}
+        user={props.user}
     />
 );
 const mapStateToProps = (state: any): IState => ({
     croppedImage: state.cropper.croppedImage,
     loading: state.profile.loading,
+    user: state.profile.user,
 });
 
 const mapDispatchToProps = {
