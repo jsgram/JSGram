@@ -74,6 +74,17 @@
       pointer-events: none;
     }
   }
+
+  .icon-edit {
+    font-size: 40px;
+    opacity: 0.8;
+    cursor: pointer;
+    transition: 0.4s ease-out;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
 .change-description {
