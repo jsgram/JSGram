@@ -5,9 +5,9 @@
     font-weight: 700;
   }
 
-  &:active {
-    color: $color-black !important;
-    background-color: $color-white !important;
+  &.dropdown-item:active {
+    color: $color-black;
+    background-color: $color-white;
   }
 
   &:focus {
@@ -20,9 +20,9 @@
     font-weight: 700;
   }
 
-  &:active {
-    color: $color-black !important;
-    background-color: $color-white !important;
+  &.dropdown-item:active {
+    color: $color-black;
+    background-color: $color-white;
   }
 
   &:focus {

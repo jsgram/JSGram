@@ -1,9 +1,9 @@
 import React from 'react';
-import './style.scss';
 import {
     Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
     Modal, ModalBody, ModalFooter,
 } from 'reactstrap';
+import './style.scss';
 import { deletePost } from '../../store/post/actions';
 import { connect } from 'react-redux';
 
