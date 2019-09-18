@@ -1,7 +1,7 @@
 import React from 'react';
 import { Waypoint } from 'react-waypoint';
-import { Button, Spinner } from 'reactstrap';
-import noAvatar from '../../assets/noAvatar.png';
+import { Container, Button, Spinner } from 'reactstrap';
+import noAvatar from '../../../assets/noAvatar.png';
 import './style.scss';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
@@ -79,7 +79,7 @@ export class Followers extends React.Component<IFollowersProps> {
 
     public render(): JSX.Element {
         return (
-            <div>
+            <Container>
                 <Menu/>
                 <h4 className='text-center font-weight-light text-secondary text-uppercase'>{this.props.title}</h4>
                 <div className='d-flex justify-content-center'>
@@ -119,7 +119,7 @@ export class Followers extends React.Component<IFollowersProps> {
                         />
                     </div>
                 </div>
-            </div>
+            </Container>
         );
     }
 }
