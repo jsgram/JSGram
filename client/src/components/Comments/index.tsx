@@ -13,6 +13,7 @@ import {
 import { IComment } from '../../store/comments/reducers';
 import { Button } from 'reactstrap';
 import { IFeedState } from '../../store/feed/reducers';
+import './style.scss';
 
 interface ILocalState {
     postId: string;
@@ -128,24 +129,24 @@ class Comments extends React.Component<ICommentsProps> {
     )
 
     public getComments = (): JSX.Element => (
-        <div style={{textAlign: 'center', cursor: 'pointer'}}>
+        <div
+             className='d-inline float-left get-more-comments'>
             {this.props.allCommentsLoaded.some((post: any) => post === this.props.postId) ?
                 <p
-                    style={{color: 'gray', padding: '1em'}}
-                    onClick={this.getMoreComments}
+                    className='comments-loaded'
                 >
                     All comments loaded
                 </p>
                 :
                 <p
-                    style={{color: '#5b9bd1'}}
+                    className='get-comments'
                     onClick={this.getMoreComments}
                 >
                     Get more comments
                 </p>
             }
         </div>
-    );
+    )
 
     public render(): JSX.Element {
         return (
