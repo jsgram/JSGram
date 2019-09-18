@@ -51,8 +51,8 @@ class Comments extends React.Component<ICommentsProps> {
 
     public getMoreComments = (): void => {
         const commentStateForCurrentPost =
-                this.props.commentsPage.filter((info: { postId: string, page: number }) =>
-                    info.postId === this.props.postId);
+            this.props.commentsPage.filter((info: { postId: string, page: number }) =>
+                info.postId === this.props.postId);
 
         const commentsLoaded = this.props.allCommentsLoaded.some((post: any) => post === this.props.postId);
 
@@ -84,9 +84,9 @@ class Comments extends React.Component<ICommentsProps> {
                         onChange={
                             (event: React.ChangeEvent<any>)
                                 : void => this.props.changeComment(
-                                    event.target.value,
-                                    comment._id,
-                                )
+                                event.target.value,
+                                comment._id,
+                            )
                         }
                     />
                     <Button
@@ -102,9 +102,9 @@ class Comments extends React.Component<ICommentsProps> {
                         Change
                     </Button>
                     <div className='btn btn-danger mt-2 ml-2'
-                        onClick={(): void => this.props.changeEditStatus(
-                            comment._id,
-                        )}
+                         onClick={(): void => this.props.changeEditStatus(
+                             comment._id,
+                         )}
                     >
                         Cancel
                     </div>
@@ -120,12 +120,32 @@ class Comments extends React.Component<ICommentsProps> {
                         />
                         <i className='fa fa-trash-o delete-comment' onClick={
                             (): void => this.onDeleteComment(comment._id, comment.authorId._id)
-                        } />
+                        }/>
                     </div>
                     <p>{comment.comment}</p>
                 </>
             )
     )
+
+    public getComments = (): JSX.Element => (
+        <div style={{textAlign: 'center', cursor: 'pointer'}}>
+            {this.props.allCommentsLoaded.some((post: any) => post === this.props.postId) ?
+                <p
+                    style={{color: 'gray', padding: '1em'}}
+                    onClick={this.getMoreComments}
+                >
+                    All comments loaded
+                </p>
+                :
+                <p
+                    style={{color: '#5b9bd1'}}
+                    onClick={this.getMoreComments}
+                >
+                    Get more comments
+                </p>
+            }
+        </div>
+    );
 
     public render(): JSX.Element {
         return (
@@ -156,13 +176,7 @@ class Comments extends React.Component<ICommentsProps> {
                             }
                         </div>
                     ))}
-                    <Button
-                        outline
-                        size='sm'
-                        onClick={this.getMoreComments}
-                    >
-                        Get more comments
-                    </Button>
+                    {this.getComments()}
                 </div>
             </div>
         );
