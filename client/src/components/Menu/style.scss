@@ -23,6 +23,21 @@
     text-align: center;
   }
 
+  .scrollable-menu {
+    height: auto;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-dove-gray;
+    }
+  }
+
   .icon {
     color: $color-black;
 
