@@ -16,6 +16,7 @@ interface IProps {
     userPosts: any;
     user: IUserData;
     editDescriptionForPost: any;
+    newDescriptionForPost: any;
     getPostsAsync: (username: string) => void;
     getMorePostsAsync: (username: string, page: number) => void;
     deletePhoto: () => void;
@@ -29,6 +30,7 @@ interface IProps {
     loggedUsername: string;
     addComment: (postId: string, loggedUserId: string, comment: string) => void;
     addNewComment: (comment: string) => void;
+    changeEditStatus: (postId: string) => void;
 }
 
 interface IModalState {
@@ -56,15 +58,16 @@ export default class Post extends React.Component<IProps> {
             modal: !this.state.modal,
         });
         this.props.showPost(post);
+        this.props.changeEditStatus(this.props.userPosts.selectedPost._id);
     }
 
     public onEditPost = (): void => {
-        this.props.editPost(this.props.userPosts.selectedPost.description, this.props.userPosts.selectedPost._id);
+        this.props.editPost(this.props.userPosts.selectedPost.newDescription, this.props.userPosts.selectedPost._id);
         this.toggleEdit(this.props.userPosts.selectedPost);
     }
 
     public onDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        this.props.editDescriptionForPost(event.target.value, this.props.userPosts.selectedPost._id);
+        this.props.newDescriptionForPost(event.target.value, this.props.userPosts.selectedPost._id);
     }
 
     public onAddComment = (): void => {
@@ -246,7 +249,7 @@ export default class Post extends React.Component<IProps> {
                             name='description'
                             placeholder='Write a caption...'
                             spellCheck={false}
-                            value={userPosts.selectedPost.description}
+                            value={userPosts.selectedPost.newDescription}
                             onChange={this.onDescriptionChange}
                         />
                         <Button
