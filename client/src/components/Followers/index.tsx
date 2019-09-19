@@ -1,6 +1,6 @@
 import React from 'react';
 import { Waypoint } from 'react-waypoint';
-import { Button, Spinner } from 'reactstrap';
+import { Container, Button, Spinner } from 'reactstrap';
 import noAvatar from '../../assets/noAvatar.png';
 import './style.scss';
 import Menu from '../Menu';
@@ -38,7 +38,6 @@ export class Followers extends React.Component<IFollowersProps> {
 
     public getMoreFollowers = (): void => {
         if (!this.props.allFollowersLoaded && this.props.loggedId) {
-            this.props.setNextPage(this.props.page);
             this.props.getMoreFollowers(this.props.loggedId, this.props.urlUsername, this.props.page);
         }
     }
@@ -53,7 +52,7 @@ export class Followers extends React.Component<IFollowersProps> {
         this.props.changeUserFollowing(_id);
     }
 
-    public dynamicButton = (_id: string, alreadyFollow: boolean): any => {
+    public dynamicButton = (_id: string, alreadyFollow: boolean): JSX.Element => {
         if (this.props.loadFollow) {
             return <span><Spinner color='light'/></span>;
         }
@@ -79,7 +78,7 @@ export class Followers extends React.Component<IFollowersProps> {
 
     public render(): JSX.Element {
         return (
-            <div>
+            <Container>
                 <Menu/>
                 <h4 className='text-center font-weight-light text-secondary text-uppercase'>{this.props.title}</h4>
                 <div className='d-flex justify-content-center'>
@@ -119,7 +118,7 @@ export class Followers extends React.Component<IFollowersProps> {
                         />
                     </div>
                 </div>
-            </div>
+            </Container>
         );
     }
 }

@@ -202,6 +202,8 @@ export default class Profile extends React.Component<IProfileProps> {
                     </div>
                     <div className='description mt-4'>
                         <strong>{fullName}</strong>
+                        { this.props.urlUsername === this.props.loggedUsername &&
+                                <Link to='/logout' className='text-danger pl-1'>(Logout)</Link> }
                         <p>{description}</p>
                     </div>
                     {this.dynamicButton()}

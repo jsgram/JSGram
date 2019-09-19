@@ -8,6 +8,8 @@ import {
     UPLOAD_NEXT_FEED_POSTS,
     ALL_NEWS_FEED_LOADED,
     CLEAR_NEWS_FEED_LOADED,
+    GET_RECOMMENDATIONS_PENDING,
+    GET_RECOMMENDATIONS_SUCCESS,
 } from './actionTypes';
 import { INewsFeed } from './reducers';
 
@@ -63,6 +65,26 @@ export const getMoreNewsFeedAsync = (page: number): (dispatch: Dispatch) => Prom
             }
 
             dispatch(getMoreNewsFeedSuccess(res.data.feed));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const getRecommendationsPending = (): { type: string } => ({
+    type: GET_RECOMMENDATIONS_PENDING,
+});
+
+export const getRecommendationsSuccess = (users: object[]): { type: string, payload: object[] } => ({
+    type: GET_RECOMMENDATIONS_SUCCESS,
+    payload: users,
+});
+
+export const getRecommendations = (): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            dispatch(getRecommendationsPending());
+            const res = await AuthAPI.get('/feed');
+            dispatch(getRecommendationsSuccess(res.data.friendsRecommendations));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
