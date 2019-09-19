@@ -8,8 +8,8 @@ import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import noAvatar from '../../assets/noAvatar.png';
 import Menu from '../Menu';
 import './style.scss';
-import { PopUpModal } from '../PopUp';
 import {IStateProfileEdit} from '../../store/profileEdit/reducers';
+import { PopUpModal } from '../PopUp';
 
 interface IStateToProps {
     user: IUser;
