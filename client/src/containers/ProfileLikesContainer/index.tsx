@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setPostAuthorsOfLike, setUserLikeExist, addLike, deleteLike } from '../../store/likes/actions';
+import { setPostAuthorsOfLike, setUserLikeExist, addLike, deleteLike, getLikes } from '../../store/likes/actions';
 import { ILike } from '../../store/likes/reducers';
 import { IFeedState } from '../../store/feed/reducers';
 import { Likes } from '../../components/Likes';
@@ -17,14 +17,16 @@ interface ILikeState {
 }
 
 interface ILikeProps {
+    postId: string;
     loggedId: never | string;
     userPosts: any;
     authorsOfLike: any;
+    loadingLike: boolean;
     loggedUserLikeExist: boolean;
 }
 
 interface ILocalProps {
-    setPostAuthorsOfLike: (authorsOfLike: []) => void;
+    getLikes: (postID: string) => void;
     setUserLikeExist: (loggedUserLikeExist: boolean) => void;
     addLike: (body: IBody) => void;
     deleteLike: (body: IBody) => void;
@@ -34,7 +36,7 @@ type IProfileLikesProps = ILikeProps & ILocalProps;
 
 class ProfileLikesContainer extends React.Component<IProfileLikesProps> {
     public componentDidMount(): void {
-        this.props.setPostAuthorsOfLike(this.props.userPosts.selectedPost.authorsOfLike);
+        this.props.getLikes(this.props.postId);
     }
 
     public componentDidUpdate(prevProps: IProfileLikesProps): void {
@@ -49,6 +51,7 @@ class ProfileLikesContainer extends React.Component<IProfileLikesProps> {
                 userId={this.props.loggedId}
                 postId={this.props.userPosts.selectedPost._id}
                 authorsOfLike={this.props.authorsOfLike}
+                loadingLike={this.props.loadingLike}
                 loggedUserLikeExist={this.props.loggedUserLikeExist}
                 addLike={this.props.addLike}
                 deleteLike={this.props.deleteLike}
@@ -57,14 +60,17 @@ class ProfileLikesContainer extends React.Component<IProfileLikesProps> {
     }
 }
 
-const mapStateToProps = (state: ILikeState): ILikeProps => ({
+const mapStateToProps = (state: ILikeState, ownProps: {postId: string}): ILikeProps => ({
+    postId: ownProps.postId,
     loggedId: state.feed.loggedId,
     userPosts: state.userPosts,
     authorsOfLike: state.likes.postAuthorsOfLike,
+    loadingLike: state.likes.loadingLike,
     loggedUserLikeExist: state.likes.loggedUserLikeExist,
 });
 
 const mapDispatchToProps = {
+    getLikes,
     setPostAuthorsOfLike,
     setUserLikeExist,
     addLike,

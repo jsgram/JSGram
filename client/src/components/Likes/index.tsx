@@ -1,18 +1,18 @@
 import React from 'react';
+import { Spinner } from 'reactstrap';
 
 interface ILikesProps {
     userId: string;
     postId: string;
     authorsOfLike: [];
+    loadingLike: boolean;
     loggedUserLikeExist: boolean;
     addLike: (body: { userId: string, postId: string }) => void;
-    deleteLike: (body: { userId: string, postId: string}) => void;
+    deleteLike: (body: { userId: string, postId: string }) => void;
 }
 
-export const Likes = ({
-                          userId, postId,
-                          authorsOfLike, loggedUserLikeExist, addLike, deleteLike,
-                      }: ILikesProps): JSX.Element => {
+export const Likes = ({userId, postId, authorsOfLike, loadingLike, loggedUserLikeExist, addLike, deleteLike}:
+                          ILikesProps): JSX.Element => {
     const onAddLike = (): void => {
         addLike({userId, postId});
     };
@@ -27,7 +27,11 @@ export const Likes = ({
 
     return (
         <>
-            {likeButton}
+            {loadingLike ?
+                    <Spinner size='sm'/>
+                    :
+                    likeButton
+            }
             <span>{authorsOfLike.length} likes</span>
         </>
     );

@@ -21,6 +21,7 @@ interface ILikeProps {
     likes: [];
     loggedId: string;
     authorsOfLike: never[];
+    loadingLike: boolean;
     newsFeed: [];
 }
 
@@ -65,6 +66,7 @@ class FeedLikesContainer extends React.Component<any> {
                 postId={this.state.postId}
                 authorsOfLike={this.state.authorsOfLike}
                 loggedUserLikeExist={this.state.userLikeExist}
+                loadingLike={this.props.loadingLike}
                 userId={this.props.loggedId}
                 addLike={this.props.addLike}
                 deleteLike={this.props.deleteLike}
@@ -78,6 +80,7 @@ const mapStateToProps = (state: ILikeState, ownProps: { postId: string, likes: [
     likes: ownProps.likes,
     loggedId: state.feed.loggedId,
     authorsOfLike: state.likes.feedAuthorsOfLike,
+    loadingLike: state.likes.loadingLike,
     newsFeed: state.newsFeed,
 });
 
