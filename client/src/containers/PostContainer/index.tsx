@@ -11,6 +11,8 @@ import {
     addNextPosts,
     addComment,
     addNewComment,
+    newDescriptionForPost,
+    changeEditStatus,
 } from '../../store/post/actions';
 import { deletePhoto, getUser } from '../../store/profile/actions';
 
@@ -32,6 +34,8 @@ const PostContainer = (props: any): JSX.Element => (
         loggedUsername={props.loggedUsername}
         addComment={props.addComment}
         addNewComment={props.addNewComment}
+        newDescriptionForPost={props.newDescriptionForPost}
+        changeEditStatus={props.changeEditStatus}
     />
 );
 
@@ -54,6 +58,8 @@ const mapDispatchToProps = {
     addNextPosts,
     addComment,
     addNewComment,
+    newDescriptionForPost,
+    changeEditStatus,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);
