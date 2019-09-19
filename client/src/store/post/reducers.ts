@@ -15,6 +15,8 @@ import {
     SET_COMMENTS_TO_POST,
     ADD_COMMENT,
     RESET_COMMENT,
+    NEW_DESCRIPTION_FOR_POST,
+    CHANGE_EDIT_STATUS_POST,
 } from './actionTypes';
 
 export interface IPost {
@@ -105,6 +107,40 @@ export const postReducer = (
                 ...state,
                 selectedPost: action.payload,
             };
+        case NEW_DESCRIPTION_FOR_POST:
+            return {
+                ...state,
+                selectedPost: {
+                    ...state.selectedPost,
+                    newDescription: action.payload.description,
+                },
+                posts: state.posts.map((post: IPost) => {
+                    if (post._id === action.payload.postId) {
+                        return {
+                            ...post,
+                            newDescription: action.payload.description,
+                        };
+                    }
+                    return post;
+                }),
+            };
+        case CHANGE_EDIT_STATUS_POST:
+            return {
+                ...state,
+                selectedPost: {
+                    ...state.selectedPost,
+                    newDescription: state.selectedPost.description,
+                },
+                posts: state.posts.map((post: IPost) => {
+                    if (post._id === action.payload) {
+                        return {
+                            ...post,
+                            newDescription: post.description,
+                        };
+                    }
+                    return post;
+                }),
+            };
         case EDIT_DESCRIPTION_FOR_POST:
             return {
                 ...state,
@@ -112,7 +148,7 @@ export const postReducer = (
                     ...state.selectedPost,
                     description: action.payload.description,
                 },
-                posts: state.posts.map((post: any) => {
+                posts: state.posts.map((post: IPost) => {
                     if (post._id === action.payload.postId) {
                         return {
                             ...post,
