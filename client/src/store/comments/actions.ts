@@ -57,9 +57,6 @@ export const getComments = (postId: string, commentState: any, commentsLoaded?: 
             const res = await AuthAPI.get(`comments/${postId}/${page || 1}`);
 
             if (!res.data.commentsAll.length || commentsLoaded || !page ) {
-                if (page !== FIRST_PAGE) {
-                    dispatch(showAlert('All comments loaded', 'warning'));
-                }
                 dispatch(allCommentsLoaded(postId, page));
                 return;
             }

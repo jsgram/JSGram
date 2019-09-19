@@ -125,13 +125,7 @@ class Comments extends React.Component<ICommentsProps> {
     public getComments = (): JSX.Element => (
         <div
              className='d-inline float-left get-more-comments'>
-            {this.props.allCommentsLoaded.some((post: any) => post === this.props.postId) ?
-                <p
-                    className='comments-loaded'
-                >
-                    All comments loaded
-                </p>
-                :
+            {!this.props.allCommentsLoaded.some((post: any) => post === this.props.postId) &&
                 <p
                     className='get-comments'
                     onClick={this.getMoreComments}
