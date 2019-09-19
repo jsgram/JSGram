@@ -32,4 +32,4 @@ export const AboutUs = (): ReactElement => (
                     )}
                 </Row>
             </Container>
-)
+);
