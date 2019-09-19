@@ -1,4 +1,5 @@
 import {
+    SET_LIKE_PENDING,
     SET_POST_AUTHORS_OF_LIKES,
     SET_FEED_AUTHORS_OF_LIKES,
     CHECK_LOGGED_USER_LIKE_EXIST,
@@ -9,12 +10,14 @@ import {
 export interface ILike {
     postAuthorsOfLike: never[];
     feedAuthorsOfLike: any;
+    loadingLike: boolean;
     loggedUserLikeExist: boolean;
 }
 
 const defaultState = {
     postAuthorsOfLike: [],
     feedAuthorsOfLike: [],
+    loadingLike: false,
     loggedUserLikeExist: false,
 };
 
@@ -22,15 +25,22 @@ export const likesReducer = (
     state: ILike = defaultState,
     action: { type: string, payload: any }): any => {
     switch (action.type) {
+        case SET_LIKE_PENDING:
+            return {
+                ...state,
+                loadingLike: true,
+            };
         case SET_POST_AUTHORS_OF_LIKES:
             return {
                 ...state,
                 postAuthorsOfLike: action.payload,
+                loadingLike: false,
             };
         case SET_FEED_AUTHORS_OF_LIKES:
             return {
                 ...state,
                 feedAuthorsOfLike: [...state.feedAuthorsOfLike, action.payload],
+                loadingLike: false,
             };
         case CHECK_LOGGED_USER_LIKE_EXIST:
             return {
@@ -51,6 +61,7 @@ export const likesReducer = (
                     }
                     return feed;
                 }),
+                loadingLike: false,
             };
         case REMOVE_USER_LIKE:
             return {
@@ -67,6 +78,7 @@ export const likesReducer = (
                     }
                     return feed;
                 }),
+                loadingLike: false,
             };
         default:
             return state;
