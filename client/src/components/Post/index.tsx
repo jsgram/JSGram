@@ -11,7 +11,7 @@ import noAvatar from '../../assets/noAvatar.png';
 import ProfileLikes from '../../containers/ProfileLikesContainer';
 import { IPost } from '../../store/post/reducers';
 import Comments from '../Comments';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface IProps {
     userPosts: any;
