@@ -129,6 +129,6 @@ export const getUserByUsername = async (username: string, next: NextFunction): P
 
         return user;
     } catch (e) {
-        next({message: 'User does not exist', status: 409});
+        next({message: 'User does not exist', status: 404});
     }
 };
