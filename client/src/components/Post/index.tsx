@@ -1,9 +1,8 @@
 import React from 'react';
 import '../../styles/style.scss';
 import { Waypoint } from 'react-waypoint';
-import TextareaAutosize from 'react-textarea-autosize';
 import { IUserData } from '../Profile';
-import { Modal, ModalHeader, Spinner, Input, FormGroup, Button, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Modal, ModalHeader, Spinner, Input, FormGroup, Button } from 'reactstrap';
 import './style.scss';
 import MenuPost from '../MenuPost';
 import { formatDescription } from '../../helpers/regex.description';
@@ -11,6 +10,7 @@ import noAvatar from '../../assets/noAvatar.png';
 import ProfileLikes from '../../containers/ProfileLikesContainer';
 import { IPost } from '../../store/post/reducers';
 import Comments from '../Comments';
+import WriteComment from '../WriteComment';
 
 interface IProps {
     userPosts: any;
@@ -28,8 +28,6 @@ interface IProps {
     addNextPosts: (pageNumber: number) => void;
     loggedId: string;
     loggedUsername: string;
-    addComment: (postId: string, loggedUserId: string, comment: string) => void;
-    addNewComment: (comment: string) => void;
     changeEditStatus: (postId: string) => void;
 }
 
@@ -70,18 +68,6 @@ export default class Post extends React.Component<IProps> {
         this.props.newDescriptionForPost(event.target.value, this.props.userPosts.selectedPost._id);
     }
 
-    public onAddComment = (): void => {
-        this.props.addComment(
-            this.props.userPosts.selectedPost._id,
-            this.props.loggedId,
-            this.props.userPosts.selectedPost.comment,
-        );
-    }
-
-    public onCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
-        this.props.addNewComment(event.target.value);
-    }
-
     public getMorePosts = (): void => {
         if (!this.props.userPosts.loaded) {
             this.props.addNextPosts(this.props.userPosts.page + 1);
@@ -94,9 +80,9 @@ export default class Post extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        const {userPosts, user,
+        const { userPosts, user,
         }: any = this.props;
-        const {selectedPost: {description: desc}}: any = userPosts;
+        const { selectedPost: { description: desc } }: any = userPosts;
         return (
             <div className='container justify-content-center'>
                 <div className='row mt-5 profile-post'>
@@ -163,7 +149,6 @@ export default class Post extends React.Component<IProps> {
                                     alt='post'
                                 />
                             </div>
-
                             <div className='col-12 col-lg-4 px-0 d-flex flex-column position-relative'>
                                 <div className='flex-grow-0 p-3 text-description'>
                                     <div className='d-lg-block d-none flex-row'>
@@ -190,36 +175,18 @@ export default class Post extends React.Component<IProps> {
 
                                     </div>
                                     <div className='d-lg-none'>
-                                        <ProfileLikes postId={userPosts.selectedPost._id}/>
+                                        <ProfileLikes postId={userPosts.selectedPost._id} />
                                     </div>
                                     <p>{formatDescription(desc)}</p>
                                 </div>
-                                <Comments postId={userPosts.selectedPost._id}/>
+                                <Comments postId={userPosts.selectedPost._id} />
                                 <div className='flex-grow-0'>
                                     <div className='d-none d-lg-block p-3 mb-3 border-top border-bottom'>
-                                        <ProfileLikes postId={userPosts.selectedPost._id}/>
+                                        <ProfileLikes postId={userPosts.selectedPost._id} />
                                     </div>
-                                    <InputGroup>
-                                        <TextareaAutosize
-                                            className='add-comment flex-grow-1 border-0 p-2'
-                                            placeholder='Write your comment...'
-                                            autoComplete='off'
-                                            minRows={1}
-                                            maxRows={4}
-                                            value={userPosts.selectedPost.comment}
-                                            onChange={this.onCommentChange}
-                                        />
-                                        <InputGroupAddon addonType='append' className='flex-grow-0'>
-                                            <Button
-                                                className='btn-block button-comment border-0'
-                                                type='submit'
-                                                onClick={this.onAddComment}
-                                                disabled={!userPosts.selectedPost.comment}
-                                            >
-                                            Add
-                                            </Button>
-                                        </InputGroupAddon>
-                                    </InputGroup>
+                                    <WriteComment
+                                        postId={userPosts.selectedPost._id}
+                                    />
                                 </div>
                             </div>
                         </div>
