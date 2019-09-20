@@ -21,6 +21,9 @@ AuthAPI.interceptors.response.use((response: any) => {
     if (error.response.status === 401) {
         history.push('/logout');
     }
+    if (error.response.status === 404) {
+        history.push('/404');
+    }
     return Promise.reject(error);
 });
 
