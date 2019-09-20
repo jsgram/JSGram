@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Container, Nav, Col, Row, Spinner } from 'reactstrap';
 import { SidebarRoute } from '../../routes/SidebarRoute';
 import { deletePhoto, getUser } from '../../store/profile/actions';
@@ -44,7 +44,8 @@ class SideBar extends React.Component<ISideBarProps> {
     }
 
     public render(): JSX.Element {
-        const {loggedUsername, user: {fullName, photo}, profileEdit: {newFullName}}: any = this.props;
+        const {loggedUsername, user: {fullName, photo}, profileEdit: {newFullName, newUsername}}: any = this.props;
+        const username = newUsername ? newUsername : loggedUsername;
         return (
             <Container>
                 <div
@@ -80,16 +81,18 @@ class SideBar extends React.Component<ISideBarProps> {
                                     <div className='profile-usertitle-name'>
                                         {newFullName ? newFullName : fullName}
                                     </div>
-                                    <div className='profile-title'>
+                                    <Link to={`/profile/${username}`}
+                                          className='profile-title'
+                                    >
                                         View Profile
-                                    </div>
+                                    </Link>
                                 </div>
                                 <Nav className='navbar'>
                                     <ul className='navbar-nav w-100'>
                                         <li className='nav-item'>
                                             <NavLink
                                                 exact
-                                                to={`/profile/${loggedUsername}/edit`}
+                                                to={`/profile/${username}/edit`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                 <i className='fa fa-edit'></i>
@@ -98,7 +101,8 @@ class SideBar extends React.Component<ISideBarProps> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${loggedUsername}/edit/change-email`}
+                                                to={`/profile/${username}/edit/change-email`
+                                                }
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                 <i className='fa fa-envelope'></i>
@@ -107,7 +111,7 @@ class SideBar extends React.Component<ISideBarProps> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${loggedUsername}/edit/change-password`}
+                                                to={`/profile/${username}/edit/change-password`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                 <i className='fa fa-key'></i>
@@ -116,7 +120,7 @@ class SideBar extends React.Component<ISideBarProps> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${loggedUsername}/edit/subscriptions`}
+                                                to={`/profile/${username}/edit/subscriptions`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                 <i className='fa fa-check-circle'></i>
@@ -125,7 +129,7 @@ class SideBar extends React.Component<ISideBarProps> {
                                         </li>
                                         <li className='nav-item'>
                                             <NavLink
-                                                to={`/profile/${loggedUsername}/edit/privacy`}
+                                                to={`/profile/${username}/edit/privacy`}
                                                 activeClassName='active'
                                                 className='nav-link pl-2'>
                                                 <i className='fa fa-user-secret'></i>
