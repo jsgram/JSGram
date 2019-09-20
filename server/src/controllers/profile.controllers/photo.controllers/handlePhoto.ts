@@ -24,18 +24,22 @@ export const handlePhoto = (req: Request, res: Response): void => {
         if (err) {
             return res.status(422).send({errors: [{title: 'File upload error', detail: err.message}]});
         }
+
         const id = res.locals.user.id;
         const photoPath = await handlePhotoChange(req, id);
-        if (photoPath.previousPhoto) {
+        const { previousPhoto }: any = photoPath;
+
+        if (previousPhoto && !previousPhoto.match(/twitter/)) { // do not delete test DB photos
             uploadImage(awsConfig).s3.deleteObject({
                 Bucket: awsConfig.bucket,
-                Key: photoPath.previousPhoto,
+                Key: previousPhoto,
             }, (error: Error, data: any): void => {
                 if (error) {
                     throw new Error(error.message);
                 }
             });
         }
+
         const status = photoPath.newPhoto ? 'Photo was successfully uploaded' : 'Photo was successfully deleted';
         res.json({ status, photoPath: photoPath.newPhoto });
     });
