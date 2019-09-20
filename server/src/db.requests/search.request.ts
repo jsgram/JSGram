@@ -11,7 +11,7 @@ export const findUsers = async (query: string, skip: number, next: NextFunction)
             .skip(skip);
 
         if (!users) {
-            throw new Error('Can not find user');
+            throw new Error('Can not find users');
         }
 
         return users;
