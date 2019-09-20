@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Link, NavLink} from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Container, Nav, Col, Row, Spinner } from 'reactstrap';
 import { SidebarRoute } from '../../routes/SidebarRoute';
 import { deletePhoto, getUser } from '../../store/profile/actions';
