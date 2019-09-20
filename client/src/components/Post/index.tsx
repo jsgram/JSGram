@@ -11,6 +11,7 @@ import noAvatar from '../../assets/noAvatar.png';
 import ProfileLikes from '../../containers/ProfileLikesContainer';
 import { IPost } from '../../store/post/reducers';
 import Comments from '../Comments';
+import {Link} from "react-router-dom";
 
 interface IProps {
     userPosts: any;
@@ -152,7 +153,11 @@ export default class Post extends React.Component<IProps> {
                                         height={32}
                                         className='img-fluid rounded-circle mt-2 mb-2 ml-4'
                                     />
-                                    <span className='mt-2 ml-2'>{user.username}</span>
+                                    <Link to={`/profile/${user.username}`}
+                                          className='text-dark mt-2 ml-2'
+                                    >
+                                        {user.username}
+                                    </Link>
                                 </div>
                             </ModalHeader>
 
@@ -174,7 +179,11 @@ export default class Post extends React.Component<IProps> {
                                             height={32}
                                             className='img-fluid rounded-circle mt-2 mr-2 mb-2'
                                         />
-                                        <span className='mt-2 font-weight-bolder'>{user.username}</span>
+                                        <Link to={`/profile/${user.username}`}
+                                              className='text-dark mt-2 font-weight-bolder'
+                                        >
+                                            {user.username}
+                                        </Link>
                                         {
                                             userPosts.selectedPost.author === this.props.loggedId &&
                                             (
