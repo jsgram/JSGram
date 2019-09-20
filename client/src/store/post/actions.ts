@@ -13,14 +13,11 @@ import {
     UPLOAD_NEXT_POSTS,
     ADD_USER_LIKE_TO_SELECTED_POST,
     REMOVE_USER_LIKE_FROM_SELECTED_POST,
-    // ADD_COMMENT,
-    // RESET_COMMENT,
     NEW_DESCRIPTION_FOR_POST,
     CHANGE_EDIT_STATUS_POST,
 } from './actionTypes';
 import { IPost } from './reducers';
 import { decrementPostCount } from '../profile/actions';
-// import { addCommentDispatch } from '../comments/actions';
 
 export const getPostsPending = (): { type: string } => ({
     type: GET_POSTS_PENDING,
@@ -89,16 +86,6 @@ export const removeUserLikeFromSelectedPost = (loggedId: string, postId: string)
     type: REMOVE_USER_LIKE_FROM_SELECTED_POST,
     payload: { loggedId, postId },
 });
-
-// export const addNewComment = (comment: string): { type: string, payload: string } => ({
-//     type: ADD_COMMENT,
-//     payload: comment,
-// });
-
-// export const resetComment = (): { type: string } => ({
-//     type: RESET_COMMENT,
-//
-// });
 
 export const changeEditStatus = (postId: string): { type: string, payload: string } => ({
     type: CHANGE_EDIT_STATUS_POST,
