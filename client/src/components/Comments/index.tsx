@@ -13,6 +13,7 @@ import {
 import { IComment } from '../../store/comments/reducers';
 import { IFeedState } from '../../store/feed/reducers';
 import './style.scss';
+import { Link } from 'react-router-dom';
 
 interface ILocalState {
     postId: string;
@@ -153,7 +154,11 @@ class Comments extends React.Component<ICommentsProps> {
                                             height={24}
                                             className='img-fluid rounded-circle mt-1 mr-1 mb-1'
                                         />
-                                        <span className='mt-1'>{comment.authorId.username}</span>
+                                        <Link to={`/profile/${comment.authorId.username}`}
+                                              className='text-dark mt-1'
+                                        >
+                                            {comment.authorId.username}
+                                        </Link>
                                         {
                                             this.props.feed.loggedUsername === comment.authorId.username
                                                 ? this.renderComment(comment)
