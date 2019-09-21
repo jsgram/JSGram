@@ -28,7 +28,7 @@ export const Likes = ({userId, postId, authorsOfLike, loadingLike, loggedUserLik
     return (
         <>
             {loadingLike ?
-                    <Spinner size='sm'/>
+                    <Spinner size='sm mr-2'/>
                     :
                     likeButton
             }
