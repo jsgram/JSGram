@@ -3,7 +3,6 @@ import '../../styles/style.scss';
 import '../Post/style.scss';
 import noAvatar from '../../assets/noAvatar.png';
 import { Link } from 'react-router-dom';
-import TextareaAutosize from 'react-textarea-autosize';
 import { formatDescription } from '../../helpers/regex.description';
 import FeedLikesContainer from '../../containers/FeedLikesContainer';
 import Menu from '../Menu';
@@ -12,6 +11,7 @@ import { INewsFeed } from '../../store/newsFeed/reducers';
 import { Waypoint } from 'react-waypoint';
 import Comment from '../Comments';
 import { FriendsRecomendations } from '../FriendsRecommendations';
+import WriteComment from '../WriteComment';
 
 interface IProps {
     loggedId: string;
@@ -22,7 +22,7 @@ interface IProps {
     getMoreNewsFeedAsync: (page: number) => void;
     addNextFeedPosts: (pageNumber: number) => void;
     getRecommendations: () => void;
-    followUser: (body: {_id: string}) => void;
+    followUser: (body: { _id: string }) => void;
     friendsRecommendations: any;
 }
 
@@ -47,7 +47,7 @@ export class FeedPost extends React.Component<IProps> {
                 <Row>
                     <Col sm={8} className='order-2 order-sm-1'>
                         {
-                            newsFeed.feed.filter((feed: INewsFeed) => !!feed._id).map((feed: INewsFeed) => {
+                            newsFeed.feed.filter((feed: INewsFeed) => feed._id).map((feed: INewsFeed) => {
                                 const {description, imgPath, author: {photoPath, username}}: any = feed;
                                 return (
                                     <div className='profile-post border mb-5' key={feed._id}>
@@ -96,45 +96,32 @@ export class FeedPost extends React.Component<IProps> {
                                             </div>
                                         </div>
                                         <Comment postId={feed._id}/>
-                                        <div className='mt-3 px-2 d-flex'>
-                                            <TextareaAutosize
-                                                className='add-comment flex-grow-1 border-0 p-2'
-                                                placeholder='Write your comment...'
-                                                autoComplete='off'
-                                                minRows={1}
-                                                maxRows={4}
+                                            <WriteComment
+                                                postId={feed._id}
                                             />
-                                            <button
-                                                className='button-comment p-0 border-0 mr-lg-2 mr-3 col-3'
-                                                type='submit'
-                                                disabled
-                                            >
-                                                Add
-                                            </button>
-                                        </div>
                                     </div>
                                 );
                             })
-                              }
+                        }
                     </Col>
                     <Col sm={4} className='order-1 order-sm-2 text-sm-center'>
                         <div className='sticky-top'>
-                        <img
-                            src={loggedPhotoPath || noAvatar}
-                            alt='avatar'
-                            width={64}
-                            height={64}
-                            className='img-fluid rounded-circle'
-                        />
-                        <Link to={`/profile/${loggedUsername}`} className='mt-1 ml-3 mr-4
+                            <img
+                                src={loggedPhotoPath || noAvatar}
+                                alt='avatar'
+                                width={64}
+                                height={64}
+                                className='img-fluid rounded-circle'
+                            />
+                            <Link to={`/profile/${loggedUsername}`} className='mt-1 ml-3 mr-4
                         text-dark'>{loggedUsername}</Link>
-                        <Link to='/logout' className='text-danger pl-1'>Logout</Link>
-                        {!!newsFeed.friendsRecommendations.users.length &&
+                            <Link to='/logout' className='text-danger pl-1'>Logout</Link>
+                            {!!newsFeed.friendsRecommendations.users.length &&
                             <FriendsRecomendations
-                            loggedUsername={loggedUsername}
-                            friendsRecommendations={newsFeed.friendsRecommendations}
-                            followUser={followUser}
-                        />}
+                                loggedUsername={loggedUsername}
+                                friendsRecommendations={newsFeed.friendsRecommendations}
+                                followUser={followUser}
+                            />}
                         </div>
                     </Col>
                 </Row>
