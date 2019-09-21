@@ -80,20 +80,15 @@ export class Subscribers extends React.Component<ISubscribersProps> {
         );
     }
 
-    public chooseSubscribers = (): JSX.Element =>
-        this.props.path === '/profile/:username/following' ?
-            <></>
-            :
-            <></>
-
     public render(): JSX.Element {
-        const subscribers = this.props.path === '/profile/:username/following' ? 'following' : 'followers';
+        const subscribers = this.props.path.includes('following');
+
         return (
             <Container>
                 <Menu/>
                 <div className='d-flex justify-content-center'>
                     <Link to={`/profile/${this.props.urlUsername}/followers`} className='link-style'
-                        style={{textDecoration: subscribers === 'followers' ? 'underline' : 'none'}}
+                          style={{textDecoration: !subscribers ? 'underline' : 'none'}}
                     >
                         <h4
                             className='font-weight-light text-secondary text-uppercase'
@@ -101,15 +96,15 @@ export class Subscribers extends React.Component<ISubscribersProps> {
                             {this.props.user.followers.length} followers
                         </h4>
                     </Link>
-                <Link to={`/profile/${this.props.urlUsername}/following`} className='link-style'
-                      style={{textDecoration: subscribers === 'following' ? 'underline' : 'none'}}
-                >
-                    <h4
-                        className='font-weight-light text-secondary text-uppercase'
+                    <Link to={`/profile/${this.props.urlUsername}/following`} className='link-style'
+                          style={{textDecoration: subscribers ? 'underline' : 'none'}}
                     >
-                        {this.props.user.following.length} following
-                    </h4>
-                </Link>
+                        <h4
+                            className='font-weight-light text-secondary text-uppercase'
+                        >
+                            {this.props.user.following.length} following
+                        </h4>
+                    </Link>
                 </div>
                 <div className='d-flex justify-content-center'>
                     <div className='follow-wrapper'>
