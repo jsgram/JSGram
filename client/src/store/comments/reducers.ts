@@ -85,10 +85,10 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                 allCommentsLoaded: [],
             };
         case SET_DEFAULT_COMMENT_ON_CHANGE:
-            const defaultCommentExist = state.onChangeComments.some((info: { postId: string, comment: string }) =>
+            const defaultCommentExist = state.onChangeComments.some((info: { postId: string }) =>
                 info.postId === action.payload);
             const defaultChangeComment = defaultCommentExist ?
-                state.onChangeComments
+                [...state.onChangeComments]
                 :
                 [...state.onChangeComments, { postId: action.payload, comment: '' }];
             return {
@@ -96,7 +96,7 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                 onChangeComments: defaultChangeComment,
             };
         case ON_CHANGE_COMMENT:
-            const changeCommentExist = state.onChangeComments.some((info: { postId: string, comment: string }) =>
+            const changeCommentExist = state.onChangeComments.some((info: { postId: string }) =>
                 info.postId === action.payload.postId);
             const changedComments = changeCommentExist ?
                 state.onChangeComments.map((info: { postId: string, comment: string }) => {
@@ -170,7 +170,7 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                 }),
             };
         case RESET_COMMENT:
-            const resetCommentExist = state.onChangeComments.some((info: { postId: string, comment: string }) =>
+            const resetCommentExist = state.onChangeComments.some((info: { postId: string }) =>
                 info.postId === action.payload);
             const resetComments = resetCommentExist ?
                 state.onChangeComments.map((info: { postId: string, comment: string }) => {

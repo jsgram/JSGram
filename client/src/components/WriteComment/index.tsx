@@ -31,11 +31,11 @@ class WriteComment extends React.Component<any> {
 
     public render(): JSX.Element {
         const commentInfo =
-            this.props.onChangeComments.filter((info: { postId: string, comment: string }) =>
+            this.props.onChangeComments.filter((info: { postId: string }) =>
                 this.props.postId === info.postId);
         return (
             <div>
-                {commentInfo[0] &&
+                {!!commentInfo.length && commentInfo[0] &&
                     <InputGroup>
                         <TextareaAutosize
                             className='add-comment flex-grow-1 border-0 p-2'
