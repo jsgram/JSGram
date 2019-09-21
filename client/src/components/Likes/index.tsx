@@ -22,16 +22,18 @@ export const Likes = ({userId, postId, authorsOfLike, loadingLike, loggedUserLik
     };
 
     const likeButton = loggedUserLikeExist ?
-        (<i className='fa fa-heart fa-lg pr-1 like' onClick={onDeleteLike}/>) :
-        (<i className='fa fa-heart-o fa-lg pr-1' onClick={onAddLike}/>);
+        (<i className='fa fa-heart fa-lg like' onClick={onDeleteLike}/>) :
+        (<i className='fa fa-heart-o fa-lg' onClick={onAddLike}/>);
 
     return (
         <>
-            {loadingLike ?
-                    <Spinner size='sm'/>
-                    :
-                    likeButton
-            }
+            <div className='likes'>
+                {loadingLike ?
+                        <Spinner type='grow' size='sm'/>
+                        :
+                        likeButton
+                }
+            </div>
             <span>{authorsOfLike.length} likes</span>
         </>
     );
