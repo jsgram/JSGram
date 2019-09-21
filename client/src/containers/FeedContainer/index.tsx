@@ -22,22 +22,22 @@ interface IProps {
     getMoreNewsFeedAsync: (page: number) => void;
     addNextFeedPosts: (page: number) => void;
     getRecommendations: () => void;
-    followUser: (body: {_id: string}) => void;
+    followUser: (body: { _id: string }) => void;
 }
 
 type FeedProps = ILocalProps & IProps;
 
 const FeedContainer = ({
-                           loggedId,
-                           loggedUsername,
-                           loggedPhotoPath,
-                           newsFeed,
-                           getNewsFeedAsync,
-                           getMoreNewsFeedAsync,
-                           addNextFeedPosts,
-                           getRecommendations,
-                           followUser,
-                       }: FeedProps): JSX.Element => {
+    loggedId,
+    loggedUsername,
+    loggedPhotoPath,
+    newsFeed,
+    getNewsFeedAsync,
+    getMoreNewsFeedAsync,
+    addNextFeedPosts,
+    getRecommendations,
+    followUser,
+}: FeedProps): JSX.Element => {
     return (
         <FeedPost
             loggedId={loggedId}

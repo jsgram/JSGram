@@ -5,9 +5,12 @@ import {
     RESET_COMMENTS,
     EDIT_COMMENT,
     CHANGE_COMMENT,
+    SET_DEFAULT_COMMENT_ON_CHANGE,
+    ON_CHANGE_COMMENT,
+    ADD_COMMENT,
     CHANGE_EDIT_STATUS_COMMENT,
-    ADD_COMMENT_DISPATCH,
     DELETE_COMMENT,
+    RESET_COMMENT,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
@@ -21,29 +24,45 @@ export const getCommentsPending = (): { type: string } => ({
 });
 
 export const allCommentsLoaded = (postId: string, page: number):
-    { type: string, payload: { postId: string, page: number } } => ({
-        type: ALL_COMMENTS_LOADED,
-        payload: {postId, page},
-    });
+{ type: string, payload: { postId: string, page: number } } => ({
+    type: ALL_COMMENTS_LOADED,
+    payload: { postId, page },
+});
 
 export const getCommentsSuccess = (postId: string, comments: IComments, page: number):
-    { type: string, payload: { postId: string, comments: IComments, page: number } } => ({
-        type: GET_COMMENTS_SUCCESS,
-        payload: {postId, comments, page},
-    });
+{ type: string, payload: { postId: string, comments: IComments, page: number } } => ({
+    type: GET_COMMENTS_SUCCESS,
+    payload: { postId, comments, page },
+});
 
 export const resetComments = (): { type: string } => ({
     type: RESET_COMMENTS,
 });
 
-export const addCommentDispatch = (res: IComments): { type: string, payload: any } => ({
-    type: ADD_COMMENT_DISPATCH,
-    payload: res,
+export const setDefaultCommentToChange = (postId: string): { type: string, payload: string } => ({
+    type: SET_DEFAULT_COMMENT_ON_CHANGE,
+    payload: postId,
+});
+
+export const onChangeComment = (postId: string, comment: string):
+{ type: string, payload: { postId: string, comment: string } } => ({
+    type: ON_CHANGE_COMMENT,
+    payload: { postId, comment },
+});
+
+export const addNewComment = (newComment: IComments): { type: string, payload: any } => ({
+    type: ADD_COMMENT,
+    payload: newComment,
 });
 
 export const deleteCommentSuccess = (commentId: string): { type: string, payload: string } => ({
     type: DELETE_COMMENT,
     payload: commentId,
+});
+
+export const resetComment = (postId: string): { type: string, payload: string } => ({
+    type: RESET_COMMENT,
+    payload: postId,
 });
 
 export const getComments = (postId: string, commentState: any, commentsLoaded?: boolean): (dispatch: Dispatch) =>
@@ -56,13 +75,26 @@ export const getComments = (postId: string, commentState: any, commentsLoaded?: 
 
             const res = await AuthAPI.get(`comments/${postId}/${page || 1}`);
 
-            if (!res.data.commentsAll.length || res.data.commentsAll.length % 10 !== 0 || commentsLoaded || !page ) {
+            if (!res.data.commentsAll.length || res.data.commentsAll.length % 10 !== 0 || commentsLoaded || !page) {
                 dispatch(getCommentsSuccess(postId, res.data.commentsAll, page));
                 dispatch(allCommentsLoaded(postId, page));
                 return;
             }
 
             dispatch(getCommentsSuccess(postId, res.data.commentsAll, page + 1));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const addComment = (postId: string, authorId: string, comment: string): (dispatch: Dispatch) =>
+    Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const res = await AuthAPI.post(`/comments`, { postId, authorId, comment });
+            dispatch(addNewComment(res.data.createdComment));
+            dispatch(resetComment(postId));
+            dispatch(showAlert(res.data.message, 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
