@@ -77,8 +77,8 @@ export const getComments = (postId: string, commentState: any, commentsLoaded?: 
 
             if (!res.data.commentsAll.length || res.data.commentsAll.length % 10 !== 0 || commentsLoaded || !page) {
                 dispatch(getCommentsSuccess(postId, res.data.commentsAll, page));
-                dispatch(allCommentsLoaded(postId, page)); dispatch(allCommentsLoaded(postId, page));
-                return; return;
+                dispatch(allCommentsLoaded(postId, page));
+                return;
             }
 
             dispatch(getCommentsSuccess(postId, res.data.commentsAll, page + 1));
