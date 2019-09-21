@@ -156,7 +156,7 @@ const generateImages = async function(size: number): Promise<string[]> {
                 await imageTable[i].save();
             }
         } catch (e) {
-            console.log(`\n${e.message}`); // tslint:disable-line:no-console
+            console.log(` - ${e}`); // tslint:disable-line:no-console
         }
     }
 
