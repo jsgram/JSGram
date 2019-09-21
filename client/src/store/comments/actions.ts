@@ -75,9 +75,10 @@ export const getComments = (postId: string, commentState: any, commentsLoaded?: 
 
             const res = await AuthAPI.get(`comments/${postId}/${page || 1}`);
 
-            if (!res.data.commentsAll.length || commentsLoaded || !page) {
-                dispatch(allCommentsLoaded(postId, page));
-                return;
+            if (!res.data.commentsAll.length || res.data.commentsAll.length % 10 !== 0 || commentsLoaded || !page) {
+                dispatch(getCommentsSuccess(postId, res.data.commentsAll, page));
+                dispatch(allCommentsLoaded(postId, page)); dispatch(allCommentsLoaded(postId, page));
+                return; return;
             }
 
             dispatch(getCommentsSuccess(postId, res.data.commentsAll, page + 1));
