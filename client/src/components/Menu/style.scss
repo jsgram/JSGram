@@ -23,6 +23,10 @@
     text-align: center;
   }
 
+  .search-menu {
+    z-index: 3000;
+  }
+
   .scrollable-menu {
     height: auto;
     max-height: 250px;
@@ -37,6 +41,11 @@
     &::-webkit-scrollbar-thumb {
       background-color: $color-dove-gray;
     }
+  }
+
+  .fullname {
+    font-family: 'Calibri Light', serif;
+    color: $color-dove-gray;
   }
 
   .icon {
