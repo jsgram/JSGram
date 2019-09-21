@@ -9,6 +9,7 @@ import {
     editCommentAsync,
     changeEditStatus,
     changeComment,
+    setDefaultCommentToChange,
 } from '../../store/comments/actions';
 import { IComment } from '../../store/comments/reducers';
 import { IFeedState } from '../../store/feed/reducers';
@@ -39,6 +40,7 @@ interface IOwnCommentsProps {
     changeEditStatus: (commentId: string) => void;
     changeComment: (comment: string, commentId: string) => void;
     deleteComment: (postId: string, authorId: string) => void;
+    setDefaultCommentToChange: (postId: string) => void;
 }
 
 export type ICommentsProps = IOwnCommentsProps & ILocalState;
@@ -47,6 +49,7 @@ class Comments extends React.Component<ICommentsProps> {
     public componentDidMount(): void {
         if (this.props.postId) {
             this.props.getComments(this.props.postId, FIRST_PAGE);
+            this.props.setDefaultCommentToChange(this.props.postId);
         }
     }
 
@@ -85,9 +88,9 @@ class Comments extends React.Component<ICommentsProps> {
                         onChange={
                             (event: React.ChangeEvent<any>)
                                 : void => this.props.changeComment(
-                                event.target.value,
-                                comment._id,
-                            )
+                                    event.target.value,
+                                    comment._id,
+                                )
                         }
                     />
                     <div className='d-flex justify-content-between mt-1'>
@@ -116,7 +119,7 @@ class Comments extends React.Component<ICommentsProps> {
                         />
                         <i className='fa fa-trash-o delete-comment' onClick={
                             (): void => this.onDeleteComment(comment._id, comment.authorId._id)
-                        }/>
+                        } />
                     </div>
                     <p>{comment.comment}</p>
                 </>
@@ -125,7 +128,7 @@ class Comments extends React.Component<ICommentsProps> {
 
     public getComments = (): JSX.Element => (
         <div
-             className='d-inline float-left get-more-comments'>
+            className='d-inline float-left get-more-comments'>
             {!this.props.allCommentsLoaded.some((post: any) => post === this.props.postId) &&
                 <p
                     className='get-comments'
@@ -144,29 +147,29 @@ class Comments extends React.Component<ICommentsProps> {
                     {this.props.comments && this.props.comments.map((comment: any) => (
                         <div key={comment._id}>
                             {comment.postId === this.props.postId &&
-                            <div className='one-comment px-3'>
-                                <div className='d-flex justify-content-between'>
-                                    <div className='w-100'>
-                                        <img
-                                            src={comment.authorId.photoPath || noAvatar}
-                                            alt='avatar'
-                                            width={24}
-                                            height={24}
-                                            className='img-fluid rounded-circle mt-1 mr-1 mb-1'
-                                        />
-                                        <Link to={`/profile/${comment.authorId.username}`}
-                                              className='text-dark mt-1'
-                                        >
-                                            {comment.authorId.username}
-                                        </Link>
-                                        {
-                                            this.props.feed.loggedUsername === comment.authorId.username
-                                                ? this.renderComment(comment)
-                                                : <p>{comment.comment}</p>
-                                        }
+                                <div className='one-comment px-3'>
+                                    <div className='d-flex justify-content-between'>
+                                        <div className='w-100'>
+                                            <img
+                                                src={comment.authorId.photoPath || noAvatar}
+                                                alt='avatar'
+                                                width={24}
+                                                height={24}
+                                                className='img-fluid rounded-circle mt-1 mr-1 mb-1'
+                                            />
+                                            <Link to={`/profile/${comment.authorId.username}`}
+                                                className='text-dark mt-1'
+                                            >
+                                                {comment.authorId.username}
+                                            </Link>
+                                            {
+                                                this.props.feed.loggedUsername === comment.authorId.username
+                                                    ? this.renderComment(comment)
+                                                    : <p>{comment.comment}</p>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             }
                         </div>
                     ))}
@@ -193,6 +196,7 @@ const mapDispatchToProps = {
     changeEditStatus,
     changeComment,
     deleteComment,
+    setDefaultCommentToChange,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comments);
