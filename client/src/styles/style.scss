@@ -55,9 +55,9 @@ body {
   resize: none;
 }
 
-.likes{
-  min-width: 2rem;
-  display: inline-block;
+.likes {
   cursor: pointer;
-  -webkit-user-select: none;
+  min-width: 2rem;
+  display: inline-block;  
+  user-select: none;
 }
