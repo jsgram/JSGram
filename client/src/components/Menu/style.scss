@@ -23,6 +23,31 @@
     text-align: center;
   }
 
+  .search-menu {
+    z-index: 3000;
+  }
+
+  .scrollable-menu {
+    height: auto;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: $color-white;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-dove-gray;
+    }
+  }
+
+  .fullname {
+    font-family: $font-calibri-light;
+    color: $color-dove-gray;
+  }
+
   .icon {
     color: $color-black;
 
