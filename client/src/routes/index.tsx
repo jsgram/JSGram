@@ -14,8 +14,7 @@ import { Error404 } from '../components/Error404';
 import { RegisterRoute } from '../components/RegisterRoute';
 import { PrivateRoute } from './PrivateRoute';
 import FeedContainer from '../containers/FeedContainer';
-import FollowersContainer from '../containers/SubscribersContainer/FollowersContainer';
-import FollowingContainer from '../containers/SubscribersContainer/FollowingContainer';
+import SubscribersContainer from '../containers/SubscribersContainer';
 import { AboutUs } from '../components/AboutUs';
 import FriendsRecommendationsList from '../components/FriendsRecommendationsList';
 
@@ -23,8 +22,8 @@ export const routes = (
     <Router history={history}>
         <Switch>
             <PrivateRoute exact path='/profile/:username' component={ProfileContainer}/>
-            <PrivateRoute exact path='/profile/:username/followers' component={FollowersContainer}/>
-            <PrivateRoute exact path='/profile/:username/following' component={FollowingContainer}/>
+            <PrivateRoute exact path='/profile/:username/followers' component={SubscribersContainer}/>
+            <PrivateRoute exact path='/profile/:username/following' component={SubscribersContainer}/>
             <PrivateRoute exact path='/profile/:username/recommendations' component={FriendsRecommendationsList}/>
             <PrivateRoute exact path='/add-post' component={AddPostContainer}/>
             <PrivateRoute exact path='/feed' component={FeedContainer}/>
