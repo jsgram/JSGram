@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { updateComment } from '../../db.requests/update.comment.request';
-import { decodeJWT } from '../../helpers/jwt.encoders';
+import { IUserModel } from '../../models/user.model';
 
 interface IParams {
     params: {
@@ -17,11 +17,11 @@ interface IReqBody {
 
 export const update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { params: { id } }: IParams = req;
-        const { body: { comment, email } }: IReqBody = req;
-        const decodedTokenEmail = res.locals.user.email;
+        const {params: {id}}: IParams = req;
+        const {body: {comment, email}}: IReqBody = req;
+        const {locals: {user: {email: decodedTokenEmail, isAdmin}}}: { locals: { user: IUserModel } } = res;
 
-        if (decodedTokenEmail !== email) {
+        if (decodedTokenEmail !== email && !isAdmin) {
             throw new Error('You don\'t have permission to change comment');
         }
 
@@ -33,6 +33,6 @@ export const update = async (req: Request, res: Response, next: NextFunction): P
 
         res.json({message: 'Comment was successfully updated', updatedComment});
     } catch (e) {
-        next({message: 'Can not update comment', status: 500});
+        next({message: e.message, status: 409});
     }
 };

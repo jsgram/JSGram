@@ -15,6 +15,8 @@ import {
     REMOVE_USER_LIKE_FROM_SELECTED_POST,
     ADD_COMMENT,
     RESET_COMMENT,
+    NEW_DESCRIPTION_FOR_POST,
+    CHANGE_EDIT_STATUS_POST,
 } from './actionTypes';
 import { IPost } from './reducers';
 import { decrementPostCount } from '../profile/actions';
@@ -56,9 +58,16 @@ export const showPost = (post: any): { type: string, payload: any } => ({
     payload: post,
 });
 
-export const editDescriptionForPost = (description: string, postId: string): { type: string, payload: any } => ({
+export const newDescriptionForPost = (description: string, postId: string):
+{ type: string, payload: { description: string, postId: string } } => ({
+    type: NEW_DESCRIPTION_FOR_POST,
+    payload: { description, postId },
+});
+
+export const editDescriptionForPost = (description: string, postId: string):
+{ type: string, payload: { description: string, postId: string } } => ({
     type: EDIT_DESCRIPTION_FOR_POST,
-    payload: {description, postId},
+    payload: { description, postId },
 });
 
 export const addNextPosts = (page: number): { type: string, payload: number } => ({
@@ -91,6 +100,11 @@ export const resetComment = (): { type: string } => ({
 
 });
 
+export const changeEditStatus = (postId: string): { type: string, payload: string } => ({
+    type: CHANGE_EDIT_STATUS_POST,
+    payload: postId,
+});
+
 export const getPostsAsync = (username: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
@@ -121,11 +135,11 @@ export const getMorePostsAsync = (username: string, page: number): (dispatch: Di
         }
     };
 
-export const deletePost = (postId: string): (dispatch: Dispatch) => Promise<void> =>
+export const deletePost = (postId: string, authorId: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(deletePostPending());
-            const res = await AuthAPI.delete(`/post/${postId}`);
+            const res = await AuthAPI.delete(`/post/${postId}`, {data: {authorId}});
             dispatch(deletePostSuccess(postId));
             dispatch(decrementPostCount());
             dispatch(showAlert(res.data.message, 'success'));
@@ -134,10 +148,12 @@ export const deletePost = (postId: string): (dispatch: Dispatch) => Promise<void
         }
     };
 
-export const editPost = (description: any, id: any): (dispatch: Dispatch) => Promise<void> =>
+// TODO Send authorId to BE
+export const editPost = (description: string, id: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const res = await AuthAPI.patch(`/post/${id}`, JSON.stringify({description}));
+            dispatch(editDescriptionForPost(description, id));
             dispatch(showAlert(res.data.message, 'success'));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));

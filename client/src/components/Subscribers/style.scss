@@ -11,3 +11,12 @@
     max-width: 256px;
   }      
 }
+
+.link-style {
+  color: $color-grey-dark;
+  padding: 1em;
+}
+
+.link-style:hover {
+  color: $color-grey-dark;
+}

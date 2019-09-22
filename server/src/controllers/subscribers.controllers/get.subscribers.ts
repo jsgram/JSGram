@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction } from 'express';
 import { IUserModel } from '../../models/user.model';
 import { findUser, findSubscribers } from '../../db.requests/subscribers.requests';
-import { POSTS_PER_PAGE } from '../../common.constants/getPosts.constants';
+import { SUBSCRIBERS_PER_PAGE } from '../../common.constants/getPosts.constants';
 
 export const getSubscribers = async (username: string, subscribers: any, page: number, next: NextFunction):
     Promise<IUserModel[] | null | void> => {
@@ -15,7 +15,7 @@ export const getSubscribers = async (username: string, subscribers: any, page: n
 
         const checkSubscribers = subscribers === 'followers' ? followers : following;
 
-        const skip = (page - 1) * POSTS_PER_PAGE;
+        const skip = (page - 1) * SUBSCRIBERS_PER_PAGE;
 
         const users = await findSubscribers(checkSubscribers, skip, next);
         if (!users) {

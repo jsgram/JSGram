@@ -11,11 +11,13 @@ import noAvatar from '../../assets/noAvatar.png';
 import ProfileLikes from '../../containers/ProfileLikesContainer';
 import { IPost } from '../../store/post/reducers';
 import Comments from '../Comments';
+import { Link } from 'react-router-dom';
 
 interface IProps {
     userPosts: any;
     user: IUserData;
     editDescriptionForPost: any;
+    newDescriptionForPost: any;
     getPostsAsync: (username: string) => void;
     getMorePostsAsync: (username: string, page: number) => void;
     deletePhoto: () => void;
@@ -29,6 +31,7 @@ interface IProps {
     loggedUsername: string;
     addComment: (postId: string, loggedUserId: string, comment: string) => void;
     addNewComment: (comment: string) => void;
+    changeEditStatus: (postId: string) => void;
 }
 
 interface IModalState {
@@ -56,15 +59,16 @@ export default class Post extends React.Component<IProps> {
             modal: !this.state.modal,
         });
         this.props.showPost(post);
+        this.props.changeEditStatus(this.props.userPosts.selectedPost._id);
     }
 
     public onEditPost = (): void => {
-        this.props.editPost(this.props.userPosts.selectedPost.description, this.props.userPosts.selectedPost._id);
+        this.props.editPost(this.props.userPosts.selectedPost.newDescription, this.props.userPosts.selectedPost._id);
         this.toggleEdit(this.props.userPosts.selectedPost);
     }
 
     public onDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        this.props.editDescriptionForPost(event.target.value, this.props.userPosts.selectedPost._id);
+        this.props.newDescriptionForPost(event.target.value, this.props.userPosts.selectedPost._id);
     }
 
     public onAddComment = (): void => {
@@ -94,6 +98,7 @@ export default class Post extends React.Component<IProps> {
         const {userPosts, user,
         }: any = this.props;
         const {selectedPost: {description: desc}}: any = userPosts;
+
         return (
             <div className='container justify-content-center'>
                 <div className='row mt-5 profile-post'>
@@ -136,6 +141,7 @@ export default class Post extends React.Component<IProps> {
                                         userPosts.selectedPost.author === this.props.loggedId &&
                                         (
                                             <MenuPost
+                                                authorId={this.props.user._id}
                                                 post={userPosts.selectedPost}
                                                 toggleEdit={this.toggleEdit}
                                                 toggleModal={this.toggle}
@@ -149,7 +155,11 @@ export default class Post extends React.Component<IProps> {
                                         height={32}
                                         className='img-fluid rounded-circle mt-2 mb-2 ml-4'
                                     />
-                                    <span className='mt-2 ml-2'>{user.username}</span>
+                                    <Link to={`/profile/${user.username}`}
+                                          className='text-dark mt-2 ml-2'
+                                    >
+                                        {user.username}
+                                    </Link>
                                 </div>
                             </ModalHeader>
 
@@ -171,12 +181,17 @@ export default class Post extends React.Component<IProps> {
                                             height={32}
                                             className='img-fluid rounded-circle mt-2 mr-2 mb-2'
                                         />
-                                        <span className='mt-2 font-weight-bolder'>{user.username}</span>
+                                        <Link to={`/profile/${user.username}`}
+                                              className='text-dark mt-2 font-weight-bolder'
+                                        >
+                                            {user.username}
+                                        </Link>
                                         {
                                             userPosts.selectedPost.author === this.props.loggedId &&
                                             (
                                                 <div className='d-lg-block d-none float-right'>
                                                     <MenuPost
+                                                        authorId={this.props.user._id}
                                                         post={userPosts.selectedPost}
                                                         toggleEdit={this.toggleEdit}
                                                         toggleModal={this.toggle}
@@ -186,15 +201,15 @@ export default class Post extends React.Component<IProps> {
                                         }
 
                                     </div>
-                                    <p className='d-lg-none'>
-                                        <ProfileLikes/>
-                                    </p>
+                                    <div className='d-lg-none'>
+                                        <ProfileLikes postId={userPosts.selectedPost._id}/>
+                                    </div>
                                     <p>{formatDescription(desc)}</p>
                                 </div>
                                 <Comments postId={userPosts.selectedPost._id}/>
                                 <div className='flex-grow-0'>
                                     <div className='d-none d-lg-block p-3 mb-3 border-top border-bottom'>
-                                        <ProfileLikes/>
+                                        <ProfileLikes postId={userPosts.selectedPost._id}/>
                                     </div>
                                     <InputGroup>
                                         <TextareaAutosize
@@ -246,7 +261,7 @@ export default class Post extends React.Component<IProps> {
                             name='description'
                             placeholder='Write a caption...'
                             spellCheck={false}
-                            value={userPosts.selectedPost.description}
+                            value={userPosts.selectedPost.newDescription}
                             onChange={this.onDescriptionChange}
                         />
                         <Button

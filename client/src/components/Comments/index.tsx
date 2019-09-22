@@ -11,8 +11,9 @@ import {
     changeComment,
 } from '../../store/comments/actions';
 import { IComment } from '../../store/comments/reducers';
-import { Button } from 'reactstrap';
 import { IFeedState } from '../../store/feed/reducers';
+import './style.scss';
+import { Link } from 'react-router-dom';
 
 interface ILocalState {
     postId: string;
@@ -51,8 +52,8 @@ class Comments extends React.Component<ICommentsProps> {
 
     public getMoreComments = (): void => {
         const commentStateForCurrentPost =
-                this.props.commentsPage.filter((info: { postId: string, page: number }) =>
-                    info.postId === this.props.postId);
+            this.props.commentsPage.filter((info: { postId: string, page: number }) =>
+                info.postId === this.props.postId);
 
         const commentsLoaded = this.props.allCommentsLoaded.some((post: any) => post === this.props.postId);
 
@@ -84,29 +85,24 @@ class Comments extends React.Component<ICommentsProps> {
                         onChange={
                             (event: React.ChangeEvent<any>)
                                 : void => this.props.changeComment(
-                                    event.target.value,
-                                    comment._id,
-                                )
+                                event.target.value,
+                                comment._id,
+                            )
                         }
                     />
-                    <Button
-                        className='mt-2'
-                        color='danger'
-                        disabled={!comment.newComment}
-                        onClick={(): void => this.editComment(
-                            comment.newComment,
-                            comment._id,
-                            comment.authorId.email,
-                        )}
-                    >
-                        Change
-                    </Button>
-                    <div className='btn btn-danger mt-2 ml-2'
-                        onClick={(): void => this.props.changeEditStatus(
-                            comment._id,
-                        )}
-                    >
-                        Cancel
+                    <div className='d-flex justify-content-between mt-1'>
+                        <i className='fa fa-times-circle text-danger icon-edit'
+                            onClick={(): void => this.props.changeEditStatus(
+                                comment._id,
+                            )}>
+                        </i>
+                        <i className='fa fa-check-circle text-success icon-edit'
+                            onClick={(): void => this.editComment(
+                                comment.newComment,
+                                comment._id,
+                                comment.authorId.email,
+                            )}>
+                        </i>
                     </div>
                 </>
             )
@@ -120,11 +116,25 @@ class Comments extends React.Component<ICommentsProps> {
                         />
                         <i className='fa fa-trash-o delete-comment' onClick={
                             (): void => this.onDeleteComment(comment._id, comment.authorId._id)
-                        } />
+                        }/>
                     </div>
                     <p>{comment.comment}</p>
                 </>
             )
+    )
+
+    public getComments = (): JSX.Element => (
+        <div
+             className='d-inline float-left get-more-comments'>
+            {!this.props.allCommentsLoaded.some((post: any) => post === this.props.postId) &&
+                <p
+                    className='get-comments'
+                    onClick={this.getMoreComments}
+                >
+                    Get more comments
+                </p>
+            }
+        </div>
     )
 
     public render(): JSX.Element {
@@ -144,7 +154,11 @@ class Comments extends React.Component<ICommentsProps> {
                                             height={24}
                                             className='img-fluid rounded-circle mt-1 mr-1 mb-1'
                                         />
-                                        <span className='mt-1'>{comment.authorId.username}</span>
+                                        <Link to={`/profile/${comment.authorId.username}`}
+                                              className='text-dark mt-1'
+                                        >
+                                            {comment.authorId.username}
+                                        </Link>
                                         {
                                             this.props.feed.loggedUsername === comment.authorId.username
                                                 ? this.renderComment(comment)
@@ -156,13 +170,7 @@ class Comments extends React.Component<ICommentsProps> {
                             }
                         </div>
                     ))}
-                    <Button
-                        outline
-                        size='sm'
-                        onClick={this.getMoreComments}
-                    >
-                        Get more comments
-                    </Button>
+                    {this.getComments()}
                 </div>
             </div>
         );
