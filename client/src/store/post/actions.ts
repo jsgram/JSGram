@@ -135,11 +135,11 @@ export const getMorePostsAsync = (username: string, page: number): (dispatch: Di
         }
     };
 
-export const deletePost = (postId: string): (dispatch: Dispatch) => Promise<void> =>
+export const deletePost = (postId: string, authorId: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(deletePostPending());
-            const res = await AuthAPI.delete(`/post/${postId}`);
+            const res = await AuthAPI.delete(`/post/${postId}`, {data: {authorId}});
             dispatch(deletePostSuccess(postId));
             dispatch(decrementPostCount());
             dispatch(showAlert(res.data.message, 'success'));
