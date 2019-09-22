@@ -19,7 +19,7 @@ mongoose.set('useNewUrlParser', true);
 const { env: { DB_PATH, IMAGE_DB_PATH, IMGUR_CLIENT_ID } }: any = process;
 const FAKE_DB_SIZE = parseInt(process.env.FAKE_DB_SIZE, 10);
 
-const capitalizeSentence = function(sentence: string): string {
+const capitalizeSentence = (sentence: string): string => {
     if (!sentence) {
         return sentence;
     }
@@ -27,11 +27,11 @@ const capitalizeSentence = function(sentence: string): string {
     return sentence[0].toUpperCase() + sentence.slice(1) + '.';
 };
 
-const clearDatabase = async function(path: string): Promise<void> {
+const clearDatabase = async (path: string): Promise<void> => {
     await mongoose.createConnection(path).dropDatabase();
 };
 
-const generateUsers = async function(size: number): Promise<IUserModel[]> {
+const generateUsers = async (size: number): Promise<IUserModel[]> => {
     const {
         internet: { email, userName, password, avatar },
         name: { firstName, lastName },
@@ -80,7 +80,7 @@ const generateUsers = async function(size: number): Promise<IUserModel[]> {
     return createdUsers;
 };
 
-const generateTokens = async function(users: IUserModel[], size: number): Promise<ITokenModel[]> {
+const generateTokens = async (users: IUserModel[], size: number): Promise<ITokenModel[]> => {
     const { random: { arrayElement, alphaNumeric } }: any = faker;
 
     const tokens = new Array(size).fill(null).map((throwaway: null) => ({
@@ -91,7 +91,7 @@ const generateTokens = async function(users: IUserModel[], size: number): Promis
     return await Token.insertMany(tokens);
 };
 
-const generateImages = async function(size: number): Promise<string[]> {
+const generateImages = async (size: number): Promise<string[]> => {
     /*
      * Imgur image names are generated randomly and cannot be set.
      * Hash table eliminates image redunduncy while running DB seed multiple times.
@@ -164,7 +164,7 @@ const generateImages = async function(size: number): Promise<string[]> {
     return imageTable.map((x: IImageModel): string => x.imageHash);
 };
 
-const generatePosts = async function(users: IUserModel[], size: number): Promise<IPostModel[]> {
+const generatePosts = async (users: IUserModel[], size: number): Promise<IPostModel[]> => {
     const {
         random: { arrayElement, number },
         lorem: { words },
@@ -191,11 +191,7 @@ const generatePosts = async function(users: IUserModel[], size: number): Promise
     return createdPosts;
 };
 
-const generateComments = async function(
-    users: IUserModel[],
-    posts: IPostModel[],
-    size: number,
-): Promise<ICommentModel[]> {
+const generateComments = async (users: IUserModel[], posts: IPostModel[], size: number): Promise<ICommentModel[]> => {
     const {
         random: { arrayElement, alphaNumeric, number },
         lorem: { words },
@@ -219,7 +215,7 @@ const generateComments = async function(
     return createdComments;
 };
 
-const generateLikes = async function(users: IUserModel[], posts: IPostModel[], size: number): Promise<ILikeModel[]> {
+const generateLikes = async (users: IUserModel[], posts: IPostModel[], size: number): Promise<ILikeModel[]> => {
     const { random: { arrayElement } }: any = faker;
 
     const likes = new Array(size).fill(null).map((throwaway: null) => ({
@@ -238,7 +234,7 @@ const generateLikes = async function(users: IUserModel[], posts: IPostModel[], s
     return createdLikes;
 };
 
-const fakeDatabase = async function(): Promise<void> {
+const fakeDatabase = async (): Promise<void> => {
     await clearDatabase(DB_PATH);
     await connect(DB_PATH);
 
