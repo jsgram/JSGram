@@ -127,7 +127,7 @@ export default class Post extends React.Component<IProps> {
                 <div className='w-100 d-flex align-items-center justify-content-center'>
                     {userPosts.loading && <Spinner className='mt-3' color='dark' />}
                 </div>
-                <Modal className='profile-post modal-lg modal-dialog-centered px-3 py-3'
+                <Modal className='profile-post modal-lg modal-dialog-centered px-md-0 py-md-0 px-3 py-3'
                     isOpen={this.state.modal}
                     toggle={(): void => this.toggle(userPosts.selectedPost)}>
                     <div className='modal-body p-0'>
