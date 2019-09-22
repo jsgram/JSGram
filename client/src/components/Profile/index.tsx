@@ -100,7 +100,7 @@ export default class Profile extends React.Component<IProfileProps> {
 
         if (this.props.urlUsername === this.props.loggedUsername) {
             return (
-                <Link to='/add-post'>
+                <Link to='/add-post' className='align-self-start'>
                     <Button className='btn' color='danger'><i
                         className='fa fa-plus pr-3'/>
                         Add Post
