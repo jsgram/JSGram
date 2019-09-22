@@ -1,8 +1,10 @@
 import { Schema, Document, model } from 'mongoose';
+import { IPostModel } from './post.model';
+import { IUserModel } from './user.model';
 
 export interface ILikeModel extends Document {
-    postId: string;
-    userId: string;
+    postId: IPostModel['_id'];
+    userId: IUserModel['_id'];
     createdAt: Date;
 }
 
