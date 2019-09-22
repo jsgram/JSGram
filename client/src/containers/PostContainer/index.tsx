@@ -28,15 +28,14 @@ const PostContainer = (props: any): JSX.Element => (
         getUser={props.getUser}
         resetPosts={props.resetPosts}
         addNextPosts={props.addNextPosts}
-        loggedId={props.loggedId}
-        loggedUsername={props.loggedUsername}
+        loggedUser={props.loggedUser}
         newDescriptionForPost={props.newDescriptionForPost}
         changeEditStatus={props.changeEditStatus}
     />
 );
 
 const mapStateToProps = (state: any, ownProps: { username: string }): any => ({
-    loggedId: state.feed.loggedId,
+    loggedUser: state.feed,
     userPosts: state.userPosts,
     user: state.profile.user,
     ownProps: ownProps.username,
