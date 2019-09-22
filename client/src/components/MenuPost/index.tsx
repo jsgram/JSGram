@@ -14,9 +14,10 @@ interface IState {
 
 interface IProps {
     post: any;
+    authorId: string;
     toggleEdit: (post: any) => void;
     toggleModal: (post: any) => any;
-    deletePost: (post: any) => any;
+    deletePost: (post: any, authorId: string) => any;
 }
 
 class MenuPost extends React.Component<IProps, IState> {
@@ -41,7 +42,7 @@ class MenuPost extends React.Component<IProps, IState> {
         const {post}: any = this.props;
 
         this.props.toggleModal(post);
-        this.props.deletePost(post._id);
+        this.props.deletePost(post._id, this.props.authorId);
     }
 
     public cancelDelete = (): void => {
