@@ -26,6 +26,13 @@ const users = [
     {id: 8, image: noAvatar, username: 'marianna', fullname: 'Marianna Petrivska'},
 ]
 
+interface IUsers {
+    id: number;
+    image: string;
+    username: string;
+    fullname: string;
+}
+
 interface IStateFeed {
     loggedUsername: string;
 }
@@ -40,21 +47,19 @@ interface IMenuProps {
     newUsername: string;
 }
 
+interface IUserMenuOpen {
+    isMenuOpen: boolean;
+}
+
 class Menu extends React.Component<IMenuProps> {
-    public state: any = {
+    public state: IUserMenuOpen = {
         isMenuOpen: false,
     };
 
     public toggle = (e: any): void => {
-        if (e.target.value.trim() !== '') {
-            this.setState({
-                isMenuOpen: true,
-            });
-        } else {
-            this.setState({
-                isMenuOpen: false,
-            });
-        }
+        this.setState({
+            isMenuOpen: e.target.value.trim() !== '',
+        });
     }
 
     public render(): JSX.Element {
@@ -79,7 +84,7 @@ class Menu extends React.Component<IMenuProps> {
                         <Dropdown isOpen={this.state.isMenuOpen} color='light' className='search-menu'>
                             <DropdownToggle tag='a' className='nav-link m-0 p-0'/>
                             <DropdownMenu className='scrollable-menu col-12'>
-                                {users.map((user: any) => (
+                                {users.map((user: IUsers) => (
                                         <Link to={`/profile/feed`} className='text-decoration-none'>
                                             <div className='w-100'>
                                                 <DropdownItem key={user.id} className='p-md-2 p-1'>
