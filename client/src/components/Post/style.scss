@@ -76,7 +76,6 @@
   }
 
   .icon-edit {
-    font-size: 40px;
     opacity: 0.8;
     cursor: pointer;
     transition: 0.4s ease-out;
@@ -85,6 +84,10 @@
       opacity: 1;
     }
   }
+}
+
+.form-control {
+  resize: none;
 }
 
 .change-description {
