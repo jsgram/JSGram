@@ -21,7 +21,7 @@ export const update = async (req: Request, res: Response, next: NextFunction): P
         const {body: {comment, email}}: IReqBody = req;
         const {locals: {user: {email: decodedTokenEmail, isAdmin}}}: { locals: { user: IUserModel } } = res;
 
-        if (!isAdmin && decodedTokenEmail !== email) {
+        if (decodedTokenEmail !== email && !isAdmin) {
             throw new Error('You don\'t have permission to change comment');
         }
 

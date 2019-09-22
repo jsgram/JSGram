@@ -17,7 +17,6 @@ interface IProps {
     authorId: string;
     toggleEdit: (post: any) => void;
     toggleModal: (post: any) => any;
-    // deletePost: (post: any) => any;
     deletePost: (post: any, authorId: string) => any;
 }
 
