@@ -3,11 +3,14 @@ import {
     GET_COMMENTS_PENDING,
     GET_COMMENTS_SUCCESS,
     RESET_COMMENTS,
+    SET_DEFAULT_COMMENT_ON_CHANGE,
+    ON_CHANGE_COMMENT,
     EDIT_COMMENT,
     CHANGE_COMMENT,
+    ADD_COMMENT,
     CHANGE_EDIT_STATUS_COMMENT,
-    ADD_COMMENT_DISPATCH,
     DELETE_COMMENT,
+    RESET_COMMENT,
 } from './actionTypes';
 
 export interface IComment {
@@ -26,6 +29,7 @@ export interface IComment {
 
 export interface IComments {
     comments: IComment[];
+    onChangeComments: Array<{ postId: string, comment: string }>;
     commentsPage: any[];
     allCommentsLoaded: any[];
     commentsLoading: boolean;
@@ -33,6 +37,7 @@ export interface IComments {
 
 const defaultState = {
     comments: [],
+    onChangeComments: [],
     commentsPage: [],
     allCommentsLoaded: [],
     commentsLoading: false,
@@ -60,7 +65,7 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                     return commentState;
                 })
                 :
-                [...state.commentsPage, {postId: action.payload.postId, page: action.payload.page}];
+                [...state.commentsPage, { postId: action.payload.postId, page: action.payload.page }];
             return {
                 ...state,
                 comments: [...state.comments, ...action.payload.comments],
@@ -78,6 +83,51 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                 comments: [],
                 commentsPage: [],
                 allCommentsLoaded: [],
+            };
+        case SET_DEFAULT_COMMENT_ON_CHANGE:
+            const defaultCommentExist = state.onChangeComments.some((info: { postId: string }) =>
+                info.postId === action.payload);
+            const defaultChangeComment = defaultCommentExist ?
+                [...state.onChangeComments]
+                :
+                [...state.onChangeComments, { postId: action.payload, comment: '' }];
+            return {
+                ...state,
+                onChangeComments: defaultChangeComment,
+            };
+        case ON_CHANGE_COMMENT:
+            const changeCommentExist = state.onChangeComments.some((info: { postId: string }) =>
+                info.postId === action.payload.postId);
+            const changedComments = changeCommentExist ?
+                state.onChangeComments.map((info: { postId: string, comment: string }) => {
+                    if (info.postId === action.payload.postId) {
+                        return {
+                            postId: info.postId,
+                            comment: action.payload.comment,
+                        };
+                    }
+                    return info;
+                })
+                :
+                [...state.onChangeComments, { postId: action.payload.postId, comment: action.payload.comment }];
+            return {
+                ...state,
+                onChangeComments: changedComments,
+            };
+        case ADD_COMMENT:
+            return {
+                ...state,
+                comments: [{
+                    _id: action.payload._id,
+                    postId: action.payload.postId,
+                    authorId: {
+                        _id: action.payload.authorId._id,
+                        username: action.payload.authorId.username,
+                        photoPath: action.payload.authorId.photoPath,
+                    },
+                    comment: action.payload.comment,
+                    createdAt: action.payload.createdAt,
+                }, ...state.comments],
             };
         case EDIT_COMMENT:
             return {
@@ -119,20 +169,24 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                     return comment;
                 }),
             };
-        case ADD_COMMENT_DISPATCH:
+        case RESET_COMMENT:
+            const resetCommentExist = state.onChangeComments.some((info: { postId: string }) =>
+                info.postId === action.payload);
+            const resetComments = resetCommentExist ?
+                state.onChangeComments.map((info: { postId: string, comment: string }) => {
+                    if (info.postId === action.payload) {
+                        return {
+                            postId: info.postId,
+                            comment: '',
+                        };
+                    }
+                    return info;
+                })
+                :
+                [...state.onChangeComments, { postId: action.payload.postId, comment: action.payload.comment }];
             return {
                 ...state,
-                comments: [{
-                    _id: action.payload._id,
-                    postId: action.payload.postId,
-                    authorId: {
-                        _id: action.payload.authorId._id,
-                        username: action.payload.authorId.username,
-                        photoPath: action.payload.authorId.photoPath,
-                    },
-                    comment: action.payload.comment,
-                    createdAt: action.payload.createdAt,
-                }, ...state.comments],
+                onChangeComments: resetComments,
             };
         case DELETE_COMMENT:
             return {
