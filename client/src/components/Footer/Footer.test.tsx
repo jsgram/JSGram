@@ -11,6 +11,6 @@ describe('Footer component:', () => {
     });
 
     test('render - success', () => {
-        expect(renderer.html()).toHaveLength(357);
+        expect(renderer.html()).toHaveLength(375);
     });
 });
