@@ -9,8 +9,6 @@ import {
     editDescriptionForPost,
     resetPosts,
     addNextPosts,
-    addComment,
-    addNewComment,
     newDescriptionForPost,
     changeEditStatus,
 } from '../../store/post/actions';
@@ -32,8 +30,6 @@ const PostContainer = (props: any): JSX.Element => (
         addNextPosts={props.addNextPosts}
         loggedId={props.loggedId}
         loggedUsername={props.loggedUsername}
-        addComment={props.addComment}
-        addNewComment={props.addNewComment}
         newDescriptionForPost={props.newDescriptionForPost}
         changeEditStatus={props.changeEditStatus}
     />
@@ -56,8 +52,6 @@ const mapDispatchToProps = {
     getUser,
     resetPosts,
     addNextPosts,
-    addComment,
-    addNewComment,
     newDescriptionForPost,
     changeEditStatus,
 };
