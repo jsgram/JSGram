@@ -13,6 +13,8 @@ declare global {
             SECRET_KEY: string;
             EMAIL: string;
             EMAIL_PASS: string;
+            IMGUR_CLIENT_ID: string;
+            IMAGE_DB_PATH: string;
         }
     }
 }
