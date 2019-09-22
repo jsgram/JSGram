@@ -12,9 +12,6 @@ import {
     UPLOAD_NEXT_POSTS,
     ADD_USER_LIKE_TO_SELECTED_POST,
     REMOVE_USER_LIKE_FROM_SELECTED_POST,
-    SET_COMMENTS_TO_POST,
-    ADD_COMMENT,
-    RESET_COMMENT,
     NEW_DESCRIPTION_FOR_POST,
     CHANGE_EDIT_STATUS_POST,
 } from './actionTypes';
@@ -212,30 +209,6 @@ export const postReducer = (
                     }
                     return post;
                 }),
-            };
-        case SET_COMMENTS_TO_POST:
-            return {
-                ...state,
-                selectedPost: {
-                    ...state.selectedPost,
-                    fullComments: action.payload,
-                },
-            };
-        case ADD_COMMENT:
-            return {
-                ...state,
-                selectedPost: {
-                    ...state.selectedPost,
-                    comment: action.payload,
-                },
-            };
-        case RESET_COMMENT:
-            return {
-                ...state,
-                selectedPost: {
-                    ...state.selectedPost,
-                    comment: '',
-                },
             };
         default:
             return state;
