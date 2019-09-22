@@ -56,7 +56,7 @@ class Menu extends React.Component<IMenuProps> {
         isMenuOpen: false,
     };
 
-    public toggle = (e: any): void => {
+    public toggle = (e: React.ChangeEvent<HTMLInputElement>): void => {
         this.setState({
             isMenuOpen: e.target.value.trim() !== '',
         });
