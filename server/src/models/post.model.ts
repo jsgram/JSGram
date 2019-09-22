@@ -1,5 +1,6 @@
 import { Schema, Document, model } from 'mongoose';
 import { ILikeModel } from './like.model';
+import { IUserModel } from './user.model';
 import { ICommentModel } from './comment.model';
 
 export interface IPostModel extends Document {
@@ -8,7 +9,7 @@ export interface IPostModel extends Document {
     description?: string;
     comments?: ICommentModel['_id'];
     tags?: string[];
-    likes?: ILikeModel['_id'];
+    authorsOfLike?: IUserModel['_id'];
     createdAt: Date;
 }
 

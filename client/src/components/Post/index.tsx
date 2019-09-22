@@ -11,7 +11,7 @@ import noAvatar from '../../assets/noAvatar.png';
 import ProfileLikes from '../../containers/ProfileLikesContainer';
 import { IPost } from '../../store/post/reducers';
 import Comments from '../Comments';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 interface IProps {
     userPosts: any;
@@ -98,6 +98,7 @@ export default class Post extends React.Component<IProps> {
         const {userPosts, user,
         }: any = this.props;
         const {selectedPost: {description: desc}}: any = userPosts;
+
         return (
             <div className='container justify-content-center'>
                 <div className='row mt-5 profile-post'>
@@ -140,6 +141,7 @@ export default class Post extends React.Component<IProps> {
                                         userPosts.selectedPost.author === this.props.loggedId &&
                                         (
                                             <MenuPost
+                                                authorId={this.props.user._id}
                                                 post={userPosts.selectedPost}
                                                 toggleEdit={this.toggleEdit}
                                                 toggleModal={this.toggle}
@@ -189,6 +191,7 @@ export default class Post extends React.Component<IProps> {
                                             (
                                                 <div className='d-lg-block d-none float-right'>
                                                     <MenuPost
+                                                        authorId={this.props.user._id}
                                                         post={userPosts.selectedPost}
                                                         toggleEdit={this.toggleEdit}
                                                         toggleModal={this.toggle}

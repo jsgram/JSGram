@@ -11,8 +11,7 @@ import { profileEditReducer } from './profileEdit/reducers';
 import { newsFeedReducer } from './newsFeed/reducers';
 import { likesReducer } from './likes/reducers';
 import { commentsReducer } from './comments/reducers';
-import { followersReducer } from './subscribers/followers/reducers';
-import { followingReducer } from './subscribers/following/reducers';
+import { subscribersReducer } from './subscribers/reducers';
 
 export default combineReducers({
     form: formReducer,
@@ -27,6 +26,5 @@ export default combineReducers({
     newsFeed: newsFeedReducer,
     likes: likesReducer,
     comments: commentsReducer,
-    followers: followersReducer,
-    following: followingReducer,
+    subscribers: subscribersReducer,
 });
