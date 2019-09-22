@@ -90,13 +90,13 @@ class Comments extends React.Component<ICommentsProps> {
                             )
                         }
                     />
-                    <div className='d-flex justify-content-between mt-1'>
-                        <i className='fa fa-times-circle text-danger icon-edit'
+                    <div className='d-inline float-right edit-delete-comment mt-1'>
+                        <i className='fa fa-times fa-lg text-danger mr-2 icon-edit'
                             onClick={(): void => this.props.changeEditStatus(
                                 comment._id,
                             )}>
                         </i>
-                        <i className='fa fa-check-circle text-success icon-edit'
+                        <i className='fa fa-check fa-lg text-success icon-edit'
                             onClick={(): void => this.editComment(
                                 comment.newComment,
                                 comment._id,
