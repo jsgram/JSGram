@@ -29,8 +29,12 @@ export interface ISubscribersProps {
 export class Subscribers extends React.Component<ISubscribersProps> {
     public componentDidUpdate(prevProps: any): void {
         if (prevProps.loggedId !== this.props.loggedId) {
-            const subscribers = this.props.path.includes('following') ? 'following' : 'followers';
-            this.props.getSubscribers(this.props.loggedId, subscribers, this.props.urlUsername, this.props.page);
+            this.props.getSubscribers(
+                this.props.loggedId,
+                this.getParamForSubscribers(),
+                this.props.urlUsername,
+                this.props.page,
+            );
             this.props.getUser(this.props.urlUsername);
         }
     }
@@ -41,8 +45,11 @@ export class Subscribers extends React.Component<ISubscribersProps> {
 
     public getMoreFollowers = (): void => {
         if (!this.props.allSubscribersLoaded && this.props.loggedId) {
-            const subscribers = this.props.path.includes('following') ? 'following' : 'followers';
-            this.props.getSubscribers(this.props.loggedId, subscribers, this.props.urlUsername, this.props.page);
+            this.props.getSubscribers(
+                this.props.loggedId,
+                this.getParamForSubscribers(),
+                this.props.urlUsername, this.props.page,
+            );
         }
     }
 
@@ -148,4 +155,6 @@ export class Subscribers extends React.Component<ISubscribersProps> {
             </Container>
         );
     }
+
+    private getParamForSubscribers = (): string => this.props.path.includes('following') ? 'following' : 'followers';
 }
