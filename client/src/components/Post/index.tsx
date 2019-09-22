@@ -81,8 +81,7 @@ export default class Post extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        const { userPosts, user,
-        }: any = this.props;
+        const { userPosts, user }: any = this.props;
         const { selectedPost: { description: desc } }: any = userPosts;
         return (
             <div className='container justify-content-center'>

@@ -5,6 +5,14 @@ import { connect } from 'react-redux';
 import { onChangeComment, addComment } from '../../store/comments/actions';
 import { IComments } from '../../store/comments/reducers';
 
+interface IProps {
+    loggedId: string;
+    postId: string;
+    onChangeComments: Array<{ postId: string, comment: string }>;
+    onChangeComment: (postId: string, event: string) => void;
+    addComment: (postId: string, loggedId: string, commentValue: string) => void;
+}
+
 interface ILocalState {
     loggedId: string;
     postId: string;
@@ -16,8 +24,8 @@ interface IState {
     comments: IComments;
 }
 
-class WriteComment extends React.Component<any> {
-    public onCommentChange = (postId: any, event: React.ChangeEvent<HTMLTextAreaElement>): void => {
+class WriteComment extends React.Component<IProps> {
+    public onCommentChange = (postId: string, event: React.ChangeEvent<HTMLTextAreaElement>): void => {
         this.props.onChangeComment(postId, event.target.value);
     }
 
