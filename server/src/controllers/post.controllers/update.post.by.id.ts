@@ -4,11 +4,16 @@ import { getTags } from '../../helpers/getTags.post';
 
 export const update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const id = req.params.id;
-        const description = req.body.description;
+        const {params: {id: postId}, body: {description, authorId}}:
+            { params: { id: string }, body: { description: string, authorId: string } } = req;
+        const {locals: {user: {id: userId, isAdmin}}}: { locals: { user: { id: string, isAdmin: boolean } } } = res;
+
+        if (authorId !== userId && !isAdmin) {
+            throw new Error(`Unauthorized attempt to update post ${postId}.`);
+        }
+
         const tags = getTags(description);
-        const userId = res.locals.user._id;
-        const updPost = await updatePost(id, description, tags, userId, next);
+        const updPost = await updatePost(postId, description, tags, userId, next);
 
         res.json({message: 'Post was successfully updated', updPost});
     } catch (e) {
