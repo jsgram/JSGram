@@ -1,7 +1,5 @@
 import { Schema, Document, Model, model } from 'mongoose';
 import { IPostModel, Post } from './post.model';
-import { Comment } from './comment.model';
-import { Like } from './like.model';
 
 export interface IUserSubscriptions {
     isNewsEmail: boolean;
@@ -144,14 +142,6 @@ const UserSchema: Schema = new Schema({
         default: '',
         required: false,
     },
-});
-
-UserSchema.pre('remove', function(next: any): void {
-    Post.remove({author: this._id}).exec();
-    Comment.remove({authorId: this._id}).exec();
-    Like.remove({userId: this._id}).exec();
-    console.log('good');
-    next();
 });
 
 export const User: Model<IUserModel> = model<IUserModel>('User', UserSchema);
