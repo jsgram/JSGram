@@ -1,5 +1,9 @@
 @import '../../styles/variables';
 
+.icon {
+  cursor: pointer;
+}
+
 .edit-post {
   &:hover {
     font-weight: 700;
