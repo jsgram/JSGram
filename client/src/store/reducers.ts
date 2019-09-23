@@ -12,6 +12,7 @@ import { newsFeedReducer } from './newsFeed/reducers';
 import { likesReducer } from './likes/reducers';
 import { commentsReducer } from './comments/reducers';
 import { subscribersReducer } from './subscribers/reducers';
+import { searchReducer } from './search/reducers';
 
 export default combineReducers({
     form: formReducer,
@@ -27,4 +28,5 @@ export default combineReducers({
     likes: likesReducer,
     comments: commentsReducer,
     subscribers: subscribersReducer,
+    search: searchReducer,
 });
