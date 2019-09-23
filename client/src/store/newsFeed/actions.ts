@@ -49,7 +49,7 @@ export const getNewsFeedAsync = (): (dispatch: Dispatch) => Promise<void> =>
             dispatch(getNewsFeedSuccess(res.data.feed));
             dispatch(clearNewsFeedLoaded());
         } catch (e) {
-            dispatch(showAlert(e.response.data.message, 'danger'));
+            dispatch(showAlert(e, 'danger'));
         }
     };
 
