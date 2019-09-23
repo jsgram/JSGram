@@ -53,7 +53,7 @@ class MenuPost extends React.Component<IProps, IState> {
     public render(): JSX.Element {
         return (
                 <Dropdown isOpen={this.state.isMenuOpen} toggle={this.toggle} color='light'>
-                    <DropdownToggle tag='a' className='nav-link'>
+                    <DropdownToggle tag='a' className='nav-link icon'>
                         <i className='fa fa-ellipsis-v fa-lg' />
                     </DropdownToggle>
                     <DropdownMenu>
