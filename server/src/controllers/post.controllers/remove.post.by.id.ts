@@ -1,12 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
 import { deletePost } from '../../db.requests/deletePost.request';
 import { uploadImage } from '../../helpers/uploadImage';
-import { bucket,
+import {
+    bucket,
     acl,
     secretAccessKey,
     accessKeyId,
     region,
-    fileSize } from '../../common.constants/aws.multer.post.constants';
+    fileSize,
+} from '../../common.constants/aws.multer.post.constants';
 
 const awsConfig = {
     bucket,
@@ -21,7 +23,7 @@ export const remove = async (req: Request, res: Response, next: NextFunction): P
     try {
         const {locals: {user: {id: userId, isAdmin}}}: {locals: {user: {id: string, isAdmin: boolean}}} = res;
         const {params: {id: postId}, body: {authorId}}: {params: {id: string}, body: {authorId: string}} = req;
-        const delPost = await deletePost(postId, userId, next);
+        const delPost = await deletePost(postId, userId, isAdmin, next);
 
         if (authorId !== userId && !isAdmin) {
             throw new Error(`Unauthorized attempt to delete post ${postId}.`);

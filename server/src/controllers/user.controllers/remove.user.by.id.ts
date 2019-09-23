@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { deleteUser } from '../../db.requests/delete.user.requests';
+import { deletePost } from '../../db.requests/deletePost.request';
 
 export const remove = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
