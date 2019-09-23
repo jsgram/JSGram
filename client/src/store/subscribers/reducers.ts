@@ -10,14 +10,9 @@ const defaultState = {
     page: 1,
     loading: false,
     allSubscribersLoaded: false,
-    subscribers: [{
-        _id: '',
-        username: '',
-        photoPath: '',
-        followers: [],
-        following: [],
-        alreadyFollow: false,
-    }],
+    subscribers: [],
+    followersCount: 0,
+    followingCount: 0,
 };
 
 export const subscribersReducer = (state: any = defaultState, action: { type: string, payload: any }): any => {
@@ -32,11 +27,26 @@ export const subscribersReducer = (state: any = defaultState, action: { type: st
                 ...subscriber,
                 alreadyFollow: subscriber.followers.includes(action.payload.loggedId),
             }));
+            const subscribersCount = (subscribersNumber: number, typeOfSubscribers: string): number | string => {
+                if (subscribersNumber) {
+                    return subscribersNumber;
+                }
+
+                if (typeOfSubscribers === 'followers') {
+                    return state.followersCount;
+                }
+
+                return state.followingCount;
+            };
+            const k = subscribersCount(action.payload.followersCount, 'followers');
+            console.log(7, k);
             return {
                 ...state,
                 subscribers: [...state.subscribers, ...newSubscribers],
                 page: action.payload.page,
                 loading: false,
+                followersCount: subscribersCount(action.payload.followersCount, 'followers'),
+                followingCount: subscribersCount(action.payload.followingCount, 'following'),
             };
         case ALL_SUBSCRIBERS_LOADED:
             return {

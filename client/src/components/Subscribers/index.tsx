@@ -15,11 +15,20 @@ export interface ISubscribersProps {
     page: number;
     allSubscribersLoaded: boolean;
     subscribers: [];
+    followersCount: number;
+    followingCount: number;
     loaded: boolean;
     loading: boolean;
     loadFollow: boolean;
     getUser: (username: string) => void;
-    getSubscribers: (loggedId: string, subscribers: string, urlUsername: string, page: number) => void;
+    getSubscribers: (
+        loggedId: string,
+        subscribers: string,
+        urlUsername: string,
+        page: number,
+        followersCount?: number,
+        followingCount?: number,
+    ) => void;
     changeUserFollowing: (_id: string) => void;
     resetSubscribers: () => void;
     followUser: (body: { _id: string }) => void;
@@ -27,6 +36,10 @@ export interface ISubscribersProps {
 }
 
 export class Subscribers extends React.Component<ISubscribersProps> {
+    // public componentDidMount(): void {
+    //     this.props.getUser(this.props.urlUsername);
+    // }
+
     public componentDidUpdate(prevProps: any): void {
         if (prevProps.loggedId !== this.props.loggedId) {
             this.props.getSubscribers(
@@ -34,8 +47,9 @@ export class Subscribers extends React.Component<ISubscribersProps> {
                 this.getParamForSubscribers(),
                 this.props.urlUsername,
                 this.props.page,
+                this.props.user.followers.length,
+                this.props.user.following.length,
             );
-            this.props.getUser(this.props.urlUsername);
         }
     }
 
@@ -94,24 +108,28 @@ export class Subscribers extends React.Component<ISubscribersProps> {
             <Container>
                 <Menu/>
                 <div className='d-flex justify-content-center'>
+                    {/*{this.props.followersCount &&*/}
                     <Link to={`/profile/${this.props.urlUsername}/followers`} className='link-style'
                           style={{textDecoration: !subscribers ? 'underline' : 'none'}}
                     >
                         <h4
                             className='font-weight-light text-secondary text-uppercase'
                         >
-                            {this.props.user.followers.length} followers
+                            {this.props.followersCount} followers
                         </h4>
                     </Link>
-                    <Link to={`/profile/${this.props.urlUsername}/following`} className='link-style'
-                          style={{textDecoration: subscribers ? 'underline' : 'none'}}
+                    {/*}*/}
+                    {/*{this.props.followingCount &&*/}
+                    < Link to={`/profile/${this.props.urlUsername}/following`} className='link-style'
+                           style={{textDecoration: subscribers ? 'underline' : 'none'}}
                     >
                         <h4
                             className='font-weight-light text-secondary text-uppercase'
                         >
-                            {this.props.user.following.length} following
+                            {this.props.followingCount} following
                         </h4>
                     </Link>
+                    {/*}*/}
                 </div>
                 <div className='d-flex justify-content-center'>
                     <div className='follow-wrapper'>

@@ -15,44 +15,48 @@ interface ISubscribersState {
 }
 
 interface ISubscribersLocalProps {
-    user: IUserData;
     loggedId: string;
+    user: IUserData;
     page: number;
     loaded: boolean;
     loading: boolean;
     allSubscribersLoaded: boolean;
     subscribers: [];
+    followersCount: number;
+    followingCount: number;
     loadFollow: boolean;
 }
 
-type SubscribersProps = ISubscribersProps & {match: {path: string}};
+type SubscribersProps = ISubscribersProps & { match: { path: string } };
 
 class SubscribersContainer extends React.Component<SubscribersProps> {
     public render(): JSX.Element {
         return (
-            <Subscribers
-                path={this.props.match.path}
-                loggedId={this.props.loggedId}
-                urlUsername={this.props.urlUsername}
-                user={this.props.user}
-                page={this.props.page}
-                allSubscribersLoaded={this.props.allSubscribersLoaded}
-                subscribers={this.props.subscribers}
-                loaded={this.props.loaded}
-                loading={this.props.loading}
-                loadFollow={this.props.loadFollow}
-                getUser={this.props.getUser}
-                getSubscribers={this.props.getSubscribers}
-                resetSubscribers={this.props.resetSubscribers}
-                changeUserFollowing={this.props.changeUserFollowing}
-                followUser={this.props.followUser}
-                unfollowUser={this.props.unfollowUser}
-            />
+                    <Subscribers
+                        path={this.props.match.path}
+                        loggedId={this.props.loggedId}
+                        urlUsername={this.props.urlUsername}
+                        user={this.props.user}
+                        page={this.props.page}
+                        allSubscribersLoaded={this.props.allSubscribersLoaded}
+                        subscribers={this.props.subscribers}
+                        followersCount={this.props.followersCount}
+                        followingCount={this.props.followingCount}
+                        loaded={this.props.loaded}
+                        loading={this.props.loading}
+                        loadFollow={this.props.loadFollow}
+                        getUser={this.props.getUser}
+                        getSubscribers={this.props.getSubscribers}
+                        resetSubscribers={this.props.resetSubscribers}
+                        changeUserFollowing={this.props.changeUserFollowing}
+                        followUser={this.props.followUser}
+                        unfollowUser={this.props.unfollowUser}
+                    />
         );
     }
 }
 
-const mapStateToProps = (state: ISubscribersState): ISubscribersLocalProps => ({
+const mapStateToProps = (state: ISubscribersState): any => ({
     loggedId: state.feed.loggedId,
     user: state.profile.user,
     page: state.subscribers.page,
@@ -60,6 +64,8 @@ const mapStateToProps = (state: ISubscribersState): ISubscribersLocalProps => ({
     loading: state.subscribers.loading,
     allSubscribersLoaded: state.subscribers.allSubscribersLoaded,
     subscribers: state.subscribers.subscribers,
+    followersCount: state.subscribers.followersCount,
+    followingCount: state.subscribers.followingCount,
     loadFollow: state.subscribers.loading,
 });
 
