@@ -16,6 +16,7 @@ import {
     FOLLOW_USER,
     UNFOLLOW_USER,
     FOLLOW_USER_PENDING,
+    DELETE_USER_PENDING,
 } from './actionTypes';
 import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
@@ -24,6 +25,7 @@ import { showAlert } from '../alert/actions';
 import { IUserSubscriptions } from '../../containers/ProfileSubscriptionsContainer';
 import { IUserPrivacy } from '../../containers/ProfilePrivacyContainer';
 import {base64ToFile, createDataForAWS} from '../../helpers/upload.photo';
+import {history} from "../../history";
 
 export const getUserPending = (): { type: string } => ({
     type: GET_USER_PENDING,
@@ -181,5 +183,20 @@ export const unfollowUser = (body: {_id: string}): (dispatch: Dispatch) => Promi
             dispatch(removeFollowUser(res.data.updatedLoggedUser._id, res.data.updatedFollowingUserId.followers));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
+        }
+    };
+
+export const deleteUserPending = (): { type: string } => ({
+    type: DELETE_USER_PENDING,
+});
+export const deleteUser = (id: string): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            dispatch((deleteUserPending()));
+            await AuthAPI.delete(`/user/${id}`);
+            dispatch(showAlert('You have deleted user successfully', 'success'));
+            history.push('/feed');
+        } catch (e) {
+            dispatch(showAlert('Error when delete user', 'danger'));
         }
     };
