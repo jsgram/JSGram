@@ -21,7 +21,7 @@ export interface ISubscribersProps {
     loading: boolean;
     loadFollow: boolean;
     getUser: (username: string) => void;
-    getSubscribers: (loggedId: string, subscribers: string, urlUsername: string, page: number,) => void;
+    getSubscribers: (loggedId: string, subscribers: string, urlUsername: string, page: number) => void;
     setSubscribersCount: (followersCount: number, followingCount: number) => void;
     changeUserFollowing: (_id: string, followType: string) => void;
     resetSubscribers: () => void;

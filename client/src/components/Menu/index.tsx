@@ -24,7 +24,7 @@ const users = [
     {id: 6, image: noAvatar, username: 'rostyslav', fullname: 'Rostyslva Khanas'},
     {id: 7, image: noAvatar, username: 'ihorkalyta', fullname: 'Ihor Kalyta'},
     {id: 8, image: noAvatar, username: 'marianna', fullname: 'Marianna Petrivska'},
-]
+];
 
 interface IUsers {
     id: number;

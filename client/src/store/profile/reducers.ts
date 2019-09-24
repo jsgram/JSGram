@@ -164,7 +164,6 @@ export const profileReducer = (
             };
         case FOLLOW_USER:
         case UNFOLLOW_USER:
-            console.log(14, action.payload.urlUserFollowers);
             return {
                 ...state,
                 loadFollow: false,
