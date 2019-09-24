@@ -36,7 +36,7 @@ interface IState {
 interface IOwnCommentsProps {
     getComments: (postId: string, commentState: any, commentsLoaded?: boolean) => void;
     resetComments: () => void;
-    editCommentAsync: (comment: string, commentId: string, email: string) => void;
+    editCommentAsync: (comment: string, commentId: string) => void;
     changeEditStatus: (commentId: string) => void;
     changeComment: (comment: string, commentId: string) => void;
     deleteComment: (postId: string, authorId: string) => void;
@@ -67,8 +67,8 @@ class Comments extends React.Component<ICommentsProps> {
         this.props.resetComments();
     }
 
-    public editComment = (comment: string, id: string, email: string): void => {
-        this.props.editCommentAsync(comment, id, email);
+    public editComment = (comment: string, id: string): void => {
+        this.props.editCommentAsync(comment, id);
     }
 
     public onDeleteComment = (commentId: string, authorId: string): void => {
@@ -103,7 +103,6 @@ class Comments extends React.Component<ICommentsProps> {
                             onClick={(): void => this.editComment(
                                 comment.newComment,
                                 comment._id,
-                                comment.authorId.email,
                             )}>
                         </i>
                     </div>

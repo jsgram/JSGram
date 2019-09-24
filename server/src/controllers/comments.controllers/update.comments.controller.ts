@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { updateComment } from '../../db.requests/update.comment.request';
-import { IUserModel } from '../../models/user.model';
+import { IUserModel, User } from '../../models/user.model';
+import { Comment } from '../../models/comment.model';
 
 interface IParams {
     params: {
@@ -18,11 +19,19 @@ interface IReqBody {
 export const update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const {params: {id}}: IParams = req;
-        const {body: {comment, email}}: IReqBody = req;
+        const {body: {comment}}: IReqBody = req;
         const {locals: {user: {email: decodedTokenEmail, isAdmin}}}: { locals: { user: IUserModel } } = res;
 
-        if (decodedTokenEmail !== email && !isAdmin) {
-            throw new Error('You don\'t have permission to change comment');
+        const searchComment = await Comment.findById(id);
+        if (!searchComment) {
+            throw new Error('Comment doesn\'t exist');
+        }
+
+        const user = await User.findById(searchComment.authorId);
+        if (user && decodedTokenEmail !== user.email) {
+            if (!isAdmin) {
+                throw new Error('You don\'t have permission to change comment');
+            }
         }
 
         const updatedComment = await updateComment(id, comment, next);
