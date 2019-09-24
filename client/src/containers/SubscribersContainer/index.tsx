@@ -2,8 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Subscribers, ISubscribersProps } from '../../components/Subscribers';
 import { IFeedState } from '../../store/feed/reducers';
-import { changeUserFollowing, getSubscribers, resetSubscribers } from '../../store/subscribers/actions';
-import { followUser, getUser, unfollowUser } from '../../store/profile/actions';
+import {
+    changeUserFollowing,
+    getSubscribers,
+    setSubscribersCount,
+    resetSubscribers,
+} from '../../store/subscribers/actions';
+import { getUser } from '../../store/profile/actions';
 import { IUserData } from '../../components/Profile';
 
 interface ISubscribersState {
@@ -47,16 +52,15 @@ class SubscribersContainer extends React.Component<SubscribersProps> {
                         loadFollow={this.props.loadFollow}
                         getUser={this.props.getUser}
                         getSubscribers={this.props.getSubscribers}
+                        setSubscribersCount={this.props.setSubscribersCount}
                         resetSubscribers={this.props.resetSubscribers}
                         changeUserFollowing={this.props.changeUserFollowing}
-                        followUser={this.props.followUser}
-                        unfollowUser={this.props.unfollowUser}
                     />
         );
     }
 }
 
-const mapStateToProps = (state: ISubscribersState): any => ({
+const mapStateToProps = (state: ISubscribersState): ISubscribersLocalProps => ({
     loggedId: state.feed.loggedId,
     user: state.profile.user,
     page: state.subscribers.page,
@@ -72,10 +76,9 @@ const mapStateToProps = (state: ISubscribersState): any => ({
 const mapDispatchToProps = {
     getUser,
     getSubscribers,
+    setSubscribersCount,
     resetSubscribers,
     changeUserFollowing,
-    followUser,
-    unfollowUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubscribersContainer);

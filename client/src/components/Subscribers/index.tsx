@@ -21,34 +21,29 @@ export interface ISubscribersProps {
     loading: boolean;
     loadFollow: boolean;
     getUser: (username: string) => void;
-    getSubscribers: (
-        loggedId: string,
-        subscribers: string,
-        urlUsername: string,
-        page: number,
-        followersCount?: number,
-        followingCount?: number,
-    ) => void;
-    changeUserFollowing: (_id: string) => void;
+    getSubscribers: (loggedId: string, subscribers: string, urlUsername: string, page: number,) => void;
+    setSubscribersCount: (followersCount: number, followingCount: number) => void;
+    changeUserFollowing: (_id: string, followType: string) => void;
     resetSubscribers: () => void;
-    followUser: (body: { _id: string }) => void;
-    unfollowUser: (body: { _id: string }) => void;
 }
 
 export class Subscribers extends React.Component<ISubscribersProps> {
-    // public componentDidMount(): void {
-    //     this.props.getUser(this.props.urlUsername);
-    // }
+    public componentDidMount(): void {
+        this.props.getUser(this.props.urlUsername);
+    }
 
     public componentDidUpdate(prevProps: any): void {
+        if (prevProps.user !== this.props.user) {
+            const {followers, following}: IUserData = this.props.user;
+            this.props.setSubscribersCount(followers.length, following.length);
+        }
+
         if (prevProps.loggedId !== this.props.loggedId) {
             this.props.getSubscribers(
                 this.props.loggedId,
                 this.getParamForSubscribers(),
                 this.props.urlUsername,
                 this.props.page,
-                this.props.user.followers.length,
-                this.props.user.following.length,
             );
         }
     }
@@ -62,19 +57,18 @@ export class Subscribers extends React.Component<ISubscribersProps> {
             this.props.getSubscribers(
                 this.props.loggedId,
                 this.getParamForSubscribers(),
-                this.props.urlUsername, this.props.page,
+                this.props.urlUsername,
+                this.props.page,
             );
         }
     }
 
     public followSubscriber = (_id: string): void => {
-        this.props.followUser({_id});
-        this.props.changeUserFollowing(_id);
+        this.props.changeUserFollowing(_id, 'follow');
     }
 
     public unfollowSubscriber = (_id: string): void => {
-        this.props.unfollowUser({_id});
-        this.props.changeUserFollowing(_id);
+        this.props.changeUserFollowing(_id, 'unFollow');
     }
 
     public dynamicButton = (_id: string, alreadyFollow: boolean): JSX.Element => {
@@ -108,7 +102,6 @@ export class Subscribers extends React.Component<ISubscribersProps> {
             <Container>
                 <Menu/>
                 <div className='d-flex justify-content-center'>
-                    {/*{this.props.followersCount &&*/}
                     <Link to={`/profile/${this.props.urlUsername}/followers`} className='link-style'
                           style={{textDecoration: !subscribers ? 'underline' : 'none'}}
                     >
@@ -118,8 +111,6 @@ export class Subscribers extends React.Component<ISubscribersProps> {
                             {this.props.followersCount} followers
                         </h4>
                     </Link>
-                    {/*}*/}
-                    {/*{this.props.followingCount &&*/}
                     < Link to={`/profile/${this.props.urlUsername}/following`} className='link-style'
                            style={{textDecoration: subscribers ? 'underline' : 'none'}}
                     >
@@ -129,7 +120,6 @@ export class Subscribers extends React.Component<ISubscribersProps> {
                             {this.props.followingCount} following
                         </h4>
                     </Link>
-                    {/*}*/}
                 </div>
                 <div className='d-flex justify-content-center'>
                     <div className='follow-wrapper'>
