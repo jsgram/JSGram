@@ -1,12 +1,21 @@
-import { Post, IPostModel } from '../models/post.model';
+import { Post } from '../models/post.model';
 import { User } from '../models/user.model';
 import { NextFunction } from 'express';
 
-export const deletePost = async (postId: string, userId: string, next: NextFunction): Promise<any> => {
+export const deletePost = async (
+    postId: string,
+    userId: string,
+    isAdmin: boolean,
+    next: NextFunction,
+): Promise<any> => {
     try {
         const delPost = await Post.findById(postId);
-        if (!delPost || delPost.author.toString() !== userId.toString()) {
+        if (!delPost) {
             throw new Error('Post doesn\'t exist');
+        }
+
+        if (!isAdmin && delPost.author.toString() !== userId.toString()) {
+            throw new Error('You do not have permission to delete post');
         }
         delPost.remove();
 

@@ -1,5 +1,5 @@
 import { Schema, Document, Model, model } from 'mongoose';
-import { IPostModel } from './post.model';
+import { IPostModel, Post } from './post.model';
 
 export interface IUserSubscriptions {
     isNewsEmail: boolean;

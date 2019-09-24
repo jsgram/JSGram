@@ -36,7 +36,7 @@ interface IState {
 interface IOwnCommentsProps {
     getComments: (postId: string, commentState: any, commentsLoaded?: boolean) => void;
     resetComments: () => void;
-    editCommentAsync: (comment: string, commentId: string, email: string) => void;
+    editCommentAsync: (comment: string, commentId: string) => void;
     changeEditStatus: (commentId: string) => void;
     changeComment: (comment: string, commentId: string) => void;
     deleteComment: (postId: string, authorId: string) => void;
@@ -67,8 +67,8 @@ class Comments extends React.Component<ICommentsProps> {
         this.props.resetComments();
     }
 
-    public editComment = (comment: string, id: string, email: string): void => {
-        this.props.editCommentAsync(comment, id, email);
+    public editComment = (comment: string, id: string): void => {
+        this.props.editCommentAsync(comment, id);
     }
 
     public onDeleteComment = (commentId: string, authorId: string): void => {
@@ -100,11 +100,10 @@ class Comments extends React.Component<ICommentsProps> {
                            )}>
                         </i>
                         <i className='fa fa-check fa-lg text-success icon-edit'
-                           onClick={(): void => this.editComment(
-                               comment.newComment,
-                               comment._id,
-                               comment.authorId.email,
-                           )}>
+                            onClick={(): void => this.editComment(
+                                comment.newComment,
+                                comment._id,
+                            )}>
                         </i>
                     </div>
                 </>
@@ -147,26 +146,30 @@ class Comments extends React.Component<ICommentsProps> {
                     {this.props.comments && this.props.comments.map((comment: any) => (
                         <div key={comment._id}>
                             {comment.postId === this.props.postId &&
-                            <div className='one-comment px-3'>
-                                <div className='d-flex justify-content-between'>
-                                    <div className='w-100'>
-                                        <img
-                                            src={comment.authorId.photoPath || noAvatar}
-                                            alt='avatar'
-                                            width={24}
-                                            height={24}
-                                            className='img-fluid rounded-circle mt-1 mr-1 mb-1'
-                                        />
-                                        <Link to={`/profile/${comment.authorId.username}`}
-                                              className='text-dark mt-1'
-                                        >
-                                            {comment.authorId.username}
-                                        </Link>
-                                        {
-                                            this.props.feed.loggedUsername === comment.authorId.username
-                                                ? this.renderComment(comment)
-                                                : <p>{comment.comment}</p>
-                                        }
+                                <div className='one-comment px-3'>
+                                    <div className='d-flex justify-content-between'>
+                                        <div className='w-100'>
+                                            <img
+                                                src={comment.authorId.photoPath || noAvatar}
+                                                alt='avatar'
+                                                width={24}
+                                                height={24}
+                                                className='img-fluid rounded-circle mt-1 mr-1 mb-1'
+                                            />
+                                            <Link to={`/profile/${comment.authorId.username}`}
+                                                className='text-dark mt-1'
+                                            >
+                                                {comment.authorId.username}
+                                            </Link>
+                                            {
+                                                (
+                                                    this.props.feed.loggedUsername === comment.authorId.username
+                                                    || this.props.feed.isAdmin
+                                                )
+                                                    ? this.renderComment(comment)
+                                                    : <p>{comment.comment}</p>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
