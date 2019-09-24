@@ -35,7 +35,7 @@ export const resetSubscribers = (): { type: string } => ({
 });
 
 export const changeFollowing = (userId: string, followType: string):
-    { type: string, payload: {userId: string, followType: string} } => ({
+    { type: string, payload: { userId: string, followType: string } } => ({
         type: CHANGE_USER_FOLLOWING,
         payload: {userId, followType},
     });
@@ -59,8 +59,12 @@ export const getSubscribers = (loggedId: string, subscribers: string, urlUsernam
 export const changeUserFollowing = (_id: string, followType: string):
     (dispatch: Dispatch) => Promise<void> => async (dispatch: Dispatch): Promise<void> => {
         try {
-            followType === 'follow' ? await AuthAPI.post('/following/follow', {_id}) :
-            await AuthAPI.put(`/following/unfollow/${_id}`);
+            if (followType === 'follow') {
+                await AuthAPI.post('/following/follow', {_id});
+            } else {
+                await AuthAPI.put(`/following/unfollow/${_id}`);
+            }
+
             dispatch(changeFollowing(_id, followType));
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
