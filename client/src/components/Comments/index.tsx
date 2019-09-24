@@ -163,7 +163,10 @@ class Comments extends React.Component<ICommentsProps> {
                                                 {comment.authorId.username}
                                             </Link>
                                             {
-                                                this.props.feed.loggedUsername === comment.authorId.username
+                                                (
+                                                    this.props.feed.loggedUsername === comment.authorId.username
+                                                    || this.props.feed.isAdmin
+                                                )
                                                     ? this.renderComment(comment)
                                                     : <p>{comment.comment}</p>
                                             }

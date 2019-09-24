@@ -83,7 +83,7 @@ export const getComments = (postId: string, commentState: any, commentsLoaded?: 
 
             dispatch(getCommentsSuccess(postId, res.data.commentsAll, page + 1));
         } catch (e) {
-            dispatch(showAlert(e.response.data.message, 'danger'));
+            dispatch(showAlert(e, 'danger'));
         }
     };
 

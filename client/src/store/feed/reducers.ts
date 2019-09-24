@@ -4,6 +4,7 @@ export interface IFeedState {
     loggedUsername: string;
     loggedId: string;
     loggedPhotoPath: string;
+    isAdmin: boolean;
 }
 
 interface IAction {
@@ -12,6 +13,7 @@ interface IAction {
         loggedUsername: string,
         loggedId: string,
         loggedPhotoPath: string,
+        isAdmin: boolean,
     };
 }
 
@@ -19,6 +21,7 @@ const defaultState = {
     loggedUsername: '',
     loggedId: '',
     loggedPhotoPath: '',
+    isAdmin: false,
 };
 
 export const feedReducer = (state: IFeedState = defaultState, action: IAction): IFeedState => {
@@ -29,6 +32,7 @@ export const feedReducer = (state: IFeedState = defaultState, action: IAction): 
                 loggedUsername: action.payload.loggedUsername,
                 loggedId: action.payload.loggedId,
                 loggedPhotoPath: action.payload.loggedPhotoPath,
+                isAdmin: action.payload.isAdmin,
             };
         default:
             return state;
