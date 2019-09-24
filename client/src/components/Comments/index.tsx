@@ -88,16 +88,16 @@ class Comments extends React.Component<ICommentsProps> {
                         onChange={
                             (event: React.ChangeEvent<any>)
                                 : void => this.props.changeComment(
-                                    event.target.value,
-                                    comment._id,
-                                )
+                                event.target.value,
+                                comment._id,
+                            )
                         }
                     />
                     <div className='d-inline float-right edit-delete-comment mt-1'>
                         <i className='fa fa-times fa-lg text-danger mr-2 icon-edit'
-                            onClick={(): void => this.props.changeEditStatus(
-                                comment._id,
-                            )}>
+                           onClick={(): void => this.props.changeEditStatus(
+                               comment._id,
+                           )}>
                         </i>
                         <i className='fa fa-check fa-lg text-success icon-edit'
                             onClick={(): void => this.editComment(
@@ -118,7 +118,7 @@ class Comments extends React.Component<ICommentsProps> {
                         />
                         <i className='fa fa-trash-o delete-comment' onClick={
                             (): void => this.onDeleteComment(comment._id, comment.authorId._id)
-                        } />
+                        }/>
                     </div>
                     <p>{comment.comment}</p>
                 </>
@@ -129,12 +129,12 @@ class Comments extends React.Component<ICommentsProps> {
         <div
             className='d-inline float-left get-more-comments'>
             {!this.props.allCommentsLoaded.some((post: any) => post === this.props.postId) &&
-                <p
-                    className='get-comments'
-                    onClick={this.getMoreComments}
-                >
-                    Get more comments
-                </p>
+            <p
+                className='get-comments'
+                onClick={this.getMoreComments}
+            >
+                Get more comments
+            </p>
             }
         </div>
     )
@@ -172,6 +172,7 @@ class Comments extends React.Component<ICommentsProps> {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             }
                         </div>
                     ))}
