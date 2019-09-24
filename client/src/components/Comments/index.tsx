@@ -88,23 +88,23 @@ class Comments extends React.Component<ICommentsProps> {
                         onChange={
                             (event: React.ChangeEvent<any>)
                                 : void => this.props.changeComment(
-                                    event.target.value,
-                                    comment._id,
-                                )
+                                event.target.value,
+                                comment._id,
+                            )
                         }
                     />
                     <div className='d-inline float-right edit-delete-comment mt-1'>
                         <i className='fa fa-times fa-lg text-danger mr-2 icon-edit'
-                            onClick={(): void => this.props.changeEditStatus(
-                                comment._id,
-                            )}>
+                           onClick={(): void => this.props.changeEditStatus(
+                               comment._id,
+                           )}>
                         </i>
                         <i className='fa fa-check fa-lg text-success icon-edit'
-                            onClick={(): void => this.editComment(
-                                comment.newComment,
-                                comment._id,
-                                comment.authorId.email,
-                            )}>
+                           onClick={(): void => this.editComment(
+                               comment.newComment,
+                               comment._id,
+                               comment.authorId.email,
+                           )}>
                         </i>
                     </div>
                 </>
@@ -119,7 +119,7 @@ class Comments extends React.Component<ICommentsProps> {
                         />
                         <i className='fa fa-trash-o delete-comment' onClick={
                             (): void => this.onDeleteComment(comment._id, comment.authorId._id)
-                        } />
+                        }/>
                     </div>
                     <p>{comment.comment}</p>
                 </>
@@ -130,12 +130,12 @@ class Comments extends React.Component<ICommentsProps> {
         <div
             className='d-inline float-left get-more-comments'>
             {!this.props.allCommentsLoaded.some((post: any) => post === this.props.postId) &&
-                <p
-                    className='get-comments'
-                    onClick={this.getMoreComments}
-                >
-                    Get more comments
-                </p>
+            <p
+                className='get-comments'
+                onClick={this.getMoreComments}
+            >
+                Get more comments
+            </p>
             }
         </div>
     )
@@ -147,29 +147,29 @@ class Comments extends React.Component<ICommentsProps> {
                     {this.props.comments && this.props.comments.map((comment: any) => (
                         <div key={comment._id}>
                             {comment.postId === this.props.postId &&
-                                <div className='one-comment px-3'>
-                                    <div className='d-flex justify-content-between'>
-                                        <div className='w-100'>
-                                            <img
-                                                src={comment.authorId.photoPath || noAvatar}
-                                                alt='avatar'
-                                                width={24}
-                                                height={24}
-                                                className='img-fluid rounded-circle mt-1 mr-1 mb-1'
-                                            />
-                                            <Link to={`/profile/${comment.authorId.username}`}
-                                                className='text-dark mt-1'
-                                            >
-                                                {comment.authorId.username}
-                                            </Link>
-                                            {
-                                                this.props.feed.loggedUsername === comment.authorId.username
-                                                    ? this.renderComment(comment)
-                                                    : <p>{comment.comment}</p>
-                                            }
-                                        </div>
+                            <div className='one-comment px-3'>
+                                <div className='d-flex justify-content-between'>
+                                    <div className='w-100'>
+                                        <img
+                                            src={comment.authorId.photoPath || noAvatar}
+                                            alt='avatar'
+                                            width={24}
+                                            height={24}
+                                            className='img-fluid rounded-circle mt-1 mr-1 mb-1'
+                                        />
+                                        <Link to={`/profile/${comment.authorId.username}`}
+                                              className='text-dark mt-1'
+                                        >
+                                            {comment.authorId.username}
+                                        </Link>
+                                        {
+                                            this.props.feed.loggedUsername === comment.authorId.username
+                                                ? this.renderComment(comment)
+                                                : <p>{comment.comment}</p>
+                                        }
                                     </div>
                                 </div>
+                            </div>
                             }
                         </div>
                     ))}
