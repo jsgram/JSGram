@@ -229,6 +229,7 @@ export default class Post extends React.Component<IProps> {
                             spellCheck={false}
                             value={userPosts.selectedPost.newDescription}
                             onChange={this.onDescriptionChange}
+                            maxLength={200}
                         />
                         <Button
                             color='danger'
