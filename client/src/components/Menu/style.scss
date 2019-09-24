@@ -48,6 +48,12 @@
     color: $color-dove-gray;
   }
 
+  .search {
+    @media screen and (max-width: $break-medium) {
+      order: 1;
+    }
+  }
+
   .icon {
     color: $color-black;
 
