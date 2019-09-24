@@ -172,7 +172,6 @@ class Comments extends React.Component<ICommentsProps> {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             }
                         </div>
                     ))}
