@@ -44,25 +44,18 @@ export const addNextResults = (page: number): { type: string, payload: number } 
     payload: page,
 });
 
-export const getSearchResults = (query: string): (dispatch: Dispatch) => Promise<void> =>
-    async (dispatch: Dispatch): Promise<void> => {
-        try {
-            dispatch(clearLoaded());
-            const res = await AuthAPI.get(`/search/${query}/1`);
-            dispatch(getSearchResultsSuccess(res.data.users));
-        } catch (e) {
-            dispatch(showAlert(e.response.data.message, 'danger'));
-        }
-    };
-
-export const getMoreResults = (query: string, page: number): (dispatch: Dispatch) => Promise<void> =>
+export const getSearchResults = (query: string, page: number): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const res = await AuthAPI.get(`/search/${query}/${page}`);
-            dispatch(getMoreResultsSuccess(res.data.users));
+            if (page === 1) {
+                dispatch(clearLoaded());
+                dispatch(getSearchResultsSuccess(res.data.users));
+            } else {
+                dispatch(getMoreResultsSuccess(res.data.users));
+            }
             if (!res.data.users.length) {
                 dispatch(allResultsLoaded());
-                return;
             }
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));

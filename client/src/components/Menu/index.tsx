@@ -15,9 +15,8 @@ import { IStateProfileEdit } from '../../store/profileEdit/reducers';
 import noAvatar from '../../assets/noAvatar.png';
 import {
     setSearchValue,
-    getSearchResults,
     clearSearchResults,
-    getMoreResults,
+    getSearchResults,
     addNextResults,
 } from '../../store/search/actions';
 
@@ -46,9 +45,8 @@ interface IMenuProps {
     page: number;
     loaded: boolean;
     setSearchValue: (searchQuery: string) => void;
-    getSearchResults: (searchQuery: string) => void;
+    getSearchResults: (searchQuery: string, page: number) => void;
     clearSearchResults: () => void;
-    getMoreResults: (searchQuery: string, page: number) => void;
     addNextResults: (page: number) => void;
 }
 
@@ -70,7 +68,6 @@ class Menu extends React.Component<IMenuProps> {
         isMenuOpen: false,
     };
     public timer: any;
-    public myRef: any = React.createRef();
 
     public toggle = (searchQuery: string): void => {
         this.setState({
@@ -86,7 +83,7 @@ class Menu extends React.Component<IMenuProps> {
 
     public getMoreResults = async (): Promise<void> => {
         await this.props.addNextResults(this.props.page + 1);
-        this.props.getMoreResults(this.props.searchValue.trim(), this.props.page);
+        this.props.getSearchResults(this.props.searchValue.trim(), this.props.page);
     }
 
     public onSearchChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -98,7 +95,7 @@ class Menu extends React.Component<IMenuProps> {
         if (trimmedValue) {
             this.timer = setTimeout(async () => {
                 this.timer = null;
-                await this.props.getSearchResults(trimmedValue);
+                await this.props.getSearchResults(trimmedValue, 1);
                 this.toggle(trimmedValue);
             }, 500);
         } else {
@@ -127,9 +124,10 @@ class Menu extends React.Component<IMenuProps> {
                             value={searchValue}
                             onChange={this.onSearchChange}
                         />
-                        <Dropdown isOpen={this.state.isMenuOpen} color='light' className='search-menu'>
+                        <Dropdown isOpen={this.state.isMenuOpen} toggle={(): void => {this.toggle(searchValue); }}
+                                  color='light' className='search-menu'>
                             <DropdownToggle tag='a' className='nav-link m-0 p-0'/>
-                            <DropdownMenu className='scrollable-menu col-12' ref={this.myRef}>
+                            <DropdownMenu className='scrollable-menu col-12'>
                                 {!!searchResults.length ? searchResults.map((user: IUser) => (
                                         <Link to={`/profile/${user.username}`}
                                               className='text-decoration-none' key={user._id}>
@@ -154,7 +152,6 @@ class Menu extends React.Component<IMenuProps> {
                                 ) : <span className='ml-3'>No results...</span>}
                                 {!!searchResults.length && !loaded &&
                                 <Waypoint
-                                    scrollableAncestor={this.myRef.current.target}
                                     onEnter={(): void => {
                                         this.getMoreResults();
                                     }}
@@ -186,9 +183,8 @@ const mapStateToProps = (state: IState): IProps => ({
 
 const mapDispatchToProps = {
     setSearchValue,
-    getSearchResults,
     clearSearchResults,
-    getMoreResults,
+    getSearchResults,
     addNextResults,
 };
 
