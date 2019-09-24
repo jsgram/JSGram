@@ -28,10 +28,8 @@ export const update = async (req: Request, res: Response, next: NextFunction): P
         }
 
         const user = await User.findById(searchComment.authorId);
-        if (user && decodedTokenEmail !== user.email) {
-            if (!isAdmin) {
-                throw new Error('You don\'t have permission to change comment');
-            }
+        if (user && decodedTokenEmail !== user.email && !isAdmin) {
+            throw new Error('You don\'t have permission to change comment');
         }
 
         const updatedComment = await updateComment(id, comment, next);
