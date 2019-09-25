@@ -16,6 +16,7 @@ import {
     FOLLOW_USER,
     UNFOLLOW_USER,
     FOLLOW_USER_PENDING,
+    DELETE_USER_PENDING,
 } from './actionTypes';
 
 interface IState {
@@ -176,6 +177,12 @@ export const profileReducer = (
             return {
                 ...state,
                 loadFollow: true,
+            };
+        case DELETE_USER_PENDING:
+            return {
+                ...state,
+                loaded: false,
+                error: '',
             };
         default:
             return state;

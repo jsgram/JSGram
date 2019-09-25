@@ -83,7 +83,7 @@ export const getComments = (postId: string, commentState: any, commentsLoaded?: 
 
             dispatch(getCommentsSuccess(postId, res.data.commentsAll, page + 1));
         } catch (e) {
-            dispatch(showAlert(e.response.data.message, 'danger'));
+            dispatch(showAlert(e, 'danger'));
         }
     };
 
@@ -139,11 +139,10 @@ export const changeEditStatus = (commentId: string): { type: string, payload: st
 export const editCommentAsync = (
     comment: string,
     commentId: string,
-    email: string,
 ): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const res = await AuthAPI.patch(`/comments/${commentId}`, { comment, email });
+            const res = await AuthAPI.patch(`/comments/${commentId}`, { comment });
             dispatch(editComment(comment, commentId));
             dispatch(showAlert(res.data.message, 'success'));
             dispatch(changeEditStatus(commentId));

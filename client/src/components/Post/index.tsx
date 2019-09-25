@@ -12,6 +12,7 @@ import { IPost } from '../../store/post/reducers';
 import Comments from '../Comments';
 import WriteComment from '../WriteComment';
 import { Link } from 'react-router-dom';
+import { IFeedState } from '../../store/feed/reducers';
 
 interface IProps {
     userPosts: any;
@@ -27,8 +28,7 @@ interface IProps {
     getUser: (username: string) => void;
     resetPosts: () => void;
     addNextPosts: (pageNumber: number) => void;
-    loggedId: string;
-    loggedUsername: string;
+    loggedUser: IFeedState;
     changeEditStatus: (postId: string) => void;
 }
 
@@ -81,8 +81,9 @@ export default class Post extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        const { userPosts, user }: any = this.props;
+        const { userPosts, user, loggedUser }: any = this.props;
         const { selectedPost: { description: desc } }: any = userPosts;
+        const { loggedId, isAdmin }: IFeedState = loggedUser;
         return (
             <div className='container justify-content-center'>
                 <div className='row mt-5 profile-post'>
@@ -122,7 +123,7 @@ export default class Post extends React.Component<IProps> {
                             >
                                 <div className='d-flex'>
                                     {
-                                        userPosts.selectedPost.author === this.props.loggedId &&
+                                        (userPosts.selectedPost.author === loggedId || isAdmin) &&
                                         (
                                             <MenuPost
                                                 authorId={this.props.user._id}
@@ -170,7 +171,7 @@ export default class Post extends React.Component<IProps> {
                                             {user.username}
                                         </Link>
                                         {
-                                            userPosts.selectedPost.author === this.props.loggedId &&
+                                            (userPosts.selectedPost.author === loggedId || isAdmin) &&
                                             (
                                                 <div className='d-lg-block d-none float-right'>
                                                     <MenuPost
@@ -228,6 +229,7 @@ export default class Post extends React.Component<IProps> {
                             spellCheck={false}
                             value={userPosts.selectedPost.newDescription}
                             onChange={this.onDescriptionChange}
+                            maxLength={200}
                         />
                         <Button
                             color='danger'

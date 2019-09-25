@@ -33,6 +33,7 @@ export const PostPhoto = ({croppedImage, description, setDescriptionForPost}: IP
                     spellCheck={false}
                     value={description}
                     onChange={onDescriptionChange}
+                    maxLength={200}
                 />
             </Row>
         </Container>
