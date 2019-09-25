@@ -67,7 +67,7 @@ const ProfilePasswordChange = ({changeProfilePassword, username, handleSubmit, s
                             <span className='ml-2'>Change Password</span>
                         </div>}
                 </Button>
-                <Link className='align-self-center d-block text-danger pl-1 mt-3' to='/password-reset'>
+                <Link className='align-self-center d-block text-danger pl-1 mt-3' to={`/profile/${username}/edit/password-reset`}>
                     Forgot Password?
                 </Link>
             </Form>
