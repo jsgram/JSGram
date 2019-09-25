@@ -8,7 +8,7 @@ const footerLink = [
 ];
 
 export const Footer = (): ReactElement => (
-    <div className='d-flex justify-content-center footer mt-3'>
+    <div className='footer d-flex justify-content-center mt-3'>
         <ul className='footer-link'>
             {
                 footerLink.map((footer: { id: number, href: string, label: string }) => (
