@@ -3,6 +3,7 @@ import { Token, ITokenModel } from './token.model';
 import { Post, IPostModel } from './post.model';
 import { Comment, ICommentModel } from './comment.model';
 import { Like, ILikeModel } from './like.model';
+import { Service, IServiceModel } from './service.model';
 
 import '../helpers/globals';
 import connect from '../connect';
@@ -36,6 +37,7 @@ const generateUsers = async (size: number): Promise<IUserModel[]> => {
         internet: { email, userName, password, avatar },
         name: { firstName, lastName },
         helpers: { shuffle },
+        lorem: { words },
         random: { number: randomNumber },
     }: any = faker;
 
@@ -59,6 +61,7 @@ const generateUsers = async (size: number): Promise<IUserModel[]> => {
         password: hashPassword(x.password),
         isVerified: true,
         photoPath: avatar(),
+        bio: capitalizeSentence(words(randomNumber(12))),
     }));
 
     const createdUsers = await User.insertMany(users);
@@ -95,7 +98,6 @@ const generateImages = async (size: number): Promise<string[]> => {
     /*
      * Imgur image names are generated randomly and cannot be set.
      * Hash table eliminates image redunduncy while running DB seed multiple times.
-     *
      */
     const imageDB = await mongoose.createConnection(IMAGE_DB_PATH);
 
@@ -133,7 +135,7 @@ const generateImages = async (size: number): Promise<string[]> => {
                 }
             } catch (e) {
                 process.stdout.write(`\rUploading image ${i} from ${size}.`);
-                const { data: mockImage }: AxiosResponse = await axios.get(`https://picsum.photos/id/${i}/1280/1024`, {
+                const { data: mockImage }: AxiosResponse = await axios.get(`https://picsum.photos/id/${i}/1280/1280`, {
                     responseType: 'arraybuffer',
                 });
 
@@ -234,6 +236,10 @@ const generateLikes = async (users: IUserModel[], posts: IPostModel[], size: num
     return createdLikes;
 };
 
+const generateServices = async (): Promise<void> => {
+    await Service.insertMany([{}]);
+};
+
 const fakeDatabase = async (): Promise<void> => {
     await clearDatabase(DB_PATH);
     await connect(DB_PATH);
@@ -243,6 +249,7 @@ const fakeDatabase = async (): Promise<void> => {
     const posts = await generatePosts(users, FAKE_DB_SIZE ** 2);
     const comments = await generateComments(users, posts, FAKE_DB_SIZE ** 3);
     const likes = await generateLikes(users, posts, FAKE_DB_SIZE ** 3);
+    const services = await generateServices();
 
     process.exit(0);
 };
