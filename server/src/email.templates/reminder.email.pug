@@ -1,0 +1,88 @@
+//-
+  - baseUrl = 'https://jsgram-backend-dev.herokuapp.com';
+  -
+    user = {
+      username: 'Bethel_Schoen30',
+      photoPath: 'https://s3.amazonaws.com/uifaces/faces/twitter/y2graphic/128.jpg',
+      fullName: 'Dawson Kirlin',
+      email: 'Queen_Bosco@hotmail.com',
+    };
+  -
+    posts = [
+      { _id: '1', imgPath: 'https://i.imgur.com/HyVFRbF.jpg', description: 'Fugit exercitationem omnis error' },
+      { _id: '2', imgPath: 'https://i.imgur.com/wSfPwUW.jpg', description: 'Magni recusandae voluptate velit' },
+      { _id: '3', imgPath: 'https://i.imgur.com/8fNvjva.jpg', description: 'Ex voluptatum et non' },
+      { _id: '4', imgPath: 'https://i.imgur.com/LWdb2Jl.jpg', description: 'Vitae eum eum labore' },
+      { _id: '5', imgPath: 'https://i.imgur.com/LVsfYtT.jpg', description: 'Quas.' },
+      { _id: '6', imgPath: 'https://i.imgur.com/KkwfKaA.jpg', description: 'Veritatis qui omnis et' },
+      { _id: '7', imgPath: 'https://i.imgur.com/8ZqTDqv.jpg', description: 'Eveniet ut illum.' },
+      { _id: '8', imgPath: 'https://i.imgur.com/B1ajtaK.jpg', description: 'Praesentium corporis similique repellat quo' },
+      { _id: '9', imgPath: 'https://i.imgur.com/HlfVX52.jpg', description: 'At porro eligendi sequi' },
+    ];
+  -
+    users = [
+      { username: 'Edgar13', fullName: 'Dorothy Conroy', photoPath: 'https://s3.amazonaws.com/uifaces/faces/twitter/flashmurphy/128.jpg' },
+      { username: 'Laverne.Kertzmann13', fullName: 'May Jast', photoPath: 'https://s3.amazonaws.com/uifaces/faces/twitter/otozk/128.jpg' },
+      { username: 'Chloe.Heane', fullName: 'Magnolia Torphy', photoPath: 'https://s3.amazonaws.com/uifaces/faces/twitter/donjain/128.jpg' },
+      { username: 'Nicola.Hand', fullName: 'Cara Monahan', photoPath: 'https://s3.amazonaws.com/uifaces/faces/twitter/toddrew/128.jpg' },
+      { username: 'Adelia_Jones91', fullName: 'Madelyn Zboncak', photoPath: 'https://s3.amazonaws.com/uifaces/faces/twitter/davecraige/128.jpg' },
+      { username: 'Everardo88', fullName: 'Eulalia Grimes', photoPath: 'https://s3.amazonaws.com/uifaces/faces/twitter/johndezember/128.jpg' },
+    ];
+
+include _mixin.pug
+
+doctype html
+html
+  head
+    title #{user.username}, see new posts from #{users[0].username}, #{users[2].username}, #{users[4].username} and more
+    include _style.pug
+
+  body
+    //- header
+    table.table
+      tr
+        td: a(href=`${baseUrl}/`): img.header__logo(src='https://is.gd/YJvPQR' alt='JSgram Logo')
+        +user_icon(user, 'userpic--right')
+
+    //- posts
+    table.table
+      +post_row(posts, 0, 3)
+      +post_row(posts, 3, 6)
+      +post_row(posts, 6, 9)
+    //- post plug
+    table.table.plug
+      tr: td.plug__content
+        h3 Catch Up on JSgram
+        p See what's new, fun and inspired from the accounts you follow.
+        a.btn(href=`${baseUrl}/feed`) See What's New
+    div.separator
+    //- users
+    table.table
+      +user_row(users, 0, 3)
+      +user_row(users, 3, 6)
+    //- user plug
+    table.table.plug
+      tr: td.plug__content
+        h3 Discover More
+        p The more accounts you follow, the more great stuff you'll see in your feed.
+        //- TODO static suggestions route
+        a.btn(href=`${baseUrl}/profile/${user.username}/suggestions`) Find Accounts to Follow
+    div.separator
+
+    //- footer
+    table.table
+      tr
+        +user_icon(users[1], 'userpic--right')
+        +user_icon(users[4], 'userpic--left')
+    table.table
+      tr: td.plug__content
+        h3 Check back in, #{user.fullName}
+        p Check on the likes, comments and other notifications you have waiting in the app
+      tr: td.footer__disclaimer
+        h3 JSgram from Lv-430
+        p &copy; JSgram. Lv-430.NodeJS, 5 Yaroslava Pasternaka, Lviv, Ukraine 79015
+        p.
+          This message was sent to <a href='mailto:#{user.email}'>#{user.email}</a> and intended for #{user.fullName}.
+          JSgram sends updates like this to help you keep up with the latest on JSgram.
+          You can unsubscribe from these updates, or remove your email if this isn't your JSgram account.
+          <a href='#{baseUrl}/profile/#{user.username}/edit/subscriptions'>Unsubscribe</a> from news emails for this account.

@@ -25,6 +25,7 @@ export const routes = (
             <PrivateRoute exact path='/profile/:username/followers' component={SubscribersContainer}/>
             <PrivateRoute exact path='/profile/:username/following' component={SubscribersContainer}/>
             <PrivateRoute exact path='/profile/:username/recommendations' component={FriendsRecommendationsList}/>
+            <PrivateRoute exact path='/profile/:username/edit/password-reset' component={CheckEmail}/>
             <PrivateRoute exact path='/add-post' component={AddPostContainer}/>
             <PrivateRoute exact path='/feed' component={FeedContainer}/>
             <PrivateRoute path='/profile/:username/edit' component={SideBar}/>
