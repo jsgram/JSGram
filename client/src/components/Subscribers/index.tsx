@@ -15,19 +15,29 @@ export interface ISubscribersProps {
     page: number;
     allSubscribersLoaded: boolean;
     subscribers: [];
+    followersCount: number;
+    followingCount: number;
     loaded: boolean;
     loading: boolean;
     loadFollow: boolean;
     getUser: (username: string) => void;
     getSubscribers: (loggedId: string, subscribers: string, urlUsername: string, page: number) => void;
-    changeUserFollowing: (_id: string) => void;
+    setSubscribersCount: (followersCount: number, followingCount: number) => void;
+    changeUserFollowing: (_id: string, followType: string) => void;
     resetSubscribers: () => void;
-    followUser: (body: { _id: string }) => void;
-    unfollowUser: (body: { _id: string }) => void;
 }
 
 export class Subscribers extends React.Component<ISubscribersProps> {
+    public componentDidMount(): void {
+        this.props.getUser(this.props.urlUsername);
+    }
+
     public componentDidUpdate(prevProps: any): void {
+        if (prevProps.user !== this.props.user) {
+            const {followers, following}: IUserData = this.props.user;
+            this.props.setSubscribersCount(followers.length, following.length);
+        }
+
         if (prevProps.loggedId !== this.props.loggedId) {
             this.props.getSubscribers(
                 this.props.loggedId,
@@ -35,7 +45,6 @@ export class Subscribers extends React.Component<ISubscribersProps> {
                 this.props.urlUsername,
                 this.props.page,
             );
-            this.props.getUser(this.props.urlUsername);
         }
     }
 
@@ -48,19 +57,18 @@ export class Subscribers extends React.Component<ISubscribersProps> {
             this.props.getSubscribers(
                 this.props.loggedId,
                 this.getParamForSubscribers(),
-                this.props.urlUsername, this.props.page,
+                this.props.urlUsername,
+                this.props.page,
             );
         }
     }
 
     public followSubscriber = (_id: string): void => {
-        this.props.followUser({_id});
-        this.props.changeUserFollowing(_id);
+        this.props.changeUserFollowing(_id, 'follow');
     }
 
     public unfollowSubscriber = (_id: string): void => {
-        this.props.unfollowUser({_id});
-        this.props.changeUserFollowing(_id);
+        this.props.changeUserFollowing(_id, 'unFollow');
     }
 
     public dynamicButton = (_id: string, alreadyFollow: boolean): JSX.Element => {
@@ -100,16 +108,16 @@ export class Subscribers extends React.Component<ISubscribersProps> {
                         <h4
                             className='font-weight-light text-secondary text-uppercase'
                         >
-                            {this.props.user.followers.length} followers
+                            {this.props.followersCount} followers
                         </h4>
                     </Link>
-                    <Link to={`/profile/${this.props.urlUsername}/following`} className='link-style'
-                          style={{textDecoration: subscribers ? 'underline' : 'none'}}
+                    < Link to={`/profile/${this.props.urlUsername}/following`} className='link-style'
+                           style={{textDecoration: subscribers ? 'underline' : 'none'}}
                     >
                         <h4
                             className='font-weight-light text-secondary text-uppercase'
                         >
-                            {this.props.user.following.length} following
+                            {this.props.followingCount} following
                         </h4>
                     </Link>
                 </div>
