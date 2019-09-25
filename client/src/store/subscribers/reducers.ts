@@ -3,21 +3,16 @@ import {
     SET_SUBSCRIBERS,
     ALL_SUBSCRIBERS_LOADED,
     RESET_SUBSCRIBERS,
-    CHANGE_USER_FOLLOWING,
+    CHANGE_USER_FOLLOWING, SET_SUBSCRIBERS_COUNT,
 } from './actionTypes';
 
 const defaultState = {
     page: 1,
     loading: false,
     allSubscribersLoaded: false,
-    subscribers: [{
-        _id: '',
-        username: '',
-        photoPath: '',
-        followers: [],
-        following: [],
-        alreadyFollow: false,
-    }],
+    subscribers: [],
+    followersCount: 0,
+    followingCount: 0,
 };
 
 export const subscribersReducer = (state: any = defaultState, action: { type: string, payload: any }): any => {
@@ -38,6 +33,12 @@ export const subscribersReducer = (state: any = defaultState, action: { type: st
                 page: action.payload.page,
                 loading: false,
             };
+        case SET_SUBSCRIBERS_COUNT:
+            return {
+                ...state,
+                followersCount: action.payload.followersCount,
+                followingCount: action.payload.followingCount,
+            };
         case ALL_SUBSCRIBERS_LOADED:
             return {
                 ...state,
@@ -50,14 +51,22 @@ export const subscribersReducer = (state: any = defaultState, action: { type: st
                 loading: false,
                 allSubscribersLoaded: false,
                 subscribers: [],
+                followersCount: 0,
+                followingCount: 0,
             };
         case CHANGE_USER_FOLLOWING:
+            const subscribers = state.subscribers.map((following: any) => following._id === action.payload.userId ? {
+                ...following,
+                alreadyFollow: !following.alreadyFollow,
+            } :
+                following,
+            );
+            const followingCount = action.payload.followType === 'follow' ?
+                state.followingCount + 1 : state.followingCount - 1;
             return {
                 ...state,
-                subscribers: state.subscribers.map((following: any) => following._id === action.payload ? {
-                    ...following,
-                    alreadyFollow: !following.alreadyFollow,
-                } : following),
+                subscribers,
+                followingCount,
             };
         default: {
             return state;

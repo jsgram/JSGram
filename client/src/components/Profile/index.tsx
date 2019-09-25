@@ -1,13 +1,14 @@
 import React from 'react';
 import '../../styles/style.scss';
 import { Instagram } from 'react-content-loader';
-import { Button, Spinner } from 'reactstrap';
+import { Button, Modal, ModalBody, ModalFooter, Spinner } from 'reactstrap';
 import './style.scss';
 import { PopUpModal } from '../PopUp';
 import noAvatar from '../../assets/noAvatar.png';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 import PostContainer from '../../containers/PostContainer';
+import { IFeedState } from '../../store/feed/reducers';
 
 export interface IUserData {
     posts: number;
@@ -26,6 +27,7 @@ export interface IProfileProps {
     urlUsername: string;
     loggedId: string;
     loggedUsername: string;
+    loggedUser: IFeedState;
     user: IUserData;
     loaded: boolean;
     loading: boolean;
@@ -36,13 +38,15 @@ export interface IProfileProps {
     deletePhoto: () => void;
     resetPosts: () => void;
     getPostsAsync: (username: string) => void;
+    deleteUser: (id: string) => void;
 }
 
 export default class Profile extends React.Component<IProfileProps> {
 
-    public state: { loaded: boolean, modal: boolean } = {
+    public state: { loaded: boolean, modal: boolean, deleteUserModal: boolean } = {
         loaded: false,
         modal: false,
+        deleteUserModal: false,
     };
     public timerHandle: any = 0;
 
@@ -74,6 +78,15 @@ export default class Profile extends React.Component<IProfileProps> {
 
     public toggleModal = (): void => {
         this.setState({modal: !this.state.modal});
+    }
+
+    public toggleDeleteUserModal = (): void => {
+        this.setState({deleteUserModal: !this.state.deleteUserModal});
+    }
+
+    public deleteUser = (id: string): void => {
+        this.props.deleteUser(id);
+        this.toggleDeleteUserModal();
     }
 
     public followUrlUser = (): void => {
@@ -206,6 +219,43 @@ export default class Profile extends React.Component<IProfileProps> {
                                 <Link to='/logout' className='text-danger pl-1'>(Logout)</Link> }
                         <p>{description}</p>
                     </div>
+                    {
+                        this.props.loggedUser.isAdmin &&
+                            <>
+                                <Button
+                                    className='btn d-block mb-2'
+                                    color='danger'
+                                    onClick={this.toggleDeleteUserModal}
+                                >
+                                    <i className='fa fa-user-times pr-1'></i>
+                                    Delete User
+                                </Button>
+                                <Modal
+                                    isOpen={this.state.deleteUserModal}
+                                    toggle={this.toggleDeleteUserModal}
+                                    className='modal-dialog-centered px-md-0 py-md-0 px-3 py-3'
+                                >
+                                    <ModalBody>
+                                        Do you really want to delete user ?
+                                    </ModalBody>
+                                    <ModalFooter>
+                                        <Button
+                                            color='danger'
+                                            onClick={(): void => this.deleteUser(_id)}
+                                        >
+                                            Delete
+                                        </Button>{' '}
+                                        <Button
+                                            outline
+                                            color='danger'
+                                            onClick={this.toggleDeleteUserModal}
+                                        >
+                                            Cancel
+                                        </Button>
+                                    </ModalFooter>
+                                </Modal>
+                            </>
+                    }
                     {this.dynamicButton()}
                     {this.state.modal && <PopUpModal
                         modal={this.state.modal}

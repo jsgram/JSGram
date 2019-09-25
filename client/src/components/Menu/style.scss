@@ -19,7 +19,7 @@
     width: 1.7rem;
     height: 2.3rem;
     color: $color-grey-dark;
-    line-height: 2.3rem;
+    line-height: 2.4rem;
     text-align: center;
   }
 
@@ -46,6 +46,12 @@
   .fullname {
     font-family: $font-calibri-light;
     color: $color-dove-gray;
+  }
+
+  .search {
+    @media screen and (max-width: $break-medium) {
+      order: 1;
+    }
   }
 
   .icon {

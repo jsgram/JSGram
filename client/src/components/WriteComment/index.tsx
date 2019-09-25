@@ -51,6 +51,7 @@ class WriteComment extends React.Component<IProps> {
                             autoComplete='off'
                             minRows={1}
                             maxRows={4}
+                            maxLength={200}
                             value={commentInfo[0].comment}
                             onChange={(event: React.ChangeEvent<HTMLTextAreaElement>): void =>
                                 this.onCommentChange(this.props.postId, event)}

@@ -115,7 +115,7 @@ class Menu extends React.Component<IMenuProps> {
                              width={110}
                              className='mb-3 sm-mb-2 sm-mr-5 pt-1 logo'/>
                     </Link>
-                    <div className='col-sm-4 col-4 mt-4 form-group search'>
+                    <div className='col-md-4 mt-md-4 mt-0 form-group search'>
                         <span className='fa fa-search form-control-feedback'/>
                         <Input
                             placeholder='Search'
