@@ -14,7 +14,6 @@ import { connect } from 'react-redux';
 import { IStateProfileEdit } from '../../store/profileEdit/reducers';
 import noAvatar from '../../assets/noAvatar.png';
 import {
-    setSearchValue,
     clearSearchResults,
     getSearchResults,
     addNextResults,
@@ -40,11 +39,9 @@ interface IState {
 interface IMenuProps {
     loggedUsername: string;
     newUsername: string;
-    searchValue: string;
     searchResults: IUser[];
     page: number;
     loaded: boolean;
-    setSearchValue: (searchQuery: string) => void;
     getSearchResults: (searchQuery: string, page: number) => void;
     clearSearchResults: () => void;
     addNextResults: (page: number) => void;
@@ -53,19 +50,20 @@ interface IMenuProps {
 interface IProps {
     newUsername: string;
     loggedUsername: string;
-    searchValue: string;
     searchResults: IUser[];
     loaded: boolean;
     page: number;
 }
 
-interface IUserMenuOpen {
+interface IMenuState {
     isMenuOpen: boolean;
+    searchValue: string;
 }
 
 class Menu extends React.Component<IMenuProps> {
-    public state: IUserMenuOpen = {
+    public state: IMenuState = {
         isMenuOpen: false,
+        searchValue: '',
     };
     public timer: any;
 
@@ -78,34 +76,36 @@ class Menu extends React.Component<IMenuProps> {
     public componentWillUnmount = (): void => {
         clearTimeout(this.timer);
         this.props.clearSearchResults();
-        this.props.setSearchValue('');
+        this.setState({searchValue: ''});
     }
 
     public getMoreResults = async (): Promise<void> => {
         await this.props.addNextResults(this.props.page + 1);
-        this.props.getSearchResults(this.props.searchValue.trim(), this.props.page);
+        this.props.getSearchResults(this.state.searchValue.trim(), this.props.page);
     }
 
     public onSearchChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         clearTimeout(this.timer);
-        const searchQuery: string = e.target.value;
-        this.props.setSearchValue(searchQuery);
+        this.setState({searchValue: e.target.value});
 
-        const trimmedValue = searchQuery.trim();
-        if (trimmedValue) {
+        const FIRST_PAGE = 1;
+        const searchQuery: string = e.target.value.trim();
+
+        if (searchQuery) {
             this.timer = setTimeout(async () => {
                 this.timer = null;
-                await this.props.getSearchResults(trimmedValue, 1);
-                this.toggle(trimmedValue);
+                await this.props.getSearchResults(searchQuery, FIRST_PAGE);
+                this.toggle(searchQuery);
             }, 500);
         } else {
             this.props.clearSearchResults();
-            this.toggle(trimmedValue);
+            this.toggle(searchQuery);
         }
     }
 
     public render(): JSX.Element {
-        const {loggedUsername, newUsername, searchValue, searchResults, loaded}: IMenuProps = this.props;
+        const {loggedUsername, newUsername, searchResults, loaded}: IMenuProps = this.props;
+        const {searchValue}: IMenuState = this.state;
         return (
             <div className='container-fluid header-menu'>
                 <div className='row justify-content-between bg-white'>
@@ -124,7 +124,8 @@ class Menu extends React.Component<IMenuProps> {
                             value={searchValue}
                             onChange={this.onSearchChange}
                         />
-                        <Dropdown isOpen={this.state.isMenuOpen} toggle={(): void => {this.toggle(searchValue); }}
+                        <Dropdown isOpen={this.state.isMenuOpen}
+                                  toggle={(): void => {this.toggle(searchValue); }}
                                   color='light' className='search-menu'>
                             <DropdownToggle tag='a' className='nav-link m-0 p-0'/>
                             <DropdownMenu className='scrollable-menu col-12'>
@@ -175,14 +176,12 @@ class Menu extends React.Component<IMenuProps> {
 const mapStateToProps = (state: IState): IProps => ({
     newUsername: state.profileEdit.newUsername,
     loggedUsername: state.feed.loggedUsername,
-    searchValue: state.search.searchValue,
     searchResults: state.search.searchResults,
     loaded: state.search.loaded,
     page: state.search.page,
 });
 
 const mapDispatchToProps = {
-    setSearchValue,
     clearSearchResults,
     getSearchResults,
     addNextResults,

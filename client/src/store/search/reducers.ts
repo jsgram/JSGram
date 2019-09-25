@@ -1,5 +1,4 @@
 import {
-    SET_SEARCH_VALUE,
     GET_SEARCH_RESULTS_SUCCESS,
     CLEAR_SEARCH_RESULTS,
     GET_MORE_RESULTS_SUCCESS,
@@ -10,14 +9,12 @@ import {
 import { IUser } from '../../components/Menu';
 
 interface IDefaultState {
-    searchValue: string;
     searchResults: IUser[];
     loaded: boolean;
     page: number;
 }
 
 const defaultState = {
-    searchValue: '',
     searchResults: [],
     loaded: false,
     page: 1,
@@ -25,11 +22,6 @@ const defaultState = {
 
 export const searchReducer = (state: IDefaultState = defaultState, action: { type: string, payload: any }): any => {
     switch (action.type) {
-        case SET_SEARCH_VALUE:
-            return {
-                ...state,
-                searchValue: action.payload,
-            };
         case GET_SEARCH_RESULTS_SUCCESS:
             return {
                 ...state,

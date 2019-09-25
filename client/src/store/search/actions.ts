@@ -1,5 +1,4 @@
 import {
-    SET_SEARCH_VALUE,
     GET_SEARCH_RESULTS_SUCCESS,
     CLEAR_SEARCH_RESULTS,
     GET_MORE_RESULTS_SUCCESS,
@@ -11,11 +10,6 @@ import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
 import { showAlert } from '../alert/actions';
 import { IUser } from '../../components/Menu';
-
-export const setSearchValue = (query: string): {type: string, payload: string} => ({
-    type: SET_SEARCH_VALUE,
-    payload: query,
-});
 
 export const getSearchResultsSuccess = (users: IUser[]): {type: string, payload: IUser[]} => ({
     type: GET_SEARCH_RESULTS_SUCCESS,
@@ -47,8 +41,9 @@ export const addNextResults = (page: number): { type: string, payload: number } 
 export const getSearchResults = (query: string, page: number): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
+            const FIRST_PAGE = 1;
             const res = await AuthAPI.get(`/search/${query}/${page}`);
-            if (page === 1) {
+            if (page === FIRST_PAGE) {
                 dispatch(clearLoaded());
                 dispatch(getSearchResultsSuccess(res.data.users));
             } else {
