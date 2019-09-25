@@ -4,7 +4,7 @@ import { IUserModel } from './user.model';
 import { ICommentModel } from './comment.model';
 
 export interface IPostModel extends Document {
-    author: string;
+    author: IUserModel['_id'];
     imgPath: string;
     description?: string;
     comments?: ICommentModel['_id'];
