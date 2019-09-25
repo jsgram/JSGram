@@ -177,7 +177,7 @@ export default class Profile extends React.Component<IProfileProps> {
                     {this.props.loading ? <Spinner style={{height: 150, width: 150}} type='grow' color='dark'/> : <img
                         src={photo || noAvatar}
                         className={'img-fluid rounded-circle float-right mb-2' +
-                        (this.props.loggedId === _id ? ' avatar-img' : '')}
+                        (this.props.loggedId === _id && ' avatar-img')}
                         alt='avatar'
                         height={150}
                         width={150}
