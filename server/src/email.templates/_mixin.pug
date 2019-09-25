@@ -1,0 +1,21 @@
+mixin user_icon(user, cls)
+  td(class=`${cls}`)
+    a(href=`${baseUrl}/profile/${user.username}`)
+      img.userpic--small(src=`${user.photoPath}` alt=`${user.fullName}'s Profile`)
+
+mixin post_row(posts, lo, hi)
+  tr
+    each post in posts.slice(lo, hi)
+      //- TODO static url for single post
+      td
+        a.post__container(href=`${baseUrl}/profile/${user.username}/post/${post._id}`)
+          img.post__img(src=`${post.imgPath}` alt=`${post.description.split(' ').slice(0, 2).join(' ')}`)
+
+mixin user_row(users, lo, hi)
+  tr
+    each user in users.slice(lo, hi)
+      td.user__container
+        a(href=`${baseUrl}/profile/${user.username}`)
+          img.userpic--big(src=`${user.photoPath}` alt=`${user.fullName}'s Profile`)
+          h5 #{user.username}
+          p #{user.fullName}
