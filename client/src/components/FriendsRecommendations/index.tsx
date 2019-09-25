@@ -38,7 +38,7 @@ export const FriendsRecomendations = ({loggedUsername, friendsRecommendations, f
                                     height={64}
                                     className='img-fluid rounded-circle'
                                 /></Link>
-                                <Link to={`/profile/${user.username}`} className='mt-1 ml-lg-3 ml-sm-0 ml-3 mr-4
+                                <Link to={`/profile/${user.username}`} className='mt-1 ml-3 mr-4
                                   text-dark'>{user.username}</Link>
                             </div>
                         <Button className='align-self-center' color='danger'
