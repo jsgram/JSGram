@@ -57,8 +57,8 @@ body {
 }
 
 .likes {
-  cursor: pointer;
-  min-width: 2rem;
   display: inline-block;
+  min-width: 2rem;
+  cursor: pointer;
   user-select: none;
 }
