@@ -1,0 +1,32 @@
+include _mixin.pug
+
+doctype html
+html
+  head
+    title Rejoice in the name of Blossom
+    include _style.pug
+
+  body
+    //- header
+    table.table
+      tr
+        td: a(href=`${baseUrl}/`): img.header__logo(src='https://is.gd/YJvPQR' alt='JSgram Logo')
+        +user_icon(user, 'userpic--right')
+
+    //- body
+    table.table
+      tr: td.content
+        h3 JSgram Repo is Liked Again
+        p.
+          Humble <a href="https://github.com/jsgram/JSGram">Github repo</a> which hosts out great product just got another like!
+          Kudos to <a href="#{event.html_url}">#{event.login}</a>.
+          That brings likes tally to <b>#{event.stargazers_count}</b> - an incredible number by all means.
+        p.
+          Sincerely,<br/>JSgram team
+    div.separator--sml
+
+    //- footer
+    table.table
+      tr: td.footer__disclaimer--cnt
+        h3 <a href="#{baseUrl}/">JSgram from Lv-430</a>
+        p &copy; JSgram. Lv-430.NodeJS, 5 Yaroslava Pasternaka, Lviv, Ukraine 79015
