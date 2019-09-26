@@ -9,12 +9,12 @@
   }
   @media only screen and (max-width: $break-small) {
     max-width: 256px;
-  }      
+  }
 }
 
 .link-style {
-  color: $color-grey-dark;
   padding: 1em;
+  color: $color-grey-dark;
 }
 
 .link-style:hover {
