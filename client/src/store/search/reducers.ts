@@ -8,7 +8,7 @@ import {
 } from './actionTypes';
 import { IUser } from '../../components/Menu';
 
-interface IDefaultState {
+export interface ISearchState {
     searchResults: IUser[];
     loaded: boolean;
     page: number;
@@ -20,7 +20,7 @@ const defaultState = {
     page: 1,
 };
 
-export const searchReducer = (state: IDefaultState = defaultState, action: { type: string, payload: any }): any => {
+export const searchReducer = (state: ISearchState = defaultState, action: { type: string, payload: any }): any => {
     switch (action.type) {
         case GET_SEARCH_RESULTS_SUCCESS:
             return {

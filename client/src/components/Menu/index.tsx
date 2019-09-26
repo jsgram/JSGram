@@ -12,6 +12,7 @@ import { Waypoint } from 'react-waypoint';
 import './style.scss';
 import { connect } from 'react-redux';
 import { IStateProfileEdit } from '../../store/profileEdit/reducers';
+import { ISearchState } from '../../store/search/reducers';
 import noAvatar from '../../assets/noAvatar.png';
 import {
     clearSearchResults,
@@ -33,7 +34,7 @@ interface IStateFeed {
 interface IState {
     profileEdit: IStateProfileEdit;
     feed: IStateFeed;
-    search: any;
+    search: ISearchState;
 }
 
 interface IMenuProps {
