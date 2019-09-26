@@ -21,6 +21,7 @@ import { subscribersRouter } from './routes/subscribers.routes/subscribers.route
 import { followingRouter } from './routes/following.routes/following.router';
 import { commentsRouter } from './routes/comments.routes/comments.router';
 import { searchRouter } from './routes/search.routes/search.router';
+import { eventRouter } from './routes/event.routes/event.router';
 
 import { unknownPageHandler } from './helpers/unknown.page.handler';
 import { errorHandler } from './helpers/error.handler';
@@ -50,6 +51,7 @@ app.use('/subscribers', subscribersRouter);
 app.use('/following', followingRouter);
 app.use('/comments', commentsRouter);
 app.use('/search', searchRouter);
+app.use('/events', eventRouter);
 app.use(googleRouter);
 
 // Symlinking client build to server directory appears to be a better solution
