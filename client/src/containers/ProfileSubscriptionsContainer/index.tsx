@@ -64,32 +64,6 @@ const ProfileSubscriptionsContainer = ({
                     Get tips on using Instagram's tools.
                 </div>
 
-                <Label className='d-flex align-items-center'>
-                    <Field
-                        name='isResearchEmail'
-                        type='checkbox'
-                        className='position-static m-0 mr-2'
-                        component={renderField}
-                    />
-                    Research emails
-                </Label>
-                <div className='font-italic text-secondary mb-4'>
-                    Provide feedback and participate in research studies.
-                </div>
-
-                <Label className='d-flex align-items-center'>
-                    <Field
-                        name='isTextMessage'
-                        type='checkbox'
-                        className='position-static m-0 mr-2'
-                        component={renderField}
-                    />
-                    Text (SMS) Messages
-                </Label>
-                <div className='font-italic text-secondary mb-4'>
-                    Get reminder notifications delivered by text message.
-                </div>
-
                 <Button
                     className='align-self-center btn mt-3'
                     color='danger'
