@@ -104,7 +104,7 @@ export class FeedPost extends React.Component<IProps> {
                             })
                         }
                     </Col>
-                    <Col sm={5} md={4} className='order-1 order-sm-2'>
+                    <Col sm={5} md={4} className='order-1 order-sm-2 text-center'>
                         <div className='sticky-top'>
                             <img
                                 src={loggedPhotoPath || noAvatar}

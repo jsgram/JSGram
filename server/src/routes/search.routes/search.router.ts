@@ -4,4 +4,4 @@ import { getUsers } from '../../controllers/search.controllers/get.users';
 
 export const searchRouter = Router();
 
-searchRouter.get('/:query', isAuthorized, getUsers);
+searchRouter.get('/:query/:page', isAuthorized, getUsers);
