@@ -168,6 +168,8 @@ export default class Profile extends React.Component<IProfileProps> {
             return (<Instagram/>);
         }
 
+        const avatarCursor = (this.props.loggedId === _id && ' avatar-img');
+
         return (
             <div
                 className='row profile d-flex pt-2 justify-content-lg-center
@@ -176,7 +178,7 @@ export default class Profile extends React.Component<IProfileProps> {
                 <div className='mr-lg-5 mr-3'>
                     {this.props.loading ? <Spinner style={{height: 150, width: 150}} type='grow' color='dark'/> : <img
                         src={photo || noAvatar}
-                        className='img-fluid rounded-circle float-right mb-2 avatar-img'
+                        className={`img-fluid rounded-circle float-right mb-2${avatarCursor}`}
                         alt='avatar'
                         height={150}
                         width={150}
