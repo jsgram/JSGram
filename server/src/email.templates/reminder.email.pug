@@ -1,0 +1,57 @@
+include _mixin.pug
+
+doctype html
+html
+  head
+    title #{user.username}, see new posts from #{users[0].username}, #{users[2].username}, #{users[4].username} and more
+    include _style.pug
+
+  body
+    //- header
+    table.table
+      tr
+        td: a(href=`${baseUrl}/`): img.header__logo(src='https://is.gd/YJvPQR' alt='JSgram Logo')
+        +user_icon(user, 'userpic--right')
+
+    //- posts
+    table.table
+      +post_row(posts, 0, 3)
+      +post_row(posts, 3, 6)
+      +post_row(posts, 6, 9)
+    //- post plug
+    table.table.plug
+      tr: td.plug__content
+        h3 Catch Up on JSgram
+        p See what's new, fun and inspired from the accounts you follow.
+        a.btn(href=`${baseUrl}/feed`) See What's New
+    div.separator
+    //- users
+    table.table
+      +user_row(users, 0, 3)
+      +user_row(users, 3, 6)
+    //- user plug
+    table.table.plug
+      tr: td.plug__content
+        h3 Discover More
+        p The more accounts you follow, the more great stuff you'll see in your feed.
+        //- TODO static suggestions route
+        a.btn(href=`${baseUrl}/profile/${user.username}/suggestions`) Find Accounts to Follow
+    div.separator
+
+    //- footer
+    table.table
+      tr
+        +user_icon(users[1], 'userpic--right')
+        +user_icon(users[4], 'userpic--left')
+    table.table
+      tr: td.plug__content
+        h3 Check back in, #{user.fullName}
+        p Check on the likes, comments and other notifications you have waiting in the app
+      tr: td.footer__disclaimer
+        h3 JSgram from Lv-430
+        p &copy; JSgram. Lv-430.NodeJS, 5 Yaroslava Pasternaka, Lviv, Ukraine 79015
+        p.
+          This message was sent to <a href='mailto:#{user.email}'>#{user.email}</a> and intended for #{user.fullName}.
+          JSgram sends updates like this to help you keep up with the latest on JSgram.
+          You can unsubscribe from these updates, or remove your email if this isn't your JSgram account.
+          <a href='#{baseUrl}/profile/#{user.username}/edit/subscriptions'>Unsubscribe</a> from news emails for this account.
