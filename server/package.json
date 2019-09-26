@@ -6,10 +6,11 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
-    "build": "tsc -p .",
+    "build": "tsc -p . && cp -r src/email.templates dist/",
     "lint": "tslint --formatters-dir node_modules/custom-tslint-formatters/formatters --format grouped 'src/**/*.{ts,tsx}'",
     "test": "jest",
-    "seed": "ts-node src/models/fake.database.ts"
+    "seed": "ts-node src/models/fake.database.ts",
+    "watch": "npx live-server --no-browser & npx pug --watch --pretty src/email.templates"
   },
   "keywords": [],
   "author": "",
@@ -34,6 +35,8 @@
     "passport-google-oauth": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "pug": "^2.0.4",
+    "tinyqueue": "^2.0.3",
     "ts-node": "^8.3.0",
     "validator": "^11.1.0"
   },
@@ -55,6 +58,7 @@
     "@types/passport-google-oauth": "^1.0.41",
     "@types/passport-jwt": "^3.0.1",
     "@types/passport-local": "^1.0.33",
+    "@types/pug": "^2.0.4",
     "@types/supertest": "^2.0.8",
     "@types/validator": "^10.11.2",
     "axios": "^0.19.0",
@@ -62,8 +66,10 @@
     "faker": "^4.1.0",
     "form-data": "^2.5.1",
     "jest": "^24.8.0",
+    "live-server": "^1.2.1",
     "mockingoose": "^2.13.2",
     "nodemon": "^1.19.1",
+    "pug-cli": "^1.0.0-alpha6",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
