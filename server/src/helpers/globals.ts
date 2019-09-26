@@ -15,6 +15,8 @@ declare global {
             EMAIL_PASS: string;
             IMGUR_CLIENT_ID: string;
             IMAGE_DB_PATH: string;
+            TEMPLATE_DIR: string;
+            HEROKU_ROOT: string;
         }
     }
 }
