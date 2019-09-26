@@ -98,21 +98,13 @@ const UserSchema: Schema = new Schema({
     subscriptions: {
         isNewsEmail: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         isReminderEmail: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         isProductEmail: {
-            type: Boolean,
-            default: true,
-        },
-        isResearchEmail: {
-            type: Boolean,
-            default: true,
-        },
-        isTextMessage: {
             type: Boolean,
             default: false,
         },

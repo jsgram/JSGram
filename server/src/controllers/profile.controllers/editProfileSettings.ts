@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import { editUserSettings } from '../../db.requests/user.requests';
 import { User, IUserSubscriptions, IUserPrivacy, IUserModel } from '../../models/user.model';
+import { Service, IServiceModel } from '../../models/service.model';
 import { isValidSettings } from '../../helpers/validation';
 
 export interface IUserSettings {
@@ -33,6 +34,8 @@ export const editProfileSettings = async (req: Request, res: Response, next: Nex
             subscriptions: updatedUser.subscriptions as IUserSubscriptions,
             privacy: updatedUser.privacy as IUserPrivacy,
         };
+
+        await Service.updateOne({}, { $set: { shouldReload: true } });
         res.json({ data, message: 'Settings updated successfully.', status: 200 });
     } catch (e) {
         if (e.message) {
