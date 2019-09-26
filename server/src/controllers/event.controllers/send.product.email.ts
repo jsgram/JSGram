@@ -13,7 +13,7 @@ export const sendProductEmail = async (req: Request, res: Response, next: NextFu
         }: any = JSON.parse(req.body.payload);
 
         if (action === 'deleted') {
-            return;
+            throw new Error('Marketing department disapproves dislike notifications.');
         }
 
         const templatePath = path.join(HEROKU_ROOT, TEMPLATE_DIR, 'product.email.pug');
