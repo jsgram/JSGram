@@ -76,8 +76,7 @@ export const getComments = (commentState: any, commentsLoaded?: boolean): (dispa
         try {
             dispatch(getCommentsPending());
 
-            const [state]: ICommentState[] = commentState;
-            const {postId, page}: ICommentState = state;
+            const [{postId, page}]: ICommentState[] = commentState;
 
             const res = await AuthAPI.get(`comments/${postId}/${page}`);
 
