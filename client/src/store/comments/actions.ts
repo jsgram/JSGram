@@ -65,16 +65,17 @@ export const resetComment = (postId: string): { type: string, payload: string } 
     payload: postId,
 });
 
-export const getComments = (postId: string, commentState: any, commentsLoaded?: boolean): (dispatch: Dispatch) =>
+export const getComments = (commentState: any, commentsLoaded?: boolean): (dispatch: Dispatch) =>
     Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(getCommentsPending());
-            const page = isFinite(commentState) ? commentState : commentState[0].page;
+            const postId = commentState[0].postId;
+            const page = commentState[0].page;
 
             const res = await AuthAPI.get(`comments/${postId}/${page}`);
 
-            if (!res.data.commentsAll.length || res.data.commentsAll.length % 10 !== 0 || commentsLoaded ) {
+            if (res.data.commentsAll.length % 10 !== 0 || commentsLoaded ) {
                 dispatch(getCommentsSuccess(postId, res.data.commentsAll, page));
                 dispatch(allCommentsLoaded(postId, page));
                 return;
