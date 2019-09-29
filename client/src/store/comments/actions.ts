@@ -17,6 +17,11 @@ import { AuthAPI } from '../api';
 import { showAlert } from '../alert/actions';
 import { IComments } from './reducers';
 
+interface ICommentState {
+    postId: string;
+    page: number;
+}
+
 export const FIRST_PAGE = 1;
 
 export const getCommentsPending = (): { type: string } => ({
@@ -70,8 +75,9 @@ export const getComments = (commentState: any, commentsLoaded?: boolean): (dispa
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(getCommentsPending());
-            const postId = commentState[0].postId;
-            const page = commentState[0].page;
+
+            const [state]: ICommentState[] = commentState;
+            const {postId, page}: ICommentState = state;
 
             const res = await AuthAPI.get(`comments/${postId}/${page}`);
 
