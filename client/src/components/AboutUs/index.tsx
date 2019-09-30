@@ -10,17 +10,16 @@ export const AboutUs = (): ReactElement => (
             <Container>
                 <Row>
                     {our_team.map((team: any) => (
-                            <Col lg='4' sm='6'>
-                                <Card key={team.id} className='mt-4 shadow-card'>
+                            <Col lg='4' sm='6' className='mt-4 d-flex'>
+                                <Card key={team.id} className='shadow-card d-inline-block'>
                                     <CardBody>
                                         <CardTitle className='font-weight-bolder'>{team.username}</CardTitle>
                                         <CardSubtitle>Some information</CardSubtitle>
                                     </CardBody>
                                     <img
                                         src={team.image}
-                                        width={400}
-                                        height={500}
-                                        className='img-fluid px-2'
+                                        height={300}
+                                        className='w-100 px-2'
                                         alt='user'/>
                                     <CardBody>
                                         <CardText>{team.info}</CardText>
