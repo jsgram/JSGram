@@ -1,6 +1,6 @@
 import {googleRouter} from '../auth.routes/google.router';
 
-import {app} from '../../app';
+import {server} from '../../app';
 import request from 'supertest';
 
 describe('Google authentication router:', () => {
@@ -9,12 +9,12 @@ describe('Google authentication router:', () => {
     });
 
     test('GET authenentication - success', async () => {
-        const req = await request(app).get('/auth/google');
+        const req = await request(server).get('/auth/google');
         expect(req.status).toBe(302);
     });
 
     test('GET callback - success', async () => {
-        const req = await request(app).get('/auth/google/callback');
+        const req = await request(server).get('/auth/google/callback');
         expect(req.status).toBe(302);
     });
 });

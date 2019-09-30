@@ -1,6 +1,6 @@
 import {authRouter} from '../auth.routes/auth.router';
 
-import {app} from '../../app';
+import {server} from '../../app';
 import request from 'supertest';
 
 describe('Authentication router:', () => {
@@ -10,17 +10,17 @@ describe('Authentication router:', () => {
 
     test.skip('POST login - failure', async () => {
         // TODO fix DB connection issue
-        const req = await request(app).post('/auth/login');
+        const req = await request(server).post('/auth/login');
         expect(req.status).toBe(409);
     });
 
     test('POST logout - success', async () => {
-        const req = await request(app).post('/auth/logout');
+        const req = await request(server).post('/auth/logout');
         expect(req.status).toBe(302);
     });
 
     test('GET unknown route - failure', async () => {
-        const req = await request(app).get('/auth/fakeroute');
+        const req = await request(server).get('/auth/fakeroute');
         expect(req.text).toBe('{"message":"404, unknown page"}');
     });
 });
