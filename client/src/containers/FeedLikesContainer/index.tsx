@@ -8,6 +8,7 @@ import {
 import { ILike } from '../../store/likes/reducers';
 import { IFeedState } from '../../store/feed/reducers';
 import { Likes } from '../../components/Likes';
+import { emitNewNotificationSocket } from '../../store/notifications/actions';
 
 interface ILikeState {
     feed: IFeedState;
@@ -18,8 +19,10 @@ interface ILikeState {
 
 interface ILikeProps {
     postId: string;
+    authorId: string;
     likes: [];
     loggedId: string;
+    loggedUsername: string;
     authorsOfLike: never[];
     loadingLike: boolean;
     newsFeed: [];
@@ -27,6 +30,7 @@ interface ILikeProps {
 
 interface ICommentsState {
     postId: string;
+    authorId: string;
     authorsOfLike: [];
     userLikeExist: boolean;
 }
@@ -34,6 +38,7 @@ interface ICommentsState {
 class FeedLikesContainer extends React.Component<any> {
     public state: ICommentsState = {
         postId: '',
+        authorId: '',
         authorsOfLike: [],
         userLikeExist: false,
     };
@@ -64,21 +69,26 @@ class FeedLikesContainer extends React.Component<any> {
         return (
             <Likes
                 postId={this.state.postId}
+                authorId={this.state.authorId}
                 authorsOfLike={this.state.authorsOfLike}
                 loggedUserLikeExist={this.state.userLikeExist}
                 loadingLike={this.props.loadingLike}
                 userId={this.props.loggedId}
+                loggedUsername={this.props.loggedUsername}
                 addLike={this.props.addLike}
                 deleteLike={this.props.deleteLike}
+                emitNewNotificationSocket={this.props.emitNewNotificationSocket}
             />
         );
     }
 }
 
-const mapStateToProps = (state: ILikeState, ownProps: { postId: string, likes: [] }): ILikeProps => ({
+const mapStateToProps = (state: ILikeState, ownProps: { postId: string, likes: [], authorId: string }): ILikeProps => ({
     postId: ownProps.postId,
+    authorId: ownProps.authorId,
     likes: ownProps.likes,
     loggedId: state.feed.loggedId,
+    loggedUsername: state.feed.loggedUsername,
     authorsOfLike: state.likes.feedAuthorsOfLike,
     loadingLike: state.likes.loadingLike,
     newsFeed: state.newsFeed,
@@ -89,6 +99,7 @@ const mapDispatchToProps = {
     setUserLikeExist,
     addLike,
     deleteLike,
+    emitNewNotificationSocket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeedLikesContainer);

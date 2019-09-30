@@ -3,18 +3,33 @@ import { Spinner } from 'reactstrap';
 
 interface ILikesProps {
     userId: string;
+    authorId: string;
+    loggedUsername: string;
     postId: string;
     authorsOfLike: [];
     loadingLike: boolean;
     loggedUserLikeExist: boolean;
     addLike: (body: { userId: string, postId: string }) => void;
     deleteLike: (body: { userId: string, postId: string }) => void;
+    emitNewNotificationSocket: (userId: string, loggedUsername: string, message: string) => void;
 }
 
-export const Likes = ({userId, postId, authorsOfLike, loadingLike, loggedUserLikeExist, addLike, deleteLike}:
-                          ILikesProps): JSX.Element => {
+export const Likes = ({
+                          userId,
+                          authorId,
+                          loggedUsername,
+                          postId,
+                          authorsOfLike,
+                          loadingLike,
+                          loggedUserLikeExist,
+                          addLike,
+                          deleteLike,
+                          emitNewNotificationSocket,
+                      }: ILikesProps): JSX.Element => {
     const onAddLike = (): void => {
         addLike({userId, postId});
+
+        emitNewNotificationSocket(authorId, loggedUsername, 'likes your post');
     };
 
     const onDeleteLike = (): void => {
@@ -29,9 +44,9 @@ export const Likes = ({userId, postId, authorsOfLike, loadingLike, loggedUserLik
         <>
             <div className='likes'>
                 {loadingLike ?
-                        <Spinner type='grow' size='sm'/>
-                        :
-                        likeButton
+                    <Spinner type='grow' size='sm'/>
+                    :
+                    likeButton
                 }
             </div>
             <span>{authorsOfLike.length} likes</span>

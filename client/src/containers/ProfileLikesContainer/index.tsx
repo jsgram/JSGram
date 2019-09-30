@@ -4,6 +4,7 @@ import { setPostAuthorsOfLike, setUserLikeExist, addLike, deleteLike, getLikes }
 import { ILike } from '../../store/likes/reducers';
 import { IFeedState } from '../../store/feed/reducers';
 import { Likes } from '../../components/Likes';
+import { emitNewNotificationSocket } from '../../store/notifications/actions';
 
 interface IBody {
     userId: string;
@@ -18,7 +19,9 @@ interface ILikeState {
 
 interface ILikeProps {
     postId: string;
+    authorId: string;
     loggedId: never | string;
+    loggedUsername: string;
     userPosts: any;
     authorsOfLike: any;
     loadingLike: boolean;
@@ -30,6 +33,7 @@ interface ILocalProps {
     setUserLikeExist: (loggedUserLikeExist: boolean) => void;
     addLike: (body: IBody) => void;
     deleteLike: (body: IBody) => void;
+    emitNewNotificationSocket: (userId: string, loggedUsername: string, message: string) => void;
 }
 
 type IProfileLikesProps = ILikeProps & ILocalProps;
@@ -49,20 +53,25 @@ class ProfileLikesContainer extends React.Component<IProfileLikesProps> {
         return (
             <Likes
                 userId={this.props.loggedId}
+                authorId={this.props.authorId}
+                loggedUsername={this.props.loggedUsername}
                 postId={this.props.userPosts.selectedPost._id}
                 authorsOfLike={this.props.authorsOfLike}
                 loadingLike={this.props.loadingLike}
                 loggedUserLikeExist={this.props.loggedUserLikeExist}
                 addLike={this.props.addLike}
                 deleteLike={this.props.deleteLike}
+                emitNewNotificationSocket={this.props.emitNewNotificationSocket}
             />
         );
     }
 }
 
-const mapStateToProps = (state: ILikeState, ownProps: {postId: string}): ILikeProps => ({
+const mapStateToProps = (state: ILikeState, ownProps: {postId: string, authorId: string}): ILikeProps => ({
     postId: ownProps.postId,
+    authorId: ownProps.authorId,
     loggedId: state.feed.loggedId,
+    loggedUsername: state.feed.loggedUsername,
     userPosts: state.userPosts,
     authorsOfLike: state.likes.postAuthorsOfLike,
     loadingLike: state.likes.loadingLike,
@@ -75,6 +84,7 @@ const mapDispatchToProps = {
     setUserLikeExist,
     addLike,
     deleteLike,
+    emitNewNotificationSocket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileLikesContainer);

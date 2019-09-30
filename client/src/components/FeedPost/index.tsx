@@ -48,7 +48,7 @@ export class FeedPost extends React.Component<IProps> {
                     <Col sm={7} md={8} className='order-2 order-sm-1'>
                         {
                             newsFeed.feed.filter((feed: INewsFeed) => feed._id).map((feed: INewsFeed) => {
-                                const {description, imgPath, author: {photoPath, username}}: any = feed;
+                                const {description, imgPath, author: {_id: authorId, photoPath, username}}: any = feed;
                                 return (
                                     <div className='profile-post border mb-5' key={feed._id}>
                                         <div className='post-header p-2 border'>
@@ -73,7 +73,11 @@ export class FeedPost extends React.Component<IProps> {
                                             alt='post'
                                         />
                                         <div className='d-block mt-3 mb-2 pl-3'>
-                                            <FeedLikesContainer postId={feed._id} likes={feed.authorsOfLike}/>
+                                            <FeedLikesContainer
+                                                postId={feed._id}
+                                                likes={feed.authorsOfLike}
+                                                authorId={authorId}
+                                            />
                                         </div>
                                         <div className='description-post pb-3 border-bottom'>
                                             <div className='d-block pl-3 text-description'>
@@ -98,6 +102,7 @@ export class FeedPost extends React.Component<IProps> {
                                         <Comment postId={feed._id}/>
                                             <WriteComment
                                                 postId={feed._id}
+                                                userId={authorId}
                                             />
                                     </div>
                                 );

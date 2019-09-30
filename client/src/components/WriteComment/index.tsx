@@ -3,19 +3,25 @@ import { Button, InputGroup, InputGroupAddon } from 'reactstrap';
 import TextareaAutosize from 'react-textarea-autosize';
 import { connect } from 'react-redux';
 import { onChangeComment, addComment } from '../../store/comments/actions';
+import {emitNewNotificationSocket} from '../../store/notifications/actions';
 import { IComments } from '../../store/comments/reducers';
 
 interface IProps {
     loggedId: string;
+    loggedUsername: string;
     postId: string;
     onChangeComments: Array<{ postId: string, comment: string }>;
     onChangeComment: (postId: string, event: string) => void;
     addComment: (postId: string, loggedId: string, commentValue: string) => void;
+    userId: string;
+    emitNewNotificationSocket: (userId: string, loggedUsername: string, message: string) => void;
 }
 
 interface ILocalState {
     loggedId: string;
+    loggedUsername: string;
     postId: string;
+    userId: string;
     onChangeComments: Array<{ postId: string, comment: string }>;
 }
 
@@ -35,6 +41,8 @@ class WriteComment extends React.Component<IProps> {
             this.props.loggedId,
             commentValue,
         );
+
+        this.props.emitNewNotificationSocket(this.props.userId, this.props.loggedUsername, 'comments your post');
     }
 
     public render(): JSX.Element {
@@ -73,15 +81,18 @@ class WriteComment extends React.Component<IProps> {
     }
 }
 
-const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalState => ({
+const mapStateToProps = (state: IState, ownProps: { postId: string, userId: string }): ILocalState => ({
     postId: ownProps.postId,
+    userId: ownProps.userId,
     loggedId: state.feed.loggedId,
+    loggedUsername: state.feed.loggedUsername,
     onChangeComments: state.comments.onChangeComments,
 });
 
 const mapDispatchToProps = {
     addComment,
     onChangeComment,
+    emitNewNotificationSocket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WriteComment);

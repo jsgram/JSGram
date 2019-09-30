@@ -4,6 +4,8 @@ import express, { Application, Request, Response } from 'express';
 import passport from 'passport';
 import cors from 'cors';
 import path from 'path';
+import http from 'http';
+import socketIo from 'socket.io';
 
 import './helpers/passport.config';
 
@@ -27,11 +29,13 @@ import { unknownPageHandler } from './helpers/unknown.page.handler';
 import { errorHandler } from './helpers/error.handler';
 import { requestLoggerMiddleware } from './helpers/request.logger.middleware';
 
-export const app: Application = express();
+const app: Application = express();
+export const server = http.createServer(app);
+export const io = socketIo(server);
 
-app.use(cors());
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -61,3 +65,6 @@ app.use('/', express.static(STATIC_PATH));
 
 app.use('*', unknownPageHandler);
 app.use(errorHandler);
+
+import notifications from './sockets/notifications';
+notifications(io);
