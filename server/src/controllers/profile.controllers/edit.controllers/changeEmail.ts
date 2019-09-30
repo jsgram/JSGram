@@ -8,12 +8,17 @@ interface IChangeEmail {
     newEmail: string;
     profileUser: {
         email: string;
+        _id: string;
     };
 }
 
 export const changeEmail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { newEmail, profileUser: {email} }: IChangeEmail = req.body;
+        const { newEmail, profileUser: {email, _id: userId} }: IChangeEmail = req.body;
+        const { locals: { user: { id: loggedUserId } } }: Response = res;
+        if (loggedUserId !== userId) {
+            throw new Error('Unauthorized attempt to edit profile');
+        }
         if (Validator.isEmpty(newEmail)) {
             throw new Error('Email is empty');
         }
@@ -29,6 +34,10 @@ export const changeEmail = async (req: Request, res: Response, next: NextFunctio
         res.json(
             {status: `A verification email has been sent to ${newEmail}`});
     } catch (e) {
-        next({message: 'Can not change email', status: 500});
+        if (e.message) {
+            next({ message: e.message, status: 400 });
+        } else {
+            next({message: 'Can not change email', status: 500});
+        }
     }
 };
