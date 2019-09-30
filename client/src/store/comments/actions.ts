@@ -17,6 +17,11 @@ import { AuthAPI } from '../api';
 import { showAlert } from '../alert/actions';
 import { IComments } from './reducers';
 
+interface ICommentState {
+    postId: string;
+    page: number;
+}
+
 export const FIRST_PAGE = 1;
 
 export const getCommentsPending = (): { type: string } => ({
@@ -65,17 +70,17 @@ export const resetComment = (postId: string): { type: string, payload: string } 
     payload: postId,
 });
 
-export const getComments = (postId: string, commentState: any, commentsLoaded?: boolean): (dispatch: Dispatch) =>
+export const getComments = (commentState: any, commentsLoaded?: boolean): (dispatch: Dispatch) =>
     Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(getCommentsPending());
-            const page = typeof commentState === 'number' ? commentState :
-                commentState[0] ? commentState[0].page : false;
 
-            const res = await AuthAPI.get(`comments/${postId}/${page || 1}`);
+            const [{postId, page}]: ICommentState[] = commentState;
 
-            if (!res.data.commentsAll.length || res.data.commentsAll.length % 10 !== 0 || commentsLoaded || !page ) {
+            const res = await AuthAPI.get(`comments/${postId}/${page}`);
+
+            if (res.data.commentsAll.length < 10 || commentsLoaded ) {
                 dispatch(getCommentsSuccess(postId, res.data.commentsAll, page));
                 dispatch(allCommentsLoaded(postId, page));
                 return;

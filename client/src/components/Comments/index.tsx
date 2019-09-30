@@ -34,7 +34,7 @@ interface IState {
 }
 
 interface IOwnCommentsProps {
-    getComments: (postId: string, commentState: any, commentsLoaded?: boolean) => void;
+    getComments: (commentState: any, commentsLoaded?: boolean) => void;
     resetComments: () => void;
     editCommentAsync: (comment: string, commentId: string) => void;
     changeEditStatus: (commentId: string) => void;
@@ -48,7 +48,7 @@ export type ICommentsProps = IOwnCommentsProps & ILocalState;
 class Comments extends React.Component<ICommentsProps> {
     public componentDidMount(): void {
         if (this.props.postId) {
-            this.props.getComments(this.props.postId, FIRST_PAGE);
+            this.props.getComments([{postId: this.props.postId, page: FIRST_PAGE}]);
             this.props.setDefaultCommentToChange(this.props.postId);
         }
     }
@@ -60,7 +60,7 @@ class Comments extends React.Component<ICommentsProps> {
 
         const commentsLoaded = this.props.allCommentsLoaded.some((post: any) => post === this.props.postId);
 
-        this.props.getComments(this.props.postId, commentStateForCurrentPost, commentsLoaded);
+        this.props.getComments(commentStateForCurrentPost, commentsLoaded);
     }
 
     public componentWillUnmount(): void {
