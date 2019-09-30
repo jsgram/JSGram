@@ -190,7 +190,7 @@ export default class Profile extends React.Component<IProfileProps> {
                     />}
                 </div>
                 <div className='ml-lg-5 d-sm-block d-flex flex-column'>
-                    <p className='profile-name align-self-center'>
+                    <p className='profile-name'>
                         {username}
                         {this.props.urlUsername === this.props.loggedUsername &&
                         <Link to={`/profile/${this.props.urlUsername}/edit`}>
