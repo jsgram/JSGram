@@ -30,8 +30,11 @@ const validate = (user: IUser): IUser => {
     if (!user.fullName || user.fullName.length < 3) {
         errors.fullName = 'Please, enter your fullname.';
     }
-    if (!user.password || user.password.length < 8) {
+    if (!user.password) {
         errors.password = 'Please, enter your password.';
+    }
+    if (user.password && user.password.length < 8) {
+        errors.password = 'Password must be at least 8 characters long.';
     }
     if (!user.description) {
         user.description = '';
