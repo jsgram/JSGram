@@ -14,7 +14,10 @@ export const editPassword = async (req: Request, res: Response, next: NextFuncti
     try {
         const username = req.params.username;
         const { oldPassword, newPassword }: IUserPassword = req.body;
-
+        const { locals: { user: { username: loggedUser } } }: Response = res;
+        if (loggedUser !== username) {
+            throw new Error('Unauthorized attempt to edit profile');
+        }
         if (!isValidPassword(oldPassword) ||
             !isValidPassword(newPassword) || oldPassword === newPassword) {
             throw new Error('Password input is invalid.');
