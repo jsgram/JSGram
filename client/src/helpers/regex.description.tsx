@@ -8,11 +8,11 @@ const hashtagRegex = new RegExp(`(${HASH_REGEXP.source}|${MENTION_REGEXP.source}
 export const formatDescription = (description: string): any =>
     description && description.split(hashtagRegex).map((token: string) => {
         switch (true) {
-            case !!token.match(HASH_REGEXP):
+            case HASH_REGEXP.test(token):
                 return (<a href={`/profile/${token.slice(1)}`}>{token}</a>);
-            case !!token.match(MENTION_REGEXP):
+            case MENTION_REGEXP.test(token):
                 return (<a href={`/profile/${token.slice(1)}`}>{token}</a>);
-            case !!token.match(LINK_REGEXP):
+            case LINK_REGEXP.test(token):
                 return (<a href={token}>{token}</a>);
             default:
                 return token;
