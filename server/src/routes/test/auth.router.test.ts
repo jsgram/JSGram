@@ -9,7 +9,6 @@ describe('Authentication router:', () => {
     });
 
     test.skip('POST login - failure', async () => {
-        // TODO fix DB connection issue
         const req = await request(server).post('/auth/login');
         expect(req.status).toBe(409);
     });

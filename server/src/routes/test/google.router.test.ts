@@ -1,5 +1,3 @@
-import {googleRouter} from '../auth.routes/google.router';
-
 import {server} from '../../app';
 import request from 'supertest';
 
