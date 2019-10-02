@@ -1,14 +1,14 @@
 import { Dispatch } from 'redux';
 import { showAlert } from '../alert/actions';
 import { SocketAPI } from '../../helpers/socket.connection';
-import { ADD_NEW_NOTIFICATION } from './notificationsConfig';
+import { ADD_NEW_NOTIFICATION, ADD_NEW_ROOM } from './notificationsConfig';
 
 const socketNotifications = new SocketAPI('notifications');
 
 export const joinRoomNotificationSocket = (loggedId: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            await socketNotifications.emit('join room', loggedId);
+            await socketNotifications.emit(ADD_NEW_ROOM, loggedId);
         } catch (e) {
             console.error(e);
         }
