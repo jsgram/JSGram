@@ -3,7 +3,7 @@ import { Button, InputGroup, InputGroupAddon } from 'reactstrap';
 import TextareaAutosize from 'react-textarea-autosize';
 import { connect } from 'react-redux';
 import { onChangeComment, addComment } from '../../store/comments/actions';
-import {emitNewNotificationSocket} from '../../store/notifications/actions';
+import { COMMENT_NOTIFICATION, emitNewNotificationSocket } from '../../store/notifications/actions';
 import { IComments } from '../../store/comments/reducers';
 
 interface IProps {
@@ -42,7 +42,7 @@ class WriteComment extends React.Component<IProps> {
             commentValue,
         );
 
-        this.props.emitNewNotificationSocket(this.props.userId, this.props.loggedUsername, 'comments your post');
+        this.props.emitNewNotificationSocket(this.props.userId, this.props.loggedUsername, COMMENT_NOTIFICATION);
     }
 
     public render(): JSX.Element {

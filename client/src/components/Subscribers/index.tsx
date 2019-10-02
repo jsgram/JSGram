@@ -6,6 +6,7 @@ import './style.scss';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 import { IUserData } from '../Profile';
+import { FOLLOW_NOTIFICATION } from '../../store/notifications/actions';
 
 export interface ISubscribersProps {
     path: any;
@@ -67,7 +68,7 @@ export class Subscribers extends React.Component<ISubscribersProps> {
 
     public followSubscriber = (_id: string): void => {
         this.props.changeUserFollowing(_id, 'follow');
-        this.props.emitNewNotificationSocket(_id, this.props.loggedUsername, 'started following you');
+        this.props.emitNewNotificationSocket(_id, this.props.loggedUsername, FOLLOW_NOTIFICATION);
     }
 
     public unfollowSubscriber = (_id: string): void => {

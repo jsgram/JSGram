@@ -1,5 +1,6 @@
 import React from 'react';
 import { Spinner } from 'reactstrap';
+import { LIKE_NOTIFICATION } from '../../store/notifications/actions';
 
 interface ILikesProps {
     userId: string;
@@ -29,7 +30,7 @@ export const Likes = ({
     const onAddLike = (): void => {
         addLike({userId, postId});
 
-        emitNewNotificationSocket(authorId, loggedUsername, 'likes your post');
+        emitNewNotificationSocket(authorId, loggedUsername, LIKE_NOTIFICATION);
     };
 
     const onDeleteLike = (): void => {

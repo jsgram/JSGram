@@ -9,6 +9,7 @@ import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 import PostContainer from '../../containers/PostContainer';
 import { IFeedState } from '../../store/feed/reducers';
+import { FOLLOW_NOTIFICATION } from '../../store/notifications/actions';
 
 export interface IUserData {
     posts: number;
@@ -94,7 +95,7 @@ export default class Profile extends React.Component<IProfileProps> {
     public followUrlUser = (): void => {
         const body = {_id: this.props.user._id};
         this.props.followUser(body);
-        this.props.emitNewNotificationSocket(this.props.user._id, this.props.loggedUsername, 'started following you');
+        this.props.emitNewNotificationSocket(this.props.user._id, this.props.loggedUsername, FOLLOW_NOTIFICATION);
     }
 
     public unfollowUrlUser = (): void => {

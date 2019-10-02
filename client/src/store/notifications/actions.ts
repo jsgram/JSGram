@@ -4,6 +4,10 @@ import { SocketAPI } from '../../helpers/socket.connection';
 
 const socketNotifications = new SocketAPI('notifications');
 
+export const LIKE_NOTIFICATION = 'liked your post';
+export const COMMENT_NOTIFICATION = 'commented your post';
+export const FOLLOW_NOTIFICATION = 'started following your post';
+
 export const joinRoomNotificationSocket = (loggedId: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
