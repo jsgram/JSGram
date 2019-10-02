@@ -6,7 +6,7 @@ import './style.scss';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 import { IUserData } from '../Profile';
-import { FOLLOW_NOTIFICATION } from '../../store/notifications/actions';
+import { FOLLOW_NOTIFICATION } from '../../store/notifications/notificationsConfig';
 
 export interface ISubscribersProps {
     path: any;

@@ -9,7 +9,7 @@ import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 import PostContainer from '../../containers/PostContainer';
 import { IFeedState } from '../../store/feed/reducers';
-import { FOLLOW_NOTIFICATION } from '../../store/notifications/actions';
+import { FOLLOW_NOTIFICATION } from '../../store/notifications/notificationsConfig';
 
 export interface IUserData {
     posts: number;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Spinner } from 'reactstrap';
-import { LIKE_NOTIFICATION } from '../../store/notifications/actions';
+import { LIKE_NOTIFICATION } from '../../store/notifications/notificationsConfig';
 
 interface ILikesProps {
     userId: string;

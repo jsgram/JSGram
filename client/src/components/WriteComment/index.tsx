@@ -3,7 +3,8 @@ import { Button, InputGroup, InputGroupAddon } from 'reactstrap';
 import TextareaAutosize from 'react-textarea-autosize';
 import { connect } from 'react-redux';
 import { onChangeComment, addComment } from '../../store/comments/actions';
-import { COMMENT_NOTIFICATION, emitNewNotificationSocket } from '../../store/notifications/actions';
+import { emitNewNotificationSocket } from '../../store/notifications/actions';
+import { COMMENT_NOTIFICATION } from '../../store/notifications/notificationsConfig';
 import { IComments } from '../../store/comments/reducers';
 
 interface IProps {
