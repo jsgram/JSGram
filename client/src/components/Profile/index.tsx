@@ -39,6 +39,8 @@ export interface IProfileProps {
     resetPosts: () => void;
     getPostsAsync: (username: string) => void;
     deleteUser: (id: string) => void;
+    emitNewNotificationSocket: (userId: string, loggedUsername: string, message: string) => void;
+
 }
 
 export default class Profile extends React.Component<IProfileProps> {
@@ -92,6 +94,7 @@ export default class Profile extends React.Component<IProfileProps> {
     public followUrlUser = (): void => {
         const body = {_id: this.props.user._id};
         this.props.followUser(body);
+        this.props.emitNewNotificationSocket(this.props.user._id, this.props.loggedUsername, 'started following you');
     }
 
     public unfollowUrlUser = (): void => {

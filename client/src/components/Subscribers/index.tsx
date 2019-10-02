@@ -10,6 +10,7 @@ import { IUserData } from '../Profile';
 export interface ISubscribersProps {
     path: any;
     loggedId: string;
+    loggedUsername: string;
     urlUsername: string;
     user: IUserData;
     page: number;
@@ -25,6 +26,7 @@ export interface ISubscribersProps {
     setSubscribersCount: (followersCount: number, followingCount: number) => void;
     changeUserFollowing: (_id: string, followType: string) => void;
     resetSubscribers: () => void;
+    emitNewNotificationSocket: (userId: string, loggedUsername: string, message: string) => void;
 }
 
 export class Subscribers extends React.Component<ISubscribersProps> {
@@ -65,6 +67,7 @@ export class Subscribers extends React.Component<ISubscribersProps> {
 
     public followSubscriber = (_id: string): void => {
         this.props.changeUserFollowing(_id, 'follow');
+        this.props.emitNewNotificationSocket(_id, this.props.loggedUsername, 'started following you');
     }
 
     public unfollowSubscriber = (_id: string): void => {

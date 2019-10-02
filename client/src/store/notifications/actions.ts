@@ -1,21 +1,35 @@
 import { Dispatch } from 'redux';
 import { showAlert } from '../alert/actions';
-import socketIoClient from 'socket.io-client';
+import { SocketAPI } from '../../helpers/socket.connection';
 
-const io = socketIoClient(`${process.env.REACT_APP_BASE_API}/notifications`);
+const socketNotifications = new SocketAPI('notifications');
 
-export const joinRoomNotificationSocket = (loggedId: string): (dispatch: Dispatch) => void =>
-    (dispatch: Dispatch): void => {
-        io.emit('join room', loggedId);
+export const joinRoomNotificationSocket = (loggedId: string): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            await socketNotifications.emit('join room', loggedId);
+        } catch (e) {
+            console.error(e);
+        }
     };
 
 export const emitNewNotificationSocket = (userId: string, username: string, message: string):
-    (dispatch: Dispatch) => void => (dispatch: Dispatch): void => {
-        io.emit('add new notification', {userId, username, message});
+    (dispatch: Dispatch) => Promise<void> => async (dispatch: Dispatch): Promise<void> => {
+        try {
+            await socketNotifications.emit('add new notification', {userId, username, message});
+        } catch (e) {
+            console.error(e);
+        }
     };
 
-export const onNewNotificationSocket = (): (dispatch: Dispatch) => void => (dispatch: Dispatch): void => {
-    io.on('add new notification', (({username, message}: {username: string, message: string}): any => {
-        dispatch(showAlert(`${username} ${message}`, 'success'));
-    }));
-};
+export const onNewNotificationSocket = (): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            const fun = (({username, message}: {username: string, message: string}): void => {
+                dispatch(showAlert(`${username} ${message}`, 'success'));
+            });
+            await socketNotifications.on('add new notification', fun);
+        } catch (e) {
+            console.error(e);
+        }
+    };

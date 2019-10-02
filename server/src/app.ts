@@ -25,6 +25,8 @@ import { commentsRouter } from './routes/comments.routes/comments.router';
 import { searchRouter } from './routes/search.routes/search.router';
 import { eventRouter } from './routes/event.routes/event.router';
 
+import {Notifications} from './sockets/notifications';
+
 import { unknownPageHandler } from './helpers/unknown.page.handler';
 import { errorHandler } from './helpers/error.handler';
 import { requestLoggerMiddleware } from './helpers/request.logger.middleware';
@@ -33,7 +35,7 @@ const app: Application = express();
 export const server = http.createServer(app);
 export const io = socketIo(server);
 
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cors({credentials: true, origin: process.env.FRONT_PATH}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(passport.initialize());
@@ -58,6 +60,8 @@ app.use('/search', searchRouter);
 app.use('/events', eventRouter);
 app.use(googleRouter);
 
+const notifications = new Notifications('notifications', io);
+
 // Symlinking client build to server directory appears to be a better solution
 // Unfortunately Win/Linux link incompatibility hurdles this option
 const STATIC_PATH: string = path.join(__dirname, process.env.STATIC_PATH);
@@ -65,6 +69,3 @@ app.use('/', express.static(STATIC_PATH));
 
 app.use('*', unknownPageHandler);
 app.use(errorHandler);
-
-import notifications from './sockets/notifications';
-notifications(io);

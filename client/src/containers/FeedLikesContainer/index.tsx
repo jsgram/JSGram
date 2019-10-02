@@ -30,7 +30,6 @@ interface ILikeProps {
 
 interface ICommentsState {
     postId: string;
-    authorId: string;
     authorsOfLike: [];
     userLikeExist: boolean;
 }
@@ -38,7 +37,6 @@ interface ICommentsState {
 class FeedLikesContainer extends React.Component<any> {
     public state: ICommentsState = {
         postId: '',
-        authorId: '',
         authorsOfLike: [],
         userLikeExist: false,
     };
@@ -69,9 +67,9 @@ class FeedLikesContainer extends React.Component<any> {
         return (
             <Likes
                 postId={this.state.postId}
-                authorId={this.state.authorId}
                 authorsOfLike={this.state.authorsOfLike}
                 loggedUserLikeExist={this.state.userLikeExist}
+                authorId={this.props.authorId}
                 loadingLike={this.props.loadingLike}
                 userId={this.props.loggedId}
                 loggedUsername={this.props.loggedUsername}

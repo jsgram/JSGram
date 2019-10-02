@@ -10,6 +10,7 @@ import {
 } from '../../store/subscribers/actions';
 import { getUser } from '../../store/profile/actions';
 import { IUserData } from '../../components/Profile';
+import { emitNewNotificationSocket } from '../../store/notifications/actions';
 
 interface ISubscribersState {
     profile: {
@@ -21,6 +22,7 @@ interface ISubscribersState {
 
 interface ISubscribersLocalProps {
     loggedId: string;
+    loggedUsername: string;
     user: IUserData;
     page: number;
     loaded: boolean;
@@ -40,6 +42,7 @@ class SubscribersContainer extends React.Component<SubscribersProps> {
                     <Subscribers
                         path={this.props.match.path}
                         loggedId={this.props.loggedId}
+                        loggedUsername={this.props.loggedUsername}
                         urlUsername={this.props.urlUsername}
                         user={this.props.user}
                         page={this.props.page}
@@ -55,6 +58,7 @@ class SubscribersContainer extends React.Component<SubscribersProps> {
                         setSubscribersCount={this.props.setSubscribersCount}
                         resetSubscribers={this.props.resetSubscribers}
                         changeUserFollowing={this.props.changeUserFollowing}
+                        emitNewNotificationSocket={this.props.emitNewNotificationSocket}
                     />
         );
     }
@@ -62,6 +66,7 @@ class SubscribersContainer extends React.Component<SubscribersProps> {
 
 const mapStateToProps = (state: ISubscribersState): ISubscribersLocalProps => ({
     loggedId: state.feed.loggedId,
+    loggedUsername: state.feed.loggedUsername,
     user: state.profile.user,
     page: state.subscribers.page,
     loaded: state.subscribers.loaded,
@@ -79,6 +84,7 @@ const mapDispatchToProps = {
     setSubscribersCount,
     resetSubscribers,
     changeUserFollowing,
+    emitNewNotificationSocket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubscribersContainer);
