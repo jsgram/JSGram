@@ -20,7 +20,6 @@ describe('Confirmation router:', () => {
 
     test.skip('GET unknown route - failure', async () => {
         const req = await request(server).get('/confirm/fakeroute');
-        // FIXME 500 might not be the best status code for this route
         expect(req.text).toBe('{"message":"Token does not exist"}');
     });
 });
