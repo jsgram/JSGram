@@ -79,7 +79,7 @@ export class FeedPost extends React.Component<IProps> {
                                                 authorId={authorId}
                                             />
                                         </div>
-                                        <div className='description-post pb-3 border-bottom'>
+                                        <div className='description-post pb-3'>
                                             <div className='d-block pl-3 text-description'>
                                                 <img
                                                     src={photoPath || noAvatar}
@@ -100,6 +100,7 @@ export class FeedPost extends React.Component<IProps> {
                                             </div>
                                         </div>
                                         <Comment postId={feed._id}/>
+                                        <div className='border-top pb-2'/>
                                             <WriteComment
                                                 postId={feed._id}
                                                 userId={authorId}
