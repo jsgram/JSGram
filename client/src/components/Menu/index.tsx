@@ -107,6 +107,8 @@ class Menu extends React.Component<IMenuProps> {
     public render(): JSX.Element {
         const {loggedUsername, newUsername, searchResults, loaded}: IMenuProps = this.props;
         const {searchValue}: IMenuState = this.state;
+        const sharp = 'e';
+
         return (
             <div className='container-fluid header-menu'>
                 <div className='row justify-content-between bg-white'>
@@ -133,22 +135,40 @@ class Menu extends React.Component<IMenuProps> {
                                 {!!searchResults.length ? searchResults.map((user: IUser) => (
                                         <Link to={`/profile/${user.username}`}
                                               className='text-decoration-none' key={user._id}>
+                                                <div className='w-100'>
+                                                    <DropdownItem className='p-md-2 p-1'>
+                                                        <img
+                                                            src={user.photoPath || noAvatar}
+                                                            width={32}
+                                                            height={32}
+                                                            className='rounded-circle mr-2'
+                                                            alt='avatar'
+                                                        />
+                                                        <span className='font-weight-bold'>{user.username}<br/></span>
+                                                        <span className='ml-4 pl-3 fullname'>
+                                                    {user.fullName}
+                                                </span>
+                                                    </DropdownItem>
+                                                    <DropdownItem divider/>
+                                                </div>
+                                            {sharp === searchValue &&
                                             <div className='w-100'>
                                                 <DropdownItem className='p-md-2 p-1'>
                                                     <img
-                                                        src={user.photoPath || noAvatar}
+                                                        src={noAvatar}
                                                         width={32}
                                                         height={32}
                                                         className='rounded-circle mr-2'
                                                         alt='avatar'
                                                     />
-                                                    <span className='font-weight-bold'>{user.username}<br/></span>
+                                                    <span className='font-weight-bold'>#{user.username}<br/></span>
                                                     <span className='ml-4 pl-3 fullname'>
-                                                    {user.fullName}
+                                                    #126 786 posts
                                                 </span>
                                                 </DropdownItem>
                                                 <DropdownItem divider/>
                                             </div>
+                                            }
                                         </Link>
                                     ),
                                 ) : <span className='ml-3'>No results...</span>}

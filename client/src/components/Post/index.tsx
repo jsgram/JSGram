@@ -89,7 +89,7 @@ export default class Post extends React.Component<IProps> {
                 <div className='row mt-5 profile-post'>
                     {
                         userPosts.posts.map((post: IPost) => (
-                            <div key={post._id} className='col-sm-4 text-center pt-4 post-photo'>
+                            <div className='col-sm-4 text-center pt-4 post-photo' key={post._id}>
                                 <img
                                     src={post.imgPath}
                                     width={293}
@@ -195,6 +195,7 @@ export default class Post extends React.Component<IProps> {
                                     <div className='d-none d-lg-block p-3 mb-3 border-top border-bottom'>
                                         <ProfileLikes postId={userPosts.selectedPost._id} />
                                     </div>
+                                    <div className='d-lg-none d-block border-top pb-2'/>
                                     <WriteComment
                                         postId={userPosts.selectedPost._id}
                                     />
