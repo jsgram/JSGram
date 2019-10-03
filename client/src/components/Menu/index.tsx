@@ -20,6 +20,12 @@ import {
     addNextResults,
 } from '../../store/search/actions';
 
+const search_hashtags = [
+    {id: 1, username: 'evolution', count: 123456},
+    {id: 2, username: 'ecmascript', count: 500000},
+    {id: 3, username: 'emma', count: 12},
+]
+
 export interface IUser {
     _id: string;
     username: string;
@@ -128,31 +134,33 @@ class Menu extends React.Component<IMenuProps> {
                             onChange={this.onSearchChange}
                         />
                         <Dropdown isOpen={this.state.isMenuOpen}
-                                  toggle={(): void => {this.toggle(searchValue); }}
+                                  toggle={(): void => {
+                                      this.toggle(searchValue);
+                                  }}
                                   color='light' className='search-menu'>
                             <DropdownToggle tag='a' className='nav-link m-0 p-0'/>
                             <DropdownMenu className='scrollable-menu col-12'>
                                 {!!searchResults.length ? searchResults.map((user: IUser) => (
                                         <Link to={`/profile/${user.username}`}
                                               className='text-decoration-none' key={user._id}>
-                                                <div className='w-100'>
-                                                    <DropdownItem className='p-md-2 p-1'>
-                                                        <img
-                                                            src={user.photoPath || noAvatar}
-                                                            width={32}
-                                                            height={32}
-                                                            className='rounded-circle mr-2'
-                                                            alt='avatar'
-                                                        />
-                                                        <span className='font-weight-bold'>{user.username}<br/></span>
-                                                        <span className='ml-4 pl-3 fullname'>
+                                            <div className='w-100'>
+                                                <DropdownItem className='p-md-2 p-1'>
+                                                    <img
+                                                        src={user.photoPath || noAvatar}
+                                                        width={32}
+                                                        height={32}
+                                                        className='rounded-circle mr-2'
+                                                        alt='avatar'
+                                                    />
+                                                    <span className='font-weight-bold'>{user.username}<br/></span>
+                                                    <span className='ml-4 pl-3 fullname'>
                                                     {user.fullName}
                                                 </span>
-                                                    </DropdownItem>
-                                                    <DropdownItem divider/>
-                                                </div>
-                                            {sharp === searchValue &&
-                                            <div className='w-100'>
+                                                </DropdownItem>
+                                                <DropdownItem divider/>
+                                            </div>
+                                            {sharp === searchValue && search_hashtags.map((hashtag: any) => (
+                                            <div key={hashtag.id} className='w-100'>
                                                 <DropdownItem className='p-md-2 p-1'>
                                                     <img
                                                         src={noAvatar}
@@ -161,13 +169,12 @@ class Menu extends React.Component<IMenuProps> {
                                                         className='rounded-circle mr-2'
                                                         alt='avatar'
                                                     />
-                                                    <span className='font-weight-bold'>#{user.username}<br/></span>
-                                                    <span className='ml-4 pl-3 fullname'>
-                                                    #126 786 posts
-                                                </span>
+                                                    <span className='font-weight-bold'>#{hashtag.username}<br/></span>
+                                                    <span className='ml-4 pl-3 fullname'>#{hashtag.count}</span>
                                                 </DropdownItem>
                                                 <DropdownItem divider/>
                                             </div>
+                                            ))}
                                             }
                                         </Link>
                                     ),
