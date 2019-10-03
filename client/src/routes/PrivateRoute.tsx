@@ -2,12 +2,21 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { getUserInfoFromToken } from '../store/feed/actions';
 import { connect } from 'react-redux';
+import { joinRoomNotificationSocket, onNewNotificationSocket } from '../store/notifications/actions';
 
 export const PrivateRoute = ({component: Component, ...rest}: any): JSX.Element => {
     class PrivateRouteWithComponent extends React.Component<any> {
         public componentDidMount(): void {
-            if (!this.props.username) {
+            if (!this.props.loggedId || !this.props.loggedUsername) {
                 this.props.getUserInfoFromToken();
+            }
+
+            this.props.onNewNotificationSocket();
+        }
+
+        public componentDidUpdate(prevProps: any): void {
+            if (prevProps.loggedId !== this.props.loggedId) {
+                this.props.joinRoomNotificationSocket(this.props.loggedId);
             }
         }
 
@@ -25,6 +34,8 @@ export const PrivateRoute = ({component: Component, ...rest}: any): JSX.Element 
 
     const mapDispatchToProps = {
         getUserInfoFromToken,
+        joinRoomNotificationSocket,
+        onNewNotificationSocket,
     };
     const PrivateRouteComponent = connect(mapStateToProps, mapDispatchToProps)(PrivateRouteWithComponent);
 

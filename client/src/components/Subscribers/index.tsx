@@ -6,10 +6,12 @@ import './style.scss';
 import Menu from '../Menu';
 import { Link } from 'react-router-dom';
 import { IUserData } from '../Profile';
+import { FOLLOW_NOTIFICATION } from '../../store/notifications/notificationsConfig';
 
 export interface ISubscribersProps {
     path: any;
     loggedId: string;
+    loggedUsername: string;
     urlUsername: string;
     user: IUserData;
     page: number;
@@ -25,6 +27,7 @@ export interface ISubscribersProps {
     setSubscribersCount: (followersCount: number, followingCount: number) => void;
     changeUserFollowing: (_id: string, followType: string) => void;
     resetSubscribers: () => void;
+    emitNewNotificationSocket: (userId: string, loggedUsername: string, message: string) => void;
 }
 
 export class Subscribers extends React.Component<ISubscribersProps> {
@@ -65,6 +68,7 @@ export class Subscribers extends React.Component<ISubscribersProps> {
 
     public followSubscriber = (_id: string): void => {
         this.props.changeUserFollowing(_id, 'follow');
+        this.props.emitNewNotificationSocket(_id, this.props.loggedUsername, FOLLOW_NOTIFICATION);
     }
 
     public unfollowSubscriber = (_id: string): void => {
