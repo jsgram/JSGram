@@ -25,7 +25,7 @@ import { showAlert } from '../alert/actions';
 import { IUserSubscriptions } from '../../containers/ProfileSubscriptionsContainer';
 import { IUserPrivacy } from '../../containers/ProfilePrivacyContainer';
 import {base64ToFile, createDataForAWS} from '../../helpers/upload.photo';
-import {history} from "../../history";
+import {history} from '../../history';
 
 export const getUserPending = (): { type: string } => ({
     type: GET_USER_PENDING,
