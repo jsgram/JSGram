@@ -20,11 +20,18 @@ import {
     addNextResults,
 } from '../../store/search/actions';
 
+// TODO change when will be BL for hastags on BE and FE
 const search_hashtags = [
-    {id: 1, username: 'evolution', count: 123456},
-    {id: 2, username: 'ecmascript', count: 500000},
-    {id: 3, username: 'emma', count: 12},
+    {id: 1, username: '#evolution', count: 123456},
+    {id: 2, username: '#ecmascript', count: 500000},
+    {id: 3, username: '#emma', count: 12},
 ]
+
+interface IHastags {
+    id: number;
+    username: string;
+    count: number;
+}
 
 export interface IUser {
     _id: string;
@@ -113,7 +120,6 @@ class Menu extends React.Component<IMenuProps> {
     public render(): JSX.Element {
         const {loggedUsername, newUsername, searchResults, loaded}: IMenuProps = this.props;
         const {searchValue}: IMenuState = this.state;
-        const sharp = 'e';
 
         return (
             <div className='container-fluid header-menu'>
@@ -159,7 +165,7 @@ class Menu extends React.Component<IMenuProps> {
                                                 </DropdownItem>
                                                 <DropdownItem divider/>
                                             </div>
-                                            {sharp === searchValue && search_hashtags.map((hashtag: any) => (
+                                            {'#' === searchValue && search_hashtags.map((hashtag: IHastags) => (
                                             <div key={hashtag.id} className='w-100'>
                                                 <DropdownItem className='p-md-2 p-1'>
                                                     <img
@@ -169,13 +175,12 @@ class Menu extends React.Component<IMenuProps> {
                                                         className='rounded-circle mr-2'
                                                         alt='avatar'
                                                     />
-                                                    <span className='font-weight-bold'>#{hashtag.username}<br/></span>
-                                                    <span className='ml-4 pl-3 fullname'>#{hashtag.count}</span>
+                                                    <span className='font-weight-bold'>{hashtag.username}<br/></span>
+                                                    <span className='ml-4 pl-3 fullname'>{hashtag.count}</span>
                                                 </DropdownItem>
                                                 <DropdownItem divider/>
                                             </div>
                                             ))}
-                                            }
                                         </Link>
                                     ),
                                 ) : <span className='ml-3'>No results...</span>}
