@@ -13,9 +13,9 @@ import { IUser } from '../../components/FriendsRecommendations';
 export interface INewsFeed {
     _id: string;
     description: string;
-    comments: [];
+    comments: string[];
     tags: [];
-    authorsOfLike: [];
+    authorsOfLike: string[];
     likeExist: boolean;
     imgPath: string;
     createdAt: string;
