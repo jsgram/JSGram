@@ -98,6 +98,20 @@ export class Subscribers extends React.Component<ISubscribersProps> {
         );
     }
 
+    public link = (subscriber: boolean, count: number, followType: string): JSX.Element => {
+        return (
+            <Link to={`/profile/${this.props.urlUsername}/${followType}`} className='link-style'
+                style={{textDecoration: !subscriber ? 'underline' : 'none'}}
+            >
+                <h4
+                    className='font-weight-light text-secondary text-uppercase'
+                >
+                    {count} {followType}
+                </h4>
+            </Link>
+        );
+    }
+
     public render(): JSX.Element {
         const subscribers = this.props.path.includes('following');
 
@@ -105,29 +119,17 @@ export class Subscribers extends React.Component<ISubscribersProps> {
             <Container>
                 <Menu/>
                 {this.props.loading ?
+                    (
                         <div className='d-flex justify-content-center'>
                             <Spinner className='mt-3' color='white'/>
-                        </div> :
+                        </div>
+                    ) :
+                    (
                         <div className='d-flex justify-content-center'>
-                        <Link to={`/profile/${this.props.urlUsername}/followers`} className='link-style'
-                              style={{textDecoration: !subscribers ? 'underline' : 'none'}}
-                        >
-                            <h4
-                                className='font-weight-light text-secondary text-uppercase'
-                            >
-                                {this.props.followersCount} followers
-                            </h4>
-                        </Link>
-                        < Link to={`/profile/${this.props.urlUsername}/following`} className='link-style'
-                               style={{textDecoration: subscribers ? 'underline' : 'none'}}
-                        >
-                            <h4
-                                className='font-weight-light text-secondary text-uppercase'
-                            >
-                                {this.props.followingCount} following
-                            </h4>
-                        </Link>
-                    </div>
+                            {this.link(subscribers, this.props.followersCount, 'followers')}
+                            {this.link(!subscribers, this.props.followingCount, 'following')}
+                        </div>
+                    )
                 }
                 <div className='d-flex justify-content-center'>
                     <div className='follow-wrapper'>
