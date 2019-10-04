@@ -163,10 +163,10 @@ class Menu extends React.Component<IMenuProps> {
                     </div>
                     <div className='mt-4'>
                         <i className='fa fa-compass fa-lg pt-2 pb-2 pr-4 sm-pt-0 icon text-muted'/>
-                        <Link to={`/profile/${newUsername ? newUsername : loggedUsername}/likes`}>
+                        <Link to={`/profile/${newUsername || loggedUsername}/likes`}>
                             <i className='fa fa-heart-o fa-lg pr-4 icon' />
                         </Link>
-                        <Link to={`/profile/${newUsername ? newUsername : loggedUsername}`}>
+                        <Link to={`/profile/${newUsername || loggedUsername}`}>
                             <i className='fa fa-user-o fa-lg pr-3 icon'/>
                         </Link>
                     </div>

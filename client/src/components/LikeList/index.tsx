@@ -70,8 +70,7 @@ export const LikeList = (): ReactElement => (
                     Posts You've liked
                 </h3>
                 {
-                    likeList.map((feed: IFeed) => {
-                        return (
+                    likeList.map((feed: IFeed) => (
                             <div className='profile-post border mb-5' key={feed._id}>
                                 <div className='post-header p-2'>
                                     <div className='d-flex flex-row'>
@@ -122,8 +121,7 @@ export const LikeList = (): ReactElement => (
                                     postId={feed._id}
                                 />
                             </div>
-                        );
-                    })
+                    ))
                 }
             </Col>
         </Row>
