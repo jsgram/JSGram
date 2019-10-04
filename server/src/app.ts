@@ -24,6 +24,7 @@ import { followingRouter } from './routes/following.routes/following.router';
 import { commentsRouter } from './routes/comments.routes/comments.router';
 import { searchRouter } from './routes/search.routes/search.router';
 import { eventRouter } from './routes/event.routes/event.router';
+import { tagsRouter } from './routes/tags.routes/tags.router';
 
 import {Notifications} from './sockets/notifications';
 
@@ -58,6 +59,7 @@ app.use('/following', followingRouter);
 app.use('/comments', commentsRouter);
 app.use('/search', searchRouter);
 app.use('/events', eventRouter);
+app.use('/tag', tagsRouter);
 app.use(googleRouter);
 
 const notifications = new Notifications('notifications', io);
