@@ -2,15 +2,15 @@ import React from 'react';
 import '../../styles/style.scss';
 import '../Post/style.scss';
 import noAvatar from '../../assets/noAvatar.png';
-import {Link} from 'react-router-dom';
-import {formatDescription} from '../../helpers/regex.description';
+import { Link } from 'react-router-dom';
+import { formatDescription } from '../../helpers/regex.description';
 import FeedLikesContainer from '../../containers/FeedLikesContainer';
 import Menu from '../Menu';
-import {Col, Container, Row, Spinner} from 'reactstrap';
-import {INewsFeed} from '../../store/newsFeed/reducers';
-import {Waypoint} from 'react-waypoint';
+import { Col, Container, Row, Spinner } from 'reactstrap';
+import { INewsFeed } from '../../store/newsFeed/reducers';
+import { Waypoint } from 'react-waypoint';
 import Comment from '../Comments';
-import {FriendsRecomendations} from '../FriendsRecommendations';
+import { FriendsRecomendations } from '../FriendsRecommendations';
 import WriteComment from '../WriteComment';
 
 interface IProps {
