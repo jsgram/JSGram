@@ -48,7 +48,7 @@ export const subscribersReducer = (state: any = defaultState, action: { type: st
         case RESET_SUBSCRIBERS:
             return {
                 page: 1,
-                loading: false,
+                loading: true,
                 allSubscribersLoaded: false,
                 subscribers: [],
                 followersCount: 0,
