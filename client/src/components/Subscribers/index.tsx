@@ -98,7 +98,7 @@ export class Subscribers extends React.Component<ISubscribersProps> {
         );
     }
 
-    public link = (subscriber: boolean, count: number, followType: string): JSX.Element => {
+    public createLink = (subscriber: boolean, count: number, followType: string): JSX.Element => {
         return (
             <Link to={`/profile/${this.props.urlUsername}/${followType}`} className='link-style'
                 style={{textDecoration: !subscriber ? 'underline' : 'none'}}
@@ -126,8 +126,8 @@ export class Subscribers extends React.Component<ISubscribersProps> {
                     ) :
                     (
                         <div className='d-flex justify-content-center'>
-                            {this.link(subscribers, this.props.followersCount, 'followers')}
-                            {this.link(!subscribers, this.props.followingCount, 'following')}
+                            {this.createLink(subscribers, this.props.followersCount, 'followers')}
+                            {this.createLink(!subscribers, this.props.followingCount, 'following')}
                         </div>
                     )
                 }
