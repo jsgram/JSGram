@@ -10,6 +10,8 @@ export const findPostByTag = async (
     try {
         return await Post
             .find({tags: {$in: [tagName]}})
+            .populate('author', 'username photoPath')
+            .sort('-createdAt')
             .limit(POSTS_PER_PAGE)
             .skip(skip);
     } catch (e) {

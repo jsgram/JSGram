@@ -89,3 +89,33 @@ export const getRecommendations = (): (dispatch: Dispatch) => Promise<void> =>
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };
+
+export const getPostsByTagAsync = (tagName: string): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            dispatch(getNewsFeedPending());
+            const res = await AuthAPI.get(`/tag/${tagName}/1`);
+
+            dispatch(getNewsFeedSuccess(res.data.posts));
+            dispatch(clearNewsFeedLoaded());
+        } catch (e) {
+            dispatch(showAlert(e, 'danger'));
+        }
+    };
+
+export const getMorePostsByTagAsync = (tagName: string, page: number): (dispatch: Dispatch) => Promise<void> =>
+    async (dispatch: Dispatch): Promise<void> => {
+        try {
+            dispatch(getNewsFeedPending());
+            const res = await AuthAPI.get(`/tag/${tagName}/${page}`);
+
+            if (!res.data.posts.length) {
+                dispatch(allNewsFeedLoaded());
+                return;
+            }
+
+            dispatch(getMoreNewsFeedSuccess(res.data.posts));
+        } catch (e) {
+            dispatch(showAlert('test', 'danger'));
+        }
+    };
