@@ -10,8 +10,8 @@ export const AboutUs = (): ReactElement => (
             <Container>
                 <Row>
                     {our_team.map((team: any) => (
-                            <Col lg='4' sm='6' className='mt-4 d-flex'>
-                                <Card key={team.id} className='shadow-card d-inline-block'>
+                            <Col key={team.id} lg='4' sm='6' className='mt-4 d-flex'>
+                                <Card className='shadow-card d-inline-block'>
                                     <CardBody>
                                         <CardTitle className='font-weight-bolder'>{team.username}</CardTitle>
                                         <CardSubtitle>Some information</CardSubtitle>

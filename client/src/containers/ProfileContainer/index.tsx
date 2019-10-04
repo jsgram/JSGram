@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Profile, { IProfileProps, IUserData } from '../../components/Profile';
 import { getUser, deletePhoto, followUser, unfollowUser, deleteUser } from '../../store/profile/actions';
+import { emitNewNotificationSocket } from '../../store/notifications/actions';
 import { getPostsAsync, resetPosts } from '../../store/post/actions';
 import { IFeedState } from '../../store/feed/reducers';
 
@@ -31,6 +32,7 @@ export const ProfileContainer = (props: IProfileProps): JSX.Element => {
                 getUser={props.getUser}
                 followUser={props.followUser}
                 unfollowUser={props.unfollowUser}
+                emitNewNotificationSocket={props.emitNewNotificationSocket}
                 deletePhoto={props.deletePhoto}
                 resetPosts={props.resetPosts}
                 getPostsAsync={props.getPostsAsync}
@@ -57,6 +59,7 @@ const mapDispatchToProps = {
     resetPosts,
     getPostsAsync,
     deleteUser,
+    emitNewNotificationSocket,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);

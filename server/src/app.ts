@@ -4,6 +4,8 @@ import express, { Application, Request, Response } from 'express';
 import passport from 'passport';
 import cors from 'cors';
 import path from 'path';
+import http from 'http';
+import socketIo from 'socket.io';
 
 import './helpers/passport.config';
 
@@ -23,15 +25,19 @@ import { commentsRouter } from './routes/comments.routes/comments.router';
 import { searchRouter } from './routes/search.routes/search.router';
 import { eventRouter } from './routes/event.routes/event.router';
 
+import {Notifications} from './sockets/notifications';
+
 import { unknownPageHandler } from './helpers/unknown.page.handler';
 import { errorHandler } from './helpers/error.handler';
 import { requestLoggerMiddleware } from './helpers/request.logger.middleware';
 
-export const app: Application = express();
+const app: Application = express();
+export const server = http.createServer(app);
+export const io = socketIo(server);
 
-app.use(cors());
+app.use(cors({credentials: true, origin: process.env.FRONT_PATH}));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -53,6 +59,8 @@ app.use('/comments', commentsRouter);
 app.use('/search', searchRouter);
 app.use('/events', eventRouter);
 app.use(googleRouter);
+
+const notifications = new Notifications('notifications', io);
 
 // Symlinking client build to server directory appears to be a better solution
 // Unfortunately Win/Linux link incompatibility hurdles this option
