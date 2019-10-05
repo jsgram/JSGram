@@ -56,7 +56,7 @@ export const getSearchResults = (query: string, page: number): (dispatch: Dispat
             } else {
                 dispatch(getMoreResultsSuccess(res.data.users));
             }
-            if (!res.data.users.length || res.data.users.length % RESULTS_RER_PAGE !== 0) {
+            if (!res.data.users.length || res.data.users.length < RESULTS_RER_PAGE) {
                 dispatch(allResultsLoaded());
             }
         } catch (e) {
