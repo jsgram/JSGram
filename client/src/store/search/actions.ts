@@ -1,5 +1,6 @@
 import {
     GET_SEARCH_RESULTS_SUCCESS,
+    GET_SEARCH_RESULTS_PENDING,
     CLEAR_SEARCH_RESULTS,
     GET_MORE_RESULTS_SUCCESS,
     ALL_RESULTS_LOADED,
@@ -14,6 +15,10 @@ import { IUser } from '../../components/Menu';
 export const getSearchResultsSuccess = (users: IUser[]): {type: string, payload: IUser[]} => ({
     type: GET_SEARCH_RESULTS_SUCCESS,
     payload: users,
+});
+
+export const getSearchResultsPending = (): {type: string} => ({
+    type: GET_SEARCH_RESULTS_PENDING,
 });
 
 export const clearSearchResults = (): {type: string} => ({
@@ -42,6 +47,8 @@ export const getSearchResults = (query: string, page: number): (dispatch: Dispat
     async (dispatch: Dispatch): Promise<void> => {
         try {
             const FIRST_PAGE = 1;
+            const RESULTS_RER_PAGE = 5;
+            dispatch(getSearchResultsPending());
             const res = await AuthAPI.get(`/search/${query}/${page}`);
             if (page === FIRST_PAGE) {
                 dispatch(clearLoaded());
@@ -49,7 +56,7 @@ export const getSearchResults = (query: string, page: number): (dispatch: Dispat
             } else {
                 dispatch(getMoreResultsSuccess(res.data.users));
             }
-            if (!res.data.users.length) {
+            if (!res.data.users.length || res.data.users.length % RESULTS_RER_PAGE !== 0) {
                 dispatch(allResultsLoaded());
             }
         } catch (e) {
