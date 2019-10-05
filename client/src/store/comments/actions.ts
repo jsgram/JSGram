@@ -34,12 +34,6 @@ export const allCommentsLoaded = (postId: string, page: number):
         payload: {postId, page},
     });
 
-// export const getCommentsSuccess = (postId: string, comments: IComments, page: number):
-// { type: string, payload: { postId: string, comments: IComments, page: number } } => ({
-//     type: GET_COMMENTS_SUCCESS,
-//     payload: { postId, comments, page },
-// });
-
 export const getCommentsSuccess = (normalizedComments: { entities: {}, result: [] }, postId: string, page: number):
     { type: string, payload: { normalizedComments: { entities: {}, result: [] }, postId: string, page: number } } => ({
         type: GET_COMMENTS_SUCCESS,

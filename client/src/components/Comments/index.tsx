@@ -193,8 +193,7 @@ class Comments extends React.Component<any> {
     }
 }
 
-// TODO fix any
-const mapStateToProps = (state: IState, ownProps: { postId: string }): any => ({
+const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalState => ({
     postId: ownProps.postId,
     comments: state.comments.comments,
     authors: state.comments.authors,
