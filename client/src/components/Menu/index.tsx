@@ -123,7 +123,6 @@ class Menu extends React.Component<IMenuProps> {
     public render(): JSX.Element {
         const {loggedUsername, newUsername, searchResults, loaded, loading}: IMenuProps = this.props;
         const {searchValue}: IMenuState = this.state;
-        const RESULTS_PER_PAGE = 5;
         return (
             <div className='container-fluid header-menu'>
                 <div className='row justify-content-between bg-white'>
@@ -147,7 +146,7 @@ class Menu extends React.Component<IMenuProps> {
                                   color='light' className='search-menu'>
                             <DropdownToggle tag='a' className='nav-link m-0 p-0'/>
                             <DropdownMenu className='scrollable-menu col-12'>
-                                {!!searchResults.length ? searchResults.map((user: IUser) => (
+                                {searchResults.map((user: IUser) => (
                                         <Link to={`/profile/${user.username}`}
                                               className='text-decoration-none' key={user._id}>
                                             <div className='w-100'>
@@ -185,7 +184,8 @@ class Menu extends React.Component<IMenuProps> {
                                             ))}
                                         </Link>
                                     ),
-                                ) : !loading && <span className='ml-3'>No results...</span>}
+                                )}
+                                {!searchResults.length && !loading && <span className='ml-3'>No results...</span>}
                                 <div className='d-flex justify-content-center'>
                                     {loading && <Spinner color='dark'/>}
                                 </div>
