@@ -189,7 +189,7 @@ class Menu extends React.Component<IMenuProps> {
                                 <div className='d-flex justify-content-center'>
                                     {loading && <Spinner color='dark'/>}
                                 </div>
-                                {searchResults.length % RESULTS_PER_PAGE === 0 && !loaded && !loading &&
+                                {!loaded && !loading &&
                                 <Waypoint
                                     onEnter={(): void => {
                                         this.getMoreResults();
