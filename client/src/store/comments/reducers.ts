@@ -13,30 +13,38 @@ import {
     RESET_COMMENT,
 } from './actionTypes';
 
-export interface IComment {
-    _id: string;
-    postId: string;
-    comment: string;
-    authorId: {
+interface IAuthor {
+    [authorId: string]: {
         _id: string;
         username: string;
-        photoPath: string;
         email: string;
+        photoPath: string;
     };
-    isEdit: boolean;
-    newComment: string;
 }
 
-export interface IComments {
-    comments: IComment[];
-    onChangeComments: Array<{ postId: string, comment: string }>;
+interface IComment {
+    [commentId: string]: {
+        authorId: string;
+        postId: string;
+        comment: string;
+        isEdit: boolean;
+    };
+}
+
+interface IComments {
+    comments: IComment;
+    authors: IAuthor;
+    allCommentsId: string[];
+    onChangeComments: any[];
     commentsPage: any[];
     allCommentsLoaded: any[];
     commentsLoading: boolean;
 }
 
 const defaultState = {
-    comments: [],
+    comments: {},
+    authors: {},
+    allCommentsId: [],
     onChangeComments: [],
     commentsPage: [],
     allCommentsLoaded: [],
@@ -51,24 +59,33 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                 commentsLoading: true,
             };
         case GET_COMMENTS_SUCCESS:
+            const {normalizedComments: {entities: {authors, comments}, result}, postId, page}:
+                {
+                    normalizedComments: { entities: { authors: {}, comments: {} }, result: [] },
+                    postId: string, page: number,
+                }
+                = action.payload;
+
             const commentPageExist = state.commentsPage.some((commentState: any) =>
-                commentState.postId === action.payload.postId);
+                commentState.postId === postId);
 
             const commentsState = commentPageExist ?
                 state.commentsPage.map((commentState: any) => {
-                    if (commentState.postId === action.payload.postId) {
+                    if (commentState.postId === postId) {
                         return {
-                            postId: commentState.postId,
-                            page: action.payload.page,
+                            postId,
+                            page,
                         };
                     }
                     return commentState;
                 })
                 :
-                [...state.commentsPage, { postId: action.payload.postId, page: action.payload.page }];
+                [...state.commentsPage, {postId, page}];
             return {
                 ...state,
-                comments: [...state.comments, ...action.payload.comments],
+                comments: {...state.comments, ...comments},
+                authors: {...state.authors, ...authors},
+                allCommentsId: [...state.allCommentsId, ...result],
                 commentsPage: commentsState,
                 commentsLoading: false,
             };
@@ -80,7 +97,9 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
         case RESET_COMMENTS:
             return {
                 ...state,
-                comments: [],
+                comments: {},
+                authors: {},
+                allCommentsId: [],
                 commentsPage: [],
                 allCommentsLoaded: [],
             };
@@ -90,7 +109,7 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
             const defaultChangeComment = defaultCommentExist ?
                 [...state.onChangeComments]
                 :
-                [...state.onChangeComments, { postId: action.payload, comment: '' }];
+                [...state.onChangeComments, {postId: action.payload, comment: ''}];
             return {
                 ...state,
                 onChangeComments: defaultChangeComment,
@@ -109,65 +128,44 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                     return info;
                 })
                 :
-                [...state.onChangeComments, { postId: action.payload.postId, comment: action.payload.comment }];
+                [...state.onChangeComments, {postId: action.payload.postId, comment: action.payload.comment}];
             return {
                 ...state,
                 onChangeComments: changedComments,
             };
         case ADD_COMMENT:
-            return {
-                ...state,
-                comments: [{
-                    _id: action.payload._id,
-                    postId: action.payload.postId,
-                    authorId: {
-                        _id: action.payload.authorId._id,
-                        username: action.payload.authorId.username,
-                        photoPath: action.payload.authorId.photoPath,
-                    },
-                    comment: action.payload.comment,
-                    createdAt: action.payload.createdAt,
-                }, ...state.comments],
+            const {
+                authorId: {_id: authorId, username, photoPath}, comment, postId: newPostId,
+                _id: commentId, createdAt,
+            }:
+                {
+                    authorId: { _id: string, username: string, photoPath: string }, comment: string,
+                    postId: string, _id: string, createdAt: string,
+                } = action.payload;
+            const newComment = {
+                ...state.comments,
+                [commentId]: {
+                    _id: commentId,
+                    authorId,
+                    postId: newPostId,
+                    comment,
+                    createdAt,
+                },
             };
-        case EDIT_COMMENT:
-            return {
-                ...state,
-                comments: state.comments.map((comment: any) => {
-                    if (comment._id === action.payload.commentId) {
-                        return {
-                            ...comment,
-                            comment: action.payload.comment,
-                        };
-                    }
-                    return comment;
-                }),
+            const newAuthor = {
+                ...state.authors,
+                [authorId]: {
+                    _id: authorId,
+                    username,
+                    photoPath,
+                },
             };
-        case CHANGE_COMMENT:
+            const newAllCommentsId = [commentId, ...state.allCommentsId];
             return {
                 ...state,
-                comments: state.comments.map((comment: any) => {
-                    if (comment._id === action.payload.commentId) {
-                        return {
-                            ...comment,
-                            newComment: action.payload.comment,
-                        };
-                    }
-                    return comment;
-                }),
-            };
-        case CHANGE_EDIT_STATUS_COMMENT:
-            return {
-                ...state,
-                comments: state.comments.map((comment: any) => {
-                    if (comment._id === action.payload) {
-                        return {
-                            ...comment,
-                            isEdit: !comment.isEdit,
-                            newComment: comment.comment,
-                        };
-                    }
-                    return comment;
-                }),
+                comments: newComment,
+                authors: newAuthor,
+                allCommentsId: newAllCommentsId,
             };
         case RESET_COMMENT:
             const resetCommentExist = state.onChangeComments.some((info: { postId: string }) =>
@@ -183,15 +181,59 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                     return info;
                 })
                 :
-                [...state.onChangeComments, { postId: action.payload.postId, comment: action.payload.comment }];
+                [...state.onChangeComments, {postId: action.payload.postId, comment: action.payload.comment}];
             return {
                 ...state,
                 onChangeComments: resetComments,
             };
-        case DELETE_COMMENT:
+        case CHANGE_EDIT_STATUS_COMMENT:
+            const commentIsEdit = {
+                ...state.comments,
+                [action.payload]: {
+                    ...state.comments[action.payload],
+                    isEdit: !state.comments[action.payload].isEdit,
+                    newComment: state.comments[action.payload].comment,
+                },
+            };
             return {
                 ...state,
-                comments: state.comments.filter((x: IComment): boolean => x._id !== action.payload),
+                comments: commentIsEdit,
+            };
+        case CHANGE_COMMENT:
+            const newCommentOnChange = {
+                ...state.comments,
+                [action.payload.commentId]: {
+                    ...state.comments[action.payload.commentId],
+                    newComment: action.payload.comment,
+                },
+            };
+            return {
+                ...state,
+                comments: newCommentOnChange,
+            };
+        case EDIT_COMMENT:
+            const editedComment = {
+                ...state.comments,
+                [action.payload.commentId]: {
+                    ...state.comments[action.payload.commentId],
+                    comment: action.payload.comment,
+                },
+            };
+            return {
+                ...state,
+                comments: editedComment,
+            };
+        case DELETE_COMMENT:
+            const deletedCommentId = state.allCommentsId.filter((deleteCommentId: string): boolean =>
+                deleteCommentId !== action.payload);
+            const deletedComment = {
+                ...state.comments,
+                [action.payload]: null,
+            };
+            return {
+                ...state,
+                allCommentsId: deletedCommentId,
+                comments: deletedComment,
             };
         default:
             return state;

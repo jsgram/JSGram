@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { onChangeComment, addComment } from '../../store/comments/actions';
 import { emitNewNotificationSocket } from '../../store/notifications/actions';
 import { COMMENT_NOTIFICATION } from '../../store/notifications/notificationsConfig';
-import { IComments } from '../../store/comments/reducers';
 
 interface IProps {
     loggedId: string;
@@ -28,7 +27,7 @@ interface ILocalState {
 
 interface IState {
     feed: ILocalState;
-    comments: IComments;
+    comments: any;
 }
 
 class WriteComment extends React.Component<IProps> {

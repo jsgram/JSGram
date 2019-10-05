@@ -11,14 +11,15 @@ import {
     changeComment,
     setDefaultCommentToChange,
 } from '../../store/comments/actions';
-import { IComment } from '../../store/comments/reducers';
 import { IFeedState } from '../../store/feed/reducers';
 import './style.scss';
 import { Link } from 'react-router-dom';
 
 interface ILocalState {
     postId: string;
-    comments: IComment[];
+    comments: {};
+    authors: {};
+    allCommentsId: [];
     commentsPage: any[];
     commentsLoading: boolean;
     allCommentsLoaded: any[];
@@ -45,7 +46,7 @@ interface IOwnCommentsProps {
 
 export type ICommentsProps = IOwnCommentsProps & ILocalState;
 
-class Comments extends React.Component<ICommentsProps> {
+class Comments extends React.Component<any> {
     public componentDidMount(): void {
         if (this.props.postId) {
             this.props.getComments([{postId: this.props.postId, page: FIRST_PAGE}]);
@@ -77,7 +78,7 @@ class Comments extends React.Component<ICommentsProps> {
         );
     }
 
-    public renderComment = (comment: IComment): any => (
+    public renderComment = (comment: any): any => (
         comment.isEdit ?
             (
                 <>
@@ -125,6 +126,40 @@ class Comments extends React.Component<ICommentsProps> {
             )
     )
 
+    public renderCommentsTemplate = (commentInfo: any): JSX.Element => {
+        const {authorId, comment}:
+            {_id: string, postId: string, authorId: string, comment: string} = commentInfo;
+        return(
+        <div className='one-comment px-3'>
+            <div className='d-flex justify-content-between'>
+                <div className='w-100'>
+                    <img
+                        src={this.props.authors[authorId].photoPath || noAvatar}
+                        alt='avatar'
+                        width={24}
+                        height={24}
+                        className='img-fluid rounded-circle mt-1 mr-1 mb-1'
+                    />
+                    <Link to={`/profile/${ this.props.authors[authorId].username}`}
+                          className='text-dark mt-1'
+                    >
+                        { this.props.authors[authorId].username}
+                    </Link>
+                    {
+                        (
+                            this.props.feed.loggedUsername ===  this.props.authors[authorId].username
+                            || this.props.feed.isAdmin
+                        )
+                            ? this.renderComment(commentInfo)
+                            :
+                            <p>{comment}</p>
+                    }
+                </div>
+            </div>
+        </div>
+        );
+    }
+
     public getComments = (): JSX.Element => (
         <div
             className='d-inline float-left get-more-comments'>
@@ -143,35 +178,11 @@ class Comments extends React.Component<ICommentsProps> {
         return (
             <div className='flex-grow-1 comments border-top position-relative'>
                 <div className='position-absolute h-100 w-100'>
-                    {this.props.comments && this.props.comments.map((comment: any) => (
-                        <div key={comment._id}>
-                            {comment.postId === this.props.postId &&
-                                <div className='one-comment px-3'>
-                                    <div className='d-flex justify-content-between'>
-                                        <div className='w-100'>
-                                            <img
-                                                src={comment.authorId.photoPath || noAvatar}
-                                                alt='avatar'
-                                                width={24}
-                                                height={24}
-                                                className='img-fluid rounded-circle mt-1 mr-1 mb-1'
-                                            />
-                                            <Link to={`/profile/${comment.authorId.username}`}
-                                                className='text-dark mt-1'
-                                            >
-                                                {comment.authorId.username}
-                                            </Link>
-                                            {
-                                                (
-                                                    this.props.feed.loggedUsername === comment.authorId.username
-                                                    || this.props.feed.isAdmin
-                                                )
-                                                    ? this.renderComment(comment)
-                                                    : <p>{comment.comment}</p>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
+                    {this.props.allCommentsId && this.props.allCommentsId.map((commentId: any) => (
+                        <div key={commentId}>
+                            {
+                                this.props.comments[commentId].postId === this.props.postId &&
+                            this.renderCommentsTemplate(this.props.comments[commentId])
                             }
                         </div>
                     ))}
@@ -182,9 +193,12 @@ class Comments extends React.Component<ICommentsProps> {
     }
 }
 
-const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalState => ({
+// TODO fix any
+const mapStateToProps = (state: IState, ownProps: { postId: string }): any => ({
     postId: ownProps.postId,
     comments: state.comments.comments,
+    authors: state.comments.authors,
+    allCommentsId: state.comments.allCommentsId,
     commentsPage: state.comments.commentsPage,
     commentsLoading: state.comments.commentsLoading,
     allCommentsLoaded: state.comments.allCommentsLoaded,

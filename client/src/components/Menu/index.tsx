@@ -20,18 +20,18 @@ import {
     addNextResults,
 } from '../../store/search/actions';
 
-//TODO when will be BL on BE and FE
+// TODO when will be BL on BE and FE
 const search_hashtags = [
     {id: 1, username: '#evolution', count: 123456},
     {id: 2, username: '#ecmascript', count: 500000},
     {id: 3, username: '#emma', count: 12},
-]
+];
 
-interface IHashtags {
-    id: number;
-    username: string;
-    count: number;
-}
+// interface IHashtags {
+//     id: number;
+//     username: string;
+//     count: number;
+// }
 
 export interface IUser {
     _id: string;
