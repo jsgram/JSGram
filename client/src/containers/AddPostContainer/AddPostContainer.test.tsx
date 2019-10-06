@@ -22,7 +22,6 @@ describe('AddPostContainer component:', () => {
     beforeEach(() => {
         const store = configureStore()(props);
         renderer = shallow(<Provider store={store}><AddPostContainer {...props} /></Provider>);
-        if (d
     });
 
     test('render - success', () => {
