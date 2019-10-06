@@ -1,5 +1,6 @@
 import {
     GET_SEARCH_RESULTS_SUCCESS,
+    GET_SEARCH_RESULTS_PENDING,
     CLEAR_SEARCH_RESULTS,
     GET_MORE_RESULTS_SUCCESS,
     ALL_RESULTS_LOADED,
@@ -11,12 +12,14 @@ import { IUser } from '../../components/Menu';
 export interface ISearchState {
     searchResults: IUser[];
     loaded: boolean;
+    loading: boolean;
     page: number;
 }
 
 const defaultState = {
     searchResults: [],
     loaded: false,
+    loading: false,
     page: 1,
 };
 
@@ -26,6 +29,12 @@ export const searchReducer = (state: ISearchState = defaultState, action: { type
             return {
                 ...state,
                 searchResults: [...action.payload],
+                loading: false,
+            };
+        case GET_SEARCH_RESULTS_PENDING:
+            return {
+                ...state,
+                loading: true,
             };
         case CLEAR_SEARCH_RESULTS:
             return {
@@ -38,6 +47,7 @@ export const searchReducer = (state: ISearchState = defaultState, action: { type
             return {
                 ...state,
                 searchResults: [...state.searchResults, ...action.payload],
+                loading: false,
             };
         case ALL_RESULTS_LOADED:
             return {
