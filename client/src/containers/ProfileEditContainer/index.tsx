@@ -25,7 +25,7 @@ interface IState {
     feed: IFeedState;
 }
 
-class ProfileEditContainer extends React.Component <any> {
+export class ProfileEditContainer extends React.Component <any> {
     public componentDidUpdate(): void {
         if (this.props.username && this.props.username !== this.props.match.params.username) {
             history.push(`/profile/${this.props.username}`);

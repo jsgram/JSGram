@@ -14,7 +14,7 @@ import {
 } from '../../store/post/actions';
 import { deletePhoto, getUser } from '../../store/profile/actions';
 
-const PostContainer = (props: any): JSX.Element => (
+export const PostContainer = (props: any): JSX.Element => (
     <Post
         userPosts={props.userPosts}
         user={props.user}
