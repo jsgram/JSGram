@@ -6,6 +6,7 @@ import {
     DropdownMenu,
     DropdownItem,
     Dropdown,
+    Spinner,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
@@ -20,12 +21,12 @@ import {
     addNextResults,
 } from '../../store/search/actions';
 
-//TODO when will be BL on BE and FE
+// TODO when will be BL on BE and FE
 const search_hashtags = [
     {id: 1, username: '#evolution', count: 123456},
     {id: 2, username: '#ecmascript', count: 500000},
     {id: 3, username: '#emma', count: 12},
-]
+];
 
 interface IHashtags {
     id: number;
@@ -56,6 +57,7 @@ interface IMenuProps {
     searchResults: IUser[];
     page: number;
     loaded: boolean;
+    loading: boolean;
     getSearchResults: (searchQuery: string, page: number) => void;
     clearSearchResults: () => void;
     addNextResults: (page: number) => void;
@@ -66,6 +68,7 @@ interface IProps {
     loggedUsername: string;
     searchResults: IUser[];
     loaded: boolean;
+    loading: boolean;
     page: number;
 }
 
@@ -93,8 +96,8 @@ class Menu extends React.Component<IMenuProps> {
         this.setState({searchValue: ''});
     }
 
-    public getMoreResults = async (): Promise<void> => {
-        await this.props.addNextResults(this.props.page + 1);
+    public getMoreResults = (): void => {
+        this.props.addNextResults(this.props.page + 1);
         this.props.getSearchResults(this.state.searchValue.trim(), this.props.page);
     }
 
@@ -106,9 +109,9 @@ class Menu extends React.Component<IMenuProps> {
         const searchQuery: string = e.target.value.trim();
 
         if (searchQuery) {
-            this.timer = setTimeout(async () => {
+            this.timer = setTimeout(() => {
                 this.timer = null;
-                await this.props.getSearchResults(searchQuery, FIRST_PAGE);
+                this.props.getSearchResults(searchQuery, FIRST_PAGE);
                 this.toggle(searchQuery);
             }, 500);
         } else {
@@ -118,7 +121,7 @@ class Menu extends React.Component<IMenuProps> {
     }
 
     public render(): JSX.Element {
-        const {loggedUsername, newUsername, searchResults, loaded}: IMenuProps = this.props;
+        const {loggedUsername, newUsername, searchResults, loaded, loading}: IMenuProps = this.props;
         const {searchValue}: IMenuState = this.state;
         return (
             <div className='container-fluid header-menu'>
@@ -143,7 +146,7 @@ class Menu extends React.Component<IMenuProps> {
                                   color='light' className='search-menu'>
                             <DropdownToggle tag='a' className='nav-link m-0 p-0'/>
                             <DropdownMenu className='scrollable-menu col-12'>
-                                {!!searchResults.length ? searchResults.map((user: IUser) => (
+                                {searchResults.map((user: IUser) => (
                                         <Link to={`/profile/${user.username}`}
                                               className='text-decoration-none' key={user._id}>
                                             <div className='w-100'>
@@ -181,8 +184,12 @@ class Menu extends React.Component<IMenuProps> {
                                             ))}
                                         </Link>
                                     ),
-                                ) : <span className='ml-3'>No results...</span>}
-                                {!!searchResults.length && !loaded &&
+                                )}
+                                {!searchResults.length && !loading && <span className='ml-3'>No results...</span>}
+                                <div className='d-flex justify-content-center'>
+                                    {loading && <Spinner color='dark'/>}
+                                </div>
+                                {!loaded && !loading &&
                                 <Waypoint
                                     onEnter={(): void => {
                                         this.getMoreResults();
@@ -211,6 +218,7 @@ const mapStateToProps = (state: IState): IProps => ({
     loggedUsername: state.feed.loggedUsername,
     searchResults: state.search.searchResults,
     loaded: state.search.loaded,
+    loading: state.search.loading,
     page: state.search.page,
 });
 

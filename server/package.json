@@ -10,6 +10,7 @@
     "heroku-postbuild": "exit 0",
     "lint": "tslint --formatters-dir node_modules/custom-tslint-formatters/formatters --format grouped 'src/**/*.{ts,tsx}'",
     "test": "jest",
+    "coverage": "jest --coverage",
     "seed": "ts-node src/models/fake.database.ts",
     "watch": "npx live-server --no-browser & npx pug --watch --pretty src/email.templates"
   },
