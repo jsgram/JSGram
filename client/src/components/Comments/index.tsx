@@ -44,7 +44,15 @@ interface IOwnCommentsProps {
     setDefaultCommentToChange: (postId: string) => void;
 }
 
-export type ICommentsProps = IOwnCommentsProps & ILocalState;
+// export type ICommentsProps = IOwnCommentsProps & ILocalState;
+
+interface ICommentInfo {
+// {authorId, comment}:
+    _id: string;
+    postId: string;
+    authorId: string;
+    comment: string;
+}
 
 class Comments extends React.Component<any> {
     public componentDidMount(): void {
@@ -126,9 +134,8 @@ class Comments extends React.Component<any> {
             )
     )
 
-    public renderCommentsTemplate = (commentInfo: any): JSX.Element => {
-        const {authorId, comment}:
-            {_id: string, postId: string, authorId: string, comment: string} = commentInfo;
+    public renderCommentsTemplate = (commentInfo: ICommentInfo): JSX.Element => {
+        const {authorId, comment}: ICommentInfo = commentInfo;
         return(
         <div className='one-comment px-3'>
             <div className='d-flex justify-content-between'>

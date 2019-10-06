@@ -83,15 +83,14 @@ export const getComments = (commentState: any, commentsLoaded?: boolean): (dispa
 
             const res = await AuthAPI.get(`comments/${postId}/${page}`);
             const user = new schema.Entity('authors', {}, {idAttribute: '_id'});
-            const comment = new schema.Entity(
+            const commentsSchema = new schema.Entity(
                 'comments',
                 {authorId: user},
                 {
                     idAttribute: '_id',
                 },
             );
-            const commentsSchema = [comment];
-            const normalizedComments = normalize(res.data.commentsAll, commentsSchema);
+            const normalizedComments = normalize(res.data.commentsAll, [commentsSchema]);
 
             if (res.data.commentsAll.length < 10 || commentsLoaded) {
                 dispatch(getCommentsSuccess(normalizedComments, postId, page));

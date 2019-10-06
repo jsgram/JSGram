@@ -13,7 +13,7 @@ import {
     RESET_COMMENT,
 } from './actionTypes';
 
-interface IAuthor {
+export interface IAuthor {
     [authorId: string]: {
         _id: string;
         username: string;
@@ -22,7 +22,7 @@ interface IAuthor {
     };
 }
 
-interface IComment {
+export interface IComment {
     [commentId: string]: {
         authorId: string;
         postId: string;
@@ -31,7 +31,7 @@ interface IComment {
     };
 }
 
-interface IComments {
+export interface IComments {
     comments: IComment;
     authors: IAuthor;
     allCommentsId: string[];
@@ -187,17 +187,16 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                 onChangeComments: resetComments,
             };
         case CHANGE_EDIT_STATUS_COMMENT:
-            const commentIsEdit = {
-                ...state.comments,
-                [action.payload]: {
-                    ...state.comments[action.payload],
-                    isEdit: !state.comments[action.payload].isEdit,
-                    newComment: state.comments[action.payload].comment,
-                },
-            };
             return {
                 ...state,
-                comments: commentIsEdit,
+                comments: {
+                    ...state.comments,
+                    [action.payload]: {
+                        ...state.comments[action.payload],
+                        isEdit: !state.comments[action.payload].isEdit,
+                        newComment: state.comments[action.payload].comment,
+                    },
+                },
             };
         case CHANGE_COMMENT:
             const newCommentOnChange = {
@@ -212,16 +211,15 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                 comments: newCommentOnChange,
             };
         case EDIT_COMMENT:
-            const editedComment = {
-                ...state.comments,
-                [action.payload.commentId]: {
-                    ...state.comments[action.payload.commentId],
-                    comment: action.payload.comment,
-                },
-            };
             return {
                 ...state,
-                comments: editedComment,
+                comments: {
+                    ...state.comments,
+                    [action.payload.commentId]: {
+                        ...state.comments[action.payload.commentId],
+                        comment: action.payload.comment,
+                    },
+                },
             };
         case DELETE_COMMENT:
             const deletedCommentId = state.allCommentsId.filter((deleteCommentId: string): boolean =>
