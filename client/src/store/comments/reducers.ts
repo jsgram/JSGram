@@ -24,9 +24,12 @@ export interface IAuthor {
 
 export interface IComment {
     [commentId: string]: {
+        _id: string;
         authorId: string;
         postId: string;
         comment: string;
+        newComment: string;
+        createdAt: string;
         isEdit: boolean;
     };
 }
@@ -135,37 +138,40 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
             };
         case ADD_COMMENT:
             const {
-                authorId: {_id: authorId, username, photoPath}, comment, postId: newPostId,
-                _id: commentId, createdAt,
-            }:
-                {
-                    authorId: { _id: string, username: string, photoPath: string }, comment: string,
-                    postId: string, _id: string, createdAt: string,
-                } = action.payload;
-            const newComment = {
-                ...state.comments,
-                [commentId]: {
-                    _id: commentId,
-                    authorId,
-                    postId: newPostId,
-                    comment,
-                    createdAt,
-                },
-            };
-            const newAuthor = {
-                ...state.authors,
-                [authorId]: {
+                authorId: {
                     _id: authorId,
                     username,
                     photoPath,
                 },
-            };
-            const newAllCommentsId = [commentId, ...state.allCommentsId];
+                comment,
+                postId: newPostId,
+                _id: commentId,
+                createdAt,
+            }: {
+                authorId: { _id: string, username: string, photoPath: string }, comment: string,
+                postId: string, _id: string, createdAt: string,
+            } = action.payload;
             return {
                 ...state,
-                comments: newComment,
-                authors: newAuthor,
-                allCommentsId: newAllCommentsId,
+                comments: {
+                    ...state.comments,
+                    [commentId]: {
+                        _id: commentId,
+                        authorId,
+                        postId: newPostId,
+                        comment,
+                        createdAt,
+                    },
+                },
+                authors: {
+                    ...state.authors,
+                    [authorId]: {
+                        _id: authorId,
+                        username,
+                        photoPath,
+                    },
+                },
+                allCommentsId: [commentId, ...state.allCommentsId],
             };
         case RESET_COMMENT:
             const resetCommentExist = state.onChangeComments.some((info: { postId: string }) =>
@@ -223,14 +229,13 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
         case DELETE_COMMENT:
             const deletedCommentId = state.allCommentsId.filter((deleteCommentId: string): boolean =>
                 deleteCommentId !== action.payload);
-            const deletedComment = {
-                ...state.comments,
-                [action.payload]: null,
-            };
             return {
                 ...state,
                 allCommentsId: deletedCommentId,
-                comments: deletedComment,
+                comments: {
+                    ...state.comments,
+                    [action.payload]: null,
+                },
             };
         default:
             return state;

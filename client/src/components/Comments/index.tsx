@@ -28,9 +28,12 @@ interface ILocalState {
 }
 
 interface ICommentInfo {
+    _id: string;
     postId: string;
     authorId: string;
     comment: string;
+    newComment: string;
+    isEdit: boolean;
 }
 
 interface IState {
@@ -85,7 +88,7 @@ class Comments extends React.Component<ICommentsProps> {
         );
     }
 
-    public renderComment = (comment: any): any => (
+    public renderComment = (comment: ICommentInfo): JSX.Element => (
         comment.isEdit ?
             (
                 <>
@@ -108,10 +111,10 @@ class Comments extends React.Component<ICommentsProps> {
                            )}>
                         </i>
                         <i className='fa fa-check fa-lg text-success icon-edit'
-                            onClick={(): void => this.editComment(
-                                comment.newComment,
-                                comment._id,
-                            )}>
+                           onClick={(): void => this.editComment(
+                               comment.newComment,
+                               comment._id,
+                           )}>
                         </i>
                     </div>
                 </>
@@ -125,7 +128,7 @@ class Comments extends React.Component<ICommentsProps> {
                             onClick={(): void => this.props.changeEditStatus(comment._id)}
                         />
                         <i className='fa fa-trash-o delete-comment' onClick={
-                            (): void => this.onDeleteComment(comment._id, comment.authorId._id)
+                            (): void => this.onDeleteComment(comment._id, comment.authorId)
                         }/>
                     </div>
                     <p>{comment.comment}</p>
@@ -135,34 +138,34 @@ class Comments extends React.Component<ICommentsProps> {
 
     public renderCommentsTemplate = (commentInfo: ICommentInfo): JSX.Element => {
         const {authorId, comment}: ICommentInfo = commentInfo;
-        return(
-        <div className='one-comment px-3'>
-            <div className='d-flex justify-content-between'>
-                <div className='w-100'>
-                    <img
-                        src={this.props.authors[authorId].photoPath || noAvatar}
-                        alt='avatar'
-                        width={24}
-                        height={24}
-                        className='img-fluid rounded-circle mt-1 mr-1 mb-1'
-                    />
-                    <Link to={`/profile/${ this.props.authors[authorId].username}`}
-                          className='text-dark mt-1'
-                    >
-                        { this.props.authors[authorId].username}
-                    </Link>
-                    {
-                        (
-                            this.props.feed.loggedUsername ===  this.props.authors[authorId].username
-                            || this.props.feed.isAdmin
-                        )
-                            ? this.renderComment(commentInfo)
-                            :
-                            <p>{comment}</p>
-                    }
+        const {authors, feed: {loggedUsername, isAdmin}}: ICommentsProps = this.props;
+        return (
+            <div className='one-comment px-3'>
+                <div className='d-flex justify-content-between'>
+                    <div className='w-100'>
+                        <img
+                            src={authors[authorId].photoPath || noAvatar}
+                            alt='avatar'
+                            width={24}
+                            height={24}
+                            className='img-fluid rounded-circle mt-1 mr-1 mb-1'
+                        />
+                        <Link to={`/profile/${authors[authorId].username}`}
+                              className='text-dark mt-1'
+                        >
+                            {authors[authorId].username}
+                        </Link>
+                        {
+                            (
+                                loggedUsername === authors[authorId].username || isAdmin
+                            )
+                                ? this.renderComment(commentInfo)
+                                :
+                                <p>{comment}</p>
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
         );
     }
 
@@ -188,7 +191,7 @@ class Comments extends React.Component<ICommentsProps> {
                         <div key={commentId}>
                             {
                                 this.props.comments[commentId].postId === this.props.postId &&
-                            this.renderCommentsTemplate(this.props.comments[commentId])
+                                this.renderCommentsTemplate(this.props.comments[commentId])
                             }
                         </div>
                     ))}

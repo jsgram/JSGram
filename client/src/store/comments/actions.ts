@@ -16,6 +16,7 @@ import { Dispatch } from 'redux';
 import { AuthAPI } from '../api';
 import { showAlert } from '../alert/actions';
 import { normalize, schema } from 'normalizr';
+import { IComment } from './reducers';
 
 interface ICommentState {
     postId: string;
@@ -55,13 +56,10 @@ export const onChangeComment = (postId: string, comment: string):
         payload: {postId, comment},
     });
 
-export const addNewComment = (newComment: any): { type: string, payload: any } => {
-
-    return {
-        type: ADD_COMMENT,
-        payload: newComment,
-    };
-};
+export const addNewComment = (newComment: IComment): { type: string, payload: any } => ({
+    type: ADD_COMMENT,
+    payload: newComment,
+});
 
 export const deleteCommentSuccess = (commentId: string): { type: string, payload: string } => ({
     type: DELETE_COMMENT,
@@ -120,7 +118,7 @@ export const addComment = (postId: string, authorId: string, comment: string): (
 export const deleteComment = (commentId: string, authorId: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
-            const res = await AuthAPI.delete(`/comments/${commentId}`, {data: {authorId}});
+            const res = await AuthAPI.delete(`/comments/${commentId}`, { data: { authorId } });
             dispatch(deleteCommentSuccess(commentId));
             dispatch(showAlert(res.data.message, 'success'));
         } catch (e) {
