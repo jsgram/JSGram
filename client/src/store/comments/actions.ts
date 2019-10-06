@@ -56,7 +56,7 @@ export const onChangeComment = (postId: string, comment: string):
         payload: {postId, comment},
     });
 
-export const addNewComment = (newComment: IComment): { type: string, payload: any } => ({
+export const addNewComment = (newComment: IComment): { type: string, payload: IComment } => ({
     type: ADD_COMMENT,
     payload: newComment,
 });
