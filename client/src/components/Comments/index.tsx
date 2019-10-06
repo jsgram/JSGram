@@ -14,16 +14,23 @@ import {
 import { IFeedState } from '../../store/feed/reducers';
 import './style.scss';
 import { Link } from 'react-router-dom';
+import { IAuthor, IComment } from '../../store/comments/reducers';
 
 interface ILocalState {
     postId: string;
-    comments: {};
-    authors: {};
+    comments: IComment;
+    authors: IAuthor;
     allCommentsId: [];
     commentsPage: any[];
     commentsLoading: boolean;
     allCommentsLoaded: any[];
     feed: IFeedState;
+}
+
+interface ICommentInfo {
+    postId: string;
+    authorId: string;
+    comment: string;
 }
 
 interface IState {
@@ -44,17 +51,9 @@ interface IOwnCommentsProps {
     setDefaultCommentToChange: (postId: string) => void;
 }
 
-// export type ICommentsProps = IOwnCommentsProps & ILocalState;
+export type ICommentsProps = IOwnCommentsProps & ILocalState;
 
-interface ICommentInfo {
-// {authorId, comment}:
-    _id: string;
-    postId: string;
-    authorId: string;
-    comment: string;
-}
-
-class Comments extends React.Component<any> {
+class Comments extends React.Component<ICommentsProps> {
     public componentDidMount(): void {
         if (this.props.postId) {
             this.props.getComments([{postId: this.props.postId, page: FIRST_PAGE}]);

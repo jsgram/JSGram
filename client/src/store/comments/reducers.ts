@@ -199,16 +199,15 @@ export const commentsReducer = (state: IComments = defaultState, action: { type:
                 },
             };
         case CHANGE_COMMENT:
-            const newCommentOnChange = {
-                ...state.comments,
-                [action.payload.commentId]: {
-                    ...state.comments[action.payload.commentId],
-                    newComment: action.payload.comment,
-                },
-            };
             return {
                 ...state,
-                comments: newCommentOnChange,
+                comments: {
+                    ...state.comments,
+                    [action.payload.commentId]: {
+                        ...state.comments[action.payload.commentId],
+                        newComment: action.payload.comment,
+                    },
+                },
             };
         case EDIT_COMMENT:
             return {
