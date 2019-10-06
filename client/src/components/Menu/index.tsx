@@ -28,11 +28,11 @@ const search_hashtags = [
     {id: 3, username: '#emma', count: 12},
 ];
 
-// interface IHashtags {
-//     id: number;
-//     username: string;
-//     count: number;
-// }
+interface IHashtags {
+    id: number;
+    username: string;
+    count: number;
+}
 
 export interface IUser {
     _id: string;
