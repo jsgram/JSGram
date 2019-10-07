@@ -10,10 +10,10 @@ import { Col, Container, Row, Spinner } from 'reactstrap';
 import { Waypoint } from 'react-waypoint';
 import Comment from '../Comments';
 import WriteComment from '../WriteComment';
-import { INewsFeed } from '../../store/likesList/reducers';
+import { IFeedState, INewsFeed } from '../../store/likesList/reducers';
 
 interface IProps {
-    likeList: any;
+    likeList: IFeedState;
     getLikeListAsync: () => void;
     getMoreLikeListAsync: (page: number) => void;
     addNextLikeList: (pageNumber: number) => void;
@@ -33,7 +33,7 @@ export class LikeList extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        const {likeList}: any = this.props;
+        const {likeList}: IProps = this.props;
         return (
             <Container>
                 <Menu/>
@@ -43,7 +43,7 @@ export class LikeList extends React.Component<IProps> {
                             Posts You've liked
                         </h3>
                         {
-                            likeList.feed.filter((feed: INewsFeed) => feed._id).map((feed: INewsFeed) => {
+                            likeList.feed.map((feed: INewsFeed) => {
                                 const {
                                     _id,
                                     authorsOfLike,

@@ -33,17 +33,17 @@ const LikeListContainer = ({
                                getLikeListAsync,
                                getMoreLikeListAsync,
                                addNextLikeList,
-                           }: FeedProps): JSX.Element => {
-    return (
-        <LikeList
-            likeList={likeList}
-            getLikeListAsync={getLikeListAsync}
-            addNextLikeList={addNextLikeList}
-            getMoreLikeListAsync={getMoreLikeListAsync}
-            loggedId={loggedId}
-        />
-    );
-};
+                           }: FeedProps): JSX.Element => (
+
+    <LikeList
+        likeList={likeList}
+        getLikeListAsync={getLikeListAsync}
+        addNextLikeList={addNextLikeList}
+        getMoreLikeListAsync={getMoreLikeListAsync}
+        loggedId={loggedId}
+    />
+
+);
 
 const mapStateToProps = (state: IState): ILocalProps => ({
     likeList: state.likeList,

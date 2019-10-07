@@ -11,9 +11,9 @@ import { IUser } from '../../components/FriendsRecommendations';
 export interface INewsFeed {
     _id: string;
     description: string;
-    comments: [];
-    tags: [];
-    authorsOfLike: [];
+    comments: string[];
+    tags: string[];
+    authorsOfLike: string[];
     likeExist: boolean;
     imgPath: string;
     createdAt: string;
@@ -25,7 +25,7 @@ export interface INewsFeed {
 }
 
 export interface IFeedState {
-    feed: any;
+    feed: INewsFeed[];
     page: number;
     feedLoaded: boolean;
     feedLoading: boolean;
