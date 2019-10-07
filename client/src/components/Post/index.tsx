@@ -203,7 +203,7 @@ export default class Post extends React.Component<IProps> {
                                     </div>
                                     <WriteComment
                                         postId={userPosts.selectedPost._id}
-                                        userId={user._id}
+                                        authorId={userPosts.selectedPost.author}
                                     />
                                 </div>
                             </div>

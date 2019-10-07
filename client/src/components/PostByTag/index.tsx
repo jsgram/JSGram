@@ -105,7 +105,7 @@ export class PostByTag extends React.Component<IProps> {
                                         <div className='border-top pb-2'/>
                                         <WriteComment
                                             postId={feed._id}
-                                            userId={authorId}
+                                            authorId={authorId}
                                         />
                                     </div>
                                 );
