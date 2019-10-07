@@ -23,6 +23,7 @@ import { subscribersRouter } from './routes/subscribers.routes/subscribers.route
 import { followingRouter } from './routes/following.routes/following.router';
 import { commentsRouter } from './routes/comments.routes/comments.router';
 import { searchRouter } from './routes/search.routes/search.router';
+import { searchByTagRouter } from './routes/search.routes/search.by.tag.router';
 import { eventRouter } from './routes/event.routes/event.router';
 import { tagsRouter } from './routes/tags.routes/tags.router';
 
@@ -58,6 +59,7 @@ app.use('/subscribers', subscribersRouter);
 app.use('/following', followingRouter);
 app.use('/comments', commentsRouter);
 app.use('/search', searchRouter);
+app.use('/search-tag', searchByTagRouter);
 app.use('/events', eventRouter);
 app.use('/tag', tagsRouter);
 app.use(googleRouter);
