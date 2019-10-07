@@ -22,6 +22,7 @@ import { followingRouter } from './routes/following.routes/following.router';
 import { commentsRouter } from './routes/comments.routes/comments.router';
 import { searchRouter } from './routes/search.routes/search.router';
 import { eventRouter } from './routes/event.routes/event.router';
+import { searchByTagRouter } from './routes/search.routes/search.by.tag.router';
 
 import { unknownPageHandler } from './helpers/unknown.page.handler';
 import { errorHandler } from './helpers/error.handler';
@@ -51,6 +52,7 @@ app.use('/subscribers', subscribersRouter);
 app.use('/following', followingRouter);
 app.use('/comments', commentsRouter);
 app.use('/search', searchRouter);
+app.use('/search-tag', searchByTagRouter);
 app.use('/events', eventRouter);
 app.use(googleRouter);
 
