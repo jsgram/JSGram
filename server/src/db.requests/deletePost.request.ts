@@ -1,5 +1,6 @@
 import { Post } from '../models/post.model';
 import { User } from '../models/user.model';
+import { Tag } from '../models/tag.model';
 import { NextFunction } from 'express';
 
 export const deletePost = async (
@@ -18,6 +19,9 @@ export const deletePost = async (
             throw new Error('You do not have permission to delete post');
         }
         delPost.remove();
+
+        await Tag.updateMany({posts: postId}, { $pull: {posts: postId}});
+        await Tag.remove({ posts: { $exists: true, $size: 0 } });
 
         await User.findByIdAndUpdate(userId, { $pull: {posts: postId} });
 

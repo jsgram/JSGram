@@ -1,6 +1,6 @@
 import { Post, IPostModel } from '../models/post.model';
 import { User, IUserModel } from '../models/user.model';
-import { Tag, ITagModel } from '../models/tag.model';
+import { Tag } from '../models/tag.model';
 
 export const addPost = async (user: IUserModel, description: string, imgPath: string, tags: string[]):
                               Promise<IPostModel> => {
