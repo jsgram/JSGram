@@ -16,6 +16,7 @@ interface IFeed {
     authorsOfLike: string[];
     imgPath: string;
     author: {
+        _id: any;
         username: string;
         photoPath: string;
     };
@@ -27,6 +28,7 @@ const likeList = [
         description: 'Hello, Donald!',
         imgPath: 'https://cdn.pixabay.com/photo/2019/08/19/07/45/pets-4415649_960_720.jpg',
         author: {
+            _id: 1,
             photoPath: 'https://jsgram-profile-images1.s3.eu-central-1.amazonaws.com/1569856788926',
             username: 'Stepan',
         },
@@ -40,6 +42,7 @@ const likeList = [
         description: 'Hello, Stepan!',
         imgPath: 'https://cdn.pixabay.com/photo/2013/10/02/23/03/dog-190056_960_720.jpg',
         author: {
+            _id: 2,
             photoPath: 'https://jsgram-profile-images1.s3.eu-central-1.amazonaws.com/1569856788926',
             username: 'Donald',
         },
@@ -52,6 +55,7 @@ const likeList = [
         description: 'Hello, guys!',
         imgPath: 'https://cdn.pixabay.com/photo/2016/11/21/00/47/view-1844110_960_720.jpg',
         author: {
+            _id: 3,
             photoPath: 'https://jsgram-profile-images1.s3.eu-central-1.amazonaws.com/1569856788926',
             username: 'Jessica',
         },
@@ -94,7 +98,11 @@ export const LikeList = (): ReactElement => (
                                     alt='post'
                                 />
                                 <div className='d-block mt-3 mb-2 pl-3'>
-                                    <FeedLikesContainer postId={feed._id} likes={feed.authorsOfLike} />
+                                    <FeedLikesContainer
+                                        postId={feed._id}
+                                        likes={feed.authorsOfLike}
+                                        authorId={feed.author._id}
+                                    />
                                 </div>
                                 <div className='description-post pb-3 border-bottom'>
                                     <div className='d-block pl-3 text-description'>
@@ -119,6 +127,7 @@ export const LikeList = (): ReactElement => (
                                 <Comment postId={feed._id} />
                                 <WriteComment
                                     postId={feed._id}
+                                    authorId={feed.author._id}
                                 />
                             </div>
                     ))

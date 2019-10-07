@@ -1,5 +1,4 @@
 import { Schema, Document, model } from 'mongoose';
-import { ILikeModel } from './like.model';
 import { IUserModel } from './user.model';
 import { ICommentModel } from './comment.model';
 
