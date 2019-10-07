@@ -1,5 +1,5 @@
 import { Post, IPostModel } from '../models/post.model';
-import { Tag } from '../models/tag.model';
+import { deleteTags, createTag } from '../db.requests/tag.requests';
 import { NextFunction } from 'express';
 
 export const updatePost = async (
@@ -20,17 +20,9 @@ export const updatePost = async (
         }
         await updPost.updateOne({description, tags}, {new: true});
 
-        await Tag.updateMany({posts: id}, { $pull: {posts: id}});
-        await Tag.remove({ posts: { $exists: true, $size: 0 } });
+        await deleteTags(id, next);
 
-        tags.forEach(async (tag: string) => {
-            const filter = {tagName: tag};
-            const update = {$push: { posts: id }};
-            await Tag.findOneAndUpdate(filter, update, {
-                new: true,
-                upsert: true,
-            });
-        });
+        tags.forEach(async (tag: string) => await createTag(tag, id, next));
 
         return updPost;
     } catch (e) {
