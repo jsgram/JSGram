@@ -14,6 +14,6 @@ describe('RegisterRoute component', () => {
     });
 
     test('render-success', () => {
-        expect(renderer.html()).toHaveLength(1555);
+        expect(renderer.html()).toHaveLength(1514);
     });
 });
