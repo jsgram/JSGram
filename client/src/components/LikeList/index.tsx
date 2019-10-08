@@ -20,18 +20,6 @@ interface IProps {
     loggedId: string;
 }
 
-interface IFeed {
-    _id: string;
-    description: string;
-    authorsOfLike: string[];
-    imgPath: string;
-    author: {
-        _id: string;
-        username: string;
-        photoPath: string;
-    };
-}
-
 export class LikeList extends React.Component<IProps> {
     public componentDidMount(): void {
         this.props.getLikeListAsync();
