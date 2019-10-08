@@ -7,10 +7,10 @@ describe('Error404 component', () => {
     let renderer;
 
     beforeEach(() => {
-        renderer = shallow(<BrowserRouter><Error404/>)</BrowserRouter>);
+        renderer = shallow(<BrowserRouter><Error404/></BrowserRouter>);
     });
 
     test('render-success', () => {
-        expect(renderer.html()).toHaveLength(222);
+        expect(renderer.html()).toHaveLength(221);
     });
 });

@@ -26,8 +26,8 @@ describe('Async actions', () => {
         });
 
         const expectedActions = [
-            {type: actions.getPostPending()},
-            {type: actions.resetAddPost()},
+            actions.getPostPending(),
+            actions.resetAddPost(),
         ];
         store.dispatch(actions.uploadPost('croppedimage', 'description for image', 'volodia'))
             .then(() => {

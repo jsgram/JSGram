@@ -27,8 +27,8 @@ describe('Async actions', () => {
         });
 
         const expectedActions = [
-            {type: actions.setUsername('username')},
-            {type: showAlert('', 'success')},
+            actions.setUsername('username'),
+            showAlert('', 'success'),
         ];
         store.dispatch(actions.editProfile({username: 'volodia'}))
             .then(() => {
