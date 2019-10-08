@@ -11,10 +11,10 @@ interface IProps {
     loggedId: string;
     loggedUsername: string;
     postId: string;
+    authorId: string;
     onChangeComments: Array<{ postId: string, comment: string }>;
     onChangeComment: (postId: string, event: string) => void;
     addComment: (postId: string, loggedId: string, commentValue: string) => void;
-    userId: string;
     emitNewNotificationSocket: (userId: string, loggedUsername: string, message: string) => void;
 }
 
@@ -22,7 +22,7 @@ interface ILocalState {
     loggedId: string;
     loggedUsername: string;
     postId: string;
-    userId: string;
+    authorId: string;
     onChangeComments: Array<{ postId: string, comment: string }>;
 }
 
@@ -43,7 +43,7 @@ class WriteComment extends React.Component<IProps> {
             commentValue,
         );
 
-        this.props.emitNewNotificationSocket(this.props.userId, this.props.loggedUsername, COMMENT_NOTIFICATION);
+        this.props.emitNewNotificationSocket(this.props.authorId, this.props.loggedUsername, COMMENT_NOTIFICATION);
     }
 
     public render(): JSX.Element {
@@ -82,9 +82,9 @@ class WriteComment extends React.Component<IProps> {
     }
 }
 
-const mapStateToProps = (state: IState, ownProps: { postId: string, userId: string }): ILocalState => ({
+const mapStateToProps = (state: IState, ownProps: {postId: string; authorId: any}): ILocalState => ({
     postId: ownProps.postId,
-    userId: ownProps.userId,
+    authorId: ownProps.authorId,
     loggedId: state.feed.loggedId,
     loggedUsername: state.feed.loggedUsername,
     onChangeComments: state.comments.onChangeComments,

@@ -38,6 +38,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pug": "^2.0.4",
+    "socket.io": "^2.3.0",
     "tinyqueue": "^2.0.3",
     "ts-node": "^8.3.0",
     "validator": "^11.1.0"
@@ -73,7 +74,6 @@
     "mockingoose": "^2.13.2",
     "nodemon": "^1.19.1",
     "pug-cli": "^1.0.0-alpha6",
-    "socket.io": "^2.3.0",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
