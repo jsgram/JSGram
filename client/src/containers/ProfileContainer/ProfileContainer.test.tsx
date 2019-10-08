@@ -16,9 +16,6 @@ describe('ProfileContainer component:', () => {
             loading: false,
             getUser: jest.fn(() => 'somevalue'),
             deletePhoto: jest.fn(() => 'someanothervalue'),
-            match: {
-                params: 'fakeparams',
-            },
         };
 
         profile.default = jest.fn(() => <div></div>);

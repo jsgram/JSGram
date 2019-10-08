@@ -38,7 +38,7 @@ interface ILocalProps {
 
 type IProfileLikesProps = ILikeProps & ILocalProps;
 
-class ProfileLikesContainer extends React.Component<IProfileLikesProps> {
+export class ProfileLikesContainer extends React.Component<IProfileLikesProps> {
     public componentDidMount(): void {
         this.props.getLikes(this.props.postId);
     }

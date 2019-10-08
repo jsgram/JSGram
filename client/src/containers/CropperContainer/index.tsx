@@ -11,7 +11,7 @@ export interface IState {
     user: IUserData;
 }
 
-const CropperContainer = (props: IAddAvatarCropperProps): JSX.Element => (
+export const CropperContainer = (props: IAddAvatarCropperProps): JSX.Element => (
     <CropperAvatar
         loading={props.loading}
         croppedImage={props.croppedImage}
