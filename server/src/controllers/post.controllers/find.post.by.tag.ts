@@ -11,8 +11,8 @@ export const findByTagName = async (req: Request, res: Response, next: NextFunct
     try {
         const { tagName, page }: IParams = req.params;
         const skip = (page - 1) * POSTS_PER_PAGE;
-        const posts = await findPostByTag(tagName, skip, POSTS_PER_PAGE, next);
-        res.json({posts});
+        const posts = await findPostByTag(tagName, skip, POSTS_PER_PAGE);
+        res.json(posts);
     } catch (e) {
         next(e);
     }
