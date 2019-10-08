@@ -9,12 +9,12 @@ const startState = {};
 
 const mockStore = configureMockStore([thunk]);
 
-const makeMockStore = (state: any = {}): any => {
-    return mockStore({
+const makeMockStore = (state: any = {}): any => (
+    mockStore({
         ...startState,
         ...state,
-    });
-};
+    })
+);
 
 describe('Async actions', () => {
     beforeEach(() => moxios.install());
