@@ -10,7 +10,7 @@ export const startState = {};
 export const mockStore = configureMockStore([thunk]);
 
 export const makeMockStore = (state: any = {}): any => (
-    mokStore({
+    mockStore({
         ...startState,
         ...state,
     })
