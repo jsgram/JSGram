@@ -8,8 +8,10 @@ import { BrowserRouter } from 'react-router-dom';
 describe('RegisterRoute component', () => {
     let renderer: any;
 
+    const mockStore = configureStore();
+
     beforeEach(() => {
-        const store = configureStore()();
+        const store = mockStore();
         renderer = mount(<Provider store={store}><BrowserRouter><RegisterRoute/></BrowserRouter></Provider>);
     });
 

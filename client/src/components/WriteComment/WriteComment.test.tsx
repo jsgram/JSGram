@@ -1,6 +1,6 @@
 import React from 'react';
-import ConnectedWriteComment, { WriteComment } from './index';
-import { shallow } from 'enzyme';
+import WriteComment from './index';
+import { mount, shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
@@ -8,21 +8,27 @@ describe('WriteComment smart component', () => {
     let renderer;
     const mockStore = configureStore();
     const props = {
-        userId: 'somevalue',
+        authorId: 'somevalue',
         postId: 'somevalue',
     };
     const initialState = {
-        loggedId: 'somevalue',
-        loggedUsername: 'somevalue',
-        onChangeComments: jest.fn(() => 'somevalue'),
-    }
+        authorId: 'somevalue',
+        postId: 'somevalue',
+        feed: {
+            loggedId: 'somevalue',
+            loggedUsername: 'somevalue',
+        },
+        comments: {
+            onChangeComments: [],
+        },
+    };
 
     beforeEach(() => {
         const store = mockStore(initialState);
-        renderer = shallow(<Provider store={store}><ConnectedWriteComment {...props} /></Provider>);
+        renderer = mount(<Provider store={store}><WriteComment {...props} /></Provider>);
     });
 
     test('render-success', () => {
-        expect(renderer.find(ConnectedWriteComment).length).toEqual(1);
+        expect(renderer.html()).toHaveLength(11);
     });
 });
