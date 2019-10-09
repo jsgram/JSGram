@@ -8,12 +8,14 @@ import { BrowserRouter } from 'react-router-dom';
 describe('RegisterRoute component', () => {
     let renderer;
 
+    const mockStore = configureStore();
+
     beforeEach(() => {
-        const store = configureStore()();
+        const store = mockStore();
         renderer = mount(<Provider store={store}><BrowserRouter><RegisterRoute/></BrowserRouter></Provider>);
     });
 
     test('render-success', () => {
-        expect(renderer.html()).toHaveLength(1555);
+        expect(renderer.html()).toHaveLength(1514);
     });
 });
