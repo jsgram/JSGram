@@ -140,6 +140,7 @@ export class Comments extends React.Component<ICommentsProps> {
         const {authorId, comment}: ICommentInfo = commentInfo;
         const {authors, feed: {loggedUsername, isAdmin}}: ICommentsProps = this.props;
 
+
         return (
             <div className='one-comment px-3'>
                 <div className='d-flex justify-content-between'>
