@@ -47,7 +47,7 @@ export const getLikeListAsync = (): (dispatch: Dispatch) => Promise<void> =>
             dispatch(getLikeListSuccess(res.data.feed));
             dispatch(clearLikeListLoaded());
         } catch (e) {
-            dispatch(showAlert(e, 'danger'));
+            dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };
 
