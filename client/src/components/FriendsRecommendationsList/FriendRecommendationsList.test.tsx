@@ -1,8 +1,9 @@
 import React from 'react';
-import ConnectedFriendsRecommendationsList, { FriendsRecommendationsList } from './index';
+import FriendsRecommendationsList from './index';
 import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 describe('FriendsRecommendationsList smart component', () => {
     let renderer;
@@ -16,18 +17,31 @@ describe('FriendsRecommendationsList smart component', () => {
         followUser: jest.fn(() => 'somevalue'),
     };
     const initialState = {
-        friendsRecommendations: {
-            users: [],
-            loading: true,
+        newsFeed: {
+            friendsRecommendations: {
+                users: [],
+                loading: true,
+            },
+        },
+        profileEdit: {
+            newUsername: 'somevalue',
+        },
+        feed: {
+            loggedUsername: 'somevalue',
+        },
+        search: {
+            searchResults: [],
         },
     };
 
     beforeEach(() => {
         const store = mockStore(initialState);
-        renderer = shallow(<Provider store={store}><ConnectedFriendsRecommendationsList {...props}/></Provider>);
+        renderer = shallow(<Provider store={store}>
+            <BrowserRouter><FriendsRecommendationsList {...props}/></BrowserRouter>
+        </Provider>);
     });
 
     test('render-success', () => {
-        expect(renderer.find(ConnectedFriendsRecommendationsList).length).toEqual(1);
+        expect(renderer.html()).toHaveLength(1267);
     });
 });

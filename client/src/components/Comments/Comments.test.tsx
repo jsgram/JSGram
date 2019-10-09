@@ -1,24 +1,27 @@
 import React from 'react';
-import ConnectedComments, { Comments } from './index';
+import Comments from './index';
 import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import * as link from 'react-router-dom';
 
 describe('Comments smart component', () => {
     let renderer;
     const initialState = {
-        comments: 'somevalue',
+        comments: {
+            allCommentsLoaded: [],
+        },
     };
-
     const mockStore = configureStore();
     const mockPostId = 'somevalue';
+    link.Link = jest.fn(() => <div></div>);
 
     beforeEach(() => {
         const store = mockStore(initialState);
-        renderer = shallow(<Provider store={store}><ConnectedComments postId={mockPostId}/></Provider>);
+        renderer = shallow(<Provider store={store}><Comments postId={mockPostId}/></Provider>);
     });
 
     test('render-success', () => {
-        expect(renderer.find(ConnectedComments).length).toEqual(1);
+        expect(renderer.html()).toHaveLength(220);
     });
 });
