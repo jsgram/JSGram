@@ -1,15 +1,14 @@
 import { commentsReducer, defaultState } from '../reducers';
 import * as types from '../actionTypes';
-import {GET_COMMENTS_PENDING} from "../actionTypes";
-import {ALL_COMMENTS_LOADED} from "../actionTypes";
-import {RESET_COMMENTS} from "../actionTypes";
-import {SET_DEFAULT_COMMENT_ON_CHANGE} from "../actionTypes";
-import {ON_CHANGE_COMMENT} from "../actionTypes";
-import {ADD_COMMENT} from "../actionTypes";
-import {EDIT_COMMENT} from "../actionTypes";
-import {CHANGE_COMMENT} from "../actionTypes";
-import {DELETE_COMMENT} from "../actionTypes";
-
+import {
+    GET_COMMENTS_PENDING,
+    ALL_COMMENTS_LOADED,
+    DELETE_COMMENT,
+    CHANGE_COMMENT,
+    RESET_COMMENTS,
+    SET_DEFAULT_COMMENT_ON_CHANGE,
+    EDIT_COMMENT,
+} from '../actionTypes';
 
 describe('Comments reducer test', () => {
     it('Should return the default state', () => {
@@ -42,7 +41,7 @@ describe('Comments reducer test', () => {
         };
         expect(commentsReducer(defaultState, action)).toEqual({
             ...defaultState,
-            comments: [...action.payload.comments],
+            comments: {},
             commentsPage: [],
             commentsLoading: true,
         });
@@ -66,7 +65,7 @@ describe('Comments reducer test', () => {
         };
         expect(commentsReducer(defaultState, action)).toEqual({
             ...defaultState,
-            comments: [],
+            comments: {},
             commentsPage: [],
             allCommentsLoaded: [],
         });
@@ -85,30 +84,44 @@ describe('Comments reducer test', () => {
     it('EDIT_COMMENT', () => {
         const action: any = {
             type: types.EDIT_COMMENT,
+            payload: {commentId: 1, comment: ''},
         };
         expect(commentsReducer(defaultState, action)).toEqual({
             ...defaultState,
-            comments: [],
+            comments: {
+                [action.payload.commentId]: {
+                    comment: action.payload.comment,
+                },
+            },
         });
     });
 
     it('CHANGE_COMMENT', () => {
         const action: any = {
             type: types.CHANGE_COMMENT,
+            payload: {commentId: 1, comment: ''},
         };
         expect(commentsReducer(defaultState, action)).toEqual({
             ...defaultState,
-            comments: [],
+            comments: {
+                [action.payload.commentId]: {
+                    newComment: action.payload.comment,
+                },
+            },
         });
     });
 
     it('DELETE_COMMENT', () => {
         const action: any = {
             type: types.DELETE_COMMENT,
+            payload: [],
         };
         expect(commentsReducer(defaultState, action)).toEqual({
             ...defaultState,
-            comments: [],
+            allCommentsId: [],
+            comments: {
+                [action.payload]: null,
+            },
         });
     });
 
