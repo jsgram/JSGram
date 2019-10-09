@@ -5,12 +5,6 @@ import { PopUpModal } from './index';
 import { Provider } from 'react-redux';
 import { store } from '../../App';
 
-// loading: boolean;
-// modal: boolean;
-// photo: string;
-// deletePhoto: () => void;
-// toggleModal: () => void;
-
 const popUpState = {
     loading: false,
     modal: true,

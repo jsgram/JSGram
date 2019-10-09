@@ -1,4 +1,5 @@
 import { Post, IPostModel } from '../models/post.model';
+import { deleteTags, createTag } from '../db.requests/tag.requests';
 import { NextFunction } from 'express';
 
 export const updatePost = async (
@@ -18,6 +19,11 @@ export const updatePost = async (
             throw new Error('You do not have permission to edit post');
         }
         await updPost.updateOne({description, tags}, {new: true});
+
+        await deleteTags(id, next);
+
+        tags.forEach(async (tag: string) => await createTag(tag, id, next));
+
         return updPost;
     } catch (e) {
         next({message: 'Post doesn\'t exist', status: 409});

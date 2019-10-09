@@ -13,6 +13,7 @@ import { likesReducer } from './likes/reducers';
 import { commentsReducer } from './comments/reducers';
 import { subscribersReducer } from './subscribers/reducers';
 import { searchReducer } from './search/reducers';
+import { likeListReducer } from './likesList/reducers';
 
 export default combineReducers({
     form: formReducer,
@@ -29,4 +30,5 @@ export default combineReducers({
     comments: commentsReducer,
     subscribers: subscribersReducer,
     search: searchReducer,
+    likeList: likeListReducer,
 });

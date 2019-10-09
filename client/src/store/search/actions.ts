@@ -52,11 +52,11 @@ export const getSearchResults = (query: string, page: number): (dispatch: Dispat
             const res = await AuthAPI.get(`/search/${query}/${page}`);
             if (page === FIRST_PAGE) {
                 dispatch(clearLoaded());
-                dispatch(getSearchResultsSuccess(res.data.users));
+                dispatch(getSearchResultsSuccess(res.data.results));
             } else {
-                dispatch(getMoreResultsSuccess(res.data.users));
+                dispatch(getMoreResultsSuccess(res.data.results));
             }
-            if (!res.data.users.length || res.data.users.length < RESULTS_RER_PAGE) {
+            if (!res.data.results.length || res.data.results.length < RESULTS_RER_PAGE) {
                 dispatch(allResultsLoaded());
             }
         } catch (e) {

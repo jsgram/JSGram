@@ -5,21 +5,19 @@ import { MemoryRouter } from 'react-router-dom';
 import { Comments } from './index';
 import './style.scss';
 
-const comments = (username: string, comment: string, _id: string, isEdit: boolean): any => {
-    return {
-        _id,
-        postId: '5d72faed2b49f34231709c53',
-        comment,
-        authorId: {
-            _id: '5d723afacb0c0027cd1e5c94',
-            username,
-            photoPath: 'https://jsgram-profile-images.s3.eu-west-3.amazonaws.com/1569138592191',
-            email: 'dribnucko@gmail.com',
-        },
-        isEdit,
-        newComment: '',
-    };
-};
+const comments = (username: string, comment: string, _id: string, isEdit: boolean): any => ({
+    _id,
+    postId: '5d72faed2b49f34231709c53',
+    comment,
+    authorId: {
+        _id: '5d723afacb0c0027cd1e5c94',
+        username,
+        photoPath: 'https://jsgram-profile-images.s3.eu-west-3.amazonaws.com/1569138592191',
+        email: 'dribnucko@gmail.com',
+    },
+    isEdit,
+    newComment: '',
+});
 
 const newComment = {
     _id: '5d72faed2b49f3423134340',

@@ -54,7 +54,7 @@ const FeedContainer = ({
     );
 };
 
-const mapStateToProps = (state: IState): ILocalProps => ({
+export const mapStateToProps = (state: IState): ILocalProps => ({
     newsFeed: state.newsFeed,
     loggedId: state.feed.loggedId,
     loggedUsername: state.feed.loggedUsername,

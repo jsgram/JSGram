@@ -6,7 +6,7 @@ interface IAction {
 }
 
 export const defaultState = {
-    password : '',
+    password: '',
     error: '',
     loaded: false,
     loading: false,
