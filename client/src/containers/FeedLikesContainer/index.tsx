@@ -34,7 +34,7 @@ interface ICommentsState {
     userLikeExist: boolean;
 }
 
-class FeedLikesContainer extends React.Component<any> {
+export class FeedLikesContainer extends React.Component<any> {
     public state: ICommentsState = {
         postId: '',
         authorsOfLike: [],
@@ -81,16 +81,17 @@ class FeedLikesContainer extends React.Component<any> {
     }
 }
 
-const mapStateToProps = (state: ILikeState, ownProps: { postId: string, likes: string[], authorId: string }): ILikeProps => ({
-    postId: ownProps.postId,
-    authorId: ownProps.authorId,
-    likes: ownProps.likes,
-    loggedId: state.feed.loggedId,
-    loggedUsername: state.feed.loggedUsername,
-    authorsOfLike: state.likes.feedAuthorsOfLike,
-    loadingLike: state.likes.loadingLike,
-    newsFeed: state.newsFeed,
-});
+const mapStateToProps = (state: ILikeState, ownProps: { postId: string, likes: string[], authorId: string }):
+    ILikeProps => ({
+        postId: ownProps.postId,
+        authorId: ownProps.authorId,
+        likes: ownProps.likes,
+        loggedId: state.feed.loggedId,
+        loggedUsername: state.feed.loggedUsername,
+        authorsOfLike: state.likes.feedAuthorsOfLike,
+        loadingLike: state.likes.loadingLike,
+        newsFeed: state.newsFeed,
+    });
 
 const mapDispatchToProps = {
     setFeedAuthorsOfLike,

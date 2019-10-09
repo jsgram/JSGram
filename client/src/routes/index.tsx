@@ -17,8 +17,8 @@ import FeedContainer from '../containers/FeedContainer';
 import SubscribersContainer from '../containers/SubscribersContainer';
 import { AboutUs } from '../components/AboutUs';
 import FriendsRecommendationsList from '../components/FriendsRecommendationsList';
-import { LikeList } from '../components/LikeList';
 import PostsByTagContainer from '../containers/PostsByTagContainer';
+import LikeListContainer from '../containers/LikesListContainer';
 
 export const routes = (
     <Router history={history}>
@@ -28,7 +28,7 @@ export const routes = (
             <PrivateRoute exact path='/profile/:username/following' component={SubscribersContainer}/>
             <PrivateRoute exact path='/profile/:username/recommendations' component={FriendsRecommendationsList}/>
             <PrivateRoute exact path='/profile/:username/edit/password-reset' component={CheckEmail}/>
-            <PrivateRoute exact path='/profile/:username/likes' component={LikeList} />
+            <PrivateRoute exact path='/profile/:username/likes' component={LikeListContainer} />
             <PrivateRoute exact path='/add-post' component={AddPostContainer}/>
             <PrivateRoute exact path='/feed' component={FeedContainer}/>
             <PrivateRoute path='/profile/:username/edit' component={SideBar}/>

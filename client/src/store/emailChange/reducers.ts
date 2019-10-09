@@ -2,7 +2,7 @@ import {
     SET_EMAIL_TEXT,
 } from './actionTypes';
 
-const defaultState = {
+export const defaultState = {
     email: '',
 };
 

@@ -10,12 +10,12 @@ export const startState = {};
 
 export const mockStore = configureMockStore([thunk]);
 
-export const makeMockStore = (state: any = {}): any => {
-    return mockStore({
+export const makeMockStore = (state: any = {}): any => (
+    mockStore({
         ...startState,
         ...state,
-    });
-};
+    })
+);
 
 describe('Avatar cropper', () => {
     beforeEach(() => moxios.install());
