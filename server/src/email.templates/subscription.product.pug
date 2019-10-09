@@ -1,0 +1,33 @@
+include _mixin.pug
+
+doctype html
+html
+  head
+    title JSgram development team spinning out of control
+    include _style.pug
+
+  body
+    div.separator--sml
+
+    h3 You can view, comment on, or merge this pull request online at:
+    a(href=`${event.compare}`)
+
+    h3 Commit Summary
+    ul
+      li cat
+
+    h3 File Changes
+    ul
+      li cat
+
+    h3 Patch Links:
+    ul
+      li cat
+
+    div.separator--sml
+
+    p.
+      You are receiving this because you subscribed to JSgram news.
+      a(href=`${event.compare}`) View commit on GitHub
+      or
+      a(href=`${baseUrl}/profile/${user.username}/edit/subscriptions`) unsubscribe from news.

@@ -35,7 +35,7 @@ const ProfileSubscriptionsContainer = ({
                     News emails
                 </Label>
                 <div className='font-italic text-secondary mb-4'>
-                    Find out first about new products.
+                    Find out JSgram repo news first.
                 </div>
 
                 <Label className='d-flex align-items-center'>
@@ -61,7 +61,7 @@ const ProfileSubscriptionsContainer = ({
                     Product emails
                 </Label>
                 <div className='font-italic text-secondary mb-4'>
-                    Get tips on using Instagram's tools.
+                    Get update on JSgram's new features.
                 </div>
 
                 <Button

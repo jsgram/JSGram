@@ -1,0 +1,9 @@
+doctype html
+html
+  head
+    title JSgram - account verification
+    include _style.pug
+
+  body
+    h3 Hello #{username}, please verify your account
+      a(href=`${baseUrl}/confirm/${token}`) by clicking the link.

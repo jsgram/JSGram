@@ -1,0 +1,32 @@
+include _mixin.pug
+
+doctype html
+html
+  head
+    title JSgram - password change confirmation
+    include _style.pug
+
+  body
+    //- header
+    table.table
+      tr
+        td: a(href=`${baseUrl}/`): img.header__logo(src='https://is.gd/YJvPQR' alt='JSgram Logo')
+        +user_icon(user, 'userpic--right')
+
+    table.table
+      tr: td.plug__content
+        h3 Welcome to JSgram
+          span #{username}
+      tr: td.plug__content
+        p Thanks so much for joining JSgram!
+        p To finish signing up, you just need to confirm that we got your email right.
+      tr: td.plug__content
+        a(href=`${baseUrl}/confirm/${token}`) Click this link and complete your registration.
+      tr: td.plug__content
+        p This link is available for one hour only. Hurry up!
+
+    //- footer
+    table.table
+      tr: td.footer__disclaimer--cnt
+        h3: a(href=`${baseUrl}/`) JSgram from Lv-430
+        p &copy; JSgram. Lv-430.NodeJS, 5 Yaroslava Pasternaka, Lviv, Ukraine 79015

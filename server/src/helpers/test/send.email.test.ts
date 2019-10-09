@@ -9,10 +9,11 @@ describe('Email sender controller:', () => {
     test.skip('send email - failure', async () => {
         mockingoose(User).toReturn({email: 'a@a.a'}, 'findOne');
         const fakeUser = await User.findOne({});
-        const mockMessage = jest.fn((u1: string, u2: string): void => { /* */ });
+        const mockEmailSubject = 'fakeemailsubject';
+        const mockEmailBody = 'fakeemailbody';
 
         // TODO mock Token and nodemailer
-        const answer = await sendEmail(fakeUser as IUserModel, mockMessage, fakeNext);
+        const answer = await sendEmail(fakeUser as IUserModel, mockEmailSubject, mockEmailBody);
         expect(answer).toBe(undefined);
     });
 });

@@ -1,8 +1,11 @@
-import { NextFunction, Request, Response } from 'express';
-import { sendChangingEmail } from '../../../helpers/send.email';
-import { changeEmailMessage } from '../../../helpers/send.email.change.email';
+import { User } from '../../../models/user.model';
+import { Token, ITokenModel } from '../../../models/token.model';
+import { sendEmail } from '../../../helpers/send.email';
+import { renderTemplate } from '../../../helpers/render.template';
+
+import crypto from 'crypto';
 import Validator from 'validator';
-import {User} from '../../../models/user.model';
+import { NextFunction, Request, Response } from 'express';
 
 interface IChangeEmail {
     newEmail: string;
@@ -14,30 +17,40 @@ interface IChangeEmail {
 
 export const changeEmail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { newEmail, profileUser: {email, _id: userId} }: IChangeEmail = req.body;
-        const { locals: { user: { id: loggedUserId } } }: Response = res;
+        const { newEmail, profileUser: { email, _id: userId } }: IChangeEmail = req.body;
+
+        const { locals: { user, user: { id: loggedUserId } } }: Response = res;
         if (loggedUserId !== userId) {
-            throw new Error('Unauthorized attempt to edit profile');
+            throw new Error('Unauthorized attempt to edit profile.');
         }
         if (Validator.isEmpty(newEmail)) {
-            throw new Error('Email is empty');
+            throw new Error('Email is empty.');
         }
 
-        const anotherUser = await User.findOne({email: newEmail});
-
+        const anotherUser = await User.findOne({ email: newEmail });
         if (anotherUser) {
-            throw new Error('Can not change email');
+            throw new Error('Cannot change email.');
         }
 
-        await sendChangingEmail(newEmail, email, changeEmailMessage, next);
+        const { token }: ITokenModel = await Token.create({
+            user: userId,
+            token: crypto.randomBytes(16).toString('hex'),
+        });
 
-        res.json(
-            {status: `A verification email has been sent to ${newEmail}`});
+        const emailSubject = 'JSgram - Create User';
+        const emailBody = renderTemplate('change.email.pug', { user, newEmail, email, token });
+
+        const successSend = await sendEmail(user, emailSubject, emailBody);
+        if (!successSend) {
+            throw new Error('Email wasn\'t sent.');
+        }
+
+        res.json({ status: `Verification email has been sent to ${newEmail}.` });
     } catch (e) {
         if (e.message) {
             next({ message: e.message, status: 400 });
         } else {
-            next({message: 'Can not change email', status: 500});
+            next({ message: 'Cannot change email', status: 500 });
         }
     }
 };
