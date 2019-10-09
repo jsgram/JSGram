@@ -6,7 +6,7 @@ import {
     CHANGE_USER_FOLLOWING, SET_SUBSCRIBERS_COUNT,
 } from './actionTypes';
 
-const defaultState = {
+export const defaultState = {
     page: 1,
     loading: false,
     allSubscribersLoaded: false,

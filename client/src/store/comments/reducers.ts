@@ -35,7 +35,7 @@ export interface IComments {
     commentsLoading: boolean;
 }
 
-const defaultState = {
+export const defaultState = {
     comments: [],
     onChangeComments: [],
     commentsPage: [],
