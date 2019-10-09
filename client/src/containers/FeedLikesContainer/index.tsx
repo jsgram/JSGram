@@ -34,7 +34,7 @@ interface ICommentsState {
     userLikeExist: boolean;
 }
 
-class FeedLikesContainer extends React.Component<any> {
+export class FeedLikesContainer extends React.Component<any> {
     public state: ICommentsState = {
         postId: '',
         authorsOfLike: [],

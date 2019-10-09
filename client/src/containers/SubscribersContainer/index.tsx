@@ -64,7 +64,7 @@ class SubscribersContainer extends React.Component<SubscribersProps> {
     }
 }
 
-const mapStateToProps = (state: ISubscribersState): ISubscribersLocalProps => ({
+export const mapStateToProps = (state: ISubscribersState): ISubscribersLocalProps => ({
     loggedId: state.feed.loggedId,
     loggedUsername: state.feed.loggedUsername,
     user: state.profile.user,

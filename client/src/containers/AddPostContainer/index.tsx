@@ -13,7 +13,7 @@ export interface ILocalState {
     addPost: IState;
 }
 
-const AddPostContainer = ({
+export const AddPostContainer = ({
                               croppedImage, description, loading, uploadPost, setCroppedImageForPost,
                               setDescriptionForPost, resetAddPost, informFileError, loggedUsername,
                           }: IAddPostCropperProps): JSX.Element => (

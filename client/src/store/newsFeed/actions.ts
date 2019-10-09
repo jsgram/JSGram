@@ -108,7 +108,6 @@ export const getMorePostsByTagAsync = (tagName: string, page: number): (dispatch
         try {
             dispatch(getNewsFeedPending());
             const res = await AuthAPI.get(`/tag/${tagName}/${page}`);
-
             if (!res.data.posts.length) {
                 dispatch(allNewsFeedLoaded());
                 return;
@@ -116,6 +115,6 @@ export const getMorePostsByTagAsync = (tagName: string, page: number): (dispatch
 
             dispatch(getMoreNewsFeedSuccess(res.data.posts));
         } catch (e) {
-            dispatch(showAlert('test', 'danger'));
+            dispatch(showAlert(e.response, 'danger'));
         }
     };

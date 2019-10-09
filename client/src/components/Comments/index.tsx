@@ -11,18 +11,29 @@ import {
     changeComment,
     setDefaultCommentToChange,
 } from '../../store/comments/actions';
-import { IComment } from '../../store/comments/reducers';
 import { IFeedState } from '../../store/feed/reducers';
 import './style.scss';
 import { Link } from 'react-router-dom';
+import { IAuthor, IComment } from '../../store/comments/reducers';
 
 interface ILocalState {
     postId: string;
-    comments: IComment[];
+    comments: IComment;
+    authors: IAuthor;
+    allCommentsId: [];
     commentsPage: any[];
     commentsLoading: boolean;
     allCommentsLoaded: any[];
     feed: IFeedState;
+}
+
+interface ICommentInfo {
+    _id: string;
+    postId: string;
+    authorId: string;
+    comment: string;
+    newComment: string;
+    isEdit: boolean;
 }
 
 interface IState {
@@ -77,7 +88,7 @@ export class Comments extends React.Component<ICommentsProps> {
         );
     }
 
-    public renderComment = (comment: IComment): any => (
+    public renderComment = (comment: ICommentInfo): JSX.Element => (
         comment.isEdit ?
             (
                 <>
@@ -100,10 +111,10 @@ export class Comments extends React.Component<ICommentsProps> {
                            )}>
                         </i>
                         <i className='fa fa-check fa-lg text-success icon-edit'
-                            onClick={(): void => this.editComment(
-                                comment.newComment,
-                                comment._id,
-                            )}>
+                           onClick={(): void => this.editComment(
+                               comment.newComment,
+                               comment._id,
+                           )}>
                         </i>
                     </div>
                 </>
@@ -117,13 +128,46 @@ export class Comments extends React.Component<ICommentsProps> {
                             onClick={(): void => this.props.changeEditStatus(comment._id)}
                         />
                         <i className='fa fa-trash-o delete-comment' onClick={
-                            (): void => this.onDeleteComment(comment._id, comment.authorId._id)
+                            (): void => this.onDeleteComment(comment._id, comment.authorId)
                         }/>
                     </div>
                     <p>{comment.comment}</p>
                 </>
             )
     )
+
+    public renderCommentsTemplate = (commentInfo: ICommentInfo): JSX.Element => {
+        const {authorId, comment}: ICommentInfo = commentInfo;
+        const {authors, feed: {loggedUsername, isAdmin}}: ICommentsProps = this.props;
+        return (
+            <div className='one-comment px-3'>
+                <div className='d-flex justify-content-between'>
+                    <div className='w-100'>
+                        <img
+                            src={authors[authorId].photoPath || noAvatar}
+                            alt='avatar'
+                            width={24}
+                            height={24}
+                            className='img-fluid rounded-circle mt-1 mr-1 mb-1'
+                        />
+                        <Link to={`/profile/${authors[authorId].username}`}
+                              className='text-dark mt-1'
+                        >
+                            {authors[authorId].username}
+                        </Link>
+                        {
+                            (
+                                loggedUsername === authors[authorId].username || isAdmin
+                            )
+                                ? this.renderComment(commentInfo)
+                                :
+                                <p>{comment}</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     public getComments = (): JSX.Element => (
         <div
@@ -143,35 +187,11 @@ export class Comments extends React.Component<ICommentsProps> {
         return (
             <div className='flex-grow-1 comments border-top position-relative'>
                 <div className='position-absolute h-100 w-100'>
-                    {this.props.comments && this.props.comments.map((comment: any) => (
-                        <div key={comment._id}>
-                            {comment.postId === this.props.postId &&
-                                <div className='one-comment px-3'>
-                                    <div className='d-flex justify-content-between'>
-                                        <div className='w-100'>
-                                            <img
-                                                src={comment.authorId.photoPath || noAvatar}
-                                                alt='avatar'
-                                                width={24}
-                                                height={24}
-                                                className='img-fluid rounded-circle mt-1 mr-1 mb-1'
-                                            />
-                                            <Link to={`/profile/${comment.authorId.username}`}
-                                                className='text-dark mt-1'
-                                            >
-                                                {comment.authorId.username}
-                                            </Link>
-                                            {
-                                                (
-                                                    this.props.feed.loggedUsername === comment.authorId.username
-                                                    || this.props.feed.isAdmin
-                                                )
-                                                    ? this.renderComment(comment)
-                                                    : <p>{comment.comment}</p>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
+                    {this.props.allCommentsId && this.props.allCommentsId.map((commentId: any) => (
+                        <div key={commentId}>
+                            {
+                                this.props.comments[commentId].postId === this.props.postId &&
+                                this.renderCommentsTemplate(this.props.comments[commentId])
                             }
                         </div>
                     ))}
@@ -185,6 +205,8 @@ export class Comments extends React.Component<ICommentsProps> {
 const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalState => ({
     postId: ownProps.postId,
     comments: state.comments.comments,
+    authors: state.comments.authors,
+    allCommentsId: state.comments.allCommentsId,
     commentsPage: state.comments.commentsPage,
     commentsLoading: state.comments.commentsLoading,
     allCommentsLoaded: state.comments.allCommentsLoaded,
