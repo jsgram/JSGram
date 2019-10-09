@@ -16,7 +16,7 @@ export interface ISearchState {
     page: number;
 }
 
-const defaultState = {
+export const defaultState = {
     searchResults: [],
     loaded: false,
     loading: false,
