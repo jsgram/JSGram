@@ -6,11 +6,7 @@ import { Link } from 'react-router-dom';
 import { formatDescription } from '../../helpers/regex.description';
 import FeedLikesContainer from '../../containers/FeedLikesContainer';
 import Menu from '../Menu';
-import {
-    Col,
-    Container,
-    Row,
-} from 'reactstrap';
+import { Col, Container, Row } from 'reactstrap';
 import Comment from '../Comments';
 import WriteComment from '../WriteComment';
 
