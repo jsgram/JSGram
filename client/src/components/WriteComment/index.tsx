@@ -31,7 +31,7 @@ interface IState {
     comments: IComments;
 }
 
-class WriteComment extends React.Component<IProps> {
+export class WriteComment extends React.Component<IProps> {
     public onCommentChange = (postId: string, event: React.ChangeEvent<HTMLTextAreaElement>): void => {
         this.props.onChangeComment(postId, event.target.value);
     }
@@ -50,6 +50,7 @@ class WriteComment extends React.Component<IProps> {
         const commentInfo =
             this.props.onChangeComments.filter((info: { postId: string }) =>
                 this.props.postId === info.postId);
+
         return (
             <div>
                 {!!commentInfo.length && commentInfo[0] &&

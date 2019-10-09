@@ -45,7 +45,7 @@ interface IOwnCommentsProps {
 
 export type ICommentsProps = IOwnCommentsProps & ILocalState;
 
-class Comments extends React.Component<ICommentsProps> {
+export class Comments extends React.Component<ICommentsProps> {
     public componentDidMount(): void {
         if (this.props.postId) {
             this.props.getComments([{postId: this.props.postId, page: FIRST_PAGE}]);

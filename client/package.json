@@ -30,6 +30,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public",
     "coverage": "react-scripts test --watchAll=false --coverage",
     "lint": "npm run lint:sass",
     "lint:tsx": "tslint --formatters-dir node_modules/custom-tslint-formatters/formatters --format grouped 'src/**/*.{ts,tsx}'",
@@ -51,6 +53,10 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^5.2.3",
+    "@storybook/addon-links": "^5.2.3",
+    "@storybook/addons": "^5.2.3",
+    "@storybook/react": "^5.2.3",
     "@types/enzyme": "^3.10.3",
     "@types/jest": "^24.0.16",
     "@types/moxios": "^0.4.8",
@@ -66,6 +72,8 @@
     "@types/redux-form": "^8.1.4",
     "@types/redux-mock-store": "^1.0.1",
     "@types/socket.io-client": "^1.4.32",
+    "@types/storybook__addon-actions": "^3.4.3",
+    "@types/storybook__react": "^4.0.2",
     "custom-tslint-formatters": "^2.4.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",

@@ -112,6 +112,7 @@ export default class AddPostCropper extends React.Component<IAddPostCropperProps
     public render(): JSX.Element {
         const {imageSrc, crop, zoom, maxZoom, aspect}: IState = this.state;
         const {croppedImage, description, setDescriptionForPost, informFileError}: IAddPostCropperProps = this.props;
+
         return (
             <div className='text-center'>
                 {croppedImage ?

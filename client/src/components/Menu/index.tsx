@@ -77,7 +77,7 @@ interface IMenuState {
     searchValue: string;
 }
 
-class Menu extends React.Component<IMenuProps> {
+export class Menu extends React.Component<IMenuProps> {
     public state: IMenuState = {
         isMenuOpen: false,
         searchValue: '',
@@ -123,6 +123,7 @@ class Menu extends React.Component<IMenuProps> {
     public render(): JSX.Element {
         const {loggedUsername, newUsername, searchResults, loaded, loading}: IMenuProps = this.props;
         const {searchValue}: IMenuState = this.state;
+
         return (
             <div className='container-fluid header-menu'>
                 <div className='row justify-content-between bg-white'>

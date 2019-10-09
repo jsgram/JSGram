@@ -41,6 +41,7 @@ export class FeedPost extends React.Component<IProps> {
 
     public render(): JSX.Element {
         const {loggedUsername, loggedPhotoPath, newsFeed, followUser}: any = this.props;
+
         return (
             <Container>
                 <Menu/>
