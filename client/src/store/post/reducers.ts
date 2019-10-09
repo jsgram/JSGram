@@ -41,7 +41,7 @@ export interface IPosts {
     commentsLoaded: boolean;
 }
 
-const defaultState = {
+export const defaultState = {
     posts: [],
     page: 1,
     commentsPage: 1,

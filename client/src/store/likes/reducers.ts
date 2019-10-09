@@ -14,7 +14,7 @@ export interface ILike {
     loggedUserLikeExist: boolean;
 }
 
-const defaultState = {
+export const defaultState = {
     postAuthorsOfLike: [],
     feedAuthorsOfLike: [],
     loadingLike: false,

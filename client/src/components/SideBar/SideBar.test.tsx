@@ -1,11 +1,12 @@
 import React from 'react';
-import ConnectedSideBar, { SideBar } from './index';
-import { shallow } from 'enzyme';
+import ConnectedSideBar from './index';
+import {mount, shallow} from 'enzyme';
 import configureStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
+import sinon from 'sinon';
 
 describe('SideBar smart component', () => {
-    let renderer;
+    let renderer: any;
     const mockStore = configureStore();
     const props = {
         urlUsername: 'somevalue',
