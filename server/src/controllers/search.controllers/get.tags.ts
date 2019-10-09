@@ -13,13 +13,13 @@ export const getTags = async (req: Request, res: Response, next: NextFunction): 
     try {
         const {params: {query, page}}: IParams = req;
         const skip = (page - 1) * SEARCH_INFO_PER_PAGE;
-        const tags = await findTags(query, skip, next);
+        const results = await findTags(query, skip, next);
 
-        if (!tags) {
+        if (!results) {
             throw new Error('Can not find tag');
         }
 
-        res.json({ tags });
+        res.json({ results });
     } catch (e) {
         next(e);
     }

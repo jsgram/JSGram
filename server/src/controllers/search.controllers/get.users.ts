@@ -13,14 +13,14 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction):
     try {
         const {params: {query, page}}: IParams = req;
         const skip = (page - 1) * SEARCH_INFO_PER_PAGE;
-        const users = await findUsers(query, skip, next);
+        const results = await findUsers(query, skip, next);
 
-        if (!users) {
+        if (!results) {
             throw new Error('Can not find user');
         }
 
-        res.json({ users });
+        res.json({ results });
     } catch (e) {
-        next({status: 409, message: e.message});
+        next(e);
     }
 };
