@@ -7,23 +7,28 @@ html
     include _style.pug
 
   body
-    div.separator--sml
+    //- header
+    table.table
+      tr
+        td: a(href=`${baseUrl}/`): img.header__logo(src='https://is.gd/YJvPQR' alt='JSgram Logo')
+        +user_icon(user, 'userpic--right')
 
-    h3 You can view, comment on, or merge this pull request online at:
-    a(href=`${event.compare}`)
-
-    h3 Commit Summary
-    ul
-      li cat
-
-    h3 File Changes
-    ul
-      li cat
-
-    h3 Patch Links:
-    ul
-      li cat
-
+    //- body
+    table.table
+      tr: td.content
+        p Hi #{user.username},
+        p.
+          An intrepid and illustrious developer <a href=#{event.html_url}>#{event.login}</a> just pushed out another great update.
+          Now it's going to go through code review into production.
+        p.
+          Fear not - #{event.login} is infamous for her/his code quality.
+          There's no way commit in question would introduce even a subtlest possible bug.
+        p.
+          <a href="#{event.compare}">Take a look into commit diff.</a>
+        p.
+          Enjoy our next great feature.
+        p.
+          Sincerely,<br/>JSgram team
     div.separator--sml
 
     p.

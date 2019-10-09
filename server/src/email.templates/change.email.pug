@@ -1,5 +1,3 @@
-include _mixin.pug
-
 doctype html
 html
   head
@@ -11,16 +9,16 @@ html
     table.table
       tr
         td: a(href=`${baseUrl}/`): img.header__logo(src='https://is.gd/YJvPQR' alt='JSgram Logo')
-        +user_icon(user, 'userpic--right')
+        td.userpic--right: a(href=`https://softserveinc.com/`): img.header__logo(src='https://is.gd/pK1glX' alt='SoftServe')
 
     table.table
       tr: td.plug__content
         h3 You requested email address change.
+      tr: td
         p To finish changing email, you just need to confirm that we got your email right.
-      tr: td.plug__content
-        a(href=`${baseUrl}/profile/confirm/${email}/${newEmail}/${token}`).
+        a(href=`${backendUrl}/profile/confirm/${email}/${newEmail}/${token}`).
           Click this link to complete email change proccess.
-      tr: td.plug__content
+      tr: td
         p This link is available for one hour only. Hurry up!
 
     //- footer

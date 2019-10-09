@@ -16,7 +16,7 @@ export const sendNewsEmail = async (req: Request, res: Response, next: NextFunct
             throw new Error('Marketing department disapproves dislike notifications.');
         }
 
-        const templatePath = path.join(HEROKU_ROOT, TEMPLATE_DIR, 'news.email.pug');
+        const templatePath = path.join(HEROKU_ROOT, TEMPLATE_DIR, 'subscription.news.pug');
         const renderTemplate = pug.compileFile(templatePath);
 
         const users = await User.find({ 'subscriptions.isProductEmail': true });

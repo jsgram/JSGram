@@ -1,5 +1,3 @@
-include _mixin.pug
-
 doctype html
 html
   head
@@ -10,19 +8,18 @@ html
     //- header
     table.table
       tr
-        td: a(href=`${baseUrl}/`): img.header__logo(src='https://is.gd/YJvPQR' alt='JSgram Logo')
-        +user_icon(user, 'userpic--right')
+        td: a(href=`${baseUrl}/`): img.header__logo(src='https://is.gd/YJvPQR' alt='JSgram')
+        td.userpic--right: a(href=`https://softserveinc.com/`): img.header__logo(src='https://is.gd/pK1glX' alt='SoftServe')
 
     table.table
       tr: td.plug__content
-        h3 Welcome to JSgram
-          span #{username}
-      tr: td.plug__content
+        h3 Welcome to JSgram, #{user.username}
+      tr: td
         p Thanks so much for joining JSgram!
         p To finish signing up, you just need to confirm that we got your email right.
-      tr: td.plug__content
-        a(href=`${baseUrl}/confirm/${token}`) Click this link and complete your registration.
-      tr: td.plug__content
+      tr: td
+        a(href=`${backendUrl}/confirm/${token}`) Click this link and complete your registration.
+      tr: td
         p This link is available for one hour only. Hurry up!
 
     //- footer

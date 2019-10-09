@@ -10,7 +10,7 @@ export const sendProductEmail = async (req: Request, res: Response, next: NextFu
         const { env: { HEROKU_ROOT, TEMPLATE_DIR, FRONT_PATH } }: any = process;
         const { compare, sender: { login, html_url } }: any = JSON.parse(req.body.payload);
 
-        const templatePath = path.join(HEROKU_ROOT, TEMPLATE_DIR, 'product.email.pug');
+        const templatePath = path.join(HEROKU_ROOT, TEMPLATE_DIR, 'subscription.product.pug');
         const renderTemplate = pug.compileFile(templatePath);
 
         const users = await User.find({ 'subscriptions.isNewsEmail': true });

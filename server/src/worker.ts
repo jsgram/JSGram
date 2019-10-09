@@ -24,7 +24,7 @@ export const notificationWorker = async (user: IUserModel): Promise<void> => {
             ${userRecommendations[0].username},
             ${userRecommendations[2].username},
             ${userRecommendations[4].username} and more`;
-        const emailBody = renderTemplate('reminder.email.pug', {
+        const emailBody = renderTemplate('subscription.reminder.pug', {
             user,
             posts: postRecommendations,
             users: userRecommendations,

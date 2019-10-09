@@ -26,12 +26,16 @@ export const editProfileSettings = async (req: Request, res: Response, next: Nex
 
         const updatedUser: IUserModel | null = await editUserSettings(username, req.body);
 
-        // TODO
-        // if (subscriptions.is...) notificationEmitter.emit('enqueue', user);
-        // if (!subscriptions.is...) notificationEmitter.emit('dequeue', user);
-
         if (!updatedUser) {
             throw new Error(`Cannot update settings of user ${username}.`);
+        }
+
+        const { subscriptions: { isReminderEmail } }: any = updatedUser;
+        const changedReminder = isReminderEmail === subscriptions.isReminderEmail;
+
+        if (changedReminder) {
+            const action = isReminderEmail ? 'enqueue' : 'dequeue';
+            notificationEmitter.emit(action, updatedUser);
         }
 
         const data: IUserSettings = {

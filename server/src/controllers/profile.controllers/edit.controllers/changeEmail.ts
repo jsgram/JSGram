@@ -2,6 +2,7 @@ import { User } from '../../../models/user.model';
 import { Token, ITokenModel } from '../../../models/token.model';
 import { sendEmail } from '../../../helpers/send.email';
 import { renderTemplate } from '../../../helpers/render.template';
+import { encodeJWT } from '../../../helpers/jwt.encoders';
 
 import crypto from 'crypto';
 import Validator from 'validator';
@@ -32,12 +33,9 @@ export const changeEmail = async (req: Request, res: Response, next: NextFunctio
             throw new Error('Cannot change email.');
         }
 
-        const { token }: ITokenModel = await Token.create({
-            user: userId,
-            token: crypto.randomBytes(16).toString('hex'),
-        });
+        const token = encodeJWT(email, process.env.SECRET_KEY);
 
-        const emailSubject = 'JSgram - Create User';
+        const emailSubject = 'JSgram - Change Email';
         const emailBody = renderTemplate('change.email.pug', { user, newEmail, email, token });
 
         const successSend = await sendEmail(user, emailSubject, emailBody);

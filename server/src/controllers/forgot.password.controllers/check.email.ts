@@ -9,7 +9,7 @@ import { Request, Response, NextFunction } from 'express';
 
 export const checkEmail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { _id, email, username }: IUserModel = req.body;
+        const { email, username }: IUserModel = req.body;
         if (!email) {
             throw new Error('Email field is empty');
         }
@@ -19,13 +19,14 @@ export const checkEmail = async (req: Request, res: Response, next: NextFunction
             throw new Error('The email address you have entered isn\'t associated with JSgram account.');
         }
 
+        const { _id }: IUserModel = user;
         const { token }: ITokenModel = await Token.create({
             user: _id,
             token: crypto.randomBytes(16).toString('hex'),
         });
 
-        const emailSubject = 'JSgram - Reset Password';
-        const emailBody = renderTemplate('reset.password.pug', { user, token });
+        const emailSubject = 'JSgram - Forgot Password';
+        const emailBody = renderTemplate('forgot.password.pug', { user, token });
 
         const successSend = await sendEmail(user, emailSubject, emailBody);
         if (!successSend) {
