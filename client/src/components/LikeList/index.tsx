@@ -18,6 +18,7 @@ interface IFeed {
     author: {
         username: string;
         photoPath: string;
+        _id: string;
     };
 }
 
@@ -29,6 +30,7 @@ const likeList = [
         author: {
             photoPath: 'https://jsgram-profile-images1.s3.eu-central-1.amazonaws.com/1569856788926',
             username: 'Stepan',
+            _id: 'test',
         },
         authorsOfLike: [
             '5d92003d5205831fd033c43v',
@@ -42,6 +44,7 @@ const likeList = [
         author: {
             photoPath: 'https://jsgram-profile-images1.s3.eu-central-1.amazonaws.com/1569856788926',
             username: 'Donald',
+            _id: 'test',
         },
         authorsOfLike: [
             '5d92003d5205831fd033c43g',
@@ -54,6 +57,7 @@ const likeList = [
         author: {
             photoPath: 'https://jsgram-profile-images1.s3.eu-central-1.amazonaws.com/1569856788926',
             username: 'Jessica',
+            _id: 'test',
         },
         authorsOfLike: [
             '5d92003d5205831fd033c43k',
@@ -94,7 +98,11 @@ export const LikeList = (): ReactElement => (
                                     alt='post'
                                 />
                                 <div className='d-block mt-3 mb-2 pl-3'>
-                                    <FeedLikesContainer postId={feed._id} likes={feed.authorsOfLike} />
+                                    <FeedLikesContainer
+                                        postId={feed._id}
+                                        likes={feed.authorsOfLike}
+                                        authorId={feed.author._id}
+                                    />
                                 </div>
                                 <div className='description-post pb-3 border-bottom'>
                                     <div className='d-block pl-3 text-description'>
@@ -119,6 +127,7 @@ export const LikeList = (): ReactElement => (
                                 <Comment postId={feed._id} />
                                 <WriteComment
                                     postId={feed._id}
+                                    userId={feed.author._id}
                                 />
                             </div>
                     ))

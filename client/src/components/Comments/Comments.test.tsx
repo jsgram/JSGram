@@ -1,11 +1,11 @@
 import React from 'react';
-import ConnectedComments, { Comments } from './index';
+import ConnectedComments from './index';
 import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
 describe('Comments smart component', () => {
-    let renderer;
+    let renderer: any;
     const initialState = {
         comments: 'somevalue',
     };
