@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { BrowserRouter } from 'react-router-dom';
+import * as reactstrap from 'reactstrap';
 
 describe('FeedPost smart component', () => {
     let renderer;
@@ -42,11 +43,15 @@ describe('FeedPost smart component', () => {
     const mockStore = configureStore();
 
     beforeEach(() => {
+        reactstrap.Col = jest.fn(() => <div></div>);
+        reactstrap.Container = jest.fn(() => <div></div>);
+        reactstrap.Row = jest.fn(() => <div></div>);
+        reactstrap.Spinner = jest.fn(() => <div></div>);
         const store = mockStore(initialState);
         renderer = shallow(<Provider store={store}><BrowserRouter><FeedPost {...props} /></BrowserRouter></Provider>);
     });
 
     test('render-success', () => {
-        expect(renderer.html()).toHaveLength(1595);
+        expect(renderer.html()).toHaveLength(11);
     });
 });
