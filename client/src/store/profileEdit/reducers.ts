@@ -13,7 +13,7 @@ interface IAction {
     payload: string;
 }
 
-const defaultState = {
+export const defaultState = {
     newUsername: '',
     newFullName: '',
 };

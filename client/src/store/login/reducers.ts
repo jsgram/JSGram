@@ -21,7 +21,7 @@ interface IState {
     loading: boolean;
 }
 
-const defaultState = {
+export const defaultState = {
     user: {
         posts: 0,
         followers: 0,

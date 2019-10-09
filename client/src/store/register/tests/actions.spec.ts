@@ -1,20 +1,20 @@
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import configureMockStore from 'redux-mock-store';
-import {showAlert} from '../../alert/actions';
-import {registerUser} from '../actions';
-import {reset} from 'redux-form';
+import { showAlert } from '../../alert/actions';
+import { registerUser } from '../actions';
+import { reset } from 'redux-form';
 
 export const startState = {};
 
 export const mockStore = configureMockStore([thunk]);
 
-export const makeMockStore = (state: any = {}): any => {
-    return mockStore({
+export const makeMockStore = (state: any = {}): any => (
+    mockStore({
         ...startState,
         ...state,
-    });
-};
+    })
+);
 
 describe('registerUser', () => {
     beforeEach(() => moxios.install());

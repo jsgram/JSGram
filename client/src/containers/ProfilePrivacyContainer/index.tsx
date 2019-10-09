@@ -95,7 +95,7 @@ const ProfilePrivacyContainer = ({
     );
 };
 
-const mapStateToProps = (state: FormProps): {
+export const mapStateToProps = (state: FormProps): {
     username: string,
     subscriptions: IUserSubscriptions,
     initialValues: IUserPrivacy,
