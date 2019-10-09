@@ -4,8 +4,6 @@ import { action } from '@storybook/addon-actions';
 import { MemoryRouter } from 'react-router-dom';
 import { Comments } from './index';
 import './style.scss';
-import { IAuthor, IComment } from '../../store/comments/reducers';
-import { IFeedState } from '../../store/feed/reducers';
 
 const comments = (username: string, comment: string, _id: string, isEdit: boolean): any => ({
     _id,
