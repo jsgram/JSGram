@@ -95,17 +95,15 @@ export class Menu extends React.Component<IMenuProps> {
         const FIRST_PAGE = 1;
         const searchQuery: string = e.target.value.trim();
 
-        if (searchQuery !== '#') {
-            if (searchQuery) {
-                this.timer = setTimeout(() => {
-                    this.timer = null;
-                    this.props.getSearchResults(searchQuery, FIRST_PAGE);
-                    this.toggle(searchQuery);
-                }, 500);
-            } else {
-                this.props.clearSearchResults();
+        if (searchQuery && searchQuery !== '#') {
+            this.timer = setTimeout(() => {
+                this.timer = null;
+                this.props.getSearchResults(searchQuery, FIRST_PAGE);
                 this.toggle(searchQuery);
-            }
+            }, 500);
+        } else if (!searchQuery) {
+            this.props.clearSearchResults();
+            this.toggle(searchQuery);
         }
     }
 

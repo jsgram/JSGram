@@ -50,12 +50,8 @@ export const getSearchResults = (query: string, page: number): (dispatch: Dispat
             const RESULTS_RER_PAGE = 5;
             const HASH_REGEXP = /^#/;
             const strippedQuery = HASH_REGEXP.test(query) && query.slice(1);
-            let url;
-            if (strippedQuery) {
-                url = `/search-tag/${encodeURIComponent(strippedQuery)}/${page}`;
-            } else {
-                url = `/search/${encodeURIComponent(query)}/${page}`;
-            }
+            const url = strippedQuery ? `/search-tag/${encodeURIComponent(strippedQuery)}/${page}` :
+                                        `/search/${encodeURIComponent(query)}/${page}`;
 
             dispatch(getSearchResultsPending());
             const res = await AuthAPI.get(url);
