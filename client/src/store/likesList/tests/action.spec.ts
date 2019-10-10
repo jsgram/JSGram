@@ -3,10 +3,6 @@ import * as types from '../actionTypes';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
-import {GET_LIKE_LIST_PENDING} from "../actionTypes";
-import {GET_LIKE_LIST_SUCCESS} from "../actionTypes";
-import {getLikeListPending} from "../actions";
-import {getLikeListSuccess} from "../actions";
 
 const startState = {};
 

@@ -3,19 +3,6 @@ import * as types from '../actionTypes';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
-import {GET_LIKE_LIST_PENDING} from "../actionTypes";
-import {GET_LIKE_LIST_SUCCESS} from "../actionTypes";
-import {getLikeListPending} from "../actions";
-import {getLikeListSuccess} from "../actions";
-import {GET_NEWS_FEED_SUCCESS} from "../actionTypes";
-import {GET_NEWS_FEED_PENDING} from "../actionTypes";
-import {ALL_NEWS_FEED_LOADED} from "../actionTypes";
-import {getNewsFeedPending} from "../actions";
-import {getNewsFeedSuccess} from "../actions";
-import {clearNewsFeedLoaded} from "../actions";
-import {getRecommendationsPending} from "../actions";
-import {getRecommendationsSuccess} from "../actions";
-import {GET_RECOMMENDATIONS_PENDING} from "../actionTypes";
 
 const startState = {};
 
