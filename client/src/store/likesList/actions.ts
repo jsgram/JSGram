@@ -42,7 +42,7 @@ export const getLikeListAsync = (): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(getLikeListPending());
-            const res = await AuthAPI.get('/feed/1');
+            const res = await AuthAPI.get('/likes/1');
 
             dispatch(getLikeListSuccess(res.data.feed));
             dispatch(clearLikeListLoaded());
@@ -55,7 +55,7 @@ export const getMoreLikeListAsync = (page: number): (dispatch: Dispatch) => Prom
     async (dispatch: Dispatch): Promise<void> => {
         try {
             dispatch(getLikeListPending());
-            const res = await AuthAPI.get(`/feed/${page}`);
+            const res = await AuthAPI.get(`/likes/${page}`);
 
             if (!res.data.feed.length) {
                 dispatch(allLikeListLoaded());
