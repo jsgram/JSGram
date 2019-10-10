@@ -98,7 +98,7 @@ export const getComments = (commentState: any, commentsLoaded?: boolean): (dispa
 
             dispatch(getCommentsSuccess(normalizedComments, postId, page + 1));
         } catch (e) {
-            dispatch(showAlert(e, 'danger'));
+            dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };
 
@@ -162,6 +162,6 @@ export const editCommentAsync = (
             dispatch(showAlert(res.data.message, 'success'));
             dispatch(changeEditStatus(commentId));
         } catch (e) {
-            dispatch(showAlert(e.response.data.message, 'danger'));
+            dispatch(showAlert(e.res.data.message, 'danger'));
         }
     };
