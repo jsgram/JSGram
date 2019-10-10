@@ -3,8 +3,6 @@ import * as types from '../actionTypes';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
-import {SET_LOGGED_USERNAME} from "../actionTypes";
-import {setLoggedUsername} from "../actions";
 
 const startState = {};
 
