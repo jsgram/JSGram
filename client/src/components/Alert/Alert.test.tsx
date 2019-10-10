@@ -10,7 +10,7 @@ describe('Alert component:', () => {
         color: 'somecolor',
         clearAlert: (): string => 'somehandler',
     };
-    let renderer;
+    let renderer: any;
 
     beforeEach(() => {
         reactstrap.UncontrolledAlert = jest.fn(() => (<div>{props.message}</div>));

@@ -17,7 +17,7 @@ interface IAction {
     };
 }
 
-const defaultState = {
+export const defaultState = {
     loggedUsername: '',
     loggedId: '',
     loggedPhotoPath: '',

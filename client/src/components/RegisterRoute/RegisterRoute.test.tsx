@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('RegisterRoute component', () => {
-    let renderer;
+    let renderer: any;
 
     const mockStore = configureStore();
 

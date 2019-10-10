@@ -32,7 +32,7 @@ export interface IFeedState {
     friendsRecommendations: {users: IUser[], loading: boolean};
 }
 
-const defaultState = {
+export const defaultState = {
     feed: [
         {
             description: '',
