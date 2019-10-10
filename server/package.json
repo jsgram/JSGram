@@ -39,7 +39,6 @@
     "passport-local": "^1.0.0",
     "pug": "^2.0.4",
     "socket.io": "^2.3.0",
-    "tinyqueue": "^2.0.3",
     "ts-node": "^8.3.0",
     "validator": "^11.1.0"
   },

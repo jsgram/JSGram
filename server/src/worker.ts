@@ -1,33 +1,36 @@
 import { User, IUserModel } from './models/user.model';
-import { Service, IServiceModel } from './models/service.model';
 import { Post } from './models/post.model';
-import { sendEmailHelper } from './helpers/send.email.helper';
+import { sendEmail } from './helpers/send.email';
+import { renderTemplate } from './helpers/render.template';
 
-import TinyQueue from 'tinyqueue';
-import pug from 'pug';
-import path from 'path';
+import EventEmitter from 'events';
 
-interface IQueue {
-    timeout: number;
+interface IObservable {
+    handler: any;
     user: IUserModel;
 }
 
-const { env: { HEROKU_ROOT, TEMPLATE_DIR, FRONT_PATH, NOTIFICATION_TIMEOUT } }: any = process;
+const { env: { NOTIFICATION_TIMEOUT } }: any = process;
 
-const notificationWorker = async (user: IUserModel): Promise<void> => {
+const notificationPool: IObservable[] = [];
+export const notificationEmitter = new EventEmitter();
+
+export const notificationWorker = async (user: IUserModel): Promise<void> => {
     try {
         const postRecommendations = await Post.find({ author: { $ne: user._id } }).limit(9);
         const userRecommendations = await User.find({ _id: { $ne: user._id } }).limit(6);
 
-        const templatePath = path.join(HEROKU_ROOT, TEMPLATE_DIR, 'reminder.email.pug');
-        const emailBody = pug.renderFile(templatePath, {
+        const emailSubject = `${user.username}, see new posts from
+            ${userRecommendations[0].username},
+            ${userRecommendations[2].username},
+            ${userRecommendations[4].username} and more`;
+        const emailBody = renderTemplate('subscription.reminder.pug', {
             user,
-            baseUrl: FRONT_PATH,
             posts: postRecommendations,
             users: userRecommendations,
         });
 
-        const isMailSend = await sendEmailHelper(user, emailBody);
+        const isMailSend = await sendEmail(user, emailSubject, emailBody);
 
         if (!isMailSend) {
             throw new Error(`Error sending reminder email to ${user._id}.`);
@@ -37,53 +40,34 @@ const notificationWorker = async (user: IUserModel): Promise<void> => {
     }
 };
 
-export const fillQueue = async (queue: TinyQueue<IQueue>): Promise<void> => {
+export const enqueueNotification = (user: IUserModel): void => {
+    const regularTimeout = +NOTIFICATION_TIMEOUT * 1000;
+    const initialTimeout: number = (
+        (Date.now() - user.createdAt.getTime()) % regularTimeout
+    );
+
+    const watcher = {
+        user,
+        handler: setTimeout((throwaway: IUserModel) => {
+            notificationWorker(user); // no awaiting
+            clearTimeout(watcher.handler);
+            watcher.handler = setInterval((throwaway2: IUserModel) => notificationWorker(user), regularTimeout);
+        }, initialTimeout),
+    };
+
+    notificationPool.push(watcher);
+};
+
+export const dequeueNotification = (userId: string): void => {
+    const index = notificationPool.findIndex((item: IObservable) => item.user._id === userId);
+    const [watcher]: any = notificationPool.splice(index, 1);
+    clearInterval(watcher.handler);
+};
+
+export const notificationStarter = async (): Promise<void> => {
     const users = await User.find({ 'subscriptions.isReminderEmail': true });
-
-    while (queue.length) {
-        queue.pop();
-    }
-
-    users.forEach((user: IUserModel): void => {
-        const timeout: number = (
-            (Date.now() - user.createdAt.getTime()) % (+NOTIFICATION_TIMEOUT * 1000)
-        );
-        const item: IQueue = { timeout, user };
-        queue.push(item);
-    });
-
-    if (!users.length) {
-        queue.push({
-            timeout: NOTIFICATION_TIMEOUT,
-            user: new User({
-                email: 'dummy@ema.il',
-                fullName: 'dummyfullname',
-                username: 'dummyusername',
-                password: 'dummypassword',
-            }),
-        });
-    }
+    users.forEach((user: IUserModel) => enqueueNotification(user));
 };
 
-export const notificationLoop = async (): Promise<void> => {
-    const priorityQueue = new TinyQueue([], (a: IQueue, b: IQueue): number => a.timeout - b.timeout);
-    await fillQueue(priorityQueue);
-
-    while (true) {
-        const { shouldReload }: IServiceModel = await Service.findOne({}) as IServiceModel;
-        if (shouldReload) {
-            await fillQueue(priorityQueue);
-            await Service.updateOne({}, { $set: { shouldReload: false } });
-        }
-
-        const item = priorityQueue.pop() as IQueue;
-        const { timeout, user }: IQueue = item;
-
-        await new Promise((res: any): any => setTimeout(res, timeout)); // TODO RxJS
-
-        if (user.username !== 'dummyfullname') {
-            notificationWorker(user);
-        }
-        priorityQueue.push({ timeout: +NOTIFICATION_TIMEOUT * 1000, user });
-    }
-};
+notificationEmitter.on('enqueue', enqueueNotification);
+notificationEmitter.on('dequeue', dequeueNotification);

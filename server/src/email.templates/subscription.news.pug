@@ -19,7 +19,7 @@ html
         h3 JSgram Repo is Liked Again
         p.
           Humble <a href="https://github.com/jsgram/JSGram">Github repo</a> which hosts out great product just got another like!
-          Kudos to <a href="#{event.html_url}">#{event.login}</a>.
+          Kudos to <a href="#{event.html_url}"><b>@#{event.login}</b></a>.
           That brings likes tally to <b>#{event.stargazers_count}</b> - an incredible number by all means.
         p.
           Sincerely,<br/>JSgram team
@@ -28,5 +28,5 @@ html
     //- footer
     table.table
       tr: td.footer__disclaimer--cnt
-        h3 <a href="#{baseUrl}/">JSgram from Lv-430</a>
+        h3: a(href=`${baseUrl}/`) JSgram from Lv-430
         p &copy; JSgram. Lv-430.NodeJS, 5 Yaroslava Pasternaka, Lviv, Ukraine 79015

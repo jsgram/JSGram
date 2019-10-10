@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
-
 import { editUserSettings } from '../../db.requests/user.requests';
 import { User, IUserSubscriptions, IUserPrivacy, IUserModel } from '../../models/user.model';
-import { Service, IServiceModel } from '../../models/service.model';
 import { isValidSettings } from '../../helpers/validation';
+import { notificationEmitter } from '../../worker';
+
+import { Request, Response, NextFunction } from 'express';
 
 export interface IUserSettings {
     subscriptions: IUserSubscriptions;
@@ -30,12 +30,19 @@ export const editProfileSettings = async (req: Request, res: Response, next: Nex
             throw new Error(`Cannot update settings of user ${username}.`);
         }
 
+        const { subscriptions: { isReminderEmail } }: any = updatedUser;
+        const changedReminder = isReminderEmail === subscriptions.isReminderEmail;
+
+        if (changedReminder) {
+            const action = isReminderEmail ? 'enqueue' : 'dequeue';
+            notificationEmitter.emit(action, updatedUser);
+        }
+
         const data: IUserSettings = {
             subscriptions: updatedUser.subscriptions as IUserSubscriptions,
             privacy: updatedUser.privacy as IUserPrivacy,
         };
 
-        await Service.updateOne({}, { $set: { shouldReload: true } });
         res.json({ data, message: 'Settings updated successfully.', status: 200 });
     } catch (e) {
         if (e.message) {

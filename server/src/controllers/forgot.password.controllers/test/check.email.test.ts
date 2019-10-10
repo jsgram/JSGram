@@ -2,9 +2,11 @@ import {checkEmail} from '../check.email';
 
 import * as userRequests from '../../../db.requests/user.requests';
 import * as sendEmail from '../../../helpers/send.email';
+import * as renderTemplate from '../../../helpers/render.template';
+import {User, IUserModel} from '../../../models/user.model';
+
 import {request, response} from 'express';
 import mockingoose from 'mockingoose';
-import {User, IUserModel} from '../../../models/user.model';
 
 type IResolve<T> = (value: T) => void;
 
@@ -19,10 +21,15 @@ describe('Check email controller:', () => {
         mockUserExist.mockReturnValue(new Promise((res: IResolve<IUserModel>): void => res(fakeUser)));
 
         const mockSendEmail = jest.spyOn(sendEmail, 'sendEmail');
-        mockSendEmail.mockReturnValue(new Promise((res: IResolve<undefined>): void => res(undefined)));
+        mockSendEmail.mockReturnValue(new Promise((res: IResolve<number>): void => res(1)));
+
+        const mockRenderTemplate = jest.spyOn(renderTemplate, 'renderTemplate');
+        mockRenderTemplate.mockReturnValue('');
 
         request.body = {
+            _id: '5d8df9b83726d40c562aea0d',
             email: 'some@ema.il',
+            username: 'someusername',
         };
         response.json = jest.fn(() => response);
 
@@ -36,7 +43,7 @@ describe('Check email controller:', () => {
         };
 
         const answer = {
-            message: 'The email address you have entered isn\'t associated with another account',
+            message: 'The email address you have entered isn\'t associated with JSgram account.',
             status: 409,
         };
 

@@ -1,32 +1,41 @@
 import { User, IUserModel } from '../../models/user.model';
-import { sendEmailHelper } from '../../helpers/send.email.helper';
+import { sendEmail } from '../../helpers/send.email';
 
-import { Request, Response, NextFunction } from 'express';
 import pug from 'pug';
 import path from 'path';
+import { Request, Response, NextFunction } from 'express';
 
 export const sendNewsEmail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { env: { HEROKU_ROOT, TEMPLATE_DIR, FRONT_PATH } }: any = process;
-        const { compare, sender: { login, html_url } }: any = JSON.parse(req.body.payload);
+        const {
+            action, repository: { stargazers_count }, sender: { login, html_url },
+        }: any = JSON.parse(req.body.payload);
 
-        const templatePath = path.join(HEROKU_ROOT, TEMPLATE_DIR, 'news.email.pug');
+        if (action === 'deleted') {
+            throw new Error('Marketing department disapproves dislike notifications.');
+        }
+
+        const templatePath = path.join(HEROKU_ROOT, TEMPLATE_DIR, 'subscription.news.pug');
         const renderTemplate = pug.compileFile(templatePath);
 
-        const users = await User.find({ 'subscriptions.isNewsEmail': true });
+        const users = await User.find({ 'subscriptions.isProductEmail': true });
 
         await Promise.all(users.map(async (user: IUserModel) => {
+            const emailSubject = 'JSgram - Breaking News';
             const emailBody = renderTemplate({
                 user,
                 baseUrl: FRONT_PATH,
                 event: {
                     login,
                     html_url,
-                    compare,
+                    stargazers_count,
                 },
             });
 
-            return await sendEmailHelper(user, emailBody);
+            // TODO error check
+
+            return await sendEmail(user, emailSubject, emailBody);
         }));
 
         res.sendStatus(200);

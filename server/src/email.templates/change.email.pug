@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title JSgram - email change confirmation
+    include _style.pug
+
+  body
+    //- header
+    table.table
+      tr
+        td: a(href=`${baseUrl}/`): img.header__logo(src='https://is.gd/YJvPQR' alt='JSgram Logo')
+        td.userpic--right: a(href=`https://softserveinc.com/`): img.header__logo(src='https://is.gd/pK1glX' alt='SoftServe')
+
+    table.table
+      tr: td.plug__content
+        h3 You requested email address change.
+      tr: td
+        p To finish changing email, you just need to confirm that we got your email right.
+        a(href=`${backendUrl}/profile/confirm/${email}/${newEmail}/${token}`).
+          Click this link to complete email change proccess.
+      tr: td
+        p This link is available for one hour only. Hurry up!
+
+    //- footer
+    table.table
+      tr: td.footer__disclaimer--cnt
+        h3: a(href=`${baseUrl}/`) JSgram from Lv-430
+        p &copy; JSgram. Lv-430.NodeJS, 5 Yaroslava Pasternaka, Lviv, Ukraine 79015

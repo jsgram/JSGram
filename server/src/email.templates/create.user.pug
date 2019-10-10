@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    title JSgram - password change confirmation
+    include _style.pug
+
+  body
+    //- header
+    table.table
+      tr
+        td: a(href=`${baseUrl}/`): img.header__logo(src='https://is.gd/YJvPQR' alt='JSgram')
+        td.userpic--right: a(href=`https://softserveinc.com/`): img.header__logo(src='https://is.gd/pK1glX' alt='SoftServe')
+
+    table.table
+      tr: td.plug__content
+        h3 Welcome to JSgram, #{user.username}
+      tr: td
+        p Thanks so much for joining JSgram!
+        p To finish signing up, you just need to confirm that we got your email right.
+      tr: td
+        a(href=`${backendUrl}/confirm/${token}`) Click this link and complete your registration.
+      tr: td
+        p This link is available for one hour only. Hurry up!
+
+    //- footer
+    table.table
+      tr: td.footer__disclaimer--cnt
+        h3: a(href=`${baseUrl}/`) JSgram from Lv-430
+        p &copy; JSgram. Lv-430.NodeJS, 5 Yaroslava Pasternaka, Lviv, Ukraine 79015

@@ -1,9 +1,12 @@
-import {NextFunction, Request, Response} from 'express';
-import {IUserModel, User} from '../../models/user.model';
-import {sendEmail} from '../../helpers/send.email';
-import {createUserMessage} from '../../helpers/send.email.message';
-import {hashPassword} from '../../helpers/hash.password';
-import validateInput, {IValidationError} from '../../helpers/validation';
+import { User, IUserModel } from '../../models/user.model';
+import { Token, ITokenModel } from '../../models/token.model';
+import { hashPassword } from '../../helpers/hash.password';
+import validateInput, { IValidationError } from '../../helpers/validation';
+import { sendEmail } from '../../helpers/send.email';
+import { renderTemplate } from '../../helpers/render.template';
+
+import crypto from 'crypto';
+import { Request, Response, NextFunction } from 'express';
 
 export const createUser = async (user: IUserModel, next: NextFunction): Promise<IUserModel | void> => {
     try {
@@ -50,21 +53,32 @@ export const createUser = async (user: IUserModel, next: NextFunction): Promise<
 
 export const create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {errors, isValid}: { errors: IValidationError, isValid: boolean } = validateInput(req.body);
+        const { errors, isValid }: { errors: IValidationError, isValid: boolean } = validateInput(req.body);
         if (!isValid) {
             res.json(errors);
             return;
         }
+
         const user = await createUser(req.body, next);
         if (!user) {
-            throw new Error('Can not create user');
+            throw new Error('Cannot create user.');
         }
 
-        await sendEmail(user, createUserMessage, next);
+        const { token }: ITokenModel = await Token.create({
+            user: user._id,
+            token: crypto.randomBytes(16).toString('hex'),
+        });
 
-        res.json(
-            {status: `A verification email has been sent to ${user.email}`});
+        const emailSubject = 'JSgram - Create User';
+        const emailBody = renderTemplate('create.user.pug', { user, token });
+
+        const successSend = await sendEmail(user, emailSubject, emailBody);
+        if (!successSend) {
+            throw new Error('Email wasn\'t sent.');
+        }
+
+        res.json({ status: `A verification email has been sent to ${user.email}.` });
     } catch (e) {
-        next({message: 'Can not create user', status: 500});
+        next({ message: 'Cannot create user.', status: 500 });
     }
 };
