@@ -52,7 +52,7 @@ describe('LoginContainer component:', () => {
         expect(settoken.setToken).toHaveLastReturnedWith('somevalue');
     });
 
-    test.skip('render - success', () => {
+    test('render - success', () => {
         expect(renderer.html()).toHaveLength(168);
     });
 });

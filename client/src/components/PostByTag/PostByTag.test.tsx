@@ -1,12 +1,13 @@
 import React from 'react';
-import { FeedPost } from './index';
+import PostByTag from './index';
 import { shallow } from 'enzyme';
-import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-describe('FeedPost smart component', () => {
-    let renderer;
+describe('PostByTag smart component', () => {
+    let renderer: any;
+    const mockStore = configureStore();
     const props = {
         loggedId: 'somevalue',
         loggedUsername: 'somevalue',
@@ -17,13 +18,16 @@ describe('FeedPost smart component', () => {
                 users: [],
             },
         },
-        getNewsFeedAsync: jest.fn(() => 'somevalue'),
-        getMoreNewsFeedAsync: jest.fn(() => 'somevalue'),
+        getPostsByTagAsync: jest.fn(() => 'somevalue'),
+        getMorePostsByTagAsync: jest.fn(() => 'somevalue'),
         addNextFeedPosts: jest.fn(() => 'somevalue'),
         getRecommendations: jest.fn(() => 'somevalue'),
         followUser: jest.fn(() => 'somevalue'),
-        friendsRecommendations: {
-            users: [],
+        friendsRecommendations: [],
+        match: {
+            params: {
+                tagName: [],
+            },
         },
     };
 
@@ -39,14 +43,12 @@ describe('FeedPost smart component', () => {
         },
     };
 
-    const mockStore = configureStore();
-
     beforeEach(() => {
         const store = mockStore(initialState);
-        renderer = shallow(<Provider store={store}><BrowserRouter><FeedPost {...props} /></BrowserRouter></Provider>);
+        renderer = shallow(<Provider store={store}><BrowserRouter><PostByTag {...props} /></BrowserRouter></Provider>);
     });
 
     test('render-success', () => {
-        expect(renderer.html()).toHaveLength(1595);
+        expect(renderer.html()).toHaveLength(1653);
     });
 });

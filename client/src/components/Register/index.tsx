@@ -13,7 +13,7 @@ export interface IRegisterProps {
     invalid: boolean;
 }
 
-export const Register = ({handleSubmit, onSubmit, submitting, invalid}: IRegisterProps): JSX.Element => {
+const Register = ({handleSubmit, onSubmit, submitting, invalid}: IRegisterProps): JSX.Element => {
     return (
         <div>
             <Form className='mt-4 bg-white' onSubmit={handleSubmit(onSubmit)}>
@@ -94,3 +94,5 @@ export const Register = ({handleSubmit, onSubmit, submitting, invalid}: IRegiste
         </div>
     );
 };
+
+export default Register;
