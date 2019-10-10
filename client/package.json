@@ -96,10 +96,7 @@
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx}",
       "!src/**/*.stories.tsx",
-      "!src/{react-app-env.d,serviceWorker,index,setupTests}.{ts,tsx}",
-      "!src/helpers/{socket.connection,upload.photo}.{ts,tsx}",
-      "!src/store/{api,reducers}.{ts,tsx}",
-      "!src/routes/{PrivateRoute,PrivateRouteSideBar}.{ts,tsx}"
+      "!src/{react-app-env.d,serviceWorker,index,setupTests}.{ts,tsx}"
     ]
   }
 }
