@@ -42,9 +42,4 @@ describe('Menu component', () => {
     test('render-success', () => {
         expect(renderer.html()).toHaveLength(1500);
     });
-
-    test('componentWillUnmount - success', () => {
-        renderer.instance().componentWillUnmount();
-        expect(renderer.instance().timerHandle).toBe(undefined);
-    });
 });
