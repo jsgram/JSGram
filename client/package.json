@@ -91,5 +91,12 @@
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^4.0.0",
     "typescript": "^3.5.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/**/*.stories.tsx",
+      "!src/{react-app-env.d,serviceWorker,index,setupTests}.{ts,tsx}"
+    ]
   }
 }
