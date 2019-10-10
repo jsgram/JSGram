@@ -28,6 +28,6 @@ describe('LikeListContainer component:', () => {
     });
 
     test('render - success', () => {
-        expect(renderer.html()).toHaveLength(1393);
+        expect(renderer.html()).toHaveLength(1319);
     });
 });

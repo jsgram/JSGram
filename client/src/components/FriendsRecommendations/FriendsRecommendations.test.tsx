@@ -27,6 +27,6 @@ describe('FriendsRecommendations component', () => {
     });
 
     test('render-success', () => {
-        expect(renderer.html()).toHaveLength(415);
+        expect(renderer.html()).toHaveLength(416);
     });
 });

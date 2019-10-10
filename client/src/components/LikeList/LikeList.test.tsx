@@ -44,6 +44,6 @@ describe('LikeList smart component', () => {
     });
 
     test('render-success', () => {
-        expect(renderer.html()).toHaveLength(1495);
+        expect(renderer.html()).toHaveLength(1421);
     });
 });

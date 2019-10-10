@@ -42,6 +42,6 @@ describe('FriendsRecommendationsList smart component', () => {
     });
 
     test('render-success', () => {
-        expect(renderer.html()).toHaveLength(1267);
+        expect(renderer.html()).toHaveLength(1193);
     });
 });
