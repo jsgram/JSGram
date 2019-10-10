@@ -45,7 +45,7 @@ export class LikeList extends React.Component<IProps> {
                         {
                             likeList.feed.map((feed: INewsFeed) => {
                                 const {
-                                    id: _id,
+                                    _id,
                                     authorsOfLike,
                                     description,
                                     imgPath,
