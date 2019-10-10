@@ -8,10 +8,15 @@ export const findPostByTag = async (
     const tagPosts = await Tag
         .findOne({tagName})
         .populate({
-            path: 'posts', options: {
+            path: 'posts',
+            options: {
                 sort: {created_at: -1},
                 limit: POSTS_PER_PAGE,
                 skip,
+            },
+            populate: {
+                path: 'author',
+                select: '_id username photoPath',
             },
         });
 

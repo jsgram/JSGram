@@ -51,7 +51,7 @@ export class PostByTag extends React.Component<IProps> {
                         <h4 className='text-muted text-center mb-3'>Posts with #{this.props.match.params.tagName}:</h4>
                         {
                             newsFeed.feed.map((feed: INewsFeed) => {
-                                const {description, imgPath, author: {_id: authorId, photoPath, username}}: any = feed;
+                                const {description, imgPath, author: {_id, photoPath, username}}: any = feed;
                                 return (
                                     <div key={feed._id} className='profile-post border mb-5'>
                                         <div className='post-header p-2 border'>
@@ -79,7 +79,7 @@ export class PostByTag extends React.Component<IProps> {
                                             <FeedLikesContainer
                                                 postId={feed._id}
                                                 likes={feed.authorsOfLike}
-                                                authorId={authorId}
+                                                authorId={_id}
                                             />
                                         </div>
                                         <div className='description-post pb-3'>
@@ -106,7 +106,7 @@ export class PostByTag extends React.Component<IProps> {
                                         <div className='border-top pb-2'/>
                                         <WriteComment
                                             postId={feed._id}
-                                            authorId={authorId}
+                                            authorId={_id}
                                         />
                                     </div>
                                 );
