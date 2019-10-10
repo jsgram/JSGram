@@ -4,6 +4,7 @@ import configureStore from 'redux-mock-store';
 import { BrowserRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import * as reactstrap from 'reactstrap';
 
 describe('FriendsRecommendations component', () => {
     let renderer: any;
@@ -35,6 +36,7 @@ describe('FriendsRecommendations component', () => {
     const mockStore = configureStore();
 
     beforeEach(() => {
+        reactstrap.Button = jest.fn(() => <div></div>);
         const store = mockStore(initialState);
         renderer = mount(<Provider store={store}>
             <BrowserRouter><FriendsRecomendations {...props}/></BrowserRouter>
@@ -42,6 +44,6 @@ describe('FriendsRecommendations component', () => {
     });
 
     test('render-success', () => {
-        expect(renderer.html()).toHaveLength(416);
+        expect(renderer.html()).toHaveLength(349);
     });
 });

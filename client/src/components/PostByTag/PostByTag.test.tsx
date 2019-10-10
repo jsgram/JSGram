@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import * as reactstrap from 'reactstrap';
 
 describe('PostByTag smart component', () => {
     let renderer: any;
@@ -44,11 +45,15 @@ describe('PostByTag smart component', () => {
     };
 
     beforeEach(() => {
+        reactstrap.Col = jest.fn(() => <div></div>);
+        reactstrap.Row = jest.fn(() => <div></div>);
+        reactstrap.Container = jest.fn(() => <div></div>);
+        reactstrap.Spinner = jest.fn(() => <div></div>);
         const store = mockStore(initialState);
         renderer = shallow(<Provider store={store}><BrowserRouter><PostByTag {...props} /></BrowserRouter></Provider>);
     });
 
     test('render-success', () => {
-        expect(renderer.html()).toHaveLength(1653);
+        expect(renderer.html()).toHaveLength(11);
     });
 });
