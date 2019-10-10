@@ -21,19 +21,6 @@ import {
     addNextResults,
 } from '../../store/search/actions';
 
-// TODO when will be BL on BE and FE
-const search_hashtags = [
-    {id: 1, username: '#evolution', count: 123456},
-    {id: 2, username: '#ecmascript', count: 500000},
-    {id: 3, username: '#emma', count: 12},
-];
-
-interface IHashtags {
-    id: number;
-    username: string;
-    count: number;
-}
-
 export interface IUser {
     _id: string;
     username: string;
@@ -108,15 +95,17 @@ export class Menu extends React.Component<IMenuProps> {
         const FIRST_PAGE = 1;
         const searchQuery: string = e.target.value.trim();
 
-        if (searchQuery) {
-            this.timer = setTimeout(() => {
-                this.timer = null;
-                this.props.getSearchResults(searchQuery, FIRST_PAGE);
+        if (searchQuery !== '#') {
+            if (searchQuery) {
+                this.timer = setTimeout(() => {
+                    this.timer = null;
+                    this.props.getSearchResults(searchQuery, FIRST_PAGE);
+                    this.toggle(searchQuery);
+                }, 500);
+            } else {
+                this.props.clearSearchResults();
                 this.toggle(searchQuery);
-            }, 500);
-        } else {
-            this.props.clearSearchResults();
-            this.toggle(searchQuery);
+            }
         }
     }
 
@@ -147,11 +136,12 @@ export class Menu extends React.Component<IMenuProps> {
                                   color='light' className='search-menu'>
                             <DropdownToggle tag='a' className='nav-link m-0 p-0'/>
                             <DropdownMenu className='scrollable-menu col-12'>
-                                {searchResults.map((user: IUser) => (
+                                {!!searchResults.length && searchResults[0].username ?
+                                    searchResults.map((user: IUser) => (
                                         <Link to={`/profile/${user.username}`}
                                               className='text-decoration-none' key={user._id}>
                                             <div className='w-100'>
-                                                <DropdownItem className='p-md-2 p-1'>
+                                                <DropdownItem className='p-md-2 p-1 d-flex align-items-center'>
                                                     <img
                                                         src={user.photoPath || noAvatar}
                                                         width={32}
@@ -159,33 +149,27 @@ export class Menu extends React.Component<IMenuProps> {
                                                         className='rounded-circle mr-2'
                                                         alt='avatar'
                                                     />
-                                                    <span className='font-weight-bold'>{user.username}<br/></span>
-                                                    <span className='ml-4 pl-3 fullname'>
-                                                    {user.fullName}
-                                                </span>
+                                                    <span className='font-weight-bold'>{user.username}<br/>
+                                                    <span className='fullname'>{user.fullName}</span></span>
                                                 </DropdownItem>
                                                 <DropdownItem divider/>
                                             </div>
-                                            {'#' === searchValue && search_hashtags.map((hashtag: any) => (
-                                                <div key={hashtag.id} className='w-100'>
-                                                    <DropdownItem className='p-md-2 p-1'>
-                                                        <img
-                                                            src={noAvatar}
-                                                            width={32}
-                                                            height={32}
-                                                            className='rounded-circle mr-2'
-                                                            alt='avatar'
-                                                        />
-                                                        <span className='font-weight-bold'>{hashtag.username}<br/>
-                                                        </span>
-                                                        <span className='ml-4 pl-3 fullname'>{hashtag.count}</span>
-                                                    </DropdownItem>
-                                                    <DropdownItem divider/>
-                                                </div>
-                                            ))}
                                         </Link>
-                                    ),
-                                )}
+                                    )) : searchResults.map((hashtag: any) => (
+                                        <Link to={`/tag/${hashtag.tagName}`}
+                                              className='text-decoration-none' key={hashtag._id}>
+                                            <div className='w-100'>
+                                                <DropdownItem className='p-md-2 p-1 d-flex align-items-center'>
+                                                    <i className='fa fa-hashtag fa-2x mr-2'/>
+                                                    <span className='font-weight-bold'>{hashtag.tagName}<br/>
+                                                    <span className='fullname'>
+                                                        {hashtag.posts.length} {hashtag.posts.length === 1 ? 'post' : 'posts'}
+                                                    </span></span>
+                                                </DropdownItem>
+                                                <DropdownItem divider/>
+                                            </div>
+                                        </Link>
+                                ))}
                                 {!searchResults.length && !loading && <span className='ml-3'>No results...</span>}
                                 <div className='d-flex justify-content-center'>
                                     {loading && <Spinner color='dark'/>}
@@ -200,7 +184,6 @@ export class Menu extends React.Component<IMenuProps> {
                         </Dropdown>
                     </div>
                     <div className='mt-4'>
-                        <i className='fa fa-compass fa-lg pt-2 pb-2 pr-4 sm-pt-0 icon text-muted'/>
                         <Link to={`/profile/${newUsername || loggedUsername}/likes`}>
                             <i className='fa fa-heart-o fa-lg pr-4 icon' />
                         </Link>
