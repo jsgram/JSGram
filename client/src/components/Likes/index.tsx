@@ -7,7 +7,7 @@ interface ILikesProps {
     authorId: string;
     loggedUsername: string;
     postId: string;
-    authorsOfLike: [];
+    authorsOfLike: string[];
     loadingLike: boolean;
     loggedUserLikeExist: boolean;
     addLike: (body: { userId: string, postId: string }) => void;

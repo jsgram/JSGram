@@ -19,12 +19,12 @@ interface IProps {
     user: IUserData;
     editDescriptionForPost: any;
     newDescriptionForPost: any;
+    username: string;
     getPostsAsync: (username: string) => void;
     getMorePostsAsync: (username: string, page: number) => void;
     deletePhoto: () => void;
     editPost: (description: string, id: string) => void;
     showPost: (post: any) => void;
-    username: string;
     getUser: (username: string) => void;
     resetPosts: () => void;
     addNextPosts: (pageNumber: number) => void;
@@ -84,6 +84,7 @@ export default class Post extends React.Component<IProps> {
         const { userPosts, user, loggedUser }: any = this.props;
         const { selectedPost: { description: desc } }: any = userPosts;
         const { loggedId, isAdmin }: IFeedState = loggedUser;
+
         return (
             <div className='container justify-content-center'>
                 <div className='row mt-5 profile-post'>

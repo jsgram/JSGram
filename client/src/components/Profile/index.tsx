@@ -21,7 +21,6 @@ export interface IUserData {
     photo: string;
     email: string;
     _id: string;
-    getPostsAsync: () => void;
 }
 
 export interface IProfileProps {

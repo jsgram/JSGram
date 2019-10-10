@@ -29,7 +29,7 @@ interface ISideBarProps {
     deletePhoto: () => void;
 }
 
-class SideBar extends React.Component<ISideBarProps> {
+export class SideBar extends React.Component<ISideBarProps> {
     public state: { loaded: boolean, modal: boolean } = {
         loaded: false,
         modal: false,
@@ -46,6 +46,7 @@ class SideBar extends React.Component<ISideBarProps> {
     public render(): JSX.Element {
         const {loggedUsername, user: {fullName, photo}, profileEdit: {newFullName, newUsername}}: any = this.props;
         const username = newUsername ? newUsername : loggedUsername;
+
         return (
             <Container>
                 <div

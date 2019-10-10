@@ -20,7 +20,7 @@ interface IProps {
     deletePost: (post: any, authorId: string) => any;
 }
 
-class MenuPost extends React.Component<IProps, IState> {
+export class MenuPost extends React.Component<IProps, IState> {
     public state: IState = {
         modal: false,
         isMenuOpen: false,

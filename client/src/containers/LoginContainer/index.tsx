@@ -9,7 +9,7 @@ import { IUser } from '../../store/commonInterfaces/commonInterfaces';
 import { setToken } from '../../store/login/setToken.helper';
 import { history } from '../../history';
 
-class LoginContainer extends React.Component<any> {
+export class LoginContainer extends React.Component<any> {
     public componentWillMount(): void {
         const {token}: { token: string } = this.props.match.params;
         if (token) {
@@ -22,6 +22,7 @@ class LoginContainer extends React.Component<any> {
 
     public render(): JSX.Element {
         const {handleSubmit, submitting}: FormProps = this.props;
+
         return (
             <Login
                 handleSubmit={handleSubmit}

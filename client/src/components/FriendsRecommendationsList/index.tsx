@@ -14,7 +14,7 @@ interface IProps {
     followUser: (body: {_id: string }) => void;
 }
 
-class FriendsRecommendationsList extends React.Component <IProps> {
+export class FriendsRecommendationsList extends React.Component <IProps> {
 
     public componentDidMount(): void {
         this.props.getRecommendations();
@@ -23,6 +23,7 @@ class FriendsRecommendationsList extends React.Component <IProps> {
     public render(): JSX.Element {
 
         const { friendsRecommendations: { users } }: IProps = this.props;
+
         return (
             <Container>
                 <Menu/>

@@ -20,7 +20,7 @@ interface ILocalState {
     };
 }
 
-const Index = ({setEmailText, email, user, changeEmail: mailChange}: IStateToProps): any => {
+export const Index = ({setEmailText, email, user, changeEmail: mailChange}: IStateToProps): any => {
     const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setEmailText(event.target.value);
     };
