@@ -14,7 +14,7 @@ interface IProps {
     onSubmit: (user: IUser) => void;
 }
 
-export const Login = ({handleSubmit, onSubmit, submitting}: IProps ): JSX.Element => {
+const Login = ({handleSubmit, onSubmit, submitting}: IProps ): JSX.Element => {
     return (
         <div className='container-fluid'>
             <div className='row justify-content-center align-items-center'>
@@ -81,3 +81,5 @@ export const Login = ({handleSubmit, onSubmit, submitting}: IProps ): JSX.Elemen
         </div>
     );
 };
+
+export default Login;

@@ -1,4 +1,4 @@
-import { RegisterContainer } from './index';
+import RegisterContainer from './index';
 import * as reactstrap from 'reactstrap';
 
 import { shallow } from 'enzyme';
@@ -15,26 +15,19 @@ describe('RegisterContainer component:', () => {
         mockRegisterUser = jest.fn(() => 'someregisteruser');
 
         const props = {
+            registerUser: 'somevalue',
             handleSubmit: jest.fn(() => 'somehandlesubmit'),
             submitting: false,
+            invalid: true,
         };
 
         const store = configureStore()(props);
         renderer = shallow(<Provider store={store}>
-                               <RegisterContainer {...props} />
+                               <RegisterContainer />
                            </Provider>);
     });
 
-    test.skip('onSubmit - success', () => {
-        const registerContainer = new RegisterContainer({
-            registerUser: mockRegisterUser,
-        });
-
-        registerContainer.onSubmit();
-        expect(mockRegisterUser).toHaveBeenCalledTimes(1);
-    });
-
-    test.skip('render - success', () => {
+    test('render - success', () => {
         expect(renderer.html()).toHaveLength(294);
     });
 });

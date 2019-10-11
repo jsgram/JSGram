@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as newsFeedAction from '../../store/newsFeed/actions';
 import { followUser as followUserAction } from '../../store/profile/actions';
 import { IFeedState } from '../../store/newsFeed/reducers';
-import { PostByTag } from '../../components/PostByTag';
+import PostByTag from '../../components/PostByTag';
 
 interface ILocalProps {
     newsFeed: IFeedState;

@@ -6,6 +6,10 @@ import React from 'react';
 
 describe('Register component:', () => {
     let renderer;
+    const mockHandleSubmit = jest.fn(() => 'somehandlesubmit');
+    const mockSubmitting = true;
+    const mockOnSubmit = jest.fn(() => 'somehandlesubmit');
+    const mockInvalid = true;
 
     beforeEach(() => {
         reactstrap.Button = jest.fn(() => (<div></div>));
@@ -13,11 +17,14 @@ describe('Register component:', () => {
         reactstrap.FormGroup = jest.fn(() => (<div></div>));
         reactstrap.Spinner = jest.fn(() => (<div></div>));
 
-        const handleSubmit = jest.fn(() => 'somehandlesubmit');
-        renderer = shallow(<Register handleSubmit={handleSubmit} />);
+        renderer = shallow(<Register
+            handleSubmit={mockHandleSubmit}
+            submitting={mockSubmitting}
+            onSubmit={mockOnSubmit}
+            invalid={mockInvalid}/>);
     });
 
-    test.skip('render - success', () => {
+    test('render - success', () => {
         expect(renderer.html()).toHaveLength(33);
     });
 });

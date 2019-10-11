@@ -27,7 +27,7 @@ interface IProps {
     match: any;
 }
 
-export class PostByTag extends React.Component<IProps> {
+export default class PostByTag extends React.Component<IProps> {
     public componentDidMount(): void {
         this.props.getPostsByTagAsync(this.props.match.params.tagName);
         this.props.getRecommendations();
