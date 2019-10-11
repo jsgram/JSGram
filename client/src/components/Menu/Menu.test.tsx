@@ -40,6 +40,6 @@ describe('Menu component', () => {
     });
 
     test('render-success', () => {
-        expect(renderer.html()).toHaveLength(1500);
+        expect(renderer.html()).toHaveLength(1461);
     });
 });

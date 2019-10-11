@@ -13,7 +13,7 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction):
     try {
         const {params: {query, page}}: IParams = req;
         const skip = (page - 1) * SEARCH_INFO_PER_PAGE;
-        const results = await findUsers(query, skip, next);
+        const results = await findUsers(decodeURIComponent(query), skip, next);
 
         if (!results) {
             throw new Error('Can not find user');

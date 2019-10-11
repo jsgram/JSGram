@@ -13,7 +13,7 @@ export const getTags = async (req: Request, res: Response, next: NextFunction): 
     try {
         const {params: {query, page}}: IParams = req;
         const skip = (page - 1) * SEARCH_INFO_PER_PAGE;
-        const results = await findTags(query, skip, next);
+        const results = await findTags(decodeURIComponent(query), skip, next);
 
         if (!results) {
             throw new Error('Can not find tag');

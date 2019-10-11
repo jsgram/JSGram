@@ -48,8 +48,13 @@ export const getSearchResults = (query: string, page: number): (dispatch: Dispat
         try {
             const FIRST_PAGE = 1;
             const RESULTS_RER_PAGE = 5;
+            const HASH_REGEXP = /^#/;
+            const strippedQuery = HASH_REGEXP.test(query) && query.slice(1);
+            const url = strippedQuery ? `/search-tag/${encodeURIComponent(strippedQuery)}/${page}` :
+                                        `/search/${encodeURIComponent(query)}/${page}`;
+
             dispatch(getSearchResultsPending());
-            const res = await AuthAPI.get(`/search/${query}/${page}`);
+            const res = await AuthAPI.get(url);
             if (page === FIRST_PAGE) {
                 dispatch(clearLoaded());
                 dispatch(getSearchResultsSuccess(res.data.results));
@@ -60,6 +65,6 @@ export const getSearchResults = (query: string, page: number): (dispatch: Dispat
                 dispatch(allResultsLoaded());
             }
         } catch (e) {
-            dispatch(showAlert(e.response.data.message, 'danger'));
+            dispatch(showAlert(e.message, 'danger'));
         }
     };
