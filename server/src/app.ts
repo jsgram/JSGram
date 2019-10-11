@@ -26,8 +26,9 @@ import { searchRouter } from './routes/search.routes/search.router';
 import { searchByTagRouter } from './routes/search.routes/search.by.tag.router';
 import { eventRouter } from './routes/event.routes/event.router';
 import { tagsRouter } from './routes/tags.routes/tags.router';
+import { mentionRouter } from './routes/mention.routes/mention.router';
 
-import {Notifications} from './sockets/notifications';
+import { Notifications } from './sockets/notifications';
 
 import { unknownPageHandler } from './helpers/unknown.page.handler';
 import { errorHandler } from './helpers/error.handler';
@@ -62,6 +63,7 @@ app.use('/search', searchRouter);
 app.use('/search-tag', searchByTagRouter);
 app.use('/events', eventRouter);
 app.use('/tag', tagsRouter);
+app.use('/mention', mentionRouter);
 app.use(googleRouter);
 
 const notifications = new Notifications('notifications', io);
