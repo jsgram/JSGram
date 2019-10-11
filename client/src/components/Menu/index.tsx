@@ -126,7 +126,7 @@ export class Menu extends React.Component<IMenuProps> {
                         alt='avatar'
                     />
                     <span className='font-weight-bold'>{user.username}<br/>
-                    <span className='fullname'>{user.fullName}</span></span>
+                    <span className='font-weight-normal fullname'>{user.fullName}</span></span>
                 </DropdownItem>
                 <DropdownItem divider/>
             </div>
@@ -140,7 +140,7 @@ export class Menu extends React.Component<IMenuProps> {
                 <DropdownItem className='p-md-2 p-1 d-flex align-items-center'>
                     <i className='fa fa-hashtag fa-2x mr-2'/>
                     <span className='font-weight-bold'>{hashtag.tagName}<br/>
-                    <span className='fullname'>
+                    <span className='font-weight-normal fullname'>
                         {hashtag.posts.length} {hashtag.posts.length === 1 ? 'post' : 'posts'}
                     </span></span>
                 </DropdownItem>
