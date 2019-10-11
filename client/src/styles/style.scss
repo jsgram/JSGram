@@ -1,0 +1,64 @@
+@import 'variables';
+
+html {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 70px;
+  overflow-x: hidden;
+}
+
+.login-google {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.pl-1,
+.register-acc a {
+  color: $color-red;
+  font-weight: 700;
+
+  &:hover {
+    color: $color-red;
+  }
+}
+
+.or-devider {
+  color: $color-grey-black;
+  text-align: center;
+
+  span {
+    display: inline-block;
+    width: 34%;
+    height: 1px;
+    margin: 0 10px 4px;
+    background: $color-grey;
+  }
+}
+
+.main-phone {
+  position: absolute;
+  top: 70px;
+  right: 0;
+  left: 0;
+  height: 600px;
+  background: center / contain no-repeat url('../assets/main-phone.png');
+}
+
+.avatar-img {
+  cursor: pointer;
+}
+
+.bio {
+  resize: none;
+}
+
+.likes {
+  display: inline-block;
+  min-width: 2rem;
+  cursor: pointer;
+  user-select: none;
+}

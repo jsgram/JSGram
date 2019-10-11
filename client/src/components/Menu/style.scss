@@ -1,0 +1,68 @@
+@import '../../styles/variables';
+
+.header-menu {
+  .logo {
+    @media screen and (min-width: $break-small) {
+      width: 150px;
+    }
+  }
+
+  .form-control {
+    &:focus {
+      border-color: $color-grey;
+      box-shadow: none;
+    }
+  }
+
+  .form-control-feedback {
+    position: absolute;
+    width: 1.7rem;
+    height: 2.3rem;
+    color: $color-grey-dark;
+    line-height: 2.4rem;
+    text-align: center;
+  }
+
+  .search-menu {
+    z-index: 3000;
+  }
+
+  .scrollable-menu {
+    height: auto;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: $color-white;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-dove-gray;
+    }
+  }
+
+  .fullname {
+    color: $color-dove-gray;
+    font-family: $font-calibri-light;
+  }
+
+  .search {
+    @media screen and (max-width: $break-medium) {
+      order: 1;
+    }
+  }
+
+  .icon {
+    color: $color-black;
+
+    &:hover {
+      color: $dark-red;
+    }
+    @media screen and (min-width: $break-small) {
+      font-size: 30px;
+    }
+  }
+}
+

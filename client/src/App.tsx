@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { ReactElement } from 'react';
+import { createStore, applyMiddleware } from 'redux';
+import rootReducer from './store/reducers';
+import { Provider } from 'react-redux';
+import { routes } from './routes';
+import { Footer } from './components/Footer';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunkMiddleware from 'redux-thunk';
+import AlertContainer from './containers/AlertContainer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/style.scss';
+import 'font-awesome/css/font-awesome.min.css';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(thunkMiddleware)),
+);
+
+const App: React.FC = (): ReactElement => {
+    return (
+        <Provider store={store}>
+            <AlertContainer/>
+            {routes}
+            <Footer/>
+        </Provider>
+    );
+};
 
 export default App;

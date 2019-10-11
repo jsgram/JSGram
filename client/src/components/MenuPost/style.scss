@@ -1,0 +1,35 @@
+@import '../../styles/variables';
+
+.icon {
+  cursor: pointer;
+}
+
+.edit-post {
+  &:hover {
+    font-weight: 700;
+  }
+
+  &.dropdown-item:active {
+    color: $color-black;
+    background-color: $color-white;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.delete-post {
+  &:hover {
+    font-weight: 700;
+  }
+
+  &.dropdown-item:active {
+    color: $color-black;
+    background-color: $color-white;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

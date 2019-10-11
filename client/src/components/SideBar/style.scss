@@ -1,0 +1,56 @@
+@import '../../styles/variables';
+
+.edit-content {
+  padding: 20px 0 10px;
+  border: 1px solid $color-snow;
+  box-shadow: 0 0 8px -7px $color-dove-gray;
+}
+
+.profile-usertitle-name {
+  margin-bottom: 7px;
+  color: $color-waikawa-gray;
+  font-weight: 600;
+}
+
+.profile-title {
+  margin-bottom: 15px;
+  color: $color-danube;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.nav-item {
+  border-bottom: 1px solid $aqua-haze;
+
+  a {
+    color: $color-gull-gray;
+    font-weight: 500;
+    font-size: 14px;
+
+    i {
+      margin-right: 8px;
+      font-size: 14px;
+    }
+
+    &:hover {
+      color: $color-danube;
+      background-color: $color-light-blue;
+    }
+  }
+
+  .active {
+    margin-left: -2px;
+    color: $dark-red;
+    background-color: $color-light-blue;
+    border-left: 2px solid $dark-red;
+
+    &:hover {
+      color: $dark-red;
+    }
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}

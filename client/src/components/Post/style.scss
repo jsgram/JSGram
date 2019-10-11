@@ -1,0 +1,97 @@
+@import '../../styles/variables';
+
+.profile-post {
+  .post-photo {
+    position: relative;
+    width: 100%;
+  }
+
+  .one-profile-photo {
+    cursor: pointer;
+  }
+
+  .like {
+    color: $color-like;
+  }
+
+  .text-description {
+    word-wrap: break-word;
+  }
+
+  .comments {
+    min-height: 150px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    word-break: break-all;
+
+    &::-webkit-scrollbar {
+      width: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-dove-gray;
+    }
+  }
+
+  .one-comment {
+    &:hover {
+      .edit-delete-comment {
+        opacity: 1;
+      }
+    }
+
+    .edit-delete-comment {
+      opacity: 0;
+      transition: 0.4s;
+    }
+
+    .edit-comment {
+      &:hover {
+        color: $color-dove-gray;
+        cursor: pointer;
+      }
+    }
+
+    .delete-comment {
+      &:hover {
+        color: $color-like;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .add-comment {
+    outline: 0;
+    resize: none;
+  }
+
+  .button-comment {
+    color: $color-danube;
+    background-color: $color-alabaster;
+
+    &:disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+  }
+
+  .icon-edit {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: 0.4s ease-out;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.form-control {
+  resize: none;
+}
+
+.change-description {
+  textarea {
+    resize: none;
+  }
+}

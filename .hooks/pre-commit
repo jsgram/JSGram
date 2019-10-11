@@ -1,0 +1,19 @@
+#!/bin/sh
+pwd=$PWD
+git_dir=$(git rev-parse --show-toplevel)
+
+{
+    cd $git_dir/client &&
+    npm run lint &&
+    CI=true npm test &&
+    echo Frontend checks OK. &&
+
+    cd $git_dir/server &&
+    npm run lint &&
+    CI=true npm test &&
+    echo Backend checks OK.
+} || {
+    cd $pwd
+    echo Fix lint \& test before commit.
+    exit 1
+}

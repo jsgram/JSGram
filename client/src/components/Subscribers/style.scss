@@ -1,0 +1,22 @@
+@import '../../styles/variables';
+
+.follow-wrapper {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  @media only screen and (max-width: $break-medium) {
+    max-width: 305px;
+  }
+  @media only screen and (max-width: $break-small) {
+    max-width: 256px;
+  }
+}
+
+.link-style {
+  padding: 1em;
+  color: $color-grey-dark;
+}
+
+.link-style:hover {
+  color: $color-grey-dark;
+}
