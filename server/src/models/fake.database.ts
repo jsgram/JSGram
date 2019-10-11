@@ -3,7 +3,6 @@ import { Token, ITokenModel } from './token.model';
 import { Post, IPostModel } from './post.model';
 import { Comment, ICommentModel } from './comment.model';
 import { Like, ILikeModel } from './like.model';
-import { Service, IServiceModel } from './service.model';
 
 import '../helpers/globals';
 import connect from '../connect';
@@ -236,10 +235,6 @@ const generateLikes = async (users: IUserModel[], posts: IPostModel[], size: num
     return createdLikes;
 };
 
-const generateServices = async (): Promise<void> => {
-    await Service.insertMany([{}]);
-};
-
 const fakeDatabase = async (): Promise<void> => {
     await clearDatabase(DB_PATH);
     await connect(DB_PATH);
@@ -249,7 +244,6 @@ const fakeDatabase = async (): Promise<void> => {
     const posts = await generatePosts(users, FAKE_DB_SIZE ** 2);
     const comments = await generateComments(users, posts, FAKE_DB_SIZE ** 3);
     const likes = await generateLikes(users, posts, FAKE_DB_SIZE ** 3);
-    const services = await generateServices();
 
     process.exit(0);
 };
