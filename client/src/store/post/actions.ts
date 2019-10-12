@@ -135,7 +135,6 @@ export const deletePost = (postId: string, authorId: string): (dispatch: Dispatc
         }
     };
 
-// TODO Send authorId to BE
 export const editPost = (description: string, id: string): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {

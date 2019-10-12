@@ -3,7 +3,6 @@ import React from 'react';
 import CropperContainer from '../../containers/CropperContainer';
 
 export interface IProps {
-    // TODO DON'T USE LOADING! DO WE NEED IT?
     loading: boolean;
     modal: boolean;
     photo: string;

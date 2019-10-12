@@ -7,7 +7,7 @@ import configureStore from 'redux-mock-store';
 import React from 'react';
 import { Provider } from 'react-redux';
 
-describe.skip('Cropper component:', () => { // TODO revisit after component finish
+describe.skip('Cropper component:', () => {
     let renderer;
     let store;
 
