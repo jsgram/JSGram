@@ -33,9 +33,9 @@ blocks:
         - name: FE deploy
           commands:
             - >
-              [[ $SEMAPHORE_GIT_BRANCH = 'dev' || $SEMAPHORE_GIT_BRANCH = 'master' ]] && export PUSH_BRANCH=$SEMAPHORE_GIT_BRANCH || export PUSH_BRANCH='dev'
-            - echo Semaphore branch - $SEMAPHORE_GIT_BRANCH
-            - echo Push branch - $PUSH_BRANCH
+              [[ $SEMAPHORE_GIT_BRANCH = 'dev' || $SEMAPHORE_GIT_BRANCH = 'master' ]]
+                  && export PUSH_BRANCH=$SEMAPHORE_GIT_BRANCH
+                  || export PUSH_BRANCH='dev'
 
             - export REACT_APP_BASE_API="https://jsgram-backend-${PUSH_BRANCH}.herokuapp.com"
             - export REACT_APP_GOOGLE_AUTH_URL="https://jsgram-backend-${PUSH_BRANCH}.herokuapp.com/auth/google"
