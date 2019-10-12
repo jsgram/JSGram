@@ -1,4 +1,4 @@
-import {IGoogleUser, getUsername, generatePassword, createGoogleUser} from '../google.auth';
+import {IGoogleUser, getUsername, generatePassword, createSocialUser} from '../social.auth';
 
 describe('Google auth helpers:', () => {
     test('get username from email - success', () => {
@@ -11,6 +11,6 @@ describe('Google auth helpers:', () => {
 
     test.skip('create Google user - success', () => {
         // TODO fake User constructor
-        expect(createGoogleUser('good@ema.il', 'name').username).toBe('good');
+        expect(createSocialUser('good@ema.il', 'name').username).toBe('good');
     });
 });

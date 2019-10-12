@@ -39,7 +39,7 @@ export const routes = (
             <PublicRoute path='/login/:token?' component={LoginContainer}/>
             <PublicRoute exact path='/password-reset' component={CheckEmail}/>
             <PublicRoute exact path='/password-reset/:token' component={ChangePassword}/>
-            <PublicRoute exact path='/register' component={RegisterRoute}/>
+            <PublicRoute exact path='/register/:error?' component={RegisterRoute}/>
             <Route component={Error404}/>
         </Switch>
     </Router>
