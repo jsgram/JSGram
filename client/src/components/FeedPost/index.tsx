@@ -46,7 +46,7 @@ export class FeedPost extends React.Component<IProps> {
             <Container>
                 <Menu/>
                 <Row>
-                    <Col sm={7} md={8} className='order-2 order-sm-1'>
+                    <Col sm={12} md={8} className='order-2 order-md-1'>
                         {
                             newsFeed.feed.filter((feed: INewsFeed) => feed._id).map((feed: INewsFeed) => {
                                 const {description, imgPath, author: {_id: authorId, photoPath, username}}: any = feed;
@@ -111,7 +111,7 @@ export class FeedPost extends React.Component<IProps> {
                             })
                         }
                     </Col>
-                    <Col sm={5} md={4} className='order-1 order-sm-2 text-center'>
+                    <Col sm={12} md={4} className='order-1 order-md-2 text-center'>
                         <div className='sticky-top'>
                             <img
                                 src={loggedPhotoPath || noAvatar}

@@ -58,6 +58,6 @@ describe('Subscribers smart component', () => {
     });
 
     test('render-success', () => {
-        expect(renderer.html()).not.toHaveLength(0);
+        expect(renderer.html()).toHaveLength(1447);
     });
 });

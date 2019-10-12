@@ -2,8 +2,8 @@ export const our_team = [
     {
         id: '1',
         href: 'https://github.com/zennarchi',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz5FG9tU' +
-            'w40WJMHOTvhYmJqXhu0mAOjjP_4dzS7Z3bULrLICZL',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyM2KE2TQV8tAXch' +
+            'Kni2S9vyAgGwg2mh-IRdsFi2ZSLOTVn-Pvqw',
         username: 'Artem Pavliuk',
         info: 'Артем Павлюк, developer, в IT вже 5 років, роблю різноманітну роботу, більшість фронт частина, ' +
             'але маю хороший досвід роботи з беком, все скоро роблю, за 1 день -10 багів і навіть не змучився .)',
@@ -11,8 +11,7 @@ export const our_team = [
     {
         id: '2',
         href: 'https://github.com/didOstap',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPyLBOUgCbDa' +
-            'FJ33WoDG0kOv0JNiJOug5I6TN1xnp3d0aOHK7Snw',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyGjoSBbdXWgXIqo2flfEKnFHTsYXyINdMHsUig7oZ_sQzNlXEIQ',
         username: 'Ostap Dribniuk',
         info: 'Остап Дрібнюк, в IT недавно, багато помагаю іншим учасникам в тімі, тому що це важливо, ' +
             'успіх залежить не від 1 людини, команда-сила. Хороший досвід роботи з беком, дуже хороший, ' +
@@ -58,8 +57,7 @@ export const our_team = [
     {
         id: '7',
         href: 'https://github.com/Volodia1999',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyM2KE2TQV8tAXch' +
-            'Kni2S9vyAgGwg2mh-IRdsFi2ZSLOTVn-Pvqw',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZiVWf-ho093JSLZPXadMuP5moNFlKQLiAPSJhlp_bka_WgPy0Rw&reload=on',
         username: 'Volodia Revura',
         info: 'Я Володя, в IT зовсім не початківець, дуже круто виконую поставлені на себе завдання, ' +
             'тіма для мене дуже багато значить, часто помагаю всім почучуть, ' +
