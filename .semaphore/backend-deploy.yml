@@ -34,6 +34,8 @@ blocks:
           commands:
             - >
               [[ $SEMAPHORE_GIT_BRANCH =~ 'dev|master' ]] && export PUSH_BRANCH=$SEMAPHORE_GIT_BRANCH || export PUSH_BRANCH='dev'
+            - echo Semaphore branch - $SEMAPHORE_GIT_BRANCH
+            - echo Push branch - $PUSH_BRANCH
 
             - cd server
             - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master
