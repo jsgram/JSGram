@@ -4,9 +4,9 @@ import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import bcrypt from 'bcrypt';
 
-import {IUserModel} from '../models/user.model';
-import {createSocialUser} from './social.auth';
-import {checkUserByProp} from '../db.requests/user.requests';
+import { IUserModel } from '../models/user.model';
+import { createSocialUser } from './social.auth';
+import { checkUserByProp } from '../db.requests/user.requests';
 import {
     GOOGLE_CALLBACK_URL,
     GOOGLE_CLIENT_ID,

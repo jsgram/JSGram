@@ -1,4 +1,4 @@
-import {IGoogleUser, getUsername, generatePassword, createSocialUser} from '../social.auth';
+import { getUsername, generatePassword, createSocialUser } from '../social.auth';
 
 describe('Google auth helpers:', () => {
     test('get username from email - success', () => {

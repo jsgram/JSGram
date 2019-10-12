@@ -1,6 +1,6 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import passport from 'passport';
-import {encodeJWT} from '../../helpers/jwt.encoders';
+import { encodeJWT } from '../../helpers/jwt.encoders';
 
 export const facebookRouter = Router();
 
