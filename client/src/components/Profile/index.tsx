@@ -59,9 +59,9 @@ export default class Profile extends React.Component<IProfileProps> {
     public componentDidUpdate(prevProps: IProfileProps): void {
         if (prevProps.loaded !== this.props.loaded && this.props.loaded) {
             this.timerHandle = setTimeout(() => {
-                    this.setState({loaded: true});
-                    this.timerHandle = 0;
-                },
+                this.setState({loaded: true});
+                this.timerHandle = 0;
+            },
                 1500,
             );
         }
