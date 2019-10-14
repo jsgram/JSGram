@@ -3,7 +3,7 @@ import passport from 'passport';
 import {encodeJWT} from '../../helpers/jwt.encoders';
 import {IUserModel} from '../../models/user.model';
 import {userExist} from '../../db.requests/user.requests';
-import {isCorrectPassword} from "../../helpers/hash.password";
+import {isCorrectPassword} from '../../helpers/hash.password';
 
 export const login = async (req: Request, res: Response, next: NextFunction,
 ): Promise<void> => {
