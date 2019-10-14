@@ -22,6 +22,6 @@ describe('Comments smart component', () => {
     });
 
     test('render-success', () => {
-        expect(renderer.html()).not.toHaveLength(07);
+        expect(renderer.html()).not.toHaveLength(0);
     });
 });
