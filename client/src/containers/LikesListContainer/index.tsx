@@ -8,7 +8,6 @@ import * as newsFeedAction from '../../store/newsFeed/actions';
 
 interface ILocalProps {
     likeList: IFeedState;
-    loggedId: string;
 }
 
 interface IState {
@@ -28,7 +27,6 @@ interface IProps {
 type FeedProps = ILocalProps & IProps;
 
 const LikeListContainer = ({
-                               loggedId,
                                likeList,
                                getLikeListAsync,
                                getMoreLikeListAsync,
@@ -40,14 +38,13 @@ const LikeListContainer = ({
         getLikeListAsync={getLikeListAsync}
         addNextLikeList={addNextLikeList}
         getMoreLikeListAsync={getMoreLikeListAsync}
-        loggedId={loggedId}
+        headerText='Posts You have liked:'
     />
 
 );
 
 const mapStateToProps = (state: IState): ILocalProps => ({
     likeList: state.likeList,
-    loggedId: state.feed.loggedId,
 });
 
 const mapDispatchToProps = {
