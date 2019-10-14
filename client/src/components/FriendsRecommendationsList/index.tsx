@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Container, Button, Spinner } from 'reactstrap';
+import { Container, Button} from 'reactstrap';
 import { changeUsersFollowing } from '../../store/newsFeed/actions';
 import { getRecommendations } from '../../store/newsFeed/actions';
 import { IUser, IFriendsRecommendation } from '../FriendsRecommendations';
@@ -12,7 +12,6 @@ interface IProps {
     friendsRecommendations: IFriendsRecommendation;
     getRecommendations: () => void;
     changeUsersFollowing: (_id: string, followType: string) => void;
-    loadFollow: boolean;
 }
 
 export class FriendsRecommendationsList extends React.Component <IProps> {
@@ -29,12 +28,9 @@ export class FriendsRecommendationsList extends React.Component <IProps> {
         this.props.changeUsersFollowing(_id, 'unFollow');
     }
 
-    public dynamicButton = (_id: string, alreadyFollow: boolean): JSX.Element => {
-        if (this.props.loadFollow) {
-            return <span><Spinner color='light'/></span>;
-        }
+    public dynamicButton = (_id: string, isAlreadyFollow: boolean): JSX.Element => {
 
-        if (alreadyFollow) {
+        if (isAlreadyFollow) {
             return (
                 <span onClick={(): any => this.unfollowRecommendationUser(_id)}>
                         <Button className='btn' color='danger'>
@@ -79,7 +75,7 @@ export class FriendsRecommendationsList extends React.Component <IProps> {
                                           className='text-dark'>{user.username}</Link>
                                     </h6>
                                 </div>
-                                    {this.dynamicButton(user._id, user.alreadyFollow)}
+                                    {this.dynamicButton(user._id, user.isAlreadyFollow)}
                             </div>,
                         )}
                     </div>

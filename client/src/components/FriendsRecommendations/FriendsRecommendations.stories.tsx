@@ -6,7 +6,6 @@ import {FriendsRecomendations} from './index';
 
 export const FriendsRecomendationsState = {
     loggedUsername: 'Maks',
-    loadFollow: false,
     friendsRecommendations: {
         loading: false,
         users: [
@@ -14,19 +13,19 @@ export const FriendsRecomendationsState = {
                 _id: '1f',
                 username: 'Diana',
                 photoPath: 'https://jsgram-post-images.s3.eu-west-2.amazonaws.com/1570605706200',
-                alreadyFollow: false,
+                isAlreadyFollow: false,
             },
             {
                 _id: '2f',
                 username: 'Antony',
                 photoPath: 'https://jsgram-post-images.s3.eu-west-2.amazonaws.com/1570605728486',
-                alreadyFollow: false,
+                isAlreadyFollow: false,
             },
             {
                 _id: '3f',
                 username: 'Bob',
                 photoPath: 'https://jsgram-post-images.s3.eu-west-2.amazonaws.com/1570603193496',
-                alreadyFollow: false,
+                isAlreadyFollow: false,
             },
         ],
     },

@@ -115,7 +115,7 @@ export const newsFeedReducer = (
         case GET_RECOMMENDATIONS_SUCCESS:
             const recommendationUsers = action.payload.map((user: any) => ({
                 ...user,
-                alreadyFollow: false,
+                isAlreadyFollow: false,
             }));
             return {
                 ...state,
@@ -129,7 +129,7 @@ export const newsFeedReducer = (
             const users = state.friendsRecommendations
             .users.map((following: any) => following._id === action.payload.userId ? {
                 ...following,
-                alreadyFollow: !following.alreadyFollow,
+                isAlreadyFollow: !following.isAlreadyFollow,
             } :
                 following,
             );

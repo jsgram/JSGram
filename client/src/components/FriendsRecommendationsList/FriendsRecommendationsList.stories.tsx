@@ -14,8 +14,7 @@ export const FriendsRecommendationsListState = {
 export const FriendsRecommendationsListActions = {
     changeUsersFollowing: action('changeUserFollowing'),
     getRecommendations: action('getRecommendations'),
-    loadFollow: false,
-    alreadyFollow: false,
+    isAlreadyFollow: false,
 };
 
 storiesOf('Friends Recomendations List', module)
