@@ -27,6 +27,7 @@ import { searchByTagRouter } from './routes/search.routes/search.by.tag.router';
 import { eventRouter } from './routes/event.routes/event.router';
 import { tagsRouter } from './routes/tags.routes/tags.router';
 import { mentionRouter } from './routes/mention.routes/mention.router';
+import { facebookRouter } from './routes/auth.routes/facebook.router';
 
 import { Notifications } from './sockets/notifications';
 
@@ -65,6 +66,7 @@ app.use('/events', eventRouter);
 app.use('/tag', tagsRouter);
 app.use('/mention', mentionRouter);
 app.use(googleRouter);
+app.use(facebookRouter);
 
 const notifications = new Notifications('notifications', io);
 

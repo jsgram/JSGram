@@ -39,6 +39,7 @@ blocks:
 
             - export REACT_APP_BASE_API="https://jsgram-backend-${PUSH_BRANCH}.herokuapp.com"
             - export REACT_APP_GOOGLE_AUTH_URL="https://jsgram-backend-${PUSH_BRANCH}.herokuapp.com/auth/google"
+            - export REACT_APP_FACEBOOK_AUTH_URL="https://jsgram-backend-${PUSH_BRANCH}.herokuapp.com/auth/facebook"
 
             - cd client
             - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master
