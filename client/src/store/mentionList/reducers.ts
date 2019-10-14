@@ -60,7 +60,7 @@ export const defaultState = {
 
 export const mentionListReducer = (
     state: IFeedState = defaultState,
-    action: { type: string, payload: any }): any => {
+    action: { type: string, payload: any }): IFeedState => {
     switch (action.type) {
         case GET_MENTION_LIST_PENDING:
             return {

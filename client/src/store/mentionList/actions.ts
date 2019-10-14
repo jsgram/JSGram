@@ -15,12 +15,12 @@ export const getMentionListPending = (): { type: string } => ({
     type: GET_MENTION_LIST_PENDING,
 });
 
-export const getMentionListSuccess = (userNews: INewsFeed): { type: string, payload: any } => ({
+export const getMentionListSuccess = (userNews: INewsFeed): { type: string, payload: INewsFeed } => ({
     type: GET_MENTION_LIST_SUCCESS,
     payload: userNews,
 });
 
-export const getMoreMentionListSuccess = (userNews: any): { type: string, payload: any } => ({
+export const getMoreMentionListSuccess = (userNews: INewsFeed): { type: string, payload: INewsFeed } => ({
     type: GET_MORE_MENTION_LIST_SUCCESS,
     payload: userNews,
 });
