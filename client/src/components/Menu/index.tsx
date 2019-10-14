@@ -191,6 +191,9 @@ export class Menu extends React.Component<IMenuProps> {
                         </Dropdown>
                     </div>
                     <div className='mt-4'>
+                        <Link to={`/mentions`}>
+                            <i className='fa fa-at fa-lg pr-4 icon' />
+                        </Link>
                         <Link to={`/profile/${newUsername || loggedUsername}/likes`}>
                             <i className='fa fa-heart-o fa-lg pr-4 icon' />
                         </Link>

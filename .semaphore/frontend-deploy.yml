@@ -33,10 +33,13 @@ blocks:
         - name: FE deploy
           commands:
             - >
-              [[ $SEMAPHORE_GIT_BRANCH =~ 'dev|master' ]] && export PUSH_BRANCH=$SEMAPHORE_GIT_BRANCH || export PUSH_BRANCH='dev'
+              [[ $SEMAPHORE_GIT_BRANCH = 'dev' || $SEMAPHORE_GIT_BRANCH = 'master' ]]
+              && export PUSH_BRANCH=$SEMAPHORE_GIT_BRANCH
+              || export PUSH_BRANCH='dev'
 
             - export REACT_APP_BASE_API="https://jsgram-backend-${PUSH_BRANCH}.herokuapp.com"
             - export REACT_APP_GOOGLE_AUTH_URL="https://jsgram-backend-${PUSH_BRANCH}.herokuapp.com/auth/google"
+            - export REACT_APP_FACEBOOK_AUTH_URL="https://jsgram-backend-${PUSH_BRANCH}.herokuapp.com/auth/facebook"
 
             - cd client
             - cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master

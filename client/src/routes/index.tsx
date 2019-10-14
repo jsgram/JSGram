@@ -19,6 +19,7 @@ import { AboutUs } from '../components/AboutUs';
 import FriendsRecommendationsList from '../components/FriendsRecommendationsList';
 import PostsByTagContainer from '../containers/PostsByTagContainer';
 import LikeListContainer from '../containers/LikesListContainer';
+import MentionListContainer from '../containers/MentionListContainer';
 
 export const routes = (
     <Router history={history}>
@@ -31,6 +32,7 @@ export const routes = (
             <PrivateRoute exact path='/profile/:username/likes' component={LikeListContainer} />
             <PrivateRoute exact path='/add-post' component={AddPostContainer}/>
             <PrivateRoute exact path='/feed' component={FeedContainer}/>
+            <PrivateRoute exact path='/mentions' component={MentionListContainer}/>
             <PrivateRoute path='/profile/:username/edit' component={SideBar}/>
             <PrivateRoute path='/tag/:tagName' component={PostsByTagContainer}/>
             <Route exact path='/logout' component={Logout}/>
@@ -39,7 +41,7 @@ export const routes = (
             <PublicRoute path='/login/:token?' component={LoginContainer}/>
             <PublicRoute exact path='/password-reset' component={CheckEmail}/>
             <PublicRoute exact path='/password-reset/:token' component={ChangePassword}/>
-            <PublicRoute exact path='/register' component={RegisterRoute}/>
+            <PublicRoute exact path='/register/:error?' component={RegisterRoute}/>
             <Route component={Error404}/>
         </Switch>
     </Router>

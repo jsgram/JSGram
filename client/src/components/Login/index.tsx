@@ -56,7 +56,19 @@ const Login = ({handleSubmit, onSubmit, submitting}: IProps ): JSX.Element => {
                                 <p>
                                     <i className='fa fa-google'/>
                                     <a href={process.env.REACT_APP_GOOGLE_AUTH_URL}
-                                       className='text-danger login-google pl-2'>Log in with Google</a></p>
+                                       className='text-danger login-google pl-2'
+                                    >
+                                        Log in with Google
+                                    </a>
+                                </p>
+                                <p>
+                                    <i className='fa fa-facebook'/>
+                                    <a href={process.env.REACT_APP_FACEBOOK_AUTH_URL}
+                                       className='text-danger login-google pl-2'
+                                    >
+                                        Log in with Facebook
+                                    </a>
+                                </p>
                                 <p>
                                     <Link to='/password-reset' className='text-danger pl-1'>
                                         Forgot password?</Link>
