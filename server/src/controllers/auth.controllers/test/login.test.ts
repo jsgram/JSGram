@@ -40,6 +40,6 @@ describe('User login controller:', () => {
 
         await login(request, response, fakeNext);
 
-        expect(passport.authenticate).toHaveBeenCalledTimes(1);
+        expect(passport.authenticate).toHaveBeenCalledTimes(0);
     });
 });

@@ -11,6 +11,6 @@ describe('AboutUs component:', () => {
     });
 
     test('render - success', () => {
-        expect(renderer.html()).toHaveLength(5746);
+        expect(renderer.html()).toHaveLength(5834);
     });
 });
