@@ -75,6 +75,7 @@ export const feedPostActions = {
     addNextFeedPosts: action('addNextFeedPosts'),
     getRecommendations: action('getRecommendations'),
     followUser: action('followUser'),
+    changeUsersFollowing: action('changeUsersFollowing'),
 };
 
 storiesOf('Feed Post', module)
