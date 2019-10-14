@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const HASH_REGEXP = /[#][A-z0-9]+/;
 const MENTION_REGEXP = /[@][A-z0-9]+/;
 const LINK_REGEXP = /(?:(?:https?|ftp):\/\/|www\.)[^\s/$.?#].[^\s]*/;
+export const MENTIONS_REGEX = /@[\w]+/g;
 
 const hashtagRegex = new RegExp(`(${HASH_REGEXP.source}|${MENTION_REGEXP.source}|${LINK_REGEXP.source})`, 'ig');
 export const formatDescription = (description: string): any =>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Cropper from 'react-easy-crop';
-import { PostPhoto } from '../PostPost';
+import PostPhoto from '../PostPost';
 import { Container, Row, Spinner } from 'reactstrap';
 import AddPostDropZone from '../AddPostDropZone';
 import { getCroppedImg, createBlobUrl } from '../../../helpers/upload.photo';

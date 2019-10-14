@@ -1,21 +1,35 @@
 import React from 'react';
-import { Button, InputGroup, InputGroupAddon } from 'reactstrap';
+import './style.scss';
+import { Button, InputGroup, InputGroupAddon, DropdownToggle,
+         DropdownMenu, Dropdown, DropdownItem, Spinner } from 'reactstrap';
 import TextareaAutosize from 'react-textarea-autosize';
 import { connect } from 'react-redux';
 import { onChangeComment, addComment } from '../../store/comments/actions';
 import { emitNewNotificationSocket } from '../../store/notifications/actions';
 import { COMMENT_NOTIFICATION } from '../../store/notifications/notificationsConfig';
 import { IComments } from '../../store/comments/reducers';
+import { clearSearchResults, getSearchResults, addNextResults } from '../../store/search/actions';
+import noAvatar from '../../assets/noAvatar.png';
+import { Waypoint } from 'react-waypoint';
+import { MENTIONS_REGEX } from '../../helpers/regex.description';
+import { ISearchState } from '../../store/search/reducers';
 
 interface IProps {
     loggedId: string;
     loggedUsername: string;
     postId: string;
     authorId: string;
+    page: number;
+    searchResults: any;
+    loaded: boolean;
+    loading: boolean;
     onChangeComments: Array<{ postId: string, comment: string }>;
     onChangeComment: (postId: string, event: string) => void;
     addComment: (postId: string, loggedId: string, commentValue: string) => void;
     emitNewNotificationSocket: (userId: string, loggedUsername: string, message: string) => void;
+    clearSearchResults: () => void;
+    getSearchResults: (query: string, page: number) => void;
+    addNextResults: (page: number) => void;
 }
 
 interface ILocalState {
@@ -24,16 +38,79 @@ interface ILocalState {
     postId: string;
     authorId: string;
     onChangeComments: Array<{ postId: string, comment: string }>;
+    page: number;
+    searchResults: object[];
+    loaded: boolean;
+    loading: boolean;
 }
 
 interface IState {
     feed: ILocalState;
     comments: IComments;
+    search: ISearchState;
+}
+
+interface IWriteComponentState {
+    isModalOpen: boolean;
+    searchValue: string;
 }
 
 export class WriteComment extends React.Component<IProps> {
+
+    public state: IWriteComponentState = {
+        isModalOpen: false,
+        searchValue: '',
+    };
+    public timer: any;
+
+    public componentWillUnmount = (): void => {
+        clearTimeout(this.timer);
+        this.props.clearSearchResults();
+        this.setState({searchValue: ''});
+        this.props.onChangeComment(this.props.postId, '');
+    }
+
     public onCommentChange = (postId: string, event: React.ChangeEvent<HTMLTextAreaElement>): void => {
+        clearTimeout(this.timer);
+        const FIRST_PAGE = 1;
         this.props.onChangeComment(postId, event.target.value);
+        const mentions: any = event.target.value.match(MENTIONS_REGEX);
+        if (mentions) {
+            const query: string = mentions.pop();
+            this.setState({searchValue: query});
+            if (this.state.searchValue !== query) {
+                this.timer = setTimeout(() => {
+                    this.timer = null;
+                    this.props.getSearchResults(query.slice(1), FIRST_PAGE);
+                    this.toggle(query);
+                }, 500);
+            } else {
+                this.toggle('');
+            }
+        } else {
+            this.toggle('');
+        }
+    }
+
+    public getMoreResults = (): void => {
+        const comment = this.props.onChangeComments.filter((info: { postId: string }) =>
+                        this.props.postId === info.postId)[0].comment;
+        const mentions: any = comment.match(MENTIONS_REGEX);
+        const query: string = mentions.pop();
+        this.props.addNextResults(this.props.page + 1);
+        this.props.getSearchResults(query.slice(1), this.props.page);
+    }
+
+    public onUserSelect = (e: React.MouseEvent, username: string): void => {
+        const comment = this.props.onChangeComments.filter((info: { postId: string }) =>
+                        this.props.postId === info.postId)[0].comment;
+        const mentions: any = comment.match(MENTIONS_REGEX);
+        const query: any = mentions.pop();
+        const updComment = comment.replace(new RegExp(query + '$'), `@${username}`);
+        this.props.onChangeComment(this.props.postId, updComment);
+        this.setState({searchValue: `@${username}`});
+        this.props.clearSearchResults();
+        this.toggle('');
     }
 
     public onAddComment = (postId: string, commentValue: string): void => {
@@ -44,6 +121,13 @@ export class WriteComment extends React.Component<IProps> {
         );
 
         this.props.emitNewNotificationSocket(this.props.authorId, this.props.loggedUsername, COMMENT_NOTIFICATION);
+        this.toggle('');
+    }
+
+    public toggle = (searchQuery: string): void => {
+        this.setState({
+            isModalOpen: searchQuery !== '',
+        });
     }
 
     public render(): JSX.Element {
@@ -78,6 +162,41 @@ export class WriteComment extends React.Component<IProps> {
                         </InputGroupAddon>
                     </InputGroup>
                 }
+                <Dropdown className='search-menu w-75' color='light'
+                          isOpen={this.state.isModalOpen} inNavbar={true} direction='up'
+                          toggle={(): void => {this.toggle(this.state.searchValue); }}>
+                    <DropdownToggle tag='a' className='nav-link m-0 p-0'/>
+                    <DropdownMenu className='scrollable-menu col-12 mb-5'>
+                        {this.props.searchResults.map((user: any) =>
+                        <div key={user._id} onClick={(e: React.MouseEvent): void => {
+                            this.onUserSelect(e, user.username);
+                        }}>
+                                <div className='w-100'>
+                                <DropdownItem className='p-md-2 p-1 d-flex align-items-center'>
+                                    <img
+                                        src={user.photoPath || noAvatar}
+                                        width={32}
+                                        height={32}
+                                        className='rounded-circle mr-2'
+                                        alt='avatar'
+                                    />
+                                    <span className='font-weight-bold'>{user.username}<br/>
+                                    <span className='font-weight-normal fullname'>{user.fullName}</span></span>
+                                </DropdownItem>
+                                <DropdownItem divider/>
+                            </div>
+                        </div>)}
+                            <div className='d-flex justify-content-center'>
+                                    {this.props.loading && <Spinner color='dark'/>}
+                                </div>
+                                {!this.props.loaded && !this.props.loading &&
+                                <Waypoint
+                                    onEnter={(): void => {
+                                        this.getMoreResults();
+                                    }}
+                                />}
+                    </DropdownMenu>
+                </Dropdown>
             </div>
         );
     }
@@ -89,12 +208,19 @@ const mapStateToProps = (state: IState, ownProps: {postId: string; authorId: any
     loggedId: state.feed.loggedId,
     loggedUsername: state.feed.loggedUsername,
     onChangeComments: state.comments.onChangeComments,
+    page: state.search.page,
+    searchResults: state.search.searchResults,
+    loaded: state.search.loaded,
+    loading: state.search.loading,
 });
 
 const mapDispatchToProps = {
     addComment,
     onChangeComment,
     emitNewNotificationSocket,
+    clearSearchResults,
+    getSearchResults,
+    addNextResults,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WriteComment);

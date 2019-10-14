@@ -15,6 +15,7 @@ import { IFeedState } from '../../store/feed/reducers';
 import './style.scss';
 import { Link } from 'react-router-dom';
 import { IAuthor, IComment } from '../../store/comments/reducers';
+import { formatDescription } from '../../helpers/regex.description';
 
 interface ILocalState {
     postId: string;
@@ -131,7 +132,7 @@ export class Comments extends React.Component<ICommentsProps> {
                             (): void => this.onDeleteComment(comment._id, comment.authorId)
                         }/>
                     </div>
-                    <p>{comment.comment}</p>
+                    <p>{formatDescription(comment.comment)}</p>
                 </>
             )
     )

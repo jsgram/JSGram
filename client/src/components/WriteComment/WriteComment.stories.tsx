@@ -8,6 +8,10 @@ export const writeCommentState = {
     loggedUsername: 'Maks',
     postId: '1b',
     authorId: '1c',
+    page: 1,
+    searchResults: ['user1'],
+    loaded: true,
+    loading: false,
     onChangeComments: [{postId: '1b', comment: ''}],
 };
 
@@ -15,6 +19,9 @@ export const writeCommentActions = {
     onChangeComment: action('onChangeComment'),
     addComment: action('addComment'),
     emitNewNotificationSocket: action('emitNewNotificationSocket'),
+    clearSearchResults: action('clearSearchResults'),
+    getSearchResults: action('getSearchResults'),
+    addNextResults: action('addNextResults'),
 };
 
 storiesOf('WriteComment', module)

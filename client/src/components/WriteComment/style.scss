@@ -1,0 +1,32 @@
+@import '../../styles/variables';
+
+.search-menu {
+    z-index: 3000;
+  }
+
+.scrollable-menu {
+    height: auto;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+  &::-webkit-scrollbar {
+      width: 5px;
+      background-color: $color-white;
+    }
+
+  &::-webkit-scrollbar-thumb {
+      background-color: $color-dove-gray;
+    }
+  }
+
+.search {
+  @media screen and (max-width: $break-medium) {
+    order: 1;
+  }
+}
+
+.fullname {
+  color: $color-dove-gray;
+  font-family: $font-calibri-light;
+}
