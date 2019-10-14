@@ -1,6 +1,6 @@
 import { NextFunction } from 'express';
 import { IUserModel, User } from '../models/user.model';
-import { hashPassword } from '../helpers/hash.password';
+import {hashPassword, isCorrectPassword} from '../helpers/hash.password';
 import { IUserSettings } from '../controllers/profile.controllers/editProfileSettings';
 import { IUserPassword } from '../controllers/profile.controllers/editPassword';
 

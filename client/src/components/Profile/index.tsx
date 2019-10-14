@@ -59,9 +59,9 @@ export default class Profile extends React.Component<IProfileProps> {
     public componentDidUpdate(prevProps: IProfileProps): void {
         if (prevProps.loaded !== this.props.loaded && this.props.loaded) {
             this.timerHandle = setTimeout(() => {
-                this.setState({loaded: true});
-                this.timerHandle = 0;
-            },
+                    this.setState({loaded: true});
+                    this.timerHandle = 0;
+                },
                 1500,
             );
         }
@@ -174,58 +174,59 @@ export default class Profile extends React.Component<IProfileProps> {
         const avatarCursor = (this.props.loggedId === _id && 'avatar-img');
 
         return (
-            <div
-                className='row profile d-flex pt-2 justify-content-lg-center
-                justify-content-sm-around justify-content-center'>
+            <React.Fragment>
                 <Menu/>
-                <div className='mr-lg-5 mr-3'>
-                    {this.props.loading ? <Spinner style={{height: 150, width: 150}} type='grow' color='dark'/> : <img
-                        src={photo || noAvatar}
-                        className={`img-fluid rounded-circle float-right mb-2 ${avatarCursor}`}
-                        alt='avatar'
-                        height={150}
-                        width={150}
-                        onClick={(): void => {
-                            if (this.props.loggedId === _id) {
-                                this.toggleModal();
+                <div
+                    className='row profile d-flex pt-2 justify-content-lg-center
+                justify-content-sm-around justify-content-center'>
+                    <div className='mr-lg-5 mr-3'>
+                        {this.props.loading ? <Spinner style={{height: 150, width: 150}} type='grow' color='dark'/> : <img
+                            src={photo || noAvatar}
+                            className={`img-fluid rounded-circle float-right mb-2 ${avatarCursor}`}
+                            alt='avatar'
+                            height={150}
+                            width={150}
+                            onClick={(): void => {
+                                if (this.props.loggedId === _id) {
+                                    this.toggleModal();
+                                }
+                            }}
+                        />}
+                    </div>
+                    <div className='ml-lg-5 d-sm-block d-flex flex-column'>
+                        <p className='profile-name'>
+                            {username}
+                            {this.props.urlUsername === this.props.loggedUsername &&
+                            <Link to={`/profile/${this.props.urlUsername}/edit`}>
+                                <button className='bg-dark ml-sm-5 ml-3 btn text-white'>
+                                    Edit profile
+                                </button>
+                            </Link>
                             }
-                        }}
-                    />}
-                </div>
-                <div className='ml-lg-5 d-sm-block d-flex flex-column'>
-                    <p className='profile-name'>
-                        {username}
-                        {this.props.urlUsername === this.props.loggedUsername &&
-                        <Link to={`/profile/${this.props.urlUsername}/edit`}>
-                            <button className='bg-dark ml-sm-5 ml-3 btn text-white'>
-                                Edit profile
-                            </button>
-                        </Link>
-                        }
-                    </p>
-                    <div className='d-flex followers justify-content-between'>
-                        <div>
-                            <a href='#/' className='mr-2'><b>{posts}</b> posts</a>
+                        </p>
+                        <div className='d-flex followers justify-content-between'>
+                            <div>
+                                <a href='#/' className='mr-2'><b>{posts}</b> posts</a>
+                            </div>
+                            <div>
+                                <Link to={`/profile/${this.props.urlUsername}/followers`}
+                                      className='mr-2'><b>{followers.length}</b> followers
+                                </Link>
+                            </div>
+                            <div>
+                                <Link to={`/profile/${this.props.urlUsername}/following`}>
+                                    <b>{following.length}</b> following
+                                </Link>
+                            </div>
                         </div>
-                        <div>
-                            <Link to={`/profile/${this.props.urlUsername}/followers`}
-                                className='mr-2'><b>{followers.length}</b> followers
-                            </Link>
+                        <div className='description mt-4'>
+                            <strong>{fullName}</strong>
+                            { this.props.urlUsername === this.props.loggedUsername &&
+                            <Link to='/logout' className='text-danger pl-1'>(Logout)</Link> }
+                            <p>{description}</p>
                         </div>
-                        <div>
-                            <Link to={`/profile/${this.props.urlUsername}/following`}>
-                                <b>{following.length}</b> following
-                            </Link>
-                        </div>
-                    </div>
-                    <div className='description mt-4'>
-                        <strong>{fullName}</strong>
-                        { this.props.urlUsername === this.props.loggedUsername &&
-                                <Link to='/logout' className='text-danger pl-1'>(Logout)</Link> }
-                        <p>{description}</p>
-                    </div>
-                    {
-                        this.props.loggedUser.isAdmin &&
+                        {
+                            this.props.loggedUser.isAdmin &&
                             <>
                                 <Button
                                     className='btn d-block mb-2'
@@ -260,20 +261,21 @@ export default class Profile extends React.Component<IProfileProps> {
                                     </ModalFooter>
                                 </Modal>
                             </>
-                    }
-                    {this.dynamicButton()}
-                    {this.state.modal && <PopUpModal
-                        modal={this.state.modal}
-                        toggleModal={this.toggleModal}
-                        loading={this.props.loading}
-                        deletePhoto={this.props.deletePhoto}
-                        photo={photo}
-                    />}
+                        }
+                        {this.dynamicButton()}
+                        {this.state.modal && <PopUpModal
+                            modal={this.state.modal}
+                            toggleModal={this.toggleModal}
+                            loading={this.props.loading}
+                            deletePhoto={this.props.deletePhoto}
+                            photo={photo}
+                        />}
+                    </div>
+                    <div className='container'>
+                        <PostContainer username={this.props.urlUsername}/>
+                    </div>
                 </div>
-                <div className='container'>
-                    <PostContainer username={this.props.urlUsername}/>
-                </div>
-            </div>
+            </React.Fragment>
         );
     }
 }
