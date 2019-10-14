@@ -101,7 +101,6 @@ export class FeedPost extends React.Component<IProps> {
                                             </div>
                                         </div>
                                         <Comment postId={feed._id}/>
-                                        <div className='border-top pb-2'/>
                                             <WriteComment
                                                 postId={feed._id}
                                                 authorId={feed.author}
