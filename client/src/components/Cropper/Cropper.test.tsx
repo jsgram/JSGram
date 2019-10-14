@@ -1,65 +1,57 @@
-import { Cropper } from './index';
-import * as reactstrap from 'reactstrap';
-import * as cropperactions from '../../store/cropper/actions';
-
+import Cropper from './index';
 import { shallow } from 'enzyme';
-import configureStore from 'redux-mock-store';
 import React from 'react';
-import { Provider } from 'react-redux';
 
-describe.skip('Cropper component:', () => { // TODO revisit after component finish
-    let renderer;
-    let store;
+describe('Cropper component:', () => {
+    let renderer: any;
+
+    const props = {
+        croppedImage: 'some value',
+        description: 'some value',
+        loading: true,
+        user: {
+            posts: 1,
+            followers: [],
+            following: [],
+            description: 'some value',
+            fullName: 'some value',
+            username: 'some value',
+            photo: 'some value',
+            email: 'some value',
+            _id: 'some value',
+        },
+        uploadPostAvatar: jest.fn(() => ('some value')),
+        setCroppedImageForAvatar: jest.fn(() => ('some value')),
+        resetAddPost: jest.fn(() => ('some value')),
+        toggleModal: jest.fn(() => ('some value')),
+        informFileError: jest.fn(() => ('some value')),
+    };
 
     beforeEach(() => {
-        cropperactions.setAvatarToCropper = jest.fn(() => 'somevalue');
-        cropperactions.uploadPostAvatar = jest.fn(() => 'somevalue');
-
-        store = configureStore()();
-        renderer = shallow(<Cropper
-                               setAvatarToCropper={cropperactions.setAvatarToCropper}
-                               uploadPostAvatar={cropperactions.uploadPostAvatar}
-                           />);
+        renderer = shallow(<Cropper {...props}/>);
     });
 
-    test('onClose - success', () => {
-        renderer.instance().onClose();
-        expect(renderer.state('preview')).toBe(null);
+    test('on crop change - success', () => {
+        renderer.instance().onCropChange({x: 1, y: 1});
+        expect(renderer.state('preview')).toBe(undefined);
     });
 
-    test('onCrop - success', () => {
-        renderer.instance().onCrop('somepreview');
-        expect(renderer.state('preview')).toBe('somepreview');
+    test('on zoom change - success', () => {
+        renderer.instance().onZoomChange(1);
+        expect(renderer.state('preview')).toBe(undefined);
     });
 
-    test('onBeforeFileLoad - success', () => {
-        const elem = {
-            target: {
-                files: [
-                    { size: 2 ** 32 },
-                ],
-            },
-        };
-
-        renderer.instance().onBeforeFileLoad(elem);
-        expect(elem.target.value).toBe('');
+    test('reset image src - success', () => {
+        renderer.instance().resetImageSrc();
+        expect(renderer.state('preview')).toBe(undefined);
     });
 
-    test('onFileLoad - success', () => {
-        renderer.instance().onFileLoad();
-        expect(cropperactions.setAvatarToCropper).toHaveReturnedWith('somevalue');
+    test('crop complete - success', () => {
+        renderer.instance().onCropComplete({width: 1, height: 1, x: 1, y: 1}, {width: 1, height: 1, x: 1, y: 1});
+        expect(renderer.state('preview')).toBe(undefined);
     });
 
-    test('onClick - success', () => {
-        renderer.instance().onClick();
-        expect(renderer.state('preview')).toBe(null);
-    });
-
-    test('render - success', () => {
-        reactstrap.Button = jest.fn(() => (<div></div>));
-        reactstrap.Spinner = jest.fn(() => (<div></div>));
-
-        renderer = shallow(<Provider store={store}><Cropper /></Provider>);
-        expect(renderer.html()).toHaveLength(888);
+    test('render-success', () => {
+        expect(renderer).toMatchSnapshot();
     });
 });

@@ -1,37 +1,43 @@
 import Profile from './index';
-import * as reactstrap from 'reactstrap';
-import * as reactContentLoader from 'react-content-loader';
-
 import { shallow } from 'enzyme';
 import React from 'react';
+import { profileState } from './Profile.stories';
 
 describe('Profile component:', () => {
-    let renderer;
-    let mockGetUser;
+    let renderer: any;
+    const getUser = jest.fn(() => 'some value');
+    const followUser = jest.fn(() => 'some value');
+    const unfollowUser = jest.fn(() => 'some value');
+    const deletePhoto = jest.fn(() => 'some value');
+    const resetPosts = jest.fn(() => 'some value');
+    const getPostsAsync = jest.fn(() => 'some value');
+    const deleteUser = jest.fn(() => 'some value');
+    const emitNewNotificationSocket = jest.fn(() => 'some value');
 
     beforeEach(() => {
-        reactstrap.Spinner = jest.fn(() => (<div></div>));
-        reactstrap.Button = jest.fn(() => (<div></div>));
-
-        mockGetUser = jest.fn(() => 'somevalue');
         const props = {
-            user: {},
-            getUser: mockGetUser,
-            loaded: true,
+            getUser,
+            followUser,
+            unfollowUser,
+            deletePhoto,
+            resetPosts,
+            getPostsAsync,
+            deleteUser,
+            emitNewNotificationSocket,
+
         };
 
-        reactContentLoader.Instagram = jest.fn(() => <div></div>);
-        renderer = shallow(<Profile {...props} />);
+        renderer = shallow(<Profile {...{...profileState, ...props}} />);
     });
 
     test('componentDidMount - success', () => {
         renderer.instance().componentDidMount();
-        expect(mockGetUser).toHaveReturnedWith('somevalue');
+        expect(getUser).toHaveReturnedWith('some value');
     });
 
     test('componentDidUpdate - success', () => {
-        renderer.instance().componentDidUpdate({ loaded: false });
-        expect(renderer.instance().timerHandle).toBe(7);
+        renderer.instance().componentDidUpdate({ loaded: true }, {}, {});
+        expect(renderer.instance().timerHandle).toBe(0);
     });
 
     test('componentWillUnmount - success', () => {
@@ -40,6 +46,6 @@ describe('Profile component:', () => {
     });
 
     test('render - success', () => {
-        expect(renderer.html()).toHaveLength(11);
+        expect(renderer).toMatchSnapshot();
     });
 });

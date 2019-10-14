@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Comments component render - success 1`] = `ShallowWrapper {}`;
+
+exports[`Comments component render with redux - success 1`] = `ShallowWrapper {}`;

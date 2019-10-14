@@ -1,5 +1,4 @@
-import { renderField } from './ReduxFormFields'; // tslint:disable-line:no-unused-variable
-import * as reactstrap from 'reactstrap';
+import { renderField } from './ReduxFormFields';
 
 import { shallow } from 'enzyme';
 import React from 'react';
@@ -16,14 +15,16 @@ describe('renderField component:', () => {
         },
     };
 
-    let renderer;
+    let renderer: any;
+    let Input: any;
 
     beforeEach(() => {
-        reactstrap.Input = jest.fn(() => (<div></div>));
+        Input = jest.fn(() => (<div></div>));
+        // @ts-ignore
         renderer = shallow(<renderField {...props} />);
     });
 
     test('render - success', () => {
-        expect(renderer.html()).toHaveLength(137);
+        expect(renderer).toMatchSnapshot();
     });
 });

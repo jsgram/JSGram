@@ -3,10 +3,10 @@ import { PostPhoto } from './index';
 import { shallow } from 'enzyme';
 
 describe('PostPost component', () => {
-    let renderer;
-    const mockCroppedImage = 'somevalue'
-    const mockDescription = 'somevalue'
-    const mockSetDescForPost = jest.fn(() => ('somevalue'));
+    let renderer: any;
+    const mockCroppedImage = 'some value';
+    const mockDescription = 'some value';
+    const mockSetDescForPost = jest.fn(() => ('some value'));
 
     beforeEach(() => {
         renderer = shallow(<PostPhoto
@@ -15,7 +15,7 @@ describe('PostPost component', () => {
             setDescriptionForPost={mockSetDescForPost}/>);
     });
 
-    test('render-success', () => {
-        expect(renderer.html()).toHaveLength(373);
+    test('render - success', () => {
+        expect(renderer.html()).toMatchSnapshot();
     });
 });
