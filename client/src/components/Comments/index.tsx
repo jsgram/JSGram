@@ -187,7 +187,7 @@ export class Comments extends React.Component<ICommentsProps> {
     public render(): JSX.Element {
         return (
             <div className='flex-grow-1 comments border-top'>
-                {this.props.allCommentsId && this.props.allCommentsId.map((commentId: any) => (
+                {this.props.allCommentsId && this.props.allCommentsId.map((commentId: string) => (
                     <div key={commentId} className='comment'>
                         {
                             this.props.comments[commentId].postId === this.props.postId &&
