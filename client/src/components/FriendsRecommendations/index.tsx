@@ -7,6 +7,7 @@ export interface IUser {
     photoPath: string;
     _id: string;
     username: string;
+    alreadyFollow: boolean;
 }
 
 export interface IFriendsRecommendation {
