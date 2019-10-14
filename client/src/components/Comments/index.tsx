@@ -183,18 +183,16 @@ export class Comments extends React.Component<ICommentsProps> {
 
     public render(): JSX.Element {
         return (
-            <div className='flex-grow-1 comments border-top position-relative'>
-                <div className='position-absolute h-100 w-100'>
-                    {this.props.allCommentsId && this.props.allCommentsId.map((commentId: any) => (
-                        <div key={commentId}>
-                            {
-                                this.props.comments[commentId].postId === this.props.postId &&
-                                this.renderCommentsTemplate(this.props.comments[commentId])
-                            }
-                        </div>
-                    ))}
-                    {this.getComments()}
-                </div>
+            <div className='flex-grow-1 comments border-top'>
+                {this.props.allCommentsId && this.props.allCommentsId.map((commentId: string) => (
+                    <div key={commentId} className='comment'>
+                        {
+                            this.props.comments[commentId].postId === this.props.postId &&
+                            this.renderCommentsTemplate(this.props.comments[commentId])
+                        }
+                    </div>
+                ))}
+                {this.getComments()}
             </div>
         );
     }

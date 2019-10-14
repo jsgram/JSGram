@@ -82,6 +82,12 @@ blocks:
             value: 'http://localhost:8080/auth/google/callback'
           - name: STATIC_PATH
             value: 'somefakestaticpath'
+          - name: FACEBOOK_APP_ID
+            value: 'somesecretfacebookappid'
+          - name: FACEBOOK_APP_SECRET
+            value: 'somesecretfacebookappsecret'
+          - name: FACEBOOK_CALLBACK_URL
+            value: 'somefacebookcallbackurl'
       jobs:
         - name: BE test
           commands:

@@ -21,7 +21,7 @@ export const generatePassword = (): string => {
     return Math.random().toString(RADIX).slice(PASSWORD_LENGTH_FROM_END);
 };
 
-export const createGoogleUser = (email: string, name: string): IGoogleUser => {
+export const createSocialUser = (email: string, name: string): IGoogleUser => {
     const newUser = new User();
     newUser.email = email;
     newUser.fullName = name;

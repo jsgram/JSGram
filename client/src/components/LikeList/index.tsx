@@ -17,7 +17,7 @@ interface IProps {
     getLikeListAsync: () => void;
     getMoreLikeListAsync: (page: number) => void;
     addNextLikeList: (pageNumber: number) => void;
-    loggedId: string;
+    headerText: string;
 }
 
 export class LikeList extends React.Component<IProps> {
@@ -33,14 +33,14 @@ export class LikeList extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        const {likeList}: IProps = this.props;
+        const {likeList, headerText}: IProps = this.props;
         return (
             <Container>
                 <Menu/>
                 <Row className='d-flex justify-content-center'>
                     <Col sm={6} md={6}>
                         <h3 className='font-weight-light text-secondary text-uppercase text-center mb-4'>
-                            Posts You've liked
+                            {headerText}
                         </h3>
                         {
                             likeList.feed.map((feed: INewsFeed) => {

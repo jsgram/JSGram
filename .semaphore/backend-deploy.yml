@@ -33,7 +33,9 @@ blocks:
         - name: BE deploy
           commands:
             - >
-              [[ $SEMAPHORE_GIT_BRANCH =~ 'dev|master' ]] && export PUSH_BRANCH=$SEMAPHORE_GIT_BRANCH || export PUSH_BRANCH='dev'
+              [[ $SEMAPHORE_GIT_BRANCH = 'dev' || $SEMAPHORE_GIT_BRANCH = 'master' ]]
+              && export PUSH_BRANCH=$SEMAPHORE_GIT_BRANCH
+              || export PUSH_BRANCH='dev'
 
             - cd server
             - cache restore server-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),server-node-modules-$SEMAPHORE_GIT_BRANCH,server-node-modules-master

@@ -1,9 +1,8 @@
 import React from 'react';
 import MenuContainer, { Menu } from './index';
 import configureStore from 'redux-mock-store';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 
 describe('Menu component', () => {
     let renderer: any;
