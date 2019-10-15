@@ -1,29 +1,69 @@
-import {userExist, verificateUser, changePassword, checkUserByProp} from '../user.requests';
+import {
+    userExist,
+    checkUserByProp,
+    editUser,
+    editUserPassword,
+    getUserByUsername,
+} from '../user.requests';
 
-describe.skip('User CRUD:', () => {
-    // TODO do me
-    // TODO fix DB connection issue
-    test('user exists', () => {
-        /* */
+import mockingoose from 'mockingoose';
+import {IUserModel, User} from '../../models/user.model';
+
+type IFakeNext = () => void;
+
+describe('User requests tests:', () => {
+    let fakeNext: IFakeNext;
+
+    beforeEach(() => {
+        fakeNext = jest.fn(() => { /* */
+        });
     });
 
-    test('user does not exist', () => {
-        /* */
+    test('userExist test', async () => {
+        mockingoose(User).toReturn(null, 'findOneAndUpdate');
+        const fakeUser = User.findOneAndUpdate();
+
+        const mockUser = jest.spyOn(User, 'findOneAndUpdate');
+        mockUser.mockReturnValue(fakeUser);
+
+        const answer = await userExist('email', fakeNext);
+    });
+    test('checkUserByProp test', async () => {
+        mockingoose(User).toReturn(null, 'findOne');
+        const fakeUser = User.findOne();
+
+        const mockUser = jest.spyOn(User, 'findOne');
+        mockUser.mockReturnValue(fakeUser);
+
+        const answer = await checkUserByProp('someProp', fakeNext);
     });
 
-    test('user is verified', () => {
-        /* */
+    test('editUser test', async () => {
+        mockingoose(User).toReturn(null, 'findOneAndUpdate');
+        const fakeUser = User.findOneAndUpdate();
+
+        const mockUser = jest.spyOn(User, 'findOneAndUpdate');
+        mockUser.mockReturnValue(fakeUser);
+
+        const answer = await editUser('someEmail', {}, fakeNext);
     });
 
-    test('user cannot be verified', () => {
-        /* */
-    });
+    test('editUserPassword test', async () => {
+        mockingoose(User).toReturn(null, 'findOneAndUpdate');
+        const fakeUser = User.findOneAndUpdate();
 
-    test('password changed', () => {
-        /* */
-    });
+        const mockUser = jest.spyOn(User, 'findOneAndUpdate');
+        mockUser.mockReturnValue(fakeUser);
 
-    test('password cannot be changed', () => {
-        /* */
+        const answer = await editUserPassword('someUsername', 'somePassword');
+    });
+    test('getUserByUsername test', async () => {
+        mockingoose(User).toReturn(null, 'findOne');
+        const fakeUser = User.findOne();
+
+        const mockUser = jest.spyOn(User, 'findOne');
+        mockUser.mockReturnValue(fakeUser);
+
+        const answer = await getUserByUsername('someUsername', fakeNext);
     });
 });
