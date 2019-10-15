@@ -5,7 +5,7 @@ import { Comment } from '../models/comment.model';
 import { Like } from '../models/like.model';
 
 export const deleteUser = async (userId: string, next: NextFunction):
-    Promise<IUserModel | void> => {
+    Promise<IUserModel | void | null> => {
     try {
         const deletedUser = await User.findByIdAndRemove(userId);
 
