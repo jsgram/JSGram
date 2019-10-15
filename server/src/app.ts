@@ -1,6 +1,6 @@
 import './helpers/globals';
 
-import express, { Application, Request, Response } from 'express';
+import express, {Application, NextFunction, Request, Response} from 'express';
 import passport from 'passport';
 import cors from 'cors';
 import path from 'path';
@@ -39,7 +39,7 @@ const app: Application = express();
 export const server = http.createServer(app);
 export const io = socketIo(server);
 
-app.use(cors({credentials: true, origin: process.env.FRONT_PATH}));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(passport.initialize());
