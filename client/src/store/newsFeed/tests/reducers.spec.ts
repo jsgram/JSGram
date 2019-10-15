@@ -116,4 +116,19 @@ describe('NewsFeed reducer test', () => {
             },
         });
     });
+
+    it('GET_RECOMMENDATIONS_SUCCESS', () => {
+        const action: any = {
+            type: types.GET_RECOMMENDATIONS_SUCCESS,
+            payload: [],
+        };
+        expect(newsFeedReducer(defaultState, action)).toEqual({
+            ...defaultState,
+            friendsRecommendations: {
+                ...defaultState.friendsRecommendations,
+                users: [],
+                loading: false,
+            },
+        });
+    });
 });
