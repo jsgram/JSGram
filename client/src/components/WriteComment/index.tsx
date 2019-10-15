@@ -11,8 +11,8 @@ import { IComments } from '../../store/comments/reducers';
 import { clearSearchResults, getSearchResults, addNextResults } from '../../store/search/actions';
 import noAvatar from '../../assets/noAvatar.png';
 import { Waypoint } from 'react-waypoint';
-import { MENTIONS_REGEX } from '../../helpers/regex.description';
 import { ISearchState } from '../../store/search/reducers';
+import { checkForMentions, onResultClick, getMoreResults } from '../../helpers/timer';
 
 interface IProps {
     loggedId: string;
@@ -61,6 +61,7 @@ export class WriteComment extends React.Component<IProps> {
         isModalOpen: false,
         searchValue: '',
     };
+
     public timer: any;
 
     public componentWillUnmount = (): void => {
@@ -71,46 +72,8 @@ export class WriteComment extends React.Component<IProps> {
     }
 
     public onCommentChange = (postId: string, event: React.ChangeEvent<HTMLTextAreaElement>): void => {
-        clearTimeout(this.timer);
-        const FIRST_PAGE = 1;
         this.props.onChangeComment(postId, event.target.value);
-        const mentions: any = event.target.value.match(MENTIONS_REGEX);
-        if (mentions) {
-            const query: string = mentions.pop();
-            this.setState({searchValue: query});
-            if (this.state.searchValue !== query) {
-                this.timer = setTimeout(() => {
-                    this.timer = null;
-                    this.props.getSearchResults(query.slice(1), FIRST_PAGE);
-                    this.toggle(query);
-                }, 500);
-            } else {
-                this.toggle('');
-            }
-        } else {
-            this.toggle('');
-        }
-    }
-
-    public getMoreResults = (): void => {
-        const comment = this.props.onChangeComments.filter((info: { postId: string }) =>
-                        this.props.postId === info.postId)[0].comment;
-        const mentions: any = comment.match(MENTIONS_REGEX);
-        const query: string = mentions.pop();
-        this.props.addNextResults(this.props.page + 1);
-        this.props.getSearchResults(query.slice(1), this.props.page);
-    }
-
-    public onUserSelect = (e: React.MouseEvent, username: string): void => {
-        const comment = this.props.onChangeComments.filter((info: { postId: string }) =>
-                        this.props.postId === info.postId)[0].comment;
-        const mentions: any = comment.match(MENTIONS_REGEX);
-        const query: any = mentions.pop();
-        const updComment = comment.replace(new RegExp(query + '$'), `@${username}`);
-        this.props.onChangeComment(this.props.postId, updComment);
-        this.setState({searchValue: `@${username}`});
-        this.props.clearSearchResults();
-        this.toggle('');
+        checkForMentions(event.target.value, this);
     }
 
     public onAddComment = (postId: string, commentValue: string): void => {
@@ -168,8 +131,8 @@ export class WriteComment extends React.Component<IProps> {
                     <DropdownToggle tag='a' className='nav-link m-0 p-0'/>
                     <DropdownMenu className='scrollable-menu col-12 mb-5'>
                         {this.props.searchResults.map((user: any) =>
-                        <div key={user._id} onClick={(e: React.MouseEvent): void => {
-                            this.onUserSelect(e, user.username);
+                        <div key={user._id} onClick={(): void => {
+                            onResultClick(commentInfo[0].comment, user.username, this.props.onChangeComment, this);
                         }}>
                                 <div className='w-100'>
                                 <DropdownItem className='p-md-2 p-1 d-flex align-items-center'>
@@ -192,7 +155,7 @@ export class WriteComment extends React.Component<IProps> {
                                 {!this.props.loaded && !this.props.loading &&
                                 <Waypoint
                                     onEnter={(): void => {
-                                        this.getMoreResults();
+                                        getMoreResults(commentInfo[0].comment, this);
                                     }}
                                 />}
                     </DropdownMenu>
