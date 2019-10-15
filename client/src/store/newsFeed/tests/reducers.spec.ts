@@ -126,7 +126,7 @@ describe('NewsFeed reducer test', () => {
             ...defaultState,
             friendsRecommendations: {
                 ...defaultState.friendsRecommendations,
-                users: [],
+                users: [...action.payload],
                 loading: false,
             },
         });
