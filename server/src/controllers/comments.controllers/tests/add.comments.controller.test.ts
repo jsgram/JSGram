@@ -3,6 +3,7 @@ import { request, response } from 'express';
 import mockingoose from 'mockingoose';
 import * as commentRequests from '../../../db.requests/add.comments.requests';
 import { Comment, ICommentModel } from '../../../models/comment.model';
+import { Post, IPostModel} from '../../../models/post.model';
 
 type IResolve<T> = (value: T) => void;
 
@@ -13,9 +14,16 @@ describe('Add comment controller:', () => {
         mockingoose(Comment).toReturn({}, 'findOne');
         const fakeComment: ICommentModel = await Comment.findOne({}) as ICommentModel;
 
+        mockingoose(Post).toReturn({}, 'findOne');
+        const fakeCommentId: IPostModel = await Post.findOne({}) as IPostModel;
+
         const mockCreateComment = jest.spyOn(commentRequests, 'createComment');
-        const answer = new Promise((res: IResolve<ICommentModel>): void => res(fakeComment));
-        mockCreateComment.mockReturnValue(answer);
+        const input = new Promise((res: IResolve<ICommentModel>): void => res(fakeComment));
+        mockCreateComment.mockReturnValue(input);
+
+        const mockAddCommentIdToPost = jest.spyOn(commentRequests, 'addCommentIdToPost');
+        const answer = new Promise((res: IResolve<IPostModel>): void => res(fakeCommentId));
+        mockAddCommentIdToPost.mockReturnValue(answer);
 
         request.body = {
             postId: 'some post id',
@@ -25,9 +33,11 @@ describe('Add comment controller:', () => {
         response.json = jest.fn(() => response);
 
         await addComments(request, response, fakeNext);
-        expect(response.json).toHaveBeenCalledTimes(0);
+        expect(response.json).toHaveBeenCalledTimes(1);
     });
     test('add comment - failure', async () => {
+        const mockAddCommentIdToPost = jest.spyOn(commentRequests, 'addCommentIdToPost');
+        mockAddCommentIdToPost.mockReturnValue(new Promise((res: IResolve<null>): void => res(null)));
         request.body = {
             postId: '',
             authorId: '',
