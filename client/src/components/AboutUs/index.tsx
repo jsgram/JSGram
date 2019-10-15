@@ -29,7 +29,7 @@ export const AboutUs = (): ReactElement => (
                             <img
                                 src={team.image}
                                 height={300}
-                                className='w-100 px-2'
+                                className='w-100 px-2 photo-team'
                                 alt='user'/>
                             <CardBody>
                                 <CardText>{team.info}</CardText>
