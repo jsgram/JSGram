@@ -14,8 +14,8 @@ describe('Get comments controller', () => {
         const fakeComment: ICommentModel[] = await Comment.find({}) as ICommentModel[];
 
         const mockComment = jest.spyOn(commentRequests, 'getCommentsWithPagination');
-        const value1 = new Promise((res: IResolve<ICommentModel[]>): void => res(fakeComment));
-        mockComment.mockReturnValue(value1);
+        const answer = new Promise((res: IResolve<ICommentModel[]>): void => res(fakeComment));
+        mockComment.mockReturnValue(answer);
 
         request.params = {
             postId: 'some id',

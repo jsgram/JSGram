@@ -14,12 +14,12 @@ describe('Follower controller:', () => {
         const fakeFollower: IUserModel = await User.findOne({}) as IUserModel;
 
         const mockFollower = jest.spyOn(subscribeRequests, 'findUser');
-        const value1 = new Promise((res: IResolve<IUserModel>): void => res(fakeFollower));
-        mockFollower.mockReturnValue(value1);
+        const input = new Promise((res: IResolve<IUserModel>): void => res(fakeFollower));
+        mockFollower.mockReturnValue(input);
 
         const mockFindSubsc = jest.spyOn(subscribeRequests, 'findSubscribers');
-        const value2 = new Promise((res: IResolve<IUserModel>): void => res(fakeFollower));
-        mockFindSubsc.mockReturnValue(value2);
+        const answer = new Promise((res: IResolve<IUserModel>): void => res(fakeFollower));
+        mockFindSubsc.mockReturnValue(answer);
 
         request.params = {
             username: 'some name',

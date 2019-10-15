@@ -2,7 +2,7 @@ import { NextFunction } from 'express';
 import { ILikeModel, Like } from '../models/like.model';
 import { IPostModel, Post } from '../models/post.model';
 
-export const countLike = async (postId: string, userId: string, next: NextFunction): Promise<number | undefined> => {
+export const countLike = async (postId: string, userId: string, next: NextFunction): Promise<ILikeModel | number | undefined> => {
     try {
         return await Like.countDocuments({postId, userId});
     } catch (e) {

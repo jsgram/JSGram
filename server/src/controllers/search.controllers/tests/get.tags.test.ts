@@ -14,8 +14,8 @@ describe('Get tag controller:', () => {
         const fakeTag: ITagModel = await Tag.findOne({}) as ITagModel;
 
         const mockTag = jest.spyOn(searchRequests, 'findTags');
-        const value1 = new Promise((res: IResolve<ITagModel>): void => res(fakeTag));
-        mockTag.mockReturnValue(value1);
+        const answer = new Promise((res: IResolve<ITagModel>): void => res(fakeTag));
+        mockTag.mockReturnValue(answer);
 
         request.params = {
             query: 'some query',

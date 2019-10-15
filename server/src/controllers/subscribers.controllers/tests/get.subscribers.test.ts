@@ -14,12 +14,12 @@ describe('Get subscribers controller:', () => {
         const fakeSubscribers: IUserModel = await User.findOne({}) as IUserModel;
 
         const mockSubscriber = jest.spyOn(subscribeRequests, 'findUser');
-        const value1 = new Promise((res: IResolve<IUserModel>): void => res(fakeSubscribers));
-        mockSubscriber.mockReturnValue(value1);
+        const input = new Promise((res: IResolve<IUserModel>): void => res(fakeSubscribers));
+        mockSubscriber.mockReturnValue(input);
 
         const mockFindSubscriber = jest.spyOn(subscribeRequests, 'findSubscribers');
-        const value2 = new Promise((res: IResolve<IUserModel>): void => res(fakeSubscribers));
-        mockFindSubscriber.mockReturnValue(value2);
+        const answer = new Promise((res: IResolve<IUserModel>): void => res(fakeSubscribers));
+        mockFindSubscriber.mockReturnValue(answer);
 
         response.json = jest.fn(() => response);
 

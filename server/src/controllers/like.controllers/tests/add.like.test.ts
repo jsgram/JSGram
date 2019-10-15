@@ -6,8 +6,7 @@ import { Like, ILikeModel } from '../../../models/like.model';
 
 type IResolve<T> = (value: T) => void;
 
-const fakeNext = jest.fn(() => { /* */
-});
+const fakeNext = jest.fn(() => { /* */});
 
 describe('Add like controller:', () => {
     test('add like - success', async () => {
@@ -15,13 +14,12 @@ describe('Add like controller:', () => {
         const fakeLike: ILikeModel = await Like.findOne({}) as ILikeModel;
 
         const mockCountLike = jest.spyOn(likeRequests, 'countLike');
-        const value1 = new Promise((res: IResolve<ILikeModel>): void => res(fakeLike));
-        // @ts-ignore
-        mockCountLike.mockReturnValue(value1);
+        const input = new Promise((res: IResolve<ILikeModel>): void => res(fakeLike));
+        mockCountLike.mockReturnValue(input);
 
         const mockCreateLike = jest.spyOn(likeRequests, 'createLike');
-        const value2 = new Promise((res: IResolve<ILikeModel>): void => res(fakeLike));
-        mockCreateLike.mockReturnValue(value2);
+        const answer = new Promise((res: IResolve<ILikeModel>): void => res(fakeLike));
+        mockCreateLike.mockReturnValue(answer);
 
         request.body = {
             postId: 'some post id',

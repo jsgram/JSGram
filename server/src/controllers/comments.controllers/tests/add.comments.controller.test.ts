@@ -14,8 +14,8 @@ describe('Add comment controller:', () => {
         const fakeComment: ICommentModel = await Comment.findOne({}) as ICommentModel;
 
         const mockCreateComment = jest.spyOn(commentRequests, 'createComment');
-        const value1 = new Promise((res: IResolve<ICommentModel>): void => res(fakeComment));
-        mockCreateComment.mockReturnValue(value1);
+        const answer = new Promise((res: IResolve<ICommentModel>): void => res(fakeComment));
+        mockCreateComment.mockReturnValue(answer);
 
         request.body = {
             postId: 'some post id',

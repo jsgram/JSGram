@@ -14,8 +14,8 @@ describe('Get user controller:', () => {
         const fakeUser: IUserModel = await User.findOne({}) as IUserModel;
 
         const mockUser = jest.spyOn(searchRequests, 'findUsers');
-        const value1 = new Promise((res: IResolve<IUserModel>): void => res(fakeUser));
-        mockUser.mockReturnValue(value1);
+        const answer = new Promise((res: IResolve<IUserModel>): void => res(fakeUser));
+        mockUser.mockReturnValue(answer);
 
         request.params = {
             query: 'some query',

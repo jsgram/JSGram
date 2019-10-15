@@ -6,8 +6,7 @@ import { Post, IPostModel } from '../../../models/post.model';
 
 type IResolve<T> = (value: T) => void;
 
-const fakeNext = jest.fn(() => { /* */
-});
+const fakeNext = jest.fn(() => { /* */});
 
 describe('Update post controller:', () => {
     test('update post - success', async () => {
@@ -15,14 +14,26 @@ describe('Update post controller:', () => {
         const fakePost: IPostModel = await Post.findOne({}) as IPostModel;
 
         const mockUpdatePost = jest.spyOn(postRequests, 'updatePost');
-        const value1 = new Promise((res: IResolve<IPostModel>): void => res(fakePost));
-        mockUpdatePost.mockReturnValue(value1);
+        const answer = new Promise((res: IResolve<IPostModel>): void => res(fakePost));
+        mockUpdatePost.mockReturnValue(answer);
 
         request.params = {
-            id: 'some id',
-            description: 'some description',
+            id: {
+                postId: 'some post id',
+            },
+            body: {
+                description: 'some description',
+            },
         };
 
+        response.locals = {
+            user: {
+                id: {
+                    userId: 'some user id',
+                    isAdmin: true,
+                },
+            },
+        };
         response.json = jest.fn(() => response);
 
         await update(request, response, fakeNext);

@@ -6,8 +6,7 @@ import { Post } from '../../../models/post.model';
 
 type IResolve<T> = (value: T) => void;
 
-const fakeNext = jest.fn(() => { /* */
-});
+const fakeNext = jest.fn(() => { /* */});
 
 describe('Get feed controller:', () => {
     test('get feed - success', async () => {
@@ -21,9 +20,16 @@ describe('Get feed controller:', () => {
         request.params = {
             page: 1,
         };
+
+        response.locals = {
+            user: {
+                following: 'some following',
+                _id: 'some id',
+            },
+        };
         response.json = jest.fn(() => response);
 
         await getFeed(request, response, fakeNext);
-        expect(response.json).toHaveBeenCalledTimes(0);
+        expect(response.json).toHaveBeenCalledTimes(1);
     });
 });

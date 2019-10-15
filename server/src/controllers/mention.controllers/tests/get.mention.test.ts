@@ -14,15 +14,21 @@ describe('Get mention controller:', () => {
         const fakeMention: IPostModel = await Post.findOne({}) as IPostModel;
 
         const mockCreateComment = jest.spyOn(mentionRequests, 'findMention');
-        const value1 = new Promise((res: IResolve<IPostModel>): void => res(fakeMention));
-        mockCreateComment.mockReturnValue(value1);
+        const answer = new Promise((res: IResolve<IPostModel>): void => res(fakeMention));
+        mockCreateComment.mockReturnValue(answer);
 
         request.params = {
             page: 1,
         };
+
+        response.locals = {
+            user: {
+                username: 'some username',
+            },
+        };
         response.json = jest.fn(() => response);
 
         await getMention(request, response, fakeNext);
-        expect(response.json).toHaveBeenCalledTimes(0);
+        expect(response.json).toHaveBeenCalledTimes(1);
     });
 });

@@ -14,8 +14,8 @@ describe('Find post by id controller:', () => {
         const fakePost: IPostModel = await Post.findOne({}) as IPostModel;
 
         const mockByIdPost = jest.spyOn(postRequests, 'findPostById');
-        const value1 = new Promise((res: IResolve<IPostModel>): void => res(fakePost));
-        mockByIdPost.mockReturnValue(value1);
+        const answer = new Promise((res: IResolve<IPostModel>): void => res(fakePost));
+        mockByIdPost.mockReturnValue(answer);
 
         request.params = {
             id: 'some id',

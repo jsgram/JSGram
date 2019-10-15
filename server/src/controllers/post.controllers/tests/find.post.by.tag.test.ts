@@ -14,8 +14,8 @@ describe('Find post by tag controller:', () => {
         const fakeTag: ITagModel = await Tag.findOne({}) as ITagModel;
 
         const mockByTagPost = jest.spyOn(postRequests, 'findPostByTag');
-        const value1 = new Promise((res: IResolve<ITagModel>): void => res(fakeTag));
-        mockByTagPost.mockReturnValue(value1);
+        const answer = new Promise((res: IResolve<ITagModel>): void => res(fakeTag));
+        mockByTagPost.mockReturnValue(answer);
 
         request.params = {
             tagName: 'some tag name',

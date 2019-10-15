@@ -6,8 +6,7 @@ import { Comment, ICommentModel } from '../../../models/comment.model';
 
 type IResolve<T> = (value: T) => void;
 
-const fakeNext = jest.fn(() => { /* */
-});
+const fakeNext = jest.fn(() => { /* */});
 
 describe('Delete comments controller', () => {
     test('delete comment - success', async () => {
@@ -15,12 +14,12 @@ describe('Delete comments controller', () => {
         const fakeComment: ICommentModel = await Comment.findOne({}) as ICommentModel;
 
         const mockDeletedComment = jest.spyOn(commentRequests, 'deleteComment');
-        const value1 = new Promise((res: IResolve<ICommentModel>): void => res(fakeComment));
-        mockDeletedComment.mockReturnValue(value1);
+        const input = new Promise((res: IResolve<ICommentModel>): void => res(fakeComment));
+        mockDeletedComment.mockReturnValue(input);
 
         const mockUpdatedPost = jest.spyOn(commentRequests, 'deleteCommentFromPost');
-        const value2 = new Promise((res: IResolve<ICommentModel>): void => res(fakeComment));
-        mockUpdatedPost.mockReturnValue(value2);
+        const answer = new Promise((res: IResolve<ICommentModel>): void => res(fakeComment));
+        mockUpdatedPost.mockReturnValue(answer);
 
         request.params = {
             id: 'some id',
@@ -30,13 +29,22 @@ describe('Delete comments controller', () => {
             authorId: 'some author id',
         };
 
+        response.locals = {
+            user: {
+                id: 'some id',
+                isAdmin: true,
+            },
+        };
+
         response.json = jest.fn(() => response);
 
         await deleteComments(request, response, fakeNext);
-        expect(response.json).toHaveBeenCalledTimes(0);
+        expect(response.json).toHaveBeenCalledTimes(1);
     });
 
     test('delete comments - failure', async () => {
+        const mockUpdatedPost = jest.spyOn(commentRequests, 'deleteCommentFromPost');
+        mockUpdatedPost.mockReturnValue(new Promise((res: IResolve<null>): void => res(null)));
         request.params = {
             id: '',
         };
@@ -45,8 +53,15 @@ describe('Delete comments controller', () => {
             authorId: '',
         };
 
+        response.locals = {
+            user: {
+                id: '',
+                isAdmin: true,
+            },
+        };
+
         const answer = {
-            message: 'Cannot destructure property `user` of \'undefined\' or \'null\'.',
+            message: 'Cannot delete comment  from post undefined.',
             status: 409,
         };
 

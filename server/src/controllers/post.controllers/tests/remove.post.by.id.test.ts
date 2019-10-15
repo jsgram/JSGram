@@ -14,14 +14,22 @@ describe('Delete post controller:', () => {
         const fakePost: IPostModel = await Post.findOne({}) as IPostModel;
 
         const mockDeletePost = jest.spyOn(postRequests, 'deletePost');
-        const value1 = new Promise((res: IResolve<IPostModel>): void => res(fakePost));
-        mockDeletePost.mockReturnValue(value1);
+        const answer = new Promise((res: IResolve<IPostModel>): void => res(fakePost));
+        mockDeletePost.mockReturnValue(answer);
 
         request.params = {
             id: 'some id',
             body: 'some body',
         };
 
+        response.locals = {
+            user: {
+                id: {
+                    userId: 'some user id',
+                    isAdmin: true,
+                },
+            },
+        };
         response.json = jest.fn(() => response);
 
         await remove(request, response, fakeNext);

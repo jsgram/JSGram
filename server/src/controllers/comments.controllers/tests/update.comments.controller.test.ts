@@ -7,7 +7,7 @@ import { updateComment } from '../../../db.requests/update.comment.request';
 
 type IResolve<T> = (value: T) => void;
 
-const fakeNext = jest.fn(() => { /* */ });
+const fakeNext = jest.fn(() => { /* */});
 
 describe('Update comment controller:', () => {
     test('update comment - success', async () => {
@@ -15,8 +15,8 @@ describe('Update comment controller:', () => {
         const fakeComment: ICommentModel = await Comment.findOne({}) as ICommentModel;
 
         const mockUpdatedComment = jest.spyOn(commentRequests, 'updateComment');
-        const value1 = new Promise((res: IResolve<ICommentModel>): void => res(fakeComment));
-        mockUpdatedComment.mockReturnValue(value1);
+        const answer = new Promise((res: IResolve<ICommentModel>): void => res(fakeComment));
+        mockUpdatedComment.mockReturnValue(answer);
 
         request.params = {
             id: 'some id',
@@ -25,12 +25,21 @@ describe('Update comment controller:', () => {
             comment: 'some comment',
             email: 'some email',
         };
+
+        response.locals = {
+            user: {
+                email: 'some email',
+                isAdmin: true,
+            },
+        };
         response.json = jest.fn(() => response);
 
         await update(request, response, fakeNext);
-        expect(response.json).toHaveBeenCalledTimes(0);
+        expect(response.json).toHaveBeenCalledTimes(1);
     });
     test('update comment - failure', async () => {
+        const mockUpdatedComment = jest.spyOn(commentRequests, 'updateComment');
+        mockUpdatedComment.mockReturnValue(new Promise((res: IResolve<null>): void => res(null)));
         request.params = {
             id: '',
         };
@@ -39,8 +48,15 @@ describe('Update comment controller:', () => {
             email: '',
         };
 
+        response.locals = {
+            user: {
+                email: '',
+                isAdmin: true,
+            },
+        };
+
         const answer = {
-            message: 'Cannot destructure property `user` of \'undefined\' or \'null\'.',
+            message: 'Comment doesn\'t exist',
             status: 409,
         };
 
