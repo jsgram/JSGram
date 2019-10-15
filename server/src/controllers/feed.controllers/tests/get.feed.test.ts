@@ -14,8 +14,8 @@ describe('Get feed controller:', () => {
         const fakeFeed: object[] = await Post.find({}) as object[];
 
         const mockCountLike = jest.spyOn(getRequests, 'getPostsForFeed');
-        const value1 = new Promise((res: IResolve<object[]>): void => res(fakeFeed));
-        mockCountLike.mockReturnValue(value1);
+        const answer = new Promise((res: IResolve<object[]>): void => res(fakeFeed));
+        mockCountLike.mockReturnValue(answer);
 
         request.params = {
             page: 1,
