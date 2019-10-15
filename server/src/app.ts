@@ -1,6 +1,6 @@
 import './helpers/globals';
 
-import express, {Application, NextFunction, Request, Response} from 'express';
+import express, {Application, Request, Response} from 'express';
 import passport from 'passport';
 import cors from 'cors';
 import path from 'path';
