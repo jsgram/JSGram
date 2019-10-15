@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { IUser } from '../commonInterfaces/commonInterfaces';
 import { setToken, TOKEN } from './setToken.helper';
 import { history } from '../../history';
-import { GET_USER_PENDING, GET_USER_SUCCESS, GET_USER_ERROR } from '../profile/actionTypes';
+import { GET_USER_PENDING, GET_USER_SUCCESS, GET_USER_ERROR, USER_LOGOUT } from '../profile/actionTypes';
 import { IUserData } from '../../components/Profile';
 
 export const getUserPending = (): { type: string } => ({
@@ -19,6 +19,10 @@ export const getUserSuccess = (user: IUserData): { type: string, payload: any } 
 export const getUserError = (error: Error): { type: string, payload: Error } => ({
     type: GET_USER_ERROR,
     payload: error,
+});
+
+export const clearState = (): {type: string} => ({
+    type: USER_LOGOUT,
 });
 
 export const loginUser = (user: IUser): (dispatch: Dispatch) => Promise<void> =>
@@ -36,6 +40,7 @@ export const logOut = (): (dispatch: Dispatch) => Promise<void> =>
     async (dispatch: Dispatch): Promise<void> => {
         try {
             localStorage.removeItem(TOKEN);
+            dispatch(clearState());
         } catch (e) {
             dispatch(showAlert(e.response.data.message, 'danger'));
         }
