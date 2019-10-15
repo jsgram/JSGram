@@ -3,6 +3,7 @@ import passport from 'passport';
 import {encodeJWT} from '../../helpers/jwt.encoders';
 import {IUserModel} from '../../models/user.model';
 import {userExist} from '../../db.requests/user.requests';
+import {isCorrectPassword} from '../../helpers/hash.password';
 
 export const login = async (req: Request, res: Response, next: NextFunction,
 ): Promise<void> => {
@@ -10,6 +11,11 @@ export const login = async (req: Request, res: Response, next: NextFunction,
         const checkUser = await userExist(req.body.email, next);
         if (!checkUser) {
             throw new Error('User does not exist');
+        }
+
+        const verifiedPassword  = await isCorrectPassword(req.body.password, checkUser.password);
+        if (!verifiedPassword ) {
+            throw new Error('Wrong password');
         }
 
         if (!checkUser.isVerified) {

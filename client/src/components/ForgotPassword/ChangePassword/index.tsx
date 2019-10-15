@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
 import { renderField } from '../../CommonComponents/ReduxFormFields';
 
-export const ChangePasswordContainer = ({changePassword, match, handleSubmit, submitting}: FormProps): JSX.Element => {
+export const ChangePassword = ({changePassword, match, handleSubmit, submitting}: FormProps): JSX.Element => {
     const onSubmit = (password: string): void => {
         return changePassword(password, match.params.token);
     };
@@ -69,5 +69,5 @@ export default connect(
     reduxForm({
         form: 'changePassword',
         validate,
-    })(ChangePasswordContainer),
+    })(ChangePassword),
 );

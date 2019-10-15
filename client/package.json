@@ -28,7 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
@@ -78,7 +78,7 @@
     "@types/storybook__react": "^4.0.2",
     "custom-tslint-formatters": "^2.4.0",
     "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-adapter-react-16": "^1.15.1",
     "moxios": "^0.4.0",
     "node-sass": "^4.12.0",
     "normalizr": "^3.4.1",

@@ -39,9 +39,6 @@ interface ICommentInfo {
 
 interface IState {
     comments: ILocalState;
-    ownProps: {
-        postId: string;
-    };
     feed: IFeedState;
 }
 
@@ -202,7 +199,7 @@ export class Comments extends React.Component<ICommentsProps> {
     }
 }
 
-const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalState => ({
+export const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalState => ({
     postId: ownProps.postId,
     comments: state.comments.comments,
     authors: state.comments.authors,
@@ -213,7 +210,7 @@ const mapStateToProps = (state: IState, ownProps: { postId: string }): ILocalSta
     feed: state.feed,
 });
 
-const mapDispatchToProps = {
+export const mapDispatchToProps = {
     getComments,
     resetComments,
     editCommentAsync,

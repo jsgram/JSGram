@@ -3,26 +3,26 @@ import { Likes } from './index';
 import { shallow } from 'enzyme';
 
 describe('Likes component', () => {
-    let renderer;
+    let renderer: any;
 
     const props = {
-        userId: 'somevalue',
-        authorId: 'somevalue',
-        loggedUsername: 'somevalue',
-        postId: 'somevalue',
-        authorsOfLike: [] as never,
+        userId: 'some value',
+        authorId: 'some value',
+        loggedUsername: 'some value',
+        postId: 'some value',
+        authorsOfLike: [],
         loadingLike: true,
         loggedUserLikeExist: true,
-        addLike: jest.fn(() => 'somevalue'),
-        deleteLike: jest.fn(() => 'somevalue'),
-        emitNewNotificationSocket: jest.fn(() => 'somevalue'),
-    }
+        addLike: jest.fn(() => 'some value'),
+        deleteLike: jest.fn(() => 'some value'),
+        emitNewNotificationSocket: jest.fn(() => 'some value'),
+    };
 
     beforeEach(() => {
         renderer = shallow(<Likes {...props} />);
     });
 
-    test('render-success', () => {
-        expect(renderer.html()).toHaveLength(146);
+    test('render - success', () => {
+        expect(renderer).toMatchSnapshot();
     });
 });

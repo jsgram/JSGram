@@ -1,5 +1,5 @@
 import React from 'react';
-import FriendsRecommendationsList from './index';
+import FriendsRecommendations, { FriendsRecommendationsList } from './index';
 import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -7,14 +7,14 @@ import { BrowserRouter } from 'react-router-dom';
 
 describe('FriendsRecommendationsList smart component', () => {
     let renderer: any;
-    const mockStore = configureStore();
+    let store: any;
     const props = {
         friendsRecommendations: {
             users: [],
             loading: true,
         },
-        getRecommendations: jest.fn(() => 'somevalue'),
-        followUser: jest.fn(() => 'somevalue'),
+        getRecommendations: jest.fn(() => 'some value'),
+        followUser: jest.fn(() => 'some value'),
     };
     const initialState = {
         newsFeed: {
@@ -24,10 +24,10 @@ describe('FriendsRecommendationsList smart component', () => {
             },
         },
         profileEdit: {
-            newUsername: 'somevalue',
+            newUsername: 'some value',
         },
         feed: {
-            loggedUsername: 'somevalue',
+            loggedUsername: 'some value',
         },
         search: {
             searchResults: [],
@@ -35,13 +35,20 @@ describe('FriendsRecommendationsList smart component', () => {
     };
 
     beforeEach(() => {
-        const store = mockStore(initialState);
-        renderer = shallow(<Provider store={store}>
-            <BrowserRouter><FriendsRecommendationsList {...props}/></BrowserRouter>
-        </Provider>);
+        store = configureStore()(initialState);
+        renderer = shallow(<BrowserRouter><FriendsRecommendationsList {...props}/></BrowserRouter>);
     });
 
-    test('render-success', () => {
-        expect(renderer.html()).not.toHaveLength(0);
+    test('componentDidMount - success', () => {
+        renderer.instance().componentDidMount();
+        expect(props.getRecommendations).not.toBeCalled();
+    });
+
+    test('render - success', () => {
+        renderer = shallow(<Provider store={store}>
+            <BrowserRouter><FriendsRecommendations {...props}/></BrowserRouter>
+        </Provider>);
+
+        expect(renderer).toMatchSnapshot();
     });
 });

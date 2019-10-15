@@ -8,4 +8,8 @@
     transform: scale(1.05);
     transition: 1s;
   }
+
+  .photo-team {
+    object-fit: cover;
+  }
 }

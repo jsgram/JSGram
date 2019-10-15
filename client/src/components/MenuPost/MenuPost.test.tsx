@@ -1,25 +1,33 @@
 import React from 'react';
-import MenuPost from './index';
-import { mount } from 'enzyme';
+import MenuPostContainer, { MenuPost } from './index';
+import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
 describe('MenuPost component', () => {
-    let renderer;
+    let renderer: any;
     const props = {
-        post: jest.fn(() => 'somevalue'),
-        authorId: 'somevalue',
-        toggleEdit: jest.fn(() => 'somevalue'),
-        toggleModal: jest.fn(() => 'somevalue'),
-    }
-    const mockStore = configureStore();
+        post: jest.fn(() => 'some value'),
+        authorId: 'some value',
+        toggleEdit: jest.fn(() => 'some value'),
+        toggleModal: jest.fn(() => 'some value'),
+        deletePost: jest.fn(() => 'some value'),
+    };
+    let store: any;
 
     beforeEach(() => {
-        const store = mockStore();
-        renderer = mount(<Provider store={store}><MenuPost {...props} /></Provider>);
+        store = configureStore()(props);
+        renderer = shallow(<MenuPost {...props} />);
+    });
+
+    test('delete post handler - success', () => {
+        renderer.instance().deletePostHandler();
+        expect(props.toggleModal).toHaveReturnedWith('some value');
+        expect(props.deletePost).toHaveReturnedWith('some value');
     });
 
     test('render-success', () => {
-        expect(renderer.html()).toHaveLength(500);
+        renderer = shallow(<Provider store={store}><MenuPostContainer {...props} /></Provider>);
+        expect(renderer).toMatchSnapshot();
     });
 });

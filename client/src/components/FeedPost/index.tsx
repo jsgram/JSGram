@@ -22,7 +22,7 @@ interface IProps {
     getMoreNewsFeedAsync: (page: number) => void;
     addNextFeedPosts: (pageNumber: number) => void;
     getRecommendations: () => void;
-    followUser: (body: { _id: string }) => void;
+    changeUsersFollowing: (id: string, followType: string) => void;
     friendsRecommendations: any;
 }
 
@@ -40,7 +40,7 @@ export class FeedPost extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        const {loggedUsername, loggedPhotoPath, newsFeed, followUser}: any = this.props;
+        const {loggedUsername, loggedPhotoPath, newsFeed, changeUsersFollowing}: any = this.props;
 
         return (
             <Container>
@@ -126,7 +126,7 @@ export class FeedPost extends React.Component<IProps> {
                             <FriendsRecomendations
                                 loggedUsername={loggedUsername}
                                 friendsRecommendations={newsFeed.friendsRecommendations}
-                                followUser={followUser}
+                                changeUsersFollowing={changeUsersFollowing}
                             />}
                         </div>
                     </Col>

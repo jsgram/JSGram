@@ -18,7 +18,7 @@ export const deleteComment = async (commentId: string, next: NextFunction):
 };
 
 export const deleteCommentFromPost = async (postId: string, commentId: string, next: NextFunction):
-    Promise<IPostModel | void> => {
+    Promise<IPostModel | ICommentModel | void | null > => {
     try {
         const updatedPost = await Post.findByIdAndUpdate(
             postId,

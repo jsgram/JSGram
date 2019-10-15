@@ -15,8 +15,15 @@ import { subscribersReducer } from './subscribers/reducers';
 import { searchReducer } from './search/reducers';
 import { likeListReducer } from './likesList/reducers';
 import { mentionListReducer } from './mentionList/reducers';
+import { USER_LOGOUT } from './profile/actionTypes';
 
-export default combineReducers({
+export default (state: any, action: any): any => {
+    if (action.type !== USER_LOGOUT) {
+        return appReducer(state, action);
+    }
+};
+
+const appReducer = combineReducers({
     form: formReducer,
     alert: alertReducer,
     profile: profileReducer,

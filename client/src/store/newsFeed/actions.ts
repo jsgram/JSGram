@@ -10,6 +10,7 @@ import {
     CLEAR_NEWS_FEED_LOADED,
     GET_RECOMMENDATIONS_PENDING,
     GET_RECOMMENDATIONS_SUCCESS,
+    CHANGE_RECOMMENDATIONS_FOLLOWING,
 } from './actionTypes';
 import { INewsFeed } from './reducers';
 
@@ -116,5 +117,26 @@ export const getMorePostsByTagAsync = (tagName: string, page: number): (dispatch
             dispatch(getMoreNewsFeedSuccess(res.data.posts));
         } catch (e) {
             dispatch(showAlert(e.response, 'danger'));
+        }
+    };
+
+export const changeFollowing = (userId: string, followType: string):
+    { type: string, payload: { userId: string, followType: string } } => ({
+        type: CHANGE_RECOMMENDATIONS_FOLLOWING,
+        payload: {userId, followType},
+    });
+
+export const changeUsersFollowing = (_id: string, followType: string):
+    (dispatch: Dispatch) => Promise<void> => async (dispatch: Dispatch): Promise<void> => {
+        try {
+            if (followType === 'follow') {
+                await AuthAPI.post('/following/follow', {_id});
+            } else {
+                await AuthAPI.put(`/following/unfollow/${_id}`);
+            }
+
+            dispatch(changeFollowing(_id, followType));
+        } catch (e) {
+            dispatch(showAlert(e.response.data.message, 'danger'));
         }
     };

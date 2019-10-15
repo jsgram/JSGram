@@ -2,28 +2,25 @@ import React from 'react';
 import PostByTag from './index';
 import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import * as reactstrap from 'reactstrap';
 
 describe('PostByTag smart component', () => {
     let renderer: any;
-    const mockStore = configureStore();
+    let store: any;
     const props = {
-        loggedId: 'somevalue',
-        loggedUsername: 'somevalue',
-        loggedPhotoPath: 'somevalue',
+        loggedId: 'some value',
+        loggedUsername: 'some value',
+        loggedPhotoPath: 'some value',
         newsFeed: {
             feed: [],
             friendsRecommendations: {
                 users: [],
             },
         },
-        getPostsByTagAsync: jest.fn(() => 'somevalue'),
-        getMorePostsByTagAsync: jest.fn(() => 'somevalue'),
-        addNextFeedPosts: jest.fn(() => 'somevalue'),
-        getRecommendations: jest.fn(() => 'somevalue'),
-        followUser: jest.fn(() => 'somevalue'),
+        getPostsByTagAsync: jest.fn(() => 'some value'),
+        getMorePostsByTagAsync: jest.fn(() => 'some value'),
+        addNextFeedPosts: jest.fn(() => 'some value'),
+        getRecommendations: jest.fn(() => 'some value'),
+        followUser: jest.fn(() => 'some value'),
         friendsRecommendations: [],
         match: {
             params: {
@@ -45,15 +42,23 @@ describe('PostByTag smart component', () => {
     };
 
     beforeEach(() => {
-        reactstrap.Col = jest.fn(() => <div></div>);
-        reactstrap.Row = jest.fn(() => <div></div>);
-        reactstrap.Container = jest.fn(() => <div></div>);
-        reactstrap.Spinner = jest.fn(() => <div></div>);
-        const store = mockStore(initialState);
-        renderer = shallow(<Provider store={store}><BrowserRouter><PostByTag {...props} /></BrowserRouter></Provider>);
+        store = configureStore()(initialState);
+        renderer = shallow(<PostByTag {...props} />);
     });
 
-    test('render-success', () => {
-        expect(renderer.html()).toHaveLength(11);
+    test('componentDidMount - success', () => {
+        renderer.instance().componentDidMount();
+        expect(props.getPostsByTagAsync).toHaveReturnedWith('some value');
+        expect(props.getRecommendations).toHaveReturnedWith('some value');
+    });
+
+    test('get more feed posts - success', () => {
+        renderer.instance().getMoreFeedPosts();
+        expect(props.addNextFeedPosts).toHaveReturnedWith('some value');
+        expect(props.getMorePostsByTagAsync).toHaveReturnedWith('some value');
+    });
+
+    test('render - success', () => {
+        expect(renderer).toMatchSnapshot();
     });
 });

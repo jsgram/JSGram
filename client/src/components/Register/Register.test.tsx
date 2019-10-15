@@ -1,21 +1,16 @@
 import Register from './index';
-import * as reactstrap from 'reactstrap';
 
 import { shallow } from 'enzyme';
 import React from 'react';
 
 describe('Register component:', () => {
-    let renderer;
-    const mockHandleSubmit = jest.fn(() => 'somehandlesubmit');
+    let renderer: any;
+    const mockHandleSubmit = jest.fn(() => 'some handle submit');
     const mockSubmitting = true;
-    const mockOnSubmit = jest.fn(() => 'somehandlesubmit');
+    const mockOnSubmit = jest.fn(() => 'some handle submit');
     const mockInvalid = true;
 
     beforeEach(() => {
-        reactstrap.Button = jest.fn(() => (<div></div>));
-        reactstrap.Form = jest.fn(() => (<div></div>));
-        reactstrap.FormGroup = jest.fn(() => (<div></div>));
-        reactstrap.Spinner = jest.fn(() => (<div></div>));
 
         renderer = shallow(<Register
             handleSubmit={mockHandleSubmit}
@@ -25,6 +20,6 @@ describe('Register component:', () => {
     });
 
     test('render - success', () => {
-        expect(renderer.html()).toHaveLength(33);
+        expect(renderer).toMatchSnapshot();
     });
 });

@@ -7,6 +7,7 @@ import {
     CLEAR_NEWS_FEED_LOADED,
     GET_RECOMMENDATIONS_PENDING,
     GET_RECOMMENDATIONS_SUCCESS,
+    CHANGE_RECOMMENDATIONS_FOLLOWING,
 } from './actionTypes';
 import { IUser } from '../../components/FriendsRecommendations';
 
@@ -112,11 +113,31 @@ export const newsFeedReducer = (
                 },
             };
         case GET_RECOMMENDATIONS_SUCCESS:
+            const recommendationUsers = action.payload.map((user: any) => ({
+                ...user,
+                isAlreadyFollow: false,
+            }));
             return {
                 ...state,
                 friendsRecommendations: {
                     ...state.friendsRecommendations,
-                    users: action.payload,
+                    users: [...recommendationUsers],
+                    loading: false,
+                },
+            };
+        case CHANGE_RECOMMENDATIONS_FOLLOWING:
+            const users = state.friendsRecommendations
+            .users.map((following: any) => following._id === action.payload.userId ? {
+                ...following,
+                isAlreadyFollow: !following.isAlreadyFollow,
+            } :
+                following,
+            );
+            return {
+                ...state,
+                friendsRecommendations: {
+                    ...state.friendsRecommendations,
+                    users: [...users],
                     loading: false,
                 },
             };

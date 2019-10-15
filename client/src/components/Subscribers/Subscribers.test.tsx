@@ -1,63 +1,57 @@
 import React from 'react';
 import { Subscribers } from './index';
 import { shallow } from 'enzyme';
-import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store';
-import { BrowserRouter } from 'react-router-dom';
+import { subscribersState } from './Subscribers.stories';
 
 describe('Subscribers smart component', () => {
     let renderer: any;
-    const mockStore = configureStore();
-    const props = {
-        path: 'somevalue',
-        loggedId: 'somevalue',
-        loggedUsername: 'somevalue',
-        urlUsername: 'somevalue',
-        user: {
-            posts: 1,
-            followers: [],
-            following: [],
-            description: 'somevalue',
-            fullName: 'somevalue',
-            username: 'somevalue',
-            photo: 'somevalue',
-            email: 'somevalue',
-            _id: 'somevalue',
-        },
-        page: 1,
-        allSubscribersLoaded: true,
-        subscribers: [] as never,
-        followersCount: 1,
-        followingCount: 1,
-        loaded: true,
-        loading: true,
-        loadFollow: true,
-        getUser: jest.fn(() => 'somevalue'),
-        getSubscribers: jest.fn(() => 'somevalue'),
-        setSubscribersCount: jest.fn(() => 'somevalue'),
-        changeUserFollowing: jest.fn(() => 'somevalue'),
-        resetSubscribers: jest.fn(() => 'somevalue'),
-        emitNewNotificationSocket: jest.fn(() => 'somevalue'),
-    };
-
-    const initialState = {
-        profileEdit: {
-            newUsername: 'somevalue',
-        },
-        feed: {
-            loggedUsername: 'somevalue',
-        },
-        search: {
-            searchResults: [],
-        },
+    const actions = {
+        getUser: jest.fn(() => 'some value'),
+        getSubscribers: jest.fn(() => 'some value'),
+        setSubscribersCount: jest.fn(() => 'some value'),
+        changeUserFollowing: jest.fn(() => 'some value'),
+        resetSubscribers: jest.fn(() => 'some value'),
+        emitNewNotificationSocket: jest.fn(() => 'some value'),
     };
 
     beforeEach(() => {
-        const store = mockStore(initialState);
-        renderer = shallow(<Provider store={store}><BrowserRouter><Subscribers {...props}/></BrowserRouter></Provider>);
+        // @ts-ignore
+        renderer = shallow(<Subscribers {...{...subscribersState, ...actions}}/>);
     });
 
-    test('render-success', () => {
-        expect(renderer.html()).not.toHaveLength(0);
+    test('componentDidMount - success', () => {
+        renderer.instance().componentDidMount();
+        expect(actions.getUser).toHaveReturnedWith('some value');
+    });
+
+    test('componentDidUpdate - success', () => {
+        renderer.instance().componentDidUpdate({user: 'user', loggedId: 'legged id'}, {}, {});
+        expect(actions.setSubscribersCount).toHaveReturnedWith('some value');
+        expect(actions.getSubscribers).toHaveReturnedWith('some value');
+    });
+
+    test('componentWillUnmount - success', () => {
+        renderer.instance().componentWillUnmount();
+        expect(actions.resetSubscribers).toHaveReturnedWith('some value');
+    });
+
+    test('get more followers - success', () => {
+        renderer.instance().getMoreFollowers();
+        expect(actions.getSubscribers).toHaveReturnedWith('some value');
+    });
+
+    test('follow subscriber - success', () => {
+        renderer.instance().followSubscriber('id');
+        expect(actions.changeUserFollowing).toHaveReturnedWith('some value');
+        expect(actions.emitNewNotificationSocket).toHaveReturnedWith('some value');
+    });
+
+    test('unfollow subscriber - success', () => {
+        renderer.instance().unfollowSubscriber('id');
+        expect(actions.changeUserFollowing).toHaveReturnedWith('some value');
+    });
+
+    test('render - success', () => {
+        expect(renderer).toMatchSnapshot();
     });
 });

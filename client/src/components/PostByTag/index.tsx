@@ -22,7 +22,7 @@ interface IProps {
     getMorePostsByTagAsync: (tagName: string, page: number) => void;
     addNextFeedPosts: (pageNumber: number) => void;
     getRecommendations: () => void;
-    followUser: (body: { _id: string }) => void;
+    changeUsersFollowing: (id: string, followType: string) => void;
     friendsRecommendations: any;
     match: any;
 }
@@ -41,7 +41,7 @@ export default class PostByTag extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        const {loggedUsername, loggedPhotoPath, newsFeed, followUser}: any = this.props;
+        const {loggedUsername, loggedPhotoPath, newsFeed, changeUsersFollowing}: any = this.props;
 
         return (
             <Container>
@@ -129,7 +129,7 @@ export default class PostByTag extends React.Component<IProps> {
                             <FriendsRecomendations
                                 loggedUsername={loggedUsername}
                                 friendsRecommendations={newsFeed.friendsRecommendations}
-                                followUser={followUser}
+                                changeUsersFollowing={changeUsersFollowing}
                             />}
                         </div>
                     </Col>
