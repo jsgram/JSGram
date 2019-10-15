@@ -12,7 +12,7 @@ import { clearSearchResults, getSearchResults, addNextResults } from '../../stor
 import noAvatar from '../../assets/noAvatar.png';
 import { Waypoint } from 'react-waypoint';
 import { ISearchState } from '../../store/search/reducers';
-import { checkForMentions, onResultClick, getMoreResults } from '../../helpers/timer';
+import { checkForMentions, onResultClick, getMoreResults } from '../../helpers/mentions.search';
 
 interface IProps {
     loggedId: string;

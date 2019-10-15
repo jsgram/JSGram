@@ -7,7 +7,7 @@ import { clearSearchResults, getSearchResults, addNextResults } from '../../../s
 import noAvatar from '../../../assets/noAvatar.png';
 import { Waypoint } from 'react-waypoint';
 import { ISearchState } from '../../../store/search/reducers';
-import { checkForMentions, onResultClick, getMoreResults } from '../../../helpers/timer';
+import { checkForMentions, onResultClick, getMoreResults } from '../../../helpers/mentions.search';
 
 export interface IPostPostProps {
     croppedImage: string;
