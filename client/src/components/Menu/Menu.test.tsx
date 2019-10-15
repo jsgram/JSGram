@@ -33,14 +33,13 @@ describe('Menu component', () => {
 
     test('toggle - success', () => {
         renderer.instance().toggle();
-        expect(renderer.state('preview')).toBe(undefined);
+        expect(renderer.state('isMenuOpen')).toEqual(true);
     });
 
     test('componentWillUnmount - success', () => {
         renderer.instance().componentWillUnmount();
-        expect(renderer.instance().clearTimeout).toBe(undefined);
         expect(props.clearSearchResults).toHaveReturnedWith('some value');
-        expect(renderer.state('preview')).toBe(undefined);
+        expect(renderer.state('searchValue')).toBe('');
     });
 
     test('getMoreResults - success', () => {

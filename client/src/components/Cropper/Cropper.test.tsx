@@ -33,22 +33,22 @@ describe('Cropper component:', () => {
 
     test('on crop change - success', () => {
         renderer.instance().onCropChange({x: 1, y: 1});
-        expect(renderer.state('preview')).toBe(undefined);
+        expect(renderer.state('crop')).toEqual({x: 1, y: 1});
     });
 
     test('on zoom change - success', () => {
         renderer.instance().onZoomChange(1);
-        expect(renderer.state('preview')).toBe(undefined);
+        expect(renderer.state('zoom')).toBe(1);
     });
 
     test('reset image src - success', () => {
         renderer.instance().resetImageSrc();
-        expect(renderer.state('preview')).toBe(undefined);
+        expect(renderer.state('imageSrc')).toBe('');
     });
 
     test('crop complete - success', () => {
         renderer.instance().onCropComplete({width: 1, height: 1, x: 1, y: 1}, {width: 1, height: 1, x: 1, y: 1});
-        expect(renderer.state('preview')).toBe(undefined);
+        expect(renderer.state('croppedAreaPixels')).toEqual({height: 1, width: 1, x: 1, y: 1});
     });
 
     test('render-success', () => {
