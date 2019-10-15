@@ -18,11 +18,9 @@ import { mentionListReducer } from './mentionList/reducers';
 import { USER_LOGOUT } from './profile/actionTypes';
 
 export default (state: any, action: any): any => {
-    if (action.type === USER_LOGOUT) {
-        return undefined;
+    if (action.type !== USER_LOGOUT) {
+        return appReducer(state, action);
     }
-
-    return appReducer(state, action);
 };
 
 const appReducer = combineReducers({
