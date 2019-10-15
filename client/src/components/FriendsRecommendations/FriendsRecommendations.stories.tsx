@@ -13,16 +13,19 @@ export const FriendsRecomendationsState = {
                 _id: '1f',
                 username: 'Diana',
                 photoPath: 'https://jsgram-post-images.s3.eu-west-2.amazonaws.com/1570605706200',
+                isAlreadyFollow: false,
             },
             {
                 _id: '2f',
                 username: 'Antony',
                 photoPath: 'https://jsgram-post-images.s3.eu-west-2.amazonaws.com/1570605728486',
+                isAlreadyFollow: false,
             },
             {
                 _id: '3f',
                 username: 'Bob',
                 photoPath: 'https://jsgram-post-images.s3.eu-west-2.amazonaws.com/1570603193496',
+                isAlreadyFollow: false,
             },
         ],
     },
@@ -30,6 +33,7 @@ export const FriendsRecomendationsState = {
 
 const FriendsRecomendationsActions = {
     followUser: action('followUser'),
+    changeUsersFollowing: action('changeUsersFollowing'),
 };
 
 storiesOf('Friends Recomendations', module)
