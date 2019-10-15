@@ -6,7 +6,7 @@ import { store } from '../../App';
 import { MemoryRouter } from 'react-router-dom';
 import Profile from './index';
 
-const profileState = {
+export const profileState = {
     urlUsername: 'Maks',
     loggedId: '1a',
     loggedUsername: 'Maks',

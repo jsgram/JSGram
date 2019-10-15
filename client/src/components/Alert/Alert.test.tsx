@@ -1,19 +1,19 @@
 import Alert from './index';
-import * as reactstrap from 'reactstrap';
-
 import { shallow } from 'enzyme';
 import React from 'react';
 
 describe('Alert component:', () => {
+    let renderer: any;
+
+    let UncontrolledAlert: any;
     const props = {
         message: 'somemessage',
         color: 'somecolor',
         clearAlert: (): string => 'somehandler',
     };
-    let renderer: any;
 
     beforeEach(() => {
-        reactstrap.UncontrolledAlert = jest.fn(() => (<div>{props.message}</div>));
+        UncontrolledAlert = jest.fn(() => (<div>{props.message}</div>));
         renderer = shallow(<Alert {...props} />);
     });
 
@@ -27,6 +27,6 @@ describe('Alert component:', () => {
     });
 
     test('render - success', () => {
-        expect(renderer.html()).toBe('<div>somemessage</div>');
+        expect(renderer).toMatchSnapshot();
     });
 });

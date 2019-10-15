@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 
 describe('AboutUs component:', () => {
-    let renderer;
+    let renderer: any;
 
     beforeEach(() => {
         renderer = shallow(<BrowserRouter><AboutUs /></BrowserRouter>);

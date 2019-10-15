@@ -31,3 +31,4 @@ ignoreFiles:
   - '**/*.jsx'
   - '**/*.ts'
   - '**/*.tsx'
+  - '**/*.snap'

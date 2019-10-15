@@ -6,7 +6,7 @@ import { store } from '../../App';
 import { action } from '@storybook/addon-actions';
 import {Subscribers} from './index';
 
-const subscribersState = {
+export const subscribersState = {
     path: '/profile/:username/followers',
     loggedId: '1a',
     loggedUsername: 'Maks',

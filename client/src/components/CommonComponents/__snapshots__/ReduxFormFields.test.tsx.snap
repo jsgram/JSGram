@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renderField component: render - success 1`] = `ShallowWrapper {}`;

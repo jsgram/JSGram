@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { store } from '../../App';
 import {SideBar} from './index';
 
-const sideBarState = {
+export const sideBarState = {
     loggedUsername: 'Maks',
     loading: false,
     loggedId: '1a',

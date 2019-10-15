@@ -3,10 +3,10 @@ import AddPostDropZone from './index';
 import { shallow } from 'enzyme';
 
 describe('AddPostDropZone component', () => {
-    let renderer;
-    const mockUploadImageToCropper = jest.fn(() => ('somevalue'));
-    const mockInformFileError = jest.fn(() => ('somevalue'));
-    const mockResetImageSrc = jest.fn(() => ('somevalue'));
+    let renderer: any;
+    const mockUploadImageToCropper = jest.fn(() => ('some value'));
+    const mockInformFileError = jest.fn(() => ('some value'));
+    const mockResetImageSrc = jest.fn(() => ('some value'));
     const mockSizeMB = 10;
 
     beforeEach(() => {

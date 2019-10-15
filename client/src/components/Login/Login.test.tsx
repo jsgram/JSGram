@@ -1,21 +1,15 @@
 import Login from './index';
-import * as reactstrap from 'reactstrap';
 
 import { shallow } from 'enzyme';
 import React from 'react';
 
 describe('Login component:', () => {
-    let renderer;
+    let renderer: any;
 
     beforeEach(() => {
-        const mockOnSubmit = jest.fn(() => 'somevalue');
-        const mockHandleSubmit = jest.fn(() => 'somevalue');
+        const mockOnSubmit = jest.fn(() => 'some value');
+        const mockHandleSubmit = jest.fn(() => 'some value');
         const mockSubmitting = true;
-
-        reactstrap.Spinner = jest.fn(() => (<div></div>));
-        reactstrap.Button = jest.fn(() => (<div></div>));
-        reactstrap.Form = jest.fn(() => (<div></div>));
-        reactstrap.FormGroup = jest.fn(() => (<div></div>));
 
         renderer = shallow(<Login
             handleSubmit={mockHandleSubmit}
@@ -24,6 +18,6 @@ describe('Login component:', () => {
     });
 
     test('render - success', () => {
-        expect(renderer.html()).toHaveLength(168);
+        expect(renderer).toMatchSnapshot();
     });
 });

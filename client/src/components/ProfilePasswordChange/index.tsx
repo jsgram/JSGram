@@ -7,7 +7,12 @@ import { FormProps, Form, FormGroup, Col, Label, Button, Spinner } from 'reactst
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 
-const ProfilePasswordChange = ({changeProfilePassword, username, handleSubmit, submitting}: FormProps): JSX.Element => {
+export const ProfilePasswordChange = ({
+                                          changeProfilePassword,
+                                          username,
+                                          handleSubmit,
+                                          submitting,
+                                      }: FormProps): JSX.Element => {
     const onSubmit = (data: { oldPassword: string, newPassword: string }): void => {
         changeProfilePassword(username, data.oldPassword, data.newPassword);
     };
@@ -76,7 +81,7 @@ const ProfilePasswordChange = ({changeProfilePassword, username, handleSubmit, s
     );
 };
 
-const mapStateToProps = (state: FormProps): {username: string} => ({
+const mapStateToProps = (state: FormProps): { username: string } => ({
     username: state.profile.user.username,
 });
 

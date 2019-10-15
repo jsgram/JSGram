@@ -4,13 +4,13 @@ import { shallow } from 'enzyme';
 import React from 'react';
 
 describe('Footer component:', () => {
-    let renderer;
+    let renderer: any;
 
     beforeEach(() => {
         renderer = shallow(<Footer />);
     });
 
     test('render - success', () => {
-        expect(renderer.html()).toHaveLength(375);
+        expect(renderer).toMatchSnapshot();
     });
 });
