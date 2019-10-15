@@ -13,11 +13,13 @@ import faker from 'faker/locale/en';
 import axios, { AxiosResponse } from 'axios';
 import FormData from 'form-data';
 
-faker.seed(983465);
+faker.seed(643246);
 mongoose.set('useNewUrlParser', true);
 
 const { env: { DB_PATH, IMAGE_DB_PATH, IMGUR_CLIENT_ID } }: any = process;
-const FAKE_DB_SIZE = parseInt(process.env.FAKE_DB_SIZE, 10);
+const FAKE_DB_SIZE = process.argv[2] === '--big'
+    ? 512 // fixed size for big database
+    : parseInt(process.env.FAKE_DB_SIZE, 10);
 
 const capitalizeSentence = (sentence: string): string => {
     if (!sentence) {
@@ -31,7 +33,7 @@ const clearDatabase = async (path: string): Promise<void> => {
     await mongoose.createConnection(path).dropDatabase();
 };
 
-const generateUsers = async (size: number): Promise<IUserModel[]> => {
+const generateUsers = async (size: number): Promise<any[]> => {
     const {
         internet: { email, userName, password, avatar },
         name: { firstName, lastName },
@@ -54,6 +56,7 @@ const generateUsers = async (size: number): Promise<IUserModel[]> => {
     console.table(credentials);
 
     const users = credentials.map((x: ICredentials) => ({
+        _id: mongoose.Types.ObjectId(),
         fullName: [firstName(), lastName()].join(' '),
         email: x.email,
         username: userName(),
@@ -61,32 +64,28 @@ const generateUsers = async (size: number): Promise<IUserModel[]> => {
         isVerified: true,
         photoPath: avatar(),
         bio: capitalizeSentence(words(randomNumber(12))),
+        followers: [],
+        following: [],
     }));
 
-    const createdUsers = await User.insertMany(users);
-
-    createdUsers.forEach((user: IUserModel) => {
-        const otherUsers = createdUsers.filter((u: IUserModel) => u !== user);
+    users.forEach((user: any) => {
+        const otherUsers = users.filter((u: any) => u !== user);
         shuffle(otherUsers);
 
         const followers = otherUsers.slice(randomNumber(size));
         user.followers = followers;
 
-        followers.forEach((follower: IUserModel) => follower.following.push(user));
+        followers.forEach((follower: any) => follower.following.push(user));
     });
 
-    await Promise.all(
-        createdUsers.map(async (user: IUserModel) => await user.save()),
-    );
-
-    return createdUsers;
+    return users;
 };
 
-const generateTokens = async (users: IUserModel[], size: number): Promise<ITokenModel[]> => {
+const generateTokens = async (users: any[], size: number): Promise<any[]> => {
     const { random: { arrayElement, alphaNumeric } }: any = faker;
 
     const tokens = new Array(size).fill(null).map((throwaway: null) => ({
-        user: arrayElement(users),
+        user: arrayElement(users)._id,
         token: alphaNumeric(32),
     }));
 
@@ -111,6 +110,11 @@ const generateImages = async (size: number): Promise<string[]> => {
     const Image: Model<IImageModel> = imageDB.model<IImageModel>('Image', ImageSchema);
 
     const imageTable = await Image.find({});
+
+    if (process.argv[2] === '--big') {
+        imageDB.close();
+        return Array(size).fill(null).map((throwaway: null, i: number): string => imageTable[i % 255].imageHash);
+    }
 
     const imgurOptions = {
         headers: { Authorization: `Client-ID ${IMGUR_CLIENT_ID}` },
@@ -165,7 +169,7 @@ const generateImages = async (size: number): Promise<string[]> => {
     return imageTable.map((x: IImageModel): string => x.imageHash);
 };
 
-const generatePosts = async (users: IUserModel[], size: number): Promise<IPostModel[]> => {
+const generatePosts = async (users: any[], size: number): Promise<any[]> => {
     const {
         random: { arrayElement, number },
         lorem: { words },
@@ -175,24 +179,24 @@ const generatePosts = async (users: IUserModel[], size: number): Promise<IPostMo
     const images = await generateImages(size);
 
     const posts = new Array(size).fill(null).map((throwaway: null, i: number) => ({
-        author: arrayElement(users),
+        _id: mongoose.Types.ObjectId(),
+        author: arrayElement(users)._id,
         description: capitalizeSentence(words(number(24))),
         imgPath: `https://i.imgur.com/${images[i]}.jpg`, /* Imgur doesn't care about extension type but its presence. */
         tags: words(number(6)).split(' '),
         createdAt: past(),
     }));
 
-    const createdPosts = await Post.insertMany(posts);
+    users.forEach((user: IUserModel) => {
+        user.posts = posts
+            .filter((post: any): boolean => post.author === user._id)
+            .map((post: any): string => post._id);
+    });
 
-    await Promise.all(users.map(async (user: IUserModel) => {
-        user.posts = await Post.find({ author: user._id });
-        await user.save();
-    }));
-
-    return createdPosts;
+    return posts;
 };
 
-const generateComments = async (users: IUserModel[], posts: IPostModel[], size: number): Promise<ICommentModel[]> => {
+const generateComments = async (users: any[], posts: any[], size: number): Promise<any[]> => {
     const {
         random: { arrayElement, alphaNumeric, number },
         lorem: { words },
@@ -200,50 +204,70 @@ const generateComments = async (users: IUserModel[], posts: IPostModel[], size: 
     }: any = faker;
 
     const comments = new Array(size).fill(null).map((throwaway: null) => ({
-        postId: arrayElement(posts),
-        authorId: arrayElement(users),
+        _id: mongoose.Types.ObjectId(),
+        postId: arrayElement(posts)._id,
+        authorId: arrayElement(users)._id,
         comment: capitalizeSentence(words(1 + number(11))),
         createdAt: past(),
     }));
 
-    const createdComments = await Comment.insertMany(comments);
+    posts.forEach((post: IPostModel) => {
+        post.comments = comments
+            .filter((comment: any): boolean => comment.postId === post._id)
+            .map((comment: any): string => comment._id);
+    });
 
-    await Promise.all(posts.map(async (post: IPostModel) => {
-        post.comments = await Comment.find({ postId: post._id });
-        await post.save();
-    }));
-
-    return createdComments;
+    return comments;
 };
 
-const generateLikes = async (users: IUserModel[], posts: IPostModel[], size: number): Promise<ILikeModel[]> => {
+const generateLikes = async (users: any[], posts: any[], size: number): Promise<any[]> => {
     const { random: { arrayElement } }: any = faker;
 
     const likes = new Array(size).fill(null).map((throwaway: null) => ({
-        userId: arrayElement(users),
-        postId: arrayElement(posts),
+        _id: mongoose.Types.ObjectId(),
+        userId: arrayElement(users)._id,
+        postId: arrayElement(posts)._id,
     }));
 
-    const createdLikes = await Like.insertMany(likes);
+    posts.forEach((post: IPostModel) => {
+        post.authorsOfLike = likes
+            .filter((like: any): boolean => like.postId === post._id)
+            .map((like: any): string => like.userId);
+    });
 
-    await Promise.all(posts.map(async (post: IPostModel) => {
-        const postLikes = await Like.find({ postId: post._id });
-        post.authorsOfLike = postLikes.map((x: ILikeModel) => x.userId);
-        await post.save();
-    }));
-
-    return createdLikes;
+    return likes;
 };
 
 const fakeDatabase = async (): Promise<void> => {
     await clearDatabase(DB_PATH);
     await connect(DB_PATH);
 
+    const t = Date.now() / 1000;
+
+    // Big database generation runs in some 5..10 minutes;
+    // console.log gives a visual estimate of remaining time
+
+    // tslint:disable no-console
     const users = await generateUsers(FAKE_DB_SIZE);
+    console.log('users generated in', Date.now() / 1000 - t);
     const tokens = await generateTokens(users, Math.ceil(FAKE_DB_SIZE / 2));
-    const posts = await generatePosts(users, FAKE_DB_SIZE ** 2);
-    const comments = await generateComments(users, posts, FAKE_DB_SIZE ** 3);
-    const likes = await generateLikes(users, posts, FAKE_DB_SIZE ** 3);
+    console.log('tokens done in', Date.now() / 1000 - t);
+    const posts = await generatePosts(users, ~~(FAKE_DB_SIZE ** 1.5)); // tslint:disable-line no-bitwise
+    console.log('posts generated in', Date.now() / 1000 - t);
+    const comments = await generateComments(users, posts, FAKE_DB_SIZE ** 2);
+    console.log('comments generated in', Date.now() / 1000 - t);
+    const likes = await generateLikes(users, posts, FAKE_DB_SIZE ** 2);
+    console.log('likes generated in', Date.now() / 1000 - t);
+
+    await User.insertMany(users);
+    console.log('users inserted in', Date.now() / 1000 - t);
+    await Post.insertMany(posts);
+    console.log('posts inserted in', Date.now() / 1000 - t);
+    await Comment.insertMany(comments);
+    console.log('comments inserted in', Date.now() / 1000 - t);
+    await Like.insertMany(likes);
+    console.log('likes inserted in', Date.now() / 1000 - t);
+    // tslint:enable no-console
 
     process.exit(0);
 };
