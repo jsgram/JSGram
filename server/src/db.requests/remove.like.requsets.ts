@@ -12,7 +12,7 @@ export const deleteLike = async (postId: string, userId: string, next: NextFunct
 
         return removedLike;
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };
 
@@ -27,6 +27,6 @@ export const removeUserIdFromPost = async (postId: string, userId: string, next:
 
         return postWithRemovedUserId;
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };

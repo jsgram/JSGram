@@ -36,16 +36,16 @@ export const update = async (req: Request, res: Response, next: NextFunction): P
             const message = 'You don\'t have permission to change comment';
 
             console.warn(new Error(message));
-            next({ message, status: 401 });
+            next({ message, status: 403 });
         }
 
         const updatedComment = await updateComment(id, comment, next);
 
         if (!updatedComment) {
-            const message = 'Comment doesn\'t exist';
+            const message = 'Error updating comment';
 
             console.warn(new Error(message));
-            next({ message, status: 404 });
+            next({ message, status: 500 });
         }
 
         res.json({message: 'Comment was successfully updated', updatedComment});

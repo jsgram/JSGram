@@ -10,7 +10,7 @@ export const createTag = async (tag: string, postId: string, next: NextFunction)
             upsert: true,
         });
     } catch (e) {
-        next({status: 400, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };
 
@@ -19,6 +19,6 @@ export const deleteTags = async (postId: string, next: NextFunction): Promise<vo
         await Tag.updateMany({ posts: postId }, { $pull: { posts: postId }});
         await Tag.deleteMany({ posts: { $exists: true, $size: 0 }});
     } catch (e) {
-        next({status: 400, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };

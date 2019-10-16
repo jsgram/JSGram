@@ -20,6 +20,6 @@ export const findMention = async (username: string, skip: number, next: NextFunc
 
         return posts;
     } catch (e) {
-        next({status: 400, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };

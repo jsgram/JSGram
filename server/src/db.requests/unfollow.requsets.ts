@@ -13,6 +13,6 @@ export const unfollowByUserId = async (userIdToUpdate: string, userIdToRemove: s
 
         return removedLoggedUserIdFromFollowingUserId;
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };

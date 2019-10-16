@@ -10,6 +10,6 @@ export const findPostById = async (postId: string, next: NextFunction): Promise<
 
         return post;
     } catch (e) {
-        next({status: 409, message: 'Post does not exist'});
+        next({ status: 500, message: e.message });
     }
 };

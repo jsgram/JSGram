@@ -11,10 +11,10 @@ export const removeLike = async (req: Request, res: Response, next: NextFunction
 
         const removedLike = await deleteLike(postId, userId, next);
         if (!removedLike) {
-            const message = 'Like does not exist';
+            const message = 'Can not delete like';
 
             console.warn(new Error(message));
-            next({ message, status: 404 });
+            next({ message, status: 500 });
         }
 
         const postWithRemovedUserId = await removeUserIdFromPost(postId, userId, next);

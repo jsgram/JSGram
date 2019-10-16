@@ -7,7 +7,7 @@ export const countLike = async (postId: string, userId: string, next: NextFuncti
     try {
         return await Like.countDocuments({postId, userId});
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };
 
@@ -21,7 +21,7 @@ export const createLike = async (postId: string, userId: string, next: NextFunct
 
         return createdLike;
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };
 
@@ -36,6 +36,6 @@ export const addUserIdToPost = async (postId: string, userId: string, next: Next
 
         return updatedPostUsersLiked;
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };

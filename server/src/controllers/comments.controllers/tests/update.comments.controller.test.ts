@@ -56,8 +56,8 @@ describe('Update comment controller:', () => {
         };
 
         const answer = {
-            message: 'Comment doesn\'t exist',
-            status: 404,
+            message: 'Error updating comment',
+            status: 500,
         };
 
         await update(request, response, fakeNext);

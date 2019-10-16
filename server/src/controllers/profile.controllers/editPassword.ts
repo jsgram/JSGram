@@ -26,7 +26,7 @@ export const editPassword = async (req: Request, res: Response, next: NextFuncti
             const message = 'Password input is invalid.';
 
             console.warn(new Error(message));
-            next({ message, status: 426 });
+            next({ message, status: 422 });
         }
 
         const existingUser = await User.findOne({ username });
@@ -44,7 +44,7 @@ export const editPassword = async (req: Request, res: Response, next: NextFuncti
             const message = 'Password input is invalid.';
 
             console.warn(new Error(message));
-            next({ message, status: 426 });
+            next({ message, status: 422 });
         }
 
         const updatedUser = await editUserPassword(username, newPassword);

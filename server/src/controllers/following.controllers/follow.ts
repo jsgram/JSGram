@@ -14,7 +14,7 @@ export const follow = async (req: Request, res: Response, next: NextFunction): P
             const message = 'No followingUserId';
 
             console.warn(new Error(message));
-            next({ message, status: 426 });
+            next({ message, status: 422 });
         }
 
         const alreadyFollow = await checkFollowing(loggedUserId, followingUserId, next);
@@ -22,7 +22,7 @@ export const follow = async (req: Request, res: Response, next: NextFunction): P
             const message = 'You have already followed this user';
 
             console.warn(new Error(message));
-            next({ message, status: 500 });
+            next({ message, status: 400 });
         }
 
         const loggedUserIdWithFollowingUserId =

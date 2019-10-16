@@ -15,6 +15,6 @@ export const findTags = async (query: string, skip: number, next: NextFunction):
 
         return tags;
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };

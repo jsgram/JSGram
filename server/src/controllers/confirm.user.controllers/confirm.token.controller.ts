@@ -12,7 +12,7 @@ export const confirm = async (req: Request, res: Response, next: NextFunction): 
             const message = 'Token doesn\'t exist';
 
             console.warn(new Error(message));
-            next({ message, status: 409 });
+            next({ message, status: 404 });
         }
 
         const updatedUser = await verificateUser((token as ITokenModel).user, next);
@@ -25,7 +25,7 @@ export const confirm = async (req: Request, res: Response, next: NextFunction): 
 
         const removeToken = await deleteToken((token as ITokenModel).id, next);
         if (!removeToken) {
-            const message = 'Token does not remove';
+            const message = 'Could not remove token';
 
             console.warn(new Error(message));
             next({ message, status: 500 });

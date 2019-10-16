@@ -11,7 +11,7 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
             const message = 'Token doesn\'t exist';
 
             console.warn(new Error(message));
-            next({ message, status: 500 });
+            next({ message, status: 404 });
         }
 
         const newToken = (token as ITokenModel).token;

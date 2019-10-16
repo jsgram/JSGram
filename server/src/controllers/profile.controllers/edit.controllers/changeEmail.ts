@@ -25,13 +25,13 @@ export const changeEmail = async (req: Request, res: Response, next: NextFunctio
             const message = 'Unauthorized attempt to edit profile.';
 
             console.warn(new Error(message));
-            next({ message, status: 401 });
+            next({ message, status: 403 });
         }
         if (Validator.isEmpty(newEmail)) {
             const message = 'Email is empty.';
 
             console.warn(new Error(message));
-            next({ message, status: 426 });
+            next({ message, status: 422 });
         }
 
         const anotherUser = await User.findOne({ email: newEmail });

@@ -15,7 +15,7 @@ describe('Confirmation router:', () => {
 
     test('POST resend user - failure', async () => {
         const req = await request(server).post('/confirm');
-        expect(req.status).toBe(426);
+        expect(req.status).toBe(422);
     });
 
     test.skip('GET unknown route - failure', async () => {

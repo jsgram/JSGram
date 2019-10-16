@@ -11,7 +11,7 @@ export const addLike = async (req: Request, res: Response, next: NextFunction): 
             const message = 'No postId or username';
 
             console.warn(new Error(message));
-            next({ message, status: 426 });
+            next({ message, status: 422 });
         }
 
         const likeExist = await countLike(postId, userId, next);

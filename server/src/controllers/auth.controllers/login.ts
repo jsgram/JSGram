@@ -26,10 +26,10 @@ export const login = async (req: Request, res: Response, next: NextFunction,
         }
 
         if (!(checkUser as IUserModel).isVerified) {
-            const message = 'User has not been authenticated';
+            const message = 'User email is not verified';
 
             console.warn(new Error(message));
-            next({ message, status: 401 });
+            next({ message, status: 403 });
         }
 
         passport.authenticate('local', function(err: Error, user: IUserModel): any {

@@ -15,7 +15,7 @@ export const checkEmail = async (req: Request, res: Response, next: NextFunction
             const message = 'Email field is empty';
 
             console.warn(new Error(message));
-            next({ message, status: 426 });
+            next({ message, status: 422 });
         }
 
         const user = await userExist(email, next);

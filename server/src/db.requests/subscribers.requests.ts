@@ -11,7 +11,7 @@ export const findUser = async (username: string, next: NextFunction):
 
         return user;
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };
 
@@ -36,6 +36,6 @@ export const findSubscribers = async (subscribers: string[], skip: number, next:
 
         return necessarySubscribersInfo;
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };

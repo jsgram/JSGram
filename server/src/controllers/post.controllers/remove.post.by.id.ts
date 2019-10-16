@@ -29,7 +29,7 @@ export const remove = async (req: Request, res: Response, next: NextFunction): P
             const message = `Unauthorized attempt to delete post ${postId}.`;
 
             console.warn(new Error(message));
-            next({ message, status: 500 });
+            next({ message, status: 403 });
         }
 
         if (delPost.imgPath.match(/amazonaws.com/)) { // do not delete test DB photos

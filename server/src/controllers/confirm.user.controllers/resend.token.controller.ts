@@ -14,7 +14,7 @@ export const resend = async (req: Request, res: Response, next: NextFunction): P
             const message = 'Email field is empty.';
 
             console.warn(new Error(message));
-            next({ message, status: 426 });
+            next({ message, status: 422 });
         }
 
         const user = await userExist(email, next);
@@ -22,7 +22,7 @@ export const resend = async (req: Request, res: Response, next: NextFunction): P
             const message = 'Email does not exist.';
 
             console.warn(new Error(message));
-            next({ message, status: 409 });
+            next({ message, status: 404 });
         }
 
         const { token }: ITokenModel = await Token.create({

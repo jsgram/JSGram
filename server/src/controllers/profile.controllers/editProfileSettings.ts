@@ -27,7 +27,7 @@ export const editProfileSettings = async (req: Request, res: Response, next: Nex
             const message = 'Settings input is invalid.';
 
             console.warn(new Error(message));
-            next({ message, status: 426 });
+            next({ message, status: 422 });
         }
 
         const updatedUser: IUserModel | null = await editUserSettings(username, req.body);

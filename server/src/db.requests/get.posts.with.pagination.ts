@@ -10,6 +10,6 @@ export const getPostsWithPagination = async (posts: [], skip: number, next: Next
         }
         return allPosts;
     } catch (e) {
-        next({status: 409, message: 'No posts'});
+        next({ status: 500, message: 'No posts' });
     }
 };

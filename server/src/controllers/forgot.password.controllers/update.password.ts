@@ -1,8 +1,9 @@
-import {NextFunction, Request, Response} from 'express';
-import {Token} from '../../models/token.model';
-import {IUserModel} from '../../models/user.model';
+import { NextFunction, Request, Response } from 'express';
+
+import { Token, ITokenModel } from '../../models/token.model';
+import { IUserModel } from '../../models/user.model';
 import { deleteToken, isTokenExist } from '../../db.requests/token.requests';
-import {changePassword} from '../../db.requests/user.requests';
+import { changePassword } from '../../db.requests/user.requests';
 import { serverError } from '../../common.constants/errors.constants';
 
 export const updatePassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -15,21 +16,20 @@ export const updatePassword = async (req: Request, res: Response, next: NextFunc
             const message = 'Token doesn\'t exist';
 
             console.warn(new Error(message));
-            next({ message, status: 426 });
-            throw new Error();
+            next({ message, status: 404 });
         }
 
-        const userWithNewPassword = await changePassword(token.user, password, next);
+        const userWithNewPassword = await changePassword((token as ITokenModel).user, password, next);
         if (!userWithNewPassword) {
-            const message = 'Password has not been update';
+            const message = 'Password has not been updated';
 
             console.warn(new Error(message));
             next({ message, status: 500 });
         }
 
-        const removeToken = await deleteToken(token.id, next);
+        const removeToken = await deleteToken((token as ITokenModel).id, next);
         if (!removeToken) {
-            const message = 'Token has not been remove';
+            const message = 'Token has not been removed';
 
             console.warn(new Error(message));
             next({ message, status: 500 });

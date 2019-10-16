@@ -44,7 +44,7 @@ describe('Check email controller:', () => {
 
         const answer = {
             message: 'Email field is empty',
-            status: 426,
+            status: 422,
         };
 
         await checkEmail(request, response, fakeNext);

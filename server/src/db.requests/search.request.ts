@@ -20,6 +20,6 @@ export const findUsers = async (query: string, skip: number, next: NextFunction)
 
         return users;
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };

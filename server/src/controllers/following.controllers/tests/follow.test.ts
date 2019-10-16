@@ -49,7 +49,7 @@ describe('Follow controller:', () => {
 
         const answer = {
             message: 'You have already followed this user',
-            status: 500,
+            status: 400,
         };
 
         await follow(request, response, fakeNext);

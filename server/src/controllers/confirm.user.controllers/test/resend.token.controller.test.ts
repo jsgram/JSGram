@@ -46,7 +46,7 @@ describe('Resend token controller:', () => {
 
         const answer = {
             message: 'Email field is empty.',
-            status: 426,
+            status: 422,
         };
 
         await resend(request, response, fakeNext);

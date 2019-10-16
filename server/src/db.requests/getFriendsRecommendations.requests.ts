@@ -18,7 +18,7 @@ export const findUser = async (id: number, next: NextFunction): Promise<IUser | 
 
         return user;
     } catch (e) {
-        next({status: 409, message: 'User does not exist'});
+        next({ status: 500, message: e.message });
     }
 };
 
