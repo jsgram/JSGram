@@ -116,9 +116,9 @@ export default class Profile extends React.Component<IProfileProps> {
 
         if (this.props.urlUsername === this.props.loggedUsername) {
             return (
-                <Link to='/add-post' className='align-self-start'>
-                    <Button className='btn' color='danger'><i
-                        className='fa fa-plus pr-3'/>
+                <Link to='/add-post' className='align-self-start interaction'>
+                    <Button className='btn interaction' color='danger'><i
+                        className='fa fa-plus pr-3 interaction'/>
                         Add Post
                     </Button>
                 </Link>
@@ -128,8 +128,8 @@ export default class Profile extends React.Component<IProfileProps> {
         if (!!loggedUserAlreadyFollowUrlUser.length) {
             return (
                 <span onClick={this.unfollowUrlUser}>
-                        <Button className='btn' color='danger'><i
-                            className=''
+                        <Button className='btn' color='danger interaction'><i
+                            className='interaction'
                         />
                             Unfollow
                         </Button>
@@ -140,8 +140,8 @@ export default class Profile extends React.Component<IProfileProps> {
         if (!!urlUserAlreadyFollowLoggedUser.length) {
             return (
                 <span onClick={this.followUrlUser}>
-                            <Button className='btn' color='danger'><i
-                                className=''
+                            <Button className='btn' color='danger interaction'><i
+                                className='interaction'
                             />
                                 Follow back
                             </Button>
@@ -152,8 +152,8 @@ export default class Profile extends React.Component<IProfileProps> {
         if (!urlUserAlreadyFollowLoggedUser.length) {
             return (
                 <span onClick={this.followUrlUser}>
-                            <Button className='btn' color='danger'><i
-                                className=''
+                            <Button className='btn interaction' color='danger'><i
+                                className='interaction'
                             />
                                 Follow
                             </Button>
@@ -197,7 +197,7 @@ export default class Profile extends React.Component<IProfileProps> {
                         {username}
                         {this.props.urlUsername === this.props.loggedUsername &&
                         <Link to={`/profile/${this.props.urlUsername}/edit`}>
-                            <button className='bg-dark ml-sm-5 ml-3 btn text-white'>
+                            <button className='bg-dark ml-sm-5 ml-3 btn text-white interaction'>
                                 Edit profile
                             </button>
                         </Link>
@@ -205,15 +205,15 @@ export default class Profile extends React.Component<IProfileProps> {
                     </p>
                     <div className='d-flex followers justify-content-between'>
                         <div>
-                            <a href='#/' className='mr-2'><b>{posts}</b> posts</a>
+                            <a href='#/' className='mr-2 interaction'><b>{posts}</b> posts</a>
                         </div>
                         <div>
                             <Link to={`/profile/${this.props.urlUsername}/followers`}
-                                className='mr-2'><b>{followers.length}</b> followers
+                                className='mr-2 interaction'><b>{followers.length}</b> followers
                             </Link>
                         </div>
                         <div>
-                            <Link to={`/profile/${this.props.urlUsername}/following`}>
+                            <Link to={`/profile/${this.props.urlUsername}/following`} className='interaction'>
                                 <b>{following.length}</b> following
                             </Link>
                         </div>
@@ -221,14 +221,14 @@ export default class Profile extends React.Component<IProfileProps> {
                     <div className='description mt-4'>
                         <strong>{fullName}</strong>
                         { this.props.urlUsername === this.props.loggedUsername &&
-                                <Link to='/logout' className='text-danger pl-1'>(Logout)</Link> }
+                                <Link to='/logout' className='text-danger pl-1 interaction'>(Logout)</Link> }
                         <p>{description}</p>
                     </div>
                     {
                         this.props.loggedUser.isAdmin &&
                             <>
                                 <Button
-                                    className='btn d-block mb-2'
+                                    className='btn d-block mb-2 interaction'
                                     color='danger'
                                     onClick={this.toggleDeleteUserModal}
                                 >
@@ -238,7 +238,7 @@ export default class Profile extends React.Component<IProfileProps> {
                                 <Modal
                                     isOpen={this.state.deleteUserModal}
                                     toggle={this.toggleDeleteUserModal}
-                                    className='modal-dialog-centered px-md-0 py-md-0 px-3 py-3'
+                                    className='modal-dialog-centered px-md-0 py-md-0 px-3 py-3 interaction'
                                 >
                                     <ModalBody>
                                         Do you really want to delete user ?

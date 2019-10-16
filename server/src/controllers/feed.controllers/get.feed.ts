@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { getPostsForFeed } from '../../db.requests/getFeed.requests';
 import { POSTS_PER_PAGE } from '../../common.constants/getPosts.constants';
+import { serverError } from '../../common.constants/errors.constants';
 
 interface IParams {
     params: {
@@ -19,6 +20,7 @@ export const getFeed = async (req: Request, res: Response, next: NextFunction): 
 
         res.json({ feed });
     } catch (e) {
-        return next(e);
+        console.error(e);
+        next(serverError);
     }
 };

@@ -8,7 +8,7 @@ export const Error404 = (): JSX.Element => (
             <div className='pt-5'>
                 Error 404
                 <p className='text-error'>Sorry. Page not found </p>
-                <Link to='/'><p className='return-home'>Home</p></Link>
+                <Link to='/'><p className='return-home interaction'>Home</p></Link>
             </div>
         </div>
     </div>

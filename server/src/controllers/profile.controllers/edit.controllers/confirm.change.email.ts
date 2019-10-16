@@ -22,6 +22,7 @@ export const confirmChangeEmail = async (req: Request, res: Response, next: Next
 
         res.redirect(`${process.env.FRONT_PATH}/logout`);
     } catch (e) {
-        next({message: 'User has not been authenticated', status: 409});
+        console.error(e);
+        next({message: 'User has not been authenticated', status: 500});
     }
 };

@@ -1,5 +1,6 @@
-import {NextFunction, Request, Response} from 'express';
-import {Token} from '../../models/token.model';
+import { NextFunction, Request, Response } from 'express';
+
+import { Token, ITokenModel } from '../../models/token.model';
 
 export const resetPassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -7,12 +8,16 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
 
         const token = await Token.findOne({token: tokenFromEmail});
         if (!token) {
-            throw new Error(`Token doesn't exist`);
+            const message = 'Token doesn\'t exist';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
-        const newToken = token.token;
+        const newToken = (token as ITokenModel).token;
         res.redirect(`${process.env.FRONT_PATH}/password-reset/${newToken}`);
     } catch (e) {
-        next({message: 'Password has not been reset', status: 409});
+        console.error(e);
+        next({message: 'Password has not been reset', status: 500});
     }
 };

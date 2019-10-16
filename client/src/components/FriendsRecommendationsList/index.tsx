@@ -43,10 +43,10 @@ export class FriendsRecommendationsList extends React.Component <IProps> {
                                     />
                                     <h6 className='align-self-end'>
                                     <Link to={`/profile/${user.username}`}
-                                          className='text-dark'>{user.username}</Link>
+                                          className='text-dark interaction'>{user.username}</Link>
                                     </h6>
                                 </div>
-                                <Button className='align-self-center' color='danger'
+                                <Button className='align-self-center interaction' color='danger'
                                     onClick={(e: any): void => {
                                         this.props.followUser({_id: user._id});
                                         e.target.disabled = true;

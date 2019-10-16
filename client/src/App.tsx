@@ -1,15 +1,18 @@
 import React, { ReactElement } from 'react';
 import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunkMiddleware from 'redux-thunk';
+
 import rootReducer from './store/reducers';
 import { Provider } from 'react-redux';
 import { routes } from './routes';
 import { Footer } from './components/Footer';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunkMiddleware from 'redux-thunk';
 import AlertContainer from './containers/AlertContainer';
+import Interactor from './lib/interactor';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/style.scss';
 import 'font-awesome/css/font-awesome.min.css';
+import './styles/style.scss';
 
 export const store = createStore(
     rootReducer,
@@ -17,6 +20,13 @@ export const store = createStore(
 );
 
 const App: React.FC = (): ReactElement => {
+    new Interactor({ // tslint:disable-line no-unused-expression
+        endpoint: `${process.env.REACT_APP_BASE_API}/interaction`,
+        interactionElement: 'interaction',
+        debug: false,
+        async: false,
+    });
+
     return (
         <Provider store={store}>
             <AlertContainer/>

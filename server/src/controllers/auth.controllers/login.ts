@@ -3,17 +3,24 @@ import passport from 'passport';
 import {encodeJWT} from '../../helpers/jwt.encoders';
 import {IUserModel} from '../../models/user.model';
 import {userExist} from '../../db.requests/user.requests';
+import { serverError } from '../../common.constants/errors.constants';
 
 export const login = async (req: Request, res: Response, next: NextFunction,
 ): Promise<void> => {
     try {
         const checkUser = await userExist(req.body.email, next);
         if (!checkUser) {
-            throw new Error('User does not exist');
+            const message = 'User does not exist';
+
+            console.warn(new Error(message));
+            next({ message, status: 404 });
         }
 
-        if (!checkUser.isVerified) {
-            throw new Error('User has not been authenticated');
+        if (!(checkUser as IUserModel).isVerified) {
+            const message = 'User has not been authenticated';
+
+            console.warn(new Error(message));
+            next({ message, status: 401 });
         }
 
         passport.authenticate('local', function(err: Error, user: IUserModel): any {
@@ -31,6 +38,7 @@ export const login = async (req: Request, res: Response, next: NextFunction,
             });
         })(req, res, next);
     } catch (e) {
-        next({message: e.message, status: 406});
+        console.error(e);
+        next(serverError);
     }
 };

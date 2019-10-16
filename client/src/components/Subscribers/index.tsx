@@ -86,7 +86,7 @@ export class Subscribers extends React.Component<ISubscribersProps> {
         if (alreadyFollow) {
             return (
                 <span onClick={(): any => this.unfollowSubscriber(_id)}>
-                        <Button className='btn' color='danger'>
+                        <Button className='btn interaction' color='danger'>
                             Unfollow
                         </Button>
                     </span>
@@ -95,7 +95,7 @@ export class Subscribers extends React.Component<ISubscribersProps> {
 
         return (
             <span onClick={(): any => this.followSubscriber(_id)}>
-                            <Button className='btn' color='danger'>
+                            <Button className='btn interaction' color='danger'>
                                 Follow
                             </Button>
                         </span>
@@ -104,7 +104,7 @@ export class Subscribers extends React.Component<ISubscribersProps> {
 
     public createLink = (subscriber: boolean, count: number, followType: string): JSX.Element => {
         return (
-            <Link to={`/profile/${this.props.urlUsername}/${followType}`} className='link-style'
+            <Link to={`/profile/${this.props.urlUsername}/${followType}`} className='link-style interaction'
                 style={{textDecoration: !subscriber ? 'underline' : 'none'}}
             >
                 <h4
@@ -151,7 +151,7 @@ export class Subscribers extends React.Component<ISubscribersProps> {
                                     <h6 className='align-self-end'>
                                         <Link
                                             to={`/profile/${subscriber.username}`}
-                                            className='text-dark'>{subscriber.username}
+                                            className='text-dark interaction'>{subscriber.username}
                                         </Link>
                                     </h6>
                                 </div>

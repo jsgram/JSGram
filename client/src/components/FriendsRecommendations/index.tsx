@@ -38,10 +38,14 @@ export const FriendsRecomendations = ({loggedUsername, friendsRecommendations, f
                                     height={64}
                                     className='img-fluid rounded-circle'
                                 /></Link>
-                                <Link to={`/profile/${user.username}`} className='mt-1 ml-3 mr-4
-                                  text-dark'>{user.username}</Link>
+                            <Link
+                                to={`/profile/${user.username}`}
+                                className='mt-1 ml-3 mr-4 text-dark interaction'
+                            >
+                                {user.username}
+                            </Link>
                             </div>
-                        <Button className='align-self-center' color='danger'
+                        <Button className='align-self-center interaction' color='danger'
                                 onClick={(e: any): void => {
                                     followUser({_id: user._id});
                                     e.target.disabled = true;
@@ -50,7 +54,7 @@ export const FriendsRecomendations = ({loggedUsername, friendsRecommendations, f
                 ),
             )}
             {friendsRecommendations.users.length > topRecommendations.length &&
-            <Link to={`/profile/${loggedUsername}/recommendations`} className='mr-2 text-decoration-none'>
+            <Link to={`/profile/${loggedUsername}/recommendations`} className='mr-2 text-decoration-none interaction'>
                 See all recommendations</Link>}
         </div>
     );

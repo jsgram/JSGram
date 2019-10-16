@@ -1,5 +1,6 @@
 import { User, IUserModel } from '../../models/user.model';
 import { sendEmail } from '../../helpers/send.email';
+import { serverError } from '../../common.constants/errors.constants';
 
 import pug from 'pug';
 import path from 'path';
@@ -34,6 +35,7 @@ export const sendProductEmail = async (req: Request, res: Response, next: NextFu
 
         res.sendStatus(200);
     } catch (e) {
-        next(e);
+        console.error(e);
+        next(serverError);
     }
 };

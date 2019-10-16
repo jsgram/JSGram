@@ -1,5 +1,6 @@
 import { User, IUserModel } from '../../models/user.model';
 import { sendEmail } from '../../helpers/send.email';
+import { serverError } from '../../common.constants/errors.constants';
 
 import pug from 'pug';
 import path from 'path';
@@ -13,7 +14,10 @@ export const sendNewsEmail = async (req: Request, res: Response, next: NextFunct
         }: any = JSON.parse(req.body.payload);
 
         if (action === 'deleted') {
-            throw new Error('Marketing department disapproves dislike notifications.');
+            const message = 'Marketing department disapproves dislike notifications.';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         const templatePath = path.join(HEROKU_ROOT, TEMPLATE_DIR, 'subscription.news.pug');
@@ -40,6 +44,7 @@ export const sendNewsEmail = async (req: Request, res: Response, next: NextFunct
 
         res.sendStatus(200);
     } catch (e) {
-        next(e);
+        console.error(e);
+        next(serverError);
     }
 };

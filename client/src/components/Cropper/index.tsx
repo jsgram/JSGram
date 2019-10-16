@@ -134,7 +134,7 @@ export default class AddPostCropper extends React.Component<IAddAvatarCropperPro
                         <>
                             <Row className='justify-content-center post mx-auto'>
                                 <button
-                                    className='mt-3 ml-0 button'
+                                    className='mt-3 ml-0 button interaction'
                                     onClick={this.onShowCroppedImage}
                                     disabled={!imageSrc}
                                 >
@@ -143,7 +143,7 @@ export default class AddPostCropper extends React.Component<IAddAvatarCropperPro
                             </Row>
                             <Row className='justify-content-center post mx-auto'>
                                 <button
-                                    className='btn btn-danger mt-3 ml-0'
+                                    className='btn btn-danger mt-3 ml-0 interaction'
                                     onClick={(): void => this.setState({imageSrc: ''})}
                                     >
                                     Reset photo

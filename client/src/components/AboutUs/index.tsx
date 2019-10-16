@@ -15,7 +15,7 @@ export const AboutUs = (): ReactElement => (
                 <img src={logo}
                      alt='logo'
                      width={110}
-                     className='pt-1 logo'/>
+                     className='pt-1 logo interaction'/>
             </Link>
         </div>
         <Row>

@@ -56,7 +56,7 @@ export class WriteComment extends React.Component<IProps> {
                 {!!commentInfo.length && commentInfo[0] &&
                     <InputGroup>
                         <TextareaAutosize
-                            className='add-comment flex-grow-1 border-0 p-2'
+                            className='add-comment flex-grow-1 border-0 p-2 interaction'
                             placeholder='Write your comment...'
                             autoComplete='off'
                             minRows={1}
@@ -68,7 +68,7 @@ export class WriteComment extends React.Component<IProps> {
                         />
                         <InputGroupAddon addonType='append' className='flex-grow-0'>
                             <Button
-                                className='btn-block button-comment border-0'
+                                className='btn-block button-comment border-0 interaction'
                                 type='submit'
                                 onClick={(): void => this.onAddComment(this.props.postId, commentInfo[0].comment)}
                                 disabled={!commentInfo[0].comment}

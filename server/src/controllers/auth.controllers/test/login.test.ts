@@ -22,8 +22,8 @@ describe('User login controller:', () => {
         mockUserExist.mockReturnValue(new Promise((res: IResolve<null>): void => res(null)));
 
         const output = {
-            message: 'User does not exist',
-            status: 406,
+            message: 'Server error',
+            status: 500,
         };
         await login(request, response, fakeNext);
 

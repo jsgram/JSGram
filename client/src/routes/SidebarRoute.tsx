@@ -6,6 +6,7 @@ import ProfilePasswordChange from '../components/ProfilePasswordChange';
 import ProfileSubscriptionsContainer from '../containers/ProfileSubscriptionsContainer';
 import ProfilePrivacyContainer from '../containers/ProfilePrivacyContainer';
 import { PrivateRouteSidebar } from './PrivateRouteSideBar';
+import ProfileStatisticsContainer from '../containers/ProfileStatisticsContainer';
 
 export const SidebarRoute = (
 <Switch>
@@ -14,5 +15,6 @@ export const SidebarRoute = (
     <PrivateRouteSidebar exact path='/profile/:username/edit/change-password' component={ProfilePasswordChange} />
     <PrivateRouteSidebar exact path='/profile/:username/edit/subscriptions' component={ProfileSubscriptionsContainer} />
     <PrivateRouteSidebar exact path='/profile/:username/edit/privacy' component={ProfilePrivacyContainer} />
+    <PrivateRouteSidebar exact path='/profile/:username/edit/account-data' component={ProfileStatisticsContainer} />
 </Switch>
 );

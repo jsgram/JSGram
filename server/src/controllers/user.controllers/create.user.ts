@@ -4,6 +4,7 @@ import { hashPassword } from '../../helpers/hash.password';
 import validateInput, { IValidationError } from '../../helpers/validation';
 import { sendEmail } from '../../helpers/send.email';
 import { renderTemplate } from '../../helpers/render.template';
+import { serverError } from '../../common.constants/errors.constants';
 
 import crypto from 'crypto';
 import { Request, Response, NextFunction } from 'express';
@@ -15,7 +16,6 @@ export const createUser = async (user: IUserModel, next: NextFunction): Promise<
             fullName,
             username,
             password,
-            dateOfBirth,
             createdAt,
             photoPath,
             bio,
@@ -26,8 +26,10 @@ export const createUser = async (user: IUserModel, next: NextFunction): Promise<
 
         const emailExist = await User.countDocuments({email});
         if (emailExist) {
-            throw new Error('The email address you have entered is ' +
-                'already associated with another account');
+            const message = 'The email address you have entered is already associated with another account';
+
+            console.warn(new Error(message));
+            next({ message, status: 409 });
         }
 
         const userCreated = await User.create({
@@ -35,7 +37,6 @@ export const createUser = async (user: IUserModel, next: NextFunction): Promise<
             fullName,
             username,
             password: hashPassword(password),
-            dateOfBirth,
             createdAt,
             photoPath,
             bio,
@@ -46,8 +47,8 @@ export const createUser = async (user: IUserModel, next: NextFunction): Promise<
 
         return userCreated;
     } catch (e) {
-        next({message: 'The email address you have entered is ' +
-                'already associated with another account', status: 409});
+        console.error(e);
+        next(serverError);
     }
 };
 
@@ -61,24 +62,31 @@ export const create = async (req: Request, res: Response, next: NextFunction): P
 
         const user = await createUser(req.body, next);
         if (!user) {
-            throw new Error('Cannot create user.');
+            const message = 'Cannot create user.';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         const { token }: ITokenModel = await Token.create({
-            user: user._id,
+            user: (user as IUserModel)._id,
             token: crypto.randomBytes(16).toString('hex'),
         });
 
         const emailSubject = 'JSgram - Create User';
         const emailBody = renderTemplate('create.user.pug', { user, token });
 
-        const successSend = await sendEmail(user, emailSubject, emailBody);
+        const successSend = await sendEmail(user as IUserModel, emailSubject, emailBody);
         if (!successSend) {
-            throw new Error('Email wasn\'t sent.');
+            const message = 'Email wasn\'t sent.';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
-        res.json({ status: `A verification email has been sent to ${user.email}.` });
+        res.json({ status: `A verification email has been sent to ${(user as IUserModel).email}.` });
     } catch (e) {
+        console.error(e);
         next({ message: 'Cannot create user.', status: 500 });
     }
 };

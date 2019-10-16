@@ -55,8 +55,8 @@ describe('Update password controller:', () => {
         };
 
         const answer = {
-            message: 'Password has not been update',
-            status: 409,
+            message: 'Server error',
+            status: 500,
         };
 
         await updatePassword(request, response, fakeNext);

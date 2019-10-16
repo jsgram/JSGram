@@ -13,7 +13,7 @@ describe('Forgot password router:', () => {
 
     test('POST check email - failure', async () => {
         const req = await request(server).post('/forgot-password');
-        expect(req.status).toBe(409);
+        expect(req.status).toBe(426);
     });
 
     test.skip('PUT update password - failure', async () => {

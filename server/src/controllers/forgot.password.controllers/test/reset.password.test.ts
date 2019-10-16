@@ -34,6 +34,6 @@ describe('Reset password controller:', () => {
         mockTokenFindOne.mockReturnValue(fakeToken);
 
         await resetPassword(request, response, fakeNext);
-        expect(fakeNext).toHaveBeenCalledTimes(1);
+        expect(fakeNext).toHaveBeenCalledTimes(2);
     });
 });

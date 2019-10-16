@@ -22,15 +22,24 @@ export const changeEmail = async (req: Request, res: Response, next: NextFunctio
 
         const { locals: { user, user: { id: loggedUserId } } }: Response = res;
         if (loggedUserId !== userId) {
-            throw new Error('Unauthorized attempt to edit profile.');
+            const message = 'Unauthorized attempt to edit profile.';
+
+            console.warn(new Error(message));
+            next({ message, status: 401 });
         }
         if (Validator.isEmpty(newEmail)) {
-            throw new Error('Email is empty.');
+            const message = 'Email is empty.';
+
+            console.warn(new Error(message));
+            next({ message, status: 426 });
         }
 
         const anotherUser = await User.findOne({ email: newEmail });
         if (anotherUser) {
-            throw new Error('Cannot change email.');
+            const message = 'Cannot change email.';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         const token = encodeJWT(email, process.env.SECRET_KEY);
@@ -40,15 +49,15 @@ export const changeEmail = async (req: Request, res: Response, next: NextFunctio
 
         const successSend = await sendEmail(user, emailSubject, emailBody);
         if (!successSend) {
-            throw new Error('Email wasn\'t sent.');
+            const message = 'Email wasn\'t sent.';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         res.json({ status: `Verification email has been sent to ${newEmail}.` });
     } catch (e) {
-        if (e.message) {
-            next({ message: e.message, status: 400 });
-        } else {
-            next({ message: 'Cannot change email', status: 500 });
-        }
+        console.error(e);
+        next({ message: 'Cannot change email', status: 500 });
     }
 };

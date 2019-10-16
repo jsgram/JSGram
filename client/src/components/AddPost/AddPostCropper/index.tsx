@@ -157,12 +157,12 @@ export default class AddPostCropper extends React.Component<IAddPostCropperProps
                         </Container>)
                 }
                 <Row className='justify-content-between post mx-auto'>
-                    <button className='mt-3 ml-0 button' onClick={this.previousPage}>
+                    <button className='mt-3 ml-0 button interaction' onClick={this.previousPage}>
                         Cancel
                     </button>
-                    <button className='mt-3 ml-0 button' onClick={this.resetPhoto}>Reset</button>
+                    <button className='mt-3 ml-0 button interaction' onClick={this.resetPhoto}>Reset</button>
                     <button
-                        className='mt-3 ml-0 button'
+                        className='mt-3 ml-0 button interaction'
                         onClick={croppedImage ? this.onUploadPost : this.onShowCroppedImage}
                         disabled={!imageSrc}
                     >

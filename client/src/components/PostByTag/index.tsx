@@ -65,7 +65,7 @@ export default class PostByTag extends React.Component<IProps> {
                                                 />
                                                 <Link
                                                     to={`/profile/${username}`}
-                                                    className='text-dark mt-1 ml-3'>
+                                                    className='text-dark mt-1 ml-3 interaction'>
                                                     {username}
                                                 </Link>
                                             </div>
@@ -89,11 +89,11 @@ export default class PostByTag extends React.Component<IProps> {
                                                     alt='avatar'
                                                     width={32}
                                                     height={32}
-                                                    className='img-fluid rounded-circle'
+                                                    className='img-fluid rounded-circle interaction'
                                                 />
                                                 <Link
                                                     to={`/profile/${username}`}
-                                                    className='d-inline-block text-dark ml-2'
+                                                    className='d-inline-block text-dark ml-2 interaction'
                                                 >
                                                     {username}
                                                 </Link>
@@ -122,8 +122,9 @@ export default class PostByTag extends React.Component<IProps> {
                                 height={64}
                                 className='img-fluid rounded-circle'
                             />
-                            <Link to={`/profile/${loggedUsername}`} className='mt-1 ml-3 mr-4
-                        text-dark'>{loggedUsername}</Link>
+                            <Link to={`/profile/${loggedUsername}`} className='mt-1 ml-3 mr-4 text-dark interaction'>
+                                {loggedUsername}
+                            </Link>
                             <Link to='/logout' className='text-danger pl-1'>Logout</Link>
                             {!!newsFeed.friendsRecommendations.users.length &&
                             <FriendsRecomendations

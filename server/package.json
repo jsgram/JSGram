@@ -12,6 +12,7 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "seed": "ts-node src/models/fake.database.ts",
+    "seed:big": "ts-node src/models/fake.database.ts --big",
     "watch": "npx live-server --no-browser & npx pug --watch --pretty src/email.templates"
   },
   "keywords": [],

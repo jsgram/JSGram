@@ -7,8 +7,6 @@ import { connect } from 'react-redux';
 import { Form, Label, Button, Spinner, FormProps } from 'reactstrap';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 
-import { Link } from 'react-router-dom';
-
 export interface IUserPrivacy {
     isPrivateAccount: boolean;
     isActivityStatus: boolean;
@@ -30,7 +28,7 @@ const ProfilePrivacyContainer = ({
                     <Field
                         name='isPrivateAccount'
                         type='checkbox'
-                        className='position-static m-0 mr-2'
+                        className='position-static m-0 mr-2 interaction'
                         component={renderField}
                     />
                     Private Account
@@ -45,7 +43,7 @@ const ProfilePrivacyContainer = ({
                     <Field
                         name='isActivityStatus'
                         type='checkbox'
-                        className='position-static m-0 mr-2'
+                        className='position-static m-0 mr-2 interaction'
                         component={renderField}
                     />
                     Show Activity Status
@@ -61,7 +59,7 @@ const ProfilePrivacyContainer = ({
                     <Field
                         name='isStorySharing'
                         type='checkbox'
-                        className='position-static m-0 mr-2'
+                        className='position-static m-0 mr-2 interaction'
                         component={renderField}
                     />
                     Photos of You
@@ -70,20 +68,8 @@ const ProfilePrivacyContainer = ({
                     Choose how you want photos of you added to your profile.
                 </p>
 
-                <Link className='d-block text-danger pl-1 mt-3' to='#'>
-                    Edit Comment Settings
-                </Link>
-
-                <Link className='d-block text-danger pl-1 mt-3' to='#'>
-                    View Account Data
-                </Link>
-
-                <Link className='d-block text-danger pl-1 mt-3' to='#'>
-                    Request Download
-                </Link>
-
                 <Button
-                    className='align-self-center btn mt-3'
+                    className='align-self-center btn mt-3 interaction'
                     color='danger'
                     disabled={submitting}
                 >

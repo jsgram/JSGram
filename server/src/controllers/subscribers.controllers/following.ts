@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { getSubscribers } from './get.subscribers';
+import { serverError } from '../../common.constants/errors.constants';
 
 export const getFollowing = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -8,11 +9,15 @@ export const getFollowing = async (req: Request, res: Response, next: NextFuncti
         const users = await getSubscribers(username, 'following', page, next);
 
         if (!users) {
-            throw new Error('Can not show users\' following');
+            const message = 'Can not show users\' following';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         res.json({users});
     } catch (e) {
-        next({status: 409, message: e.message});
+        console.error(e);
+        next(serverError);
     }
 };

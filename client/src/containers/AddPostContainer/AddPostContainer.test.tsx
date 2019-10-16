@@ -25,6 +25,6 @@ describe('AddPostContainer component:', () => {
     });
 
     test('render - success', () => {
-        expect(renderer.html()).toHaveLength(621);
+        expect(renderer.html()).toHaveLength(669);
     });
 });

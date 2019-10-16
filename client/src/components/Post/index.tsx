@@ -142,7 +142,7 @@ export default class Post extends React.Component<IProps> {
                                         className='img-fluid rounded-circle mt-2 mb-2 ml-4'
                                     />
                                     <Link to={`/profile/${user.username}`}
-                                          className='text-dark mt-2 ml-2'
+                                          className='text-dark mt-2 ml-2 interaction'
                                     >
                                         {user.username}
                                     </Link>
@@ -167,7 +167,7 @@ export default class Post extends React.Component<IProps> {
                                             className='img-fluid rounded-circle mt-2 mr-2 mb-2'
                                         />
                                         <Link to={`/profile/${user.username}`}
-                                              className='text-dark mt-2 font-weight-bolder'
+                                              className='text-dark mt-2 font-weight-bolder interaction'
                                         >
                                             {user.username}
                                         </Link>
@@ -241,7 +241,7 @@ export default class Post extends React.Component<IProps> {
                         />
                         <Button
                             color='danger'
-                            className='mt-2'
+                            className='mt-2 interaction'
                             block
                             onClick={this.onEditPost}>
                             Update Post

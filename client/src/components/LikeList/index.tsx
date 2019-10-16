@@ -64,7 +64,7 @@ export class LikeList extends React.Component<IProps> {
                                                 />
                                                 <Link
                                                     to={`/profile/${username}`}
-                                                    className='text-dark ml-2 mt-1'>
+                                                    className='text-dark ml-2 mt-1 interaction'>
                                                     {username}
                                                 </Link>
                                             </div>
@@ -92,7 +92,7 @@ export class LikeList extends React.Component<IProps> {
                                                 />
                                                 <Link
                                                     to={`/profile/${username}`}
-                                                    className='d-inline-block text-dark ml-2'
+                                                    className='d-inline-block text-dark ml-2 interaction'
                                                 >
                                                     {username}
                                                 </Link>

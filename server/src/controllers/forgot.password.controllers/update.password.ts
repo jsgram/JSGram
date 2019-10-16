@@ -3,6 +3,7 @@ import {Token} from '../../models/token.model';
 import {IUserModel} from '../../models/user.model';
 import { deleteToken, isTokenExist } from '../../db.requests/token.requests';
 import {changePassword} from '../../db.requests/user.requests';
+import { serverError } from '../../common.constants/errors.constants';
 
 export const updatePassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -11,21 +12,32 @@ export const updatePassword = async (req: Request, res: Response, next: NextFunc
 
         const token = await isTokenExist(tokenFromEmail, next);
         if (!token) {
-            throw new Error(`Token doesn't exist`);
+            const message = 'Token doesn\'t exist';
+
+            console.warn(new Error(message));
+            next({ message, status: 426 });
+            throw new Error();
         }
 
         const userWithNewPassword = await changePassword(token.user, password, next);
         if (!userWithNewPassword) {
-            throw new Error('Password has not been update');
+            const message = 'Password has not been update';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         const removeToken = await deleteToken(token.id, next);
         if (!removeToken) {
-            throw new Error('Token has not been remove');
+            const message = 'Token has not been remove';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         res.json({userWithNewPassword});
     } catch (e) {
-        next({message: 'Password has not been update', status: 409});
+        console.error(e);
+        next(serverError);
     }
 };

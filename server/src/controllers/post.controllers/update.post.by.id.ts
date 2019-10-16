@@ -13,6 +13,7 @@ export const update = async (req: Request, res: Response, next: NextFunction): P
 
         res.json({message: 'Post was successfully updated', updPost});
     } catch (e) {
+        console.error(e);
         next({message: 'Can not update post', status: 500});
     }
 };

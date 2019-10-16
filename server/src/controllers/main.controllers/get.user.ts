@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { serverError } from '../../common.constants/errors.constants';
 
 export const getUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -12,6 +13,7 @@ export const getUser = async (req: Request, res: Response, next: NextFunction): 
             isAdmin,
         });
     } catch (e) {
-        return next(e);
+        console.error(e);
+        next(serverError);
     }
 };

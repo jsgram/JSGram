@@ -16,37 +16,49 @@ export const editPassword = async (req: Request, res: Response, next: NextFuncti
         const { oldPassword, newPassword }: IUserPassword = req.body;
         const { locals: { user: { username: loggedUser } } }: Response = res;
         if (loggedUser !== username) {
-            throw new Error('Unauthorized attempt to edit profile');
+            const message = 'Unauthorized attempt to edit profile';
+
+            console.warn(new Error(message));
+            next({ message, status: 403 });
         }
         if (!isValidPassword(oldPassword) ||
             !isValidPassword(newPassword) || oldPassword === newPassword) {
-            throw new Error('Password input is invalid.');
+            const message = 'Password input is invalid.';
+
+            console.warn(new Error(message));
+            next({ message, status: 426 });
         }
 
         const existingUser = await User.findOne({ username });
 
         if (!existingUser) {
-            throw new Error(`User ${username} does not exist.`);
+            const message = `User ${username} does not exist.`;
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
-        const oldPasswordMatch = await isCorrectPassword(oldPassword, existingUser.password);
+        const oldPasswordMatch = await isCorrectPassword(oldPassword, (existingUser as IUserModel).password);
 
         if (!oldPasswordMatch) {
-            throw new Error('Password input is invalid.');
+            const message = 'Password input is invalid.';
+
+            console.warn(new Error(message));
+            next({ message, status: 426 });
         }
 
         const updatedUser = await editUserPassword(username, newPassword);
 
         if (!updatedUser) {
-            throw new Error(`Cannot update password of user ${username}.`);
+            const message = `Cannot update password of user ${username}.`;
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         res.json({ message: 'Password updated successfully.', status: 200 });
     } catch (e) {
-        if (e.message) {
-            next({ message: e.message, status: 400 });
-        } else {
-            next({ message: 'Generic error while updating password.', status: 500 });
-        }
+        console.error(e);
+        next({ message: 'Generic error while updating password.', status: 500 });
     }
 };
