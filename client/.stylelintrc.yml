@@ -9,13 +9,13 @@ rules:
   declaration-no-important: true
   font-family-no-duplicate-names: true
   function-name-case: 'lower'
-  max-nesting-depth: 3
+  max-nesting-depth: 4
   no-duplicate-selectors: true
   no-empty-first-line: true
   order/properties-alphabetical-order: null
   selector-max-id: 0
   selector-no-qualifying-type: null
-  selector-max-compound-selectors: 3
+  selector-max-compound-selectors: 4
   selector-list-comma-newline-after: null
 ignoreFiles:
   - '**/*.pdf'
