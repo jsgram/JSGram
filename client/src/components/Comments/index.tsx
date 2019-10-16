@@ -169,7 +169,7 @@ export class Comments extends React.Component<ICommentsProps> {
 
     public getComments = (): JSX.Element => (
         <div
-            className='d-inline float-left get-more-comments'>
+            className='d-inline float-left get-more-comments p-0'>
             {!this.props.allCommentsLoaded.some((post: any) => post === this.props.postId) &&
             <p
                 className='get-comments'
@@ -183,9 +183,10 @@ export class Comments extends React.Component<ICommentsProps> {
 
     public render(): JSX.Element {
         return (
-            <div className='flex-grow-1 comments border-top'>
+            <div className='comments border-top'>
+                <div className='w-100'>
                 {this.props.allCommentsId && this.props.allCommentsId.map((commentId: string) => (
-                    <div key={commentId} className='comment'>
+                    <div key={commentId}>
                         {
                             this.props.comments[commentId].postId === this.props.postId &&
                             this.renderCommentsTemplate(this.props.comments[commentId])
@@ -193,6 +194,7 @@ export class Comments extends React.Component<ICommentsProps> {
                     </div>
                 ))}
                 {this.getComments()}
+                </div>
             </div>
         );
     }
