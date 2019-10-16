@@ -2,7 +2,7 @@ import { NextFunction } from 'express';
 import { IUserModel, User } from '../models/user.model';
 
 export const checkFollowing = async (loggedUserId: string, followingUserId: string, next: NextFunction):
-    Promise<number | null | void> => {
+    Promise<IUserModel | number | null | void> => {
     try {
         return await User.countDocuments({_id: loggedUserId, following: followingUserId});
     } catch (e) {
