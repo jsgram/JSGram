@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as newsFeedAction from '../../store/newsFeed/actions';
-import { followUser as followUserAction } from '../../store/profile/actions';
+import { changeUsersFollowing as changeUsersFollowingAction} from '../../store/newsFeed/actions';
 import { IFeedState } from '../../store/newsFeed/reducers';
 import PostByTag from '../../components/PostByTag';
 
@@ -22,7 +22,7 @@ interface IProps {
     getMorePostsByTagAsync: (tagName: string, page: number) => void;
     addNextFeedPosts: (page: number) => void;
     getRecommendations: () => void;
-    followUser: (body: { _id: string }) => void;
+    changeUsersFollowing: (_id: string, followType: string) => void;
     match: any;
 }
 
@@ -37,7 +37,7 @@ const PostsByTagContainer = ({
     getMorePostsByTagAsync,
     addNextFeedPosts,
     getRecommendations,
-    followUser,
+    changeUsersFollowing,
     match,
 }: FeedProps): JSX.Element => {
     return (
@@ -51,7 +51,7 @@ const PostsByTagContainer = ({
             getMorePostsByTagAsync={getMorePostsByTagAsync}
             getRecommendations={getRecommendations}
             friendsRecommendations={newsFeed.friendsRecommendations}
-            followUser={followUser}
+            changeUsersFollowing={changeUsersFollowing}
             match={match}
         />
     );
@@ -69,7 +69,7 @@ const mapDispatchToProps = {
     getMorePostsByTagAsync: newsFeedAction.getMorePostsByTagAsync,
     addNextFeedPosts: newsFeedAction.addNextFeedPosts,
     getRecommendations: newsFeedAction.getRecommendations,
-    followUser: followUserAction,
+    changeUsersFollowing: changeUsersFollowingAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsByTagContainer);

@@ -4,6 +4,7 @@ import {encodeJWT} from '../../helpers/jwt.encoders';
 import {IUserModel} from '../../models/user.model';
 import {userExist} from '../../db.requests/user.requests';
 import { serverError } from '../../common.constants/errors.constants';
+import {isCorrectPassword} from '../../helpers/hash.password';
 
 export const login = async (req: Request, res: Response, next: NextFunction,
 ): Promise<void> => {
@@ -14,6 +15,14 @@ export const login = async (req: Request, res: Response, next: NextFunction,
 
             console.warn(new Error(message));
             next({ message, status: 404 });
+        }
+
+        const verifiedPassword  = await isCorrectPassword(req.body.password, (checkUser as IUserModel).password);
+        if (!verifiedPassword ) {
+            const message = 'Wrong password';
+
+            console.warn(new Error(message));
+            next({ message, status: 401 });
         }
 
         if (!(checkUser as IUserModel).isVerified) {

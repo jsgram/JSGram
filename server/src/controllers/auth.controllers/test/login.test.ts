@@ -1,5 +1,5 @@
 import {login} from '../login';
-
+import * as correctPassword from '../../../helpers/hash.password';
 import * as userRequests from '../../../db.requests/user.requests';
 import {request, response} from 'express';
 import passport from 'passport';
@@ -14,6 +14,7 @@ describe('User login controller:', () => {
     beforeAll(() => {
         request.body = {
             email: 'some@ema.il',
+            password: 'qwerty123',
         };
     });
 
@@ -21,6 +22,18 @@ describe('User login controller:', () => {
         const mockUserExist = jest.spyOn(userRequests, 'userExist');
         mockUserExist.mockReturnValue(new Promise((res: IResolve<null>): void => res(null)));
 
+        const output = {
+            message: 'Server error',
+            status: 500,
+        };
+        await login(request, response, fakeNext);
+
+        expect(fakeNext).toHaveBeenLastCalledWith(output);
+    });
+
+    test('Wrong password - failure', async () => {
+        const mockUserExist = jest.spyOn(correctPassword, 'isCorrectPassword');
+        mockUserExist.mockReturnValue(new Promise((res: IResolve<boolean>): void => res(true)));
         const output = {
             message: 'Server error',
             status: 500,

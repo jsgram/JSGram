@@ -1,13 +1,16 @@
 import {findById} from '../find.user.by.id';
+import { request, response } from 'express';
 
-describe.skip('Find user by id controller:', () => {
-    // TODO do me
-    // TODO fix DB connection issue
-    test('user found successfully', () => {
-        /* */
-    });
+const fakeNext = jest.fn(() => { /* */});
 
-    test('generic error while user lookup', () => {
-        /* */
+describe('Find user by id controller:', () => {
+    test('user found successfully', async () => {
+        request.params = {
+            id: 'some id',
+        };
+        response.json = jest.fn(() => response);
+
+        await findById(request, response, fakeNext);
+        expect(response.json).toHaveBeenCalledTimes(0);
     });
 });
