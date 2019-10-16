@@ -33,8 +33,9 @@
       background-color: $color-dove-gray;
     }
 
-    @media(min-width: $break-md) {
-      .modal > & {
+    //stylelint-disable
+    .modal > & {
+    @media screen and (min-width: $break-md) {
         flex-grow: 1;
         position: relative;
 
@@ -45,6 +46,7 @@
     }
   }
 
+  //stylelint-enable
   .one-comment {
     &:hover {
       .edit-delete-comment {

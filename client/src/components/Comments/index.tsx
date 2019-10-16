@@ -186,7 +186,7 @@ export class Comments extends React.Component<ICommentsProps> {
             <div className='comments border-top'>
                 <div className='w-100'>
                 {this.props.allCommentsId && this.props.allCommentsId.map((commentId: string) => (
-                    <div key={commentId} className='comment'>
+                    <div key={commentId}>
                         {
                             this.props.comments[commentId].postId === this.props.postId &&
                             this.renderCommentsTemplate(this.props.comments[commentId])
