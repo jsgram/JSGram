@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Input, DropdownToggle, DropdownMenu,
          Dropdown, DropdownItem, Spinner } from 'reactstrap';
 import './style.scss';
+import '../../WriteComment/style.scss';
 import { connect } from 'react-redux';
 import { clearSearchResults, getSearchResults, addNextResults } from '../../../store/search/actions';
 import noAvatar from '../../../assets/noAvatar.png';
@@ -100,7 +101,8 @@ export class PostPhoto extends React.Component<IPostPostProps> {
                           isOpen={this.state.isModalOpen} inNavbar={true} direction='up'
                           toggle={(): void => {this.toggle(this.state.searchValue); }}>
                     <DropdownToggle tag='a' className='nav-link m-0 p-0'/>
-                    <DropdownMenu className='scrollable-menu col-12 mb-5'>
+                    <div className='dropdown-wrapper'>
+                    <DropdownMenu className='scrollable-menu col-12'>
                         {this.props.searchResults.map((user: any) =>
                         <div key={user._id} onClick={(): void => {
                             onResultClick(this.props.description, user.username,
@@ -131,6 +133,7 @@ export class PostPhoto extends React.Component<IPostPostProps> {
                                     }}
                                 />}
                     </DropdownMenu>
+                    </div>
                 </Dropdown>
                 </Row>
             </Container>
