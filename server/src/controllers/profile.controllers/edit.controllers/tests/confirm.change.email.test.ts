@@ -25,7 +25,7 @@ describe('Confirm change email controller:', () => {
         };
 
         const answer = {
-            message: 'User has not been authenticated',
+            message: 'Server error',
             status: 500,
         };
 

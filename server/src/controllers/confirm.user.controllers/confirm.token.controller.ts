@@ -34,6 +34,6 @@ export const confirm = async (req: Request, res: Response, next: NextFunction): 
         res.redirect(`${process.env.FRONT_PATH}/login`);
     } catch (e) {
         console.error(e);
-        next({message: 'User has not been authenticated', status: 401});
+        next({ message: 'User has not been authenticated', status: 401 });
     }
 };
