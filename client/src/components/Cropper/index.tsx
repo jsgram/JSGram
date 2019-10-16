@@ -93,6 +93,7 @@ export default class AddPostCropper extends React.Component<IAddAvatarCropperPro
 
     public render(): JSX.Element {
         const {imageSrc, crop, zoom, maxZoom, aspect}: IState = this.state;
+        const {informFileError, resetAddPost, user: {username}, loading}: IAddAvatarCropperProps = this.props;
         return (
             <div className='text-center'>
 
@@ -120,8 +121,8 @@ export default class AddPostCropper extends React.Component<IAddAvatarCropperPro
                                 ) : (
                                     <AddPostDropZone
                                         uploadImageToCropper={this.onUploadImageToCropper}
-                                        informFileError={this.props.informFileError}
-                                        resetImageSrc={(): void => this.props.resetAddPost(this.props.user.username)}
+                                        informFileError={informFileError}
+                                        resetImageSrc={(): void => resetAddPost(username)}
                                         sizeMB={2}
                                     />
                                 )
@@ -138,7 +139,7 @@ export default class AddPostCropper extends React.Component<IAddAvatarCropperPro
                                     onClick={this.onShowCroppedImage}
                                     disabled={!imageSrc}
                                 >
-                                    {this.props.loading ? <Spinner color='white'/> : 'Save'}
+                                    {loading ? <Spinner color='white'/> : 'Save'}
                                 </button>
                             </Row>
                             <Row className='justify-content-center post mx-auto'>

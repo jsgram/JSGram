@@ -51,19 +51,21 @@ export class MenuPost extends React.Component<IProps, IState> {
     }
 
     public render(): JSX.Element {
+        const {post, toggleEdit}: IProps = this.props;
+        const {modal, isMenuOpen}: IState = this.state;
         return (
-                <Dropdown isOpen={this.state.isMenuOpen} toggle={this.toggle} color='light'>
+                <Dropdown isOpen={isMenuOpen} toggle={this.toggle} color='light'>
                     <DropdownToggle tag='a' className='nav-link icon'>
                         <i className='fa fa-ellipsis-v fa-lg' />
                     </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem className='text-center edit-post'
-                                      onClick={(): any => this.props.toggleEdit(this.props.post)}>Edit</DropdownItem>
+                                      onClick={(): any => toggleEdit(post)}>Edit</DropdownItem>
                         <DropdownItem divider/>
                         <DropdownItem className='text-center delete-post'
                                       onClick={this.handleMenuButtonClick}>Delete</DropdownItem>
                     </DropdownMenu>
-                    <Modal isOpen={this.state.modal} toggle={this.handleMenuButtonClick}
+                    <Modal isOpen={modal} toggle={this.handleMenuButtonClick}
                            className='modal-sm modal-dialog-centered'>
                         <ModalBody className='text-center'>
                             <h2>Delete post?</h2>

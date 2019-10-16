@@ -127,51 +127,40 @@ export default class Profile extends React.Component<IProfileProps> {
 
         if (!!loggedUserAlreadyFollowUrlUser.length) {
             return (
-                <span onClick={this.unfollowUrlUser}>
-                        <Button className='btn' color='danger'><i
-                            className=''
-                        />
-                            Unfollow
-                        </Button>
-                    </span>
+                <Button className='btn' color='danger' onClick={this.unfollowUrlUser}>
+                    Unfollow
+                </Button>
             );
         }
 
         if (!!urlUserAlreadyFollowLoggedUser.length) {
             return (
-                <span onClick={this.followUrlUser}>
-                            <Button className='btn' color='danger'><i
-                                className=''
-                            />
-                                Follow back
-                            </Button>
-                        </span>
+                <Button className='btn' color='danger' onClick={this.followUrlUser}>
+                    Follow back
+                </Button>
             );
         }
 
         if (!urlUserAlreadyFollowLoggedUser.length) {
             return (
-                <span onClick={this.followUrlUser}>
-                            <Button className='btn' color='danger'><i
-                                className=''
-                            />
-                                Follow
-                            </Button>
-                        </span>
+                <Button className='btn' color='danger' onClick={this.followUrlUser}>
+                    Follow
+                </Button>
             );
         }
-    }
+    };
 
     public render(): JSX.Element {
-        const {user: {posts, followers, following, fullName, username, description, photo, _id}}
+        const {user: {posts, followers, following, fullName, username, description, photo, _id},
+            loggedId, loading, urlUsername, loggedUsername, loggedUser, deletePhoto}
             : IProfileProps = this.props;
-        const {loaded}: { loaded: boolean } = this.state;
+        const {loaded, deleteUserModal, modal}: { loaded: boolean, deleteUserModal: boolean, modal: boolean } = this.state;
 
         if (!loaded) {
             return (<Instagram/>);
         }
 
-        const avatarCursor = (this.props.loggedId === _id && 'avatar-img');
+        const avatarCursor = (loggedId === _id && 'avatar-img');
 
         return (
             <React.Fragment>
@@ -180,14 +169,14 @@ export default class Profile extends React.Component<IProfileProps> {
                     className='row profile d-flex pt-2 justify-content-lg-center
                 justify-content-sm-around justify-content-center'>
                     <div className='mr-lg-5 mr-3'>
-                        {this.props.loading ? <Spinner style={{height: 150, width: 150}} type='grow' color='dark'/> : <img
+                        {loading ? <Spinner style={{height: 150, width: 150}} type='grow' color='dark'/> : <img
                             src={photo || noAvatar}
                             className={`img-fluid rounded-circle float-right mb-2 ${avatarCursor}`}
                             alt='avatar'
                             height={150}
                             width={150}
                             onClick={(): void => {
-                                if (this.props.loggedId === _id) {
+                                if (loggedId === _id) {
                                     this.toggleModal();
                                 }
                             }}
@@ -196,8 +185,8 @@ export default class Profile extends React.Component<IProfileProps> {
                     <div className='ml-lg-5 d-sm-block d-flex flex-column'>
                         <p className='profile-name'>
                             {username}
-                            {this.props.urlUsername === this.props.loggedUsername &&
-                            <Link to={`/profile/${this.props.urlUsername}/edit`}>
+                            {urlUsername === loggedUsername &&
+                            <Link to={`/profile/${urlUsername}/edit`}>
                                 <button className='bg-dark ml-sm-5 ml-3 btn text-white'>
                                     Edit profile
                                 </button>
@@ -209,24 +198,24 @@ export default class Profile extends React.Component<IProfileProps> {
                                 <a href='#/' className='mr-2'><b>{posts}</b> posts</a>
                             </div>
                             <div>
-                                <Link to={`/profile/${this.props.urlUsername}/followers`}
+                                <Link to={`/profile/${urlUsername}/followers`}
                                       className='mr-2'><b>{followers.length}</b> followers
                                 </Link>
                             </div>
                             <div>
-                                <Link to={`/profile/${this.props.urlUsername}/following`}>
+                                <Link to={`/profile/${urlUsername}/following`}>
                                     <b>{following.length}</b> following
                                 </Link>
                             </div>
                         </div>
                         <div className='description mt-4'>
                             <strong>{fullName}</strong>
-                            { this.props.urlUsername === this.props.loggedUsername &&
+                            { urlUsername === loggedUsername &&
                             <Link to='/logout' className='text-danger pl-1'>(Logout)</Link> }
                             <p>{description}</p>
                         </div>
                         {
-                            this.props.loggedUser.isAdmin &&
+                            loggedUser.isAdmin &&
                             <>
                                 <Button
                                     className='btn d-block mb-2'
@@ -237,7 +226,7 @@ export default class Profile extends React.Component<IProfileProps> {
                                     Delete User
                                 </Button>
                                 <Modal
-                                    isOpen={this.state.deleteUserModal}
+                                    isOpen={deleteUserModal}
                                     toggle={this.toggleDeleteUserModal}
                                     className='modal-dialog-centered px-md-0 py-md-0 px-3 py-3'
                                 >
@@ -263,16 +252,16 @@ export default class Profile extends React.Component<IProfileProps> {
                             </>
                         }
                         {this.dynamicButton()}
-                        {this.state.modal && <PopUpModal
-                            modal={this.state.modal}
+                        {modal && <PopUpModal
+                            modal={modal}
                             toggleModal={this.toggleModal}
-                            loading={this.props.loading}
-                            deletePhoto={this.props.deletePhoto}
+                            loading={loading}
+                            deletePhoto={deletePhoto}
                             photo={photo}
                         />}
                     </div>
                     <div className='container'>
-                        <PostContainer username={this.props.urlUsername}/>
+                        <PostContainer username={urlUsername}/>
                     </div>
                 </div>
             </React.Fragment>
