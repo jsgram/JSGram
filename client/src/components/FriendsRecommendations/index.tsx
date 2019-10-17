@@ -66,7 +66,8 @@ export class FriendsRecomendations extends React.Component <IProps> {
                                     className='img-fluid rounded-circle'
                                 /></Link>
                                 <Link to={`/profile/${user.username}`} className='mt-1 ml-3 mr-4
-                                  text-dark'>{user.username}</Link>
+                                  text-dark'>{user.username.length > 10 ?
+                                            `${user.username.substring(0, 10)}...` : user.username}</Link>
                             </div>
                             {this.dynamicButton(user._id, user.isAlreadyFollow)}
                     </div>
