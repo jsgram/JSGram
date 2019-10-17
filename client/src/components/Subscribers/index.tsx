@@ -80,25 +80,21 @@ export class Subscribers extends React.Component<ISubscribersProps> {
 
     public dynamicButton = (_id: string, alreadyFollow: boolean): JSX.Element => {
         if (this.props.loadFollow) {
-            return <span><Spinner color='light'/></span>;
+            return <Spinner color='light'/>;
         }
 
         if (alreadyFollow) {
             return (
-                <span onClick={(): any => this.unfollowSubscriber(_id)}>
-                        <Button className='btn' color='danger'>
-                            Unfollow
-                        </Button>
-                    </span>
+                <Button className='btn' color='danger' onClick={(): any => this.unfollowSubscriber(_id)}>
+                    Unfollow
+                </Button>
             );
         }
 
         return (
-            <span onClick={(): any => this.followSubscriber(_id)}>
-                            <Button className='btn' color='danger'>
-                                Follow
-                            </Button>
-                        </span>
+            <Button className='btn' color='danger' onClick={(): any => this.followSubscriber(_id)}>
+                Follow
+            </Button>
         );
     }
 
@@ -117,12 +113,13 @@ export class Subscribers extends React.Component<ISubscribersProps> {
     }
 
     public render(): JSX.Element {
-        const subscribers = this.props.path.includes('following');
+        const {path, loading, followersCount, followingCount, loggedId, subscribers}: ISubscribersProps = this.props;
+        const pathSubscribers = path.includes('following');
 
         return (
             <Container>
                 <Menu/>
-                {this.props.loading ?
+                {loading ?
                     (
                         <div className='d-flex justify-content-center'>
                             <Spinner className='mt-3' color='white'/>
@@ -130,15 +127,15 @@ export class Subscribers extends React.Component<ISubscribersProps> {
                     ) :
                     (
                         <div className='d-flex justify-content-center'>
-                            {this.createLink(subscribers, this.props.followersCount, 'followers')}
-                            {this.createLink(!subscribers, this.props.followingCount, 'following')}
+                            {this.createLink(pathSubscribers, followersCount, 'followers')}
+                            {this.createLink(!pathSubscribers, followingCount, 'following')}
                         </div>
                     )
                 }
                 <div className='d-flex justify-content-center'>
                     <div className='follow-wrapper'>
-                        {this.props.loggedId &&
-                        <div>{this.props.subscribers.map((subscriber: any) =>
+                        {loggedId &&
+                        <div>{subscribers.map((subscriber: any) =>
                             <div className='d-flex mt-1 mb-3 justify-content-between' key={subscriber._id}>
                                 <div className='row'>
                                     <img
@@ -155,13 +152,13 @@ export class Subscribers extends React.Component<ISubscribersProps> {
                                         </Link>
                                     </h6>
                                 </div>
-                                {this.props.loggedId !== subscriber._id &&
+                                {loggedId !== subscriber._id &&
                                 this.dynamicButton(subscriber._id, subscriber.alreadyFollow)}
                             </div>,
                         )}
                         </div>
                         }
-                        {this.props.loading &&
+                        {loading &&
                         <div className='d-flex justify-content-center'>
                             <Spinner className='mt-3' color='dark'/>
                         </div>

@@ -25,32 +25,28 @@ export class FriendsRecomendations extends React.Component <IProps> {
 
     public followRecommendationUser = (_id: string): void => {
         this.props.changeUsersFollowing(_id, 'follow');
-    }
+    };
 
     public unfollowRecommendationUser = (_id: string): void => {
         this.props.changeUsersFollowing(_id, 'unFollow');
-    }
+    };
 
     public dynamicButton = (_id: string, isAlreadyFollow: boolean): JSX.Element => {
 
         if (isAlreadyFollow) {
             return (
-                <span onClick={(): any => this.unfollowRecommendationUser(_id)}>
-                        <Button className='btn' color='danger'>
-                            Unfollow
-                        </Button>
-                    </span>
+                <Button className='btn' color='danger' onClick={(): void => this.unfollowRecommendationUser(_id)}>
+                    Unfollow
+                </Button>
             );
         }
 
         return (
-            <span onClick={(): any => this.followRecommendationUser(_id)}>
-                            <Button className='btn' color='danger'>
-                                Follow
-                            </Button>
-                        </span>
+            <Button className='btn' color='danger' onClick={(): void => this.followRecommendationUser(_id)}>
+                Follow
+            </Button>
         );
-    }
+    };
 
     public render(): JSX.Element {
         const USERS_PER_PAGE = 4;
