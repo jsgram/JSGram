@@ -35,14 +35,15 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
         }: any = user;
 
         const interactions = await Interaction.find({ userId: _id }).sort({ unloadTime: -1 });
-        const { ipAddress, language, platform }: IInteractionModel = interactions[0];
+
+        const { ipAddress = '-', language = '-', platform = '-' }: IInteractionModel = interactions[0] || {};
 
         const sessions = interactions.map((x: IInteractionModel): ISession => ({
             timestamp: x.unloadTime.getTime(),
             sessionLength: x.unloadTime.getTime() - x.loadTime.getTime(),
         }));
 
-        const lastSession = sessions[0].sessionLength;
+        const { sessionLength: lastSession = 0 }: any = sessions[0] || {};
         const dailySession = sessions
             .filter((x: ISession): boolean => x.timestamp > new Date().getTime() - 86400000)
             .reduce((a: number, b: ISession): number => a + b.sessionLength, 0);
