@@ -35,20 +35,20 @@ export class FriendsRecomendations extends React.Component <IProps> {
 
         if (isAlreadyFollow) {
             return (
-                <span onClick={(): any => this.unfollowRecommendationUser(_id)}>
-                        <Button className='btn' color='danger'>
-                            Unfollow
-                        </Button>
-                    </span>
+                <Button className='btn align-self-center'
+                        color='danger'
+                        onClick={(): void => this.unfollowRecommendationUser(_id)}>
+                    Unfollow
+                </Button>
             );
         }
 
         return (
-            <span onClick={(): any => this.followRecommendationUser(_id)}>
-                            <Button className='btn' color='danger'>
-                                Follow
-                            </Button>
-                        </span>
+            <Button className='btn align-self-center'
+                    color='danger'
+                    onClick={(): void => this.followRecommendationUser(_id)}>
+                Follow
+            </Button>
         );
     }
 
@@ -69,12 +69,9 @@ export class FriendsRecomendations extends React.Component <IProps> {
                                     height={64}
                                     className='img-fluid rounded-circle'
                                 /></Link>
-                            <Link
-                                to={`/profile/${user.username}`}
-                                className='mt-1 ml-3 mr-4 text-dark interaction'
-                            >
-                                {user.username}
-                            </Link>
+                                <Link to={`/profile/${user.username}`} className='mt-1 ml-3 mr-4
+                                  text-dark interaction'>{user.username.length > 10 ?
+                                            `${user.username.substring(0, 10)}...` : user.username}</Link>
                             </div>
                             {this.dynamicButton(user._id, user.isAlreadyFollow)}
                     </div>

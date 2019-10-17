@@ -43,11 +43,11 @@ export const changeEmail = async (req: Request, res: Response, next: NextFunctio
         }
 
         const token = encodeJWT(email, process.env.SECRET_KEY);
-
         const emailSubject = 'JSgram - Change Email';
         const emailBody = renderTemplate('change.email.pug', { user, newEmail, email, token });
+        const updatedUser = {...user, email: newEmail};
 
-        const successSend = await sendEmail(user, emailSubject, emailBody);
+        const successSend = await sendEmail(updatedUser, emailSubject, emailBody);
         if (!successSend) {
             const message = 'Email wasn\'t sent.';
 

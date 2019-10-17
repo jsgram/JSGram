@@ -19,8 +19,8 @@
   }
 
   .comments {
-    height: auto;
-    max-height: 320px;
+    flex-shrink: 0;
+    max-height: 300px;
     overflow-x: hidden;
     overflow-y: auto;
     word-break: break-all;
@@ -32,8 +32,21 @@
     &::-webkit-scrollbar-thumb {
       background-color: $color-dove-gray;
     }
+
+    //stylelint-disable
+    .modal > & {
+    @media screen and (min-width: $break-md) {
+        flex-grow: 1;
+        position: relative;
+
+        > div {
+          position: absolute;
+        }
+      }
+    }
   }
 
+  //stylelint-enable
   .one-comment {
     &:hover {
       .edit-delete-comment {
