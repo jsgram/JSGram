@@ -39,7 +39,7 @@ const app: Application = express();
 export const server = http.createServer(app);
 export const io = socketIo(server);
 
-app.use(cors({credentials: true, origin: process.env.FRONT_PATH}));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(passport.initialize());
