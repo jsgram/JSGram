@@ -35,14 +35,18 @@ export class FriendsRecomendations extends React.Component <IProps> {
 
         if (isAlreadyFollow) {
             return (
-                <Button className='btn' color='danger' onClick={(): void => this.unfollowRecommendationUser(_id)}>
+                <Button className='btn align-self-center'
+                        color='danger'
+                        onClick={(): void => this.unfollowRecommendationUser(_id)}>
                     Unfollow
                 </Button>
             );
         }
 
         return (
-            <Button className='btn' color='danger' onClick={(): void => this.followRecommendationUser(_id)}>
+            <Button className='btn align-self-center'
+                    color='danger'
+                    onClick={(): void => this.followRecommendationUser(_id)}>
                 Follow
             </Button>
         );
