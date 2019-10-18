@@ -32,7 +32,7 @@ export const Index = ({setEmailText, email, user, changeEmail: mailChange}: ISta
     return (
         <div>
             <h3 className='text-center font-weight-light text-secondary text-uppercase'>Change Email</h3>
-            <Form className='d-flex flex-column mt-3 bg-white p-4'>
+            <Form className='d-flex flex-column mt-3 bg-white p-4 interaction'>
                 <FormGroup row className='align-items-center'>
                     <Label className='col-sm-3 m-0'>
                         Change Email
@@ -46,7 +46,7 @@ export const Index = ({setEmailText, email, user, changeEmail: mailChange}: ISta
                     </Col>
                 </FormGroup>
                 <Button
-                    className='align-self-center btn mt-3'
+                    className='align-self-center btn mt-3 interaction'
                     color='danger'
                     onClick={changeEmail}
                 >

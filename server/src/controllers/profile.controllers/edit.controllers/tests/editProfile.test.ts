@@ -30,7 +30,7 @@ describe('Edit profile controller:', () => {
         response.json = jest.fn(() => response);
 
         await editProfile(request, response, fakeNext);
-        expect(response.json).toHaveBeenCalledTimes(0);
+        expect(response.json).toHaveBeenCalledTimes(1);
     });
 
     test('edit profile - failure', async () => {
@@ -46,7 +46,7 @@ describe('Edit profile controller:', () => {
 
         const answer = {
             message: 'Unauthorized attempt to edit profile',
-            status: 400,
+            status: 403,
         };
 
         await editProfile(request, response, fakeNext);

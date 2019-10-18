@@ -1,11 +1,11 @@
 import { likesReducer, defaultState } from '../reducers';
 import * as types from '../actionTypes';
-import {SET_LIKE_PENDING} from "../actionTypes";
-import {SET_POST_AUTHORS_OF_LIKES} from "../actionTypes";
-import {SET_FEED_AUTHORS_OF_LIKES} from "../actionTypes";
-import {CHECK_LOGGED_USER_LIKE_EXIST} from "../actionTypes";
-import {ADD_USER_LIKE} from "../actionTypes";
-import {REMOVE_USER_LIKE} from "../actionTypes";
+import {SET_LIKE_PENDING} from '../actionTypes';
+import {SET_POST_AUTHORS_OF_LIKES} from '../actionTypes';
+import {SET_FEED_AUTHORS_OF_LIKES} from '../actionTypes';
+import {CHECK_LOGGED_USER_LIKE_EXIST} from '../actionTypes';
+import {ADD_USER_LIKE} from '../actionTypes';
+import {REMOVE_USER_LIKE} from '../actionTypes';
 
 describe('Like reducer test', () => {
     it('Should return the default state', () => {

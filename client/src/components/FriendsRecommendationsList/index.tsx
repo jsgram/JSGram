@@ -18,15 +18,15 @@ export class FriendsRecommendationsList extends React.Component <IProps> {
 
     public componentDidMount(): void {
         this.props.getRecommendations();
-    };
+    }
 
     public followRecommendationUser = (_id: string): void => {
         this.props.changeUsersFollowing(_id, 'follow');
-    };
+    }
 
     public unfollowRecommendationUser = (_id: string): void => {
         this.props.changeUsersFollowing(_id, 'unFollow');
-    };
+    }
 
     public dynamicButton = (_id: string, isAlreadyFollow: boolean): JSX.Element => {
 
@@ -43,7 +43,7 @@ export class FriendsRecommendationsList extends React.Component <IProps> {
                 Follow
             </Button>
         );
-    };
+    }
 
     public render(): JSX.Element {
 
@@ -68,7 +68,7 @@ export class FriendsRecommendationsList extends React.Component <IProps> {
                                     />
                                     <h6 className='align-self-end'>
                                     <Link to={`/profile/${user.username}`}
-                                          className='text-dark'>{user.username}</Link>
+                                          className='text-dark interaction'>{user.username}</Link>
                                     </h6>
                                 </div>
                                     {this.dynamicButton(user._id, user.isAlreadyFollow)}

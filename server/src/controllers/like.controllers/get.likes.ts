@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
+
 import { getLikedPosts } from '../../db.requests/get.likes';
 import { POSTS_PER_PAGE } from '../../common.constants/getPosts.constants';
 import { ILikeModel } from '../../models/like.model';
 import { IPostModel } from '../../models/post.model';
+import { serverError } from '../../common.constants/errors.constants';
 
 interface IParams {
     params: {
@@ -21,6 +23,7 @@ export const getLikes = async (req: Request, res: Response, next: NextFunction):
 
         res.json({ feed });
     } catch (e) {
-        return next(e);
+        console.error(e);
+        next(serverError);
     }
 };

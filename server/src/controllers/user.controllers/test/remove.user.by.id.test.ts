@@ -51,7 +51,7 @@ describe('Delete user controller:', () => {
 
         const answer = {
             message: 'Cannot delete user [object Object].',
-            status: 409,
+            status: 500,
         };
 
         await remove(request, response, fakeNext);

@@ -13,7 +13,7 @@ export const deleteComment = async (commentId: string, next: NextFunction):
 
         return deletedComment;
     } catch (e) {
-        next({ status: 409, message: e.message });
+        next({ status: 500, message: e.message });
     }
 };
 
@@ -32,6 +32,6 @@ export const deleteCommentFromPost = async (postId: string, commentId: string, n
 
         return updatedPost;
     } catch (e) {
-        next({ status: 409, message: e.message });
+        next({ status: 500, message: e.message });
     }
 };

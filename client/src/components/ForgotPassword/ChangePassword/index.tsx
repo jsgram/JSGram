@@ -21,18 +21,18 @@ export const ChangePassword = ({changePassword, match, handleSubmit, submitting}
                         <div className='border'>
                             <FormGroup className='col-lg-10 offset-lg-1 text-center'>
                                 <Link to='/'>
-                                    <img className='picture' src={logo} alt='logo'/>
+                                    <img className='picture' src={logo} alt='logo interaction'/>
                                 </Link>
                                 <Field
                                     name='password'
                                     type='password'
                                     component={renderField}
                                     label='password'
-                                    className='form-control form-control-lg mt-3'
+                                    className='form-control form-control-lg mt-3 interaction'
                                     placeholder='Password'
                                 />
                                 <Button
-                                    className='mt-3'
+                                    className='mt-3 interaction'
                                     disabled={submitting}
                                     color='danger'
                                     size='lg'
@@ -49,7 +49,7 @@ export const ChangePassword = ({changePassword, match, handleSubmit, submitting}
                             <FormGroup className='text-center login_soft'>
                                 <p className='pt-2'>
                                     Still don't have an account?
-                                    <Link to='/register' className='pl-1'>
+                                    <Link to='/register' className='pl-1 interaction'>
                                         Register
                                     </Link>
                                 </p>

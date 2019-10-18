@@ -46,7 +46,7 @@ describe('Add comment controller:', () => {
 
         const answer = {
             message: 'Can not create comment',
-            status: 409,
+            status: 500,
         };
 
         await addComments(request, response, fakeNext);

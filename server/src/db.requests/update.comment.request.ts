@@ -11,6 +11,6 @@ export const updateComment = async (id: string, comment: string, next: NextFunct
         }
         return updatedComment;
     } catch (e) {
-        next({message: 'Comment doesn\'t exist', status: 409});
+        next({ status: 409, message: e.message });
     }
 };

@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
+
 import { ILikeModel } from '../../models/like.model';
 import { deleteLike, removeUserIdFromPost } from '../../db.requests/remove.like.requsets';
+import { serverError } from '../../common.constants/errors.constants';
 
 export const removeLike = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -9,16 +11,23 @@ export const removeLike = async (req: Request, res: Response, next: NextFunction
 
         const removedLike = await deleteLike(postId, userId, next);
         if (!removedLike) {
-            throw new Error('Like does not exist');
+            const message = 'Can not delete like';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         const postWithRemovedUserId = await removeUserIdFromPost(postId, userId, next);
         if (!postWithRemovedUserId) {
-            throw new Error('Can not remove like from post');
+            const message = 'Can not remove like from post';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         res.json({message: 'Like removed successfully', updatedPost: postWithRemovedUserId});
     } catch (e) {
-        next({status: 409, message: e.message});
+        console.error(e);
+        next(serverError);
     }
 };

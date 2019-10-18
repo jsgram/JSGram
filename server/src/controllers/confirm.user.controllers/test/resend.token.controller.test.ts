@@ -39,12 +39,14 @@ describe('Resend token controller:', () => {
 
     test('token resend - failure', async () => {
         request.body = {
+            _id: '5d8df9b83726d40c562aea0d',
             email: '',
+            username: '',
         };
 
         const answer = {
-            message: 'Verification email was not send to user.',
-            status: 409,
+            message: 'Email field is empty.',
+            status: 422,
         };
 
         await resend(request, response, fakeNext);

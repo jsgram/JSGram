@@ -6,7 +6,7 @@ export const checkFollowing = async (loggedUserId: string, followingUserId: stri
     try {
         return await User.countDocuments({_id: loggedUserId, following: followingUserId});
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };
 
@@ -22,6 +22,6 @@ export const followByUserId = async (userIdToUpdate: string, userIdToAdd: string
 
         return followingUserIdWithLoggedUserId;
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };

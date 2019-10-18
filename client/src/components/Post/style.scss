@@ -19,11 +19,11 @@
   }
 
   .comments {
+    flex-shrink: 0;
     max-height: 300px;
     overflow-x: hidden;
     overflow-y: auto;
     word-break: break-all;
-    flex-shrink: 0;
 
     &::-webkit-scrollbar {
       width: 2px;

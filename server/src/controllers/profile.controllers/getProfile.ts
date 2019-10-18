@@ -1,9 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 import { getUserByUsername } from '../../db.requests/user.requests';
+import { Interaction, IInteractionModel } from '../../models/interaction.model';
+import { serverError } from '../../common.constants/errors.constants';
 
 interface IParams {
     page: number;
     userName: string;
+}
+
+interface ISession {
+    timestamp: number;
+    sessionLength: number;
 }
 
 export const getProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -23,7 +30,24 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
             subscriptions,
             privacy,
             email,
+            createdAt,
+            isAdmin,
         }: any = user;
+
+        const interactions = await Interaction.find({ userId: _id }).sort({ unloadTime: -1 });
+
+        const { ipAddress = '-', language = '-', platform = '-' }: IInteractionModel = interactions[0] || {};
+
+        const sessions = interactions.map((x: IInteractionModel): ISession => ({
+            timestamp: x.unloadTime.getTime(),
+            sessionLength: x.unloadTime.getTime() - x.loadTime.getTime(),
+        }));
+
+        const { sessionLength: lastSession = 0 }: any = sessions[0] || {};
+        const dailySession = sessions
+            .filter((x: ISession): boolean => x.timestamp > new Date().getTime() - 86400000)
+            .reduce((a: number, b: ISession): number => a + b.sessionLength, 0);
+        const totalSession = sessions.reduce((a: number, b: ISession): number => a + b.sessionLength, 0);
 
         const userProfile = {
             _id,
@@ -37,10 +61,19 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
             subscriptions,
             privacy,
             email,
+            createdAt,
+            isAdmin,
+            ipAddress,
+            language,
+            platform,
+            lastSession,
+            dailySession,
+            totalSession,
         };
 
         res.json({userProfile});
     } catch (e) {
-        next(e);
+        console.error(e);
+        next(serverError);
     }
 };

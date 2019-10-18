@@ -43,8 +43,8 @@ describe('Check email controller:', () => {
         };
 
         const answer = {
-            message: 'The email address you have entered isn\'t associated with JSgram account.',
-            status: 409,
+            message: 'Email field is empty',
+            status: 422,
         };
 
         await checkEmail(request, response, fakeNext);

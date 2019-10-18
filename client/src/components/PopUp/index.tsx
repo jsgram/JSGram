@@ -23,12 +23,12 @@ export const PopUpModal = ({modal, photo, deletePhoto: photoDelete, toggleModal}
                 <ModalBody>
                     <CropperContainer toggleModal={toggleModal} />
                     {photo &&
-                    <Button className='mt-3' outline size='lg' color='danger' onClick={(): void => {
+                    <Button className='mt-3 interaction' outline size='lg' color='danger' onClick={(): void => {
                         deletePhoto();
                     }}>Delete Current Photo</Button>}
                 </ModalBody>
                 <ModalFooter>
-                    <Button className='m-auto' outline color='secondary' onClick={(): void => {
+                    <Button className='m-auto interaction' outline color='secondary' onClick={(): void => {
                         toggleModal();
                     }}>Cancel</Button>
                 </ModalFooter>

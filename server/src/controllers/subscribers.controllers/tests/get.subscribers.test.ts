@@ -33,7 +33,7 @@ describe('Get subscribers controller:', () => {
 
         const answer = {
             message: 'Can not show users\' followers',
-            status: 409,
+            status: 500,
         };
 
         await getSubscribers('some name', 'subscriber', 1, fakeNext);

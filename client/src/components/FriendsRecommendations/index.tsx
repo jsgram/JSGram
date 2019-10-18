@@ -25,11 +25,11 @@ export class FriendsRecomendations extends React.Component <IProps> {
 
     public followRecommendationUser = (_id: string): void => {
         this.props.changeUsersFollowing(_id, 'follow');
-    };
+    }
 
     public unfollowRecommendationUser = (_id: string): void => {
         this.props.changeUsersFollowing(_id, 'unFollow');
-    };
+    }
 
     public dynamicButton = (_id: string, isAlreadyFollow: boolean): JSX.Element => {
 
@@ -50,7 +50,7 @@ export class FriendsRecomendations extends React.Component <IProps> {
                 Follow
             </Button>
         );
-    };
+    }
 
     public render(): JSX.Element {
         const USERS_PER_PAGE = 4;
@@ -70,7 +70,7 @@ export class FriendsRecomendations extends React.Component <IProps> {
                                     className='img-fluid rounded-circle'
                                 /></Link>
                                 <Link to={`/profile/${user.username}`} className='mt-1 ml-3 mr-4
-                                  text-dark'>{user.username.length > 10 ?
+                                  text-dark interaction'>{user.username.length > 10 ?
                                             `${user.username.substring(0, 10)}...` : user.username}</Link>
                             </div>
                             {this.dynamicButton(user._id, user.isAlreadyFollow)}
@@ -78,8 +78,12 @@ export class FriendsRecomendations extends React.Component <IProps> {
                 ),
             )}
             {this.props.friendsRecommendations.users.length > topRecommendations.length &&
-            <Link to={`/profile/${this.props.loggedUsername}/recommendations`} className='mr-2 text-decoration-none'>
-                See all recommendations</Link>}
+            <Link
+                to={`/profile/${this.props.loggedUsername}/recommendations`}
+                className='mr-2 text-decoration-none interaction'
+            >
+                See all recommendations
+            </Link>}
         </div>
         );
     }

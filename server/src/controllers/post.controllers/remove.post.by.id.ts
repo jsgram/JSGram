@@ -26,7 +26,10 @@ export const remove = async (req: Request, res: Response, next: NextFunction): P
         const delPost = await deletePost(postId, userId, isAdmin, next);
 
         if (authorId !== userId && !isAdmin) {
-            throw new Error(`Unauthorized attempt to delete post ${postId}.`);
+            const message = `Unauthorized attempt to delete post ${postId}.`;
+
+            console.warn(new Error(message));
+            next({ message, status: 403 });
         }
 
         if (delPost.imgPath.match(/amazonaws.com/)) { // do not delete test DB photos
@@ -42,6 +45,7 @@ export const remove = async (req: Request, res: Response, next: NextFunction): P
 
         res.json({message: 'Post was successfully deleted', delPost});
     } catch (e) {
+        console.error(e);
         next({message: 'Couldn\'t delete post', status: 500});
     }
 };

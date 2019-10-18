@@ -12,6 +12,6 @@ export const getCommentsWithPagination = async (postId: string, skip: number, ne
             .limit(COMMENTS_PER_PAGE)
             .skip(skip);
     } catch (e) {
-        next({status: 409, message: 'Error with fetching comments'});
+        next({ status: 500, message: 'Error with fetching comments' });
     }
 };

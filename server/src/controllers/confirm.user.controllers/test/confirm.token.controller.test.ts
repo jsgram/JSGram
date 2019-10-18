@@ -46,7 +46,7 @@ describe('Confirm token controller:', () => {
 
         const answer = {
             message: 'User has not been authenticated',
-            status: 409,
+            status: 401,
         };
 
         await confirm(request, response, fakeNext);

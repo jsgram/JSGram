@@ -18,7 +18,7 @@ export const createComment = async (postId: string, authorId: string, comment: s
 
         return createdCommentWithAuthor;
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };
 
@@ -33,6 +33,6 @@ export const addCommentIdToPost = async (postId: string, commentId: string, next
 
         return updatedPost;
     } catch (e) {
-        next({status: 409, message: e.message});
+        next({ status: 500, message: e.message });
     }
 };

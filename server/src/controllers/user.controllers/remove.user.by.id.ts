@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { deleteUser } from '../../db.requests/delete.user.requests';
 import { deletePost } from '../../db.requests/deletePost.request';
+import { serverError } from '../../common.constants/errors.constants';
 
 export const remove = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -8,15 +9,22 @@ export const remove = async (req: Request, res: Response, next: NextFunction): P
         const { locals: { user: { isAdmin } } }: Response = res;
 
         if (!isAdmin) {
-            throw new Error(`Unauthorized attempt to delete user ${userId}.`);
+            const message = `Unauthorized attempt to delete user ${userId}.`;
+
+            console.warn(new Error(message));
+            next({ message, status: 403 });
         }
         const deletedUser = await deleteUser(userId, next);
         if (!deletedUser) {
-            throw new Error(`Cannot delete user ${userId}.`);
+            const message = `Cannot delete user ${userId}.`;
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         res.json({ message: 'User deleted successfully.', deletedUser });
     } catch (e) {
-        next({ status: 409, message: e.message });
+        console.error(e);
+        next(serverError);
     }
 };

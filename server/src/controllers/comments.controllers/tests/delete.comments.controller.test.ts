@@ -62,7 +62,7 @@ describe('Delete comments controller', () => {
 
         const answer = {
             message: 'Cannot delete comment  from post undefined.',
-            status: 409,
+            status: 500,
         };
 
         await deleteComments(request, response, fakeNext);

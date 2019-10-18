@@ -26,6 +26,6 @@ export const updatePost = async (
 
         return updPost;
     } catch (e) {
-        next({message: 'Post doesn\'t exist', status: 409});
+        next({ status: 500, message: 'Post doesn\'t exist' });
     }
 };

@@ -26,7 +26,7 @@ export const PostPhoto = ({croppedImage, description, setDescriptionForPost}: IP
                     alt='cropped img'
                 />
                 <Input
-                    className='mt-3'
+                    className='mt-3 interaction'
                     type='textarea'
                     name='description'
                     placeholder='Write a caption...'

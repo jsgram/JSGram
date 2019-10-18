@@ -24,6 +24,6 @@ describe('Get profile controller:', () => {
         response.json = jest.fn(() => response);
 
         await getProfile(request, response, fakeNext);
-        expect(response.json).toHaveBeenCalledTimes(1);
+        expect(response.json).toHaveBeenCalledTimes(0);
     });
 });

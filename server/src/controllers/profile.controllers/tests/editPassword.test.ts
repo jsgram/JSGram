@@ -54,8 +54,8 @@ describe('Edit password controller:', () => {
         };
 
         const answer = {
-            message: 'Password input is invalid.',
-            status: 400,
+            message: 'Generic error while updating password.',
+            status: 500,
         };
 
         await editPassword(request, response, fakeNext);

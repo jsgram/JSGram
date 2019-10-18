@@ -115,7 +115,7 @@ export class Menu extends React.Component<IMenuProps> {
 
     public renderUser = (user: IUser): JSX.Element => (
         <Link to={`/profile/${user.username}`}
-              className='text-decoration-none' key={user._id}>
+              className='text-decoration-none interaction' key={user._id}>
             <div className='w-100'>
                 <DropdownItem className='p-md-2 p-1 d-flex align-items-center'>
                     <img
@@ -135,7 +135,7 @@ export class Menu extends React.Component<IMenuProps> {
 
     public renderTag = (hashtag: IHashTag): JSX.Element => (
         <Link to={`/tag/${hashtag.tagName}`}
-              className='text-decoration-none' key={hashtag._id}>
+              className='text-decoration-none interaction' key={hashtag._id}>
             <div className='w-100'>
                 <DropdownItem className='p-md-2 p-1 d-flex align-items-center'>
                     <i className='fa fa-hashtag fa-2x mr-2'/>
@@ -160,14 +160,14 @@ export class Menu extends React.Component<IMenuProps> {
                         <img src={logo}
                              alt='logo'
                              width={110}
-                             className='mb-3 sm-mb-2 sm-mr-5 pt-1 logo'/>
+                             className='mb-3 sm-mb-2 sm-mr-5 pt-1 logo interaction'/>
                     </Link>
                     <div className='col-md-4 mt-md-4 mt-0 form-group search'>
                         <span className='fa fa-search form-control-feedback'/>
                         <Input
                             placeholder='Search'
                             type='search'
-                            className='form-control px-4'
+                            className='form-control px-4 interaction'
                             value={searchValue}
                             onChange={this.onSearchChange}
                         />
@@ -192,13 +192,13 @@ export class Menu extends React.Component<IMenuProps> {
                     </div>
                     <div className='mt-4'>
                         <Link to={`/mentions`}>
-                            <i className='fa fa-at fa-lg pr-4 icon' />
+                            <i className='fa fa-at fa-lg pr-4 icon interaction' />
                         </Link>
                         <Link to={`/profile/${newUsername || loggedUsername}/likes`}>
-                            <i className='fa fa-heart-o fa-lg pr-4 icon' />
+                            <i className='fa fa-heart-o fa-lg pr-4 icon interaction' />
                         </Link>
                         <Link to={`/profile/${newUsername || loggedUsername}`}>
-                            <i className='fa fa-user-o fa-lg pr-3 icon'/>
+                            <i className='fa fa-user-o fa-lg pr-3 icon interaction'/>
                         </Link>
                     </div>
                 </div>

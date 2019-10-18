@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ICommentModel } from '../../models/comment.model';
 import { addCommentIdToPost, createComment } from '../../db.requests/add.comments.requests';
+import { serverError } from '../../common.constants/errors.constants';
 
 export const addComments = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -8,18 +9,25 @@ export const addComments = async (req: Request, res: Response, next: NextFunctio
 
         const createdComment = await createComment(postId, authorId, comment, next);
         if (!createdComment) {
-            throw new Error('Can not create comment');
+            const message = 'Can not create comment';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
-        const {_id: commentId}: ICommentModel = createdComment;
+        const {_id: commentId}: ICommentModel = createdComment as ICommentModel;
 
         const updatedPost = await addCommentIdToPost(postId, commentId, next);
         if (!updatedPost) {
-            throw new Error('Can not create comment');
+            const message = 'Can not create comment';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         res.json({message: 'Comment added successfully', createdComment, updatedPost});
     } catch (e) {
-        next({status: 409, message: e.message});
+        console.error(e);
+        next(serverError);
     }
 };

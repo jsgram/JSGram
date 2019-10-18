@@ -34,6 +34,7 @@ export const create = (req: Request, res: Response, next: NextFunction): void =>
             const newPost = await addPost(user, description, imgPath, tags, next);
             res.json({newPost});
         } catch (e) {
+            console.error(e);
             next({message: 'Can not create new post', status: 500});
         }
     });

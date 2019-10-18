@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { findUsers } from '../../db.requests/search.request';
 import { SEARCH_INFO_PER_PAGE } from '../../common.constants/getPosts.constants';
+import { serverError } from '../../common.constants/errors.constants';
 
 interface IParams {
     params: {
@@ -16,11 +17,15 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction):
         const results = await findUsers(decodeURIComponent(query), skip, next);
 
         if (!results) {
-            throw new Error('Can not find user');
+            const message = 'Can not find user';
+
+            console.warn(new Error(message));
+            next({ message, status: 404 });
         }
 
         res.json({ results });
     } catch (e) {
-        next(e);
+        console.error(e);
+        next(serverError);
     }
 };

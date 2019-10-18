@@ -17,7 +17,7 @@ export const ProfileEdit = ({ handleSubmit, onChangeProfile, submitting }: FormP
                             component={renderField}
                             label='fullName'
                             placeholder='FullName'
-                            className='form-control' />
+                            className='form-control interaction' />
                     </Col>
                 </FormGroup>
                 <FormGroup row className='align-items-center'>
@@ -28,7 +28,7 @@ export const ProfileEdit = ({ handleSubmit, onChangeProfile, submitting }: FormP
                             component={renderField}
                             label='username'
                             placeholder='Username'
-                            className='form-control' />
+                            className='form-control interaction' />
                     </Col>
                 </FormGroup>
                 <FormGroup row className='align-items-center'>
@@ -39,11 +39,11 @@ export const ProfileEdit = ({ handleSubmit, onChangeProfile, submitting }: FormP
                             component={renderField}
                             label='description'
                             placeholder='Description'
-                            className='form-control bio' />
+                            className='form-control bio interaction' />
                     </Col>
                 </FormGroup>
                 <Button
-                    className='align-self-center btn mt-3'
+                    className='align-self-center btn mt-3 interaction'
                     color='danger'
                     disabled={submitting}
                 >

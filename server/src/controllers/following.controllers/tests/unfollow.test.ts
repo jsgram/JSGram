@@ -44,8 +44,8 @@ describe('Unfollow controller:', () => {
         };
 
         const answer = {
-            message: 'Cannot destructure property `id` of \'undefined\' or \'null\'.',
-            status: 409,
+            message: 'Server error',
+            status: 500,
         };
 
         await unfollow(request, response, fakeNext);

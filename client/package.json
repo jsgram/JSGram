@@ -33,7 +33,7 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "coverage": "react-scripts test --watchAll=false --coverage",
-    "lint": "npm run lint:sass",
+    "lint": "npm-run-all lint:*",
     "lint:tsx": "tslint --formatters-dir node_modules/custom-tslint-formatters/formatters --format grouped 'src/**/*.{ts,tsx}'",
     "lint:sass": "stylelint ."
   },

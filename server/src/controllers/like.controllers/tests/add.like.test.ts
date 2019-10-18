@@ -28,7 +28,7 @@ describe('Add like controller:', () => {
         response.json = jest.fn(() => response);
 
         await addLike(request, response, fakeNext);
-        expect(response.json).toHaveBeenCalledTimes(0);
+        expect(response.json).toHaveBeenCalledTimes(1);
     });
 
     test('add like - failure', async () => {
@@ -38,8 +38,8 @@ describe('Add like controller:', () => {
         };
 
         const answer = {
-            message: 'No postId or username',
-            status: 409,
+            message: 'Can not add like to post',
+            status: 500,
         };
 
         await addLike(request, response, fakeNext);

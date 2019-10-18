@@ -38,8 +38,8 @@ export const Likes = ({
     };
 
     const likeButton = loggedUserLikeExist ?
-        (<i className='fa fa-heart fa-lg like' onClick={onDeleteLike}/>) :
-        (<i className='fa fa-heart-o fa-lg' onClick={onAddLike}/>);
+        (<i className='fa fa-heart fa-lg like interaction' onClick={onDeleteLike}/>) :
+        (<i className='fa fa-heart-o fa-lg interaction' onClick={onAddLike}/>);
 
     return (
         <>

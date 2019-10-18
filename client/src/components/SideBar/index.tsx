@@ -83,7 +83,7 @@ export class SideBar extends React.Component<ISideBarProps> {
                                         {newFullName ? newFullName : fullName}
                                     </div>
                                     <Link to={`/profile/${username}`}
-                                          className='profile-title'
+                                          className='profile-title interaction'
                                     >
                                         View Profile
                                     </Link>
@@ -95,7 +95,7 @@ export class SideBar extends React.Component<ISideBarProps> {
                                                 exact
                                                 to={`/profile/${username}/edit`}
                                                 activeClassName='active'
-                                                className='nav-link pl-2'>
+                                                className='nav-link pl-2 interaction'>
                                                 <i className='fa fa-edit'></i>
                                                 Edit Information
                                             </NavLink>
@@ -105,7 +105,7 @@ export class SideBar extends React.Component<ISideBarProps> {
                                                 to={`/profile/${username}/edit/change-email`
                                                 }
                                                 activeClassName='active'
-                                                className='nav-link pl-2'>
+                                                className='nav-link pl-2 interaction'>
                                                 <i className='fa fa-envelope'></i>
                                                 Change Email
                                             </NavLink>
@@ -114,7 +114,7 @@ export class SideBar extends React.Component<ISideBarProps> {
                                             <NavLink
                                                 to={`/profile/${username}/edit/change-password`}
                                                 activeClassName='active'
-                                                className='nav-link pl-2'>
+                                                className='nav-link pl-2 interaction'>
                                                 <i className='fa fa-key'></i>
                                                 Change Password
                                             </NavLink>
@@ -123,7 +123,7 @@ export class SideBar extends React.Component<ISideBarProps> {
                                             <NavLink
                                                 to={`/profile/${username}/edit/subscriptions`}
                                                 activeClassName='active'
-                                                className='nav-link pl-2'>
+                                                className='nav-link pl-2 interaction'>
                                                 <i className='fa fa-check-circle'></i>
                                                 Subscribe To
                                             </NavLink>
@@ -132,9 +132,18 @@ export class SideBar extends React.Component<ISideBarProps> {
                                             <NavLink
                                                 to={`/profile/${username}/edit/privacy`}
                                                 activeClassName='active'
-                                                className='nav-link pl-2'>
+                                                className='nav-link pl-2 interaction'>
                                                 <i className='fa fa-user-secret'></i>
                                                 Privacy and Security
+                                            </NavLink>
+                                        </li>
+                                        <li className='nav-item'>
+                                            <NavLink
+                                                to={`/profile/${username}/edit/account-data`}
+                                                activeClassName='active'
+                                                className='nav-link pl-2 interaction'>
+                                                <i className='fa fa-server'></i>
+                                                Account Data
                                             </NavLink>
                                         </li>
                                     </ul>

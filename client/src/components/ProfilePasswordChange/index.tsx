@@ -58,7 +58,7 @@ export const ProfilePasswordChange = ({
                     </Col>
                 </FormGroup>
                 <Button
-                    className='align-self-center btn mt-3'
+                    className='align-self-center btn mt-3 interaction'
                     color='danger'
                     disabled={submitting}
                 >
@@ -72,7 +72,7 @@ export const ProfilePasswordChange = ({
                             <span className='ml-2'>Change Password</span>
                         </div>}
                 </Button>
-                <Link className='align-self-center d-block text-danger pl-1 mt-3'
+                <Link className='align-self-center d-block text-danger pl-1 mt-3 interaction'
                       to={`/profile/${username}/edit/password-reset`}>
                     Forgot Password?
                 </Link>

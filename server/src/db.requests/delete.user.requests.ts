@@ -19,6 +19,6 @@ export const deleteUser = async (userId: string, next: NextFunction):
 
         return deletedUser;
     } catch (e) {
-        next({ status: 409, message: e.message });
+        next({ status: 500, message: e.message });
     }
 };

@@ -1,6 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import { deleteToken, isTokenExist } from '../../db.requests/token.requests';
 import {verificateUser} from '../../db.requests/user.requests';
+import { ITokenModel } from '../../models/token.model';
 
 export const confirm = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -8,21 +9,31 @@ export const confirm = async (req: Request, res: Response, next: NextFunction): 
 
         const token = await isTokenExist(tokenFromEmail, next);
         if (!token) {
-            throw new Error(`Token doesn't exist`);
+            const message = 'Token doesn\'t exist';
+
+            console.warn(new Error(message));
+            next({ message, status: 404 });
         }
 
-        const updatedUser = await verificateUser(token.user, next);
+        const updatedUser = await verificateUser((token as ITokenModel).user, next);
         if (!updatedUser) {
-            throw new Error('User does not exist');
+            const message = 'User does not exist';
+
+            console.warn(new Error(message));
+            next({ message, status: 404 });
         }
 
-        const removeToken = await deleteToken(token.id, next);
+        const removeToken = await deleteToken((token as ITokenModel).id, next);
         if (!removeToken) {
-            throw new Error('Token does not remove');
+            const message = 'Could not remove token';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         res.redirect(`${process.env.FRONT_PATH}/login`);
     } catch (e) {
-        next({message: 'User has not been authenticated', status: 409});
+        console.error(e);
+        next({ message: 'User has not been authenticated', status: 401 });
     }
 };

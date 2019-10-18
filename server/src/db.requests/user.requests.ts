@@ -20,8 +20,7 @@ export const userExist = async (email: string, next: NextFunction): Promise<IUse
 
         return user;
     } catch (e) {
-        next({message: 'The email address you have entered isn\'t ' +
-                'associated with another account', status: 409});
+        next({ status: 500, message: e.message });
     }
 };
 
@@ -38,7 +37,7 @@ export const verificateUser = async (userId: IUserModel, next: NextFunction): Pr
 
         return updatedUser;
     } catch (e) {
-        next({message: 'User does not exist', status: 409});
+        next({ status: 500, message: e.message });
     }
 };
 
@@ -56,7 +55,7 @@ export const changePassword =
 
             return updatedUser;
         } catch (e) {
-            next({message: 'Password did not update', status: 409});
+            next({ status: 500, message: 'Password did not update' });
         }
     };
 
@@ -91,7 +90,7 @@ export const editUser = async (
 
         return updatedUser;
     } catch (e) {
-        next({message: 'Username is not unique', status: 409});
+        next({ status: 500, message: e.message });
     }
 };
 
@@ -129,6 +128,6 @@ export const getUserByUsername = async (username: string, next: NextFunction): P
 
         return user;
     } catch (e) {
-        next({message: 'User does not exist', status: 404});
+        next({ status: 500, message: e.message });
     }
 };

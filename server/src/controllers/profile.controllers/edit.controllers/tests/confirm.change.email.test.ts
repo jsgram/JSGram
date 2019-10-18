@@ -25,8 +25,8 @@ describe('Confirm change email controller:', () => {
         };
 
         const answer = {
-            message: 'User has not been authenticated',
-            status: 409,
+            message: 'Server error',
+            status: 500,
         };
 
         await confirmChangeEmail(request, response, fakeNext);

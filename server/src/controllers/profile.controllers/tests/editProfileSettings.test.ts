@@ -45,8 +45,8 @@ describe('Edit profile settings controller:', () => {
         };
 
         const answer = {
-            message: 'Cannot update settings of user .',
-            status: 409,
+            message: 'Generic error while updating settings.',
+            status: 500,
         };
 
         await editProfileSettings(request, response, fakeNext);

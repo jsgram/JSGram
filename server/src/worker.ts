@@ -61,7 +61,9 @@ export const enqueueNotification = (user: IUserModel): void => {
 export const dequeueNotification = (userId: string): void => {
     const index = notificationPool.findIndex((item: IObservable) => item.user._id === userId);
     const [watcher]: any = notificationPool.splice(index, 1);
-    clearInterval(watcher.handler);
+    if (watcher) {
+        clearInterval(watcher.handler);
+    }
 };
 
 export const notificationStarter = async (): Promise<void> => {

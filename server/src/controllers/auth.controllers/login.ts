@@ -3,6 +3,7 @@ import passport from 'passport';
 import {encodeJWT} from '../../helpers/jwt.encoders';
 import {IUserModel} from '../../models/user.model';
 import {userExist} from '../../db.requests/user.requests';
+import { serverError } from '../../common.constants/errors.constants';
 import {isCorrectPassword} from '../../helpers/hash.password';
 
 export const login = async (req: Request, res: Response, next: NextFunction,
@@ -10,16 +11,25 @@ export const login = async (req: Request, res: Response, next: NextFunction,
     try {
         const checkUser = await userExist(req.body.email, next);
         if (!checkUser) {
-            throw new Error('User does not exist');
+            const message = 'User does not exist';
+
+            console.warn(new Error(message));
+            next({ message, status: 404 });
         }
 
-        const verifiedPassword  = await isCorrectPassword(req.body.password, checkUser.password);
+        const verifiedPassword  = await isCorrectPassword(req.body.password, (checkUser as IUserModel).password);
         if (!verifiedPassword ) {
-            throw new Error('Wrong password');
+            const message = 'Wrong password';
+
+            console.warn(new Error(message));
+            next({ message, status: 401 });
         }
 
-        if (!checkUser.isVerified) {
-            throw new Error('User has not been authenticated');
+        if (!(checkUser as IUserModel).isVerified) {
+            const message = 'User email is not verified';
+
+            console.warn(new Error(message));
+            next({ message, status: 403 });
         }
 
         passport.authenticate('local', function(err: Error, user: IUserModel): any {
@@ -37,6 +47,7 @@ export const login = async (req: Request, res: Response, next: NextFunction,
             });
         })(req, res, next);
     } catch (e) {
-        next({message: e.message, status: 406});
+        console.error(e);
+        next(serverError);
     }
 };

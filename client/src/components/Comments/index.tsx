@@ -92,7 +92,7 @@ export class Comments extends React.Component<ICommentsProps> {
                 <>
                     <textarea
                         rows={3}
-                        className='form-control'
+                        className='form-control interaction'
                         value={comment.newComment}
                         onChange={
                             (event: React.ChangeEvent<any>)
@@ -108,7 +108,7 @@ export class Comments extends React.Component<ICommentsProps> {
                                comment._id,
                            )}>
                         </i>
-                        <i className='fa fa-check fa-lg text-success icon-edit'
+                        <i className='fa fa-check fa-lg text-success icon-edit interaction'
                            onClick={(): void => this.editComment(
                                comment.newComment,
                                comment._id,
@@ -122,10 +122,10 @@ export class Comments extends React.Component<ICommentsProps> {
                 <>
                     <div className='d-inline float-right edit-delete-comment'>
                         <i
-                            className='fa fa-pencil mr-2 edit-comment'
+                            className='fa fa-pencil mr-2 edit-comment interaction'
                             onClick={(): void => this.props.changeEditStatus(comment._id)}
                         />
-                        <i className='fa fa-trash-o delete-comment' onClick={
+                        <i className='fa fa-trash-o delete-comment interaction' onClick={
                             (): void => this.onDeleteComment(comment._id, comment.authorId)
                         }/>
                     </div>
@@ -150,7 +150,7 @@ export class Comments extends React.Component<ICommentsProps> {
                             className='img-fluid rounded-circle mt-1 mr-1 mb-1'
                         />
                         <Link to={`/profile/${authors[authorId].username}`}
-                              className='text-dark mt-1'
+                              className='text-dark mt-1 interaction'
                         >
                             {authors[authorId].username}
                         </Link>

@@ -22,18 +22,18 @@ export const CheckEmail = ({checkEmail, handleSubmit, submitting}: FormProps): J
                         <div className='border'>
                             <FormGroup className='col-lg-10 offset-lg-1 text-center'>
                                 <Link to='/'>
-                                    <img className='picture img-fluid' src={logo} alt='logo'/>
+                                    <img className='picture img-fluid' src={logo} alt='logo interaction'/>
                                 </Link>
                                 <Field
                                     name='email'
                                     type='text'
                                     component={renderField}
                                     label='email'
-                                    className='form-control form-control-lg mt-3'
+                                    className='form-control form-control-lg mt-3 interaction'
                                     placeholder='E-mail'
                                 />
                                 <Button
-                                    className='mt-3'
+                                    className='mt-3 interaction'
                                     disabled={submitting}
                                     color='danger'
                                     size='lg'
@@ -50,7 +50,7 @@ export const CheckEmail = ({checkEmail, handleSubmit, submitting}: FormProps): J
                             <FormGroup className='text-center logo-google'>
                                 <p className='pt-2'>
                                     Still don't have an account?
-                                    <Link to='/register' className='text-danger pl-1'>
+                                    <Link to='/register' className='text-danger pl-1 interaction'>
                                         Register
                                     </Link>
                                 </p>

@@ -116,9 +116,9 @@ export default class Profile extends React.Component<IProfileProps> {
 
         if (this.props.urlUsername === this.props.loggedUsername) {
             return (
-                <Link to='/add-post' className='align-self-start'>
-                    <Button className='btn' color='danger'><i
-                        className='fa fa-plus pr-3'/>
+                <Link to='/add-post' className='align-self-start interaction'>
+                    <Button className='btn interaction' color='danger'><i
+                        className='fa fa-plus pr-3 interaction'/>
                         Add Post
                     </Button>
                 </Link>
@@ -127,7 +127,7 @@ export default class Profile extends React.Component<IProfileProps> {
 
         if (!!loggedUserAlreadyFollowUrlUser.length) {
             return (
-                <Button className='btn' color='danger' onClick={this.unfollowUrlUser}>
+                <Button className='btn interaction' color='danger' onClick={this.unfollowUrlUser}>
                     Unfollow
                 </Button>
             );
@@ -135,7 +135,7 @@ export default class Profile extends React.Component<IProfileProps> {
 
         if (!!urlUserAlreadyFollowLoggedUser.length) {
             return (
-                <Button className='btn' color='danger' onClick={this.followUrlUser}>
+                <Button className='btn interaction' color='danger' onClick={this.followUrlUser}>
                     Follow back
                 </Button>
             );
@@ -143,18 +143,20 @@ export default class Profile extends React.Component<IProfileProps> {
 
         if (!urlUserAlreadyFollowLoggedUser.length) {
             return (
-                <Button className='btn' color='danger' onClick={this.followUrlUser}>
+                <Button className='btn interaction' color='danger' onClick={this.followUrlUser}>
                     Follow
                 </Button>
             );
         }
-    };
+    }
 
     public render(): JSX.Element {
         const {user: {posts, followers, following, fullName, username, description, photo, _id},
             loggedId, loading, urlUsername, loggedUsername, loggedUser, deletePhoto}
             : IProfileProps = this.props;
-        const {loaded, deleteUserModal, modal}: { loaded: boolean, deleteUserModal: boolean, modal: boolean } = this.state;
+        const {loaded, deleteUserModal, modal}: {
+            loaded: boolean, deleteUserModal: boolean, modal: boolean,
+        } = this.state;
 
         if (!loaded) {
             return (<Instagram/>);
@@ -195,11 +197,11 @@ export default class Profile extends React.Component<IProfileProps> {
                         </p>
                         <div className='d-flex followers justify-content-between'>
                             <div>
-                                <a href='#/' className='mr-2'><b>{posts}</b> posts</a>
+                                <a href='#/' className='mr-2 interaction'><b>{posts}</b> posts</a>
                             </div>
                             <div>
                                 <Link to={`/profile/${urlUsername}/followers`}
-                                      className='mr-2'><b>{followers.length}</b> followers
+                                      className='mr-2 interaction'><b>{followers.length}</b> followers
                                 </Link>
                             </div>
                             <div>
@@ -211,14 +213,14 @@ export default class Profile extends React.Component<IProfileProps> {
                         <div className='description mt-4'>
                             <strong>{fullName}</strong>
                             { urlUsername === loggedUsername &&
-                            <Link to='/logout' className='text-danger pl-1'>(Logout)</Link> }
+                            <Link to='/logout' className='text-danger pl-1 interaction'>(Logout)</Link> }
                             <p>{description}</p>
                         </div>
                         {
                             loggedUser.isAdmin &&
                             <>
                                 <Button
-                                    className='btn d-block mb-2'
+                                    className='btn d-block mb-2 interaction'
                                     color='danger'
                                     onClick={this.toggleDeleteUserModal}
                                 >
@@ -228,7 +230,7 @@ export default class Profile extends React.Component<IProfileProps> {
                                 <Modal
                                     isOpen={deleteUserModal}
                                     toggle={this.toggleDeleteUserModal}
-                                    className='modal-dialog-centered px-md-0 py-md-0 px-3 py-3'
+                                    className='modal-dialog-centered px-md-0 py-md-0 px-3 py-3 interaction'
                                 >
                                     <ModalBody>
                                         Do you really want to delete user ?

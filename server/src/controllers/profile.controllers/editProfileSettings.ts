@@ -17,17 +17,26 @@ export const editProfileSettings = async (req: Request, res: Response, next: Nex
         const existingUser = await User.findOne({ username });
 
         if (!existingUser) {
-            throw new Error(`User ${username} does not exist.`);
+            const message = `User ${username} does not exist.`;
+
+            console.warn(new Error(message));
+            next({ message, status: 404 });
         }
 
         if (!isValidSettings(subscriptions) || !isValidSettings(privacy)) {
-            throw new Error('Settings input is invalid.');
+            const message = 'Settings input is invalid.';
+
+            console.warn(new Error(message));
+            next({ message, status: 422 });
         }
 
         const updatedUser: IUserModel | null = await editUserSettings(username, req.body);
 
         if (!updatedUser) {
-            throw new Error(`Cannot update settings of user ${username}.`);
+            const message = `Cannot update settings of user ${username}.`;
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         const { subscriptions: { isReminderEmail } }: any = updatedUser;
@@ -39,16 +48,13 @@ export const editProfileSettings = async (req: Request, res: Response, next: Nex
         }
 
         const data: IUserSettings = {
-            subscriptions: updatedUser.subscriptions as IUserSubscriptions,
-            privacy: updatedUser.privacy as IUserPrivacy,
+            subscriptions: (updatedUser as IUserModel).subscriptions as IUserSubscriptions,
+            privacy: (updatedUser as IUserModel).privacy as IUserPrivacy,
         };
 
         res.json({ data, message: 'Settings updated successfully.', status: 200 });
     } catch (e) {
-        if (e.message) {
-            next({ message: e.message, status: 409 });
-        } else {
-            next({ message: 'Generic error while updating settings.', status: 500 });
-        }
+        console.error(e);
+        next({ message: 'Generic error while updating settings.', status: 500 });
     }
 };

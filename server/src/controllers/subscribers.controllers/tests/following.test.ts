@@ -41,7 +41,7 @@ describe('Following controller:', () => {
 
         const answer = {
             message: 'Can not show users\' following',
-            status: 409,
+            status: 500,
         };
 
         await getFollowing(request, response, fakeNext);

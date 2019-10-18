@@ -11,12 +11,18 @@ export const resend = async (req: Request, res: Response, next: NextFunction): P
     try {
         const { _id, email, username }: IUserModel = req.body;
         if (!email) {
-            throw new Error('Email field is empty.');
+            const message = 'Email field is empty.';
+
+            console.warn(new Error(message));
+            next({ message, status: 422 });
         }
 
         const user = await userExist(email, next);
         if (!user) {
-            throw new Error(`Email does not exist.`);
+            const message = 'Email does not exist.';
+
+            console.warn(new Error(message));
+            next({ message, status: 404 });
         }
 
         const { token }: ITokenModel = await Token.create({
@@ -27,13 +33,17 @@ export const resend = async (req: Request, res: Response, next: NextFunction): P
         const emailSubject = 'JSgram - Resend Token';
         const emailBody = renderTemplate('resend.token.pug', { username, token });
 
-        const successSend = await sendEmail(user, emailSubject, emailBody);
+        const successSend = await sendEmail(user as IUserModel, emailSubject, emailBody);
         if (!successSend) {
-            throw new Error('Email wasn\'t sent.');
+            const message = 'Email wasn\'t sent.';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         res.json({ text: `Verification email has been sent to ${email}.` });
     } catch (e) {
-        next({ message: 'Verification email was not send to user.', status: 409 });
+        console.error(e);
+        next({ message: 'Verification email was not send to user.', status: 500 });
     }
 };

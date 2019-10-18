@@ -33,7 +33,7 @@ describe('Follow controller:', () => {
         response.json = jest.fn(() => response);
 
         await follow(request, response, fakeNext);
-        expect(response.json).toHaveBeenCalledTimes(0);
+        expect(response.json).toHaveBeenCalledTimes(1);
     });
 
     test('follow render - failure', async () => {
@@ -48,8 +48,8 @@ describe('Follow controller:', () => {
         };
 
         const answer = {
-            message: 'No followingUserId',
-            status: 409,
+            message: 'You have already followed this user',
+            status: 400,
         };
 
         await follow(request, response, fakeNext);

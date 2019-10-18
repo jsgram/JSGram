@@ -45,8 +45,8 @@ describe('Get friend recommendations controller:', () => {
         };
 
         const answer = {
-            message: 'User is not found',
-            status: 409,
+            message: 'Server error',
+            status: 500,
         };
 
         await getFriendsRecommendations(request, response, fakeNext);

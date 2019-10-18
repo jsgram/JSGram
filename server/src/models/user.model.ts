@@ -20,7 +20,6 @@ export interface IUserModel extends Document {
     fullName: string;
     username: string;
     password: string;
-    dateOfBirth?: string;
     createdAt: Date;
     photoPath?: string;
     bio?: string;
@@ -58,9 +57,6 @@ const UserSchema: Schema = new Schema({
         type: String,
         match: /^[\w\$/.]{60}$/,
         required: true,
-    },
-    dateOfBirth: {
-        type: Date,
     },
     createdAt: {
         type: Date,

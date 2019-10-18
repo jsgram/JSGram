@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { findPostByTag } from '../../db.requests/find.post.by.tag';
 import { POSTS_PER_PAGE } from '../../common.constants/getPosts.constants';
+import { serverError } from '../../common.constants/errors.constants';
 
 interface IParams {
     tagName: string;
@@ -14,6 +15,7 @@ export const findByTagName = async (req: Request, res: Response, next: NextFunct
         const posts = await findPostByTag(tagName, skip, POSTS_PER_PAGE);
         res.json(posts);
     } catch (e) {
-        next(e);
+        console.error(e);
+        next(serverError);
     }
 };

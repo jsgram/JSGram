@@ -29,7 +29,7 @@ const ProfileSubscriptionsContainer = ({
                     <Field
                         name='isNewsEmail'
                         type='checkbox'
-                        className='position-static m-0 mr-2'
+                        className='position-static m-0 mr-2 interaction'
                         component={renderField}
                     />
                     News emails
@@ -42,7 +42,7 @@ const ProfileSubscriptionsContainer = ({
                     <Field
                         name='isReminderEmail'
                         type='checkbox'
-                        className='position-static m-0 mr-2'
+                        className='position-static m-0 mr-2 interaction'
                         component={renderField}
                     />
                     Reminder emails
@@ -55,7 +55,7 @@ const ProfileSubscriptionsContainer = ({
                     <Field
                         name='isProductEmail'
                         type='checkbox'
-                        className='position-static m-0 mr-2'
+                        className='position-static m-0 mr-2 interaction'
                         component={renderField}
                     />
                     Product emails
@@ -65,7 +65,7 @@ const ProfileSubscriptionsContainer = ({
                 </div>
 
                 <Button
-                    className='align-self-center btn mt-3'
+                    className='align-self-center btn mt-3 interaction'
                     color='danger'
                     disabled={submitting}
                 >

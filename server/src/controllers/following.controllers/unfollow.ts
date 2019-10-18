@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { IUserModel } from '../../models/user.model';
 import { unfollowByUserId } from '../../db.requests/unfollow.requsets';
+import { serverError } from '../../common.constants/errors.constants';
 
 export const unfollow = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -10,13 +11,19 @@ export const unfollow = async (req: Request, res: Response, next: NextFunction):
         const removedFollowingUserIdFromLoggedUserId =
             await unfollowByUserId(loggedUserId, followingUserId, 'following', next);
         if (!removedFollowingUserIdFromLoggedUserId) {
-            throw new Error('Can not unfollow this user');
+            const message = 'Can not unfollow this user';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         const removedLoggedUserIdFromFollowingUserId =
             await unfollowByUserId(followingUserId, loggedUserId, 'followers', next);
         if (!removedLoggedUserIdFromFollowingUserId) {
-            throw new Error('Can not unfollow this user');
+            const message = 'Can not unfollow this user';
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         res.json({
@@ -25,6 +32,7 @@ export const unfollow = async (req: Request, res: Response, next: NextFunction):
             updatedFollowingUserId: removedLoggedUserIdFromFollowingUserId,
         });
     } catch (e) {
-        next({status: 409, message: e.message});
+        console.error(e);
+        next(serverError);
     }
 };

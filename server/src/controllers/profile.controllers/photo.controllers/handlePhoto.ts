@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { handlePhotoChange } from '../../../db.requests/userProfile.requests';
 import { uploadImage } from '../../../helpers/uploadImage';
 import { bucket,
@@ -19,7 +19,7 @@ const awsConfig = {
 
 const singleUpload = uploadImage(awsConfig).multerInstance.single('userPhoto');
 
-export const handlePhoto = (req: Request, res: Response): void => {
+export const handlePhoto = (req: Request, res: Response, next: NextFunction): void => {
     singleUpload(req, res, async (err: Error) => {
         if (err) {
             return res.status(422).send({errors: [{title: 'File upload error', detail: err.message}]});
@@ -35,7 +35,10 @@ export const handlePhoto = (req: Request, res: Response): void => {
                 Key: previousPhoto,
             }, (error: Error, data: any): void => {
                 if (error) {
-                    throw new Error(error.message);
+                    const message = error.message;
+
+                    console.warn(new Error(message));
+                    next({ message, status: 500 });
                 }
             });
         }

@@ -19,6 +19,6 @@ export const addPost = async (user: IUserModel, description: string, imgPath: st
 
         return newPost;
     } catch (e) {
-        next({message: 'Post wasn\'t added', status: 400});
+        next({ status: 500, message: 'Post wasn\'t added' });
     }
 };

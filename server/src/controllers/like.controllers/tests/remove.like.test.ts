@@ -51,7 +51,7 @@ describe('Remove like controller:', () => {
 
         const answer = {
             message: 'Can not remove like from post',
-            status: 409,
+            status: 500,
         };
 
         await removeLike(request, response, fakeNext);

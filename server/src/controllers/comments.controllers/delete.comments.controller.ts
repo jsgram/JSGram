@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ICommentModel } from '../../models/comment.model';
 import { deleteComment, deleteCommentFromPost } from '../../db.requests/delete.comments.requests';
+import { serverError } from '../../common.constants/errors.constants';
 
 export const deleteComments = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -9,23 +10,33 @@ export const deleteComments = async (req: Request, res: Response, next: NextFunc
         { locals: { user: { id: { loggedUserId: string }, isAdmin: boolean } } } = res;
 
         if (authorId !== loggedUserId && !isAdmin) {
-            throw new Error(`Unauthorized attempt to delete comment ${commentId}.`);
+            const message = `Unauthorized attempt to delete comment ${commentId}.`;
+
+            console.warn(new Error(message));
+            next({ message, status: 401 });
         }
 
         const deletedComment = await deleteComment(commentId, next);
         if (!deletedComment) {
-            throw new Error(`Cannot delete comment ${commentId}.`);
+            const message = `Cannot delete comment ${commentId}.`;
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
-        const {postId}: ICommentModel = deletedComment;
+        const {postId}: ICommentModel = deletedComment as ICommentModel;
 
         const updatedPost = await deleteCommentFromPost(postId, commentId, next);
         if (!updatedPost) {
-            throw new Error(`Cannot delete comment ${commentId} from post ${postId}.`);
+            const message = `Cannot delete comment ${commentId} from post ${postId}.`;
+
+            console.warn(new Error(message));
+            next({ message, status: 500 });
         }
 
         res.json({ message: 'Comment deleted successfully.', updatedPost });
     } catch (e) {
-        next({status: 409, message: e.message});
+        console.error(e);
+        next(serverError);
     }
 };

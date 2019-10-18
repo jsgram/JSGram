@@ -13,7 +13,7 @@ export const Footer = (): ReactElement => (
             {
                 footerLink.map((footer: { id: number, href: string, label: string }) => (
                     <li key={footer.id}>
-                        <a className='pr-2 text-danger' href={footer.href}>{footer.label}</a>
+                        <a className='pr-2 text-danger interaction' href={footer.href}>{footer.label}</a>
                     </li>))
             }
         </ul>
