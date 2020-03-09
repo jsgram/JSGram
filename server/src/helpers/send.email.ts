@@ -15,7 +15,7 @@ export const sendEmail = async (
     });
 
     return await transporter.sendMail({
-        from: 'jsgramsoftserve@gmail.com',
+        from: 'vrevura@gmail.com',
         to: user.email,
         subject: emailSubject,
         html: emailBody,

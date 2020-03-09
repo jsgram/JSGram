@@ -29,16 +29,8 @@ const Register = ({handleSubmit, onSubmit, submitting, invalid}: IRegisterProps)
                                 Log in with Google
                             </a>
                         </p>
-                        <p>
-                            <i className='fa fa-facebook'/>
-                            <a href={process.env.REACT_APP_FACEBOOK_AUTH_URL}
-                               className='text-danger login-google pl-2'
-                            >
-                                Log in with Facebook
-                            </a>
-                        </p>
                         <div className='or-devider'>
-                            <span></span>OR<span></span>
+                            <span />OR<span />
                         </div>
                         <Field
                             name='username'

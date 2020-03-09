@@ -50,7 +50,7 @@ const Login = ({handleSubmit, onSubmit, submitting}: IProps ): JSX.Element => {
                                 </Button>
                             </FormGroup>
                             <div className='or-devider'>
-                                <span></span>OR<span></span>
+                                <span />OR<span />
                             </div>
                             <div className='text-center mt-2'>
                                 <p>
@@ -59,14 +59,6 @@ const Login = ({handleSubmit, onSubmit, submitting}: IProps ): JSX.Element => {
                                        className='text-danger login-google pl-2'
                                     >
                                         Log in with Google
-                                    </a>
-                                </p>
-                                <p>
-                                    <i className='fa fa-facebook'/>
-                                    <a href={process.env.REACT_APP_FACEBOOK_AUTH_URL}
-                                       className='text-danger login-google pl-2'
-                                    >
-                                        Log in with Facebook
                                     </a>
                                 </p>
                                 <p>
