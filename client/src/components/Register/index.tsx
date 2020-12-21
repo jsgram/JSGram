@@ -19,7 +19,7 @@ const Register = ({handleSubmit, onSubmit, submitting, invalid}: IRegisterProps)
             <Form className='mt-4 bg-white' onSubmit={handleSubmit(onSubmit)}>
                 <div className='border'>
                     <FormGroup className='col-lg-10 offset-lg-1 text-center'>
-                        <Link to='/'><img className='picture img-fluid' src={logo} alt='logo'/></Link>
+                        <Link to='/'><img className='picture img-fluid mt-4 mb-2' src={logo} alt='logo'/></Link>
                         <p>Sign up to see photos from your friends.</p>
                         <p>
                             <i className='fa fa-google'/>

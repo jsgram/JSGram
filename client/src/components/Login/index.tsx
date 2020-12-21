@@ -23,7 +23,7 @@ const Login = ({handleSubmit, onSubmit, submitting}: IProps ): JSX.Element => {
                         <div className='border'>
                             <FormGroup className='col-lg-10 offset-lg-1 text-center'>
                                 <Link to='/'>
-                                    <img className='picture img-fluid' src={logo} alt='logo'/>
+                                    <img className='picture img-fluid mt-4 mb-2' src={logo} alt='logo'/>
                                 </Link>
                                 <Field
                                     className='form-control form-control-lg'

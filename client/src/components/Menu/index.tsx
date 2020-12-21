@@ -160,7 +160,7 @@ export class Menu extends React.Component<IMenuProps> {
                         <img src={logo}
                              alt='logo'
                              width={110}
-                             className='mb-3 sm-mb-2 sm-mr-5 pt-1 logo'/>
+                             className='mt-4 mb-3 sm-mb-2 sm-mr-5 pt-1 logo'/>
                     </Link>
                     <div className='col-md-4 mt-md-4 mt-0 form-group search'>
                         <span className='fa fa-search form-control-feedback'/>
@@ -190,7 +190,7 @@ export class Menu extends React.Component<IMenuProps> {
                             </DropdownMenu>
                         </Dropdown>
                     </div>
-                    <div className='mt-4'>
+                    <div className='mt-4 pt-2'>
                         <Link to={`/mentions`}>
                             <i className='fa fa-at fa-lg pr-4 icon' />
                         </Link>
