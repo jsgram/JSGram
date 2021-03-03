@@ -40,7 +40,7 @@
     "passport-google-oauth": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "socket.io": "^2.3.0",
     "ts-node": "^8.3.0",
     "validator": "^11.1.0"
